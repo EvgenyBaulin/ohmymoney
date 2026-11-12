@@ -10,10 +10,28 @@
             "value": "earned on %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "conseguida el %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "obtenu le %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "получен %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "здобуто %@"
           }
         }
       }
@@ -27,10 +45,28 @@
             "value": "A count every month for a year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un recuento cada mes durante un año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un bilan chaque mois pendant un an"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сверка каждый месяц — год"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Облік щомісяця протягом року"
           }
         }
       }
@@ -44,10 +80,28 @@
             "value": "A count every month for 3 months"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un recuento cada mes durante 3 meses"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un bilan chaque mois pendant 3 mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сверка каждый месяц — 3 месяца"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Облік щомісяця протягом 3 місяців"
           }
         }
       }
@@ -61,10 +115,28 @@
             "value": "A count this month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un recuento este mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un bilan ce mois-ci"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сверка в этом месяце"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Облік цього місяця"
           }
         }
       }
@@ -78,10 +150,28 @@
             "value": "100 days of entries in a row"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 días seguidos con apuntes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 jours de suite avec des saisies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "100 дней записей подряд"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 днів записів поспіль"
           }
         }
       }
@@ -95,10 +185,28 @@
             "value": "30 days of entries in a row"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 días seguidos con apuntes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 jours de suite avec des saisies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "30 дней записей подряд"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 днів записів поспіль"
           }
         }
       }
@@ -112,10 +220,28 @@
             "value": "7 days of entries in a row"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 días seguidos con apuntes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 jours de suite avec des saisies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "7 дней записей подряд"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 днів записів поспіль"
           }
         }
       }
@@ -129,10 +255,28 @@
             "value": "No badges in this period"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay insignias en este periodo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun badge sur cette période"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В этом периоде значков нет"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цьому періоді значків немає"
           }
         }
       }
@@ -153,6 +297,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Streak now: %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Racha actual: %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Racha actual: %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Racha actual: %lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Série en cours : %lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Série en cours : %lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Série en cours : %lld jours"
                 }
               }
             }
@@ -187,6 +379,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Серія зараз: %lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Серія зараз: %lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Серія зараз: %lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Серія зараз: %lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -199,7 +421,25 @@
             "value": "Badges"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insignias"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Badges"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Значки"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Значки"
@@ -216,10 +456,28 @@
             "value": "Quiet in the beginner mode"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tranquilo en el modo principiante"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discret en mode débutant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приглушено в режиме новичка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тихо в режимі початківця"
           }
         }
       }
@@ -233,10 +491,28 @@
             "value": "Open now"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir ahora"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvert maintenant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть сейчас"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити зараз"
           }
         }
       }
@@ -257,6 +533,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Opens at %lld days with entries (now %lld)"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre a los %lld días con apuntes (ahora %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre al día %lld con apuntes (ahora %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre a los %lld días con apuntes (ahora %lld)"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre au %lld jours avec des saisies (aujourd'hui %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre au %lld jour avec des saisies (aujourd'hui %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre au %lld jours avec des saisies (aujourd'hui %lld)"
                 }
               }
             }
@@ -291,6 +615,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється на %lld дні із записами (зараз %lld)"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється на %lld днів із записами (зараз %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється на %lld день із записами (зараз %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється на %lld дня із записами (зараз %lld)"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -303,10 +657,28 @@
             "value": "Opens after the first count"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se abre tras el primer recuento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S'ouvre après le premier bilan"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Откроется после первой сверки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкриється після першого обліку"
           }
         }
       }
@@ -327,6 +699,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Opens in %lld days, after a month of entries"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre en %lld días, tras un mes de apuntes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre en %lld día, tras un mes de apuntes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre en %lld días, tras un mes de apuntes"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre dans %lld jours, après un mois de saisies"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre dans %lld jour, après un mois de saisies"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre dans %lld jours, après un mois de saisies"
                 }
               }
             }
@@ -361,6 +781,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється через %lld дні, після місяця записів"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється через %lld днів, після місяця записів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється через %lld день, після місяця записів"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Відкриється через %lld дня, після місяця записів"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -373,10 +823,28 @@
             "value": "Why you save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por qué ahorra"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pourquoi vous épargnez"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Зачем вы копите"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навіщо ви заощаджуєте"
           }
         }
       }
@@ -390,10 +858,28 @@
             "value": "The app reminds you of it when the goal money looks spent, the plan is lowered or the goal is deleted"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app se lo recuerda cuando el dinero del objetivo parece gastado, el plan se baja o el objetivo se elimina"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'application vous le rappelle quand l'argent de l'objectif semble dépensé, que le plan est abaissé ou que l'objectif est supprimé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение напомнит это, когда деньги цели потрачены, взнос уменьшен или цель удаляется"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок нагадає про це, коли гроші цілі здаються витраченими, план знижено або ціль видалено"
           }
         }
       }
@@ -407,10 +893,28 @@
             "value": "You save for «%1$@» because: %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahorra para «%1$@» porque: %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous épargnez pour « %1$@ » parce que : %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вы копите на «%1$@», потому что: %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ви відкладаєте на «%1$@», бо: %2$@"
           }
         }
       }
@@ -424,10 +928,28 @@
             "value": "The sea in July, with the whole family"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El mar en julio, con toda la familia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La mer en juillet, avec toute la famille"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Море в июле, всей семьёй"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Море в липні, з усією родиною"
           }
         }
       }
@@ -441,7 +963,25 @@
             "value": "«%1$@»: %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %1$@ » : %2$@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@»: %2$@"
@@ -458,10 +998,28 @@
             "value": "Why I save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por qué ahorro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pourquoi j'épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Зачем коплю"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навіщо я заощаджую"
           }
         }
       }
@@ -475,15 +1033,34 @@
             "value": "No spending"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin gastos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune dépense"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Трат не было"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без витрат"
+          }
         }
       }
     },
     "habit.action.restoreMissed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -492,10 +1069,28 @@
             "value": "Restore…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Восстановить…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відновити…"
           }
         }
       }
@@ -509,15 +1104,34 @@
             "value": "5 cards"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 tarjetas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 cartes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "5 карточек"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 карток"
+          }
         }
       }
     },
     "lessons.close": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -526,10 +1140,28 @@
             "value": "Close"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрити"
           }
         }
       }
@@ -543,7 +1175,25 @@
             "value": "Lessons"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leçons"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уроки"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Уроки"
@@ -560,10 +1210,28 @@
             "value": "Short lessons of money, five cards each"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecciones breves de dinero, cinco tarjetas cada una"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De courtes leçons d'argent, cinq cartes chacune"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Короткие уроки о деньгах, по пять карточек"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Короткі уроки з грошей, по п'ять карток у кожному"
           }
         }
       }
@@ -577,7 +1245,25 @@
             "value": "Lessons"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leçons"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уроки"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Уроки"
@@ -594,10 +1280,28 @@
             "value": "No spending today?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Sin gastos hoy?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de dépense aujourd'hui ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сегодня трат не было?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сьогодні без витрат?"
           }
         }
       }
@@ -611,10 +1315,28 @@
             "value": "Write down today's spending — or was there none today?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anote los gastos de hoy — ¿o hoy no hubo ninguno?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notez vos dépenses du jour — ou n'y en a-t-il eu aucune aujourd'hui ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запишите траты за день — или сегодня трат не было?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запишіть сьогоднішні витрати — або сьогодні їх не було?"
           }
         }
       }
@@ -635,6 +1357,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Nothing entered for %lld days — restore from balances?"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay apuntes desde hace %lld días — ¿restaurar desde los saldos?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay apuntes desde hace %lld día — ¿restaurar desde los saldos?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay apuntes desde hace %lld días — ¿restaurar desde los saldos?"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rien saisi depuis %lld jours — restaurer d'après les soldes ?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rien saisi depuis %lld jour — restaurer d'après les soldes ?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rien saisi depuis %lld jours — restaurer d'après les soldes ?"
                 }
               }
             }
@@ -669,6 +1439,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Нічого не записано за %lld дні — відновити із залишків?"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Нічого не записано за %lld днів — відновити із залишків?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Нічого не записано за %lld день — відновити із залишків?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Нічого не записано за %lld дня — відновити із залишків?"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -688,6 +1488,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "streak %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "racha de %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "racha de %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "racha de %lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "série %lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "série %lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "série %lld jours"
                 }
               }
             }
@@ -722,10 +1570,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "серія %lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "серія %lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "серія %lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "серія %lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
     "missed.back": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -734,7 +1613,25 @@
             "value": "Back"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atrás"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Назад"
@@ -751,10 +1648,28 @@
             "value": "Now on the account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahora en la cuenta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenant sur le compte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сейчас на счёте"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараз на рахунку"
           }
         }
       }
@@ -768,10 +1683,28 @@
             "value": "By the records: %@ — matches"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Según los registros: %@ — coincide"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selon les saisies : %@ — concorde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По записям: %@ — сходится"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За записами: %@ — збігається"
           }
         }
       }
@@ -785,10 +1718,28 @@
             "value": "Type what each account holds now. Accounts in «Total» that were counted at least once."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba lo que tiene ahora cada cuenta. Cuentas en «Total» que se contaron al menos una vez."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez ce que contient chaque compte maintenant. Les comptes du « Total » qui ont été comptés au moins une fois."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите, сколько сейчас на каждом счёте. Здесь счета из «Всего», которые хотя бы раз сверялись."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть, скільки зараз є на кожному рахунку. Враховуються рахунки «Усього», які звіряли хоча б раз."
           }
         }
       }
@@ -802,10 +1753,28 @@
             "value": "By the records %1$@ · not written down %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Según los registros %1$@ · sin anotar %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selon les saisies %1$@ · non notés %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По записям %1$@ · не записано %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За записами %1$@ · не записано %2$@"
           }
         }
       }
@@ -819,10 +1788,28 @@
             "value": "More than the records say — perhaps an income not written down; it is not laid out as spending"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más de lo que dicen los registros — quizá un ingreso sin anotar; no se reparte como gasto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus que ce que disent les saisies — peut-être un revenu non noté ; il n'est pas réparti en dépenses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Больше, чем по записям — похоже на незаписанный доход; как трату его не раскладываем"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Більше, ніж показують записи, — можливо, дохід, якого не записали; він не розкладається як витрата"
           }
         }
       }
@@ -836,10 +1823,28 @@
             "value": "No account in «Total» was counted yet. Make a count first, and the wizard will know what to compare with."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no se contó ninguna cuenta de «Total». Haga antes un recuento y el asistente sabrá con qué comparar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun compte du « Total » n'a encore été compté. Faites d'abord un bilan, et l'assistant saura à quoi comparer."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ни один счёт из «Всего» ещё не сверялся. Сначала сделайте сверку — тогда будет с чем сравнить."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоден рахунок «Усього» ще не звірено. Спершу зробіть облік — майстер знатиме, з чим порівнювати."
           }
         }
       }
@@ -853,15 +1858,34 @@
             "value": "Every balance matches the records: nothing to restore"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada saldo coincide con los registros: nada que restaurar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque solde concorde avec les saisies : rien à restaurer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Все остатки сходятся с записями: восстанавливать нечего"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кожен залишок збігається із записами: відновлювати нічого"
+          }
         }
       }
     },
     "missed.cancel": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -870,10 +1894,28 @@
             "value": "Cancel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отмена"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скасувати"
           }
         }
       }
@@ -887,10 +1929,28 @@
             "value": "The balances changed while the wizard was open. Close it and count again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los saldos cambiaron mientras el asistente estaba abierto. Ciérrelo y cuente de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les soldes ont changé pendant que l'assistant était ouvert. Fermez-le et comptez à nouveau."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пока мастер был открыт, остатки изменились. Закройте его и посчитайте заново."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишки змінилися, поки майстер був відкритий. Закрийте його і порахуйте знову."
           }
         }
       }
@@ -904,10 +1964,28 @@
             "value": "Add a line"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una línea"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter une ligne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавить строку"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати рядок"
           }
         }
       }
@@ -921,15 +1999,34 @@
             "value": "Lines without a category — «Unknown»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Líneas sin categoría — «Desconocida»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lignes sans catégorie — « Inconnue »"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Строки без категории — «Не помню»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядки без категорії — «Невідомо»"
+          }
         }
       }
     },
     "missed.days.category": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -938,10 +2035,28 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégorie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Категория"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія"
           }
         }
       }
@@ -955,10 +2070,28 @@
             "value": "Laid out in full"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repartido por completo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entièrement réparti"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Разложено полностью"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розкладено повністю"
           }
         }
       }
@@ -972,10 +2105,28 @@
             "value": "Each line needs a category; «Unknown» is a choice too. The lines of an account add up to what is missing on it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada línea necesita una categoría; «Desconocida» también es una elección. Las líneas de una cuenta suman lo que falta en ella."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque ligne a besoin d'une catégorie ; « Inconnue » est aussi un choix. Les lignes d'un compte font ensemble ce qui manque sur ce compte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "У каждой строки нужна категория; «Не помню» — тоже выбор. Строки счёта складываются в то, чего на нём не хватает."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кожен рядок потребує категорії; «Невідомо» — теж вибір. Рядки одного рахунку разом мають дорівнювати тому, чого на ньому бракує."
           }
         }
       }
@@ -989,10 +2140,28 @@
             "value": "Left to lay out: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queda por repartir: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reste à répartir : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Осталось разложить: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лишилося розкласти: %@"
           }
         }
       }
@@ -1006,10 +2175,28 @@
             "value": "What it was (optional)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué fue (opcional)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que c'était (facultatif)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что это было (необязательно)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що це було (необов'язково)"
           }
         }
       }
@@ -1023,15 +2210,34 @@
             "value": "Remove the line"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar la línea"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer la ligne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Убрать строку"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити рядок"
+          }
         }
       }
     },
     "missed.next": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1040,10 +2246,28 @@
             "value": "Next"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siguiente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Далее"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Далі"
           }
         }
       }
@@ -1057,10 +2281,28 @@
             "value": "Could not write the operations"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron escribir las operaciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les opérations n'ont pas pu être notées"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось записать операции"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося записати операції"
           }
         }
       }
@@ -1074,10 +2316,28 @@
             "value": "Every line needs an amount above zero"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada línea necesita un importe mayor que cero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque ligne doit avoir un montant supérieur à zéro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "У каждой строки сумма больше нуля"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кожен рядок потребує суми більше нуля"
           }
         }
       }
@@ -1091,10 +2351,28 @@
             "value": "Pick a category for every line"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija una categoría para cada línea"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez une catégorie pour chaque ligne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выберите категорию для каждой строки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оберіть категорію для кожного рядка"
           }
         }
       }
@@ -1108,10 +2386,28 @@
             "value": "The lines of an account do not add up to what is missing on it"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las líneas de una cuenta no suman lo que falta en ella"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les lignes d'un compte ne font pas ensemble ce qui manque sur ce compte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Строки счёта не складываются в недостающую сумму"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядки одного рахунку не сходяться з тим, чого на ньому бракує"
           }
         }
       }
@@ -1125,10 +2421,28 @@
             "value": "Write down"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати"
           }
         }
       }
@@ -1142,7 +2456,25 @@
             "value": "Written down"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notées"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Записано"
@@ -1159,10 +2491,28 @@
             "value": "1. What is on the accounts now"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Lo que hay ahora en las cuentas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Ce qu'il y a sur les comptes maintenant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "1. Сколько сейчас на счетах"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Що зараз на рахунках"
           }
         }
       }
@@ -1176,10 +2526,28 @@
             "value": "2. Lay the spending out over the days"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Repartir el gasto por días"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Répartir les dépenses sur les jours"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "2. Разложите траты по дням"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Розкласти витрати по днях"
           }
         }
       }
@@ -1193,10 +2561,28 @@
             "value": "Nothing was entered from %1$@ to %2$@. First the balances, then the days."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se anotó nada desde el %1$@ hasta el %2$@. Primero los saldos, luego los días."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n'a été saisi du %1$@ au %2$@. D'abord les soldes, puis les jours."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "С %1$@ по %2$@ ничего не записано. Сначала остатки, потом дни."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З %1$@ до %2$@ нічого не записано. Спершу залишки, потім дні."
           }
         }
       }
@@ -1210,10 +2596,28 @@
             "value": "Restore the days missed"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar los días sin anotar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer les jours manqués"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Восстановить пропущенные дни"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відновити пропущені дні"
           }
         }
       }
@@ -1227,15 +2631,34 @@
             "value": "day %1$lld of %2$lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "día %1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jour %1$lld sur %2$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "день %1$lld из %2$lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "день %1$lld з %2$lld"
+          }
         }
       }
     },
     "month.hide": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1244,10 +2667,28 @@
             "value": "Hide"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрыть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховати"
           }
         }
       }
@@ -1261,10 +2702,28 @@
             "value": "%1$lld of %2$lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld sur %2$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld из %2$lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld з %2$lld"
           }
         }
       }
@@ -1278,10 +2737,28 @@
             "value": "Show where"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar dónde"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montrer où"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать, где"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати, де"
           }
         }
       }
@@ -1295,10 +2772,28 @@
             "value": "The first month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El primer mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le premier mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Первый месяц"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перший місяць"
           }
         }
       }
@@ -1312,10 +2807,28 @@
             "value": "Beginner mode"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo principiante"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode débutant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Режим новичка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим початківця"
           }
         }
       }
@@ -1329,10 +2842,28 @@
             "value": "Complex sections stay visible but dimmed until they have something to show"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las secciones complejas se ven atenuadas hasta que tengan algo que mostrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les sections complexes restent visibles mais atténuées tant qu'elles n'ont rien à montrer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сложные разделы видны, но приглушены, пока им нечего показать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Складні розділи лишаються видимими, але приглушеними, доки їм нема чого показати"
           }
         }
       }
@@ -1346,10 +2877,28 @@
             "value": "Ask about the day's spending in the evening"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preguntar por los gastos del día por la noche"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demander le soir les dépenses du jour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вечером спрашивать о тратах за день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Питати ввечері про витрати за день"
           }
         }
       }
@@ -1363,10 +2912,28 @@
             "value": "«No spending today?» counts the day in the streak"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«¿Sin gastos hoy?» cuenta el día en la racha"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« Pas de dépense aujourd'hui ? » compte le jour dans la série"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "«Сегодня трат не было?» засчитывает день в серию"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Сьогодні без витрат?» зараховує день до серії"
           }
         }
       }
@@ -1380,10 +2947,28 @@
             "value": "Evening starts at"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La noche empieza a las"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le soir commence à"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вечер начинается в"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечір починається о"
           }
         }
       }
@@ -1397,10 +2982,28 @@
             "value": "Show the checklist of the first month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar la lista del primer mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher la liste du premier mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показывать список дел первого месяца"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показувати контрольний список першого місяця"
           }
         }
       }
@@ -1414,10 +3017,28 @@
             "value": "Offer to restore after days without entries"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofrecer restaurar tras días sin apuntes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proposer de restaurer après des jours sans saisie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Предлагать восстановить после дней без записей"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропонувати відновити після днів без записів"
           }
         }
       }
@@ -1431,15 +3052,34 @@
             "value": "A line in «Worth a look», not a notification"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una línea en «Merece una mirada», no una notificación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une ligne dans « À regarder de plus près », pas une notification"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Строкой в «Стоит посмотреть», не уведомлением"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядок у «Варто глянути», а не сповіщення"
+          }
         }
       }
     },
     "settings.habits.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1448,10 +3088,28 @@
             "value": "Habits"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hábitos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habitudes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Привычки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звички"
           }
         }
       }
