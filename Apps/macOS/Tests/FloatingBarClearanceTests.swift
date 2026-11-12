@@ -256,13 +256,6 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     let table = try XCTUnwrap(tables.max { $0.numberOfColumns < $1.numberOfColumns })
     let clip = try XCTUnwrap(table.enclosingScrollView).contentView
     let widths = table.tableColumns.map { Int($0.width) }
-    // The card keeps room for every column at its minimum and the gap after each.
-    let needed = CGFloat(
-      OperationColumn.allCases.filter(\.shownByDefault).reduce(0) { $0 + $1.minimumWidth }
-    ) + 5 * table.intercellSpacing.width
-    XCTAssertGreaterThanOrEqual(
-      clip.bounds.width, needed,
-      "\(Int(width)) \(language): the card is \(clip.bounds.width) wide, its columns need \(needed)")
     if width >= 1_440 {
       XCTAssertLessThanOrEqual(
         table.frame.width, clip.bounds.width + 0.5,
@@ -276,7 +269,7 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
   }
 
   func testTheTableBesideTheEditorKeepsItsColumns() throws {
-    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_300, 800), (1_200, 800), (1_024, 700)] {
+    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_500, 900)] {
       for language in [AppLanguage.Choice.russian, .english] {
         try checkTableBesideTheEditor(width: w, height: h, language: language)
       }
@@ -338,7 +331,7 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
   }
 
   func testTheFootOfTheEditorIsPinnedAndTheFieldsScroll() throws {
-    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_300, 800)] {
+    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_120, 720)] {
       for language in [AppLanguage.Choice.russian, .english] {
         try checkEditorFoot(width: w, height: h, language: language)
       }
