@@ -43,6 +43,10 @@ public struct TransactionDraft: Hashable, Sendable {
   public var regretAskedOn: DateOnly?
   public var refundWaitingUntil: DateOnly?
   public var odometerKm: Int?
+  /// The merchant category and the commission a bank's text named. The panel edits the code, so
+  /// an edit that rebuilds the operation from the draft keeps both.
+  public var mcc: String?
+  public var feeE4: AmountE4?
 
   public init(
     kind: TransactionKind = .expense,
@@ -73,7 +77,9 @@ public struct TransactionDraft: Hashable, Sendable {
     regret: PurchaseRegret? = nil,
     regretAskedOn: DateOnly? = nil,
     refundWaitingUntil: DateOnly? = nil,
-    odometerKm: Int? = nil
+    odometerKm: Int? = nil,
+    mcc: String? = nil,
+    feeE4: AmountE4? = nil
   ) {
     self.kind = kind
     self.occurredAt = occurredAt
@@ -104,6 +110,8 @@ public struct TransactionDraft: Hashable, Sendable {
     self.regretAskedOn = regretAskedOn
     self.refundWaitingUntil = refundWaitingUntil
     self.odometerKm = odometerKm
+    self.mcc = mcc
+    self.feeE4 = feeE4
   }
 
   /// Reopens a saved operation for editing: the panel edits drafts, never records.
@@ -138,7 +146,7 @@ public struct TransactionDraft: Hashable, Sendable {
       regret: transaction.regret,
       regretAskedOn: transaction.regretAskedOn,
       refundWaitingUntil: transaction.refundWaitingUntil,
-      odometerKm: transaction.odometerKm)
+      odometerKm: transaction.odometerKm, mcc: transaction.mcc, feeE4: transaction.feeE4)
   }
 
   /// Amount not yet distributed between parts. Saving is only allowed when it is zero.
@@ -223,7 +231,7 @@ public struct TransactionDraft: Hashable, Sendable {
       regret: regret,
       regretAskedOn: regretAskedOn,
       refundWaitingUntil: refundWaitingUntil,
-      odometerKm: odometerKm)
+      odometerKm: odometerKm, mcc: MerchantCode.normalized(mcc), feeE4: feeE4)
 
     // Ruble shares are split from the converted total so rounding never loses a unit.
     let shares = totalRub.allocated(proportionallyTo: parts.map(\.amount), outOf: amount)

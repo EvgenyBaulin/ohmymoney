@@ -10,6 +10,7 @@ import Foundation
 enum AutoEntryLearning {
   nonisolated static let pendingKey = "autoEntry.pending"
   nonisolated static let fingerprintsKey = "autoEntry.fingerprints"
+  nonisolated static let fieldsKey = "autoEntry.fields"
 
   static func names(_ environment: AppEnvironment) -> AutoEntryNames {
     AutoEntryNames.decoded((try? environment.settings?.string(AutoEntryNames.settingsKey)) ?? nil)
@@ -33,6 +34,33 @@ enum AutoEntryLearning {
       prints[id.uuidString] = fingerprint
       defaults.set(prints, forKey: fingerprintsKey)
     }
+  }
+
+  /// What the text of a draft said beyond its line — the merchant code and the commission —,
+  /// kept until the draft is written. Fields only, never the text.
+  static func rememberFields(
+    _ fields: BankStoredFields?, draft id: UUID, defaults: UserDefaults = .standard
+  ) {
+    guard let fields else { return }
+    var all = storedFields(defaults)
+    all[id.uuidString] = fields
+    defaults.set(try? JSONEncoder().encode(all), forKey: fieldsKey)
+  }
+
+  static func fields(ofDraft id: UUID, defaults: UserDefaults = .standard) -> BankStoredFields? {
+    storedFields(defaults)[id.uuidString]
+  }
+
+  /// The draft was written or thrown away: its fields go.
+  static func forgetFields(ofDraft id: UUID, defaults: UserDefaults = .standard) {
+    var all = storedFields(defaults)
+    guard all.removeValue(forKey: id.uuidString) != nil else { return }
+    defaults.set(try? JSONEncoder().encode(all), forKey: fieldsKey)
+  }
+
+  private static func storedFields(_ defaults: UserDefaults) -> [String: BankStoredFields] {
+    guard let data = defaults.data(forKey: fieldsKey) else { return [:] }
+    return (try? JSONDecoder().decode([String: BankStoredFields].self, from: data)) ?? [:]
   }
 
   /// The fingerprints of the operations that wait in `drafts`.

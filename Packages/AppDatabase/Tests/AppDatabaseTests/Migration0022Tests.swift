@@ -137,7 +137,7 @@ struct Migration0022Tests {
     #expect(
       Array(ExportTables.paymentMethods.columns.suffix(3))
         == ["borrowed", "borrowed_person_id", "borrowed_income_category_id"])
-    #expect(ExportTables.all.count == 54)
+    #expect(ExportTables.all.count == 55)
     let person = UUID()
     let category = UUID()
     let card = PaymentMethod(

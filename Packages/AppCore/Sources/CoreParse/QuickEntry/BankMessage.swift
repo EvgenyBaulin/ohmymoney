@@ -88,6 +88,17 @@ public struct BankMessage: Hashable, Sendable {
 
   public var kind: TransactionKind { operation.kind }
 
+  /// The merchant category code as the operation stores it: four digits, or `nil` when the text
+  /// gave none or one outside 0000…9999.
+  public var merchantCode: String? { MerchantCode.normalized(mcc) }
+
+  /// What the text says beyond the line that the operation stores: the merchant code and the
+  /// commission. `nil` when it names neither.
+  public var storedFields: BankStoredFields? {
+    let fields = BankStoredFields(mcc: merchantCode, fee: fee)
+    return fields.mcc == nil && fields.fee == nil ? nil : fields
+  }
+
   /// The balance is offered as «Сверить «Платинум» на 52 340,11?» after the operation is
   /// written. It is a tick the owner sets: a count is the owner's decision, never made on the
   /// way.
@@ -121,5 +132,25 @@ public struct BankMessage: Hashable, Sendable {
   /// fraction otherwise, no grouping.
   static func plain(_ amount: AmountE4) -> String {
     NumberText.plain(amount.decimal)
+  }
+}
+
+/// The merchant code and the commission a text of a bank named: what an operation written from
+/// that text stores besides what the entry line says. Kept per draft until the draft is written.
+public struct BankStoredFields: Hashable, Sendable, Codable {
+  public var mcc: String?
+  public var fee: Money?
+
+  public init(mcc: String? = nil, fee: Money? = nil) {
+    self.mcc = MerchantCode.normalized(mcc)
+    self.fee = fee
+  }
+
+  /// The commission, when it is above zero and in `currency` — the currency of the operation it
+  /// is written into. A fee in another currency is not kept: the stored field carries no
+  /// currency of its own.
+  public func commission(in currency: CurrencyCode) -> AmountE4? {
+    guard let fee, fee.amount > .zero, fee.currency == currency else { return nil }
+    return fee.amount
   }
 }

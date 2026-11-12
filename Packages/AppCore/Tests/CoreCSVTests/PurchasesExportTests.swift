@@ -76,7 +76,7 @@ struct PurchasesExportTests {
     #expect(read["refund_waiting_until"] == "2026-11-12")
     #expect(read["odometer_km"] == "84210")
     #expect(
-      Array(ExportTables.transactions.columns.dropLast(4).suffix(5)) == [
+      Array(ExportTables.transactions.columns.dropLast(6).suffix(5)) == [
         "discount", "regret", "regret_asked_on", "refund_waiting_until", "odometer_km",
       ])
   }

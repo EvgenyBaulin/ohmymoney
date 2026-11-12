@@ -260,6 +260,9 @@ struct TransactionRowItem: Identifiable, Hashable, Sendable {
   /// The cashback the owner wrote for the operation, in the currency it came in; `nil` for a
   /// part, a transfer and an operation without one.
   var cashback: Money? = nil
+  /// The merchant category code of the operation; `nil` for a part, a transfer and an operation
+  /// whose bank gave none.
+  var mcc: String? = nil
   /// The colour of the account the operation is on, when the owner gave it one; `nil` for a
   /// part, a transfer and an account without a colour. The name of the account is always in
   /// `paymentMethod` beside it.
@@ -746,6 +749,7 @@ struct TransactionListing: Sendable {
       amountRub: transaction.amountRubE4, partCount: entry.parts.count,
       owedMark: owedMark(of: entry), parts: parts, refund: RefundMark.of(entry, ledger: ledger),
       cashback: transaction.cashback.flatMap { $0.amount.isZero ? nil : $0 },
+      mcc: transaction.mcc,
       accountAccent: names.accent(of: transaction),
       // A refund and money given back keep their own marks: «возврат денег — не доход» and a
       // refund read from the mark of their kind, a card of the phone has no other word for it.

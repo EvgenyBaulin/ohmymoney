@@ -112,7 +112,8 @@ public struct ExportCopyMaker: Sendable {
     )
     if case .period(let range) = request.scope {
       for value in try ThingValuationRepository.all(db) where !range.contains(value.day) {
-        try db.execute(sql: "DELETE FROM settings WHERE key = ?", arguments: [value.storageKey])
+        try db.execute(
+          sql: "DELETE FROM thing_valuations WHERE id = ?", arguments: [value.id.uuidString])
       }
       // The day an operation is shown on, in the zone it was recorded in; a transfer has no zone
       // and is read in Moscow, as everywhere else.

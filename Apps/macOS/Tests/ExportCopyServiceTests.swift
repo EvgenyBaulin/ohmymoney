@@ -233,7 +233,7 @@ final class ExportCopyServiceTests: XCTestCase {
       ExportCopyRequest(password: "correct horse", format: .csvOnly), to: target)
     let copy = try open(report)
     XCTAssertNil(copy.archive.database)
-    XCTAssertEqual(copy.archive.csvTables.count, 54)
+    XCTAssertEqual(copy.archive.csvTables.count, 55)
     let header = try XCTUnwrap(copy.archive.csv(table: "payment_methods"))
     XCTAssertTrue(String(decoding: header, as: UTF8.self).hasPrefix("id,name,"))
     XCTAssertTrue(String(decoding: header, as: UTF8.self).contains(",hidden,"))

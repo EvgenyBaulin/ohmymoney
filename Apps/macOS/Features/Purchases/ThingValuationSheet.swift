@@ -9,7 +9,7 @@ struct ThingValuationSheet: View {
   @Environment(\.dependencies) private var dependencies
   let origin: OwnedLine.Origin
 
-  init(line: OwnedLine) { origin = origin }
+  init(line: OwnedLine) { origin = line.origin }
   init(asset: Asset) { origin = .asset(asset) }
 
   private var name: String {
@@ -75,10 +75,9 @@ struct ThingValuationSheet: View {
           owner: identity.0, ownerId: identity.1,
           day: day ?? environment.today, amountE4: amount, currency: currency,
           note: text.isEmpty ? nil : text, recordedAt: environment.now())
-        guard let encoded = try? value.storedValue else { return false }
         return dependencies.store.apply(
           PlanningChange(
-            settings: [value.storageKey: encoded], at: environment.now()))
+            upsert: PlanningRows(thingValuations: [value]), at: environment.now()))
       }
     }
     .padding(20)
@@ -141,7 +140,7 @@ struct ThingValuationSheet: View {
     } else {
       outcome = dependencies.store.apply(
         PlanningChange(
-          settings: [value.storageKey: nil], at: environment.now()))
+          delete: PlanningRowIDs(thingValuations: [value.id]), at: environment.now()))
     }
     if outcome { history.removeAll { $0.id == value.id } } else { failed = true }
   }

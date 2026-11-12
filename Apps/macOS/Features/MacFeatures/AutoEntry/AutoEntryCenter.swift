@@ -75,7 +75,7 @@ final class AutoEntryCenter {
     var outcome = CommandOutcome.done(words.t("autoEntry.duplicate"))
     var draftId: UUID?
     if action == .write {
-      let written = await commands.add(line: line)
+      let written = await commands.add(line: line, bankFields: message.storedFields)
       if case .done = written {
         outcome = written
       } else {
@@ -140,9 +140,13 @@ final class AutoEntryCenter {
   func recordDraft(_ id: UUID, commands: MacCommands) async -> Bool {
     let store = SettingsDraftStore(settings: commands.environment.settings)
     guard let draft = store.load().first(where: { $0.id == id }) else { return false }
-    guard case .done = await commands.add(line: draft.text) else { return false }
+    guard
+      case .done = await commands.add(
+        line: draft.text, bankFields: AutoEntryLearning.fields(ofDraft: id, defaults: defaults))
+    else { return false }
     _ = store.save(store.load().filter { $0.id != id })
     _ = AutoEntryLearning.takeMerchant(ofDraft: id, defaults: defaults)
+    AutoEntryLearning.forgetFields(ofDraft: id, defaults: defaults)
     // Written as the text read, without the owner's hand: nothing to learn a format from.
     AutoEntryFormats.forget(draft: id, defaults: defaults)
     NotificationCenter.default.post(name: .draftsChanged, object: nil)

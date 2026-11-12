@@ -85,6 +85,12 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
   /// `nil`: none was read. The same receipt read again finds this operation instead of making
   /// another.
   public var receipt: ReceiptNumbers?
+  /// The merchant category code the bank gave the shop, four digits (`MerchantCode`); `nil`: not
+  /// known.
+  public var mcc: String?
+  /// What the text of the bank says it took on top of the operation, in the currency of the
+  /// operation. Informational: it is no operation of its own and moves no balance.
+  public var feeE4: AmountE4?
 
   public init(
     id: UUID = UUID(),
@@ -127,7 +133,9 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     regretAskedOn: DateOnly? = nil,
     refundWaitingUntil: DateOnly? = nil,
     odometerKm: Int? = nil,
-    receipt: ReceiptNumbers? = nil
+    receipt: ReceiptNumbers? = nil,
+    mcc: String? = nil,
+    feeE4: AmountE4? = nil
   ) {
     self.id = id
     self.kind = kind
@@ -169,6 +177,8 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     self.regretAskedOn = regretAskedOn
     self.refundWaitingUntil = refundWaitingUntil
     self.odometerKm = odometerKm
+    self.mcc = MerchantCode.normalized(mcc)
+    self.feeE4 = feeE4
     self.receipt = receipt
   }
 

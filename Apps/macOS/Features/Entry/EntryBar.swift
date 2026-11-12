@@ -273,6 +273,7 @@ struct EntryBar<Accessory: View>: View {
       readTheLineIntoThePanel()
       refreshRuleHint()
     }
+    .modifier(CarriesBankFields(bank: fast.bank?.message, finishing: fast.drafts.finishing, model: model))
     // The form at the side follows the selection of the window's lists: one operation selected
     // is edited in it, anything else brings the new operation back.
     .onChange(of: operations?.selection, initial: true) { _, selection in
@@ -1919,6 +1920,7 @@ struct EntryBar<Accessory: View>: View {
     let bankMerchant =
       fast.bank?.message.merchant
       ?? fast.drafts.finishing.flatMap { AutoEntryLearning.takeMerchant(ofDraft: $0) }
+    if let finishing = fast.drafts.finishing { AutoEntryLearning.forgetFields(ofDraft: finishing) }
     AutoEntryLearning.written(
       merchant: bankMerchant, placeId: model.draft.placeId, environment: environment)
     // A text the general scan read, written by the owner's hand, offers a format of its shape.
@@ -2212,6 +2214,25 @@ enum EntryPreview {
       return account.mainCurrency
     }
     return Templates.lineCurrency(in: environment)
+  }
+}
+
+/// The merchant code and the commission a text of a bank named go with the line to the
+/// operation: from a pasted text while it stands in the line (an emptied line takes them back),
+/// and from the draft of a text when that draft is finished here. A modifier of its own for the
+/// same reason as `DictationStops`.
+private struct CarriesBankFields: ViewModifier {
+  let bank: BankMessage?
+  let finishing: UUID?
+  let model: EntryDraftModel?
+
+  func body(content: Content) -> some View {
+    content
+      .onChange(of: bank) { _, message in model?.bankFields = message?.storedFields }
+      .onChange(of: finishing) { _, id in
+        guard let id else { return }
+        model?.bankFields = AutoEntryLearning.fields(ofDraft: id)
+      }
   }
 }
 

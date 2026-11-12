@@ -1,3 +1,4 @@
+import CoreAccounting
 import CoreAnalytics
 import CoreKit
 import CorePlanning
@@ -7,14 +8,6 @@ import Testing
 @Suite("Dated thing valuations with their own currencies")
 struct ThingValuationTests {
   private let day = DateOnly(year: 2026, month: 11, day: 11)
-
-  @Test func storedEntryRoundTripsAndHasAnIndependentSyncKey() throws {
-    let entry = ThingValuation(
-      owner: .ownedItem, ownerId: UUID(), day: day,
-      amountE4: AmountE4(raw: 123_456), currency: CurrencyCode("EUR"), note: "Synthetic")
-    #expect(try ThingValuation.decode(try entry.storedValue) == entry)
-    #expect(entry.storageKey == ThingValuation.storagePrefix + entry.id.uuidString)
-  }
 
   @Test func latestExcludesFutureAndOtherOwnersAndKeepsPurchaseDay() {
     let item = OwnedItem(

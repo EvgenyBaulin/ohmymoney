@@ -48,7 +48,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
       [.description, .category, .account, .time, .amount])
     XCTAssertEqual(
       OperationColumn.allCases.filter { !$0.shownByDefault },
-      [.place, .forWhom, .quality, .cashback, .note, .event])
+      [.place, .forWhom, .quality, .cashback, .note, .event, .mcc])
   }
 
   func testOnlyTheAmountAndTheCashbackLineUpOnTheRight() {
@@ -76,10 +76,25 @@ final class OperationsScenarioColumnsTests: XCTestCase {
   }
 
   func testTheRussianAndEnglishTitlesDiffer() {
-    for column in OperationColumn.allCases {
+    // The code of the merchant category is an abbreviation that reads the same in both.
+    for column in OperationColumn.allCases where column != .mcc {
       XCTAssertNotEqual(
         Self.localized(column.titleKey, "ru"), Self.localized(column.titleKey, "en"), "\(column)")
     }
+    XCTAssertEqual(Self.localized(OperationColumn.mcc.titleKey, "ru"), "MCC")
+    XCTAssertEqual(Self.localized(OperationColumn.mcc.titleKey, "en"), "MCC")
+  }
+
+  func testTheMerchantCodeColumnIsHiddenUntilTheOwnerShowsIt() {
+    XCTAssertFalse(OperationColumn.mcc.shownByDefault)
+    XCTAssertTrue(OperationColumn.mcc.canBeHidden)
+    XCTAssertFalse(OperationColumn.mcc.isNumeric)
+    XCTAssertEqual(OperationColumn.mcc.titleKey, "transactions.column.mcc")
+    XCTAssertTrue(OperationColumnLayout.standard.storage.hasSuffix("-event,-mcc"))
+    // A layout kept by an older build, with no word of it, shows the new column hidden.
+    let older = OperationColumnLayout(
+      storage: "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event")
+    XCTAssertEqual(older, .standard)
   }
 
   // MARK: The text kept on this Mac
@@ -87,7 +102,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
   func testTheStandardTextNamesEveryColumnInOrderWithTheOthersHidden() {
     XCTAssertEqual(
       OperationColumnLayout.standard.storage,
-      "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event")
+      "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event,-mcc")
   }
 
   func testATextOfCommasAloneIsTheStandardLayout() {
@@ -123,7 +138,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
       layout.order,
       [
         .description, .category, .account, .note, .time, .amount, .place, .forWhom, .quality,
-        .cashback, .event,
+        .cashback, .event, .mcc,
       ])
   }
 
@@ -274,7 +289,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
 
   func testTheLastColumnMovesNoFurtherDown() {
     var layout = OperationColumnLayout.standard
-    layout.move(.event, by: 1)
+    layout.move(.mcc, by: 1)
     XCTAssertEqual(layout, .standard)
   }
 

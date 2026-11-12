@@ -29,6 +29,8 @@ public struct PlanningRows: Sendable, Hashable {
   public var cashbackRules: [CashbackRule]
   public var assets: [Asset]
   public var assetValuations: [AssetValuation]
+  /// The market valuations of things; the history of a thing is kept with it.
+  public var thingValuations: [ThingValuation]
   /// The sums of dues typed from a bank's app.
   public var debtInstalments: [DebtInstalmentStep]
   /// What else a loan costs.
@@ -56,8 +58,9 @@ public struct PlanningRows: Sendable, Hashable {
     debtInstalments: [DebtInstalmentStep] = [], debtCosts: [DebtCost] = [],
     allocationRules: [AllocationRule] = [], customCurrencies: [CustomCurrency] = [],
     rates: [Rate] = [], scenarios: [Scenario] = [],
-    creditStatements: [CreditStatementOverride] = []
+    creditStatements: [CreditStatementOverride] = [], thingValuations: [ThingValuation] = []
   ) {
+    self.thingValuations = thingValuations
     self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
@@ -112,6 +115,7 @@ public struct PlanningRowIDs: Sendable, Hashable {
   public var cashbackRules: [UUID]
   public var assets: [UUID]
   public var assetValuations: [UUID]
+  public var thingValuations: [UUID]
   public var debtInstalments: [UUID]
   public var debtCosts: [UUID]
   public var creditStatements: [UUID]
@@ -130,8 +134,9 @@ public struct PlanningRowIDs: Sendable, Hashable {
     cashbackRules: [UUID] = [], banks: [UUID] = [], assets: [UUID] = [],
     assetValuations: [UUID] = [], debtInstalments: [UUID] = [], debtCosts: [UUID] = [],
     allocationRules: [UUID] = [], customCurrencies: [CurrencyCode] = [], rates: [RateKey] = [],
-    scenarios: [UUID] = [], creditStatements: [UUID] = []
+    scenarios: [UUID] = [], creditStatements: [UUID] = [], thingValuations: [UUID] = []
   ) {
+    self.thingValuations = thingValuations
     self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
@@ -548,6 +553,8 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.assets, db: db)
     try journal.delete(AssetValuation.self, ids: change.delete.assetValuations, db: db)
     try journal.upsert(rows.assetValuations, db: db)
+    try journal.delete(ThingValuation.self, ids: change.delete.thingValuations, db: db)
+    try journal.upsert(rows.thingValuations, db: db)
     // New operations are written the way `TransactionRepository.insert` writes them: as new
     // rows, so an id or an `external_id` that is already there fails the change. Each is given
     // an account like any other (`TransactionRepository.assigningAccount`), and a refund is
@@ -627,16 +634,8 @@ public struct PlanningRepository: Sendable {
       ? DeletionEffects.none
       : try TransactionRepository.softDelete(ids: change.softDeleted, at: change.at, db: db)
 
-    var settingsToWrite = change.settings
-    if !change.delete.assets.isEmpty {
-      let deleted = Set(change.delete.assets)
-      for value in try ThingValuationRepository.all(db)
-      where value.owner == .asset && deleted.contains(value.ownerId) {
-        settingsToWrite.updateValue(nil, forKey: value.storageKey)
-      }
-    }
     var settingsBefore: [String: String?] = [:]
-    for (key, value) in settingsToWrite.sorted(by: { $0.key < $1.key }) {
+    for (key, value) in change.settings.sorted(by: { $0.key < $1.key }) {
       settingsBefore.updateValue(try Self.setting(key, db: db), forKey: key)
       try Self.setSetting(key, to: value, db: db)
     }
@@ -966,6 +965,7 @@ public struct PlanningRepository: Sendable {
       _ = try CustomCurrency.deleteOne(db, key: code.code)
     }
     try Self.deleteAll(CashbackRule.self, ids: added.cashbackRules, db: db)
+    try Self.deleteAll(ThingValuation.self, ids: added.thingValuations, db: db)
     try Self.deleteAll(AssetValuation.self, ids: added.assetValuations, db: db)
     try Self.deleteAll(Asset.self, ids: added.assets, db: db)
     try Self.deleteAll(Budget.self, ids: added.budgets, db: db)
@@ -1002,6 +1002,7 @@ public struct PlanningRepository: Sendable {
     for row in before.cashbackRules { try row.save(db) }
     for row in before.assets { try row.save(db) }
     for row in before.assetValuations { try row.save(db) }
+    for row in before.thingValuations { try row.save(db) }
     for row in before.debtEntries { try row.save(db) }
     for row in before.debtCosts { try row.save(db) }
     for row in before.expectedLinks { try row.save(db) }
@@ -1046,6 +1047,7 @@ public struct PlanningRepository: Sendable {
     try Self.restoreRowIDs(before.cashbackRules, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.assets, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.assetValuations, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.thingValuations, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtEntries, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtCosts, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtInstalments, undo.rowIDs, db: db)
@@ -1651,7 +1653,13 @@ extension Asset: PlanningRow {
   /// history.
   static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
     try journal.keepRows(AssetValuation.self, where: "asset_id", is: id, db: db)
+    try journal.keepRows(ThingValuation.self, where: "owner_id", is: id, db: db)
   }
+}
+
+extension ThingValuation: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.thingValuations }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.thingValuations }
 }
 
 extension AssetValuation: PlanningRow {

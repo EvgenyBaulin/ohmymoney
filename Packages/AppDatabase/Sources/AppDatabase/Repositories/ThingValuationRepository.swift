@@ -3,8 +3,9 @@ import CoreKit
 import Foundation
 import GRDB
 
-/// Valuations stored independently in settings until they have their own table. The normal
-/// settings CSV, archive and change journal preserve the whole record, including its currency. Settings do not participate in device exchange.
+/// The market valuations of things (`thing_valuations`): one row per observation, so valuations
+/// added on two devices never meet, and every row travels with the exchange of changes, the CSV
+/// export and the archive like any other table.
 public struct ThingValuationRepository: Sendable {
   private let writer: any DatabaseWriter
 
@@ -14,22 +15,16 @@ public struct ThingValuationRepository: Sendable {
     try writer.read { db in try Self.all(db) }
   }
 
+  /// A row that does not read (an unknown kind of owner from a newer build) is left out and left
+  /// in the database.
   static func all(_ db: Database) throws -> [ThingValuation] {
     try Row.fetchAll(
-      db, sql: "SELECT key, value FROM settings WHERE key GLOB ? ORDER BY key",
-      arguments: [ThingValuation.storagePrefix + "*"]
-    )
-    .compactMap { row in
-      guard let value = try? ThingValuation.decode(row["value"]),
-        value.storageKey == (row["key"] as String), value.amountE4.raw >= 0
-      else { return nil }
-      return value
-    }
+      db, sql: "SELECT * FROM thing_valuations ORDER BY valued_on, recorded_at, id"
+    ).compactMap { try? ThingValuation(row: $0) }
   }
 
   public func save(_ value: ThingValuation) throws {
     guard value.amountE4.raw >= 0 else { throw ThingValuationWriteError.negativeAmount }
-    let encoded = try value.storedValue
     try writer.write { db in
       let table = value.owner == .asset ? "assets" : "owned_items"
       guard
@@ -37,21 +32,13 @@ public struct ThingValuationRepository: Sendable {
           db, sql: "SELECT EXISTS(SELECT 1 FROM \(table) WHERE id = ?)",
           arguments: [value.ownerId.uuidString]) == true
       else { throw ThingValuationWriteError.ownerMissing }
-      try SettingsRepository.set(value.storageKey, to: encoded, in: db)
+      try value.save(db)
     }
   }
 
   public func delete(_ id: UUID) throws {
     try writer.write { db in
-      try db.execute(
-        sql: "DELETE FROM settings WHERE key = ?",
-        arguments: [ThingValuation.storagePrefix + id.uuidString])
-    }
-  }
-
-  static func delete(owner: ThingValuation.Owner, id: UUID, db: Database) throws {
-    for value in try all(db) where value.owner == owner && value.ownerId == id {
-      try db.execute(sql: "DELETE FROM settings WHERE key = ?", arguments: [value.storageKey])
+      _ = try ThingValuation.deleteOne(db, key: id.uuidString)
     }
   }
 }

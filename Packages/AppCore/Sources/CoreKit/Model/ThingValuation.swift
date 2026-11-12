@@ -1,13 +1,13 @@
 import Foundation
 
-/// A manual market valuation. Its currency belongs to the observation, not to its owner.
+/// A manual market valuation (`thing_valuations`). Its currency belongs to the observation, not
+/// to its owner; each is its own row, so two devices adding one never meet.
 public struct ThingValuation: Identifiable, Hashable, Sendable, Codable {
   public enum Owner: String, Hashable, Sendable, Codable {
     case asset
     case ownedItem = "owned_item"
   }
 
-  public static let storagePrefix = "purchases.valuation."
   public var id: UUID
   public var owner: Owner
   public var ownerId: UUID
@@ -30,21 +30,6 @@ public struct ThingValuation: Identifiable, Hashable, Sendable, Codable {
     self.currency = currency
     self.note = note
     self.recordedAt = recordedAt
-  }
-
-  public var storageKey: String { Self.storagePrefix + id.uuidString }
-
-  /// One setting per observation: concurrent additions on different devices stay independent.
-  public var storedValue: String {
-    get throws {
-      let encoder = JSONEncoder()
-      encoder.outputFormatting = [.sortedKeys]
-      return String(decoding: try encoder.encode(self), as: UTF8.self)
-    }
-  }
-
-  public static func decode(_ text: String) throws -> Self {
-    try JSONDecoder().decode(Self.self, from: Data(text.utf8))
   }
 
   public static func history(
