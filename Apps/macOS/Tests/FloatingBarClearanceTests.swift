@@ -42,31 +42,7 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
       ($0.accessibilityRole?() == .scrollArea)
         && ($0.accessibilityIdentifier?() ?? "") != "entry.templates"
     }
-    // A nested list can stand below the visible part of the page (the chosen day under
-    // the month in a narrow calendar). Its full accessibility frame is not a page viewport:
-    // the enclosing scroll view clips it. Check that enclosing page instead.
-    var scrolls: [NSScrollView] = []
-    Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &scrolls)
-    let nestedFrames = scrolls.filter { scroll in
-      var ancestor = scroll.superview
-      while let view = ancestor {
-        if let parent = view as? NSScrollView {
-          let rect = parent.convert(parent.bounds, to: nil)
-          if rect.minX >= sidebar - 1 && rect.width > 200 && rect.height > 100 {
-            return true
-          }
-        }
-        ancestor = view.superview
-      }
-      return false
-    }.map { $0.accessibilityFrame() }
     return found.compactMap { $0.accessibilityFrame?() }
-      .filter { frame in
-        !nestedFrames.contains { nested in
-          abs(frame.minX - nested.minX) < 1 && abs(frame.minY - nested.minY) < 1
-            && abs(frame.width - nested.width) < 1 && abs(frame.height - nested.height) < 1
-        }
-      }
       .map { window.convertFromScreen($0) }
       .filter { $0.minX >= sidebar - 1 && $0.width > 200 && $0.height > 100 }
   }
@@ -74,6 +50,10 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
   private func checkClearance(
     _ section: MainWindow.Section, width: CGFloat, height: CGFloat, language: AppLanguage.Choice
   ) throws {
+    if section == .calendar {
+      try checkCalendarScrolledToTheEnd(width: width, height: height, language: language)
+      return
+    }
     try TestEnvironment.requireSwiftUIAccessibility()
     environment.language.choice = language
     try seedChips()
@@ -88,6 +68,52 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
         "\(section) \(Int(width))×\(Int(height)) \(language): the page's viewport reaches down to \(viewport.minY), the bar starts at \(top)"
       )
     }
+  }
+
+  /// The narrow calendar stacks a native day list below the month. Its accessibility frame
+  /// includes rows outside the enclosing page's clip, so a viewport-frame check cannot tell
+  /// whether the last card is reachable. Scroll the page and check the whole card instead.
+  private func checkCalendarScrolledToTheEnd(
+    width: CGFloat, height: CGFloat, language: AppLanguage.Choice
+  ) throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    environment.language.choice = language
+    try seedChips()
+    let window = mainWindow(.calendar, width: width, height: height)
+    settle(window)
+    let root = try XCTUnwrap(window.contentView)
+    let sidebar = try sidebarEdge(in: window)
+    var scrolls: [NSScrollView] = []
+    Self.allSubviews(of: root, into: &scrolls)
+    let page = try XCTUnwrap(
+      scrolls.filter {
+        let rect = $0.convert($0.bounds, to: nil)
+        return rect.minX >= sidebar - 1 && rect.width > 400 && rect.height > 300
+          && !($0.documentView is NSTableView)
+      }.max { $0.bounds.width * $0.bounds.height < $1.bounds.width * $1.bounds.height },
+      "the calendar's outer page scroll view")
+    let document = try XCTUnwrap(page.documentView)
+    let start = document.isFlipped ? document.bounds.minY : document.bounds.maxY
+    document.scroll(NSPoint(x: 0, y: start))
+    settle(window, passes: 6)
+    let before = page.contentView.bounds.origin.y
+    let end = document.isFlipped ? document.bounds.maxY : document.bounds.minY
+    document.scroll(NSPoint(x: 0, y: end))
+    settle(window)
+    if !CalendarLayout.isWide(width: page.bounds.width) {
+      XCTAssertNotEqual(
+        page.contentView.bounds.origin.y, before,
+        "\(language): the narrow calendar must actually scroll")
+    }
+    let card = try frame(of: "calendar.upcoming", in: window)
+    let top = try barTop(in: window)
+    let viewport = page.contentView.convert(page.contentView.bounds, to: nil)
+    XCTAssertGreaterThanOrEqual(
+      card.minY, max(top, viewport.minY) - 0.5,
+      "\(Int(width))×\(Int(height)) \(language): the last calendar card ends under the bar")
+    XCTAssertLessThanOrEqual(
+      card.maxY, min(viewport.maxY, window.contentLayoutRect.maxY) + 0.5,
+      "\(Int(width))×\(Int(height)) \(language): the whole last calendar card must be visible")
   }
 
   /// Scrolled to its end, the page's last point stands above the bar: what the owner sees when
@@ -131,7 +157,7 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
   }
 
   func testEveryScreenScrolledToTheEndClearsTheBar() throws {
-    // «Календарь» is a fixed page, not a scrolling one; «Операции» is a table (below).
+    // Calendar is checked by scrolling its last card above the bar (above); Operations is a table.
     for section in Self.sections where section != .operations && section != .calendar {
       for (width, height) in [(CGFloat(1_440), CGFloat(900)), (1_024, 700)] {
         for language in [AppLanguage.Choice.russian, .english] {
