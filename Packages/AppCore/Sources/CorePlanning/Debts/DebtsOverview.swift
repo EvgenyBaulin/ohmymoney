@@ -163,6 +163,11 @@ public struct DebtsOverview: Hashable, Sendable {
   public var totalIOweRub: AmountE4
   /// Σ totals of `owedToMe`.
   public var totalOwedToMeRub: AmountE4
+  /// The interest the loans I owe have charged since their last payment and nobody has paid
+  /// yet, in rubles — on top of `totalIOweRub`, which is the balance of the journals. The
+  /// Capital counts it in what I owe (the bank asks for it), so this is the whole difference
+  /// between the two figures.
+  public var accruedInterestRub: AmountE4 = .zero
   /// Σ monthly payments of the open debts I owe, in rubles.
   public var monthlyPaymentsRub: AmountE4
   /// Open debts left out of a total because their currency has no known rate (or, beyond any
@@ -236,19 +241,16 @@ public struct DebtsOverview: Hashable, Sendable {
     for line in open where line.debt.direction == .owedToMe {
       groupDebts[line.debt.personId, default: []].append(line)
     }
+    // The parts are the Overview's «owed» ones, read by the same rule (`OwedParts`).
     var groupParts: [UUID?: [OwedPartSummary]] = [:]
-    for row in ledger.rows
-    where row.kind == .expense && row.reimbursable && row.reimbursementStatus == .expected {
-      let remaining = ledger.remaining(ofPart: row)
-      guard remaining.raw > 0 else { continue }
-      let entry = ledger.entry(row.transactionId)
-      let part = entry?.parts.first { $0.id == row.partId }
-      groupParts[row.debtorPersonId, default: []].append(
+    for part in OwedParts(ledger).parts {
+      let entry = ledger.entry(part.transactionId)
+      let source = entry?.parts.first { $0.id == part.partId }
+      groupParts[part.personId, default: []].append(
         OwedPartSummary(
-          partId: row.partId, transactionId: row.transactionId, day: row.day,
-          personId: row.debtorPersonId, amountRub: remaining,
-          note: part?.note ?? entry?.transaction.note,
-          returnedRub: ledger.returned(forPart: row.partId)))
+          partId: part.partId, transactionId: part.transactionId, day: part.day,
+          personId: part.personId, amountRub: part.remainingRub,
+          note: source?.note ?? entry?.transaction.note, returnedRub: part.returnedRub))
     }
     let people = Set(groupDebts.keys).union(groupParts.keys)
     let owedToMe = people.map { person in
@@ -259,12 +261,17 @@ public struct DebtsOverview: Hashable, Sendable {
 
     let payments = DebtLoad.monthlyPayments(of: debts, rubPerUnit: rubPerUnit, dues: states)
     let unconverted = open.filter { $0.balanceRub == nil }.map(\.debt.id)
-    return DebtsOverview(
+    var overview = DebtsOverview(
       iOwe: iOwe, owedToMe: owedToMe, closed: closed,
       totalIOweRub: AmountE4.sum(iOwe.compactMap(\.balanceRub)),
       totalOwedToMeRub: AmountE4.sum(owedToMe.map(\.totalRub)),
       monthlyPaymentsRub: payments.total,
       withoutRate: DebtRubles.sorted(Set(unconverted).union(payments.withoutRate)))
+    overview.accruedInterestRub = AmountE4.sum(
+      iOwe.compactMap {
+        DebtRubles.convert($0.accruedInterestE4, from: $0.debt.currency, rubPerUnit: rubPerUnit)
+      })
+    return overview
   }
 
   // MARK: - Pieces

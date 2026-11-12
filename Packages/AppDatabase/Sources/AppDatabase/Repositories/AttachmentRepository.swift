@@ -22,6 +22,23 @@ public struct AttachmentRepository: Sendable {
     }
   }
 
+  /// Purchase dates needed by the core's retention rule. The database only joins the owners;
+  /// the core decides which dates still protect a receipt.
+  public func receiptTransactions() throws -> [CoreKit.Transaction] {
+    try writer.read { db in
+      try CoreKit.Transaction.fetchAll(
+        db,
+        sql: """
+          SELECT * FROM transactions
+          WHERE EXISTS (
+            SELECT 1 FROM attachments
+            WHERE attachments.owner_kind = 'transaction'
+              AND attachments.owner_id = transactions.id AND attachments.kind = 'receipt'
+          )
+          """)
+    }
+  }
+
   /// The digests every row names, including rows this build can not read.
   public func allHashes() throws -> Set<String> {
     try writer.read { db in

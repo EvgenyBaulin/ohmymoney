@@ -51,6 +51,14 @@ struct NavBarButton: View {
     self.action = action
   }
 
+  /// The room a tab keeps at its sides. With every name shown the tabs share the width of the
+  /// bar and the longest name («Планирование») has to fit in what is left, scaled down to 0.7
+  /// at most: a wide margin turned it into «Планиров…».
+  static func horizontalPadding(isActive: Bool, labelsOnAll: Bool) -> CGFloat {
+    if labelsOnAll { return 3 }
+    return isActive ? 14 : 10
+  }
+
   var body: some View {
     Button(action: action) {
       Group {
@@ -79,7 +87,7 @@ struct NavBarButton: View {
         }
       }
       .foregroundStyle(isActive ? colors.activeContent : colors.icon)
-      .padding(.horizontal, isActive && !labelsOnAll ? 14 : 10)
+      .padding(.horizontal, Self.horizontalPadding(isActive: isActive, labelsOnAll: labelsOnAll))
       .frame(minWidth: 44, minHeight: 44)
       .background {
         if isActive { Capsule().fill(colors.pill) }

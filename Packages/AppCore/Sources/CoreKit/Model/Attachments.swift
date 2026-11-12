@@ -90,7 +90,8 @@ public struct AttachmentSettings: Hashable, Sendable, Codable {
   public static let defaultTrashDays = 30
 
   /// Photos of receipts are kept for good. Off: a receipt photo goes to the trash a week after it
-  /// was added, and is deleted after `trashDays` more.
+  /// was added, once its purchase's warranty and return term have expired, and is deleted after
+  /// `trashDays` more.
   public var keepReceiptsForever: Bool
   public var trashDays: Int
   /// The copy of the day and the copy before an update put the folder of the files in the mirror.

@@ -16,7 +16,7 @@ public struct CanSaveInputs: Hashable, Sendable {
   public var plannedStillDue: AmountE4
   /// What variable spending adds over the rest of the month (`MonthForecast.remainder`).
   public var remainder: MonthForecast.Remainder
-  /// Net goal contributions of this month.
+  /// Net savings in goals, the cushion and deposits this month.
   public var alreadySaved: AmountE4
 
   public init(
@@ -31,8 +31,7 @@ public struct CanSaveInputs: Hashable, Sendable {
   }
 
   /// The inputs with the two ledger figures taken from the ledger: my expenses without goal
-  /// contributions from the 1st through today, by date, and the net goal contributions of
-  /// the same days.
+  /// contributions from the 1st through today, by date, and the net savings of the same days.
   public init(
     ledger: Ledger, today: DateOnly, income: MonthIncomeEstimate, plannedStillDue: AmountE4,
     remainder: MonthForecast.Remainder
@@ -42,7 +41,8 @@ public struct CanSaveInputs: Hashable, Sendable {
       ledger.rows(in: span).lazy.filter { !$0.isGoalContribution }.map(\.contribution))
     self.init(
       income: income, spentWithoutGoals: spent, plannedStillDue: plannedStillDue,
-      remainder: remainder, alreadySaved: GoalRules.netContributions(ledger: ledger, in: span))
+      remainder: remainder,
+      alreadySaved: SavingsTotals(ledger: ledger, in: span, income: .zero).saved)
   }
 }
 
@@ -157,12 +157,12 @@ public struct CanSave: Hashable, Sendable {
   }
 }
 
-/// The savings rate of a month: net goal contributions ÷ income of the month, against the
+/// The savings rate of a month: net savings ÷ income of the month, against the
 /// target share of the settings.
 ///
-/// Both sides take the month whole, as the tables of the Reports do: the
-/// contributions dated in it and the income that belongs to it. Without positive income
-/// there is no rate.
+/// Both sides take the month whole, as the tables of the Reports do: the net contributions and
+/// transfers dated in it and the income that belongs to it. Without positive income there is
+/// no rate.
 public struct SavingsRate: Hashable, Sendable {
   public enum Status: String, Hashable, Sendable, CaseIterable {
     case notEnoughData
@@ -174,26 +174,28 @@ public struct SavingsRate: Hashable, Sendable {
   /// Basis points, rounded half away from zero; `nil` without positive income.
   public var rateBp: Int?
   public var goalsNet: AmountE4
+  public var accountsNet: AmountE4
+  public var saved: AmountE4 { goalsNet + accountsNet }
   public var income: AmountE4
   public var targetBp: Int
   public var status: Status
 
   public init(
     month: MonthKey, rateBp: Int?, goalsNet: AmountE4, income: AmountE4, targetBp: Int,
-    status: Status
+    status: Status, accountsNet: AmountE4 = .zero
   ) {
     self.month = month
     self.rateBp = rateBp
     self.goalsNet = goalsNet
+    self.accountsNet = accountsNet
     self.income = income
     self.targetBp = targetBp
     self.status = status
   }
 
   public static func month(ledger: Ledger, month: MonthKey, targetBp: Int) -> SavingsRate {
-    let goalsNet = GoalRules.netContributions(ledger: ledger, in: Period.month(month).range)
-    let income = ledger.income(attributedTo: [month])
-    let rate = Shares.ratio(goalsNet, of: income)
+    let totals = SavingsTotals.month(ledger: ledger, month: month)
+    let rate = totals.basisPoints
     let status: Status
     if let rate {
       status = rate >= targetBp ? .onTarget : .belowTarget
@@ -201,7 +203,7 @@ public struct SavingsRate: Hashable, Sendable {
       status = .notEnoughData
     }
     return SavingsRate(
-      month: month, rateBp: rate, goalsNet: goalsNet, income: income, targetBp: targetBp,
-      status: status)
+      month: month, rateBp: rate, goalsNet: totals.goals, income: totals.income, targetBp: targetBp,
+      status: status, accountsNet: totals.accounts)
   }
 }

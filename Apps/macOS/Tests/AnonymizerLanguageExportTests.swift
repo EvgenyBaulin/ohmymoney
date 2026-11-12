@@ -1,6 +1,7 @@
 import AppCore
 import AppDatabase
 import CoreKit
+import GRDB
 import XCTest
 
 @testable import OhMyMoney
@@ -48,6 +49,41 @@ final class AnonymizerLanguageExportTests: XCTestCase {
     let file = directory.appendingPathComponent("opened-\(english).sqlite")
     try XCTUnwrap(opened.database).write(to: file)
     return try DatabaseStack.dataset(fileAt: file)
+  }
+
+  func testMigrationMemoriesAreAbsentFromAnonymizedDatabaseAndArchiveSettings() throws {
+    let memories = [
+      MigrationSettings.accountMapKey: MigrationSettings.text(["sample visa 4276": UUID()]),
+      MigrationSettings.categoryMapKey: MigrationSettings.text(["expense|sample|cafe": UUID()]),
+      MigrationSettings.mappingsKey: MigrationSettings.text([
+        "sample layout": MigrationMapping(roles: [0: .date, 1: .amount])
+      ]),
+    ]
+    let store = SettingsRepository(writer: stack.writer)
+    for (key, value) in memories { try store.set(key, to: value) }
+    let service = ExportCopyService(
+      stack: stack, appVersion: "2.6.1", cipher: cipher, iterations: 1_000)
+    let target = directory.appendingPathComponent("migration.ohmymoneyarchive")
+    _ = try service.export(
+      ExportCopyRequest(anonymize: true, password: "correct horse"), to: target,
+      settings: ["theme.scheme": "dark"])
+    let opened = try ArchiveOpener.open(
+      Data(contentsOf: target), password: "correct horse", cipher: cipher,
+      supportedSchemaVersion: stack.applied.onDisk)
+    let settings = try XCTUnwrap(opened.settings)
+    let portable = try XCTUnwrap(
+      JSONSerialization.jsonObject(with: settings) as? [String: String])
+    XCTAssertEqual(portable["theme.scheme"], "dark")
+    let file = directory.appendingPathComponent("migration-copy.sqlite")
+    try XCTUnwrap(opened.database).write(to: file)
+    // Opened through the app's own stack: the test target does not link GRDB's initialisers.
+    let copy = SettingsRepository(
+      writer: try DatabaseStack(url: file, schema: BundleSchemaSource(bundle: .main)).writer)
+    for key in memories.keys {
+      XCTAssertNil(portable[key])
+      XCTAssertNil(try copy.string(key))
+      XCTAssertEqual(try store.string(key), memories[key])
+    }
   }
 
   func testAnEnglishInterfaceGetsEnglishWords() throws {

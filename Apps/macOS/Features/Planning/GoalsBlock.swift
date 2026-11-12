@@ -283,14 +283,9 @@ struct GoalsBlock: View {
   private func restore(_ goal: Goal) {
     guard let dependencies else { return }
     deletionNotes[goal.id] = nil
-    let restored = Self.restore(
+    // A live goal with the same name never stops it: the goal forms advise renaming.
+    Self.restore(
       goal.id, with: PlanningActions(dependencies), references: environment.references)
-    // A live goal has the name: the row says so instead of staying silent.
-    if !restored,
-      GoalForm.liveNamesake(of: goal, among: (try? environment.references?.goals()) ?? []) != nil
-    {
-      deletionNotes[goal.id] = "form.goal.liveNamesake"
-    }
   }
 
   private func askToDelete(_ goal: Goal) {

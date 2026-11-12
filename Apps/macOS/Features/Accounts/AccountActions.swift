@@ -237,7 +237,8 @@ struct AccountActions {
   /// setting together.
   func save(
     _ account: PaymentMethod, previous: PaymentMethod?, openings: [CurrencyCode: AmountE4] = [:],
-    books: AccountBooks, newBankNamed: String? = nil, firstCardNamed: String? = nil
+    books: AccountBooks, newBankNamed: String? = nil, firstCardNamed: String? = nil,
+    newBankId: UUID? = nil, firstCardId: UUID? = nil
   ) -> AccountActionOutcome {
     let all = self.all
     var account = Self.tidied(account)
@@ -268,8 +269,9 @@ struct AccountActions {
       else { return .refused(.notFound) }
     } else {
       let given = newBankNamed?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-      let choice = BankRules.bank(
+      var choice = BankRules.bank(
         forNewAccountNamed: given.isEmpty ? account.name : given, among: banks)
+      if choice.isNew, let newBankId { choice.bank.id = newBankId }
       if choice.isNew, let refusal = Self.refusal(saving: choice.bank, among: banks) {
         return .refused(refusal)
       }
@@ -282,12 +284,18 @@ struct AccountActions {
     let allCards = cards
     if account.credit != nil, !account.archived {
       if CardRules.creditCardLacksCard(account, cards: allCards) {
-        guard let card = CardRules.startingCard(for: account, named: firstCardNamed),
+        guard
+          let card = CardRules.startingCard(
+            for: account, named: firstCardNamed, id: firstCardId ?? UUID()),
           CardRules.validate(card, previous: nil, cards: allCards, accounts: all).isEmpty
         else { return .refused(.creditCardNeedsCard) }
         rows.cards = [card]
       }
-    } else if previous == nil, let card = CardRules.startingCard(for: account) {
+    } else if previous == nil,
+      let card = CardRules.startingCard(
+        for: account,
+        id: firstCardId ?? UUID())
+    {
       rows.cards = [card]
     }
     let counted = openings.filter { currency, _ in
@@ -527,23 +535,41 @@ struct AccountActions {
     return held.isEmpty ? nil : .hasMoney
   }
 
-  /// «Вернуть»: back among the live accounts, not main, after every other once the owner has
-  /// dragged them. Its name and other names, which a merge left on another account as other
-  /// names, go back to it — one name is never on two live accounts —, and a group in the
-  /// archive comes back with it unless a live group has taken its name.
+  /// «Вернуть»: back among live accounts, without changing anyone's names or aliases.
+  /// Live conflicts are refused before anything is written, including the cards of the account.
+  /// An archived group comes back with it unless a live group has taken its name.
   ///
   /// Its currencies are switched on with it: every currency a live account holds is on, or the
   /// entry line would not know it and the bank's table would not be checked for it. When that
   /// would make more than ten, the account stays in the archive. ⌘Z sends the account back to
   /// the archive and leaves the currencies on, which nothing minds.
-  func restore(_ id: UUID) -> AccountActionOutcome {
+  func restore(_ id: UUID, includingCard cardId: UUID? = nil) -> AccountActionOutcome {
     let all = self.all
     guard var account = all.first(where: { $0.id == id }) else { return .refused(.notFound) }
     guard account.archived else { return .done }
-    let name = Self.folded(account.name)
     let live = all.filter { !$0.archived && $0.id != id }
-    guard !live.contains(where: { Self.folded($0.name) == name }) else {
-      return .refused(.nameTaken)
+    var restored = account
+    restored.archived = false
+    if let conflict = AccountRules.nameConflict(restored, accounts: all, cards: cards) {
+      return .refused(Self.nameRefusal(conflict))
+    }
+    let restoredAccounts = all.map { $0.id == id ? restored : $0 }
+    let storedCards = cards
+    var cardToRestore: PaymentCard?
+    if let cardId {
+      guard var card = storedCards.first(where: { $0.id == cardId && $0.accountId == id })
+      else { return .refused(.notFound) }
+      card.archived = false
+      cardToRestore = card
+    }
+    let restoredCards = storedCards.map { $0.id == cardToRestore?.id ? cardToRestore ?? $0 : $0 }
+    for card in restoredCards where card.accountId == id && !card.archived {
+      if !CardRules.validate(
+        card, previous: card, cards: restoredCards,
+        accounts: restoredAccounts
+      ).isEmpty {
+        return .refused(.nameTakenByCard(card.name))
+      }
     }
     // Every currency the account holds is switched on again, however many are on already.
     let enabled = enabledCurrencies
@@ -564,10 +590,6 @@ struct AccountActions {
       group.archived = false
       rows.accountGroups = [group]
     }
-    // A live account's name is its own: another name of this one that became it is dropped.
-    let liveNames = Set(live.map { Self.folded($0.name) })
-    account.aliases.removeAll { liveNames.contains(Self.folded($0)) }
-    let names = Set(([account.name] + account.aliases).map(Self.folded))
     switch bank(forRestoring: account) {
     case .success(let placed):
       account.bankId = placed.bankId
@@ -578,13 +600,8 @@ struct AccountActions {
     account.archived = false
     account.isDefault = false
     account.sort = AccountRules.sortForNewAccount(among: live)
-    var accounts = [account]
-    for var other in live {
-      let before = other.aliases.count
-      other.aliases.removeAll { names.contains(Self.folded($0)) }
-      if other.aliases.count != before { accounts.append(other) }
-    }
-    rows.paymentMethods = accounts
+    rows.paymentMethods = [account]
+    rows.cards = cardToRestore.map { [$0] } ?? []
     let outcome = apply(PlanningChange(upsert: rows, at: environment.now()))
     guard outcome == .done, !missing.isEmpty else { return outcome }
     // The account is back either way; a currency the database would not switch on is said in
@@ -845,6 +862,14 @@ struct AccountActions {
     return .done
   }
 
+  static func nameRefusal(_ conflict: AccountNameConflict) -> AccountRefusal {
+    switch conflict {
+    case .nameTaken: .nameTaken
+    case .otherNameTaken(let name): .otherNameTaken(name)
+    case .nameTakenByCard(let name): .nameTakenByCard(name)
+    }
+  }
+
   // MARK: Rules
 
   /// What keeps `account` from being saved over `previous`, the first thing only. `cards` are
@@ -854,15 +879,6 @@ struct AccountActions {
     enabled: [CurrencyCode], all: [PaymentMethod], groups: [AccountGroup],
     cards: [PaymentCard] = []
   ) -> AccountRefusal? {
-    let name = folded(account.name)
-    if previous == nil, !name.isEmpty,
-      let archived = all.first(where: {
-        $0.archived && $0.id != account.id && folded($0.name) == name
-      }),
-      !all.contains(where: { !$0.archived && $0.id != account.id && folded($0.name) == name })
-    {
-      return .inArchive(archived.id)
-    }
     if let issue = BorrowedCardRules.issue(account) { return .borrowed(issue) }
     let issues = AccountRules.validate(
       account, previous: previous, balances: books.balances, enabled: enabled, others: all,
@@ -883,29 +899,8 @@ struct AccountActions {
       case .mainInExcludedGroup: return .mainInExcludedGroup
       }
     }
-    // Checked again the way the entry line reads names, «ё» folded into «е»: «Ёлка» and
-    // «Елка» are one name there, so they are one name here too.
-    if !name.isEmpty,
-      all.contains(where: {
-        $0.id != account.id
-          && (folded($0.name) == name || $0.aliases.contains { folded($0) == name })
-      })
-    {
-      return .nameTaken
-    }
-    for spelling in [account.name] + account.aliases {
-      if let card = CardRules.cardTaking(spelling, except: account.id, cards: cards) {
-        return .nameTakenByCard(card.name)
-      }
-    }
-    let rivals = all.filter { !$0.archived && $0.id != account.id }
-    for alias in account.aliases {
-      let spelling = folded(alias)
-      if rivals.contains(where: {
-        folded($0.name) == spelling || $0.aliases.contains { folded($0) == spelling }
-      }) {
-        return .otherNameTaken(alias)
-      }
+    if let conflict = AccountRules.nameConflict(account, accounts: all, cards: cards) {
+      return nameRefusal(conflict)
     }
     // The interest goes to another live account; one it already goes to may stay in the
     // archive — the payouts then go to the main account, as for any account gone.

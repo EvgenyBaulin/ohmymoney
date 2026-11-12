@@ -38,6 +38,9 @@ struct PeriodsBoardView: View {
     .task(id: LoadKey(id: store.selected, kind: store.kind, generation: compute.generation)) {
       await store.reload(compute.snapshot, environment: environment)
     }
+    .onChange(of: environment.amounts.isHidingNow) { _, _ in
+      store.refreshShare(compute.snapshot, environment: environment)
+    }
     .onChange(of: store.kind) { _, new in
       if store.selected?.kind != new { store.selected = store.archive(compute.snapshot).first }
     }

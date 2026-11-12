@@ -61,7 +61,7 @@ public enum CardRules {
 
   /// What is wrong with `card` about to be saved over `previous` (`nil` for a new one), names
   /// compared the way the entry line reads them (`NameKey`). `cards` and `accounts` are all of
-  /// them, archived ones included: an account's name is never free, an archived card's is.
+  /// them, archived ones included. Only names of live accounts and their live cards are reserved.
   public static func validate(
     _ card: PaymentCard, previous: PaymentCard?, cards: [PaymentCard], accounts: [PaymentMethod]
   ) -> [CardIssue] {
@@ -88,19 +88,26 @@ public enum CardRules {
     return issues
   }
 
-  /// Who else is called `folded`: another account (archived too), or another live card.
+  /// Who else is called `folded`: another live account, or a live card of a live account.
   private static func owner(
     of folded: String, card: PaymentCard, cards: [PaymentCard], accounts: [PaymentMethod]
   ) -> CardNameOwner? {
-    for account in accounts where account.id != card.accountId {
+    for account in accounts where !account.archived && account.id != card.accountId {
       if spellings(account.name, account.aliases).contains(folded) {
         return .account(account.id)
       }
     }
-    for other in cards where other.id != card.id && !other.archived {
+    for other in liveNamingCards(cards, accounts: accounts) where other.id != card.id {
       if spellings(other.name, other.aliases).contains(folded) { return .card(other.id) }
     }
     return nil
+  }
+
+  public static func liveNamingCards(
+    _ cards: [PaymentCard], accounts: [PaymentMethod]
+  ) -> [PaymentCard] {
+    let archived = Set(accounts.filter(\.archived).map(\.id))
+    return cards.filter { !$0.archived && !archived.contains($0.accountId) }
   }
 
   private static func spellings(_ name: String, _ aliases: [String]) -> Set<String> {

@@ -145,6 +145,13 @@ public struct AccountRepository: Sendable {
     }
   }
 
+  /// The transfers of the accounts, including archived accounts, oldest first.
+  public func transfers() throws -> [Transfer] {
+    try writer.read { db in
+      try Transfer.order(Column("occurred_at"), Column.rowID).fetchAll(db)
+    }
+  }
+
   public func usage(of accountId: UUID) throws -> AccountUsage {
     try writer.read { db in try Self.usage(of: accountId, db: db) }
   }

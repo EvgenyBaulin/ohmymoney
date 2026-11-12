@@ -47,6 +47,8 @@ public final class EntryDraftModel {
   /// Every account, archived ones too: a saved operation may sit on one retired since, and
   /// what it was charged is still worked out from its currencies.
   private var allAccounts: [PaymentMethod] = []
+  /// Naming validation needs archived parents too, so their cards do not reserve live names.
+  var accountsForNameCheck: [PaymentMethod] { allAccounts.isEmpty ? paymentMethods : allAccounts }
   public var events: [Event] = []
   public var goals: [Goal] = []
   public var debts: [Debt] = []
@@ -2380,20 +2382,28 @@ public final class EntryDraftModel {
   /// default, as it does in Settings. A card or a bank account comes with a card named like it,
   /// in the same write (`CardRules.startingCard`), and every account stands under a bank: the live
   /// bank of its name, else a new one written with it (`BankRules.bank(forNewAccountNamed:)`).
-  public func createPaymentMethod(named name: String, kind: PaymentMethodKind) -> UUID? {
+  public func createPaymentMethod(
+    named name: String, kind: PaymentMethodKind, id: UUID? = nil
+  ) -> UUID? {
     guard let references else { return nil }
-    return createPaymentMethod(named: name, kind: kind) { method, bank in
+    return createPaymentMethod(named: name, kind: kind, id: id) { method, bank in
       try references.save(
         method, startingCard: CardRules.startingCard(for: method), bank: bank)
     }
   }
 
   func createPaymentMethod(
-    named name: String, kind: PaymentMethodKind,
+    named name: String, kind: PaymentMethodKind, id: UUID? = nil,
     saving save: (PaymentMethod, Bank?) throws -> Void
   ) -> UUID? {
-    let live = (try? references?.paymentMethods()) ?? paymentMethods
+    let all = (try? references?.paymentMethods(includeArchived: true)) ?? namingAccounts
+    let live = all.filter { !$0.archived }
     var method = NewReference.paymentMethod(named: name, kind: kind, among: live)
+    if let id { method.id = id }
+    guard AccountRules.nameConflict(method, accounts: all, cards: cards) == nil else {
+      creationFailureKey = "entry.add.nameTaken"
+      return nil
+    }
     let choice = BankRules.bank(
       forNewAccountNamed: name, among: (try? references?.banks(includeArchived: true)) ?? banks)
     method.bankId = choice.bank.id
@@ -2407,11 +2417,10 @@ public final class EntryDraftModel {
     return method.id
   }
 
-  /// `save` writes the place: the repository's, or a refusal in a test. A name an archived
-  /// place answers to brings that place back instead of a second one of the same name.
+  /// `save` writes the place: the repository's, or a refusal in a test. Always a new place: a
+  /// namesake in the archive stays there until the owner brings it back from the notice.
   func createPlace(named name: String, saving save: (Place) throws -> Void) -> UUID? {
-    var place = archivedPlace(answeringTo: name) ?? Place(name: name)
-    place.archived = false
+    let place = Place(name: name)
     guard written({ try save(place) }, what: "place") else {
       creationFailureKey = "entry.error.placeNotCreated"
       return nil
@@ -2425,8 +2434,7 @@ public final class EntryDraftModel {
   }
 
   func createPerson(named name: String, saving save: (Person) throws -> Void) -> UUID? {
-    var person = archivedPerson(answeringTo: name) ?? Person(name: name)
-    person.archived = false
+    let person = Person(name: name)
     guard written({ try save(person) }, what: "person") else {
       creationFailureKey = "entry.error.personNotCreated"
       return nil
@@ -2437,36 +2445,6 @@ public final class EntryDraftModel {
     dropFromTheNote(unmatchedPersonPhrase)
     unmatchedPersonPhrase = nil
     return person.id
-  }
-
-  /// The archived place the line would read `name` as, were it not archived: its name or an
-  /// alias, a declined form included («Пятёрочке» is «Пятёрочка»). The line leaves archived
-  /// names out — archiving is how a name stops matching — so the only way such a place is
-  /// named again is «Add…» of the panel, and nothing else in the app takes a row out of the
-  /// archive.
-  private func archivedPlace(answeringTo name: String) -> Place? {
-    let archived = ((try? references?.places(includeArchived: true)) ?? []).filter(\.archived)
-    guard !archived.isEmpty else { return nil }
-    let vocabulary = ParserVocabulary(
-      places: archived.map { .init(id: $0.id, name: $0.name, aliases: $0.aliases) })
-    let id = readsAs(vocabulary, "в \(name)").placeId
-    return archived.first { $0.id == id }
-  }
-
-  /// The archived person the line would read `name` as; see `archivedPlace(answeringTo:)`.
-  private func archivedPerson(answeringTo name: String) -> Person? {
-    let archived = ((try? references?.people(includeArchived: true)) ?? []).filter(\.archived)
-    guard !archived.isEmpty else { return nil }
-    let vocabulary = ParserVocabulary(
-      people: archived.map { .init(id: $0.id, name: $0.name, aliases: $0.aliases) })
-    let id = readsAs(vocabulary, "для \(name)").personId
-    return archived.first { $0.id == id }
-  }
-
-  /// A name behind its marker, read by the line's own rules against `vocabulary` alone.
-  private func readsAs(_ vocabulary: ParserVocabulary, _ phrase: String) -> ParsedInput {
-    InputLineParser(vocabulary: vocabulary, calendar: calendar)
-      .parse(phrase, today: calendar.day(of: Date()))
   }
 
   /// Runs a write of a new name; a refusal goes to the journal with its type, never the name.

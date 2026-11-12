@@ -1270,9 +1270,9 @@ extension EntryDraftModelTests {
   }
 
   /// An archived name is not read by the line — archiving is how a name stops matching — so
-  /// «в Пятёрочке» is offered to «Add…». What it adds is the archived place itself, back from the
-  /// archive with its history, not a second «Пятёрочка»: nothing else can bring it back.
-  func testANameOfAnArchivedPlaceOrPersonBringsThatOneBack() throws {
+  /// «в Пятёрочке» is offered to «Add…». What it adds is a new place: the archived one stays
+  /// archived until the owner chooses to bring it back (the notice offers it).
+  func testANameOfAnArchivedPlaceOrPersonAddsANewOne() throws {
     let place = Place(name: "Пятёрочка", archived: true)
     let person = Person(name: "Аня", aliases: ["Анюта"], archived: true)
     try references.save(place)
@@ -1286,21 +1286,18 @@ extension EntryDraftModelTests {
     model.apply(parsed, amount: AmountE4(whole: 120), today: today)
 
     let offeredPlace = try XCTUnwrap(model.suggestedPlaceName)
-    XCTAssertEqual(model.createPlace(named: offeredPlace), place.id)
-    XCTAssertEqual(try references.places(includeArchived: true).map(\.id), [place.id])
-    XCTAssertEqual(model.places.map(\.name), ["Пятёрочка"])
+    let newPlace = try XCTUnwrap(model.createPlace(named: offeredPlace))
+    XCTAssertNotEqual(newPlace, place.id)
+    XCTAssertEqual(try references.places(includeArchived: true).count, 2)
+    XCTAssertEqual(try references.places().map(\.id), [newPlace])
     XCTAssertEqual(model.draft.note, "молоко для Анюты")
 
     let offeredPerson = try XCTUnwrap(model.suggestedPersonName)
-    XCTAssertEqual(model.createPerson(named: offeredPerson), person.id)
-    XCTAssertEqual(try references.people(includeArchived: true).map(\.id), [person.id])
-    XCTAssertEqual(model.people.map(\.name), ["Аня"])
+    let newPerson = try XCTUnwrap(model.createPerson(named: offeredPerson))
+    XCTAssertNotEqual(newPerson, person.id)
+    XCTAssertEqual(try references.people(includeArchived: true).count, 2)
+    XCTAssertEqual(try references.people().map(\.id), [newPerson])
     XCTAssertEqual(model.draft.note, "молоко")
-
-    // A name no archived row answers to is still a new one.
-    let other = try XCTUnwrap(model.createPlace(named: "Магнит"))
-    XCTAssertNotEqual(other, place.id)
-    XCTAssertEqual(try references.places().count, 2)
   }
 }
 

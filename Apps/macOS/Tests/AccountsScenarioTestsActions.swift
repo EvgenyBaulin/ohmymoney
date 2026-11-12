@@ -222,7 +222,7 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
       .refused(.emptyName))
   }
 
-  func testTheNameOfAnArchivedAccountOffersItBack() async throws {
+  func testTheNameOfAnArchivedAccountAllowsANewIdentity() async throws {
     try await make(PaymentMethod(name: "Главный", isDefault: true))
     let old = try await make(PaymentMethod(name: "Старый"))
     let books = try await freshBooks()
@@ -230,7 +230,7 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
     let again = try await freshBooks()
     XCTAssertEqual(
       accounts.save(PaymentMethod(name: "старый"), previous: nil, books: again),
-      .refused(.inArchive(old.id)))
+      .done)
   }
 
   func testAnotherNameTakenByAnotherAccountIsTold() async throws {
@@ -378,7 +378,7 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
     XCTAssertFalse(try account(full.id).archived)
   }
 
-  func testAnArchivedAccountsNameIsNeverTakenByARename() async throws {
+  func testAnArchivedAccountsNameIsAvailableForARename() async throws {
     try await make(PaymentMethod(name: "Главный", isDefault: true))
     let old = try await make(PaymentMethod(name: "Альфа"), bank: "Банк А")
     var books = try await freshBooks()
@@ -387,8 +387,8 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
     var renamed = beta
     renamed.name = "АЛЬФА"
     books = try await freshBooks()
-    XCTAssertEqual(accounts.save(renamed, previous: beta, books: books), .refused(.nameTaken))
-    XCTAssertEqual(accounts.restore(old.id), .done, "so the old account always comes back")
+    XCTAssertEqual(accounts.save(renamed, previous: beta, books: books), .done)
+    XCTAssertEqual(accounts.restore(old.id), .refused(.nameTaken), "live names remain unique")
   }
 
   func testARestoredAccountIsNotMainAndBringsItsBankBack() async throws {

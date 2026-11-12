@@ -83,17 +83,22 @@ final class AccountMergeFlowTests: XCTestCase {
     let total3 = try await liveTotal(.rub)
     XCTAssertEqual(total3, AmountE4(whole: 1_500))
 
+    XCTAssertEqual(actions.restore(tinkoff.id), .refused(.nameTaken))
+    var renamed = try stored(tbank.id)
+    renamed.aliases.removeAll { $0 == "Тинькофф" || $0 == "тинек" }
+    let renamingBooks = try await freshBooks()
+    XCTAssertEqual(
+      actions.save(renamed, previous: try stored(tbank.id), books: renamingBooks), .done)
     XCTAssertEqual(actions.restore(tinkoff.id), .done)
     let back = try await freshBooks()
     XCTAssertEqual(balance(back, tinkoff.id, .rub), .zero, "it comes back empty")
     let total4 = try await liveTotal(.rub)
     XCTAssertEqual(total4, AmountE4(whole: 1_500), "«Всего» does not change")
-    XCTAssertEqual(try stored(tbank.id).aliases, [], "its name goes back to it")
+    XCTAssertEqual(try stored(tbank.id).aliases, [], "the explicit edit freed its name")
   }
 
-  /// The other names of the account merged away go back with it too: after «Вернуть» each
-  /// name is on one account only, and both accounts save as before.
-  func testBringingAMergedAccountBackTakesItsOtherNamesBack() async throws {
+  /// Restoring never steals aliases: an explicit edit frees them before both accounts return.
+  func testBringingAMergedAccountBackNeedsAnExplicitChoiceForOccupiedNames() async throws {
     let tbank = try account("Т-Банк", main: true, aliases: ["тбанк"])
     let tinkoff = try account("Тинькофф", aliases: ["тинек"])
 
@@ -102,6 +107,12 @@ final class AccountMergeFlowTests: XCTestCase {
     XCTAssertEqual(actions.merge(preview), .done)
     XCTAssertEqual(try stored(tbank.id).aliases, ["тбанк", "Тинькофф", "тинек"])
 
+    XCTAssertEqual(actions.restore(tinkoff.id), .refused(.nameTaken))
+    var renamed = try stored(tbank.id)
+    renamed.aliases.removeAll { $0 == "Тинькофф" || $0 == "тинек" }
+    let renamingBooks = try await freshBooks()
+    XCTAssertEqual(
+      actions.save(renamed, previous: try stored(tbank.id), books: renamingBooks), .done)
     XCTAssertEqual(actions.restore(tinkoff.id), .done)
     XCTAssertEqual(try stored(tbank.id).aliases, ["тбанк"], "its own other names stay")
     XCTAssertEqual(try stored(tinkoff.id).aliases, ["тинек"])

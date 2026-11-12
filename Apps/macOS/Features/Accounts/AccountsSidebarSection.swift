@@ -123,6 +123,7 @@ struct AccountsSidebarSection: View {
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: snapshot.inSummaryTotalRub.map { environment.money.rounded($0) } ?? "—")
           .monospacedDigit()
+          .sidebarAmount()
         if compute.snapshot?.coveredAccounts?.partHidden == true { partHiddenNote }
         if !missing.isEmpty {
           Text(
@@ -190,6 +191,7 @@ struct AccountsSidebarSection: View {
         Text(verbatim: section.totalRub.map { environment.money.rounded($0) } ?? "—")
           .appFont(AccountsSidebarMetrics.figure)
           .foregroundStyle(.secondary)
+          .sidebarAmount()
         if compute.snapshot?.coveredAccounts?.isPartHidden(section) == true { partHiddenNote }
         if section.totalRub != nil, !section.withoutRate.isEmpty {
           // Money the total leaves out for want of a rate is named, not dropped in silence.
@@ -213,32 +215,12 @@ struct AccountsSidebarSection: View {
       line.account.isBorrowed
       ? borrowedFigure(line.account)
       : SidebarFigure.of(line, money: environment.money, words: t, withoutRate: withoutRate)
-    return HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
-      // The colour of the account as a dot, grey when it has none; the name stands beside it.
-      Circle()
-        .fill(line.account.accountAccent?.swatch ?? Color.secondary)
-        .frame(width: AccountsSidebarMetrics.dot, height: AccountsSidebarMetrics.dot)
-        .accessibilityHidden(true)
-      Text(verbatim: line.account.name)
-        .appFont(indented ? AccountsSidebarMetrics.memberName : AccountsSidebarMetrics.looseName)
-        .lineLimit(1)
-        // The main account is told in words to VoiceOver.
-        .accessibilityValue(
-          line.account.isDefault ? Text(verbatim: t("accounts.main")) : Text(verbatim: ""))
-      Spacer(minLength: 4)
-      VStack(alignment: .trailing, spacing: 0) {
-        Text(verbatim: figure.main)
-          .appFont(AccountsSidebarMetrics.figure)
-          .foregroundStyle(.secondary)
-        if let caption = figure.caption {
-          Text(verbatim: caption)
-            .appFont(.caption)
-            .monospacedDigit()
-            .foregroundStyle(.secondary)
-            .lineLimit(1)
-        }
-      }
-    }
+    return SidebarAccountRowBody(
+      name: line.account.name, nameFont: indented
+        ? AccountsSidebarMetrics.memberName : AccountsSidebarMetrics.looseName,
+      dot: line.account.accountAccent?.swatch ?? Color.secondary,
+      isMain: line.account.isDefault, main: figure.main, caption: figure.caption,
+      mainLabel: t("accounts.main"))
     .padding(.leading, indented ? AccountsSidebarMetrics.memberIndent : 0)
     .tag(SidebarItem.account(line.account.id))
     .moveDisabled(line.account.isDefault)
@@ -767,6 +749,56 @@ private struct AccountsSidebarPresentations: ViewModifier {
 /// a group — its 9 pt chevron, the name 14 semibold, the total 12 in the secondary ink; an
 /// account of a group — a 9 pt dot of its colour 18 further in, the name 13; an account of no
 /// group — the dot and the name 14 medium; 9 between the parts.
+extension View {
+  /// A figure of the sidebar is one line and always whole: a long name beside it gives way, the
+  /// figure never wraps its currency sign onto a second line.
+  func sidebarAmount() -> some View {
+    lineLimit(1).fixedSize(horizontal: true, vertical: false)
+  }
+}
+
+/// The content of an account's row in the sidebar: the colour dot, the name that takes what
+/// room is left (and is cut at its end), and the figure with its caption at the right.
+struct SidebarAccountRowBody: View {
+  let name: String
+  let nameFont: AppFont
+  let dot: Color
+  let isMain: Bool
+  let main: String
+  let caption: String?
+  let mainLabel: String
+
+  var body: some View {
+    HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
+      // The colour of the account as a dot, grey when it has none; the name stands beside it.
+      Circle()
+        .fill(dot)
+        .frame(width: AccountsSidebarMetrics.dot, height: AccountsSidebarMetrics.dot)
+        .accessibilityHidden(true)
+      Text(verbatim: name)
+        .appFont(nameFont)
+        .lineLimit(1)
+        // The main account is told in words to VoiceOver.
+        .accessibilityValue(isMain ? Text(verbatim: mainLabel) : Text(verbatim: ""))
+      Spacer(minLength: 4)
+      VStack(alignment: .trailing, spacing: 0) {
+        Text(verbatim: main)
+          .appFont(AccountsSidebarMetrics.figure)
+          .foregroundStyle(.secondary)
+          .sidebarAmount()
+          .accessibilityIdentifier("sidebar.row.figure")
+        if let caption {
+          Text(verbatim: caption)
+            .appFont(.caption)
+            .monospacedDigit()
+            .foregroundStyle(.secondary)
+            .lineLimit(1)
+        }
+      }
+    }
+  }
+}
+
 enum AccountsSidebarMetrics {
   static let dot: CGFloat = 9
   static let gap: CGFloat = 9

@@ -5,6 +5,11 @@ import SwiftUI
 /// written in full even when the interface hides it; without, no line carries an amount at all.
 enum SummaryShare {
   @MainActor
+  static func asksAboutAmounts(_ environment: AppEnvironment) -> Bool {
+    environment.amounts.isHidingNow
+  }
+
+  @MainActor
   static func page(
     for content: SummaryContent, id: SummaryID, snapshot: DataSnapshot,
     environment: AppEnvironment, withAmounts: Bool
@@ -58,7 +63,7 @@ struct SummaryShareMenu: View {
   var body: some View {
     Menu {
       Button(t("summaries.pdf")) {
-        if environment.amounts.hidesAmounts {
+        if SummaryShare.asksAboutAmounts(environment) {
           askingAboutAmounts = true
         } else {
           preparePDF(withAmounts: true)

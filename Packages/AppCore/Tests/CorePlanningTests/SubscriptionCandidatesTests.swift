@@ -55,7 +55,7 @@ struct SubscriptionCandidatesTests {
     for iso in ["2026-01-10", "2026-02-10", "2026-03-10", "2026-04-10"] {
       add(iso, "100", note: "Old service")
     }
-    // Already a payment by name.
+    // A namesake of a payment: still offered, so the owner can decide.
     for iso in ["2026-06-07", "2026-07-07", "2026-08-07", "2026-09-07"] {
       add(iso, "799", note: "Video")
     }
@@ -101,6 +101,10 @@ struct SubscriptionCandidatesTests {
           key: "swimming pool", placeId: nil, categoryId: nil, currency: .rub,
           typicalAmount: Fx.money("500"), freq: .weekly, occurrences: 4,
           lastDay: Fx.day("2026-09-19")),
+        SubscriptionCandidate(
+          key: "video", placeId: nil, categoryId: nil, currency: .rub,
+          typicalAmount: Fx.money("799"), freq: .monthly, occurrences: 4,
+          lastDay: Fx.day("2026-09-07")),
       ])
   }
 
@@ -153,5 +157,21 @@ struct SubscriptionCandidatesTests {
     #expect(SubscriptionCandidates.normalized("  Music   Service 09/2026 ") == "music service /")
     #expect(SubscriptionCandidates.normalized("2026") == nil)
     #expect(SubscriptionCandidates.normalized(nil) == nil)
+  }
+
+  @Test func aNamesakeIsOfferedEvenWithTheSameCategoryAndPrice() {
+    let entries = ["2026-06-07", "2026-07-07", "2026-08-07", "2026-09-07"]
+      .enumerated().map {
+        Fx.operation($0.offset + 1, $0.element, "799", note: "елка", category: internet)
+      }
+    for active in [true, false] {
+      let book = PlanningBook(scheduled: [
+        ScheduledPayment(
+          name: " Ёлка ", amountE4: Fx.money("799"), categoryId: internet, day: 7, active: active)
+      ])
+      let found = SubscriptionCandidates.find(
+        ledger: Fx.ledger(entries, book: book), book: book, today: today)
+      #expect(found.map(\.key) == ["елка"])
+    }
   }
 }

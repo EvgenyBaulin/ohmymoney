@@ -189,104 +189,94 @@ final class ReferenceBooksTests: XCTestCase {
       anya.id)
   }
 
-  /// A person or a place whose name a live row has taken while it was in the archive stays
-  /// there: two rows the entry line cannot tell apart are never live together.
-  func testARowWhoseNameIsTakenStaysInTheArchive() throws {
+  /// A person or a place whose name a live row has taken while it was in the archive still
+  /// comes back when asked: the screen advises renaming, it never refuses for the name.
+  func testARowWhoseNameIsTakenStillComesBackWhenAsked() throws {
     let old = Place(name: "Магнит", archived: true)
     let live = Place(name: "магнит")
     try references.save(old)
     try references.save(live)
-    XCTAssertEqual(actions.restore(old.id, in: .places), .nameTaken)
-    XCTAssertEqual(try references.places().map(\.id), [live.id])
+    XCTAssertEqual(actions.restore(old.id, in: .places), .done)
+    XCTAssertEqual(Set(try references.places().map(\.id)), [live.id, old.id])
     XCTAssertEqual(actions.restore(UUID(), in: .places), .gone)
   }
 
   // MARK: Adding
 
-  /// «Добавить» with a name the archive holds — as its name or an other name — brings that row
-  /// back instead of making a second one of the same name.
-  func testAddingANameTheArchiveHoldsBringsTheRowBack() throws {
+  /// «Добавить» with a name the archive holds — as its name or an other name — makes a new row
+  /// and leaves the archived one where it is: bringing it back is the owner's choice.
+  func testAddingANameTheArchiveHoldsMakesANewRow() throws {
     let anya = Person(name: "Аня", relation: .family, aliases: ["Анечка"], archived: true)
     let shop = Place(name: "Пятёрочка", aliases: ["5ка"], archived: true)
     try references.save(anya)
     try references.save(shop)
 
-    XCTAssertEqual(actions.add(" аня ", to: .people), anya.id)
-    XCTAssertEqual(try references.people(includeArchived: true).count, 1, "no second «Аня»")
-    XCTAssertEqual(try references.people().first?.relation, .family)
-    XCTAssertEqual(actions.add("5КА", to: .places), shop.id, "an other name brings it back too")
+    let newAnya = try XCTUnwrap(actions.add(" аня ", to: .people))
+    XCTAssertNotEqual(newAnya, anya.id)
+    XCTAssertEqual(try references.people(includeArchived: true).count, 2)
+    XCTAssertEqual(try references.people().map(\.id), [newAnya], "the archived «Аня» came back")
+    let newShop = try XCTUnwrap(actions.add("5КА", to: .places))
+    XCTAssertNotEqual(newShop, shop.id)
+    XCTAssertEqual(try references.places(includeArchived: true).count, 2)
 
     let olya = try XCTUnwrap(actions.add("Оля", to: .people))
     XCTAssertNotEqual(olya, anya.id)
     XCTAssertEqual(try references.people().count, 2)
   }
 
-  /// A yearly event is made again every year under the same name, so an event comes back only
-  /// when the days asked for meet its own; otherwise «Добавить» makes a new one.
-  func testAnEventComesBackOnlyForItsOwnDays() throws {
-    let long = Event(
-      name: "Отпуск", startDate: today.adding(days: -400), endDate: today.adding(days: -390),
-      archived: true)
+  /// Events share names by design, and an archived one with meeting days never comes back by
+  /// itself either.
+  func testAddingAnEventNameAlwaysMakesANewEvent() throws {
     let now = Event(name: "Праздник", startDate: today, endDate: today, archived: true)
-    try references.save(long)
     try references.save(now)
 
-    let trip = try XCTUnwrap(actions.add("отпуск", to: .events))
-    XCTAssertNotEqual(trip, long.id, "a trip of another year is another trip")
-    XCTAssertEqual(actions.add("праздник", to: .events), now.id)
+    let again = try XCTUnwrap(actions.add("праздник", to: .events))
+    XCTAssertNotEqual(again, now.id)
+    XCTAssertEqual(try references.events().map(\.id), [again])
   }
 
-  /// The General tab adds people by the same rule: a taken name is refused, an archived one
-  /// comes back.
+  /// The General tab and the books compare names one way, and neither refuses a namesake.
   func testTheGeneralTabAndTheBooksShareOneRule() throws {
     let anya = Person(name: "Аня", aliases: ["Анечка"])
     XCTAssertTrue(ReferenceNames.isTaken("анечка", among: [anya].map(ReferenceNames.spellings)))
     XCTAssertFalse(ReferenceNames.isTaken("Оля", among: [anya].map(ReferenceNames.spellings)))
-    XCTAssertFalse(ReferenceBooksView.canAdd("АНЯ", to: .people, people: [anya], places: []))
+    XCTAssertTrue(ReferenceBooksView.canAdd("АНЯ", to: .people, people: [anya], places: []))
     XCTAssertTrue(ReferenceBooksView.canAdd("Оля", to: .people, people: [anya], places: []))
   }
 
-  /// The General tab brings a person back by an other name too, as the books do, and «Добавить»
-  /// there writes him back rather than a second row.
-  func testTheGeneralTabBringsAPersonBackByAnOtherName() throws {
+  /// The General tab writes a new person for a name the archive holds, by an other name too.
+  func testTheGeneralTabAddsANewPersonBesideTheArchivedOne() throws {
     let boris = Person(name: "Борис", relation: .family, aliases: ["Боря"], archived: true)
     try references.save(boris)
-    let back = try XCTUnwrap(GeneralSettingsView.person(toAdd: " боря ", among: [boris]))
-    XCTAssertEqual(back.id, boris.id, "a second person was made beside the archived one")
-    XCTAssertFalse(back.archived)
-    XCTAssertEqual(back.relation, .family)
+    let added = try XCTUnwrap(GeneralSettingsView.person(toAdd: " боря ", among: [boris]))
+    XCTAssertNotEqual(added.id, boris.id, "the archived person came back without being asked")
+    XCTAssertEqual(added.name, "боря")
+    XCTAssertFalse(added.archived)
+    XCTAssertEqual(added.relation, .other)
   }
 
-  /// «Имя, уже занятое, не добавляется: два человека с одним именем — две строки,
-  /// которые строка ввода не различит». A name the archive holds may be added: it comes back.
-  func testANameTheEntryLineAlreadyAnswersToIsNotAddedAgain() {
+  /// A name that says something is always added: the entry line may not tell two rows of one
+  /// name apart, so the screen advises renaming, but nothing is refused.
+  func testANameTheEntryLineAlreadyAnswersToIsStillAdded() {
     let anya = Person(name: "Аня", aliases: ["Анечка"])
-    let alena = Person(name: "Алена")
     let olya = Person(name: "Оля", archived: true)
     let shop = Place(name: "Пятёрочка", aliases: ["пятерка"])
     func canAdd(_ name: String, to book: ReferenceBooksView.Book) -> Bool {
-      ReferenceBooksView.canAdd(name, to: book, people: [anya, alena, olya], places: [shop])
+      ReferenceBooksView.canAdd(name, to: book, people: [anya, olya], places: [shop])
     }
 
-    XCTAssertFalse(canAdd("аня", to: .people), "a second «Аня» was added")
-    XCTAssertFalse(canAdd("  Анечка ", to: .people), "a name already an other name was added")
-    XCTAssertFalse(canAdd("Алёна", to: .people), "«ё» and «е» are one letter to the entry line")
-    XCTAssertFalse(canAdd("пятерочка", to: .places))
-    XCTAssertFalse(canAdd("Пятерка", to: .places), "an other name of a place")
-
-    XCTAssertTrue(canAdd("оля", to: .people), "the archive holds it: «Добавить» brings it back")
-    XCTAssertTrue(canAdd("Коля", to: .people))
-    XCTAssertTrue(canAdd("Аня", to: .places), "the books are apart: a place may share a name")
-    XCTAssertFalse(canAdd("   ", to: .people), "an empty name")
-    // A yearly event is made again under the same name each year (`rolloverYearlyEvents`),
-    // so a name shared by events is the rule there, not a mistake.
+    for name in ["аня", "  Анечка ", "Алёна", "оля", "Коля"] {
+      XCTAssertTrue(canAdd(name, to: .people), name)
+    }
+    XCTAssertTrue(canAdd("пятерочка", to: .places))
     XCTAssertTrue(canAdd("Отпуск", to: .events))
+    XCTAssertFalse(canAdd("   ", to: .people), "an empty name")
   }
 
   // MARK: Names
 
-  /// A rename is checked against every name and other name of the other live rows, and an
-  /// empty name is refused; a row keeps its own names, and events may share a name.
+  /// A rename is refused for an empty name and for an other name another live row answers to;
+  /// a name shared with another row only gets advice, and events may share a name.
   func testARenameIsCheckedAgainstTheOtherRows() {
     let anya = Person(name: "Аня", aliases: ["Анечка"])
     let petya = Person(name: "Петя", aliases: ["Петруша"])
@@ -298,7 +288,7 @@ final class ReferenceBooksTests: XCTestCase {
     }
 
     XCTAssertEqual(refusal("  "), .emptyName)
-    XCTAssertEqual(refusal("анечка"), .nameTaken("Аня"))
+    XCTAssertNil(refusal("анечка"), "a namesake is advised about, not refused")
     XCTAssertEqual(refusal("Пётр", ["Петруша", "АНЯ"]), .otherNameTaken("АНЯ", "Аня"))
     XCTAssertNil(refusal("Петруша", ["Петя"]), "its own names are its own")
     XCTAssertNil(refusal("Оля"), "an archived row's name is free until it comes back")
@@ -516,26 +506,32 @@ final class ReferenceBooksTests: XCTestCase {
     XCTAssertEqual(model.draft.paymentMethodId, kaspi.id)
   }
 
-  /// A name an archived account has brings that account back, not a second one.
-  func testAnArchivedAccountNamedInThePanelComesBack() throws {
+  /// A name an archived account has still makes a new account: the sheet says there is one in
+  /// the archive, and bringing it back is done in Settings.
+  func testAnArchivedAccountNamedInThePanelIsNotBroughtBack() throws {
     try references.save(PaymentMethod(name: "Сбер", isDefault: true))
     let old = PaymentMethod(name: "Тинькофф", aliases: ["тинек"], archived: true)
     try references.save(old)
     let model = panel()
     var sheet = NewRecordForm(kind: .paymentMethod, model: model, today: today)
     sheet.name = "ТИНЕК"
-    XCTAssertNil(sheet.refusalKey(in: model), "an archived name is not taken")
+    XCTAssertNil(sheet.refusalKey(in: model))
+    XCTAssertEqual(
+      sheet.accountAdviceKey(in: model, all: try references.paymentMethods(includeArchived: true)),
+      "entry.add.accountInArchive")
 
     XCTAssertTrue(sheet.save(into: model, today: today, context: context()))
-    XCTAssertEqual(try references.paymentMethods(includeArchived: true).count, 2)
-    XCTAssertEqual(try references.paymentMethods().map(\.name).sorted(), ["Сбер", "Тинькофф"])
-    XCTAssertEqual(model.draft.paymentMethodId, old.id)
+    XCTAssertEqual(try references.paymentMethods(includeArchived: true).count, 3)
+    XCTAssertEqual(try references.paymentMethods().map(\.name).sorted(), ["Сбер", "ТИНЕК"])
+    XCTAssertNotEqual(model.draft.paymentMethodId, old.id)
+    XCTAssertEqual(
+      try references.paymentMethods(includeArchived: true).first { $0.id == old.id }?.archived,
+      true)
   }
 
-  /// «Добавить…» of a place, a person or a debtor brings a row back by the rules of the books:
-  /// its other names a live row took meanwhile are dropped, so one name is never on two live
-  /// rows.
-  func testThePanelBringsAPlaceAndAPersonBackByTheRulesOfTheBooks() throws {
+  /// «Добавить…» of a place, a person or a debtor writes a new row beside the archived one of
+  /// the name, and touches neither it nor the other names of a live row.
+  func testThePanelAddsAPlaceAndAPersonBesideTheArchivedOnes() throws {
     let old = Place(name: "Пятёрочка", aliases: ["5ка", "пятёра"], archived: true)
     let magnit = Place(name: "Магнит", aliases: ["5ка"])
     let anya = Person(name: "Аня", aliases: ["Анечка"], archived: true)
@@ -549,88 +545,57 @@ final class ReferenceBooksTests: XCTestCase {
     var place = NewRecordForm(kind: .place, model: model, today: today)
     place.name = "Пятёрочка"
     XCTAssertTrue(place.save(into: model, today: today, context: context()))
-    XCTAssertEqual(model.draft.placeId, old.id, "a second «Пятёрочка» was made")
-    let back = try XCTUnwrap(try references.places().first { $0.id == old.id })
-    XCTAssertEqual(back.aliases, ["пятёра"], "two live places answer to «5ка»")
+    XCTAssertNotEqual(model.draft.placeId, old.id)
+    XCTAssertEqual(
+      try references.places(includeArchived: true).first { $0.id == old.id }?.archived, true)
+    XCTAssertEqual(try references.places(includeArchived: true).count, 3)
 
     var person = NewRecordForm(kind: .person(part: 0), model: model, today: today)
     person.name = "аня"
     XCTAssertTrue(person.save(into: model, today: today, context: context()))
-    XCTAssertEqual(model.draft.parts[0].forPersonId, anya.id)
-    XCTAssertEqual(try references.people().first { $0.id == anya.id }?.aliases, [])
+    XCTAssertNotEqual(model.draft.parts[0].forPersonId, anya.id)
+    XCTAssertEqual(
+      try references.people(includeArchived: true).first { $0.id == anya.id }?.archived, true)
 
-    try references.archive(anya.id, in: .people)
     model.reload()
     model.markLastPartPaidForSomeone()
     var debtor = NewRecordForm(kind: .debtor(part: 1), model: model, today: today)
-    debtor.name = "Аня"
+    debtor.name = "Аня "
     XCTAssertTrue(debtor.save(into: model, today: today, context: context()))
-    XCTAssertEqual(model.draft.parts[1].debtorPersonId, anya.id)
-    XCTAssertEqual(try references.people().count, 2)
+    XCTAssertEqual(try references.people().count, 3, "olya and two new «Аня»")
   }
 
-  /// «Добавить…» of a category the archive holds under that name — of the kind of the
-  /// operation, beside the same parent — brings it back rather than a second one that would
-  /// split the reports in two.
-  func testAnArchivedCategoryNamedInThePanelComesBack() throws {
+  /// «Добавить…» of a category the archive holds under that name writes a new one; the
+  /// archived one stays archived until the owner brings it back from the notice.
+  func testACategoryNamedInThePanelIsNewBesideTheArchivedOne() throws {
     let cafe = CoreKit.Category(kind: .expense, name: "Кафе", archived: true, quality: .bad)
     let food = CoreKit.Category(kind: .expense, name: "Еда", quality: .neutral)
     let pizza = CoreKit.Category(parentId: food.id, kind: .expense, name: "Пицца", archived: true)
-    let salary = CoreKit.Category(kind: .income, name: "Кафе", archived: true)
-    for category in [cafe, food, pizza, salary] { try references.save(category) }
+    for category in [cafe, food, pizza] { try references.save(category) }
     let model = panel()
 
     var sheet = NewRecordForm(kind: .category(part: 0), model: model, today: today)
     sheet.name = "кафе"
-    XCTAssertNil(sheet.refusalKey(in: model), "an archived name is not taken")
+    XCTAssertNil(sheet.refusalKey(in: model))
     XCTAssertTrue(sheet.save(into: model, today: today, context: context()))
-    XCTAssertEqual(model.draft.parts[0].categoryId, cafe.id, "a second «Кафе» was made")
+    XCTAssertNotEqual(model.draft.parts[0].categoryId, cafe.id)
     let all = try references.categories(includeArchived: true)
     XCTAssertEqual(all.filter { ReferenceNames.folded($0.name) == "кафе" }.count, 2)
-    XCTAssertEqual(all.first { $0.id == cafe.id }?.archived, false)
-    XCTAssertEqual(all.first { $0.id == salary.id }?.archived, true, "the income one came back")
+    XCTAssertEqual(all.first { $0.id == cafe.id }?.archived, true)
 
     model.setCategory(food.id, forPartAt: 0)
     var sub = NewRecordForm(kind: .subcategory(part: 0), model: model, today: today)
     sub.name = "ПИЦЦА"
     XCTAssertTrue(sub.save(into: model, today: today, context: context()))
-    XCTAssertEqual(try references.categories().first { $0.id == pizza.id }?.archived, false)
+    XCTAssertEqual(try references.categories().first { $0.id == pizza.id }, nil)
     XCTAssertEqual(
       try references.categories(includeArchived: true)
-        .filter { ReferenceNames.folded($0.name) == "пицца" }.count,
-      1, "a second «Пицца» was made")
+        .filter { ReferenceNames.folded($0.name) == "пицца" }.count, 2)
   }
 
-  /// An account in the archive that cannot come back — a live group took the name of its group
-  /// — is said in words, not as «try again»; and the words are the account's, never those of an
-  /// earlier failure of another kind.
-  func testAnAccountThatCannotComeBackSaysWhy() throws {
-    try references.save(PaymentMethod(name: "Сбер", isDefault: true))
-    let oldGroup = AccountGroup(name: "Казахстан", archived: true)
-    let liveGroup = AccountGroup(name: "казахстан")
-    let kaspi = PaymentMethod(name: "Kaspi", archived: true, groupId: oldGroup.id)
-    XCTAssertTrue(
-      store.apply(
-        PlanningChange(
-          upsert: PlanningRows(accountGroups: [oldGroup, liveGroup], paymentMethods: [kaspi]))))
-    let model = panel()
-    _ = model.createPlace(named: "Пятёрочка", saving: { _ in throw CancellationError() })
-    XCTAssertEqual(model.creationFailureKey, "entry.error.placeNotCreated")
-
-    var sheet = NewRecordForm(kind: .paymentMethod, model: model, today: today)
-    sheet.name = "kaspi"
-    XCTAssertEqual(
-      sheet.commit(into: model, today: today, context: context()),
-      .accountNotBack("Kaspi", .groupNameTaken))
-    environment.language.choice = .russian
-    let words = NewRecordForm.Failure.accountNotBack("Kaspi", .groupNameTaken).text(environment)
-    XCTAssertTrue(words.contains("Kaspi") && words.contains("Группа"), words)
-    XCTAssertFalse(words.contains("entry."), words)
-    XCTAssertEqual(try references.paymentMethods().map(\.name), ["Сбер"])
-  }
-
-  /// An event named in the panel comes back from the archive when its days meet the sheet's.
-  func testAnArchivedEventNamedInThePanelComesBackForItsDays() throws {
+  /// An event named in the panel is a new event, even when an archived one has the name and
+  /// its days meet the sheet's.
+  func testAnEventNamedInThePanelIsNewBesideTheArchivedOne() throws {
     let trip = Event(name: "Отпуск", startDate: today, endDate: today, archived: true)
     try references.save(trip)
     let model = panel()
@@ -638,7 +603,8 @@ final class ReferenceBooksTests: XCTestCase {
     sheet.name = "отпуск"
 
     XCTAssertTrue(sheet.save(into: model, today: today, context: context()))
-    XCTAssertEqual(model.draft.parts[0].eventId, trip.id)
-    XCTAssertEqual(try references.events().map(\.id), [trip.id])
+    XCTAssertNotEqual(model.draft.parts[0].eventId, trip.id)
+    XCTAssertEqual(try references.events().count, 1)
+    XCTAssertEqual(try references.events(includeArchived: true).count, 2)
   }
 }

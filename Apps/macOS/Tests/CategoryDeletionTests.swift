@@ -230,9 +230,9 @@ final class CategoryDeletionTests: XCTestCase {
   }
 
   /// «Добавить» in Settings → Категории with the name of a category in the archive — «kites»
-  /// for «Kites», beside the same parent — brings that category back rather than making a
-  /// second one; a subcategory comes back under its own parent only.
-  func testAddingTheNameOfAnArchivedCategoryBringsItBack() throws {
+  /// for «Kites», beside the same parent — makes a new category and leaves the archived one
+  /// where it is; bringing it back is the owner's choice.
+  func testAddingTheNameOfAnArchivedCategoryMakesANewOne() throws {
     var kites = try makeCategory("Kites")
     kites.archived = true
     try references.save(kites)
@@ -241,20 +241,18 @@ final class CategoryDeletionTests: XCTestCase {
     rent.archived = true
     try references.save(rent)
 
-    XCTAssertEqual(
-      CategoriesSettingsView.add(
+    guard
+      case .added(let newKites) = CategoriesSettingsView.add(
         named: "kites", kind: .expense, parent: nil, references: references),
-      .added(kites.id))
-    XCTAssertEqual(
-      CategoriesSettingsView.add(
-        named: "rent", kind: .expense, parent: home.id, references: references),
-      .added(rent.id))
+      case .added(let newRent) = CategoriesSettingsView.add(
+        named: "rent", kind: .expense, parent: home.id, references: references)
+    else { return XCTFail("a namesake stopped «Добавить»") }
+    XCTAssertNotEqual(newKites, kites.id)
+    XCTAssertNotEqual(newRent, rent.id)
     let all = try references.categories(includeArchived: true)
-    XCTAssertEqual(
-      all.filter { $0.name.lowercased() == "kites" }.map(\.id), [kites.id],
-      "a second «Kites» was made")
-    XCTAssertEqual(all.first { $0.id == kites.id }?.archived, false)
-    XCTAssertEqual(all.first { $0.id == rent.id }?.archived, false)
+    XCTAssertEqual(all.filter { $0.name.lowercased() == "kites" }.count, 2)
+    XCTAssertEqual(all.first { $0.id == kites.id }?.archived, true, "the archive was touched")
+    XCTAssertEqual(all.first { $0.id == rent.id }?.archived, true, "the archive was touched")
 
     let income = CategoriesSettingsView.add(
       named: "Kites", kind: .income, parent: nil, references: references)

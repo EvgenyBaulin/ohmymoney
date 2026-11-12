@@ -86,8 +86,14 @@ enum DebtsMetrics {
 struct DebtsBoard: Equatable {
   struct Summary: Equatable {
     var iOwe: AmountE4
-    /// The open debts I owe.
+    /// The open debts I owe, instalment plans included — the tile's count. The group «Я должен»
+    /// lists the others only; the plans have a group of their own, and the tile says how many
+    /// of its count they are.
     var iOweCount: Int
+    var instalmentCount = 0
+    /// Interest charged on the loans and not paid yet, in rubles: not in `iOwe` (the balances
+    /// of the journals), but in what the Capital says I owe — the tile says so under the figure.
+    var accruedRub: AmountE4 = .zero
     var monthly: AmountE4
     /// The nearest due of a debt I owe.
     var nextPayment: DateOnly?
@@ -170,7 +176,9 @@ struct DebtsBoard: Equatable {
   init(overview: DebtsOverview, people: [Person]) {
     let open = overview.iOwe
     summary = Summary(
-      iOwe: overview.totalIOweRub, iOweCount: open.count, monthly: overview.monthlyPaymentsRub,
+      iOwe: overview.totalIOweRub, iOweCount: open.count,
+      instalmentCount: open.filter(\.debt.isInstalmentPlan).count,
+      accruedRub: overview.accruedInterestRub, monthly: overview.monthlyPaymentsRub,
       nextPayment: open.compactMap(\.nextPayment).min(), owedToMe: overview.totalOwedToMeRub,
       peopleCount: overview.owedToMe.count)
     let debts = open.filter { !$0.debt.isInstalmentPlan }.map(Self.card(of:))
@@ -299,5 +307,25 @@ struct DebtsLadderCard: Equatable {
     }
     let saved = bare.interestRub - chosen.interestRub
     interestSaved = bare.freeFrom != nil && saved.raw > 0 ? saved : nil
+  }
+}
+
+extension DebtsBoard.Summary {
+  /// What the «Я должен» tile says under its figure: how many debts, how many of them are
+  /// instalment plans (listed in their own group), and the interest not paid yet that the
+  /// Capital adds to the same debts — so the three screens' figures read as one story.
+  @MainActor func iOweLine(_ environment: AppEnvironment) -> String {
+    var line = environment.language.format(
+      "debts.summary.debts", table: "Debts", counts: iOweCount)
+    if instalmentCount > 0 {
+      line += environment.format("debts.summary.instalments", table: "Debts", instalmentCount)
+    }
+    if accruedRub.raw > 0 {
+      line +=
+        "\n"
+        + environment.format(
+          "debts.summary.accrued", table: "Debts", environment.money.rounded(accruedRub))
+    }
+    return line
   }
 }

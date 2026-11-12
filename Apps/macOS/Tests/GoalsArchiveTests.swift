@@ -68,23 +68,25 @@ final class GoalsArchiveTests: XCTestCase {
       AmountE4(whole: 150_000))
   }
 
-  /// «Сохранить» of a new goal named as one in the archive — «отпуск» for «Отпуск» — saves
-  /// nothing: the form says «Такая цель есть в архиве» and offers «Вернуть» and «Удалить
-  /// старую…». It used to bring the archived goal back silently, and what was typed was lost.
-  func testANewGoalWithTheNameOfAnArchivedOneIsNotSaved() throws {
+  /// «Сохранить» of a new goal named as one in the archive — «отпуск» for «Отпуск» — saves a
+  /// second goal and leaves the archived one alone: the form only advises (renaming, bringing
+  /// the old one back, «Удалить старую…»), and the new goal starts from zero in a subcategory
+  /// of its own.
+  func testANewGoalWithTheNameOfAnArchivedOneIsSavedBesideIt() throws {
     let trip = Goal(name: "Отпуск", targetE4: AmountE4(whole: 100_000), archived: true)
     try references.save(trip)
 
     let typed = Goal(name: "отпуск", targetE4: AmountE4(whole: 50_000))
     let goals = try references.goals(includeArchived: true)
     XCTAssertEqual(GoalForm.namesake(of: typed, isNew: true, among: goals)?.id, trip.id)
-    XCTAssertNil(GoalForm.namesake(of: typed, isNew: false, among: goals), "an edit was stopped")
-    XCTAssertFalse(GoalForm.save(typed, isNew: true, with: actions, references: references))
+    XCTAssertNil(GoalForm.namesake(of: typed, isNew: false, among: goals))
+    XCTAssertTrue(GoalForm.save(typed, isNew: true, with: actions, references: references))
     let all = try references.goals(includeArchived: true)
-    XCTAssertEqual(all.map(\.id), [trip.id], "a second goal of the same name was made")
-    XCTAssertEqual(all.first?.archived, true, "the archived goal came back without being asked")
-    XCTAssertEqual(all.first?.targetE4, AmountE4(whole: 100_000))
-    XCTAssertFalse(store.canUndo, "a step of ⌘Z was left for nothing written")
+    XCTAssertEqual(Set(all.map(\.id)), [trip.id, typed.id])
+    XCTAssertEqual(all.first { $0.id == trip.id }?.archived, true, "the archive was touched")
+    XCTAssertEqual(all.first { $0.id == trip.id }?.targetE4, AmountE4(whole: 100_000))
+    XCTAssertEqual(all.first { $0.id == typed.id }?.archived, false)
+    XCTAssertTrue(store.canUndo)
   }
 
   /// «Вернуть» under the name: the archived goal back as it was — its target, not the one
@@ -163,7 +165,10 @@ final class GoalsArchiveTests: XCTestCase {
       name: "отпуск", targetE4: AmountE4(whole: 150_000),
       targetDate: DateOnly(year: 2027, month: 6, day: 1),
       monthlyPlanE4: AmountE4(whole: 10_000))
-    XCTAssertFalse(GoalForm.save(typed, isNew: true, with: actions, references: references))
+    XCTAssertEqual(
+      GoalForm.namesake(
+        of: typed, isNew: true, among: try references.goals(includeArchived: true))?.id, old.id,
+      "the form lost track of the archived namesake it offers to delete")
 
     XCTAssertEqual(actions.deleteArchived(old), .deleted)
     XCTAssertFalse(try references.goals(includeArchived: true).contains { $0.id == old.id })
@@ -332,10 +337,9 @@ final class GoalsArchiveTests: XCTestCase {
     XCTAssertFalse(store.canUndo, "a step of ⌘Z was left for nothing written")
   }
 
-  /// Nothing comes back while a live goal has the name, and an edit of a saved goal is only
-  /// that edit: the archive is asked about new goals only. A new goal of a live goal's name is
-  /// refused instead (`testALiveGoalNameIsTakenOnce`).
-  func testALiveNameOrAnEditBringsNothingBackFromTheArchive() throws {
+  /// An edit of a saved goal is only that edit, and a new goal never brings an archived one
+  /// back: the archived goal stays where it is until the owner chooses «Вернуть».
+  func testAnEditOrANewGoalBringsNothingBackFromTheArchive() throws {
     let old = Goal(name: "Машина", targetE4: AmountE4(whole: 900_000), archived: true)
     let live = Goal(name: "Машина", targetE4: AmountE4(whole: 1_000_000))
     try references.save(old)
@@ -348,15 +352,17 @@ final class GoalsArchiveTests: XCTestCase {
       try references.goals(includeArchived: true).first { $0.id == old.id }?.archived, true)
 
     let another = Goal(name: "машина", targetE4: AmountE4(whole: 500_000))
-    XCTAssertFalse(GoalForm.save(another, isNew: true, with: actions, references: references))
+    XCTAssertTrue(GoalForm.save(another, isNew: true, with: actions, references: references))
     let all = try references.goals(includeArchived: true)
-    XCTAssertEqual(all.count, 2, "a goal was made beside a live one of its name")
+    XCTAssertEqual(all.count, 3, "a namesake stopped the save or replaced a goal")
     XCTAssertEqual(all.first { $0.id == old.id }?.archived, true)
   }
 
-  /// A live goal's name is taken once: a new goal of it, a rename to it and an archived goal
-  /// brought back under it are all refused, nothing is written and no step of ⌘Z is left.
-  func testALiveGoalNameIsTakenOnce() throws {
+  /// A live goal is saved, renamed and brought back under a name another live goal has: the
+  /// form advises, nothing is refused, each write is one step of ⌘Z, and no goal loses
+  /// its identity.
+  func testALiveGoalNameNeverStopsASave() async throws {
+    try await show()
     let live = Goal(name: "Машина", targetE4: AmountE4(whole: 1_000_000))
     let other = Goal(name: "Дача", targetE4: AmountE4(whole: 300_000))
     let old = Goal(name: "ОТПУСК", targetE4: AmountE4(whole: 90_000), archived: true)
@@ -364,27 +370,22 @@ final class GoalsArchiveTests: XCTestCase {
     for goal in [live, other, old, tripNow] { try references.save(goal) }
 
     let again = Goal(name: " машина ", targetE4: AmountE4(whole: 500_000))
-    XCTAssertEqual(GoalForm.liveNamesake(of: again, among: try references.goals())?.id, live.id)
-    XCTAssertFalse(GoalForm.save(again, isNew: true, with: actions, references: references))
+    XCTAssertTrue(GoalForm.save(again, isNew: true, with: actions, references: references))
 
     var renamed = other
     renamed.name = "МАШИНА"
-    XCTAssertEqual(GoalForm.liveNamesake(of: renamed, among: try references.goals())?.id, live.id)
-    XCTAssertFalse(GoalForm.save(renamed, isNew: false, with: actions, references: references))
+    XCTAssertTrue(GoalForm.save(renamed, isNew: false, with: actions, references: references))
 
-    XCTAssertFalse(GoalsBlock.restore(old.id, with: actions, references: references))
+    XCTAssertTrue(GoalsBlock.restore(old.id, with: actions, references: references))
 
     let all = try references.goals(includeArchived: true)
-    XCTAssertEqual(all.count, 4)
-    XCTAssertEqual(all.first { $0.id == other.id }?.name, "Дача")
-    XCTAssertEqual(all.first { $0.id == old.id }?.archived, true)
-    XCTAssertFalse(store.canUndo, "a step of ⌘Z was left for nothing written")
-
-    // A goal saved under its own name is no namesake of itself, and a free name is saved.
-    XCTAssertNil(GoalForm.liveNamesake(of: live, among: try references.goals()))
-    var fresh = other
-    fresh.name = "Дача у моря"
-    XCTAssertTrue(GoalForm.save(fresh, isNew: false, with: actions, references: references))
+    XCTAssertEqual(all.count, 5)
+    XCTAssertEqual(all.first { $0.id == other.id }?.name, "МАШИНА")
+    XCTAssertEqual(all.first { $0.id == old.id }?.archived, false)
+    XCTAssertEqual(all.first { $0.id == live.id }?.targetE4, AmountE4(whole: 1_000_000))
+    XCTAssertEqual(
+      Set(all.compactMap(\.subcategoryId)).count, all.compactMap(\.subcategoryId).count,
+      "two goals share a subcategory, so one would inherit the other's contributions")
   }
 
   /// A goal deleted meanwhile is not written back.

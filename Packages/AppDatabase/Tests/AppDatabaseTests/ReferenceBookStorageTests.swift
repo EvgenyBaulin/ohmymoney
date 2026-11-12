@@ -202,7 +202,7 @@ struct ReferenceBookStorageTests {
 
   /// «Вернуть» makes the row live again. Its other names a live row took meanwhile are dropped;
   /// its own name taken by a live row keeps it in the archive. Events may share a name.
-  @Test func restoringKeepsOneNameOnOneLiveRow() throws {
+  @Test func restoringDropsStolenOtherNamesButNeverRefusesForTheName() throws {
     let stack = try TestSupport.makeStack()
     let references = ReferenceRepository(writer: stack.writer)
     let old = Place(name: "Пятёрочка", aliases: ["пятерка", "5ка"], archived: true)
@@ -214,11 +214,11 @@ struct ReferenceBookStorageTests {
     let back = try #require(try references.places().first { $0.id == old.id })
     #expect(back.aliases == ["пятерка"], "«5ка» is another live place's")
 
-    #expect(throws: ReferenceWriteError.nameTaken) {
-      try references.restore(clash.id, in: .places)
-    }
+    try references.restore(clash.id, in: .places)
     #expect(
-      try references.places(includeArchived: true).first { $0.id == clash.id }?.archived == true)
+      try references.places(includeArchived: true).first { $0.id == clash.id }?.archived == false,
+      "a live namesake kept the archived place away")
+    #expect(try references.places().filter { $0.name == "Магнит" }.count == 2)
 
     let day = DateOnly(year: 2026, month: 1, day: 1)
     let newYear = Event(name: "Новый год", startDate: day, endDate: day)

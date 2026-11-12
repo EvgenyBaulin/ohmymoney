@@ -290,50 +290,20 @@ struct PlanningActions {
   /// Why an event cannot be saved: a key of the Planning table under `events.issue.`.
   enum EventIssue: String {
     case emptyName
-    /// Another live event of that name covers some of the same days: the entry line could not
-    /// tell them apart.
-    case sameNameAndDays
   }
 
   static func issue(of event: Event, among events: [Event]) -> EventIssue? {
-    guard !event.name.isEmpty else { return .emptyName }
-    let clash = events.contains { other in
-      other.id != event.id && !other.archived
-        && other.name.compare(event.name, options: [.caseInsensitive]) == .orderedSame
-        && other.startDate <= event.endDate && event.startDate <= other.endDate
-    }
-    return clash ? .sameNameAndDays : nil
+    event.name.isEmpty ? .emptyName : nil
   }
 
-  /// A new or edited event with its budget, one write and one step of ⌘Z. A new one under the
-  /// name of an event in the archive whose days meet its own brings that one back instead of
-  /// making a second beside it.
+  /// A new or edited event with its budget, one write and one step of ⌘Z. A name another event
+  /// has, live or archived, never stops the write or brings the old event back: the form
+  /// advises and the owner chooses.
   @discardableResult
   func save(_ event: Event) -> Bool {
     var event = event
     event.name = Self.trimmed(event.name)
-    let known = (try? environment.references?.events(includeArchived: true)) ?? []
-    guard Self.issue(of: event, among: known) == nil else { return false }
-    if !known.contains(where: { $0.id == event.id }),
-      let archived = known.first(where: { other in
-        other.archived
-          && other.name.compare(event.name, options: [.caseInsensitive]) == .orderedSame
-          && other.startDate <= event.endDate && event.startDate <= other.endDate
-      })
-    {
-      var revived = archived
-      revived.archived = false
-      revived.startDate = event.startDate
-      revived.endDate = event.endDate
-      revived.budgetE4 = event.budgetE4
-      // A trip brought back from the archive stays the trip the form made.
-      if event.kind == .trip {
-        revived.kind = event.kind
-        revived.tripCurrency = event.tripCurrency
-        revived.budgetCurrency = event.budgetCurrency
-      }
-      event = revived
-    }
+    guard Self.issue(of: event, among: []) == nil else { return false }
     var rows = PlanningRows.empty
     rows.events = [event]
     guard apply(PlanningChange(upsert: rows)) else { return false }
@@ -366,19 +336,13 @@ struct PlanningActions {
     return goal
   }
 
-  /// The goal's own subcategory is named after it, so the name loses its spaces first. A live
-  /// goal does not take the name another live goal has — a new one, a rename or one brought back
-  /// from the archive — and nothing is written then.
+  /// The goal's own subcategory is named after it, so the name loses its spaces first. A name
+  /// another goal has, live or archived, never stops the write: the form only advises, and the
+  /// new goal gets a subcategory of its own, so it starts from zero.
   @discardableResult
   func save(_ goal: Goal) -> Bool {
     var goal = goal
     goal.name = Self.trimmed(goal.name)
-    if !goal.archived,
-      let all = try? environment.references?.goals(includeArchived: true),
-      GoalRules.liveNamesake(of: goal.name, excluding: goal.id, among: all) != nil
-    {
-      return false
-    }
     var rows = PlanningRows.empty
     rows.goals = [withSubcategory(goal, rows: &rows)]
     return apply(PlanningChange(upsert: rows))
@@ -436,7 +400,15 @@ struct PlanningActions {
 
   @discardableResult
   func close(_ income: ExpectedIncome) -> Bool {
-    var income = income
+    archive(income)
+  }
+
+  /// The existing `closed` flag is the archive state: all expectations may be archived,
+  /// regardless of whether they have been fulfilled. Links and operations are kept.
+  @discardableResult
+  func archive(_ income: ExpectedIncome) -> Bool {
+    let stored = (try? environment.planning?.expected())?.first { $0.id == income.id }
+    var income = stored ?? income
     income.closed = true
     return save(income)
   }

@@ -78,29 +78,47 @@ struct ReconcileSheet: View {
           Text(verbatim: t("reconcile.noAccounts")).foregroundStyle(.secondary)
         } else {
           ScrollView {
-            Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 8) {
-              columnCaptions
-              ForEach(rows, id: \.key) { row in
-                rowView(
-                  row, snapshot: snapshot, counted: counted, compared: saved[row.key] ?? row)
-                if offered.contains(row.key) {
-                  GridRow {
-                    Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
+            if LayoutIdiom.current == .phone {
+              // Cards one under another: the table's five columns do not fit a phone.
+              VStack(spacing: 10) {
+                ForEach(rows, id: \.key) { row in
+                  rowView(
+                    row, snapshot: snapshot, counted: counted, compared: saved[row.key] ?? row)
+                  if offered.contains(row.key) {
                     firstCountToggle(
                       row, name: accountName(row.key.accountId, snapshot),
                       counted: counted[row.key]
                     )
-                    .gridCellColumns(4)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                   }
                 }
               }
+              .padding(.vertical, 2)
+            } else {
+              Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 8) {
+                columnCaptions
+                ForEach(rows, id: \.key) { row in
+                  rowView(
+                    row, snapshot: snapshot, counted: counted, compared: saved[row.key] ?? row)
+                  if offered.contains(row.key) {
+                    GridRow {
+                      Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
+                      firstCountToggle(
+                        row, name: accountName(row.key.accountId, snapshot),
+                        counted: counted[row.key]
+                      )
+                      .gridCellColumns(4)
+                    }
+                  }
+                }
+              }
+              .padding(12)
+              .background(surfaces.card, in: .rect(cornerRadius: 12))
+              .overlay(RoundedRectangle(cornerRadius: 12).stroke(surfaces.cardBorder))
+              .padding(.vertical, 2)
             }
-            .padding(12)
-            .background(surfaces.card, in: .rect(cornerRadius: 12))
-            .overlay(RoundedRectangle(cornerRadius: 12).stroke(surfaces.cardBorder))
-            .padding(.vertical, 2)
           }
-          .frame(maxHeight: 340)
+          .frame(maxHeight: LayoutIdiom.current == .phone ? .infinity : 340)
           if !offered.isEmpty {
             notice("reconcile.firstCountToggleHint", symbol: "info.circle")
           }
@@ -220,89 +238,161 @@ struct ReconcileSheet: View {
   ) -> some View {
     let currency = row.key.currency
     let name = accountName(row.key.accountId, snapshot)
-    GridRow(alignment: .firstTextBaseline) {
-      VStack(alignment: .leading, spacing: 1) {
-        Text(verbatim: name).lineLimit(1)
-        if !row.isInSummary {
-          Label {
-            Text(verbatim: t("reconcile.notInSummary"))
-          } icon: {
-            Image(systemName: "eye.slash")
-          }
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
-        }
-        if let note = Self.note(for: row, accounts: snapshot.dataset.paymentMethods) {
-          Text(verbatim: t(note))
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
-        }
-        if Self.countsByBill(row, accounts: snapshot.dataset.paymentMethods) {
-          Button(t("reconcile.cash.byBill")) { countingByBill = row.key }
-            .buttonStyle(.link)
-            .appFont(.caption)
-            .accessibilityIdentifier("reconcile.cash.byBill")
-            .accessibilityLabel(
-              Text(
-                verbatim: Self.spoken(t("reconcile.cash.byBill"), account: name, currency: currency)
-              )
-            )
-            .popover(
-              isPresented: Binding(
-                get: { countingByBill == row.key },
-                set: { if !$0 { countingByBill = nil } })
-            ) {
-              CashCountPopover(currency: currency) { total in
-                Self.typing(total: total, row: compared, typed: &typed, blank: &blank)
-                countingByBill = nil
-              }
-              .handingOver(dependencies)
-            }
-        }
-      }
-      .frame(minWidth: 150, alignment: .leading)
-      Text(verbatim: currency.code)
-        .monospacedDigit()
-        .foregroundStyle(.secondary)
-      if let expected = row.expected {
-        Text(verbatim: environment.money.exact(expected, currency: currency))
+    if LayoutIdiom.current == .phone {
+      phoneRow(row, snapshot: snapshot, counted: counted, compared: compared)
+    } else {
+      GridRow(alignment: .firstTextBaseline) {
+        accountCell(row, snapshot: snapshot, compared: compared)
+          .frame(minWidth: 150, alignment: .leading)
+        Text(verbatim: currency.code)
           .monospacedDigit()
           .foregroundStyle(.secondary)
-          .help(t("reconcile.expectedHint"))
-      } else {
+        expectedCell(row)
+        countField(row, name: name, compared: compared)
+          .frame(width: 130)
+        differenceCell(row, name: name, compared: compared, counted: counted)
+          .frame(minWidth: 100, alignment: .trailing)
+      }
+    }
+  }
+
+  /// A phone has no room for the table: each account is a card — name and currency, what the
+  /// books expect, the field for what is counted, and the difference under it.
+  private func phoneRow(
+    _ row: ReconcileRow, snapshot: DataSnapshot, counted: [BalanceKey: AmountE4],
+    compared: ReconcileRow
+  ) -> some View {
+    let currency = row.key.currency
+    let name = accountName(row.key.accountId, snapshot)
+    return VStack(alignment: .leading, spacing: 8) {
+      HStack(alignment: .firstTextBaseline, spacing: 8) {
+        accountCell(row, snapshot: snapshot, compared: compared)
+        Text(verbatim: currency.code)
+          .monospacedDigit()
+          .foregroundStyle(.secondary)
+        Spacer(minLength: 0)
+      }
+      HStack(alignment: .firstTextBaseline, spacing: 8) {
+        Text(verbatim: t("reconcile.col.expected"))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+        expectedCell(row)
+        Spacer(minLength: 0)
+      }
+      HStack(alignment: .firstTextBaseline, spacing: 8) {
+        countField(row, name: name, compared: compared)
+        Spacer(minLength: 8)
+        Text(verbatim: t("reconcile.difference"))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+        differenceCell(row, name: name, compared: compared, counted: counted)
+      }
+    }
+    .padding(12)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(surfaces.card, in: .rect(cornerRadius: 12))
+    .overlay(RoundedRectangle(cornerRadius: 12).stroke(surfaces.cardBorder))
+  }
+
+  /// The name of the account with what is said under it, and the cash count by bill.
+  @ViewBuilder
+  private func accountCell(
+    _ row: ReconcileRow, snapshot: DataSnapshot, compared: ReconcileRow
+  ) -> some View {
+    let currency = row.key.currency
+    let name = accountName(row.key.accountId, snapshot)
+    VStack(alignment: .leading, spacing: 1) {
+      Text(verbatim: name).lineLimit(1)
+      if !row.isInSummary {
         Label {
-          Text(verbatim: t("reconcile.startingPoint"))
+          Text(verbatim: t("reconcile.notInSummary"))
         } icon: {
-          Image(systemName: "flag")
+          Image(systemName: "eye.slash")
         }
         .appFont(.caption)
         .foregroundStyle(.secondary)
-        .help(t("reconcile.first"))
       }
-      // The field shows what is saved: nothing on a starting point nobody typed in.
-      AmountField(
-        amount: Binding(
-          get: { Self.shown(compared, typed: typed) },
-          set: { typed[row.key] = $0 }),
-        onTyped: { amount, text in
-          Self.typing(amount, text: text, row: compared, typed: &typed, blank: &blank)
-        }
-      )
-      .frame(width: 130)
-      .accessibilityLabel(Text(verbatim: "\(name) \(currency.code)"))
-      // A row that differs stands out by its sign and weight; a matching one stays quiet.
-      let differs = Self.differs(rows: [compared], counted: counted)
-      Text(verbatim: differenceText(compared, counted: counted))
-        .monospacedDigit()
-        .fontWeight(differs ? .semibold : .regular)
-        .foregroundStyle(differs ? .primary : .secondary)
-        .frame(minWidth: 100, alignment: .trailing)
-        // Read on its own, the figure says whose difference it is.
-        .accessibilityLabel(
-          Text(verbatim: "\(t("reconcile.difference")) \(name) \(currency.code)")
-        )
-        .accessibilityValue(Text(verbatim: differenceText(compared, counted: counted)))
+      if let note = Self.note(for: row, accounts: snapshot.dataset.paymentMethods) {
+        Text(verbatim: t(note))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+      }
+      if Self.countsByBill(row, accounts: snapshot.dataset.paymentMethods) {
+        Button(t("reconcile.cash.byBill")) { countingByBill = row.key }
+          .buttonStyle(.link)
+          .appFont(.caption)
+          .accessibilityIdentifier("reconcile.cash.byBill")
+          .accessibilityLabel(
+            Text(
+              verbatim: Self.spoken(t("reconcile.cash.byBill"), account: name, currency: currency)
+            )
+          )
+          .popover(
+            isPresented: Binding(
+              get: { countingByBill == row.key },
+              set: { if !$0 { countingByBill = nil } })
+          ) {
+            CashCountPopover(currency: currency) { total in
+              Self.typing(total: total, row: compared, typed: &typed, blank: &blank)
+              countingByBill = nil
+            }
+            .handingOver(dependencies)
+          }
+      }
     }
+  }
+
+  /// What the books expect, or the flag of a starting point.
+  @ViewBuilder
+  private func expectedCell(_ row: ReconcileRow) -> some View {
+    let currency = row.key.currency
+    if let expected = row.expected {
+      Text(verbatim: environment.money.exact(expected, currency: currency))
+        .monospacedDigit()
+        .foregroundStyle(.secondary)
+        .help(t("reconcile.expectedHint"))
+    } else {
+      Label {
+        Text(verbatim: t("reconcile.startingPoint"))
+      } icon: {
+        Image(systemName: "flag")
+      }
+      .appFont(.caption)
+      .foregroundStyle(.secondary)
+      .help(t("reconcile.first"))
+    }
+  }
+
+  /// The field for the count: it shows what is saved.
+  private func countField(_ row: ReconcileRow, name: String, compared: ReconcileRow) -> some View {
+    let currency = row.key.currency
+    return AmountField(
+      amount: Binding(
+        get: { Self.shown(compared, typed: typed) },
+        set: { typed[row.key] = $0 }),
+      onTyped: { amount, text in
+        Self.typing(amount, text: text, row: compared, typed: &typed, blank: &blank)
+      }
+    )
+    .frame(width: 130)
+    .accessibilityLabel(Text(verbatim: "\(name) \(currency.code)"))
+  }
+
+  /// A row that differs stands out by its sign and weight; a matching one stays quiet.
+  private func differenceCell(
+    _ row: ReconcileRow, name: String, compared: ReconcileRow, counted: [BalanceKey: AmountE4]
+  ) -> some View {
+    let currency = row.key.currency
+    let differs = Self.differs(rows: [compared], counted: counted)
+    return Text(verbatim: differenceText(compared, counted: counted))
+      .monospacedDigit()
+      .fontWeight(differs ? .semibold : .regular)
+      .foregroundStyle(differs ? .primary : .secondary)
+      // Read on its own, the figure says whose difference it is.
+      .accessibilityLabel(
+        Text(verbatim: "\(t("reconcile.difference")) \(name) \(currency.code)")
+      )
+      .accessibilityValue(Text(verbatim: differenceText(compared, counted: counted)))
   }
 
   /// «Точка отсчёта» of a pair that rested only on zero openings: on by default, and under it

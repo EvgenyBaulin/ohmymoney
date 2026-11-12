@@ -320,8 +320,10 @@ public enum AccountRules {
     let name = folded(account.name)
     if name.isEmpty { issues.append(.emptyName) }
     let rivals = others.filter { $0.id != account.id }
-    if !name.isEmpty,
-      rivals.contains(where: { folded($0.name) == name || $0.aliases.map(folded).contains(name) })
+    if !account.archived, !name.isEmpty,
+      rivals.contains(where: {
+        !$0.archived && (folded($0.name) == name || $0.aliases.map(folded).contains(name))
+      })
     {
       issues.append(.nameTaken)
     }
