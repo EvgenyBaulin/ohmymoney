@@ -16,6 +16,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Accounts/AccountCreditBlock.swift": 2,
     "Apps/macOS/Features/Accounts/AccountInterestBlock.swift": 1,
     "Apps/macOS/Features/Accounts/AccountPaymentsBlock.swift": 1,
+    "Apps/macOS/Features/Accounts/AccountSavingsPointsBlocks.swift": 1,
     "Apps/macOS/Features/Accounts/AccountScreen.swift": 3,
     "Apps/macOS/Features/Accounts/AccountsSidebarSection.swift": 4,
     "Apps/macOS/Features/Accounts/BankScreen.swift": 2,
