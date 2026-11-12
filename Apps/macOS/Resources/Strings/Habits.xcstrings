@@ -34,6 +34,12 @@
             "value": "obtenu le %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ստացվել է %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -133,6 +139,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un bilan chaque mois pendant un an"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվառում ամեն ամիս՝ մեկ տարի շարունակ"
           }
         },
         "it": {
@@ -236,6 +248,12 @@
             "value": "Un bilan chaque mois pendant 3 mois"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվառում ամեն ամիս՝ 3 ամիս շարունակ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -335,6 +353,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un bilan ce mois-ci"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվառում այս ամիս"
           }
         },
         "it": {
@@ -438,6 +462,12 @@
             "value": "100 jours de suite avec des saisies"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 օր անընդմեջ գրառումներով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -537,6 +567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 jours de suite avec des saisies"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 օր անընդմեջ գրառումներով"
           }
         },
         "it": {
@@ -640,6 +676,12 @@
             "value": "7 jours de suite avec des saisies"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 օր անընդմեջ գրառումներով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -739,6 +781,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucun badge sur cette période"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս ժամանակահատվածում կրծքանշաններ չկան"
           }
         },
         "it": {
@@ -921,6 +969,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Série en cours : %lld jours"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ընթացիկ շարքը՝ %lld օր"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ընթացիկ շարքը՝ %lld օր"
                 }
               }
             }
@@ -1201,6 +1267,12 @@
             "value": "Badges"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կրծքանշաններ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1302,6 +1374,12 @@
             "value": "Discret en mode débutant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սկսնակի ռեժիմում թաքցված է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1401,6 +1479,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ouvert maintenant"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացել հիմա"
           }
         },
         "it": {
@@ -1583,6 +1667,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "S'ouvre au %lld jours avec des saisies (aujourd'hui %lld)"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Բացվում է գրառումներով %lld օրից հետո (այժմ՝ %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Բացվում է գրառումներով %lld օրից հետո (այժմ՝ %lld)"
                 }
               }
             }
@@ -1863,6 +1965,12 @@
             "value": "S'ouvre après le premier bilan"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացվում է առաջին հաշվառումից հետո"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2043,6 +2151,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "S'ouvre dans %lld jours, après un mois de saisies"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Բացվում է %lld օրից՝ մեկ ամիս գրառումներ անելուց հետո"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Բացվում է %lld օրից՝ մեկ ամիս գրառումներ անելուց հետո"
                 }
               }
             }
@@ -2323,6 +2449,12 @@
             "value": "Pourquoi vous épargnez"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչի համար եք խնայում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2422,6 +2554,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "L'application vous le rappelle quand l'argent de l'objectif semble dépensé, que le plan est abaissé ou que l'objectif est supprimé"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հավելվածը կհիշեցնի այդ մասին, երբ նպատակի գումարը ծախսված թվա, պլանը նվազեցվի կամ նպատակը ջնջվի"
           }
         },
         "it": {
@@ -2525,6 +2663,12 @@
             "value": "Vous épargnez pour « %1$@ » parce que : %2$@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դուք խնայում եք «%1$@» նպատակի համար, քանի որ՝ %2$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2624,6 +2768,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La mer en juillet, avec toute la famille"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ծովը հուլիսին՝ ամբողջ ընտանիքով"
           }
         },
         "it": {
@@ -2727,6 +2877,12 @@
             "value": "« %1$@ » : %2$@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»՝ %2$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2828,6 +2984,12 @@
             "value": "Pourquoi j'épargne"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչի համար եմ խնայում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2927,6 +3089,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucune dépense"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ծախսեր չեն եղել"
           }
         },
         "it": {
@@ -3031,6 +3199,12 @@
             "value": "Restaurer…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերականգնել…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3130,6 +3304,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 cartes"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 քարտ"
           }
         },
         "it": {
@@ -3234,6 +3414,12 @@
             "value": "Fermer"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փակել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3333,6 +3519,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Leçons"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դասեր"
           }
         },
         "it": {
@@ -3436,6 +3628,12 @@
             "value": "De courtes leçons d'argent, cinq cartes chacune"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կարճ դասեր փողի մասին՝ յուրաքանչյուրը հինգ քարտով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3535,6 +3733,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Leçons"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դասեր"
           }
         },
         "it": {
@@ -3638,6 +3842,12 @@
             "value": "Pas de dépense aujourd'hui ?"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այսօր ծախսեր չե՞ն եղել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3737,6 +3947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notez vos dépenses du jour — ou n'y en a-t-il eu aucune aujourd'hui ?"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցեք այսօրվա ծախսերը, թե՞ ծախսեր չեն եղել։"
           }
         },
         "it": {
@@ -3919,6 +4135,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Rien saisi depuis %lld jours — restaurer d'après les soldes ?"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld օր գրառում չկա․ վերականգնե՞լ մնացորդներից"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld օր գրառում չկա․ վերականգնե՞լ մնացորդներից"
                 }
               }
             }
@@ -4283,6 +4517,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "շարքը՝ %lld օր"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "շարքը՝ %lld օր"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -4559,6 +4811,12 @@
             "value": "Retour"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հետ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4658,6 +4916,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Maintenant sur le compte"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այժմ հաշվին"
           }
         },
         "it": {
@@ -4761,6 +5025,12 @@
             "value": "Selon les saisies : %@ — concorde"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ըստ գրառումների՝ %@ · համընկնում է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4860,6 +5130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saisissez ce que contient chaque compte maintenant. Les comptes du « Total » qui ont été comptés au moins une fois."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքագրեք յուրաքանչյուր հաշվի ընթացիկ մնացորդը։ Ցուցադրված են «Ընդամենը» բաժնի առնվազն մեկ անգամ հաշվառված հաշիվները։"
           }
         },
         "it": {
@@ -4963,6 +5239,12 @@
             "value": "Selon les saisies %1$@ · non notés %2$@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ըստ գրառումների՝ %1$@ · չգրանցված՝ %2$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5062,6 +5344,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plus que ce que disent les saisies — peut-être un revenu non noté ; il n'est pas réparti en dépenses"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելին է, քան ըստ գրառումների․ գուցե եկամուտ չի գրանցվել։ Այն որպես ծախս չի բաշխվի"
           }
         },
         "it": {
@@ -5165,6 +5453,12 @@
             "value": "Aucun compte du « Total » n'a encore été compté. Faites d'abord un bilan, et l'assistant saura à quoi comparer."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Ընդամենը» բաժնի ոչ մի հաշիվ դեռ չի հաշվառվել։ Նախ հաշվառում արեք, որպեսզի հնարավոր լինի համեմատել։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5264,6 +5558,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chaque solde concorde avec les saisies : rien à restaurer"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բոլոր մնացորդները համընկնում են գրառումներին․ վերականգնելու բան չկա"
           }
         },
         "it": {
@@ -5368,6 +5668,12 @@
             "value": "Annuler"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չեղարկել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5467,6 +5773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les soldes ont changé pendant que l'assistant était ouvert. Fermez-le et comptez à nouveau."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մնացորդները փոխվել են, մինչ օգնականը բաց էր։ Փակեք այն և նորից հաշվառում արեք։"
           }
         },
         "it": {
@@ -5570,6 +5882,12 @@
             "value": "Ajouter une ligne"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելացնել տող"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5669,6 +5987,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lignes sans catégorie — « Inconnue »"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առանց կատեգորիայի տողերը՝ «Անհայտ»"
           }
         },
         "it": {
@@ -5773,6 +6097,12 @@
             "value": "Catégorie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կատեգորիա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5872,6 +6202,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entièrement réparti"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամբողջությամբ բաշխված է"
           }
         },
         "it": {
@@ -5975,6 +6311,12 @@
             "value": "Chaque ligne a besoin d'une catégorie ; « Inconnue » est aussi un choix. Les lignes d'un compte font ensemble ce qui manque sur ce compte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Յուրաքանչյուր տողի համար ընտրեք կատեգորիա․ կարելի է ընտրել նաև «Անհայտ»։ Հաշվի տողերի գումարը պետք է հավասար լինի պակասող գումարին։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6074,6 +6416,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reste à répartir : %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մնացել է բաշխել՝ %@"
           }
         },
         "it": {
@@ -6177,6 +6525,12 @@
             "value": "Ce que c'était (facultatif)"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչի համար էր (ըստ ցանկության)"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6276,6 +6630,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Supprimer la ligne"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հեռացնել տողը"
           }
         },
         "it": {
@@ -6380,6 +6740,12 @@
             "value": "Suivant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաջորդը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6479,6 +6845,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les opérations n'ont pas pu être notées"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չհաջողվեց գրանցել գործարքները"
           }
         },
         "it": {
@@ -6582,6 +6954,12 @@
             "value": "Chaque ligne doit avoir un montant supérieur à zéro"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Յուրաքանչյուր տողի գումարը պետք է զրոյից մեծ լինի"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6681,6 +7059,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choisissez une catégorie pour chaque ligne"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Յուրաքանչյուր տողի համար ընտրեք կատեգորիա"
           }
         },
         "it": {
@@ -6784,6 +7168,12 @@
             "value": "Les lignes d'un compte ne font pas ensemble ce qui manque sur ce compte"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվի տողերի գումարը հավասար չէ պակասող գումարին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6883,6 +7273,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Noter"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցել"
           }
         },
         "it": {
@@ -6986,6 +7382,12 @@
             "value": "Notées"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցված է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7085,6 +7487,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. Ce qu'il y a sur les comptes maintenant"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Հաշիվների ընթացիկ մնացորդները"
           }
         },
         "it": {
@@ -7188,6 +7596,12 @@
             "value": "2. Répartir les dépenses sur les jours"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Բաշխեք ծախսերն ըստ օրերի"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7287,6 +7701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rien n'a été saisi du %1$@ au %2$@. D'abord les soldes, puis les jours."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@–%2$@ ժամանակահատվածում գրառումներ չեն եղել։ Նախ նշեք մնացորդները, ապա՝ օրերը։"
           }
         },
         "it": {
@@ -7390,6 +7810,12 @@
             "value": "Restaurer les jours manqués"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերականգնել բաց թողնված օրերը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7489,6 +7915,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "jour %1$lld sur %2$lld"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "օր %1$lld՝ %2$lld-ից"
           }
         },
         "it": {
@@ -7593,6 +8025,12 @@
             "value": "Masquer"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թաքցնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7692,6 +8130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld sur %2$lld"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld / %2$lld"
           }
         },
         "it": {
@@ -7795,6 +8239,12 @@
             "value": "Montrer où"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցույց տալ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7894,6 +8344,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le premier mois"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առաջին ամիսը"
           }
         },
         "it": {
@@ -7997,6 +8453,12 @@
             "value": "Mode débutant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սկսնակի ռեժիմ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -8096,6 +8558,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les sections complexes restent visibles mais atténuées tant qu'elles n'ont rien à montrer"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բարդ բաժինները տեսանելի են, բայց խամրած, մինչև դրանցում տվյալներ լինեն"
           }
         },
         "it": {
@@ -8199,6 +8667,12 @@
             "value": "Demander le soir les dépenses du jour"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երեկոյան հարցնել օրվա ծախսերի մասին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -8298,6 +8772,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "« Pas de dépense aujourd'hui ? » compte le jour dans la série"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Այսօր ծախսեր չե՞ն եղել» պատասխանը օրը ներառում է շարքում"
           }
         },
         "it": {
@@ -8401,6 +8881,12 @@
             "value": "Le soir commence à"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երեկոյի սկիզբը՝"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -8500,6 +8986,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Afficher la liste du premier mois"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցույց տալ առաջին ամսվա անելիքների ցանկը"
           }
         },
         "it": {
@@ -8603,6 +9095,12 @@
             "value": "Proposer de restaurer après des jours sans saisie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առաջարկել վերականգնել գրառումներ չունեցող օրերից հետո"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -8702,6 +9200,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Une ligne dans « À regarder de plus près », pas une notification"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տող «Արժե նայել» բաժնում, ոչ թե ծանուցում"
           }
         },
         "it": {
@@ -8804,6 +9308,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Habitudes"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սովորություններ"
           }
         },
         "it": {

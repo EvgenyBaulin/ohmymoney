@@ -71,6 +71,12 @@
             "value": "Гарантии"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кафолатҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Убрать"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тоза кардан"
           }
         },
         "tr": {
@@ -263,6 +275,12 @@
             "value": "Гарантий пока нет"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳоло кафолат нест"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -357,6 +375,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте гарантию или срок возврата в панели операции или напишите в строке: «гарантия 2г», «возврат 14д»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар панели амалиёт кафолат ё муҳлати баргардониро илова кунед ё дар сатр нависед: «warranty 2y», «return 14d»."
           }
         },
         "tr": {
@@ -455,6 +479,12 @@
             "value": "Где лежит оригинал"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷойи асл"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -549,6 +579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "коробка в шкафу, папка «Техника»"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қуттӣ дар ҷевон, ҷузвдони «Appliances»"
           }
         },
         "tr": {
@@ -647,6 +683,12 @@
             "value": "Вернуть можно до"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баргардонидан то"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -741,6 +783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантия до"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кафолат то"
           }
         },
         "tr": {
@@ -1031,6 +1079,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рӯз монд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рӯз монд"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -1181,6 +1247,12 @@
             "value": "Вернуть можно до %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баргардонидан то %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1275,6 +1347,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантия до %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кафолат то %@"
           }
         },
         "tr": {
@@ -1373,6 +1451,12 @@
             "value": "Ничего не найдено"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чизе ёфт нашуд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1467,6 +1551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть операцию"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кушодани амалиёт"
           }
         },
         "tr": {
@@ -1565,6 +1655,12 @@
             "value": "срок вышел"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "муҳлат гузашт"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1659,6 +1755,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выбрать дату"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интихоби сана"
           }
         },
         "tr": {
@@ -1944,6 +2046,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld дня"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld рӯз"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld рӯз"
                 }
               }
             }
@@ -2291,6 +2411,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld сол"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld сол"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -2441,6 +2579,12 @@
             "value": "Оригинал: %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Асл: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2535,6 +2679,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вернуть можно до %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баргардонидан то %@"
           }
         },
         "tr": {
@@ -2633,6 +2783,12 @@
             "value": "Гарантия до %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кафолат то %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2727,6 +2883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поиск по названию и месту"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷустуҷӯ аз рӯйи ном ё ҷой"
           }
         },
         "tr": {
@@ -2825,6 +2987,12 @@
             "value": "Закончились"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Анҷомёфта"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2919,6 +3087,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Действуют"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалкунанда"
           }
         },
         "tr": {
@@ -3017,6 +3191,12 @@
             "value": "Что на гарантии и что ещё можно вернуть"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чӣ кафолат дорад ва чиро ҳанӯз баргардондан мумкин аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3111,6 +3291,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантии"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кафолатҳо"
           }
         },
         "tr": {
@@ -3209,6 +3395,12 @@
             "value": "сегодня последний день"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "рӯзи охирин имрӯз аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3303,6 +3495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Покупка %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хариди %@"
           }
         },
         "tr": {

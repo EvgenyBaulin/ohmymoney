@@ -34,6 +34,12 @@
             "value": "%1$@ sur %2$@ mois"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@՝ %2$@ ամսից"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -133,6 +139,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pas moins que les paiements obligatoires d'aujourd'hui : %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ոչ պակաս, քան այսօրվա պարտադիր վճարումները՝ %@"
           }
         },
         "it": {
@@ -236,6 +248,12 @@
             "value": "Mois complets jusqu'ici : %lld."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամբողջական ամիսներ առայժմ՝ %lld։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -335,6 +353,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objectif — %1$@ (%2$@) : mettre de côté %3$@ par mois jusqu'au %4$@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նպատակ՝ %1$@ (%2$@)․ մի կողմ դրեք %3$@ ամսական՝ մինչև %4$@"
           }
         },
         "it": {
@@ -438,6 +462,12 @@
             "value": "Atteindre pour"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավարտել մինչև"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -538,6 +568,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mois"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամիս"
           }
         },
         "it": {
@@ -720,6 +756,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Un matelas pour %lld mois"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ամսվա պահուստ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ամսվա պահուստ"
                 }
               }
             }
@@ -1000,6 +1054,12 @@
             "value": "Pas encore d'objectif : indiquez pour combien de mois le matelas doit tenir."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նպատակ դեռ չկա․ նշեք, թե քանի ամսվա համար է պետք պահուստը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1100,6 +1160,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objectif…"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նպատակ…"
           }
         },
         "it": {
@@ -1203,6 +1269,12 @@
             "value": "au rythme actuel — d'ici le %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ներկա տեմպով՝ մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1302,6 +1374,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "au rythme actuel il n'est jamais atteint"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ներկա տեմպով նպատակին հասնել հնարավոր չէ"
           }
         },
         "it": {
@@ -1405,6 +1483,12 @@
             "value": "Objectif — %1$@ (%2$@) : %3$@ par mois suffisent pour y arriver en un an"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նպատակ՝ %1$@ (%2$@)․ %3$@ ամսական՝ մեկ տարում հասնելու համար"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1504,6 +1588,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objectif — %1$@ (%2$@) : atteint"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նպատակ՝ %1$@ (%2$@)․ ձեռք է բերված"
           }
         },
         "it": {
@@ -1607,6 +1697,12 @@
             "value": "Supprimer l'objectif"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հեռացնել նպատակը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1706,6 +1802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objectif du matelas"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պահուստի նպատակը"
           }
         },
         "it": {
@@ -1888,6 +1990,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Sans revenu, vous tiendriez %lld mois"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Առանց եկամտի կբավականացնի %lld ամիս"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Առանց եկամտի կբավականացնի %lld ամիս"
                 }
               }
             }
@@ -2168,6 +2288,12 @@
             "value": "Sans revenu, vous tiendriez %@ mois"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առանց եկամտի կբավականացնի %@ ամիս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2268,6 +2394,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "janvier"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հունվար"
           }
         },
         "it": {
@@ -2372,6 +2504,12 @@
             "value": "octobre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հոկտեմբեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2472,6 +2610,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "novembre"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նոյեմբեր"
           }
         },
         "it": {
@@ -2576,6 +2720,12 @@
             "value": "décembre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեկտեմբեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2676,6 +2826,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "février"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փետրվար"
           }
         },
         "it": {
@@ -2780,6 +2936,12 @@
             "value": "mars"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մարտ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2880,6 +3042,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "avril"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ապրիլ"
           }
         },
         "it": {
@@ -2984,6 +3152,12 @@
             "value": "mai"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մայիս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3084,6 +3258,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "juin"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հունիս"
           }
         },
         "it": {
@@ -3188,6 +3368,12 @@
             "value": "juillet"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հուլիս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3288,6 +3474,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "août"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Օգոստոս"
           }
         },
         "it": {
@@ -3392,6 +3584,12 @@
             "value": "septembre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սեպտեմբեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3492,6 +3690,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "janvier"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հունվար"
           }
         },
         "it": {
@@ -3596,6 +3800,12 @@
             "value": "octobre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հոկտեմբեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3696,6 +3906,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "novembre"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նոյեմբեր"
           }
         },
         "it": {
@@ -3800,6 +4016,12 @@
             "value": "décembre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեկտեմբեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3900,6 +4122,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "février"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փետրվար"
           }
         },
         "it": {
@@ -4004,6 +4232,12 @@
             "value": "mars"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մարտ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4104,6 +4338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "avril"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ապրիլ"
           }
         },
         "it": {
@@ -4208,6 +4448,12 @@
             "value": "mai"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մայիս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4308,6 +4554,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "juin"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հունիս"
           }
         },
         "it": {
@@ -4412,6 +4664,12 @@
             "value": "juillet"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հուլիս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4514,6 +4772,12 @@
             "value": "août"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Օգոստոս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4614,6 +4878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "septembre"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սեպտեմբեր"
           }
         },
         "it": {
@@ -4796,6 +5066,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld mois"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ամիս"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ամիս"
                 }
               }
             }
@@ -5076,6 +5364,12 @@
             "value": "Marquez les comptes du matelas : ici s'affichera combien de mois il tient sans revenu."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նշեք պահուստի հաշիվները՝ տեսնելու համար, թե քանի ամիս այն կբավականացնի առանց եկամտի։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5175,6 +5469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Données insuffisantes : les dépenses obligatoires demandent 3 mois complets."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տվյալները բավարար չեն․ պարտադիր ծախսերի համար անհրաժեշտ է 3 ամբողջական ամիս։"
           }
         },
         "it": {
@@ -5279,6 +5579,12 @@
             "value": "Dettes"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պարտքեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5378,6 +5684,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Catégories essentielles"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անհրաժեշտ կատեգորիաներ"
           }
         },
         "it": {
@@ -5482,6 +5794,12 @@
             "value": "Paiements et abonnements"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վճարումներ և բաժանորդագրություններ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5582,6 +5900,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Matelas de sécurité"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվտանգության պահուստ"
           }
         },
         "it": {
@@ -5685,6 +6009,12 @@
             "value": "Matelas de sécurité : pas encore assez de données"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվտանգության պահուստ․ տվյալները դեռ բավարար չեն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5784,6 +6114,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Matelas de sécurité : aucun compte marqué pour l'instant"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվտանգության պահուստ․ հաշիվ դեռ նշված չէ"
           }
         },
         "it": {
@@ -5887,6 +6223,12 @@
             "value": "Ouvrir Capital"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացել կապիտալը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5986,6 +6328,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Matelas de sécurité : %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվտանգության պահուստ՝ %@"
           }
         },
         "it": {
@@ -6089,6 +6437,12 @@
             "value": "Comptes du matelas"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պահուստի հաշիվներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6188,6 +6542,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "L'argent de ces comptes, dans toutes ses devises, est le matelas."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս հաշիվների գումարը՝ բոլոր արժույթներով, կազմում է պահուստը։"
           }
         },
         "it": {
@@ -6292,6 +6652,12 @@
             "value": "Dépenses essentielles"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անհրաժեշտ ծախսեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6391,6 +6757,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les dépenses qui ne peuvent pas s'arrêter. Avec les paiements, abonnements et dettes, elles forment les dépenses obligatoires d'un mois."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ծախսեր, որոնցից հնարավոր չէ հրաժարվել։ Վճարումների, բաժանորդագրությունների և պարտքերի հետ դրանք կազմում են ամսվա պարտադիր ծախսերը։"
           }
         },
         "it": {
@@ -6494,6 +6866,12 @@
             "value": "Pas encore de compte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշիվներ դեռ չկան։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6593,6 +6971,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucune catégorie de dépenses à vous."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ձեր ծախսերի կատեգորիաները չկան։"
           }
         },
         "it": {
@@ -6696,6 +7080,12 @@
             "value": "Comptes et catégories…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշիվներ և կատեգորիաներ…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -6795,6 +7185,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les catégories essentielles habituelles sont cochées : vérifiez-les et enregistrez."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սովորական անհրաժեշտ կատեգորիաներն ընտրված են․ ստուգեք և պահեք։"
           }
         },
         "it": {
@@ -6899,6 +7295,12 @@
             "value": "Matelas de sécurité"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվտանգության պահուստ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7000,6 +7402,12 @@
             "value": "Matelas %1$@ · dépenses obligatoires ≈ %2$@ par mois"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պահուստ՝ %1$@ · պարտադիր ծախսեր՝ ≈ %2$@ ամսական"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7099,6 +7507,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ mois"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ամիս"
           }
         },
         "it": {
@@ -7203,6 +7617,12 @@
             "value": "Matelas de sécurité"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվտանգության պահուստ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -7302,6 +7722,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pas encore compté : %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ հաշվարկված չէ՝ %@"
           }
         },
         "it": {

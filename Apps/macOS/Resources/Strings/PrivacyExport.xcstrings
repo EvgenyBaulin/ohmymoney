@@ -70,6 +70,12 @@
             "value": "Обезличить"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Беном кардан"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -163,6 +169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В копии стираются описания, комментарии, места и имена. Суммы, даты и категории остаются. Оригинал не меняется."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тавсифҳо, шарҳҳо, ҷойҳо ва номҳо аз нусха тоза мешаванд. Маблағҳо, санаҳо ва категорияҳо мемонанд. Асл тағйир намеёбад."
           }
         },
         "tr": {
@@ -260,6 +272,12 @@
             "value": "С вложениями (%@)"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Замимаҳо дохил шаванд (%@)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -353,6 +371,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копия готова"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусха омода аст"
           }
         },
         "tr": {
@@ -450,6 +474,12 @@
             "value": "Вложений: %lld"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Замимаҳо: %lld"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -543,6 +573,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Закрыта вашим паролем."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бо пароли шумо қулф шудааст."
           }
         },
         "tr": {
@@ -827,6 +863,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "В копии %lld операции"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт дар нусха"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт дар нусха"
                 }
               }
             }
@@ -1173,6 +1227,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld интиқол дар нусха"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld интиқол дар нусха"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -1322,6 +1394,12 @@
             "value": "Обезличивание в этой сборке недоступно, поэтому копия не сделана."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Беномсозӣ дар ин версия дастрас нест, бинобар ин нусха сохта нашуд."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1415,6 +1493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скрытый счёт нужен тому, что остаётся в копии, и его нельзя убрать. Включите скрытые или верните счёт на экран."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоби пинҳонӣ ҳоло ҳам дар маълумоти нусха истифода мешавад, бинобар ин онро хориҷ кардан мумкин нест. Ҳисобҳои пинҳониро дохил кунед ё ҳисобро дубора намоён кунед."
           }
         },
         "tr": {
@@ -1512,6 +1596,12 @@
             "value": "Копия не сделана. Ничего не изменилось."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусха сохта нашуд. Ҳеҷ чиз тағйир наёфт."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1605,6 +1695,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролро ворид кунед: нусха бе парол сохта намешавад."
           }
         },
         "tr": {
@@ -1702,6 +1798,12 @@
             "value": "Период пуст: конец раньше начала."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Давра холӣ аст: анҷом пеш аз оғоз аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1792,6 +1894,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "Формат"
@@ -1892,6 +2000,12 @@
             "value": "Архив переноса"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бойгонии интиқол"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1985,6 +2099,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Только CSV"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Танҳо CSV"
           }
         },
         "tr": {
@@ -2083,6 +2203,12 @@
             "value": "С"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2176,6 +2302,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Включая скрытые"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисобҳои пинҳонӣ дохил шаванд"
           }
         },
         "tr": {
@@ -2273,6 +2405,12 @@
             "value": "Без галочки в копии нет скрытых счетов, их операций и переводов."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар акси ҳол, ҳисобҳои пинҳонӣ ва амалиёту интиқолҳои онҳо ба нусха дохил намешаванд."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2366,6 +2504,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В копию войдут скрытые счета."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисобҳои пинҳонӣ ба нусха дохил мешаванд."
           }
         },
         "tr": {
@@ -2463,6 +2607,12 @@
             "value": "Не вошло: %lld"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хориҷ шуд: %lld"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2556,6 +2706,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копия — оригинал остаётся у вас."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ин нусха аст — асл назди шумо мемонад."
           }
         },
         "tr": {
@@ -2654,6 +2810,12 @@
             "value": "Пароль"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Парол"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2748,6 +2910,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повторите пароль"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролро такрор кунед"
           }
         },
         "tr": {
@@ -2845,6 +3013,12 @@
             "value": "Копия закрыта этим паролем. Без него её не откроет никто, и восстановить пароль нельзя. Оригинал остаётся у вас без изменений."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусха бо ин парол қулф мешавад. Бе он касе нусхаро кушода наметавонад ва паролро барқарор кардан мумкин нест. Асл назди шумо бетағйир мемонад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2938,6 +3112,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "вложений: %lld"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "замимаҳо: %lld"
           }
         },
         "tr": {
@@ -3036,6 +3216,12 @@
             "value": "Считаем…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоб шуда истодааст…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3129,6 +3315,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Войдёт:"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохил мешавад:"
           }
         },
         "tr": {
@@ -3414,6 +3606,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операции"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт"
                 }
               }
             }
@@ -3760,6 +3970,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld интиқол"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld интиқол"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -3909,6 +4137,12 @@
             "value": "Введите пароль: копия без пароля не делается."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролро ворид кунед: нусха бе парол сохта намешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4002,6 +4236,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пароли не совпадают."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролҳо мувофиқат намекунанд."
           }
         },
         "tr": {
@@ -4099,6 +4339,12 @@
             "value": "Период пуст: конец раньше начала."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Давра холӣ аст: анҷом пеш аз оғоз аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4192,6 +4438,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить копию…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусхаро нигоҳ доштан…"
           }
         },
         "tr": {
@@ -4289,6 +4541,12 @@
             "value": "Что взять"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қисми таърих"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4382,6 +4640,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За период"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои давра"
           }
         },
         "tr": {
@@ -4479,6 +4743,12 @@
             "value": "Вся база"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тамоми пойгоҳи додаҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4574,6 +4844,12 @@
             "value": "Показать пароль"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Намоиши парол"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4667,6 +4943,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Содироти нусха"
           }
         },
         "tr": {
@@ -4765,6 +5047,12 @@
             "value": "По"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "То"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4858,6 +5146,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Делаем копию…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусха сохта шуда истодааст…"
           }
         },
         "tr": {
@@ -4955,6 +5249,12 @@
             "value": "Вернуться к моим данным"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бозгашт ба додаҳои ман"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5050,6 +5350,12 @@
             "value": "Учебные данные"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додаҳои омӯзишӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5143,6 +5449,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Эти цифры выдуманные. Ваша база не открыта."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ин рақамҳо сохтаанд. Пойгоҳи додаҳои шумо кушода нест."
           }
         },
         "tr": {
@@ -5241,6 +5553,12 @@
             "value": "Показать"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Намоиш додан"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5334,6 +5652,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Приложение перезапустится на выдуманных данных. Ваша база не трогается, вернуться можно одной кнопкой."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома бо додаҳои сохта аз нав оғоз мешавад. Пойгоҳи додаҳои шумо тағйир намеёбад ва шумо метавонед бо як тугма баргардед."
           }
         },
         "tr": {
@@ -5431,6 +5755,12 @@
             "value": "Показать приложение на учебных данных?"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома бо додаҳои омӯзишӣ намоиш дода шавад?"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5526,6 +5856,12 @@
             "value": "Зашифровать (открывается в OhMyMoney)"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рамзгузорӣ кардан (дар OhMyMoney кушода мешавад)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5619,6 +5955,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тоза кардани журнал"
           }
         },
         "tr": {
@@ -5717,6 +6059,12 @@
             "value": "Очистить"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тоза кардан"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5810,6 +6158,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Все записи журнала открытий будут удалены."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳамаи сабтҳои журнали кушодан тоза мешаванд."
           }
         },
         "tr": {
@@ -5907,6 +6261,12 @@
             "value": "Очистить журнал?"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал тоза карда шавад?"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6000,6 +6360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записей пока нет."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳоло сабте нест."
           }
         },
         "tr": {
@@ -6097,6 +6463,12 @@
             "value": "Сделан экспорт копии"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусха содир шуд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6190,6 +6562,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показаны скрытые счета"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисобҳои пинҳонӣ намоён шуданд"
           }
         },
         "tr": {
@@ -6287,6 +6665,12 @@
             "value": "Заблокировано"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қулф шуд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6380,6 +6764,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Приложение открыто"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома кушода шуд"
           }
         },
         "tr": {
@@ -6477,6 +6867,12 @@
             "value": "Режим «только просмотр» выключен"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳолати танҳо намоиш хомӯш шуд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6570,6 +6966,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Включён режим «только просмотр»"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳолати танҳо намоиш фаъол шуд"
           }
         },
         "tr": {
@@ -6667,6 +7069,12 @@
             "value": "Блокировка снята по паролю"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бо парол кушода шуд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6760,6 +7168,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка снята по Touch ID"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бо Touch ID кушода шуд"
           }
         },
         "tr": {
@@ -6857,6 +7271,12 @@
             "value": "Журнал лежит только на этом Mac. В нём моменты и виды событий: ни сумм, ни имён, ни названий. В копию и в архив он не попадает."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал танҳо дар ин Mac нигоҳ дошта мешавад. Он вақт ва навъи рӯйдодҳоро бе маблағҳо ва номҳо сабт мекунад ва ба нусха ё бойгонӣ дохил намешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6950,6 +7370,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хранить"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муҳлати нигоҳдорӣ"
           }
         },
         "tr": {
@@ -7239,6 +7665,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рӯз"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рӯз"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -7388,6 +7832,12 @@
             "value": "Журнал открытий"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнали кушодан"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7481,6 +7931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Чтобы открыть файл, нужен этот пароль. Восстановить его нельзя."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои кушодани файл ин парол лозим аст. Онро барқарор кардан мумкин нест."
           }
         },
         "tr": {
@@ -7578,6 +8034,12 @@
             "value": "Закрыть файл паролем"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қулф кардани файл бо парол"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7671,6 +8133,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Содироти нусха…"
           }
         },
         "tr": {
@@ -7768,6 +8236,12 @@
             "value": "Что знает приложение…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома чӣ медонад…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7861,6 +8335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скрывать суммы при записи экрана"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пинҳон кардани маблағҳо ҳангоми сабти экран"
           }
         },
         "tr": {
@@ -7958,6 +8438,12 @@
             "value": "И когда экран показывают другому или в звонке."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инчунин ҳангоми намоиши экран дар дастгоҳи дигар ё мубодилаи он дар занг."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8051,6 +8537,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать на учебных данных…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Намоиш бо додаҳои омӯзишӣ…"
           }
         },
         "tr": {
@@ -8148,6 +8640,12 @@
             "value": "Экспорт копии…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Содироти нусха…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8241,6 +8739,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Передать другому"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Супоридан"
           }
         },
         "tr": {
@@ -8338,6 +8842,12 @@
             "value": "Копия закрыта паролем, оригинал не меняется. Учебные данные — выдуманные цифры, ваша база не открывается."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусха бо парол қулф мешавад; асл бетағйир мемонад. Додаҳои омӯзишӣ рақамҳои сохтаанд ва пойгоҳи додаҳои шумо кушода намешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8431,6 +8941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнали кушодан…"
           }
         },
         "tr": {
@@ -8528,6 +9044,12 @@
             "value": "Что знает приложение"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома чӣ медонад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8621,6 +9143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Журнал и числа только показаны здесь и никуда не отправляются."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал ва шумораҳо танҳо дар ин ҷо намоиш дода мешаванд; онҳо ба ҳеҷ ҷо фиристода намешаванд."
           }
         },
         "tr": {
@@ -8718,6 +9246,12 @@
             "value": "Блокировка и пароль…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қулф ва парол…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8811,6 +9345,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Только просмотр"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Танҳо намоиш"
           }
         },
         "tr": {
@@ -8908,6 +9448,12 @@
             "value": "Приложение всё показывает и ничего не меняет."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома ҳама чизро нишон медиҳад ва чизеро тағйир намедиҳад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8999,6 +9545,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экран"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "Экран"
@@ -9099,6 +9651,12 @@
             "value": "Что хранится…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чӣ нигоҳ дошта мешавад…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9195,6 +9753,12 @@
             "value": "Вложения"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Замимаҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9288,6 +9852,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копии"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусхаҳо"
           }
         },
         "tr": {
@@ -9573,6 +10143,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld копии"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld нусха"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld нусха"
                 }
               }
             }
@@ -9919,6 +10507,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файл"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -10255,6 +10861,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld строки"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сатр"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сатр"
                 }
               }
             }
@@ -10601,6 +11225,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сабт"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сабт"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -10750,6 +11392,12 @@
             "value": "База данных"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пойгоҳи додаҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10843,6 +11491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Здесь только числа и размеры. Ничего никуда не отправляется."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар ин ҷо танҳо шумора ва ҳаҷм нишон дода мешаванд. Ҳеҷ чиз ба ҷое фиристода намешавад."
           }
         },
         "tr": {
@@ -10940,6 +11594,12 @@
             "value": "Журнал открытий"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнали кушоданҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11033,6 +11693,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записи"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сабтҳо"
           }
         },
         "tr": {
@@ -11130,6 +11796,12 @@
             "value": "По таблицам"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз рӯи ҷадвал"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11223,6 +11895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барнома чӣ медонад"
           }
         },
         "tr": {
@@ -11320,6 +11998,12 @@
             "value": "Всего на диске"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳамагӣ дар диск"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11413,6 +12097,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Б"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
           }
         },
         "tr": {
@@ -11510,6 +12200,12 @@
             "value": "ГБ"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11603,6 +12299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "КБ"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
           }
         },
         "tr": {
@@ -11700,6 +12402,12 @@
             "value": "МБ"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11793,6 +12501,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Где лежит"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷойгиршавӣ"
           }
         },
         "tr": {
@@ -11890,6 +12604,12 @@
             "value": "Копии"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нусхаҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11983,6 +12703,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Папка данных"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷузвдони додаҳо"
           }
         },
         "tr": {
@@ -12080,6 +12806,12 @@
             "value": "Пути только показаны: в базе и в архиве их нет."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Масирҳо танҳо нишон дода мешаванд: онҳо дар пойгоҳи додаҳо ва бойгонӣ нигоҳ дошта намешаванд."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12173,6 +12905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Папка зеркальных копий"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷузвдони нусхаҳои оинавӣ"
           }
         },
         "tr": {

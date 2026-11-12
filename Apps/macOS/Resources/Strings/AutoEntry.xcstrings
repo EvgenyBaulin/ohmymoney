@@ -35,6 +35,12 @@
             "value": "Modifier"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Խմբագրել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -135,6 +141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Noter"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցել"
           }
         },
         "it": {
@@ -239,6 +251,12 @@
             "value": "Déjà noté : cette opération est dans les comptes."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արդեն գրանցված է․ այս գործարքը գրանցամատյանում է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -339,6 +357,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney est verrouillée : déverrouillez-la pour transmettre le message."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney-ն կողպված է․ ապակողպեք այն՝ հաղորդագրությունը փոխանցելու համար։"
           }
         },
         "it": {
@@ -443,6 +467,12 @@
             "value": "Cela ne ressemble pas à un message de banque : ni opération, ni montant, ni carte ou solde."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սա բանկի հաղորդագրության նման չէ․ այն չի պարունակում գործարք, գումար և քարտ կամ մնացորդ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -543,6 +573,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney ouvre encore les comptes — réessayez dans un instant."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney-ն դեռ բացում է գրանցամատյանը․ մի փոքր հետո կրկին փորձեք։"
           }
         },
         "it": {
@@ -647,6 +683,12 @@
             "value": "Une opération d'un compte masqué — la noter ?"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թաքցված հաշվի գործարք․ գրանցե՞լ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -747,6 +789,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Une opération d'un compte masqué a été notée"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թաքցված հաշվի գործարքը գրանցվել է"
           }
         },
         "it": {
@@ -930,6 +978,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld opérations attendent — les terminer ?"
+                }
+              }
+            }
+          }
+        },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գործարք սպասում է․ ավարտե՞լ։"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գործարք սպասում է․ ավարտե՞լ։"
                 }
               }
             }
@@ -1211,6 +1277,12 @@
             "value": "Noter plus tard"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցել ավելի ուշ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1311,6 +1383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Depuis un message de banque"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկի հաղորդագրությունից"
           }
         },
         "it": {
@@ -1415,6 +1493,12 @@
             "value": "La banque indique %1$@, l'application %2$@ — il est temps de compter le compte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկում՝ %1$@, հավելվածում՝ %2$@․ ժամանակն է հաշվել հաշվի մնացորդը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1515,6 +1599,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le solde de la banque diffère de celui de l'application — il est temps de compter le compte."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկի մնացորդը տարբերվում է հավելվածի մնացորդից․ ժամանակն է հաշվել հաշվի մնացորդը։"
           }
         },
         "it": {
@@ -1619,6 +1709,12 @@
             "value": "Le solde ne correspond pas"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մնացորդը չի համընկնում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1719,6 +1815,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — la noter ?"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@․ գրանցե՞լ։"
           }
         },
         "it": {
@@ -1823,6 +1925,12 @@
             "value": "Notée : %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցված է․ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1923,6 +2031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Retrait d'espèces"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կանխիկի կանխիկացում"
           }
         },
         "it": {
@@ -2027,6 +2141,12 @@
             "value": "Frais"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միջնորդավճար"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2127,6 +2247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Revenu"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Եկամուտ"
           }
         },
         "it": {
@@ -2231,6 +2357,12 @@
             "value": "Achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2331,6 +2463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remboursement"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումարի վերադարձ"
           }
         },
         "it": {
@@ -2435,6 +2573,12 @@
             "value": "Virement reçu"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքային փոխանցում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2535,6 +2679,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Virement"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փոխանցում"
           }
         },
         "it": {
@@ -2639,6 +2789,12 @@
             "value": "La transmission des messages de banque sur iPhone sera activée avec Siri, lorsque l'application arrivera sur l'App Store."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone-ում բանկի հաղորդագրությունների փոխանցումը կմիանա Siri-ի հետ միասին, երբ հավելվածը հայտնվի App Store-ում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2739,6 +2895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En attente dans « Noter plus tard » : %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասում է «Գրանցել ավելի ուշ» բաժնում․ %@"
           }
         },
         "it": {
@@ -2843,6 +3005,12 @@
             "value": "Une opération attend dans « Noter plus tard »."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գործարքը սպասում է «Գրանցել ավելի ուշ» բաժնում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2943,6 +3111,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "« Consultation seule » est activé : rien n'est noté."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միացված է «Միայն դիտում» ռեժիմը․ ոչինչ չի գրանցվում։"
           }
         },
         "it": {
@@ -3047,6 +3221,12 @@
             "value": "Un message transmis par Raccourcis (« Transmettre un message de banque ») devient une opération. Proposé : une notification demande « Noter ? » et l'opération attend dans « Noter plus tard ». Tout de suite : elle est notée comme la ligne de saisie la note ; si la ligne demanderait une précision, elle est proposée à la place. Seuls le montant, le magasin, la carte et le solde sont conservés — jamais le message lui-même."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shortcuts-ով փոխանցված հաղորդագրությունը («Փոխանցել բանկի հաղորդագրությունը») դառնում է գործարք։ Առաջարկելիս ծանուցումը հարցնում է «Գրանցե՞լ», իսկ գործարքը սպասում է «Գրանցել ավելի ուշ» բաժնում։ Անմիջապես գրանցելիս այն գրանցվում է այնպես, ինչպես մուտքագրման տողում․ եթե տողում լրացուցիչ հարց առաջանար, գործարքն առաջարկվում է գրանցել ավելի ուշ։ Պահվում են միայն գումարը, խանութը, քարտը և մնացորդը․ հաղորդագրությունը երբեք չի պահվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3147,6 +3327,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un message de banque"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկի հաղորդագրություն"
           }
         },
         "it": {
@@ -3251,6 +3437,12 @@
             "value": "Noter tout de suite"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցել անմիջապես"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3351,6 +3543,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Proposer de noter"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առաջարկել գրանցել"
           }
         },
         "it": {
@@ -3455,6 +3653,12 @@
             "value": "Messages de banque"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկի հաղորդագրություններ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3555,6 +3759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lit un SMS ou une notification d'une banque et note l'opération, ou propose de la noter, selon le réglage dans OhMyMoney."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կարդում է բանկի SMS-ը կամ push ծանուցումը և գրանցում գործարքը կամ առաջարկում գրանցել այն՝ ըստ OhMyMoney-ի կարգավորումների։"
           }
         },
         "it": {
@@ -3659,6 +3869,12 @@
             "value": "Message"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաղորդագրություն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3759,6 +3975,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transmettre un message de banque"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փոխանցել բանկի հաղորդագրությունը"
           }
         },
         "it": {
@@ -3863,6 +4085,12 @@
             "value": "Lit un message de banque copié dans le presse-papiers, comme le fait « Transmettre un message de banque »."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կարդում է clipboard-ում պատճենված բանկի հաղորդագրությունը՝ ինչպես «Փոխանցել բանկի հաղորդագրությունը» գործողությունը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3963,6 +4191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transmettre un message de banque depuis le presse-papiers"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փոխանցել բանկի հաղորդագրությունը clipboard-ից"
           }
         },
         "it": {
