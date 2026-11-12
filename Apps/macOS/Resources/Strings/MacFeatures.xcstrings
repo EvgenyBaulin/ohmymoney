@@ -4,6 +4,12 @@
     "intent.add.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадае аперацыю або перавод, запісаныя як у радку ўводу, напрыклад “кава 250” або “перавод 5000 з Sber на T-Bank”. Запіс правяраецца гэтак жа, як у радку ўводу. ⌘Z у OhMyMoney адмяняе яго."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -14,6 +20,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Adds an operation or a transfer written as in the entry line, for example “coffee 250” or “transfer 5000 from Sber to T-Bank”. It is checked as the entry line checks it, and ⌘Z in OhMyMoney takes it back."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiunge un’operazione o un trasferimento scritto come nella riga di inserimento, ad esempio “caffè 250” o “trasferimento 5000 da Sber a T-Bank”. Viene verificato come nella riga di inserimento e puoi annullarlo con ⌘Z in OhMyMoney."
           }
         },
         "kk": {
@@ -33,6 +45,12 @@
     "intent.add.description.touch": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадае аперацыю або перавод, запісаныя як у радку ўводу, напрыклад “кава 250” або “перавод 5000 з Sber на T-Bank”. Запіс правяраецца гэтак жа, як у радку ўводу. Кнопка “Адмяніць” у OhMyMoney адмяняе яго."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -43,6 +61,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Adds an operation or a transfer written as in the entry line, for example “coffee 250” or “transfer 5000 from Sber to T-Bank”. It is checked as the entry line checks it, and the “Undo” button in OhMyMoney takes it back."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiunge un’operazione o un trasferimento scritto come nella riga di inserimento, ad esempio “caffè 250” o “trasferimento 5000 da Sber a T-Bank”. Viene verificato come nella riga di inserimento e puoi annullarlo con il pulsante “Annulla” in OhMyMoney."
           }
         },
         "kk": {
@@ -62,6 +86,12 @@
     "intent.add.line": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Радок"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +102,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Line"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riga"
           }
         },
         "kk": {
@@ -91,6 +127,12 @@
     "intent.add.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадаць аперацыю"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -101,6 +143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi operazione"
           }
         },
         "kk": {
@@ -120,6 +168,12 @@
     "intent.delete.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаляе аперацыю, як кнопка “Выдаліць” у спісе. ⌘Z у OhMyMoney аднаўляе яе."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -130,6 +184,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deletes an operation, as “Delete” in the list does. ⌘Z in OhMyMoney brings it back."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina un’operazione, come il comando “Elimina” nell’elenco. Puoi ripristinarla con ⌘Z in OhMyMoney."
           }
         },
         "kk": {
@@ -149,6 +209,12 @@
     "intent.delete.description.touch": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаляе аперацыю, як кнопка “Выдаліць” у спісе. Кнопка “Адмяніць” у OhMyMoney аднаўляе яе."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -159,6 +225,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deletes an operation, as “Delete” in the list does. the “Undo” button in OhMyMoney brings it back."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina un’operazione, come il comando “Elimina” nell’elenco. Puoi ripristinarla con il pulsante “Annulla” in OhMyMoney."
           }
         },
         "kk": {
@@ -178,6 +250,12 @@
     "intent.delete.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць аперацыю"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -188,6 +266,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina operazione"
           }
         },
         "kk": {
@@ -208,6 +292,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -218,6 +308,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amount"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo"
           }
         },
         "kk": {
@@ -244,6 +340,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -254,6 +356,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
           }
         },
         "kk": {
@@ -279,6 +387,12 @@
     "intent.edit.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змяняе апісанне, суму або катэгорыю аперацыі. Пустыя палі застаюцца без змен."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -289,6 +403,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Changes the description, the amount or the category of an operation. Fields left empty stay as they are."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica la descrizione, l’importo o la categoria di un’operazione. I campi lasciati vuoti restano invariati."
           }
         },
         "kk": {
@@ -309,6 +429,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апісанне"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -319,6 +445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Description"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descrizione"
           }
         },
         "kk": {
@@ -344,6 +476,12 @@
     "intent.edit.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змяніць аперацыю"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -354,6 +492,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Change Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica operazione"
           }
         },
         "kk": {
@@ -373,6 +517,12 @@
     "intent.find.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знаходзіць аперацыі па слове з апісання, месцы або катэгорыі. Аперацыі схаваных рахункаў не паказваюцца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -383,6 +533,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Finds operations by a word of the description, the place or the category. Operations of hidden accounts are never found."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trova le operazioni in base a una parola della descrizione, del luogo o della categoria. Le operazioni dei conti nascosti non vengono mai trovate."
           }
         },
         "kk": {
@@ -402,6 +558,12 @@
     "intent.find.text": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тэкст"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -412,6 +574,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Text"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testo"
           }
         },
         "kk": {
@@ -431,6 +599,12 @@
     "intent.find.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знайсці аперацыі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -441,6 +615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Find Operations"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trova operazioni"
           }
         },
         "kk": {
@@ -460,6 +640,12 @@
     "intent.focus.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хавае сумы ў OhMyMoney, пакуль гэты рэжым факусавання ўключаны, і паказвае іх пасля яго заканчэння. Сумы, схаваныя вамі, застаюцца схаванымі."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -470,6 +656,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hides the amounts in OhMyMoney while this Focus is on and shows them again when it ends. Amounts you hid yourself stay hidden."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasconde gli importi in OhMyMoney mentre questa modalità Full immersion è attiva e li mostra di nuovo al termine. Gli importi nascosti manualmente rimangono nascosti."
           }
         },
         "kk": {
@@ -489,6 +681,12 @@
     "intent.focus.hidden": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумы схаваныя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -499,6 +697,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amounts hidden"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importi nascosti"
           }
         },
         "kk": {
@@ -518,6 +722,12 @@
     "intent.focus.hide": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схаваць сумы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -528,6 +738,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hide amounts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nascondi importi"
           }
         },
         "kk": {
@@ -547,6 +763,12 @@
     "intent.focus.shown": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумы паказаныя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -557,6 +779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amounts shown"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importi visibili"
           }
         },
         "kk": {
@@ -577,6 +805,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схаваць сумы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -587,6 +821,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hide Amounts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nascondi importi"
           }
         },
         "kk": {
@@ -612,6 +852,12 @@
     "intent.markdown.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агляд месяца ў файле Markdown. Дадайце пасля яго “Захаваць файл”, каб змясціць файл у папку, і запускайце каманду паводле раскладу."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -622,6 +868,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The summary of a month as a Markdown file — add “Save File” after it to put it into a folder, and run the shortcut on a schedule."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il riepilogo di un mese come file Markdown. Aggiungi “Salva file” per salvarlo in una cartella ed esegui il comando rapido secondo una pianificazione."
           }
         },
         "kk": {
@@ -641,6 +893,12 @@
     "intent.markdown.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспартаваць месяц у Markdown"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -651,6 +909,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Export Month as Markdown"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esporta mese come Markdown"
           }
         },
         "kk": {
@@ -671,6 +935,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месяц"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -681,6 +951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mese"
           }
         },
         "kk": {
@@ -707,6 +983,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -717,6 +999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione"
           }
         },
         "kk": {
@@ -743,6 +1031,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -753,6 +1047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione"
           }
         },
         "kk": {
@@ -778,6 +1078,12 @@
     "intent.summary.description": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агляд месяца ў выглядзе тэксту: даходы, выдаткі, катэгорыі, месцы. Калі месяц не пазначаны — апошні завершаны. Калі ўключана “Схаваць сумы”, сумы не паказваюцца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -788,6 +1094,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The summary of a month as text: income, spending, categories, places. Without a month — the last finished one. With “Hide Amounts” on, without amounts."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il riepilogo di un mese come testo: entrate, spese, categorie e luoghi. Se non specifichi un mese, viene usato l’ultimo mese concluso. Se “Nascondi importi” è attivo, gli importi non vengono mostrati."
           }
         },
         "kk": {
@@ -807,6 +1119,12 @@
     "intent.summary.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агляд месяца"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -817,6 +1135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Month Summary"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riepilogo mensile"
           }
         },
         "kk": {
@@ -836,6 +1160,12 @@
     "mac.command.archivedLeftovers": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пасля змены на архіўным рахунку застануцца грошы. Завяршыце дзеянне ў OhMyMoney."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -846,6 +1176,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The change would leave money on an archived account: finish it in OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La modifica lascerebbe denaro su un conto archiviato. Completa l’operazione in OhMyMoney."
           }
         },
         "kk": {
@@ -865,6 +1201,12 @@
     "mac.command.badDate": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдалося распазнаць дату або час у радку."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -875,6 +1217,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The date or the time of the line cannot be read."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere la data o l’ora nella riga."
           }
         },
         "kk": {
@@ -894,6 +1242,12 @@
     "mac.command.badMonth": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запішыце месяц як YYYY-MM, напрыклад 2026-10."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -904,6 +1258,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The month is written as YYYY-MM, for example 2026-10."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il mese va scritto come AAAA-MM, ad esempio 2026-10."
           }
         },
         "kk": {
@@ -923,6 +1283,12 @@
     "mac.command.categoryMissing": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У радку няма катэгорыі. Дадайце яе, напрыклад “кава 250 кавярня”, або выберыце ў OhMyMoney."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -933,6 +1299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The line names no category: add it to the line, for example “coffee 250 cafe”, or choose it in OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La riga non indica una categoria. Aggiungila, ad esempio “caffè 250 bar”, oppure sceglila in OhMyMoney."
           }
         },
         "kk": {
@@ -952,6 +1324,12 @@
     "mac.command.categoryUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыі “%@” няма."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -962,6 +1340,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "There is no category “%@”."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La categoria “%@” non esiste."
           }
         },
         "kk": {
@@ -981,6 +1365,12 @@
     "mac.command.confirm": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Усё роўна запісаць?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -991,6 +1381,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ Record it anyway?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Registrare comunque?"
           }
         },
         "kk": {
@@ -1010,6 +1406,12 @@
     "mac.command.countQuestion": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У гэты дзень баланс быў зверены. Пазначце ў OhMyMoney, ці адбылася аперацыя да падліку."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1020,6 +1422,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The balance was reconciled that day: say in OhMyMoney whether the operation was before the count."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il saldo è stato verificato quel giorno. Indica in OhMyMoney se l’operazione è avvenuta prima della verifica."
           }
         },
         "kk": {
@@ -1039,6 +1447,12 @@
     "mac.command.deleteRefused": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэтую аперацыю нельга выдаліць тут. Адкрыйце яе ў OhMyMoney."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1049,6 +1463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This operation cannot be deleted from here: open it in OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile eliminare questa operazione da qui. Aprila in OhMyMoney."
           }
         },
         "kk": {
@@ -1068,6 +1488,12 @@
     "mac.command.deleted": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдалена: %@. ⌘Z у OhMyMoney аднаўляе аперацыю."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1078,6 +1504,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deleted: %@. ⌘Z in OhMyMoney brings it back."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminata: %@. Puoi ripristinarla con ⌘Z in OhMyMoney."
           }
         },
         "kk": {
@@ -1097,6 +1529,12 @@
     "mac.command.deleted.touch": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдалена: %@. Кнопка “Адмяніць” у OhMyMoney аднаўляе аперацыю."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1107,6 +1545,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deleted: %@. the “Undo” button in OhMyMoney brings it back."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminata: %@. Puoi ripristinarla con il pulsante “Annulla” in OhMyMoney."
           }
         },
         "kk": {
@@ -1126,6 +1570,12 @@
     "mac.command.edited": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зменена: %@."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1136,6 +1586,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Changed: %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificata: %@."
           }
         },
         "kk": {
@@ -1155,6 +1611,12 @@
     "mac.command.instalmentReturn": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне пакупкі ў растэрміноўку запісваецца ў OhMyMoney."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1165,6 +1627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A return of something bought in instalments is recorded in OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un reso di un acquisto a rate si registra in OhMyMoney."
           }
         },
         "kk": {
@@ -1184,6 +1652,12 @@
     "mac.command.locked": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney заблакіравана. Адкрыйце праграму і разблакіруйце яе."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1194,6 +1668,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney is locked. Open the app and unlock it."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney è bloccato. Apri l’app e sbloccala."
           }
         },
         "kk": {
@@ -1213,6 +1693,12 @@
     "mac.command.mileage": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прабег з апошняй запраўкі не будзе запісаны."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1223,6 +1709,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The mileage since the last fill-up will not be recorded."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La distanza percorsa dall’ultimo rifornimento non verrà registrata."
           }
         },
         "kk": {
@@ -1242,6 +1734,12 @@
     "mac.command.moneyBack": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне грошай ад чалавека запісваецца ў OhMyMoney: там можна выбраць, якую запазычанасць яно пагашае."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1252,6 +1750,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money given back by a person is recorded in OhMyMoney: there you choose what it closes."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il denaro restituito da una persona si registra in OhMyMoney, dove puoi scegliere cosa salda."
           }
         },
         "kk": {
@@ -1271,6 +1775,12 @@
     "mac.command.notFound": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя не знойдзена."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1281,6 +1791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The operation was not found."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione non trovata."
           }
         },
         "kk": {
@@ -1300,6 +1816,12 @@
     "mac.command.notReady": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney яшчэ не адкрыла даныя. Адкрыйце праграму і паспрабуйце зноў."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1310,6 +1832,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney has not opened its data yet. Open the app and try again."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney non ha ancora aperto i suoi dati. Apri l’app e riprova."
           }
         },
         "kk": {
@@ -1329,6 +1857,12 @@
     "mac.command.prepayQuestion": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плацёж большы за належны. Выберыце ў OhMyMoney, ці скарачае ён тэрмін, памяншае плацёж або аплачвае наперад."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1339,6 +1873,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The payment is above its due: choose in OhMyMoney whether it shortens the term, lowers the payment or pays ahead."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il pagamento supera l’importo dovuto. Scegli in OhMyMoney se riduce la durata, abbassa la rata o paga in anticipo."
           }
         },
         "kk": {
@@ -1358,6 +1898,12 @@
     "mac.command.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключаны рэжым “Толькі чытанне”: дадаваць, змяняць і выдаляць нельга."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1368,6 +1914,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Read Only” is on: nothing can be added, changed or deleted."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Sola lettura” è attivo: non puoi aggiungere, modificare o eliminare nulla."
           }
         },
         "kk": {
@@ -1387,6 +1939,12 @@
     "mac.command.refundPurchase": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне грошай: выберыце ў OhMyMoney пакупку, за якую вяртаюцца грошы."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1397,6 +1955,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund: choose the purchase it takes money back from in OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un rimborso: scegli in OhMyMoney l’acquisto a cui si riferisce."
           }
         },
         "kk": {
@@ -1416,6 +1980,12 @@
     "mac.command.saved": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісана: %@."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1426,6 +1996,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recorded: %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrata: %@."
           }
         },
         "kk": {
@@ -1445,6 +2021,12 @@
     "mac.command.splitAmount": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя складаецца з некалькіх частак. Змяніце яе суму ў OhMyMoney."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1455,6 +2037,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The operation has several parts: change its amount in OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’operazione ha più parti. Modifica l’importo in OhMyMoney."
           }
         },
         "kk": {
@@ -1474,6 +2062,12 @@
     "mac.command.transferIncomplete": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перавод: пазначце абодва рахункі ў адной валюце, напрыклад “перавод 5000 Sber T-Bank”."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1484,6 +2078,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A transfer: name both accounts in one currency, for example “transfer 5000 Sber T-Bank”."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un trasferimento: indica entrambi i conti nella stessa valuta, ad esempio “trasferimento 5000 Sber T-Bank”."
           }
         },
         "kk": {
@@ -1503,6 +2103,12 @@
     "mac.command.unchanged": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма чаго змяняць: %@."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1513,6 +2119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing to change: %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna modifica: %@."
           }
         },
         "kk": {
@@ -1533,6 +2145,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1543,6 +2161,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione"
           }
         },
         "kk": {
@@ -1568,6 +2192,12 @@
     "mac.density.compact": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кампактна"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1578,6 +2208,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compact"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compatta"
           }
         },
         "kk": {
@@ -1597,6 +2233,12 @@
     "mac.density.detailed": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падрабязна"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1607,6 +2249,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Detailed"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dettagliata"
           }
         },
         "kk": {
@@ -1626,6 +2274,12 @@
     "mac.markdown.button": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1633,6 +2287,12 @@
           }
         },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Markdown…"
@@ -1655,6 +2315,12 @@
     "mac.notify.evening.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Або пазначце ў OhMyMoney, што сёння выдаткаў не было."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1665,6 +2331,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Or say in OhMyMoney that there was none today."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oppure indica in OhMyMoney che oggi non hai avuto spese."
           }
         },
         "kk": {
@@ -1684,6 +2356,36 @@
     "mac.notify.evening.streak": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Працягвайце серыю: ужо %lld дні."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Працягвайце серыю: ужо %lld дзён."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Працягвайце серыю: ужо %lld дзень."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Працягвайце серыю: ужо %lld дня."
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -1715,6 +2417,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Keep your streak of %lld days going."
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Continua la tua serie di %lld giorni."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Continua la tua serie di %lld giorno."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Continua la tua serie di %lld giorni."
                 }
               }
             }
@@ -1773,6 +2499,12 @@
     "mac.notify.evening.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запішыце сённяшнія выдаткі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1783,6 +2515,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Record today’s spending"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra le spese di oggi"
           }
         },
         "kk": {
@@ -1802,6 +2540,12 @@
     "mac.notify.explain.allow": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дазволіць…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1812,6 +2556,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Allow…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consenti…"
           }
         },
         "kk": {
@@ -1832,6 +2582,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не цяпер"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1842,6 +2598,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not Now"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ora"
           }
         },
         "kk": {
@@ -1867,6 +2629,12 @@
     "mac.notify.explain.message": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney можа нагадваць за дзень да тэрміну плацяжу — з кнопкай “Запісаць плацёж” проста ў апавяшчэнні, паведамляць пра амаль вычарпаны ліміт і пра гатовы агляд тыдня або месяца. Калі ўключана “Схаваць сумы”, апавяшчэнні не паказваюць сумы і не называюць схаваныя рахункі. Кожны тып апавяшчэнняў можна выключыць у меню Налады → Прыватнасць."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1877,6 +2645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney can tell you the day before a payment is due — with “Record Payment” right in the notification — when a limit is nearly spent, and when the summary of a week or a month is ready. With “Hide Amounts” on, notifications show no amounts, and hidden accounts are never named. You can turn each kind off in Settings → Privacy."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney può avvisarti il giorno prima della scadenza di un pagamento, con “Registra pagamento” direttamente nella notifica, quando un limite è quasi raggiunto e quando il riepilogo di una settimana o di un mese è pronto. Se “Nascondi importi” è attivo, le notifiche non mostrano gli importi e non indicano mai i conti nascosti. Puoi disattivare ogni tipo di notifica in Impostazioni → Privacy."
           }
         },
         "kk": {
@@ -1896,6 +2670,12 @@
     "mac.notify.explain.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апавяшчэнні ад OhMyMoney?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1906,6 +2686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notifications from OhMyMoney?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifiche da OhMyMoney?"
           }
         },
         "kk": {
@@ -1925,6 +2711,12 @@
     "mac.notify.limit.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За гэты месяц выдаткавана %1$@ з %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1935,6 +2727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spent %1$@ of %2$@ this month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spesi %1$@ di %2$@ questo mese"
           }
         },
         "kk": {
@@ -1954,6 +2752,12 @@
     "mac.notify.limit.bodyHidden": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрыйце Планаванне, каб убачыць ліміт"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1964,6 +2768,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open Planning to see the limit"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri Pianificazione per vedere il limite"
           }
         },
         "kk": {
@@ -1983,6 +2793,12 @@
     "mac.notify.limit.near": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліміт “%@” амаль вычарпаны"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1993,6 +2809,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The limit “%@” is nearly spent"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il limite “%@” è quasi raggiunto"
           }
         },
         "kk": {
@@ -2012,6 +2834,12 @@
     "mac.notify.limit.over": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліміт “%@” перавышаны"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2022,6 +2850,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The limit “%@” is overspent"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il limite “%@” è stato superato"
           }
         },
         "kk": {
@@ -2041,6 +2875,12 @@
     "mac.notify.payment.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заўтра тэрмін плацяжу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2051,6 +2891,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Payment due tomorrow"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento in scadenza domani"
           }
         },
         "kk": {
@@ -2070,6 +2916,12 @@
     "mac.notify.payment.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2080,6 +2932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ on %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ il %2$@"
           }
         },
         "kk": {
@@ -2099,6 +2957,12 @@
     "mac.notify.payment.bodyHidden": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тэрмін: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2109,6 +2973,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Due on %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scadenza: %@"
           }
         },
         "kk": {
@@ -2128,6 +2998,12 @@
     "mac.notify.payment.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заўтра тэрмін: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2138,6 +3014,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Due tomorrow: %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In scadenza domani: %@"
           }
         },
         "kk": {
@@ -2157,6 +3039,12 @@
     "mac.notify.record": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісаць плацёж"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2167,6 +3055,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Record Payment"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra pagamento"
           }
         },
         "kk": {
@@ -2186,6 +3080,12 @@
     "mac.notify.summary.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрыйце OhMyMoney, каб паглядзець"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2196,6 +3096,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open OhMyMoney to look at it"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri OhMyMoney per visualizzarlo"
           }
         },
         "kk": {
@@ -2215,6 +3121,12 @@
     "mac.print.ask": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Друкаваць з сумамі?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2225,6 +3137,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Print with amounts?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stampare con gli importi?"
           }
         },
         "kk": {
@@ -2244,6 +3162,12 @@
     "mac.print.askMessage": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумы схаваныя на экране. Раздрукаваную старонку можа ўбачыць кожны."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2254,6 +3178,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The amounts are hidden on the screen. A printed page can be seen by anyone."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli importi sono nascosti sullo schermo. Una pagina stampata può essere vista da chiunque."
           }
         },
         "kk": {
@@ -2274,6 +3204,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Друкаваць…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2284,6 +3220,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Print…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stampa…"
           }
         },
         "kk": {
@@ -2310,6 +3252,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Друкаваць…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2320,6 +3268,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Print…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stampa…"
           }
         },
         "kk": {
@@ -2346,6 +3300,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2356,6 +3316,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operations"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazioni"
           }
         },
         "kk": {
@@ -2381,6 +3347,12 @@
     "mac.print.with": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З сумамі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2391,6 +3363,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "With Amounts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con importi"
           }
         },
         "kk": {
@@ -2410,6 +3388,12 @@
     "mac.print.without": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без сум"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2420,6 +3404,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Without Amounts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senza importi"
           }
         },
         "kk": {
@@ -2439,6 +3429,12 @@
     "mac.quicklook.created": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створана: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2449,6 +3445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Made: %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creato: %@"
           }
         },
         "kk": {
@@ -2468,6 +3470,12 @@
     "mac.quicklook.encrypted": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашыфравана"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2478,6 +3486,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Encrypted"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crittografato"
           }
         },
         "kk": {
@@ -2497,6 +3511,12 @@
     "mac.quicklook.encryptedHint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змесціва можна праглядзець толькі ў OhMyMoney з паролем."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2507,6 +3527,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The contents can be seen only in OhMyMoney, with the password."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il contenuto è visibile solo in OhMyMoney con la password."
           }
         },
         "kk": {
@@ -2526,6 +3552,12 @@
     "mac.quicklook.operations": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыі: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2536,6 +3568,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operations: %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazioni: %@"
           }
         },
         "kk": {
@@ -2555,6 +3593,12 @@
     "mac.quicklook.tables": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табліцы: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2565,6 +3609,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tables: %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabelle: %@"
           }
         },
         "kk": {
@@ -2585,6 +3635,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архіў OhMyMoney"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2595,6 +3651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney Archive"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivio OhMyMoney"
           }
         },
         "kk": {
@@ -2620,6 +3682,12 @@
     "mac.quicklook.unreadable": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немагчыма прачытаць гэты файл як архіў OhMyMoney."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2630,6 +3698,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This file cannot be read as an archive of OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere questo file come archivio OhMyMoney."
           }
         },
         "kk": {
@@ -2649,6 +3723,12 @@
     "mac.quicklook.version": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ад OhMyMoney %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2659,6 +3739,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "By OhMyMoney %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di OhMyMoney %@"
           }
         },
         "kk": {
@@ -2678,6 +3764,12 @@
     "mac.settings.evening": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вячэрні напамін пра запіс выдаткаў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2688,6 +3780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Evening reminder to record spending"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promemoria serale per registrare le spese"
           }
         },
         "kk": {
@@ -2707,6 +3805,12 @@
     "mac.settings.footer.always": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апавяшчэнні заўсёды паказваюць назву і суму, у тым ліку для схаваных рахункаў. Іх можа ўбачыць на экране кожны, хто побач з Mac."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2717,6 +3821,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notifications always show the name and the amount, hidden accounts included. They can be seen on the screen by anyone near the Mac."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le notifiche mostrano sempre il nome e l’importo, anche per i conti nascosti. Sono visibili sullo schermo a chiunque si trovi vicino al Mac."
           }
         },
         "kk": {
@@ -2736,6 +3846,12 @@
     "mac.settings.footer.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калі сумы схаваны, апавяшчэнні іх не паказваюць. Пра плацёж па схаваным рахунку паведамляецца як «Заўтра тэрмін плацяжу», без назвы і сумы."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2746,6 +3862,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "While the amounts are hidden, notifications show none; a payment of a hidden account is announced as “Payment due tomorrow”, without its name and amount."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando gli importi sono nascosti, le notifiche non li mostrano; un pagamento di un conto nascosto è annunciato come “Pagamento in scadenza domani”, senza nome né importo."
           }
         },
         "kk": {
@@ -2765,6 +3887,12 @@
     "mac.settings.footer.quiet": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калі сумы схаваны, апавяшчэнні іх не паказваюць і ніколі не згадваюць схаваныя рахункі."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2775,6 +3903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "While the amounts are hidden, notifications show none, and a hidden account is never mentioned."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando gli importi sono nascosti, le notifiche non li mostrano e non menzionano mai i conti nascosti."
           }
         },
         "kk": {
@@ -2794,6 +3928,12 @@
     "mac.settings.limits": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліміт амаль вычарпаны або перавышаны"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2804,6 +3944,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limit nearly spent or overspent"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limite quasi raggiunto o superato"
           }
         },
         "kk": {
@@ -2823,6 +3969,12 @@
     "mac.settings.payments": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заўтра тэрмін плацяжу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2833,6 +3985,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Payment due tomorrow"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento in scadenza domani"
           }
         },
         "kk": {
@@ -2852,6 +4010,12 @@
     "mac.settings.payments.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З дзеяннем «Запісаць плацёж» у апавяшчэнні."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2862,6 +4026,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "With “Record Payment” in the notification."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con “Registra pagamento” nella notifica."
           }
         },
         "kk": {
@@ -2881,6 +4051,12 @@
     "mac.settings.privacy": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змесціва апавяшчэнняў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2891,6 +4067,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "What notifications say"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contenuto delle notifiche"
           }
         },
         "kk": {
@@ -2910,6 +4092,12 @@
     "mac.settings.privacy.always": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заўсёды з сумай"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2920,6 +4108,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Always with the amount"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sempre con l’importo"
           }
         },
         "kk": {
@@ -2939,6 +4133,12 @@
     "mac.settings.privacy.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схаваныя рахункі: «Заўтра тэрмін плацяжу» без назвы і сумы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2949,6 +4149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hidden accounts: “Payment due tomorrow” without name or amount"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conti nascosti: “Pagamento in scadenza domani” senza nome né importo"
           }
         },
         "kk": {
@@ -2968,6 +4174,12 @@
     "mac.settings.privacy.quiet": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без сум, калі яны схаваны, без згадак схаваных рахункаў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2978,6 +4190,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No amounts while hidden, nothing about hidden accounts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun importo quando è nascosto, nessuna notifica sui conti nascosti"
           }
         },
         "kk": {
@@ -2997,6 +4215,12 @@
     "mac.settings.spotlight": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыі ў Spotlight"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3007,6 +4231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operations in Spotlight"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazioni in Spotlight"
           }
         },
         "kk": {
@@ -3026,6 +4256,12 @@
     "mac.settings.spotlight.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У індэкс гэтага Mac трапляюць толькі апісанне і месца, без сум. Аперацыі схаваных рахункаў ніколі не індэксуюцца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3036,6 +4272,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Only the description and the place go into the index of this Mac — no amounts. Operations of hidden accounts are never indexed."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo la descrizione e il luogo vengono indicizzati su questo Mac, senza importi. Le operazioni dei conti nascosti non vengono mai indicizzate."
           }
         },
         "kk": {
@@ -3055,6 +4297,12 @@
     "mac.settings.summaries": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зводкі гатовы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3065,6 +4313,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Summaries ready"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riepiloghi pronti"
           }
         },
         "kk": {
@@ -3084,6 +4338,12 @@
     "mac.settings.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Па-за праграмай"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3094,6 +4354,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Outside the App"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuori dall’app"
           }
         },
         "kk": {
@@ -3114,6 +4380,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунак"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3124,6 +4396,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conto"
           }
         },
         "kk": {
@@ -3150,6 +4428,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3160,6 +4444,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amount"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo"
           }
         },
         "kk": {
@@ -3186,6 +4476,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3196,6 +4492,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
           }
         },
         "kk": {
@@ -3222,6 +4524,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3232,6 +4540,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Currency"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valuta"
           }
         },
         "kk": {
@@ -3258,6 +4572,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3268,6 +4588,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Date"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
           }
         },
         "kk": {
@@ -3294,6 +4620,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апісанне"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3304,6 +4636,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Description"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descrizione"
           }
         },
         "kk": {
@@ -3330,6 +4668,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тып"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3340,6 +4684,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Type"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         },
         "kk": {
@@ -3366,6 +4716,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдатак"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3376,6 +4732,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expense"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spesa"
           }
         },
         "kk": {
@@ -3402,6 +4764,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даход"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3412,6 +4780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrata"
           }
         },
         "kk": {
@@ -3438,6 +4812,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3448,6 +4828,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Refund"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimborso"
           }
         },
         "kk": {
@@ -3474,6 +4860,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кампенсацыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3484,6 +4876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money back"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restituzione"
           }
         },
         "kk": {
@@ -3509,6 +4907,12 @@
     "mac.table.rubles": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У рублях"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3519,6 +4923,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "In rubles"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In rubli"
           }
         },
         "kk": {
@@ -3539,6 +4949,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахункі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3549,6 +4965,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Accounts"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conti"
           }
         },
         "kk": {
@@ -3574,6 +4996,12 @@
     "mac.window.open": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрыць у новым акне"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3584,6 +5012,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open in New Window"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri in una nuova finestra"
           }
         },
         "kk": {
@@ -3603,6 +5037,12 @@
     "mac.window.section": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раздзел"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3613,6 +5053,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Section"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sezione"
           }
         },
         "kk": {
@@ -3633,6 +5079,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3643,6 +5095,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amount"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo"
           }
         },
         "kk": {
@@ -3669,6 +5127,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумы схаваны."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3679,6 +5143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amounts are hidden."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli importi sono nascosti."
           }
         },
         "kk": {
@@ -3705,6 +5175,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэк"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3712,6 +5188,12 @@
           }
         },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cashback"
@@ -3741,6 +5223,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3751,6 +5239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categories"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorie"
           }
         },
         "kk": {
@@ -3777,6 +5271,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3787,6 +5287,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
           }
         },
         "kk": {
@@ -3812,6 +5318,12 @@
     "markdown.change": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаткі ў параўнанні з мінулым месяцам"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3822,6 +5334,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spending against last month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spese rispetto al mese scorso"
           }
         },
         "kk": {
@@ -3841,6 +5359,12 @@
     "markdown.closedDebts": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пагашаныя даўгі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3851,6 +5375,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Debts closed"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debiti estinti"
           }
         },
         "kk": {
@@ -3870,6 +5400,12 @@
     "markdown.empty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У гэтым месяцы аперацый няма."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3880,6 +5416,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No operations this month."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna operazione questo mese."
           }
         },
         "kk": {
@@ -3900,6 +5442,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаткі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3910,6 +5458,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spending"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spese"
           }
         },
         "kk": {
@@ -3936,6 +5490,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даходы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3946,6 +5506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrate"
           }
         },
         "kk": {
@@ -3971,6 +5537,12 @@
     "markdown.item": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пазіцыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3981,6 +5553,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Item"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voce"
           }
         },
         "kk": {
@@ -4001,6 +5579,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Засталося"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4011,6 +5595,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Left"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimanenza"
           }
         },
         "kk": {
@@ -4037,6 +5627,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месца"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4047,6 +5643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Place"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luogo"
           }
         },
         "kk": {
@@ -4073,6 +5675,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месцы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4083,6 +5691,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Places"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luoghi"
           }
         },
         "kk": {
@@ -4109,6 +5723,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захавана"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4119,6 +5739,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saved"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Risparmiato"
           }
         },
         "kk": {
@@ -4145,6 +5771,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Абагуліць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4155,6 +5787,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Share"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condividi"
           }
         },
         "kk": {
@@ -4181,6 +5819,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агулам"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4191,6 +5835,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Totals"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totali"
           }
         },
         "kk": {
@@ -4216,6 +5866,12 @@
     "markdown.value": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Значэнне"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4226,6 +5882,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Value"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valore"
           }
         },
         "kk": {

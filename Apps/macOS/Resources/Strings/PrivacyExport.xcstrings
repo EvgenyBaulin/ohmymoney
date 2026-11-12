@@ -4,6 +4,12 @@
     "privacy.copy.anonymize": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ананімізаваць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -33,6 +39,12 @@
     "privacy.copy.anonymize.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апісанні, каментарыі, месцы і назвы выдаляюцца з копіі. Сумы, даты і катэгорыі застаюцца. Арыгінал не змяняецца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -62,6 +74,12 @@
     "privacy.copy.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключыць укладанні (%@)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -91,6 +109,12 @@
     "privacy.copy.done": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія гатова"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -120,6 +144,12 @@
     "privacy.copy.done.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укладанні: %lld"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -149,6 +179,12 @@
     "privacy.copy.done.locked": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Абаронена вашым паролем."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -178,6 +214,36 @@
     "privacy.copy.done.operations": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыі ў копіі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацый у копіі"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыя ў копіі"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыі ў копіі"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -267,6 +333,36 @@
     "privacy.copy.done.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пераводы ў копіі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пераводаў у копіі"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перавод у копіі"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пераводу ў копіі"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -356,6 +452,12 @@
     "privacy.copy.error.anonymizerMissing": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ананімізацыя недаступная ў гэтай версіі, таму копія не створана."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -385,6 +487,12 @@
     "privacy.copy.error.hiddenInUse": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схаваны рахунак усё яшчэ выкарыстоўваецца ў даных, якія застаюцца ў копіі, таму яго нельга выключыць. Уключыце схаваныя рахункі або зноў пакажыце гэты рахунак."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -414,6 +522,12 @@
     "privacy.copy.error.other": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія не створана. Нічога не змянілася."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -443,6 +557,12 @@
     "privacy.copy.error.passwordMissing": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увядзіце пароль: без яго копія не ствараецца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -472,6 +592,12 @@
     "privacy.copy.error.periodEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перыяд пусты: канец ранейшы за пачатак."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -501,6 +627,12 @@
     "privacy.copy.format": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фармат"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -530,6 +662,12 @@
     "privacy.copy.format.archive": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архіў для пераносу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -559,6 +697,12 @@
     "privacy.copy.format.csv": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Толькі CSV"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -589,6 +733,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -624,6 +774,12 @@
     "privacy.copy.hidden": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключыць схаваныя рахункі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -653,6 +809,12 @@
     "privacy.copy.hidden.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інакш у копіі не будзе схаваных рахункаў, іх аперацый і пераводаў."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -682,6 +844,12 @@
     "privacy.copy.hidden.warning": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія будзе змяшчаць схаваныя рахункі."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -711,6 +879,12 @@
     "privacy.copy.leftOut": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключана: %lld"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -740,6 +914,12 @@
     "privacy.copy.originalStays": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэта копія — арыгінал застаецца ў вас."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -770,6 +950,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -806,6 +992,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паўтарыце пароль"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -841,6 +1033,12 @@
     "privacy.copy.passwordHint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія абаронена гэтым паролем. Без яго ніхто не зможа яе адкрыць, а аднавіць пароль немагчыма. Арыгінал застаецца ў вас без змен."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -870,6 +1068,12 @@
     "privacy.copy.preview.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "укладанні: %lld"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -900,6 +1104,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падлік…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -935,6 +1145,12 @@
     "privacy.copy.preview.lead": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будзе ўключана:"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -965,6 +1181,36 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацый"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыя"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыі"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -1084,6 +1330,36 @@
     "privacy.copy.preview.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пераводы"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пераводаў"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перавод"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пераводу"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -1173,6 +1449,12 @@
     "privacy.copy.problem.passwordEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увядзіце пароль: без яго копія не ствараецца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1202,6 +1484,12 @@
     "privacy.copy.problem.passwordMismatch": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролі не супадаюць."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1231,6 +1519,12 @@
     "privacy.copy.problem.periodEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перыяд пусты: канец ранейшы за пачатак."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1260,6 +1554,12 @@
     "privacy.copy.save": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захаваць копію…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1289,6 +1589,12 @@
     "privacy.copy.scope": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка гісторыі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1318,6 +1624,12 @@
     "privacy.copy.scope.period": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За перыяд"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1347,6 +1659,12 @@
     "privacy.copy.scope.whole": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уся база даных"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1376,6 +1694,12 @@
     "privacy.copy.showPassword": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паказаць пароль"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1405,6 +1729,12 @@
     "privacy.copy.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспарт копіі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1435,6 +1765,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Да"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1470,6 +1806,12 @@
     "privacy.copy.working": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стварэнне копіі…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1499,6 +1841,12 @@
     "privacy.demo.back": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вярнуцца да маіх даных"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1528,6 +1876,12 @@
     "privacy.demo.banner": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навучальныя даныя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1557,6 +1911,12 @@
     "privacy.demo.banner.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэтыя лічбы выдуманыя. Ваша база даных не адкрыта."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1587,6 +1947,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паказаць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1622,6 +1988,12 @@
     "privacy.demo.confirm.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праграма перазапусціцца з выдуманымі данымі. Ваша база даных застанецца некранутай, і вы зможаце вярнуцца адной кнопкай."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1651,6 +2023,12 @@
     "privacy.demo.confirm.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паказаць праграму з навучальнымі данымі?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1680,6 +2058,12 @@
     "privacy.export.lock": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашыфраваць (адкрываецца ў OhMyMoney)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1709,6 +2093,12 @@
     "privacy.journal.clear": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ачысціць журнал"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1739,6 +2129,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ачысціць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1774,6 +2170,12 @@
     "privacy.journal.clear.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усе запісы ў журнале адкрыццяў будуць выдалены."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1803,6 +2205,12 @@
     "privacy.journal.clear.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ачысціць журнал?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1832,6 +2240,12 @@
     "privacy.journal.empty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пакуль няма запісаў."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1861,6 +2275,12 @@
     "privacy.journal.event.exportedCopy": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія экспартавана"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1890,6 +2310,12 @@
     "privacy.journal.event.hiddenShown": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схаваныя рахункі паказаны"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1919,6 +2345,12 @@
     "privacy.journal.event.locked": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблакіравана"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1948,6 +2380,12 @@
     "privacy.journal.event.opened": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праграма адкрыта"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1977,6 +2415,12 @@
     "privacy.journal.event.readOnlyOff": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэжым прагляду выключаны"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2006,6 +2450,12 @@
     "privacy.journal.event.readOnlyOn": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэжым прагляду ўключаны"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2035,6 +2485,12 @@
     "privacy.journal.event.unlockedPassword": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разблакіравана паролем"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2064,6 +2520,12 @@
     "privacy.journal.event.unlockedTouchID": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разблакіравана праз Touch ID"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2093,6 +2555,12 @@
     "privacy.journal.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал захоўваецца толькі на гэтым Mac. У ім запісваюцца час і тыпы падзей — без сум, імёнаў і назваў. Ён не трапляе ў копію або архіў."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2122,6 +2590,12 @@
     "privacy.journal.keep": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захоўваць на працягу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2151,6 +2625,36 @@
     "privacy.journal.term": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дзён"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дзён"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -2240,6 +2744,12 @@
     "privacy.journal.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал адкрыццяў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2269,6 +2779,12 @@
     "privacy.lockedFile.body": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кожнаму, хто адкрывае файл, спатрэбіцца гэты пароль. Аднавіць яго немагчыма."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2298,6 +2814,12 @@
     "privacy.lockedFile.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Абараніць файл паролем"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2327,6 +2849,12 @@
     "privacy.menu.exportCopy": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспартаваць копію…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2356,6 +2884,12 @@
     "privacy.menu.storage": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Што ведае праграма…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2385,6 +2919,12 @@
     "privacy.settings.autoHide": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хаваць сумы падчас запісу экрана"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2414,6 +2954,12 @@
     "privacy.settings.autoHide.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таксама пры дубляванні экрана або яго дэманстрацыі падчас званка."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2443,6 +2989,12 @@
     "privacy.settings.demo": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паказаць з навучальнымі данымі…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2472,6 +3024,12 @@
     "privacy.settings.exportCopy": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспартаваць копію…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2501,6 +3059,12 @@
     "privacy.settings.hand": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перадача"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2530,6 +3094,12 @@
     "privacy.settings.hand.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія абаронена паролем; арыгінал застаецца без змен. Навучальныя даныя выдуманыя, а ваша база даных не адкрываецца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2559,6 +3129,12 @@
     "privacy.settings.journal": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал адкрыццяў…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2588,6 +3164,12 @@
     "privacy.settings.knows": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Што ведае праграма"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2617,6 +3199,12 @@
     "privacy.settings.knows.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал і лічбы паказваюцца толькі тут і нікуды не адпраўляюцца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2646,6 +3234,12 @@
     "privacy.settings.lock": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блакіроўка і пароль…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2675,6 +3269,12 @@
     "privacy.settings.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Толькі прагляд"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2704,6 +3304,12 @@
     "privacy.settings.readOnly.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праграма ўсё паказвае і нічога не змяняе."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2734,6 +3340,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экран"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2769,6 +3381,12 @@
     "privacy.settings.storage": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Што захоўваецца…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2799,6 +3417,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укладанні"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2834,6 +3458,12 @@
     "privacy.storage.backups": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копіі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2864,6 +3494,36 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копіі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копія"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копіі"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -2983,6 +3643,36 @@
     "privacy.storage.count.files": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файлы"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файлаў"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файла"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -3072,6 +3762,36 @@
     "privacy.storage.count.lines": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радкі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радкоў"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радка"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -3161,6 +3881,36 @@
     "privacy.storage.count.records": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запісы"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запісаў"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запіс"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запісу"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -3250,6 +4000,12 @@
     "privacy.storage.database": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База даных"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3279,6 +4035,12 @@
     "privacy.storage.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тут паказаны толькі колькасць і памеры. Нічога нікуды не адпраўляецца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3308,6 +4070,12 @@
     "privacy.storage.journal": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал адкрыццяў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3337,6 +4105,12 @@
     "privacy.storage.records": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3366,6 +4140,12 @@
     "privacy.storage.tables": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Па табліцах"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3395,6 +4175,12 @@
     "privacy.storage.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Што ведае праграма"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3424,6 +4210,12 @@
     "privacy.storage.total": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усяго на дыску"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3453,6 +4245,12 @@
     "privacy.storage.unit.bytes": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Б"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3482,6 +4280,12 @@
     "privacy.storage.unit.gb": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ГБ"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3511,6 +4315,12 @@
     "privacy.storage.unit.kb": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "КБ"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3540,6 +4350,12 @@
     "privacy.storage.unit.mb": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "МБ"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3569,6 +4385,12 @@
     "privacy.storage.where": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дзе захоўваецца"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3598,6 +4420,12 @@
     "privacy.storage.where.backups": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копіі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3627,6 +4455,12 @@
     "privacy.storage.where.data": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка даных"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3656,6 +4490,12 @@
     "privacy.storage.where.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шляхі толькі паказваюцца: яны не захоўваюцца ў базе даных і архіве."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3685,6 +4525,12 @@
     "privacy.storage.where.mirror": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка люстраных копій"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",

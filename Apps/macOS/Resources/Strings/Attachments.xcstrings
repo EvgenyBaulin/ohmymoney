@@ -5,6 +5,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадаць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -15,6 +21,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi"
           }
         },
         "kk": {
@@ -41,6 +53,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зрабіць фота"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -51,6 +69,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Take a photo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scatta una foto"
           }
         },
         "kk": {
@@ -77,6 +101,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -84,6 +114,12 @@
           }
         },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File…"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "File…"
@@ -113,6 +149,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фота з бібліятэкі"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Photo from library"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foto dalla libreria"
           }
         },
         "kk": {
@@ -149,6 +197,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З укладаннямі (%@, не ўсе змясціліся)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -159,6 +213,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "With attachments (%@, not all fit)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con allegati (%@, non tutti inclusi)"
           }
         },
         "kk": {
@@ -185,6 +245,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З укладаннямі (%@)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -195,6 +261,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "With attachments (%@)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con allegati (%@)"
           }
         },
         "kk": {
@@ -221,6 +293,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлаў пакуль няма. Перацягніце сюды чэк, гарантыйны талон або дагавор ці націсніце «Дадаць»."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -231,6 +309,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No files yet. Drop a receipt, a warranty card or a contract here, or press Add."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun file. Trascina qui una ricevuta, una garanzia o un contratto, oppure premi Aggiungi."
           }
         },
         "kk": {
@@ -257,6 +341,36 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не ўдалося далучыць %lld файлы"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не ўдалося далучыць %lld файлаў"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не ўдалося далучыць %lld файл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не ўдалося далучыць %lld файла"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -288,6 +402,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld files could not be attached"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Impossibile allegare %lld file"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Impossibile allegare %lld file"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Impossibile allegare %lld file"
                 }
               }
             }
@@ -377,6 +515,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У гэтым архіве няма далучаных файлаў. У іх радках будзе пазначана «выдалена паводле правіла захоўвання»."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -387,6 +531,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This archive has no attached files. Their rows will read “removed by the retention rule”."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo archivio non contiene allegati. Le relative righe indicheranno “rimosso dalla regola di conservazione”."
           }
         },
         "kk": {
@@ -413,6 +563,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захоўваць заўсёды"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -423,6 +579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep forever"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conserva per sempre"
           }
         },
         "kk": {
@@ -449,6 +611,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тып"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -459,6 +627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kind"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         },
         "kk": {
@@ -485,6 +659,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дакумент"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -495,6 +675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Document"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documento"
           }
         },
         "kk": {
@@ -521,6 +707,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іншае"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -531,6 +723,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Other"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altro"
           }
         },
         "kk": {
@@ -557,6 +755,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чэк"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -567,6 +771,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Receipt"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricevuta"
           }
         },
         "kk": {
@@ -593,6 +803,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -603,6 +819,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranty"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanzia"
           }
         },
         "kk": {
@@ -629,6 +851,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не знойдзены"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -639,6 +867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "File not found"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File non trovato"
           }
         },
         "kk": {
@@ -665,6 +899,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дзеянні з файлам"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -675,6 +915,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "File actions"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azioni file"
           }
         },
         "kk": {
@@ -701,6 +947,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Устаўленае"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -711,6 +963,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pasted"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incollato"
           }
         },
         "kk": {
@@ -737,6 +995,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фота"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -747,6 +1011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Photo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foto"
           }
         },
         "kk": {
@@ -773,6 +1043,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "выкл."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -783,6 +1059,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "off"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no"
           }
         },
         "kk": {
@@ -809,6 +1091,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "укл."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -819,6 +1107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "on"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sì"
           }
         },
         "kk": {
@@ -845,6 +1139,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрыць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -855,6 +1155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri"
           }
         },
         "kk": {
@@ -881,6 +1187,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Актыў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -891,6 +1203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Asset"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bene"
           }
         },
         "kk": {
@@ -917,6 +1235,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доўг"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -927,6 +1251,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Debt"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debito"
           }
         },
         "kk": {
@@ -953,6 +1283,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падпіска"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -963,6 +1299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Subscription"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbonamento"
           }
         },
         "kk": {
@@ -989,6 +1331,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -999,6 +1347,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione"
           }
         },
         "kk": {
@@ -1025,6 +1379,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлы будуць далучаны пры захаванні."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1035,6 +1395,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The files are attached when you save."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I file vengono allegati al salvataggio."
           }
         },
         "kk": {
@@ -1061,6 +1427,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перамясціць у сметніцу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1071,6 +1443,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move to trash"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sposta nel Cestino"
           }
         },
         "kk": {
@@ -1097,6 +1475,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдалена паводле правіла захоўвання"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1107,6 +1491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Removed by the retention rule"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimosso dalla regola di conservazione"
           }
         },
         "kk": {
@@ -1133,6 +1523,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадаваць укладанні ў архіў пераносу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1143,6 +1539,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Put attachments into the transfer archive"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Includi gli allegati nell’archivio di trasferimento"
           }
         },
         "kk": {
@@ -1169,6 +1571,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прадвызначаны стан сцяжка «З укладаннямі» пры захаванні даных."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1179,6 +1587,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The default of the box «With attachments» when you save your data."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impostazione predefinita della casella «Con allegati» quando salvi i dati."
           }
         },
         "kk": {
@@ -1205,6 +1619,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1215,6 +1635,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Files"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File"
           }
         },
         "kk": {
@@ -1241,6 +1667,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлы захоўваюцца ў першапачатковым выглядзе: яны не сціскаюцца і не змяняюцца, незалежна ад памеру."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1251,6 +1683,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Files are kept exactly as they were added: nothing is compressed or changed, whatever their size."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I file vengono conservati esattamente come sono stati aggiunti: non vengono compressi né modificati, indipendentemente dalle dimensioni."
           }
         },
         "kk": {
@@ -1277,6 +1715,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У сметніцы"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1287,6 +1731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "In the trash"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nel Cestino"
           }
         },
         "kk": {
@@ -1313,6 +1763,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захоўваць фота чэкаў заўсёды"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1323,6 +1779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep receipt photos forever"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conserva le foto delle ricevute per sempre"
           }
         },
         "kk": {
@@ -1349,6 +1811,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калі выключана, фота чэка трапляе ў сметніцу праз тыдзень пасля дадання. Гарантыі і дакументы не выдаляюцца."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1359,6 +1827,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Off: a receipt photo goes to the trash a week after it was added. Warranties and documents are never touched."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se disattivato, le foto delle ricevute vengono spostate nel Cestino una settimana dopo l’aggiunta. Le garanzie e i documenti non vengono mai rimossi."
           }
         },
         "kk": {
@@ -1385,6 +1859,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадаваць укладанні ў люстраную папку"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1395,6 +1875,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Put attachments into the mirror folder"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Includi gli allegati nella cartella delle copie"
           }
         },
         "kk": {
@@ -1421,6 +1907,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлы трапляюць у папку копій разам з копіяй за дзень."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1431,6 +1923,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The files go to the folder of copies together with the copy of the day."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I file vengono salvati nella cartella delle copie insieme alla copia del giorno."
           }
         },
         "kk": {
@@ -1457,6 +1955,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сметніца ўкладанняў…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1467,6 +1971,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Attachments trash…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cestino allegati…"
           }
         },
         "kk": {
@@ -1493,6 +2003,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Памер на дыску"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1503,6 +2019,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Size on disk"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spazio su disco"
           }
         },
         "kk": {
@@ -1529,6 +2051,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укладанні"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1539,6 +2067,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Attachments"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allegati"
           }
         },
         "kk": {
@@ -1565,6 +2099,36 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Файл захоўваецца ў сметніцы %lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Файл захоўваецца ў сметніцы %lld дзён"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Файл захоўваецца ў сметніцы %lld дзень"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Файл захоўваецца ў сметніцы %lld дня"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -1596,6 +2160,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "The trash keeps a file for %lld days"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Il Cestino conserva i file per %lld giorni"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Il Cestino conserva i file per %lld giorno"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Il Cestino conserva i file per %lld giorni"
                 }
               }
             }
@@ -1685,6 +2273,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сметніца"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1695,6 +2289,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trash"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cestino"
           }
         },
         "kk": {
@@ -1721,6 +2321,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укладанні"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1731,6 +2337,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Attachments"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allegati"
           }
         },
         "kk": {
@@ -1757,6 +2369,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць гэтыя файлы назаўсёды?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1767,6 +2385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete these files for good?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare definitivamente questi file?"
           }
         },
         "kk": {
@@ -1793,6 +2417,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Абраныя файлы будуць выдалены назаўсёды."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1803,6 +2433,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The selected files will be permanently deleted."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I file selezionati verranno eliminati definitivamente."
           }
         },
         "kk": {
@@ -1829,6 +2465,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць гэты файл назаўсёды?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1839,6 +2481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete this file for good?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare definitivamente questo file?"
           }
         },
         "kk": {
@@ -1865,6 +2513,36 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "будзе выдалена праз %lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "будзе выдалена праз %lld дзён"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "будзе выдалена праз %lld дзень"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "будзе выдалена праз %lld дня"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -1896,6 +2574,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "deleted in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "eliminazione tra %lld giorni"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "eliminazione tra %lld giorno"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "eliminazione tra %lld giorni"
                 }
               }
             }
@@ -1985,6 +2687,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць зараз"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1995,6 +2703,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete now"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina ora"
           }
         },
         "kk": {
@@ -2021,6 +2735,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сметніца пустая."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2031,6 +2751,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The trash is empty."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il Cestino è vuoto."
           }
         },
         "kk": {
@@ -2057,6 +2783,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ачысціць сметніцу"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2067,6 +2799,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Empty the trash"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svuota il Cestino"
           }
         },
         "kk": {
@@ -2093,6 +2831,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аднавіць"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2103,6 +2847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restore"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripristina"
           }
         },
         "kk": {
@@ -2129,6 +2879,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сметніца ўкладанняў"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2139,6 +2895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Attachments trash"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cestino allegati"
           }
         },
         "kk": {
