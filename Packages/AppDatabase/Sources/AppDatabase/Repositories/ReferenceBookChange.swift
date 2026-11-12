@@ -16,6 +16,8 @@ public struct ReferenceBookUndo: Sendable, Hashable {
   var places: [Place] = []
   var events: [Event] = []
   var links: [Link] = []
+  /// Spending rules that followed the merge.
+  var rules: [RewrittenRule] = []
 
   struct Link: Sendable, Hashable {
     var table: String
@@ -66,6 +68,15 @@ extension ReferenceRepository {
       undo.transactionIds = transactions.sorted { $0.uuidString < $1.uuidString }
       try repoint(book.rawValue, from: source, to: target, db: db)
       switch book {
+      case .people:
+        undo.rules = try SpendingRulesRepository.repointRules(
+          .person, from: source, to: target, db: db)
+      case .places:
+        undo.rules = try SpendingRulesRepository.repointRules(
+          .place, from: source, to: target, db: db)
+      case .events: break
+      }
+      switch book {
       case .people: try mergeAliases(Person.self, source: source, into: target, db: db)
       case .places: try mergeAliases(Place.self, source: source, into: target, db: db)
       case .events: break
@@ -81,6 +92,7 @@ extension ReferenceRepository {
     for row in undo.people { try row.save(db) }
     for row in undo.places { try row.save(db) }
     for row in undo.events { try row.save(db) }
+    try SpendingRulesRepository.revertRules(undo.rules, db: db)
     for link in undo.links {
       // A later edit stays in place; only links still pointing at the merge target move back.
       try db.execute(

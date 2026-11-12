@@ -12994,6 +12994,23 @@
         }
       }
     },
+    "rules.problem.wontFire": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Will not fire: the rule names a place, account, card or person that was deleted or archived."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сработает: правило называет удалённое или архивное место, счёт, карту или человека."
+          }
+        }
+      }
+    },
     "rules.refused": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

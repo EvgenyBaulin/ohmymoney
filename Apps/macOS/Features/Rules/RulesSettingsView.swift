@@ -171,6 +171,7 @@ struct RulesPane: View {
     let rules = RuleOrder.sorted(dataset?.rules ?? [])
     let wording = RuleWording(
       environment: environment, names: dataset.map(RuleNames.init(dataset:)) ?? RuleNames())
+    let live = dataset.map(RuleLiveReferences.init(dataset:)) ?? RuleLiveReferences()
     Form {
       Section {
         if rules.isEmpty {
@@ -179,7 +180,7 @@ struct RulesPane: View {
             .accessibilityIdentifier("rules.empty")
         }
         ForEach(rules) { rule in
-          row(rule, in: rules, wording: wording)
+          row(rule, in: rules, wording: wording, live: live)
         }
         .onMove { from, to in
           var ids = rules.map(\.id)
@@ -228,7 +229,9 @@ struct RulesPane: View {
     return draft
   }
 
-  private func row(_ rule: Rule, in rules: [Rule], wording: RuleWording) -> some View {
+  private func row(
+    _ rule: Rule, in rules: [Rule], wording: RuleWording, live: RuleLiveReferences
+  ) -> some View {
     let index = rules.firstIndex { $0.id == rule.id } ?? 0
     return HStack(spacing: 8) {
       Toggle(
@@ -246,6 +249,11 @@ struct RulesPane: View {
           if !rule.name.trimmingCharacters(in: .whitespaces).isEmpty {
             Text(verbatim: wording.summary(rule))
               .appFont(.callout).foregroundStyle(.secondary).lineLimit(2)
+          }
+          if let dead = wording.deadReason(rule, live: live) {
+            Label(dead, systemImage: "exclamationmark.triangle")
+              .appFont(.caption).foregroundStyle(.orange)
+              .accessibilityIdentifier("rules.row.wontFire")
           }
           if let origin = wording.origin(rule.origin) {
             Label(origin, systemImage: rule.origin == .imported ? "tray.and.arrow.down" : "doc")

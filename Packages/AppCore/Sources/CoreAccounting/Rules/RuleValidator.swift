@@ -90,3 +90,56 @@ public enum RuleValidator {
     return found
   }
 }
+
+/// The places, accounts, cards and people that are alive (not deleted, not in the archive): what
+/// a rule can still match on or set.
+public struct RuleLiveReferences: Hashable, Sendable {
+  public var places: Set<UUID>
+  public var accounts: Set<UUID>
+  public var cards: Set<UUID>
+  public var people: Set<UUID>
+
+  public init(
+    places: Set<UUID> = [], accounts: Set<UUID> = [], cards: Set<UUID> = [],
+    people: Set<UUID> = []
+  ) {
+    self.places = places
+    self.accounts = accounts
+    self.cards = cards
+    self.people = people
+  }
+
+  func contains(_ kind: RuleReferenceKind, _ id: UUID) -> Bool {
+    switch kind {
+    case .place: places.contains(id)
+    case .account: accounts.contains(id)
+    case .card: cards.contains(id)
+    case .person: people.contains(id)
+    case .category, .tag: true
+    }
+  }
+}
+
+/// A record a rule names that is deleted or archived: the rule can no longer fire (a condition
+/// on it never matches new operations) or would set something nobody can pick any more.
+public struct RuleDeadReference: Hashable, Sendable {
+  public var kind: RuleReferenceKind
+  public var id: UUID
+}
+
+extension RuleValidator {
+  /// What keeps a saved rule from firing: places, accounts, cards and people it names that are
+  /// no longer alive. Not a reason to refuse saving (the rule stays as the owner wrote it), so
+  /// it is separate from `problems`. Empty when the rule is fine.
+  public static func deadReferences(
+    of rule: Rule, live: RuleLiveReferences
+  ) -> [RuleDeadReference] {
+    var found: [RuleDeadReference] = []
+    let named = rule.conditions.flatMap(\.references) + rule.actions.flatMap(\.references)
+    for reference in named where !live.contains(reference.kind, reference.id) {
+      let dead = RuleDeadReference(kind: reference.kind, id: reference.id)
+      if !found.contains(dead) { found.append(dead) }
+    }
+    return found
+  }
+}

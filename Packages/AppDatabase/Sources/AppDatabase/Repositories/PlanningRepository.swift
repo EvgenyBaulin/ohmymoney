@@ -299,6 +299,8 @@ public struct PlanningUndo: Sendable, Hashable {
   /// What an account merge of the change did, for ⌘Z.
   public var accountMerge: AccountMergeUndo?
   public var referenceBook: ReferenceBookUndo?
+  /// Spending rules that followed a merge of cards.
+  var cardRules: [RewrittenRule] = []
   /// The change as it was asked for, so ⇧⌘Z can make it again after ⌘Z took it back.
   public var change: PlanningChange?
 
@@ -568,7 +570,9 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.transfers, db: db)
     try journal.upsert(rows.reconciliations, db: db)
     try journal.upsert(rows.reconciledBalances, db: db)
-    let moved = try Self.moveCards(change.movingCards, journal: &journal, db: db)
+    var cardRules: [RewrittenRule] = []
+    let moved = try Self.moveCards(
+      change.movingCards, journal: &journal, rules: &cardRules, db: db)
     let merged = try change.mergingAccounts.map {
       try AccountRepository.merge($0, calendar: context.calendar, db: db)
     }
@@ -652,7 +656,7 @@ public struct PlanningRepository: Sendable {
       touch.wholeAccounts.formUnion([mainBefore, mainAfter].compactMap { $0 })
     }
     let counts = try LiveCountsWriter.settle(touch, context: context, now: change.at, db: db)
-    return PlanningUndo(
+    var undo = PlanningUndo(
       createdTransactionIds: change.created.map(\.id), inserted: journal.inserted,
       before: journal.before, settingsBefore: settingsBefore, rowIDs: journal.rowIDs,
       cleared: journal.cleared, rewrittenBefore: rewrites.before,
@@ -660,13 +664,16 @@ public struct PlanningRepository: Sendable {
       releasedRefunds: rewrites.releasedRefunds, written: written, countTouch: touch,
       counts: counts, movedCards: moved, accountMerge: merged, change: change,
       referenceBook: referenceBook)
+    undo.cardRules = cardRules
+    return undo
   }
 
   /// Points what named each merged card at its kept card (`PlanningChange.movingCards`): the
   /// operations, kept by id for ⌘Z, and the scheduled payments, kept whole. Both cards are to
   /// be cards of one account.
   private static func moveCards(
-    _ moves: [UUID: UUID], journal: inout UndoJournal, db: Database
+    _ moves: [UUID: UUID], journal: inout UndoJournal, rules: inout [RewrittenRule],
+    db: Database
   ) throws -> [MovedCardReference] {
     var moved: [MovedCardReference] = []
     for (from, into) in moves.sorted(by: { $0.key.uuidString < $1.key.uuidString }) {
@@ -685,6 +692,7 @@ public struct PlanningRepository: Sendable {
       try db.execute(
         sql: "UPDATE transactions SET card_id = ? WHERE card_id = ?",
         arguments: [into.uuidString, from.uuidString])
+      rules += try SpendingRulesRepository.repointRules(.card, from: from, to: into, db: db)
       try journal.keepRows(ScheduledPayment.self, where: "card_id", is: from, db: db)
       try db.execute(
         sql: "UPDATE scheduled_payments SET card_id = ? WHERE card_id = ?",
@@ -889,6 +897,7 @@ public struct PlanningRepository: Sendable {
       try ReferenceRepository.revert(referenceBook, db: db)
     }
     if let merge = undo.accountMerge { try AccountRepository.revertMerge(merge, db: db) }
+    try SpendingRulesRepository.revertRules(undo.cardRules, db: db)
     if !undo.deletion.deletedIds.isEmpty {
       try TransactionRepository.restore(
         ids: undo.deletion.deletedIds, at: instant, effects: undo.deletion, db: db)
