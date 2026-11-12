@@ -15,17 +15,24 @@ public enum LedgerTraining {
   public static func rows(
     of dataset: Dataset, calendar: CalendarContext, refunds: RefundIndex? = nil
   ) -> [CategoryTraining.Row] {
-    let tree = CategoryTree(dataset.categories)
     // A refund taken back from a live purchase carries the purchase part's category and its
     // source because the app copied them there: the owner filed the purchase, once, and the
     // model learns it once. A refund of no purchase is filed by the owner and teaches.
-    let refunds = refunds ?? RefundIndex(entries: dataset.entries, debts: dataset.debtsById)
+    rows(
+      of: dataset.entries, categories: dataset.categories, calendar: calendar,
+      refunds: refunds ?? RefundIndex(entries: dataset.entries, debts: dataset.debtsById))
+  }
+
+  private static func rows(
+    of entries: [TransactionEntry], categories list: [CoreKit.Category],
+    calendar: CalendarContext, refunds: RefundIndex
+  ) -> [CategoryTraining.Row] {
+    let tree = CategoryTree(list)
     // The first category of an id, as a search of the list would give it.
-    let categories = Dictionary(
-      dataset.categories.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+    let categories = Dictionary(list.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     var rows: [CategoryTraining.Row] = []
-    rows.reserveCapacity(dataset.entries.count)
-    for entry in dataset.entries {
+    rows.reserveCapacity(entries.count)
+    for entry in entries {
       let transaction = entry.transaction
       let day = calendar.day(of: transaction.occurredAt)
       for part in entry.parts where !refunds.isLinked(refundPart: part.id) {
@@ -54,6 +61,36 @@ public enum LedgerTraining {
   public static func examples(of ledger: Ledger) -> [CategoryExample] {
     CategoryTraining.examples(
       from: rows(of: ledger.dataset, calendar: ledger.calendar, refunds: ledger.refundIndex))
+  }
+
+  /// The examples of `ledger`, worked out from `old` — the examples of `previous` — when `ledger`
+  /// was itself worked out from `previous` (`Ledger.updated(to:)`): the examples of the few
+  /// operations that differ are taken out and made anew, and the thousands of others are not
+  /// looked at. The same examples as `examples(of:)` gives, in another order; anything else —
+  /// another ledger, one built whole — takes the whole pass.
+  public static func examples(
+    of ledger: Ledger, since previous: Ledger, examples old: [CategoryExample]
+  ) -> [CategoryExample] {
+    guard let change = ledger.change, change.parent == previous.identity else {
+      return examples(of: ledger)
+    }
+    guard !change.operations.isEmpty else { return old }
+    var parts = Set<UUID>()
+    var changed: [TransactionEntry] = []
+    for id in change.operations {
+      if let before = previous.entry(id) { parts.formUnion(before.parts.map(\.id)) }
+      if let now = ledger.entry(id) {
+        parts.formUnion(now.parts.map(\.id))
+        changed.append(now)
+      }
+    }
+    var examples = old.filter { !parts.contains($0.partId) }
+    examples.append(
+      contentsOf: CategoryTraining.examples(
+        from: rows(
+          of: changed, categories: ledger.dataset.categories, calendar: ledger.calendar,
+          refunds: ledger.refundIndex)))
+    return examples
   }
 
   /// What the model is taught with about a saved part: the question `rows(of:calendar:)`

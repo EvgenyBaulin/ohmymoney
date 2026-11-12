@@ -102,6 +102,20 @@ public struct Ledger: Sendable {
   /// What a row is made with besides its own operation; kept so a changed operation can be
   /// turned into rows without a pass over all the others (`updated(to:)`).
   private let builder: RowBuilder
+  /// Tells this ledger from another one — a ledger worked out from this one names it as its parent.
+  public let identity = UUID()
+  /// How this ledger came from the one before it, when it was worked out from it
+  /// (`updated(to:)`); `nil` for a ledger built whole. What is built from a ledger — the examples
+  /// of the model — can follow the same few operations instead of all of them.
+  public let change: Change?
+
+  /// The operations by which a ledger differs from its parent.
+  public struct Change: Hashable, Sendable {
+    /// The `identity` of the ledger this one was worked out from.
+    public let parent: UUID
+    /// Operations that are new, replaced or gone.
+    public let operations: Set<UUID>
+  }
 
   public init(dataset: Dataset, calendar: CalendarContext) {
     self.dataset = dataset
@@ -115,6 +129,7 @@ public struct Ledger: Sendable {
       tree: tree, debts: debts, history: ManualQualityHistory(entries: dataset.entries),
       refunds: refunds, names: SearchNames(dataset: dataset))
     self.builder = builder
+    self.change = nil
 
     var days = DayResolver(calendar: calendar)
     let alive = dataset.entries
@@ -313,7 +328,8 @@ public struct Ledger: Sendable {
       searchKeys: searchKeys,
       returnedByPart: Self.returned(
         links: next.links, entries: entriesById, parts: rowIndexByPart.keys),
-      companionsByPart: companionsByPart, refundIndex: refunds, builder: builder)
+      companionsByPart: companionsByPart, refundIndex: refunds, builder: builder,
+      change: Change(parent: identity, operations: Set(added.map(\.id)).union(goneIds)))
   }
 
   /// Where the rows of an operation go: after every row that sorts before it — by day, by the
@@ -345,7 +361,7 @@ public struct Ledger: Sendable {
       rowIndexByPart: other.rowIndexByPart, entriesById: other.entriesById,
       searchKeys: other.searchKeys, returnedByPart: other.returnedByPart,
       companionsByPart: other.companionsByPart, refundIndex: other.refundIndex,
-      builder: other.builder)
+      builder: other.builder, change: Change(parent: other.identity, operations: []))
   }
 
   private init(
@@ -354,7 +370,7 @@ public struct Ledger: Sendable {
     entriesById: [UUID: TransactionEntry], searchKeys: [UUID: String],
     returnedByPart: [UUID: AmountE4],
     companionsByPart: [String: (shortfall: AmountE4, writtenOff: AmountE4)],
-    refundIndex: RefundIndex, builder: RowBuilder
+    refundIndex: RefundIndex, builder: RowBuilder, change: Change
   ) {
     self.dataset = dataset
     self.calendar = calendar
@@ -369,6 +385,7 @@ public struct Ledger: Sendable {
     self.companionsByPart = companionsByPart
     self.refundIndex = refundIndex
     self.builder = builder
+    self.change = change
   }
 
   // MARK: - Lookups

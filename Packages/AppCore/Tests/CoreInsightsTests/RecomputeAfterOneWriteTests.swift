@@ -94,7 +94,7 @@ struct RecomputeAfterOneWriteTests {
     /// worked out over them.
     func afterWrite(_ data: Dataset, today: DateOnly) -> Figures {
       let next = ledger.updated(to: data)
-      let examples = LedgerTraining.examples(of: next)
+      let examples = LedgerTraining.examples(of: next, since: ledger, examples: self.examples)
       var model = self.model
       let byPart = { (list: [CategoryExample]) in
         Dictionary(uniqueKeysWithValues: list.map { ($0.partId, $0) })
@@ -113,6 +113,55 @@ struct RecomputeAfterOneWriteTests {
     #expect(
       LedgerTraining.examples(of: ledger)
         == LedgerTraining.examples(of: data, calendar: Self.calendar))
+  }
+
+  /// The examples worked out from the ones before are the same examples, in any order: after a
+  /// written, an edited, a refiled and a removed operation in turn, and for a ledger built whole.
+  @Test func examplesFollowTheOperationsThatChanged() throws {
+    let (_, data) = Self.dataset(months: 6, density: 1)
+    var ledger = Ledger(dataset: data, calendar: Self.calendar)
+    var examples = LedgerTraining.examples(of: ledger)
+    var current = data
+    func sorted(_ list: [CategoryExample]) -> [String] {
+      list.map { "\($0.partId.uuidString) \($0.categoryId.uuidString) \($0.query.text)" }.sorted()
+    }
+
+    let plain = current.entries.filter {
+      $0.transaction.kind == .expense && $0.transaction.externalId == nil
+        && $0.parts.allSatisfy { $0.qualitySource != .manual && $0.refundOfPartId == nil }
+    }
+    let other = try #require(
+      current.categories.first { $0.kind == .expense && $0.systemRole == nil })
+    var steps: [(String, (Dataset) -> Dataset)] = [
+      ("written", { Self.oneWrite(on: $0) }),
+      (
+        "refiled",
+        { data in
+          var entry = plain[plain.count / 2]
+          entry.parts[0].categoryId = other.id
+          entry.parts[0].categorySource = .manual
+          entry.parts[0].note = "a new note"
+          return data.upserting([entry])
+        }
+      ),
+      ("removed", { $0.removing([plain[plain.count / 3].id]) }),
+    ]
+    steps.append(("written again", { Self.oneWrite(on: $0) }))
+    for (name, step) in steps {
+      current = step(current)
+      let next = ledger.updated(to: current)
+      #expect(next.change?.parent == ledger.identity, "\(name) is worked out from the one before")
+      examples = LedgerTraining.examples(of: next, since: ledger, examples: examples)
+      #expect(
+        sorted(examples) == sorted(LedgerTraining.examples(of: current, calendar: Self.calendar)),
+        "\(name)")
+      ledger = next
+    }
+    // A ledger built whole is no child of the one before: the whole pass.
+    let whole = Ledger(dataset: current, calendar: Self.calendar)
+    #expect(
+      sorted(LedgerTraining.examples(of: whole, since: ledger, examples: []))
+        == sorted(examples))
   }
 
   @Test func theFiguresAfterAWriteEqualAFullBuild() {
