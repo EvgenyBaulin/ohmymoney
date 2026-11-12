@@ -75,20 +75,33 @@ struct OverviewFreeSumPartsCard: View {
 
   var body: some View {
     if let snapshot = compute.snapshot,
-      let parts = FreeSumParts.make(OverviewHeadline.configured(snapshot).free)
+      case let free = OverviewHeadline.configured(snapshot).free,
+      let parts = FreeSumParts.make(free)
     {
       VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
         Text(verbatim: t("overview.parts.title"))
           .appFont(StyleType.tileTitle)
           .foregroundStyle(surfaces.primary)
           .accessibilityAddTraits(.isHeader)
-        Text(verbatim: totalLine(parts))
-          .appFont(StyleType.cardSubtitle)
-          .foregroundStyle(surfaces.primary)
-          .accessibilityIdentifier("overview.parts.total")
-        Text(verbatim: perDayLine(parts))
-          .appFont(StyleType.tileHint.monospacedDigit())
-          .foregroundStyle(surfaces.secondary)
+        Text(
+          verbatim: free.dailyReductionRubles == nil
+            ? totalLine(parts)
+            : environment.format(
+              "overview.parts.total", table: FreeSumParts.table,
+              environment.money.rounded(free.spendable ?? .zero),
+              environment.format(
+                "overview.headline.days", table: FreeSumParts.table, counts: parts.days))
+        )
+        .appFont(StyleType.cardSubtitle)
+        .foregroundStyle(surfaces.primary)
+        .accessibilityIdentifier("overview.parts.total")
+        Text(
+          verbatim: free.dailyReductionRubles == nil
+            ? perDayLine(parts) : FreeMoneyRecoveryText.explanation(free, environment)
+        )
+        .appFont(StyleType.tileHint.monospacedDigit())
+        .foregroundStyle(surfaces.secondary)
+        .fixedSize(horizontal: false, vertical: true)
         ViewThatFits(in: .horizontal) {
           plates(parts, width: StyleMetrics.partWidth)
           plates(parts, width: nil)

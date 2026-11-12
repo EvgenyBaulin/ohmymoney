@@ -19,12 +19,27 @@ struct CanSaveCard: View {
       emptyReason: t("advice.reason.noIncome"), asOf: compute.states.asOf(ComputeStep.forecast),
       retry: { compute.retry(ComputeStep.forecast) }
     ) { canSave in
-      let tile = CanSaveTile.make(canSave, environment)
+      let tile = CanSaveTile.make(canSave, environment) { id in
+        guard let tree = compute.snapshot?.ledger.tree else { return nil }
+        return PlanningText.categoryPath(id, tree: tree)
+      }
       VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
         Text(verbatim: tile.figure)
           .appFont(StyleType.tileFigure)
           .foregroundStyle(surfaces.primary)
           .fixedSize(horizontal: false, vertical: true)
+        if let shortfall = tile.shortfall {
+          Text(verbatim: shortfall)
+            .appFont(StyleType.tileRow.monospacedDigit())
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("overview.canSave.shortfall")
+          ForEach(Array(tile.hints.enumerated()), id: \.offset) { _, hint in
+            Text(verbatim: hint)
+              .appFont(StyleType.tileHint)
+              .foregroundStyle(surfaces.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+        }
         TileFigureRow(label: tile.savedLabel, figure: tile.saved)
         if canSave.lowData {
           Label {
@@ -42,7 +57,7 @@ struct CanSaveCard: View {
   private var state: BlockState<CanSave> {
     compute.states.forecast.flatMap { remainder, at in
       guard let snapshot = compute.snapshot else { return .calculating }
-      let canSave = snapshot.planning.canSave(remainder: remainder)
+      let canSave = snapshot.planning.canSave(remainder: remainder, ledger: snapshot.ledger)
       if case .notEnoughData = canSave.status { return .notEnoughData }
       return .ready(canSave, at: at)
     }

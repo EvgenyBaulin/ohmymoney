@@ -181,6 +181,11 @@ final class EntryFormsFigmaTests: SectionFigmaHarness {
       // (the capsule's own full frame is checked, panel closed, by the 1440 line test above).
       let line = EntryLineMetrics.of(.mac)
       XCTAssertEqual(capsule.width + line.leading + line.trailing, 520, accuracy: 2)
+      let attachment = try frame(of: "entry.attachment", in: window)
+      let send = try frame(of: "entry.line.send", in: window)
+      XCTAssertGreaterThanOrEqual(attachment.minX, capsule.minX)
+      XCTAssertLessThanOrEqual(attachment.maxX, send.minX)
+      XCTAssertLessThanOrEqual(send.maxX, capsule.maxX)
       XCTAssertEqual(panel.width + 2 * EntryPanelMetrics.padding, 720, accuracy: 1)
       XCTAssertEqual(chips.width, 480, accuracy: 1)
       XCTAssertEqual(panel.midX, capsule.midX, accuracy: 1)

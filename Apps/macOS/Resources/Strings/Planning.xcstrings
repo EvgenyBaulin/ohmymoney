@@ -5355,6 +5355,110 @@
         }
       }
     },
+    "free.recovery.daily": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To break even, spend %@ less per day than usual"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы выйти в ноль, тратьте на %@ в день меньше обычного"
+          }
+        }
+      }
+    },
+    "free.recovery.income": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Next income in %lld day"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Next income in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "До ближайшего дохода %lld день"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "До ближайшего дохода %lld дня"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "До ближайшего дохода %lld дней"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "До ближайшего дохода %lld дня"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "free.recovery.noIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next income date is unknown"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата ближайшего дохода неизвестна"
+          }
+        }
+      }
+    },
+    "free.recovery.usual": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usually %@ per day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычно %@ в день"
+          }
+        }
+      }
+    },
     "free.salaryLate": {
       "extractionState": "manual",
       "localizations": {
@@ -5368,6 +5472,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зарплата не пришла? Ждали %@ — половина месяца продлевается"
+          }
+        }
+      }
+    },
+    "free.short.cushion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cushion is short by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка не набрана на %@"
+          }
+        }
+      }
+    },
+    "free.short.payments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Short for payments: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На платежи не хватает %@"
           }
         }
       }
@@ -8737,6 +8875,125 @@
           "stringUnit": {
             "state": "translated",
             "value": "Можно отложить"
+          }
+        }
+      }
+    },
+    "overview.canSave.cutCategory": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consider spending less on %@: %@ per month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно сократить траты на «%@»: %@ в месяц"
+          }
+        }
+      }
+    },
+    "overview.canSave.cutVariable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review upcoming variable spending: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно пересмотреть предстоящие переменные траты: %@"
+          }
+        }
+      }
+    },
+    "overview.canSave.fromCushion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consider using the cushion: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно взять из подушки: %@"
+          }
+        }
+      }
+    },
+    "overview.canSave.fromGoals": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consider money set aside for goals: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно взять из отложенного на цели: %@"
+          }
+        }
+      }
+    },
+    "overview.canSave.impossible": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You cannot save this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сэкономить в этом месяце не получится"
+          }
+        }
+      }
+    },
+    "overview.canSave.risk": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With higher spending, short by up to %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При высоких тратах не хватает до %@"
+          }
+        }
+      }
+    },
+    "overview.canSave.shortfall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Short by %@ to %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не хватает от %@ до %@"
           }
         }
       }
