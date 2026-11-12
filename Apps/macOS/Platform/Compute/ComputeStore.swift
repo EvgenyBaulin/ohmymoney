@@ -395,9 +395,14 @@ final class ComputeStore {
     let track = states.track
     guard track.base != nil else { return }
     let (calendar, today, now) = (self.calendar, self.today, clock.now)
+    // The ledger on screen is what the rebuild starts from: one write is a few rows, not twenty
+    // thousand.
+    let previous = states.snapshot?.ledger
     rebuildTask?.cancel()
     if rebuildsInline {
-      if let snapshot = track.rebuilt(calendar: calendar, today: today, now: now) {
+      if let snapshot = track.rebuilt(
+        calendar: calendar, today: today, now: now, previous: previous)
+      {
         showRebuilt(snapshot)
       }
       return
@@ -405,7 +410,7 @@ final class ComputeStore {
     rebuildTask = Task { [weak self] in
       guard
         let snapshot = try? await Self.offMain({
-          track.rebuilt(calendar: calendar, today: today, now: now)
+          track.rebuilt(calendar: calendar, today: today, now: now, previous: previous)
         }),
         let self, !Task.isCancelled
       else { return }

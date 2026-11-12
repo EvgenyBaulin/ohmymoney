@@ -61,6 +61,43 @@ struct PerformanceTests {
     #expect(times.median < .seconds(1))
   }
 
+  /// What a write costs from the file on: one operation is saved, then the pipeline's data step
+  /// reads everything again, brings the ledger of before up to date by what differs and builds the
+  /// figures of the Overview and of planning. The target is under 300 ms for all of it.
+  @Test func recomputeAfterOneWrite() async throws {
+    let repository = repository
+    let today = Self.fixture.set.lastDay
+    let calendar = TestSupport.sampleCalendar
+    let before = Ledger(dataset: try await repository.load(version: 0), calendar: calendar)
+
+    var entry = try #require(
+      Self.fixture.set.entries.last {
+        $0.transaction.kind == .expense && $0.transaction.externalId == nil
+      })
+    entry.transaction.id = UUID()
+    entry.transaction.occurredAt = calendar.startOfDay(today).addingTimeInterval(11 * 3_600)
+    for index in entry.parts.indices {
+      entry.parts[index].id = UUID()
+      entry.parts[index].transactionId = entry.transaction.id
+    }
+    _ = try TransactionRepository(writer: Self.fixture.stack.writer).save(entry)
+
+    var checksum: Int64 = 0
+    var rows = 0
+    let times = try await Bench.measure("load + ledger delta + overview + planning, one write") {
+      let dataset = try await repository.load(version: 1)
+      let ledger = before.updated(to: dataset)
+      checksum = OverviewSummary(ledger: ledger, today: today).expenses.current.raw
+      _ = AppCore.PlanningSnapshot.build(
+        ledger: ledger, today: today, now: calendar.startOfDay(today).addingTimeInterval(43_200),
+        rubPerUnit: [:])
+      rows = ledger.rows.count
+    }
+    #expect(checksum != 0)
+    #expect(rows > before.rows.count)
+    #expect(times.median < .milliseconds(300))
+  }
+
   /// From the file to every Analytics section for twelve months: the load, the ledger and
   /// the sections the core suite measures (`AnalyticsWindow` in CoreAnalyticsTests).
   @Test func loadLedgerAndEveryAnalyticsSection() async throws {

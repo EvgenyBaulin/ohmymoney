@@ -21,6 +21,9 @@ struct ComputeSources: Sendable {
   /// throws: a catch-up that fails costs the run nothing but the catch-up. A test that builds
   /// its own sources leaves it out.
   var settleCounts: (@Sendable () async -> Void)? = nil
+  /// The examples of the last ledger the model step saw, so the next one follows only the
+  /// operations that differ.
+  let examples = ExamplesMemo()
 
   /// The app's sources: the database of `stack` and the rate service. `language` gives the
   /// language the names of the accounts are ordered in, read at every load, so a language
@@ -36,6 +39,8 @@ struct ComputeSources: Sendable {
     // The prices of the owner's coins from the network, when the settings allow it; it never fails.
     let crypto = CryptoRateService(
       rates: rates, currencies: CurrencyRepository(writer: stack.writer), settings: settings)
+    // The ledger of the last read: the next one is worked out from it by what differs.
+    let lastLedger = Mutex<Ledger?>(nil)
     return ComputeSources(
       loadData: { mark, today, now in
         let dataset = try await datasets.load(version: mark)
@@ -47,9 +52,12 @@ struct ComputeSources: Sendable {
         // reminder put away disappears at the next read.
         context.debtReminders = DebtReminderMarks.read(from: .standard)
         try Task.checkCancellation()
-        return DataSnapshot.build(
+        let snapshot = DataSnapshot.build(
           dataset: dataset, calendar: calendar, today: today, context: context,
-          version: DataVersion(load: mark), now: now)
+          version: DataVersion(load: mark), now: now,
+          previous: lastLedger.withLock { $0 })
+        lastLedger.withLock { $0 = snapshot.ledger }
+        return snapshot
       },
       refineRates: {
         await crypto.refresh()
@@ -131,8 +139,7 @@ struct ComputeSources: Sendable {
         let snapshot = try inputs.value(of: ComputeStep.data, as: DataSnapshot.self)
         let newest = latest.newest(than: snapshot)
         try Task.checkCancellation()
-        let examples = LedgerTraining.examples(
-          of: newest.ledger.dataset, calendar: newest.ledger.calendar)
+        let examples = sources.examples.examples(of: newest.ledger)
         try Task.checkCancellation()
         return models.refresh(examples: examples, anchor: today())
       },
@@ -287,6 +294,28 @@ enum CountsJournal {
     AppLog.error(
       "reconcile.settleFailed", .db, "the counts could not follow the books",
       [LogPair("error", .error(error))])
+  }
+}
+
+/// The examples the category model is taught from, for the last ledger asked about: the next
+/// ledger, when it was worked out from that one, brings its examples by the operations that
+/// changed (`LedgerTraining.examples(of:since:examples:)`) instead of by all of them.
+final class ExamplesMemo: Sendable {
+  private struct Held {
+    var ledger: Ledger
+    var examples: [CategoryExample]
+  }
+
+  private let held = Mutex<Held?>(nil)
+
+  func examples(of ledger: Ledger) -> [CategoryExample] {
+    let previous = held.withLock { $0 }
+    let examples =
+      previous.map {
+        LedgerTraining.examples(of: ledger, since: $0.ledger, examples: $0.examples)
+      } ?? LedgerTraining.examples(of: ledger)
+    held.withLock { $0 = Held(ledger: ledger, examples: examples) }
+    return examples
   }
 }
 

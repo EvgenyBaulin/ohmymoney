@@ -75,6 +75,52 @@ public struct RefundIndex: Hashable, Sendable {
     }
   }
 
+  /// The index of the same operations with `removed` taken out and `added` put in, worked out
+  /// from this one instead of from all of them — the same index a full build gives, provided
+  /// no refund points at a part of either group. `nil` when one does (a purchase that has refunds
+  /// of its own, or a refund among the operations), and the caller builds the whole index.
+  /// Whether a refund points at a part of `added` is the caller's to know: this index only
+  /// holds the refunds of live purchases.
+  public func replacing(
+    removed: [TransactionEntry], added: [TransactionEntry], debts: [UUID: Debt]
+  ) -> RefundIndex? {
+    var copy = self
+    for entry in removed where !entry.transaction.isDeleted {
+      switch entry.transaction.kind {
+      case .expense:
+        for part in entry.parts {
+          guard let purchase = copy.purchases[part.id], purchase.refunds.isEmpty else {
+            return nil
+          }
+          copy.purchases[part.id] = nil
+        }
+      case .refund:
+        return nil
+      case .income, .reimbursement:
+        continue
+      }
+    }
+    for entry in added where !entry.transaction.isDeleted {
+      let transaction = entry.transaction
+      switch transaction.kind {
+      case .expense:
+        let debt = transaction.debtId.flatMap { debts[$0] }
+        let creditDebt = transaction.creditDebtId.flatMap { debts[$0] }
+        for part in entry.parts {
+          copy.purchases[part.id] = Purchase(
+            part: part,
+            counts: MyExpensesRule.isMySpending(
+              part: part, in: transaction, debt: debt, creditDebt: creditDebt))
+        }
+      case .refund:
+        return nil
+      case .income, .reimbursement:
+        continue
+      }
+    }
+    return copy
+  }
+
   public var isEmpty: Bool { purchaseOfRefundPart.isEmpty }
 
   /// A part of a live refund that takes back from a part of a live purchase.

@@ -1,5 +1,6 @@
 import CoreKit
 import Foundation
+import Synchronization
 
 /// A backtest of the forecast with a rolling origin, scored by MAE and pinball loss; the
 /// result is shown in «Model quality».
@@ -87,7 +88,12 @@ public struct ForecastBacktest: Hashable, Sendable {
   public static func run(
     ledger: Ledger, today: DateOnly, days: Int = ForecastBacktest.days
   ) -> ForecastBacktest {
-    let spending = VariableSpending(ledger: ledger)
+    run(ledger: ledger, today: today, days: days, spending: VariableSpending(ledger: ledger))
+  }
+
+  private static func run(
+    ledger: Ledger, today: DateOnly, days: Int, spending: VariableSpending
+  ) -> ForecastBacktest {
     var samples: [MonthForecast.Method: [(forecast: MonthForecast.Remainder, actual: Decimal)]] =
       [:]
     for back in stride(from: days, through: 1, by: -1) {
@@ -119,6 +125,27 @@ public struct ForecastBacktest: Hashable, Sendable {
     let windowDays = windowDays(of: spending, today: today)
     return ForecastBacktest(
       lines: lines, days: days, chosen: spending.method(windowDays: windowDays))
+  }
+
+  /// `run`, unless the same answer has been worked out already.
+  ///
+  /// Every origin of the backtest is a day of an earlier month — a month that is not over has
+  /// no answer to score against — and a forecast reads nothing after its origin, so the days of
+  /// the month `today` is in change nothing but `today` itself. What decides is the day, and
+  /// the spending of the days before the month: operations written this month, which is nearly
+  /// every write, leave the answer as it was, and a past month edited does not.
+  public static func cached(
+    ledger: Ledger, today: DateOnly, days: Int = ForecastBacktest.days,
+    cache: ForecastBacktestCache = .shared
+  ) -> ForecastBacktest {
+    let spending = VariableSpending(ledger: ledger)
+    let key = ForecastBacktestCache.Key(
+      today: today, days: days,
+      history: spending.fingerprint(before: today.monthKey.firstDay.dayNumber))
+    if let known = cache.answer(for: key) { return known }
+    let result = run(ledger: ledger, today: today, days: days, spending: spending)
+    cache.keep(result, for: key)
+    return result
   }
 
   private static func windowDays(of spending: VariableSpending, today: DateOnly) -> Int {
@@ -168,5 +195,48 @@ extension Shares {
   static func basisPoints(_ part: Int, of whole: Int) -> Int {
     guard whole > 0 else { return 0 }
     return Int((Int64(part) * Int64(Shares.whole) + Int64(whole) / 2) / Int64(whole))
+  }
+}
+
+/// The last answers of the backtest, by the day and the history they were worked out for.
+public final class ForecastBacktestCache: Sendable {
+  public struct Key: Hashable, Sendable {
+    var today: DateOnly
+    var days: Int
+    var history: Int
+  }
+
+  public static let shared = ForecastBacktestCache()
+
+  private struct Held {
+    var answers: [Key: ForecastBacktest] = [:]
+    var hits = 0
+    var misses = 0
+  }
+
+  private let held = Mutex(Held())
+
+  public init() {}
+
+  /// How many answers came from the cache and how many were worked out.
+  public var counts: (hits: Int, misses: Int) { held.withLock { ($0.hits, $0.misses) } }
+
+  func answer(for key: Key) -> ForecastBacktest? {
+    held.withLock { held in
+      if let known = held.answers[key] {
+        held.hits += 1
+        return known
+      }
+      held.misses += 1
+      return nil
+    }
+  }
+
+  func keep(_ answer: ForecastBacktest, for key: Key) {
+    held.withLock { held in
+      // The newest day only: an answer of another day is never asked for again.
+      held.answers = held.answers.filter { $0.key.today == key.today }
+      held.answers[key] = answer
+    }
   }
 }

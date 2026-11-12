@@ -99,30 +99,42 @@ public struct Ledger: Sendable {
   private let companionsByPart: [String: (shortfall: AmountE4, writtenOff: AmountE4)]
   /// Which refunds take back from which purchase parts, over the live operations.
   public let refundIndex: RefundIndex
+  /// What a row is made with besides its own operation; kept so a changed operation can be
+  /// turned into rows without a pass over all the others (`updated(to:)`).
+  private let builder: RowBuilder
+  /// Tells this ledger from another one — a ledger worked out from this one names it as its parent.
+  public let identity = UUID()
+  /// How this ledger came from the one before it, when it was worked out from it
+  /// (`updated(to:)`); `nil` for a ledger built whole. What is built from a ledger — the examples
+  /// of the model — can follow the same few operations instead of all of them.
+  public let change: Change?
+
+  /// The operations by which a ledger differs from its parent.
+  public struct Change: Hashable, Sendable {
+    /// The `identity` of the ledger this one was worked out from.
+    public let parent: UUID
+    /// Operations that are new, replaced or gone.
+    public let operations: Set<UUID>
+  }
 
   public init(dataset: Dataset, calendar: CalendarContext) {
     self.dataset = dataset
     self.calendar = calendar
     let tree = CategoryTree(dataset.categories)
     self.tree = tree
-    let history = ManualQualityHistory(entries: dataset.entries)
     let debts = dataset.debtsById
     let refunds = RefundIndex(entries: dataset.entries, debts: debts)
     self.refundIndex = refunds
+    let builder = RowBuilder(
+      tree: tree, debts: debts, history: ManualQualityHistory(entries: dataset.entries),
+      refunds: refunds, names: SearchNames(dataset: dataset))
+    self.builder = builder
+    self.change = nil
 
-    // The day of an operation is the day in the zone it was recorded in; one calendar per zone.
-    var zoneCalendars: [String: CalendarContext] = [:]
-    func dayOf(_ transaction: Transaction) -> DateOnly {
-      guard let id = transaction.timeZoneId, let zone = TimeZone(identifier: id),
-        zone != calendar.timeZone
-      else { return calendar.day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId) }
-      let zoned = zoneCalendars[id] ?? CalendarContext(timeZone: zone)
-      zoneCalendars[id] = zoned
-      return zoned.day(of: transaction.occurredAt)
-    }
+    var days = DayResolver(calendar: calendar)
     let alive = dataset.entries
       .filter { !$0.transaction.isDeleted }
-      .map { (entry: $0, day: dayOf($0.transaction)) }
+      .map { (entry: $0, day: days.day(of: $0.transaction)) }
       .sorted { left, right in
         if left.day != right.day { return left.day < right.day }
         if left.entry.transaction.occurredAt != right.entry.transaction.occurredAt {
@@ -131,90 +143,47 @@ public struct Ledger: Sendable {
         return left.entry.id.uuidString < right.entry.id.uuidString
       }
 
-    let names = SearchNames(dataset: dataset)
     var rows: [LedgerRow] = []
     rows.reserveCapacity(alive.count * 2)
     var entriesById: [UUID: TransactionEntry] = [:]
     var searchKeys: [UUID: String] = [:]
-    var partOwners: Set<UUID> = []
     var companions: [String: (shortfall: AmountE4, writtenOff: AmountE4)] = [:]
     for (stored, day) in alive {
-      // What an income stored before its kind lost those fields — a place, an event, a person —
-      // is kept in the database, and read as if it were not there.
-      let entry = KindFields.masked(stored)
-      let transaction = entry.transaction
-      entriesById[entry.id] = stored
-      switch OperationLink(externalId: transaction.externalId) {
-      case .shortfall(_, let part):
-        companions[part.lowercased(), default: (.zero, .zero)].shortfall += transaction.amountRubE4
-      case .remainderWriteOff(let part, _):
-        companions[part.lowercased(), default: (.zero, .zero)].writtenOff +=
-          transaction.amountRubE4
-      default:
-        break
-      }
-      searchKeys[entry.id] = names.key(for: entry, tree: tree)
-      let debt = transaction.debtId.flatMap { debts[$0] }
-      let creditDebt = transaction.creditDebtId.flatMap { debts[$0] }
-      let month =
-        transaction.kind == .income ? (transaction.periodMonth ?? day.monthKey) : day.monthKey
-      let dayNumber = day.dayNumber
-      for (index, part) in entry.parts.enumerated() {
-        partOwners.insert(part.id)
-        let quality: Quality? =
-          transaction.kind.hasQuality
-          ? (part.quality
-            ?? QualityResolver.resolve(
-              part: part, in: transaction, categories: tree, history: history
-            ).quality)
-          : nil
-        rows.append(
-          LedgerRow(
-            transactionId: transaction.id,
-            partId: part.id,
-            partIndex: index,
-            kind: transaction.kind,
-            day: day,
-            occurredAt: transaction.occurredAt,
-            dayNumber: dayNumber,
-            weekday: day.weekday,
-            month: month,
-            currency: transaction.currency,
-            amountE4: part.amountE4,
-            amountRubE4: part.amountRubE4,
-            contribution: refunds.isLinked(refundPart: part.id)
-              ? .zero
-              : MyExpensesRule.contribution(
-                part: part, in: transaction, debt: debt, creditDebt: creditDebt)
-                + refunds.movedContribution(part: part.id),
-            refundOfPartId: refunds.purchasePart(ofRefundPart: part.id),
-            refundedE4: refunds.refunded(part: part.id),
-            refundedRubE4: refunds.refundedRub(part: part.id),
-            categoryId: part.categoryId,
-            rootCategoryId: tree.root(of: part.categoryId)?.id ?? part.categoryId,
-            systemRole: tree.systemRole(of: part.categoryId),
-            quality: quality,
-            forWhom: part.forWhom,
-            forPersonId: part.forPersonId,
-            placeId: transaction.placeId,
-            paymentMethodId: transaction.paymentMethodId,
-            eventId: part.eventId,
-            goalId: part.goalId,
-            reimbursable: part.reimbursable,
-            // Only a purchase is waited for: a part of it paid for somebody else without a
-            // stored status is still expected. Other kinds keep what is stored.
-            reimbursementStatus: part.reimbursable && transaction.kind == .expense
-              ? (part.reimbursementStatus ?? .expected) : part.reimbursementStatus,
-            debtorPersonId: part.debtorPersonId,
-            isGoalContribution: QualityResolver.isGoalContribution(
-              goalId: part.goalId, categoryId: part.categoryId, categories: tree),
-            debtId: transaction.debtId,
-            creditDebtId: transaction.creditDebtId,
-            link: OperationLink(externalId: transaction.externalId),
-            cardId: transaction.cardId))
-      }
+      entriesById[stored.id] = stored
+      Self.addCompanion(of: stored.transaction, to: &companions)
+      let made = builder.make(stored, day: day)
+      searchKeys[stored.id] = made.searchKey
+      rows.append(contentsOf: made.rows)
     }
 
+    let (rowsByMonth, rowIndexByPart) = Self.indexes(of: rows)
+    self.rows = rows
+    self.firstDay = alive.first?.day
+    self.rowsByMonth = rowsByMonth
+    self.rowIndexByPart = rowIndexByPart
+    self.entriesById = entriesById
+    self.searchKeys = searchKeys
+    self.returnedByPart = Self.returned(
+      links: dataset.links, entries: entriesById, parts: rowIndexByPart.keys)
+    self.companionsByPart = companions
+  }
+
+  /// The shortfalls and write-offs the app wrote for a part paid for somebody else.
+  private static func addCompanion(
+    of transaction: Transaction,
+    to companions: inout [String: (shortfall: AmountE4, writtenOff: AmountE4)]
+  ) {
+    switch OperationLink(externalId: transaction.externalId) {
+    case .shortfall(_, let part):
+      companions[part.lowercased(), default: (.zero, .zero)].shortfall += transaction.amountRubE4
+    case .remainderWriteOff(let part, _):
+      companions[part.lowercased(), default: (.zero, .zero)].writtenOff += transaction.amountRubE4
+    default:
+      break
+    }
+  }
+
+  private static func indexes(of rows: [LedgerRow]) -> ([MonthKey: [Int]], [UUID: Int]) {
     var rowsByMonth: [MonthKey: [Int]] = [:]
     var rowIndexByPart: [UUID: Int] = [:]
     rowIndexByPart.reserveCapacity(rows.count)
@@ -222,25 +191,201 @@ public struct Ledger: Sendable {
       rowsByMonth[row.month, default: []].append(index)
       rowIndexByPart[row.partId] = index
     }
+    return (rowsByMonth, rowIndexByPart)
+  }
 
-    // A link counts only while both the reimbursement and the operation of the part it
-    // closes are alive: deleting either takes the money out of «returned».
-    var returnedByPart: [UUID: AmountE4] = [:]
-    for link in dataset.links {
-      guard let reimbursement = entriesById[link.reimbursementTxId],
-        reimbursement.transaction.kind == .reimbursement, partOwners.contains(link.partId)
+  /// A link counts only while both the reimbursement and the operation of the part it
+  /// closes are alive: deleting either takes the money out of «returned».
+  private static func returned(
+    links: [ReimbursementLink], entries: [UUID: TransactionEntry], parts: some Collection<UUID>
+  ) -> [UUID: AmountE4] {
+    guard !links.isEmpty else { return [:] }
+    let owners = Set(parts)
+    var returned: [UUID: AmountE4] = [:]
+    for link in links {
+      guard let reimbursement = entries[link.reimbursementTxId],
+        reimbursement.transaction.kind == .reimbursement, owners.contains(link.partId)
       else { continue }
-      returnedByPart[link.partId, default: .zero] += link.amountE4
+      returned[link.partId, default: .zero] += link.amountE4
+    }
+    return returned
+  }
+
+  // MARK: - Delta
+
+  /// The most operations a delta is worked out for; a bigger change — an import — is built whole,
+  /// which is no slower than finding what it touched.
+  private static let deltaLimit = 64
+
+  /// The ledger of `next`, the same one `Ledger(dataset: next, calendar:)` builds, worked out from
+  /// this one when only a few operations differ.
+  ///
+  /// A row is made of its own operation and of things shared by all of them: the categories, the
+  /// debts, the reimbursement links, the names the search reads, the history of ratings I made
+  /// by hand and the refunds. When any of those differ — or the changed operation is one of them
+  /// (a refund, a reimbursement, an operation rated by hand, a purchase a refund takes back
+  /// from, a shortfall or a write-off) — the whole ledger is built, so the answer is the same
+  /// either way and the quick path is only ever a quicker way to it.
+  ///
+  /// `calendar` is the one the result is for; another zone than this ledger's means every day
+  /// may differ, and the whole ledger is built.
+  public func updated(to next: Dataset, calendar: CalendarContext? = nil) -> Ledger {
+    let wanted = calendar ?? self.calendar
+    guard wanted.timeZone == self.calendar.timeZone,
+      wanted.unrecordedZone == self.calendar.unrecordedZone
+    else { return Ledger(dataset: next, calendar: wanted) }
+    return delta(to: next) ?? Ledger(dataset: next, calendar: wanted)
+  }
+
+  func delta(to next: Dataset) -> Ledger? {
+    guard next.categories == dataset.categories, next.people == dataset.people,
+      next.places == dataset.places, next.events == dataset.events,
+      next.paymentMethods == dataset.paymentMethods, next.cards == dataset.cards,
+      next.debts == dataset.debts, next.deletedDebts == dataset.deletedDebts,
+      next.links == dataset.links
+    else { return nil }
+
+    // What differs, by id: the live operations of `next` that are new or changed, and the ones
+    // of this ledger that are gone or were replaced.
+    var added: [TransactionEntry] = []
+    var aliveIds = Set<UUID>()
+    aliveIds.reserveCapacity(entriesById.count)
+    var seen = 0
+    for entry in next.entries where !entry.transaction.isDeleted {
+      // The same id twice has no single answer: the whole build decides.
+      guard aliveIds.insert(entry.id).inserted else { return nil }
+      if let old = entriesById[entry.id] {
+        seen += 1
+        if old != entry { added.append(entry) }
+      } else {
+        added.append(entry)
+      }
+      if added.count > Self.deltaLimit { return nil }
+    }
+    var removed: [TransactionEntry] = []
+    if seen < entriesById.count {
+      for (id, entry) in entriesById where !aliveIds.contains(id) {
+        removed.append(entry)
+        if removed.count > Self.deltaLimit { return nil }
+      }
+    }
+    let replaced = added.compactMap { entriesById[$0.id] }
+    let gone = removed + replaced
+    if added.isEmpty && gone.isEmpty { return Ledger(copying: self, dataset: next) }
+
+    // Operations that something else in the ledger is made of.
+    let targets = Set(next.entries.lazy.flatMap(\.parts).compactMap(\.refundOfPartId))
+    for entry in added + gone {
+      guard entry.transaction.kind == .expense || entry.transaction.kind == .income,
+        !entry.parts.contains(where: {
+          ($0.qualitySource == .manual && $0.quality != nil) || targets.contains($0.id)
+        })
+      else { return nil }
+      switch OperationLink(externalId: entry.transaction.externalId) {
+      case .shortfall, .remainderWriteOff: return nil
+      default: break
+      }
+    }
+    let debts = next.debtsById
+    guard let refunds = refundIndex.replacing(removed: gone, added: added, debts: debts) else {
+      return nil
     }
 
+    var days = DayResolver(calendar: calendar)
+    // The first day is the one thing that cannot be kept when its operation goes.
+    var firstDay = self.firstDay
+    for entry in gone {
+      guard let first = firstDay, days.day(of: entry.transaction) != first else { return nil }
+    }
+    let goneIds = Set(gone.map(\.id))
+    var entriesById = self.entriesById
+    var searchKeys = self.searchKeys
+    for id in goneIds {
+      entriesById[id] = nil
+      searchKeys[id] = nil
+    }
+    var rows = self.rows
+    rows.removeAll { goneIds.contains($0.transactionId) }
+
+    let builder = RowBuilder(
+      tree: tree, debts: debts, history: builder.history, refunds: refunds,
+      names: builder.names)
+    for entry in added {
+      let day = days.day(of: entry.transaction)
+      entriesById[entry.id] = entry
+      let made = builder.make(entry, day: day)
+      searchKeys[entry.id] = made.searchKey
+      firstDay = firstDay.map { min($0, day) } ?? day
+      guard !made.rows.isEmpty else { continue }
+      let position = Self.insertionPoint(of: made.rows[0], in: rows)
+      rows.insert(contentsOf: made.rows, at: position)
+    }
+
+    let (rowsByMonth, rowIndexByPart) = Self.indexes(of: rows)
+    return Ledger(
+      dataset: next, calendar: calendar, tree: tree, rows: rows, firstDay: firstDay,
+      rowsByMonth: rowsByMonth, rowIndexByPart: rowIndexByPart, entriesById: entriesById,
+      searchKeys: searchKeys,
+      returnedByPart: Self.returned(
+        links: next.links, entries: entriesById, parts: rowIndexByPart.keys),
+      companionsByPart: companionsByPart, refundIndex: refunds, builder: builder,
+      change: Change(parent: identity, operations: Set(added.map(\.id)).union(goneIds)))
+  }
+
+  /// Where the rows of an operation go: after every row that sorts before it — by day, by the
+  /// moment, by the id of the operation, the way the whole ledger is ordered.
+  private static func insertionPoint(of row: LedgerRow, in rows: [LedgerRow]) -> Int {
+    var low = rows.startIndex
+    var high = rows.endIndex
+    while low < high {
+      let middle = (low + high) / 2
+      let other = rows[middle]
+      let before: Bool
+      if other.day != row.day {
+        before = other.day < row.day
+      } else if other.occurredAt != row.occurredAt {
+        before = other.occurredAt < row.occurredAt
+      } else {
+        before = other.transactionId.uuidString < row.transactionId.uuidString
+      }
+      if before { low = middle + 1 } else { high = middle }
+    }
+    return low
+  }
+
+  /// The same ledger over a dataset that differs from it in nothing the ledger is made of.
+  private init(copying other: Ledger, dataset: Dataset) {
+    self.init(
+      dataset: dataset, calendar: other.calendar, tree: other.tree, rows: other.rows,
+      firstDay: other.firstDay, rowsByMonth: other.rowsByMonth,
+      rowIndexByPart: other.rowIndexByPart, entriesById: other.entriesById,
+      searchKeys: other.searchKeys, returnedByPart: other.returnedByPart,
+      companionsByPart: other.companionsByPart, refundIndex: other.refundIndex,
+      builder: other.builder, change: Change(parent: other.identity, operations: []))
+  }
+
+  private init(
+    dataset: Dataset, calendar: CalendarContext, tree: CategoryTree, rows: [LedgerRow],
+    firstDay: DateOnly?, rowsByMonth: [MonthKey: [Int]], rowIndexByPart: [UUID: Int],
+    entriesById: [UUID: TransactionEntry], searchKeys: [UUID: String],
+    returnedByPart: [UUID: AmountE4],
+    companionsByPart: [String: (shortfall: AmountE4, writtenOff: AmountE4)],
+    refundIndex: RefundIndex, builder: RowBuilder, change: Change
+  ) {
+    self.dataset = dataset
+    self.calendar = calendar
+    self.tree = tree
     self.rows = rows
-    self.firstDay = alive.first?.day
+    self.firstDay = firstDay
     self.rowsByMonth = rowsByMonth
     self.rowIndexByPart = rowIndexByPart
     self.entriesById = entriesById
     self.searchKeys = searchKeys
     self.returnedByPart = returnedByPart
-    self.companionsByPart = companions
+    self.companionsByPart = companionsByPart
+    self.refundIndex = refundIndex
+    self.builder = builder
+    self.change = change
   }
 
   // MARK: - Lookups
@@ -349,6 +494,101 @@ public struct Ledger: Sendable {
       return rows(attributedTo: period.months).filter(\.isIncome)
     }
     return rows(in: period.range).filter(\.isIncome)
+  }
+}
+
+/// The day of an operation is the day in the zone it was recorded in; one calendar per zone.
+private struct DayResolver {
+  let calendar: CalendarContext
+  private var zoneCalendars: [String: CalendarContext] = [:]
+
+  init(calendar: CalendarContext) { self.calendar = calendar }
+
+  mutating func day(of transaction: Transaction) -> DateOnly {
+    guard let id = transaction.timeZoneId, let zone = TimeZone(identifier: id),
+      zone != calendar.timeZone
+    else { return calendar.day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId) }
+    let zoned = zoneCalendars[id] ?? CalendarContext(timeZone: zone)
+    zoneCalendars[id] = zoned
+    return zoned.day(of: transaction.occurredAt)
+  }
+}
+
+/// Turns one operation into its rows and its search key, from what the ledger holds besides it.
+private struct RowBuilder: Sendable {
+  let tree: CategoryTree
+  let debts: [UUID: Debt]
+  let history: ManualQualityHistory
+  let refunds: RefundIndex
+  let names: SearchNames
+
+  func make(_ stored: TransactionEntry, day: DateOnly) -> (rows: [LedgerRow], searchKey: String) {
+    // What an income stored before its kind lost those fields — a place, an event, a person —
+    // is kept in the database, and read as if it were not there.
+    let entry = KindFields.masked(stored)
+    let transaction = entry.transaction
+    let key = names.key(for: entry, tree: tree)
+    let debt = transaction.debtId.flatMap { debts[$0] }
+    let creditDebt = transaction.creditDebtId.flatMap { debts[$0] }
+    let month =
+      transaction.kind == .income ? (transaction.periodMonth ?? day.monthKey) : day.monthKey
+    let dayNumber = day.dayNumber
+    var rows: [LedgerRow] = []
+    rows.reserveCapacity(entry.parts.count)
+    for (index, part) in entry.parts.enumerated() {
+      let quality: Quality? =
+        transaction.kind.hasQuality
+        ? (part.quality
+          ?? QualityResolver.resolve(
+            part: part, in: transaction, categories: tree, history: history
+          ).quality)
+        : nil
+      rows.append(
+        LedgerRow(
+          transactionId: transaction.id,
+          partId: part.id,
+          partIndex: index,
+          kind: transaction.kind,
+          day: day,
+          occurredAt: transaction.occurredAt,
+          dayNumber: dayNumber,
+          weekday: day.weekday,
+          month: month,
+          currency: transaction.currency,
+          amountE4: part.amountE4,
+          amountRubE4: part.amountRubE4,
+          contribution: refunds.isLinked(refundPart: part.id)
+            ? .zero
+            : MyExpensesRule.contribution(
+              part: part, in: transaction, debt: debt, creditDebt: creditDebt)
+              + refunds.movedContribution(part: part.id),
+          refundOfPartId: refunds.purchasePart(ofRefundPart: part.id),
+          refundedE4: refunds.refunded(part: part.id),
+          refundedRubE4: refunds.refundedRub(part: part.id),
+          categoryId: part.categoryId,
+          rootCategoryId: tree.root(of: part.categoryId)?.id ?? part.categoryId,
+          systemRole: tree.systemRole(of: part.categoryId),
+          quality: quality,
+          forWhom: part.forWhom,
+          forPersonId: part.forPersonId,
+          placeId: transaction.placeId,
+          paymentMethodId: transaction.paymentMethodId,
+          eventId: part.eventId,
+          goalId: part.goalId,
+          reimbursable: part.reimbursable,
+          // Only a purchase is waited for: a part of it paid for somebody else without a
+          // stored status is still expected. Other kinds keep what is stored.
+          reimbursementStatus: part.reimbursable && transaction.kind == .expense
+            ? (part.reimbursementStatus ?? .expected) : part.reimbursementStatus,
+          debtorPersonId: part.debtorPersonId,
+          isGoalContribution: QualityResolver.isGoalContribution(
+            goalId: part.goalId, categoryId: part.categoryId, categories: tree),
+          debtId: transaction.debtId,
+          creditDebtId: transaction.creditDebtId,
+          link: OperationLink(externalId: transaction.externalId),
+          cardId: transaction.cardId))
+    }
+    return (rows, key)
   }
 }
 

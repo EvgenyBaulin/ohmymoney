@@ -33,6 +33,29 @@ public struct VariableSpending: Hashable, Sendable {
       sample.map { (($0.weekday - 1 - $0.dayNumber) % 7 + 7) % 7 } ?? 0
   }
 
+  /// A number that tells whether the days before `dayNumber` hold the same spending as when
+  /// another `VariableSpending` gave the same number — within one run of the program, and not
+  /// a thing to keep: it is made of `Hasher`, which is seeded afresh at every start. The days
+  /// from `dayNumber` on do not count.
+  func fingerprint(before dayNumber: Int) -> Int {
+    var combined = 0
+    var count = 0
+    for (day, amount) in daily where day < dayNumber {
+      var hasher = Hasher()
+      hasher.combine(day)
+      hasher.combine(amount)
+      // Added, not chained: the order a dictionary walks in is not one.
+      combined &+= hasher.finalize()
+      count += 1
+    }
+    var hasher = Hasher()
+    hasher.combine(combined)
+    hasher.combine(count)
+    hasher.combine(firstDay)
+    hasher.combine(weekdayOfZero)
+    return hasher.finalize()
+  }
+
   public func amount(on dayNumber: Int) -> Decimal { daily[dayNumber] ?? 0 }
 
   /// The sum over a run of days, both ends included.

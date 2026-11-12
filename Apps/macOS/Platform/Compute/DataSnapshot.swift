@@ -201,9 +201,13 @@ struct DataSnapshot: Sendable {
   /// from a read with the app's own writes laid over it.
   static func build(
     dataset: Dataset, calendar: CalendarContext, today: DateOnly, context: SnapshotContext,
-    version: DataVersion, now: Date = Date()
+    version: DataVersion, now: Date = Date(), previous: Ledger? = nil
   ) -> DataSnapshot {
-    let ledger = Ledger(dataset: dataset, calendar: calendar)
+    // The ledger the screens showed before, brought up to date by what differs: the same ledger
+    // a build from nothing gives (`Ledger.updated`), at a fraction of the cost after one write.
+    let ledger =
+      previous?.updated(to: dataset, calendar: calendar)
+      ?? Ledger(dataset: dataset, calendar: calendar)
     let summary = OverviewSummary(ledger: ledger, today: today)
     let start = today.monthKey.previous.firstDay
     let end = max(today, ledger.rows.last?.day ?? today)
@@ -424,11 +428,13 @@ struct DataTrack: Sendable {
 
   /// What the screen should show, built for `today` and the moment `now` of the store's
   /// clock: `nil` before the first read.
-  func rebuilt(calendar: CalendarContext, today: DateOnly, now: Date) -> DataSnapshot? {
+  func rebuilt(
+    calendar: CalendarContext, today: DateOnly, now: Date, previous: Ledger? = nil
+  ) -> DataSnapshot? {
     guard let composed else { return nil }
     return DataSnapshot.build(
       dataset: composed, calendar: calendar, today: today, context: context, version: target,
-      now: now)
+      now: now, previous: previous)
   }
 
   mutating func adopt(_ snapshot: DataSnapshot) -> Adoption {
