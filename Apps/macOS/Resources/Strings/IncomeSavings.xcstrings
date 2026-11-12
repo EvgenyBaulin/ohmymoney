@@ -70,6 +70,12 @@
             "value": "Выше цели"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз ҳадаф бештар"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -163,6 +169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По правилам (как у родителя)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз рӯи қоидаҳо (мисли волид)"
           }
         },
         "tr": {
@@ -260,6 +272,12 @@
             "value": "Ниже цели"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз ҳадаф камтар"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -353,6 +371,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@ при цели %3$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ аз ҳадафи %3$@"
           }
         },
         "tr": {
@@ -450,6 +474,12 @@
             "value": "Корзина бюджета"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сабади буҷет"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -543,6 +573,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нужное"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заруриёт"
           }
         },
         "tr": {
@@ -640,6 +676,12 @@
             "value": "Нет дохода"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад нест"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -735,6 +777,12 @@
             "value": "По цели"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мувофиқи ҳадаф"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -828,6 +876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ваше правило %1$lld / %2$lld / %3$lld"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қоидаи шумо %1$lld / %2$lld / %3$lld"
           }
         },
         "tr": {
@@ -926,6 +980,12 @@
             "value": "Сбережения"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1021,6 +1081,12 @@
             "value": "Желания"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хоҳишҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1112,6 +1178,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@"
@@ -1212,6 +1284,12 @@
             "value": "В этом месяце не было дохода, долям не от чего считаться."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар ин моҳ даромад набуд, бинобар ин ҳиссаҳоро ҳисоб кардан имкон надорад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1305,6 +1383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц не закончился: доли ещё изменятся."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моҳ ҳанӯз ба охир нарасидааст: ҳиссаҳо тағйир меёбанд."
           }
         },
         "tr": {
@@ -1402,6 +1486,12 @@
             "value": "Корзины бюджета"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сабадҳои буҷет"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1495,6 +1585,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Деньги на счетах подушки к обязательным тратам за день"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағи ҳисобҳои захиравӣ нисбат ба хароҷоти ҳатмии як рӯз"
           }
         },
         "tr": {
@@ -1784,6 +1880,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Барои %lld рӯз мерасад"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Барои %lld рӯз мерасад"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -1933,6 +2047,12 @@
             "value": "На подушке %1$@, обязательные траты ≈ %2$@ в день"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар захира %1$@, хароҷоти ҳатмӣ ≈ %2$@ дар як рӯз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2026,6 +2146,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не отмечен ни один счёт подушки: отметьте их на экране «Капитал»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ягон ҳисоби захиравӣ нишон нашудааст: онҳоро дар экрани «Сармоя» нишон диҳед."
           }
         },
         "tr": {
@@ -2123,6 +2249,12 @@
             "value": "Обязательные траты в месяц пока не известны."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷоти ҳатмии моҳона ҳанӯз маълум нест."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2216,6 +2348,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подушка в днях"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захира бо рӯзҳо"
           }
         },
         "tr": {
@@ -2313,6 +2451,12 @@
             "value": "Последние 12 месяцев · по %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 моҳи охир · то %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2406,6 +2550,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Одно число из пяти частей, всегда с разбором"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як нишондиҳанда аз панҷ қисм ва шарҳи ҳисоб"
           }
         },
         "tr": {
@@ -2503,6 +2653,12 @@
             "value": "%lld из 100"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld аз 100"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2596,6 +2752,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не учтено, не хватает данных: %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз сабаби набудани маълумот дохил нашуд: %@"
           }
         },
         "tr": {
@@ -2693,6 +2855,12 @@
             "value": "Не учтено"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоб нашуд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2788,6 +2956,12 @@
             "value": "Нужны данные хотя бы по двум из пяти частей: подушка, долговая нагрузка, норма сбережений, просрочки, стабильность дохода."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маълумот барои ҳадди ақал ду қисм аз панҷ қисм лозим аст: захира, бори қарз, меъёри пасандоз, пардохтҳои муҳлатгузашта, устувории даромад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2881,6 +3055,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Считается из ваших данных заново каждый раз и ни с кем не сравнивается. Это ориентир, а не оценка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳар дафъа аз рӯи маълумоти шумо ҳисоб мешавад, бе муқоиса бо дигарон. Роҳнамо аст, на баҳо."
           }
         },
         "tr": {
@@ -2979,6 +3159,12 @@
             "value": "Подушка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захира"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3075,6 +3261,12 @@
             "value": "Долговая нагрузка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бори қарз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3168,6 +3360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Просрочки"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пардохтҳои муҳлатгузашта"
           }
         },
         "tr": {
@@ -3266,6 +3464,12 @@
             "value": "Норма сбережений"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3361,6 +3565,12 @@
             "value": "Стабильность дохода"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Устувории даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3454,6 +3664,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld из %2$lld"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld аз %2$lld"
           }
         },
         "tr": {
@@ -3552,6 +3768,12 @@
             "value": "Финансовое здоровье"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Солимии молиявӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3645,6 +3867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доля дохода, которая осталась после трат · все доходы"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳиссаи даромади пас аз хароҷот боқимонда · тамоми даромад"
           }
         },
         "tr": {
@@ -3742,6 +3970,12 @@
             "value": "Доля дохода, которая осталась после трат · только «Заработок»"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳиссаи даромади пас аз хароҷот боқимонда · танҳо музди кор"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3835,6 +4069,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход %1$@ − траты %2$@ = осталось %3$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад %1$@ − хароҷот %2$@ = боқӣ монд %3$@"
           }
         },
         "tr": {
@@ -3932,6 +4172,12 @@
             "value": "%1$@: осталось %2$@ дохода"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ аз даромад боқӣ монд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4025,6 +4271,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: дохода не было, нормы нет"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: даромад нест, меъёр ҳисоб намешавад"
           }
         },
         "tr": {
@@ -4122,6 +4374,12 @@
             "value": "Нужен хотя бы один месяц с доходом."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳадди ақал як моҳи даромаддор лозим аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4215,6 +4473,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "* Месяц не закончился: траты ещё впереди, и число выглядит лучше, чем будет."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* Моҳ ҳанӯз ба охир нарасидааст: хароҷот идома меёбад, бинобар ин нишондиҳанда ҳоло беҳтар менамояд."
           }
         },
         "tr": {
@@ -4312,6 +4576,12 @@
             "value": "%@, месяц не закончился"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, ҳанӯз ба охир нарасидааст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4405,6 +4675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (пока)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (то ҳол)"
           }
         },
         "tr": {
@@ -4503,6 +4779,12 @@
             "value": "Норма сбережений"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4596,6 +4878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Понятно"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фаҳмо"
           }
         },
         "tr": {
@@ -4693,6 +4981,12 @@
             "value": "За 6 месяцев доход %1$@, траты %2$@ к 6 предыдущим"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар 6 моҳ даромад %1$@, хароҷот %2$@ нисбат ба 6 моҳи пешин"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4786,6 +5080,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Больше не показывать"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дигар нишон надиҳед"
           }
         },
         "tr": {
@@ -4883,6 +5183,12 @@
             "value": "За 3 месяца доход %1$@, траты %2$@ к тем же месяцам год назад"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар 3 моҳ даромад %1$@, хароҷот %2$@ нисбат ба ҳамин моҳҳои соли гузашта"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4976,6 +5282,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кредиты, подписки и необходимые траты к обычному доходу"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қарзҳо, обунаҳо ва хароҷоти зарурӣ нисбат ба даромади маъмулӣ"
           }
         },
         "tr": {
@@ -5073,6 +5385,12 @@
             "value": "Обязательно ≈ %1$@ в месяц, остаётся %2$@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷоти ҳатмӣ ≈ %1$@ дар як моҳ, %2$@ боқӣ мемонад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5166,6 +5484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Занято %1$@ дохода · на манёвр %2$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ аз даромад сарф мешавад · %2$@ озод мемонад"
           }
         },
         "tr": {
@@ -5263,6 +5587,12 @@
             "value": "За эти месяцы не было дохода, долю считать не от чего."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар ин моҳҳо даромад набуд, бинобар ин ҳиссаро ҳисоб кардан имкон надорад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5356,6 +5686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обязательные траты пока не известны: нужны несколько полных месяцев и категории с отметкой «Необходимая трата»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷоти ҳатмӣ ҳанӯз маълум нест: чанд моҳи пурра ва категорияҳои ҳамчун зарурӣ нишондодашуда лозиманд."
           }
         },
         "tr": {
@@ -5453,6 +5789,12 @@
             "value": "Доля обязательных трат"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳиссаи хароҷоти ҳатмӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5546,6 +5888,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Первые три дня после поступления против остального месяца"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Се рӯзи аввали пас аз даромад нисбат ба рӯзҳои боқимондаи моҳ"
           }
         },
         "tr": {
@@ -5643,6 +5991,12 @@
             "value": "%1$@ в день после поступления против %2$@ в обычный день"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ дар як рӯз пас аз даромад нисбат ба %2$@ дар рӯзи маъмулӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5736,6 +6090,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В первые три дня тратите в %@ раза больше обычного"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар се рӯзи аввал шумо %@× бештар сарф мекунед"
           }
         },
         "tr": {
@@ -5833,6 +6193,12 @@
             "value": "Нужно хотя бы два завершённых ожидаемых поступления и семь обычных дней для сравнения."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои муқоиса ҳадди ақал ду даромади интизоршудаи гирифташуда ва ҳафт рӯзи маъмулӣ лозим аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5926,6 +6292,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Эффект зарплаты"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таъсири музди кор"
           }
         },
         "tr": {
@@ -6023,6 +6395,12 @@
             "value": "Норма сбережений только от «Заработка»"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри пасандоз танҳо аз музди кор"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6116,6 +6494,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кэшбэк, проценты и излишки тогда не считаются доходом для нормы"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэк, фоизҳо ва маблағи изофӣ дар ҳисоб ба даромад дохил намешаванд"
           }
         },
         "tr": {
@@ -6213,6 +6597,12 @@
             "value": "Пропорции и переключатели хранятся в базе и переезжают архивом. Корзину категории выбирают в «Категориях»."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таносубҳо ва танзимот дар пойгоҳи додаҳо нигоҳ дошта шуда, бо бойгонӣ интиқол меёбанд. Сабади категория дар «Категорияҳо» таъин мешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6306,6 +6696,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нужное: %lld %%"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заруриёт: %lld%%"
           }
         },
         "tr": {
@@ -6403,6 +6799,12 @@
             "value": "Нужное"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заруриёт"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6496,6 +6898,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вернуть 50 / 30 / 20"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бозгашт ба 50 / 30 / 20"
           }
         },
         "tr": {
@@ -6594,6 +7002,12 @@
             "value": "Сбережения"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6687,6 +7101,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Остаётся до ста, считается само"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Боқимонда то сад фоиз"
           }
         },
         "tr": {
@@ -6785,6 +7205,12 @@
             "value": "Доход и сбережения"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад ва пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6878,6 +7304,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Говорить, если траты растут быстрее дохода"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вақте хароҷот аз даромад тезтар меафзояд, хабар диҳед"
           }
         },
         "tr": {
@@ -6975,6 +7407,12 @@
             "value": "Строка в «Стоит посмотреть», не чаще раза в квартал"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сатр дар «Ба назар гирифтан», на бештар аз як бор дар семоҳа"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7068,6 +7506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Желания: %lld %%"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хоҳишҳо: %lld%%"
           }
         },
         "tr": {
@@ -7165,6 +7609,12 @@
             "value": "Желания"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хоҳишҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7260,6 +7710,12 @@
             "value": "Плохой месяц для планов: %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моҳи номусоид барои нақшаҳо: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7353,6 +7809,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Полные месяцы до текущего, не больше 24"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моҳҳои пурраи пеш аз ин моҳ, ҳадди аксар 24 моҳ"
           }
         },
         "tr": {
@@ -7642,6 +8104,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Маълумот кам аст: то ҳол танҳо %lld моҳ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Маълумот кам аст: то ҳол танҳо %lld моҳ"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -7791,6 +8271,12 @@
             "value": "Нужно не меньше %1$lld полных месяцев с доходом, пока их %2$lld."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳадди ақал %1$lld моҳи пурра бо даромад лозим аст, то ҳол %2$lld моҳ мавҷуд аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7884,6 +8370,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход ровный"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад устувор аст"
           }
         },
         "tr": {
@@ -7981,6 +8473,12 @@
             "value": "Стабильность дохода"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Устувории даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8074,6 +8572,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход скачет"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад тағйир меёбад"
           }
         },
         "tr": {
@@ -8171,6 +8675,12 @@
             "value": "Обычный месяц: от %1$@ до %2$@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моҳи маъмулӣ: аз %1$@ то %2$@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8266,6 +8776,12 @@
             "value": "Учтено частей: %1$lld из %2$lld"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қисмҳои ҳисобшуда: %1$lld аз %2$lld"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8357,6 +8873,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -8457,6 +8979,12 @@
             "value": "%@ · пока"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · то ҳол"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8550,6 +9078,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Траты растут не быстрее дохода."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷот аз даромад тезтар афзоиш намеёбад."
           }
         },
         "tr": {
@@ -8647,6 +9181,12 @@
             "value": "Нужно больше года истории, хотя бы год с небольшим, и доход, с которым сравнивать."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои муқоиса таърихи зиёда аз як сол ё маълумоти ҳадди ақал як сол ва даромад лозим аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8740,6 +9280,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Траты растут быстрее дохода. Стоит заметить, пока это не стало привычкой."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷот аз даромад тезтар меафзояд. Пеш аз он ки ин ба одат табдил ёбад, ба он таваҷҷуҳ кунед."
           }
         },
         "tr": {
@@ -8837,6 +9383,12 @@
             "value": "Показывать в «Стоит посмотреть»"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар «Қобили таваҷҷуҳ» нишон додан"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8930,6 +9482,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сравнение с предыдущими месяцами, а не с прошлым годом: лето с зимой сравнивать нечестно."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муқоиса бо моҳҳои пешин аст, на бо соли гузашта: муқоисаи тобистон бо зимистон одилона нест."
           }
         },
         "tr": {
@@ -9027,6 +9585,12 @@
             "value": "За 6 месяцев доход %1$@, траты %2$@ к 6 предыдущим"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар 6 моҳ даромад %1$@, хароҷот %2$@ нисбат ба 6 моҳи пешин"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9120,6 +9684,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Больше не показывать в «Стоит посмотреть»"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар «Қобили таваҷҷуҳ» дигар нишон надодан"
           }
         },
         "tr": {
@@ -9217,6 +9787,12 @@
             "value": "Траты вслед за доходом"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷот аз пайи даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9310,6 +9886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За 3 месяца доход %1$@, траты %2$@ к тем же месяцам год назад"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар 3 моҳ даромад %1$@, хароҷот %2$@ нисбат ба ҳамин моҳҳои соли гузашта"
           }
         },
         "tr": {
@@ -9408,6 +9990,12 @@
             "value": "Подушка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захира"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9504,6 +10092,12 @@
             "value": "Долговая нагрузка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бори қарз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9597,6 +10191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Просрочки"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пардохтҳои муҳлатгузашта"
           }
         },
         "tr": {
@@ -9695,6 +10295,12 @@
             "value": "Норма сбережений"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9788,6 +10394,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стабильность дохода"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Устувории даромад"
           }
         },
         "tr": {
@@ -9885,6 +10497,12 @@
             "value": "Не учтено, нет данных"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоб нашуд, маълумот нест"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9978,6 +10596,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Слишком мало частей можно посчитать, чтобы назвать число."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои ҳисоб кардани нишондиҳанда қисмҳои кофӣ нестанд."
           }
         },
         "tr": {
@@ -10075,6 +10699,12 @@
             "value": "Части без данных не получают ноль: остальные пересчитываются на сто. Число ни с кем не сравнивается."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба қисмҳои берунмонда сифр дода намешавад: қисмҳои боқимонда то сад мутаносиб карда мешаванд. Нишондиҳанда бо касе муқоиса намешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10168,6 +10798,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подушка (из %@)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захира (аз %@)"
           }
         },
         "tr": {
@@ -10265,6 +10901,12 @@
             "value": "Долговая нагрузка (из %@)"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бори қарз (аз %@)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10358,6 +11000,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Просрочки (из %@)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пардохтҳои муҳлатгузашта (аз %@)"
           }
         },
         "tr": {
@@ -10455,6 +11103,12 @@
             "value": "Норма сбережений (из %@)"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри пасандоз (аз %@)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10548,6 +11202,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стабильность дохода (из %@)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Устувории даромад (аз %@)"
           }
         },
         "tr": {
@@ -10646,6 +11306,12 @@
             "value": "Финансовое здоровье"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Солимии молиявӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10739,6 +11405,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Переведено на подушку (не траты)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба захира гузаронида шуд (харҷ нашуд)"
           }
         },
         "tr": {
@@ -10836,6 +11508,12 @@
             "value": "Категории «Заработок» нет, поэтому считается весь доход."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорияи «Даромадҳо» нест, бинобар ин тамоми даромад ҳисоб мешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10929,6 +11607,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отложено в цели (не траты)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои ҳадафҳо ҷудо шуд (харҷ нашуд)"
           }
         },
         "tr": {
@@ -11027,6 +11711,12 @@
             "value": "Доход"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11120,6 +11810,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осталось"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нигоҳ дошта шуд"
           }
         },
         "tr": {
@@ -11217,6 +11913,12 @@
             "value": "В этом месяце дохода ещё нет, нормы нет."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар ин моҳ ҳоло даромад нест, бинобар ин меъёр ҳисоб намешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11310,6 +12012,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц не закончился: траты ещё впереди, и норма выглядит лучше, чем будет."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моҳ ҳанӯз тамом нашудааст ва хароҷот дар пеш аст, бинобар ин меъёр ҳоло баландтар менамояд."
           }
         },
         "tr": {
@@ -11408,6 +12116,12 @@
             "value": "Норма сбережений"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11501,6 +12215,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мои траты без взносов в цели"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷоти ман бе маблағҳои барои ҳадафҳо ҷудошуда"
           }
         },
         "tr": {

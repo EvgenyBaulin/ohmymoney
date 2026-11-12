@@ -70,6 +70,12 @@
             "value": "Так монету называет CoinGecko: bitcoin, ethereum, tether. Знаков после запятой — не больше 4: деньги хранятся с точностью до 1/10 000."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Номи асъор дар CoinGecko: bitcoin, ethereum, tether. Пас аз нуқта то 4 рақам: маблағ бо дақиқии 1/10,000 нигоҳ дошта мешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +171,12 @@
             "value": "Идентификатор монеты"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ID-и асъор"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -258,6 +270,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Идентификатор монеты — строчные латинские буквы, цифры и дефис."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ID-и асъор аз ҳарфҳои хурди лотинӣ, рақамҳо ва дефис иборат аст."
           }
         },
         "tr": {
@@ -356,6 +374,12 @@
             "value": "Курс"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қурб"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -449,6 +473,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Курс криптовалют"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қурби криптоасъор"
           }
         },
         "tr": {
@@ -546,6 +576,12 @@
             "value": "Из сети (CoinGecko)"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз шабака (CoinGecko)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -639,6 +675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "На api.coingecko.com уходит только идентификатор монеты и валюта (рубли). Без сети остаётся последний курс с его датой."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба api.coingecko.com танҳо ID-и асъор ва воҳиди пулӣ (рубл) фиристода мешаванд. Бе шабака қурби охирин бо санааш мемонад."
           }
         },
         "tr": {
@@ -736,6 +778,12 @@
             "value": "Вручную"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дастӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -829,6 +877,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавить предложение…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Иловаи пешниҳод…"
           }
         },
         "tr": {
@@ -927,6 +981,12 @@
             "value": "от %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "аз %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1017,6 +1077,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ – %@"
@@ -1117,6 +1183,12 @@
             "value": "до %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "то %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1210,6 +1282,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Средняя максимальная ставка по вкладам в рублях десяти банков с наибольшим объёмом вкладов: %1$@ %% годовых, с %2$@. Это ориентир рынка, а не ставка какого-либо банка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Миёнаи қурби баландтарини пасандозҳои рублӣ дар даҳ бонки дорои пасандозҳои бештар: %1$@%% солона, аз %2$@. Нишондиҳандаи бозор аст, на қурби бонк."
           }
         },
         "tr": {
@@ -1307,6 +1385,12 @@
             "value": "По данным Банка России"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тибқи маълумоти Бонки Русия"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1400,6 +1484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставки расходятся: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Стоит проверить на сайте банка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёрҳо фарқ мекунанд: %1$@ — %2$@%%, %3$@ — %4$@%%. Дар сомонаи бонк санҷед."
           }
         },
         "tr": {
@@ -1498,6 +1588,12 @@
             "value": "Сумма"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1592,6 +1688,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Любой"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳама"
           }
         },
         "tr": {
@@ -1689,6 +1791,12 @@
             "value": "Срок, мес."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муҳлат, моҳ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1782,6 +1890,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "С пополнением"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бо имкони пуркунӣ"
           }
         },
         "tr": {
@@ -1880,6 +1994,12 @@
             "value": "Банк"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бонк"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1973,6 +2093,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Изменить предложение"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таҳрири пешниҳод"
           }
         },
         "tr": {
@@ -2070,6 +2196,12 @@
             "value": "Наибольшая сумма"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағи ҳадди аксар"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2163,6 +2295,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Наименьшая сумма"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағи ҳадди ақал"
           }
         },
         "tr": {
@@ -2260,6 +2398,12 @@
             "value": "Новое предложение"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пешниҳоди нав"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2353,6 +2497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Только новым клиентам"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Танҳо барои муштариёни нав"
           }
         },
         "tr": {
@@ -2451,6 +2601,12 @@
             "value": "Заметка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ёддошт"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2545,6 +2701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка, % годовых"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёр, % солона"
           }
         },
         "tr": {
@@ -2642,6 +2804,12 @@
             "value": "Ставка — положительное число, например 15.5."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёр бояд адади мусбат бошад, масалан 15.5."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2735,6 +2903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка на день"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёр то санаи"
           }
         },
         "tr": {
@@ -2832,6 +3006,12 @@
             "value": "Нужна подписка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обуна лозим аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2925,6 +3105,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Срок, мес."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муҳлат, моҳ"
           }
         },
         "tr": {
@@ -3022,6 +3208,12 @@
             "value": "Можно пополнять"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пур кардан мумкин"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3115,6 +3307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "новым клиентам"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "муштариёни нав"
           }
         },
         "tr": {
@@ -3212,6 +3410,12 @@
             "value": "Ничего не подходит под фильтр."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мувофиқи филтр чизе ёфт нашуд."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3305,6 +3509,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрина вкладов…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пешниҳодҳои пасандоз…"
           }
         },
         "tr": {
@@ -3402,6 +3612,12 @@
             "value": "моё предложение"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "пешниҳоди ман"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3495,6 +3711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Брать ставки из открытых источников (в сеть уходит только запрос страницы)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гирифтани меъёрҳо аз манбаъҳои кушод (аз Mac танҳо дархости саҳифа фиристода мешавад)"
           }
         },
         "tr": {
@@ -3592,6 +3814,12 @@
             "value": "Не удалось обновить ставки"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёрҳо нав карда нашуданд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3685,6 +3913,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "на сумму %@: %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "барои %@: %@"
           }
         },
         "tr": {
@@ -3782,6 +4016,12 @@
             "value": "на срок %lld мес.: %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "барои %lld моҳ: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3875,6 +4115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "с пополнением: %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бо пуркунӣ: %@"
           }
         },
         "tr": {
@@ -3973,6 +4219,12 @@
             "value": "%@ %%"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4066,6 +4318,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уточните на сайте банка"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар сомонаи бонк санҷед"
           }
         },
         "tr": {
@@ -4163,6 +4421,12 @@
             "value": "до %@ %%"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "то %@%%"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4256,6 +4520,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ставка на %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "меъёр то %@"
           }
         },
         "tr": {
@@ -4353,6 +4623,12 @@
             "value": "список приложения"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "рӯйхати барнома"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4446,6 +4722,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк России"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бонки Русия"
           }
         },
         "tr": {
@@ -4543,6 +4825,12 @@
             "value": "моё предложение"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "пешниҳоди ман"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4636,6 +4924,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "могла измениться"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "шояд тағйир ёфтааст"
           }
         },
         "tr": {
@@ -4733,6 +5027,12 @@
             "value": "нужна подписка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "обуна лозим аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4826,6 +5126,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что банки публикуют сейчас, по ставке. Не финансовая консультация: условия проверяйте на сайте банка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пешниҳодҳои ҷории бонкҳо аз рӯи меъёр. Маслиҳати молиявӣ нест: шартҳоро дар сомонаи бонк санҷед."
           }
         },
         "tr": {
@@ -4923,6 +5229,12 @@
             "value": "от %lld мес."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "аз %lld моҳ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5016,6 +5328,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld мес."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld моҳ"
           }
         },
         "tr": {
@@ -5113,6 +5431,12 @@
             "value": "%lld–%lld мес."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld моҳ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5206,6 +5530,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "до %lld мес."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "то %lld моҳ"
           }
         },
         "tr": {
@@ -5303,6 +5633,12 @@
             "value": "Витрина вкладов"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пешниҳодҳои пасандоз"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5396,6 +5732,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "без пополнения"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бе пуркунӣ"
           }
         },
         "tr": {
@@ -5493,6 +5835,12 @@
             "value": "можно пополнять"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "пур кардан мумкин"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5586,6 +5934,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Список банков прочитан %@; обновляется с выпуском приложения."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рӯйхати бонкҳо то %@; бо ҳар нашр нав мешавад."
           }
         },
         "tr": {
@@ -5683,6 +6037,12 @@
             "value": "Вклад «%1$@» кончится %2$@. Сейчас в витрине (не финансовая консультация):"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муҳлати пасандози “%1$@” дар %2$@ ба охир мерасад. Пешниҳодҳои ҷорӣ (маслиҳати молиявӣ нест):"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5778,6 +6138,12 @@
             "value": "Вложение"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дороиҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5868,6 +6234,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Купон"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "Купон"
@@ -5968,6 +6340,12 @@
             "value": "Дивиденды"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дивидендҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6061,6 +6439,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ожидаемая выплата…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пардохти интизорӣ…"
           }
         },
         "tr": {
@@ -6159,6 +6543,12 @@
             "value": "Выплата"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пардохт"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6252,6 +6642,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Новая выплата"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пардохти нав"
           }
         },
         "tr": {
@@ -6349,6 +6745,12 @@
             "value": "В «Капитале» ещё нет вложений: добавьте там."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар «Сармоя» ҳанӯз сармоягузорӣ нест: онро дар он ҷо илова кунед."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6442,6 +6844,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обычное поступление"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромади одӣ"
           }
         },
         "tr": {
@@ -6539,6 +6947,12 @@
             "value": "Купон раз в полгода — регулярное поступление: выберите «Регулярный» выше."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Купоне, ки ҳар нимсола пардохт мешавад, даромади мунтазам аст: дар боло “Мунтазам”-ро интихоб кунед."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6629,6 +7043,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "купон"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "купон"
@@ -6727,6 +7147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "дивиденды"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "дивидендҳо"
           }
         },
         "tr": {

@@ -71,6 +71,12 @@
             "value": "Изменить"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таҳрир"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записать"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сабт"
           }
         },
         "tr": {
@@ -263,6 +275,12 @@
             "value": "Уже записано: эта операция есть в учёте."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аллакай сабт шудааст: ин амалиёт дар дафтар аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -357,6 +375,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney заблокировано: разблокируйте, чтобы передать сообщение."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney қулф аст: барои интиқоли паём онро кушоед."
           }
         },
         "tr": {
@@ -455,6 +479,12 @@
             "value": "Не похоже на сообщение банка: в нём нет операции, суммы и карты или остатка."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ин ба паёми бонк монанд нест: амалиёт, маблағ ва корт ё бақия дар он нест."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -549,6 +579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney ещё открывает учёт — повторите через минуту."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ҳанӯз дафтарро мекушояд — каме баъд кӯшиш кунед."
           }
         },
         "tr": {
@@ -647,6 +683,12 @@
             "value": "Операция по скрытому счёту — записать?"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалиёти ҳисоби пинҳон — сабт шавад?"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -741,6 +783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записана операция по скрытому счёту"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалиёти ҳисоби пинҳон сабт шуд"
           }
         },
         "tr": {
@@ -1031,6 +1079,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт интизор аст — анҷом диҳед?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт интизоранд — анҷом диҳед?"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -1181,6 +1247,12 @@
             "value": "Запишу потом"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баъдтар сабт кунед"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1275,6 +1347,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Из сообщения банка"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз паёми бонк"
           }
         },
         "tr": {
@@ -1373,6 +1451,12 @@
             "value": "В банке %1$@, в приложении %2$@ — стоит сверить счёт."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бонк %1$@, барнома %2$@ нишон медиҳад — вақти ҳисоб кардани бақияи ҳисоб расид."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1467,6 +1551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Остаток в банке не сходится с приложением — стоит сверить счёт."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бақияи бонк аз бақияи барнома фарқ мекунад — вақти ҳисоб кардани бақияи ҳисоб расид."
           }
         },
         "tr": {
@@ -1565,6 +1655,12 @@
             "value": "Остаток не сходится"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бақия мувофиқат намекунад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1659,6 +1755,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — записать?"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — сабт шавад?"
           }
         },
         "tr": {
@@ -1757,6 +1859,12 @@
             "value": "Записано: %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сабт шуд: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1853,6 +1961,12 @@
             "value": "Снятие наличных"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гирифтани пули нақд"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1944,6 +2058,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Комиссия"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "Комиссия"
@@ -2045,6 +2165,12 @@
             "value": "Доход"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2139,6 +2265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Покупка"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Харид"
           }
         },
         "tr": {
@@ -2237,6 +2369,12 @@
             "value": "Возврат"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бозгашти маблағ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2331,6 +2469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поступление"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқоли воридотӣ"
           }
         },
         "tr": {
@@ -2429,6 +2573,12 @@
             "value": "Перевод"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқол"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2523,6 +2673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Передача сообщений банка на iPhone включится вместе с Siri — к выходу в App Store."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқоли паёмҳои бонк дар iPhone ҳамроҳ бо Siri, вақте ки барнома дар App Store пайдо мешавад, фаъол мегардад."
           }
         },
         "tr": {
@@ -2621,6 +2777,12 @@
             "value": "Ждёт в «Запишу потом»: %@"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар «Баъдтар сабт кунед» интизор аст: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2715,6 +2877,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операция ждёт в «Запишу потом»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалиёт дар «Баъдтар сабт кунед» интизор аст."
           }
         },
         "tr": {
@@ -2813,6 +2981,12 @@
             "value": "Включено «Только просмотр»: ничего не записывается."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Танҳо дидан» фаъол аст: чизе сабт намешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2907,6 +3081,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сообщение, переданное «Быстрыми командами» («Передать сообщение банка»), становится операцией. «Предлагать»: уведомление спрашивает «Записать?», операция ждёт в «Запишу потом». «Сразу»: записывается, как строка ввода; если строка что-то спросила бы — предлагается. Хранятся только сумма, место, карта и остаток — сам текст сообщения нигде не хранится."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паёме, ки Shortcuts («Интиқоли паёми бонк») мефиристад, ба амалиёт табдил меёбад. Бо пешниҳод: огоҳинома мепурсад «Сабт шавад?» ва амалиёт дар «Баъдтар сабт кунед» интизор мемонад. Дарҳол: он мисли сатри сабт сабт мешавад; агар сатр саволе диҳад, сабт пешниҳод мешавад. Танҳо маблағ, мағоза, корт ва бақия нигоҳ дошта мешаванд — худи паём ҳеҷ гоҳ нигоҳ дошта намешавад."
           }
         },
         "tr": {
@@ -3005,6 +3185,12 @@
             "value": "Сообщение банка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паёми бонк"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3099,6 +3285,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записывать сразу"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дарҳол сабт шавад"
           }
         },
         "tr": {
@@ -3197,6 +3389,12 @@
             "value": "Предлагать записать"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пешниҳоди сабт"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3291,6 +3489,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сообщения банков"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паёмҳои бонк"
           }
         },
         "tr": {
@@ -3389,6 +3593,12 @@
             "value": "Читает СМС или пуш банка и записывает операцию или предлагает её записать — как выбрано в настройках OhMyMoney."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS ё огоҳиномаи бонкро мехонад ва мувофиқи танзимоти OhMyMoney амалиётро сабт мекунад ё сабти онро пешниҳод мекунад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3483,6 +3693,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сообщение"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паём"
           }
         },
         "tr": {
@@ -3581,6 +3797,12 @@
             "value": "Передать сообщение банка"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқоли паёми бонк"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3677,6 +3899,12 @@
             "value": "Читает скопированное сообщение банка, как «Передать сообщение банка»."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паёми бонки ба буфери мубодила нусхашударо мисли «Интиқоли паёми бонк» мехонад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3771,6 +3999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Передать сообщение банка из буфера"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқоли паёми бонк аз буфери мубодила"
           }
         },
         "tr": {

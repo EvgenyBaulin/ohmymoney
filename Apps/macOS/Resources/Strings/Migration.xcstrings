@@ -71,6 +71,12 @@
             "value": "Не переносить"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқол надиҳед"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Счёт в файле не указан"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоб дар файл ном надорад"
           }
         },
         "tr": {
@@ -263,6 +275,12 @@
             "value": "Счета"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисобҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -357,6 +375,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Куда идут операции каждого счёта другого приложения. «Не переносить» оставляет их в стороне. Скрытые счета предлагаются, только пока они показаны."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалиёти ҳар ҳисоби барномаи дигар ба куҷо мегузарад. «Интиқол надиҳед» онҳоро сарфи назар мекунад. Ҳисобҳои пинҳон танҳо ҳангоми намоён буданашон пешниҳод мешаванд."
           }
         },
         "tr": {
@@ -455,6 +479,12 @@
             "value": "Другой файл…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файли дигар…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -551,6 +581,12 @@
             "value": "Перенести"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ворид кардан"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -645,6 +681,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Категории"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорияҳо"
           }
         },
         "tr": {
@@ -935,6 +977,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Эҷоди %lld категорияи мавҷуднабуда"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Эҷоди %lld категорияи мавҷуднабуда"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -1085,6 +1145,12 @@
             "value": "Подобраны по названию и смыслу («Еда вне дома» → «Кафе»). Новая категория создаётся, только если выбрать «Создать»."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз рӯи ном ва маъно мувофиқ карда шудаанд («Хӯрок берун аз хона» → «Қаҳвахонаҳо»). Категорияи нав танҳо дар ҷое сохта мешавад, ки «Эҷод кардан»-ро интихоб мекунед."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1179,6 +1245,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В файле нет категорий: всё попадёт в «Не разобрано»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар файл категория нест: ҳамааш ба «Бе категория» мегузарад."
           }
         },
         "tr": {
@@ -1277,6 +1349,12 @@
             "value": "Создать «%@»"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эҷоди «%@»"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1371,6 +1449,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не разобрано"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бе категория"
           }
         },
         "tr": {
@@ -1469,6 +1553,12 @@
             "value": "Выбрать файл…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интихоби файл…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1563,6 +1653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Готово"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тайёр"
           }
         },
         "tr": {
@@ -1661,6 +1757,12 @@
             "value": "Что в каждом столбце. Выбор запоминается для следующего файла с такими же столбцами."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мазмуни ҳар сутун. Интихоби шумо барои файли навбатӣ бо ҳамин сутунҳо нигоҳ дошта мешавад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1755,6 +1857,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выберите столбец даты и суммы (или столбцы дохода и расхода)."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сутуни сана ва маблағро (ё сутунҳои даромад ва хароҷотро) интихоб кунед."
           }
         },
         "tr": {
@@ -1853,6 +1961,12 @@
             "value": "Прочитано операций: %lld · не прочитано строк: %lld"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалиёти хондашуда: %lld · сатрҳои хонданашуда: %lld"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1947,6 +2061,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Даты вида 03/04"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаҳо ба монанди 03/04"
           }
         },
         "tr": {
@@ -2045,6 +2165,12 @@
             "value": "сначала день, потом месяц"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "аввал рӯз, баъд моҳ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2139,6 +2265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "сначала месяц, потом день"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "аввал моҳ, баъд рӯз"
           }
         },
         "tr": {
@@ -2237,6 +2369,12 @@
             "value": "уже есть"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "аллакай мавҷуд аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2331,6 +2469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "введена вручную?"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "дастӣ ворид шудааст?"
           }
         },
         "tr": {
@@ -2429,6 +2573,12 @@
             "value": "ближайший курс"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қурби наздиктарин"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2525,6 +2675,12 @@
             "value": "новая"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "нав"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2619,6 +2775,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "нет курса"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қурб нест"
           }
         },
         "tr": {
@@ -2904,6 +3066,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Создано %lld новой категории"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld категорияи нав сохта шуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld категорияи нав сохта шуд"
                 }
               }
             }
@@ -3251,6 +3431,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт ворид шуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт ворид шуд"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -3401,6 +3599,12 @@
             "value": "«Правка» → «Отменить» (⌘Z) отменяет перенос целиком. Копия базы, сделанная перед ним, лежит среди бэкапов."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таҳрир → Бекор кардан (⌘Z) тамоми воридкуниро бекор мекунад. Нусхаи пойгоҳи додаҳо, ки пеш аз воридкунӣ сохта шудааст, дар нусхаҳои эҳтиётӣ аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3495,6 +3699,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Отменить» отменяет перенос целиком. Копия базы, сделанная перед ним, лежит среди бэкапов."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Бекор кардан” тамоми воридкуниро бекор мекунад. Нусхаи пойгоҳи додаҳо, ки пеш аз воридкунӣ сохта шудааст, дар нусхаҳои эҳтиётӣ аст."
           }
         },
         "tr": {
@@ -3593,6 +3803,12 @@
             "value": "CSV или Excel (.xlsx) из CoinKeeper, Дзен-мани, Money Manager или любая таблица с датой и суммой. Таблицу Numbers сначала экспортируйте в CSV или Excel."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV ё Excel (.xlsx) аз CoinKeeper, Zenmoney, Money Manager ё ҳар ҷадвале бо сана ва маблағ. Ҷадвали Numbers-ро аввал ба CSV ё Excel содир кунед."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3687,6 +3903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выберите файл выгрузки"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файли содиршударо интихоб кунед"
           }
         },
         "tr": {
@@ -3785,6 +4007,12 @@
             "value": "Не перенесено, ничего не записано. Причина — в журнале."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ворид нашуд, чизе сабт нашуд. Сабаб дар гузориш аст."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3879,6 +4107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Это документ Numbers, его формат закрыт. В Numbers выберите «Файл» → «Экспортировать в» → CSV или Excel и выберите здесь получившийся файл."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ин ҳуҷҷати Numbers аст ва формати он пӯшида аст. Дар Numbers Файл → Содирот ба → CSV ё Excel-ро интихоб кунед, сипас он файлро дар ин ҷо интихоб кунед."
           }
         },
         "tr": {
@@ -3977,6 +4211,12 @@
             "value": "Файл не читается как таблица с названиями столбцов. Выгрузите его в CSV или .xlsx."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл ҳамчун ҷадвал бо номҳои сутунҳо хонда намешавад. Онро ба CSV ё .xlsx содир кунед."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4071,6 +4311,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Это файл Excel старше 2007 года (.xls). Сохраните его заново как .xlsx или CSV и выберите здесь."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ин файли Excel-и пеш аз соли 2007 (.xls) аст. Онро ҳамчун .xlsx ё CSV аз нав захира кунед ва дар ин ҷо интихоб кунед."
           }
         },
         "tr": {
@@ -4169,6 +4415,12 @@
             "value": "Расход"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷот"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4263,6 +4515,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад"
           }
         },
         "tr": {
@@ -4361,6 +4619,12 @@
             "value": "Файл в кодировке windows-1251 и прочитан в ней."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл дар windows-1251 аст ва бо ҳамин рамзгузорӣ хонда шуд."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4455,6 +4719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенести из другого приложения…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Воридот аз барномаи дигар…"
           }
         },
         "tr": {
@@ -4553,6 +4823,12 @@
             "value": "Далее"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баъдӣ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4647,6 +4923,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перед переносом делается копия базы."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пеш аз воридкунӣ нусхаи пойгоҳи додаҳо сохта мешавад."
           }
         },
         "tr": {
@@ -4937,6 +5219,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аллакай дар ҳисобҳо мавҷуд аст — гузаронида шуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аллакай дар ҳисобҳо мавҷуд аст — гузаронида шуд"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -5085,6 +5385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запрашиваю у Банка России курсы этих дней…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гирифтани қурбҳои он рӯзҳо аз Бонки Русия…"
           }
         },
         "tr": {
@@ -5375,6 +5681,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ба амалиёти дастӣ воридшуда монанд аст — сарфи назар шуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ба амалиёти дастӣ воридшуда монанд аст — сарфи назар шуд"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -5523,6 +5847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенести и их"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инҳоро ҳам ворид кардан"
           }
         },
         "tr": {
@@ -5808,6 +6138,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "и ещё %lld"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ва боз %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ва боз %lld"
                 }
               }
             }
@@ -6155,6 +6503,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld бо қурби наздиктарини мавҷуда, муваққатӣ қайд шуд — ҳангоми дастрас шудани қурби он рӯз дақиқ мешавад"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld бо қурби наздиктарини мавҷуда, муваққатӣ қайд шуд — ҳангоми дастрас шудани қурби он рӯз дақиқ мешавад"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -6303,6 +6669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "С %1$@ по %2$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз %1$@ то %2$@"
           }
         },
         "tr": {
@@ -6588,6 +6960,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld в валюте, для которой нет ни одного курса, — не переносятся"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld бо асъоре, ки қурбаш дастрас нест — ворид нашуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld бо асъоре, ки қурбаш дастрас нест — ворид нашуд"
                 }
               }
             }
@@ -6935,6 +7325,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт ворид мешавад"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт ворид мешавад"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -7272,6 +7680,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld перевода между счетами приложения — не переносятся"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld интиқол байни ҳисобҳои худи барнома — ворид нашуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld интиқол байни ҳисобҳои худи барнома — ворид нашуд"
                 }
               }
             }
@@ -7619,6 +8045,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сатр хонда нашуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сатр хонда нашуд"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -7769,6 +8213,12 @@
             "value": "Читаю файл…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хондани файл…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7863,6 +8313,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Счёт"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоб"
           }
         },
         "tr": {
@@ -7961,6 +8417,12 @@
             "value": "Сумма (со знаком)"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағ (бо аломат)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8052,6 +8514,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "Категория"
@@ -8153,6 +8621,12 @@
             "value": "Комментарий"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шарҳ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8247,6 +8721,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Валюта"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Асъор"
           }
         },
         "tr": {
@@ -8345,6 +8825,12 @@
             "value": "Дата"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сана"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8439,6 +8925,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Описание"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тавсиф"
           }
         },
         "tr": {
@@ -8537,6 +9029,12 @@
             "value": "Расход"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хароҷот"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8631,6 +9129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Из"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз"
           }
         },
         "tr": {
@@ -8729,6 +9233,12 @@
             "value": "Доход"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8823,6 +9333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Счёт дохода"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисоби даромад"
           }
         },
         "tr": {
@@ -8921,6 +9437,12 @@
             "value": "Валюта дохода"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Асъори даромад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9015,6 +9537,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тип (расход, доход, перевод)"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навъ (хароҷот, даромад, интиқол)"
           }
         },
         "tr": {
@@ -9113,6 +9641,12 @@
             "value": "Не читать"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хонда нашавад"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9207,6 +9741,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Получатель или магазин"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гиранда ё мағоза"
           }
         },
         "tr": {
@@ -9305,6 +9845,12 @@
             "value": "Подкатегория"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зеркатегория"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9399,6 +9945,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба"
           }
         },
         "tr": {
@@ -9497,6 +10049,12 @@
             "value": "Перенести из другого приложения…"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Воридот аз барномаи дигар…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9591,6 +10149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Похоже на выгрузку CoinKeeper"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба файли содиршудаи CoinKeeper монанд аст"
           }
         },
         "tr": {
@@ -9689,6 +10253,12 @@
             "value": "Похоже на выгрузку Money Manager"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба файли содиршудаи Money Manager монанд аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9783,6 +10353,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Таблица"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷадвал"
           }
         },
         "tr": {
@@ -9881,6 +10457,12 @@
             "value": "Похоже на выгрузку Дзен-мани"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба файли содиршудаи Zenmoney монанд аст"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9975,6 +10557,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Столбцы"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сутунҳо"
           }
         },
         "tr": {
@@ -10073,6 +10661,12 @@
             "value": "Счета и категории"
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳисобҳо ва категорияҳо"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10167,6 +10761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Предпросмотр"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пешнамоиш"
           }
         },
         "tr": {
@@ -10265,6 +10865,12 @@
             "value": "Таблица, выгруженная из CoinKeeper, Дзен-мани, Money Manager, Excel или Numbers. До «Перенести» ничего не записывается; перед записью делается копия базы, а ⌘Z отменяет перенос целиком."
           }
         },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷадвали аз CoinKeeper, Zenmoney, Money Manager, Excel ё Numbers содиршуда. То пахши «Ворид кардан» чизе сабт намешавад; аввал нусхаи пойгоҳи додаҳо сохта мешавад ва ⌘Z тамоми воридкуниро бекор мекунад."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10359,6 +10965,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Таблица, выгруженная из CoinKeeper, Дзен-мани, Money Manager, Excel или Numbers. До «Перенести» ничего не записывается; перед записью делается копия базы, а «Отменить» отменяет перенос целиком."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷадвали аз CoinKeeper, Zenmoney, Money Manager, Excel ё Numbers содиршуда. То пахши «Ворид кардан» чизе сабт намешавад; аввал нусхаи пойгоҳи додаҳо сохта мешавад ва “Бекор кардан” тамоми воридкуниро бекор мекунад."
           }
         },
         "tr": {
@@ -10649,6 +11261,24 @@
             }
           }
         },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт барои интиқол"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld амалиёт барои интиқол"
+                }
+              }
+            }
+          }
+        },
         "tr": {
           "variations": {
             "plural": {
@@ -10797,6 +11427,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенос из другого приложения"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интиқол аз барномаи дигар"
           }
         },
         "tr": {
