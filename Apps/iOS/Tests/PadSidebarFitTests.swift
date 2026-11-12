@@ -84,9 +84,7 @@ final class PadSidebarFitTests: XCTestCase {
 
       // Scrolled to its end, the list stops above the foot: the last (blue) row is whole.
       let scroll = try XCTUnwrap(scrollView(in: window))
-      scroll.contentOffset.y =
-        scroll.contentSize.height + scroll.adjustedContentInset.bottom - scroll.bounds.height
-      settle(window)
+      scrollToEnd(scroll, in: window)
       picture = try Picture(window: window)
       XCTAssertTrue(
         picture.isBlue(x: 4, y: top - 6),
@@ -131,6 +129,26 @@ final class PadSidebarFitTests: XCTestCase {
     }
   }
 
+  /// A list sizes its rows lazily, so the content grows while it is scrolled; the end is reached
+  /// only when the offset sits at the end and neither the content nor the insets move any more.
+  private func scrollToEnd(_ scroll: UIScrollView, in window: UIWindow) {
+    var last: (CGFloat, CGFloat, CGFloat)?
+    var stable = 0
+    for _ in 0..<200 where stable < 5 {
+      scroll.contentOffset.y =
+        scroll.contentSize.height + scroll.adjustedContentInset.bottom - scroll.bounds.height
+      settle(window, passes: 3)
+      let now = (
+        scroll.contentSize.height, scroll.adjustedContentInset.bottom, scroll.contentOffset.y
+      )
+      let atEnd =
+        abs(now.2 - (now.0 + now.1 - scroll.bounds.height)) < 0.5
+      if atEnd, let last, last == now { stable += 1 } else { stable = 0 }
+      last = now
+    }
+    settle(window)
+  }
+
   private func scrollView(in view: UIView) -> UIScrollView? {
     if let scroll = view as? UIScrollView { return scroll }
     for child in view.subviews { if let found = scrollView(in: child) { return found } }
@@ -146,12 +164,17 @@ private final class FootBox {
 /// A list of red rows, the last one blue, with a green foot, as the sidebar is built.
 private struct FootProbe: View {
   static let rowHeight: CGFloat = 40
+  // Pure sRGB colours: the system's red, green and blue shift with every OS (the blue has a
+  // green part of 136 now), and the picture is read by channel.
+  static let row = Color(red: 1, green: 0, blue: 0)
+  static let last = Color(red: 0, green: 0, blue: 1)
+  static let foot = Color(red: 0, green: 1, blue: 0)
   let footTop: FootBox
 
   var body: some View {
     List {
       ForEach(0..<60, id: \.self) { index in
-        (index == 59 ? Color.blue : Color.red)
+        (index == 59 ? FootProbe.last : FootProbe.row)
           .frame(height: Self.rowHeight)
           .listRowInsets(EdgeInsets())
           .listRowSeparator(.hidden)
@@ -161,7 +184,7 @@ private struct FootProbe: View {
     .listStyle(.plain)
     .environment(\.defaultMinListRowHeight, 0)
     .scrollContentBackground(.hidden)
-    .padSidebarFoot(background: .green) {
+    .padSidebarFoot(background: Self.foot) {
       Text(verbatim: "Settings")
         .frame(height: 56)
         .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: {
