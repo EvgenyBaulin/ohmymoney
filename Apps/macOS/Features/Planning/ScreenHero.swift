@@ -105,6 +105,12 @@ enum PlanningHero {
     guard free.state == .ready, let main = free.main, let summary = PlanningSummary(free) else {
       return nil
     }
+    if free.dailyReductionRubles != nil {
+      return Content(
+        caption: PlanningBlockText.t("free.now", environment),
+        figure: environment.money.rounded(free.spendable ?? .zero),
+        lines: [FreeMoneyRecoveryText.explanation(free, environment)])
+    }
     let spendable = free.goalSavings > .zero || free.cushion > .zero
     var lines = [PlanningBlockText.sentence(summary, environment)]
     let terms = free.lines.filter { $0.amount != .zero }.map { line in

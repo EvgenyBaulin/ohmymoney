@@ -8,7 +8,7 @@ import XCTest
 /// What the frames of Planning ask beyond the numbers: a tab shows its block alone, «все» of a
 /// card leads to its tab; the iPhone frame — one line of the free sum under the title, no tabs, no
 /// month, seven days of the next fourteen on the screen; and below zero the card says the plans
-/// ask more than there is, as the main card of Overview does, never «свободно».
+/// ask more than there is, with separate shortages and a daily recovery guide.
 @MainActor
 final class PlanningTabsAndPhoneTests: XCTestCase {
   private var windows: [NSWindow] = []
@@ -85,8 +85,8 @@ final class PlanningTabsAndPhoneTests: XCTestCase {
 
   // MARK: - Below zero
 
-  /// 5,000 ₽ on the account and a bill of 30,000 ₽ in a week: the card says «На планы не
-  /// хватает 25,000 ₽», never «свободно» or «можно», and has no figure for a day.
+  /// 5,000 ₽ on the account and a bill of 30,000 ₽ in a week: free money is zero,
+  /// the payment shortage is explicit, and recovery replaces the normal daily allowance.
   func testThePlansAskingMoreThanThereIsSayItIsShort() throws {
     let environment = environment()
     let (_, snapshot) = dependencies(environment, money: 5_000, bill: 30_000)
@@ -94,16 +94,15 @@ final class PlanningTabsAndPhoneTests: XCTestCase {
     let grey = try XCTUnwrap(free.grey)
     XCTAssertLessThan(grey, .zero, "the bill asks more than the account holds")
     let figures = try XCTUnwrap(PlanningView.freeFigures(snapshot, picked: nil, environment))
-    XCTAssertEqual(figures.title, "На планы не хватает")
-    XCTAssertEqual(figures.main.figure, environment.money.rounded(-grey))
-    XCTAssertEqual(figures.metrics.first?.words, "не хватает на планы")
-    for text in [figures.title, figures.main.words, figures.metrics[0].words, figures.line] {
-      XCTAssertFalse(text.contains("свободно"), text)
-      XCTAssertFalse(text.contains("можно"), text)
-    }
+    XCTAssertEqual(figures.title, "Сейчас свободно")
+    XCTAssertEqual(figures.main.figure, environment.money.rounded(.zero))
+    XCTAssertEqual(figures.metrics.first?.words, "Сейчас свободно")
+    let recovery = try XCTUnwrap(figures.recovery)
+    XCTAssertTrue(recovery.contains("На платежи не хватает \(environment.money.rounded(-grey))"))
+    XCTAssertTrue(recovery.contains("Чтобы выйти в ноль"))
     XCTAssertFalse(figures.columns.contains { $0.id == "daily" }, "no figure for a day")
     XCTAssertFalse(figures.metrics.contains { $0.id == "daily" })
-    XCTAssertEqual(figures.line, "На планы не хватает \(figures.main.figure)")
+    XCTAssertEqual(figures.line, "Сейчас свободно \(figures.main.figure)\n\(recovery)")
 
     let enough = try XCTUnwrap(
       PlanningView.freeFigures(dependencies(environment).1, picked: nil, environment))
