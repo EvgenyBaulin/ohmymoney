@@ -37,10 +37,16 @@ struct AnalyticsWindow: View {
   @State private var autopilot = MeasurementAutopilot(
     changes: AnalyticsMeasurement.isRequested ? LaunchOptions.current.measureRuns : nil)
 
+  @Environment(\.horizontalSizeClass) private var sizeClass
   @Environment(\.layoutIdiom) private var chosenIdiom
   @Environment(\.appTheme) private var theme
 
-  private var idiom: LayoutIdiom { LayoutIdiom.resolved(chosenIdiom) }
+  private var idiom: LayoutIdiom {
+    #if os(iOS)
+      if sizeClass == .compact { return .phone }
+    #endif
+    return LayoutIdiom.resolved(chosenIdiom)
+  }
   private var metrics: AnalyticsMetrics { .of(idiom) }
 
   var body: some View {
@@ -52,6 +58,7 @@ struct AnalyticsWindow: View {
       )
       .id(section)
     }
+    .environment(\.layoutIdiom, idiom)
     .themedWindowBackground()
     .modifier(WindowFit(embedded: embedded, subtitle: subtitle))
     .environment(analytics)

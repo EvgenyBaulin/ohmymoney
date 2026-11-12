@@ -230,6 +230,9 @@ struct PlanningHeader: View {
         Text(verbatim: environment.language("section.planning"))
           .appFont(Self.titleFont)
           .lineLimit(1)
+          #if os(iOS)
+            .minimumScaleFactor(compact ? 0.8 : 1)
+          #endif
           .accessibilityAddTraits(.isHeader)
           .accessibilityIdentifier("planning.title")
         Spacer(minLength: 8)
@@ -342,11 +345,21 @@ struct PlanningHeader: View {
     } label: {
       Image(systemName: "ellipsis.circle")
         .appFont(.title2)
-        .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+        #if os(iOS)
+          .frame(width: 44, height: 44)
+          .contentShape(Rectangle())
+        #else
+          .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+        #endif
     }
     .menuStyle(.button)
-    .buttonStyle(.borderless)
-    .fixedSize()
+    #if os(iOS)
+      .buttonStyle(.plain)
+      .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+    #else
+      .buttonStyle(.borderless)
+      .fixedSize()
+    #endif
     .accessibilityIdentifier("planning.actions")
   }
 }

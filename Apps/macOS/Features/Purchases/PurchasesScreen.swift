@@ -58,10 +58,17 @@ struct PurchasesScreen: View {
 
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
+  @Environment(\.horizontalSizeClass) private var sizeClass
   @Environment(\.layoutIdiom) private var idiom
 
+  private var design: LayoutIdiom {
+    #if os(iOS)
+      if sizeClass == .compact { return .phone }
+    #endif
+    return LayoutIdiom.resolved(idiom)
+  }
+
   var body: some View {
-    let design = LayoutIdiom.resolved(idiom)
     SectionPage {
       VStack(alignment: .leading, spacing: PurchasesMetrics.stackGap(design)) {
         SectionHeader(
@@ -92,6 +99,7 @@ struct PurchasesScreen: View {
       // The frame sets the header 24 under the top, 2 lower than the other screens.
       .padding(.top, design == .mac ? PurchasesMetrics.macTopExtra : 0)
     }
+    .environment(\.layoutIdiom, design)
     .task(id: compute.generation) { await load() }
     .onChange(of: PurchasesNavigation.shared.page) { _, page in selected = page }
     .onChange(of: selected) { _, page in PurchasesNavigation.shared.page = page }
