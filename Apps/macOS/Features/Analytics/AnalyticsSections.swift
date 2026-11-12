@@ -39,11 +39,7 @@ struct AnalyticsSectionView: View {
       .padding(.bottom, 20)
       .frame(maxWidth: .infinity, alignment: .topLeading)
     }
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
   }
 
   private var isWide: Bool { width >= Self.wideWidth }

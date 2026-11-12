@@ -92,7 +92,7 @@ struct PlanningView: View {
         .onScrollGeometryChange(for: CGFloat.self) {
           $0.containerSize.width
         } action: { _, width in
-          scrollWidth = width
+          scrollWidth = MeasuredWidth.resolve(width, previous: scrollWidth)
         }
       #endif
     }

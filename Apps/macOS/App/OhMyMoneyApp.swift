@@ -1008,11 +1008,7 @@ private struct WindowWidthReader: ViewModifier {
   func body(content: Content) -> some View {
     content
       .environment(\.windowWidth, width)
-      .onGeometryChange(for: CGFloat.self) {
-        $0.size.width
-      } action: {
-        width = $0
-      }
+      .measuredWidth($width)
   }
 }
 

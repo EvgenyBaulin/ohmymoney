@@ -61,11 +61,7 @@ struct AppearancePreviewSheet: View {
       ScrollView {
         content
           .padding(20)
-          .onGeometryChange(for: CGFloat.self) {
-            $0.size.width - 40
-          } action: {
-            available = $0
-          }
+          .measuredWidth($available, inset: 40)
       }
     #endif
   }

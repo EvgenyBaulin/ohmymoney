@@ -61,11 +61,7 @@ struct OperationDayCards<MenuItems: View>: View {
         list(columns: false)
       }
     }
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
   }
 
   @ViewBuilder

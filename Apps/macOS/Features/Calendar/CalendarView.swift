@@ -138,11 +138,7 @@ struct CalendarView: View {
       giftMessage = nil
     }
     .modifier(MoveToDayPresentation(mover: mover, snapshot: snapshot))
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
   }
 
   /// «Месяц | Неделя»: the track of the frame on the Mac and a tablet.

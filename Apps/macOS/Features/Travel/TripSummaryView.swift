@@ -87,11 +87,7 @@ struct TripSummaryView: View {
       }
       .frame(maxWidth: .infinity, alignment: .leading)
     }
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
   }
 
   @ViewBuilder
