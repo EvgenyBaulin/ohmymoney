@@ -38,6 +38,22 @@ final class SyncWiringTests: XCTestCase {
     stacks = []
   }
 
+  func testFolderNoteDescribesEncryptedJournalAndSnapshots() {
+    let language = AppLanguage()
+    let before = language.choice
+    defer { language.choice = before }
+    for (choice, expected) in [
+      (
+        AppLanguage.Choice.russian,
+        "В папке обмена — зашифрованные журнал изменений и снимки базы."
+      ),
+      (.english, "The sync folder holds an encrypted change journal and database snapshots."),
+    ] {
+      language.choice = choice
+      XCTAssertEqual(language("sync.folder.note", table: "Sync"), expected)
+    }
+  }
+
   private func makeStack() throws -> DatabaseStack {
     let stack = try DatabaseStack(inMemory: BundleSchemaSource(bundle: .main))
     stacks.append(stack)

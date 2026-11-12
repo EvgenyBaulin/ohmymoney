@@ -321,12 +321,18 @@ final class PeriodsBoardStore {
     board = made.0
     content = made.1
     calculating = false
+    refreshShare(snapshot, environment: environment)
+  }
+
+  /// Replaces the shared picture whenever the effective privacy state changes.
+  func refreshShare(_ snapshot: DataSnapshot?, environment: AppEnvironment) {
+    if let shareURL { try? FileManager.default.removeItem(at: shareURL) }
     shareURL = nil
-    if let content = made.1, content.hasData, id.kind != .week {
+    if let snapshot, let id = selected, let content, content.hasData, id.kind != .week {
       shareURL = SummaryExport.pngFile(
         of: SummaryShare.page(
           for: content, id: id, snapshot: snapshot, environment: environment,
-          withAmounts: !environment.amounts.hidesAmounts),
+          withAmounts: !environment.amounts.isHidingNow),
         name: "OhMyMoney-\(id.key)")
     }
   }
