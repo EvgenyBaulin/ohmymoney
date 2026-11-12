@@ -76,8 +76,11 @@ struct DebtsBoardView: View {
       .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     .background(surfaces.background)
+    // Whole points, rounded down: the three columns come from this width and the content's width
+    // comes from the columns, so a width that came back one float step larger every pass (as the
+    // English iPad screen's did) never settled — the layout ran for minutes.
     .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
+      $0.size.width.rounded(.down)
     } action: {
       width = $0
     }

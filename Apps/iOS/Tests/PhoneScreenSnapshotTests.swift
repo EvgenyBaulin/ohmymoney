@@ -32,20 +32,27 @@ final class PhoneScreenSnapshotTests: XCTestCase {
     ("planning", .tab(.planning)), ("debts", .more(.debts)), ("capital", .more(.capital)),
   ]
 
-  private func run(_ device: Device, theme number: String) async throws {
+  /// `language` marks the pictures of another language than Russian (`pad-01-en-light-debts`);
+  /// `only` limits the walk to some screens, and then the editor is left out.
+  private func run(
+    _ device: Device, theme number: String, language: AppLanguage.Choice = .russian,
+    only: Set<String>? = nil
+  ) async throws {
     executionTimeAllowance = 300
     let id = try XCTUnwrap(ThemeID(rawValue: number))
-    let harness = try await PhoneHarness.make(language: .russian, now: ScreenSnapshots.fixedNow)
+    let harness = try await PhoneHarness.make(language: language, now: ScreenSnapshots.fixedNow)
+    let tag = language == .russian ? "" : "-\(language == .english ? "en" : language.rawValue)"
     let before = harness.environment.theme.themeID
     harness.environment.theme.themeID = id
     for dark in [false, true] {
-      let stem = "\(device.name)-\(number)-\(dark ? "dark" : "light")"
-      for (name, screen) in Self.screens {
+      let stem = "\(device.name)-\(number)\(tag)-\(dark ? "dark" : "light")"
+      for (name, screen) in Self.screens where only?.contains(name) ?? true {
         let shown = PhoneScreenRegistry.open(
           screen, in: harness, size: device.size, dark: dark, idiom: device.idiom)
         check(shown.window, "\(stem)-\(name)", device: device, harness: harness)
         harness.close(shown.window)
       }
+      if only != nil { continue }
       if let entry = harness.sampleEntries.first(where: { $0.parts.count >= 3 })
         ?? harness.sampleEntries.first(where: { $0.parts.count == 2 })
       {
@@ -87,4 +94,9 @@ final class PhoneScreenSnapshotTests: XCTestCase {
   func testPadTheme01() async throws { try await run(Self.pad, theme: "01") }
   func testPadTheme09() async throws { try await run(Self.pad, theme: "09") }
   func testPadTheme15() async throws { try await run(Self.pad, theme: "15") }
+
+  /// «Долги» on the iPad in English: its long labels once hung the layout.
+  func testPadDebtsEnglishTheme01() async throws {
+    try await run(Self.pad, theme: "01", language: .english, only: ["debts"])
+  }
 }
