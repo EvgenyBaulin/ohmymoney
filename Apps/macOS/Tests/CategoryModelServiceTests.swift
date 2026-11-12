@@ -164,4 +164,73 @@ extension CategoryModelServiceTests {
     XCTAssertTrue(service().refresh(examples: examples, anchor: today, now: trainedAt).retrained)
     XCTAssertFalse(service().refresh(examples: examples, anchor: today, now: trainedAt).retrained)
   }
+
+  // MARK: Catching up with a few writes
+
+  private func moreExamples(_ count: Int, from start: Int = 100) -> [CategoryExample] {
+    (0..<count).map { number in
+      CategoryExample(
+        query: CategoryQuery(
+          day: DateOnly(year: 2026, month: 9, day: 1 + number % 17), weekday: 1 + number % 7,
+          kind: .expense, text: ["milk", "bus", "gym"][number % 3], amountWhole: Int64(100 + number)),
+        partId: UUID(uuidString: String(format: "00000000-0000-4000-9000-%012d", start + number))!,
+        categoryId: number % 2 == 0 ? groceries : transport)
+    }
+  }
+
+  /// «Обучение — в конвейере, если данные менялись»: a few writes bring the model the box holds
+  /// to the one a training on everything gives, without training and without writing the file.
+  func testAFewWritesCatchTheHeldModelUpToAFullTraining() throws {
+    let box = CategoryModelBox()
+    let service = CategoryModelService(
+      box: box, models: ModelRepository(writer: stack.writer), directory: folder)
+    let before = moreExamples(120)
+    XCTAssertTrue(service.refresh(examples: before, anchor: today, now: trainedAt).retrained)
+    let fingerprint = try XCTUnwrap(try ModelRepository(writer: stack.writer).row(kind: "category"))
+      .metricsJSON
+
+    var after = before
+    after.append(contentsOf: moreExamples(3, from: 900))
+    after[5].categoryId = transport
+    after.remove(at: 40)
+    let result = service.refresh(examples: after, anchor: today, now: trainedAt)
+
+    XCTAssertFalse(result.retrained)
+    XCTAssertEqual(box.model, CategoryModel.train(on: after, anchor: today))
+    XCTAssertEqual(result.summary, box.model?.summary)
+    XCTAssertEqual(
+      try ModelRepository(writer: stack.writer).row(kind: "category")?.metricsJSON, fingerprint,
+      "the file is a cache: it catches up at the next launch or the next day")
+  }
+
+  func testANewDayOrTooManyWritesTrainFromNothing() {
+    let box = CategoryModelBox()
+    let before = moreExamples(120)
+    box.hold(CategoryModel.train(on: before, anchor: today), trainedOn: before)
+
+    XCTAssertNil(
+      box.catchUp(to: before, anchor: today.adding(days: 1), limit: 8), "another anchor")
+    XCTAssertNil(
+      box.catchUp(to: before + moreExamples(20, from: 900), anchor: today, limit: 8),
+      "more parts than the limit")
+    XCTAssertEqual(
+      box.catchUp(to: before, anchor: today, limit: 8), CategoryModel.train(on: before, anchor: today))
+  }
+
+  /// A correction made while a difference was being worked out is not overwritten by it.
+  func testACorrectionBetweenTheDifferenceAndItsApplicationIsNotLost() {
+    let box = CategoryModelBox()
+    let before = moreExamples(120)
+    box.hold(CategoryModel.train(on: before, anchor: today), trainedOn: before)
+    var corrected = before[3]
+    corrected.categoryId = transport
+    box.relearn(parts: [corrected.partId], from: [corrected])
+
+    var expected = before
+    expected[3] = corrected
+    XCTAssertEqual(box.model, CategoryModel.train(on: expected, anchor: today))
+    XCTAssertEqual(
+      box.catchUp(to: expected, anchor: today, limit: 8),
+      CategoryModel.train(on: expected, anchor: today))
+  }
 }

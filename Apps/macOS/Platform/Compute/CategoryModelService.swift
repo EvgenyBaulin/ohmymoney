@@ -45,7 +45,17 @@ final class CategoryModelService: Sendable {
     var retrained: Bool
   }
 
+  /// The most parts a write may change for the model it holds to be brought up to date instead
+  /// of trained again.
+  static let catchUpLimit = 256
+
   func refresh(examples: [CategoryExample], anchor: DateOnly, now: Date = Date()) -> Result {
+    // A few parts changed since the model in the box learned: the counts follow them, and the
+    // file waits — it is a cache, and the next launch, or the next day (a new anchor means a
+    // training from nothing), writes it.
+    if let model = box.catchUp(to: examples, anchor: anchor, limit: Self.catchUpLimit) {
+      return Result(readiness: model.readiness, summary: model.summary, retrained: false)
+    }
     let fingerprint = CategoryTraining.fingerprint(of: examples)
     if let loaded = loadIfUnchanged(fingerprint: fingerprint) {
       box.hold(loaded, trainedOn: examples)
@@ -215,6 +225,9 @@ final class CategoryModelBox: Sendable {
   private struct Held {
     var model: CategoryModel
     var examples: [UUID: CategoryExample]
+    /// Moves with every change of the box, so a difference found against an older state is
+    /// never applied to a newer one.
+    var generation = 0
   }
 
   private let storage = Mutex<Held?>(nil)
@@ -222,10 +235,40 @@ final class CategoryModelBox: Sendable {
   /// `examples` is what `model` was trained on.
   func hold(_ model: CategoryModel, trainedOn examples: [CategoryExample]) {
     let byPart = Dictionary(examples.map { ($0.partId, $0) }, uniquingKeysWith: { _, last in last })
-    storage.withLock { $0 = Held(model: model, examples: byPart) }
+    storage.withLock { held in
+      held = Held(model: model, examples: byPart, generation: (held?.generation ?? 0) + 1)
+    }
   }
 
   var model: CategoryModel? { storage.withLock { $0?.model } }
+
+  /// The model brought, in place, to what a full training on `examples` at `anchor` gives — when
+  /// the box holds a model of that anchor and no more than `limit` parts differ from what it
+  /// learned; `nil` otherwise, and the caller trains.
+  ///
+  /// The difference is found outside the lock — the entry line asks the box on the main thread,
+  /// and typing never waits for a pipeline step — and applied inside it only if nothing else
+  /// touched the box in between (a correction made meanwhile means the difference is out of
+  /// date, and the caller trains).
+  func catchUp(to examples: [CategoryExample], anchor: DateOnly, limit: Int) -> CategoryModel? {
+    let byPart = Dictionary(examples.map { ($0.partId, $0) }, uniquingKeysWith: { _, last in last })
+    // A part twice would be learned twice by a training and once here.
+    guard byPart.count == examples.count else { return nil }
+    let seen: (examples: [UUID: CategoryExample], generation: Int)? = storage.withLock { held in
+      guard let held, held.model.anchorDay == anchor else { return nil }
+      return (held.examples, held.generation)
+    }
+    guard let seen,
+      let changes = CategoryModel.changes(from: seen.examples, to: byPart, limit: limit)
+    else { return nil }
+    return storage.withLock { held in
+      guard held?.generation == seen.generation else { return nil }
+      held?.model.apply(changes)
+      held?.examples = byPart
+      held?.generation += 1
+      return held?.model
+    }
+  }
 
   /// A correction, felt at once: the next suggestion is made by a model that already knows.
   /// Every part of `parts` is taken back and the ones in `examples` learned — an operation
@@ -240,6 +283,7 @@ final class CategoryModelBox: Sendable {
         current.examples[part] = now[part]
         if let new = now[part] { current.model.learn(new) }
       }
+      current.generation += 1
       held = current
     }
   }
