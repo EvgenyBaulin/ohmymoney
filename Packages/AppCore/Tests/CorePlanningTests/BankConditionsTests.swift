@@ -905,3 +905,50 @@ struct BankPdnTests {
     #expect(pdn.creditsRub == B.money("30000"))
   }
 }
+
+@Suite("Banks: the fee for an account without a card")
+struct NoCardFeeTests {
+  private typealias B = BankBooks
+
+  @Test func anAccountWithoutACardPaysTheStatedFee() {
+    var books = BankBooks()
+    // The savings account has no card; the current one has one.
+    books.cards = [PaymentCard(id: B.card, accountId: B.current, name: "Visa")]
+    let lines = NoCardFee.lines(
+      dataset: books.dataset, fees: [B.savings: B.money("150"), B.current: B.money("150")],
+      service: [])
+    #expect(lines == [NoCardFeeLine(accountId: B.savings, monthlyFeeE4: B.money("150"), currency: .rub)])
+  }
+
+  @Test func aMetConditionOfFreeServiceTakesTheFeeAway() {
+    var books = BankBooks()
+    books.cards = []
+    let met = BankServiceProgress(
+      accountId: B.savings, currency: .rub, spendTargetE4: B.money("5000"),
+      spentE4: B.money("5000"), balanceTargetE4: nil, balanceE4: nil, through: B.today)
+    #expect(
+      NoCardFee.lines(dataset: books.dataset, fees: [B.savings: B.money("150")], service: [met])
+        .isEmpty)
+  }
+
+  @Test func cashArchivedAndUnstatedAccountsArePassedOver() {
+    var books = BankBooks()
+    books.cards = []
+    books.accounts[1].archived = true
+    let lines = NoCardFee.lines(
+      dataset: books.dataset, fees: [B.cash: B.money("150"), B.savings: B.money("150")],
+      service: [])
+    #expect(lines.isEmpty)
+    #expect(
+      NoCardFee.lines(dataset: books.dataset, fees: [B.other: .zero], service: []).isEmpty)
+  }
+
+  @Test func theLargestFeeComesFirst() {
+    var books = BankBooks()
+    books.cards = []
+    let lines = NoCardFee.lines(
+      dataset: books.dataset, fees: [B.savings: B.money("100"), B.other: B.money("300")],
+      service: [])
+    #expect(lines.map(\.accountId) == [B.other, B.savings])
+  }
+}
