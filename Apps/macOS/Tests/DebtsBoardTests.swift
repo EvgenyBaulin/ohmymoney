@@ -83,18 +83,20 @@ final class DebtsBoardTests: XCTestCase {
   private var languageBefore: AppLanguage.Choice?
   private let environment = AppEnvironment()
 
-  override func setUp() {
+  override func setUp() async throws {
+    try await super.setUp()
     languageBefore = environment.language.choice
     environment.language.choice = .russian
   }
 
-  override func tearDown() {
+  override func tearDown() async throws {
     for window in windows {
       window.contentView = nil
       window.close()
     }
     windows = []
     if let languageBefore { environment.language.choice = languageBefore }
+    try await super.tearDown()
   }
 
   // MARK: The figures

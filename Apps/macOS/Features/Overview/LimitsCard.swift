@@ -134,7 +134,7 @@ struct LimitTileRow: View {
 
   /// The status word's ink as plain bytes: the status colour, moved only as far as 4.5 : 1 on
   /// the card needs.
-  static func textColor(_ status: LimitStatus, _ palette: ThemePalette) -> ThemeColor {
+  nonisolated static func textColor(_ status: LimitStatus, _ palette: ThemePalette) -> ThemeColor {
     let ink: ThemeColor =
       switch status {
       case .over: palette.statusNegative

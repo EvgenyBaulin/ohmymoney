@@ -11,12 +11,14 @@ final class DebtFiguresLabelsTests: XCTestCase {
   private let environment = AppEnvironment()
   private var languageBefore: AppLanguage.Choice?
 
-  override func setUp() {
+  override func setUp() async throws {
+    try await super.setUp()
     languageBefore = environment.language.choice
   }
 
-  override func tearDown() {
+  override func tearDown() async throws {
     if let languageBefore { environment.language.choice = languageBefore }
+    try await super.tearDown()
   }
 
   func testTheThreeOwedToMeTitlesDiffer() {
@@ -25,7 +27,8 @@ final class DebtFiguresLabelsTests: XCTestCase {
       let overview = environment.language("overview.tile.owedToMe", table: "Overview")
       let debts = environment.language("debts.owedToMe", table: "Debts")
       let capital = environment.language("capital.group.owedToMe", table: "Capital")
-      XCTAssertEqual(Set([overview, debts, capital]).count, 3, "\(choice): \(overview) \(debts) \(capital)")
+      XCTAssertEqual(
+        Set([overview, debts, capital]).count, 3, "\(choice): \(overview) \(debts) \(capital)")
       XCTAssertEqual(
         environment.language("why.owed.total", table: "Overview"), overview, "\(choice)")
       XCTAssertEqual(
