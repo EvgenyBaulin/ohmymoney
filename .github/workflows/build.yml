@@ -34,8 +34,9 @@ jobs:
   macos:
     runs-on: xcode-27
     # On the runner the Debug build takes about six minutes and the store configuration, built
-    # with optimisation, about twenty-five (the run of 01.11); one not done in an hour is stuck.
-    timeout-minutes: 60
+    # with optimisation for both architectures, about twenty-five (01.11) and over thirty (13.11,
+    # when the alarm of a build at half an hour cut it off); one not done in 90 minutes is stuck.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v5
 
@@ -64,7 +65,7 @@ jobs:
       # names both.
       - name: Build the App Store configuration and look inside it
         if: ${{ !cancelled() && steps.prepared.outcome == 'success' }}
-        run: make check-appstore-clean REUSE_BUILD=1 XCB_OFFLINE=
+        run: make check-appstore-clean REUSE_BUILD=1 XCB_OFFLINE= XCB_TIME=4200
 
       # What the builds wrote, for the run that failed.
       - name: Keep the logs of a failed run

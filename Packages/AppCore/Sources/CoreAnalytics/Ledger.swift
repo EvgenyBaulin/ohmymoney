@@ -249,12 +249,12 @@ public struct Ledger: Sendable {
     // of this ledger that are gone or were replaced.
     var added: [TransactionEntry] = []
     var aliveIds = Set<UUID>()
-    aliveIds.reserveCapacity(entriesById.count)
+    aliveIds.reserveCapacity(self.entriesById.count)
     var seen = 0
     for entry in next.entries where !entry.transaction.isDeleted {
       // The same id twice has no single answer: the whole build decides.
       guard aliveIds.insert(entry.id).inserted else { return nil }
-      if let old = entriesById[entry.id] {
+      if let old = self.entriesById[entry.id] {
         seen += 1
         if old != entry { added.append(entry) }
       } else {
@@ -263,13 +263,13 @@ public struct Ledger: Sendable {
       if added.count > Self.deltaLimit { return nil }
     }
     var removed: [TransactionEntry] = []
-    if seen < entriesById.count {
-      for (id, entry) in entriesById where !aliveIds.contains(id) {
+    if seen < self.entriesById.count {
+      for (id, entry) in self.entriesById where !aliveIds.contains(id) {
         removed.append(entry)
         if removed.count > Self.deltaLimit { return nil }
       }
     }
-    let replaced = added.compactMap { entriesById[$0.id] }
+    let replaced = added.compactMap { self.entriesById[$0.id] }
     let gone = removed + replaced
     if added.isEmpty && gone.isEmpty { return Ledger(copying: self, dataset: next) }
 
@@ -298,6 +298,7 @@ public struct Ledger: Sendable {
       guard let first = firstDay, days.day(of: entry.transaction) != first else { return nil }
     }
     let goneIds = Set(gone.map(\.id))
+    // The reads above say `self.`: Swift 6.1 takes a bare name there for this local copy.
     var entriesById = self.entriesById
     var searchKeys = self.searchKeys
     for id in goneIds {
