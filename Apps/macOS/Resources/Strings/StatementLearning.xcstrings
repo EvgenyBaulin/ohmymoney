@@ -5,6 +5,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sətir əvvəl yazdığınız kimi dolduruldu"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sətir əvvəl yazdığınız kimi dolduruldu"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -30,6 +48,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld радка запоўнена, як вы пісалі раней"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádky vyplněny podle vašeho dřívějšího zadání"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádku vyplněno podle vašeho dřívějšího zadání"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádek vyplněn podle vašeho dřívějšího zadání"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádků vyplněno podle vašeho dřívějšího zadání"
                 }
               }
             }
@@ -119,6 +167,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld տող լրացվել է ձեր նախորդ գրառման համաձայն"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld տող լրացվել է ձեր նախորդ գրառումների համաձայն"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -143,6 +209,36 @@
             }
           }
         },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld行を以前の入力内容で補完しました"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld სტრიქონი შეივსო ისე, როგორც ადრე ჩაწერეთ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld სტრიქონი შეივსო ისე, როგორც ადრე ჩაწერეთ"
+                }
+              }
+            }
+          }
+        },
         "kk": {
           "variations": {
             "plural": {
@@ -156,6 +252,42 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld жол бұрын жазғаныңыздай толтырылды"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сап мурда жазганыңыздай толтурулду"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сап мурда жазганыңыздай толтурулду"
+                }
+              }
+            }
+          }
+        },
+        "nl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld regel ingevuld zoals je die eerder schreef"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld regels ingevuld zoals je die eerder schreef"
                 }
               }
             }
@@ -215,6 +347,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas preenchidas como escreveu antes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linha preenchida como escreveu antes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas preenchidas como escreveu antes"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -240,6 +396,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld строк заполнено, как вы записывали раньше"
+                }
+              }
+            }
+          }
+        },
+        "tg": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сатр мисли пештара пур шуд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сатр мисли пештара пур шуд"
                 }
               }
             }
@@ -292,6 +466,48 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld qator avval yozganingizdek to‘ldirildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld qator avval yozganingizdek to‘ldirildi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已按之前的填写方式填充 %lld 行"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已依照你先前的輸入填入 %lld 筆"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -299,10 +515,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əvvəl yazdığınız kimi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Як вы пісалі раней"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podle vašeho dřívějšího zadání"
           }
         },
         "de": {
@@ -329,16 +557,46 @@
             "value": "Comme vous l'aviez écrit avant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ձեր նախորդ գրառման համաձայն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Come l’avevi scritto"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以前の入力内容"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "როგორც ადრე ჩაწერეთ"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бұрын жазғаныңыздай"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мурда жазганыңыздай"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoals je het eerder schreef"
           }
         },
         "pl": {
@@ -353,10 +611,22 @@
             "value": "Como você escreveu antes"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como escreveu antes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Как вы записали раньше"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мисли пештара"
           }
         },
         "tr": {
@@ -370,6 +640,24 @@
             "state": "translated",
             "value": "За вашим попереднім записом"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avval yozganingizdek"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按之前的填写方式"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依照你先前的輸入"
+          }
         }
       }
     },
@@ -377,10 +665,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu bankın eyni mətni üçün əl ilə daxil etdiyiniz əməliyyata əsasən doldurulub. Yüklədikdən sonra əməliyyatı dəyişin, növbəti sətirlər də dəyişikliyə uyğun doldurulacaq."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Запоўнена паводле аперацыі, якую вы ўвялі ўручную для такога ж тэксту гэтага банка. Змяніце аперацыю пасля загрузкі, і наступныя радкі будуць запоўнены з улікам змены."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyplněno podle ručně zadané transakce se stejným textem od této banky. Pokud transakci po načtení změníte, další řádky se vyplní podle této změny."
           }
         },
         "de": {
@@ -407,16 +707,46 @@
             "value": "Rempli d'après une opération que vous avez saisie à la main pour le même texte de cette banque. Modifiez l'opération après le chargement, et les lignes suivantes suivront votre modification."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Լրացվել է այս բանկի նույն տեքստի համար ձեր ձեռքով մուտքագրած գործարքից։ Ներմուծումից հետո փոխեք գործարքը, և հաջորդ տողերը կհետևեն ձեր փոփոխությանը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Compilata da un’operazione inserita a mano con lo stesso testo di questa banca. Modifica l’operazione dopo il caricamento e le righe successive seguiranno la modifica."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この銀行の同じテキストに対して手入力した取引から補完しました。読み込み後に取引を変更すると、次の行から変更が反映されます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეივსო ამ ბანკის იმავე ტექსტისთვის ხელით შეყვანილი ოპერაციიდან. ჩატვირთვის შემდეგ შეცვალეთ ოპერაცია და მომდევნო სტრიქონებიც ამ ცვლილებას მიჰყვება."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Осы банктің дәл осындай мәтініне қолмен енгізген операцияңыздан толтырылды. Жүктегеннен кейін операцияны өзгертсеңіз, келесі жолдар өзгерісіңізді ескереді."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бул банктын ушундай эле тексти үчүн кол менен киргизген операцияңыздан толтурулду. Жүктөгөндөн кийин операцияны өзгөртсөңүз, кийинки саптар да өзгөртүүгө жараша толтурулат."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingevuld op basis van een handmatig ingevoerde transactie met dezelfde tekst van deze bank. Wijzig de transactie na het laden; volgende regels nemen je wijziging over."
           }
         },
         "pl": {
@@ -431,10 +761,22 @@
             "value": "Preenchido com base em uma operação que você digitou para o mesmo texto deste banco. Altere a operação após carregar, e as próximas linhas seguirão sua alteração."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preenchido a partir de uma operação introduzida manualmente para o mesmo texto deste banco. Altere a operação após o carregamento e as linhas seguintes seguirão a alteração."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заполнено по операции, которую вы вводили руками для такого же текста этого банка. Поправите операцию после загрузки — следующие строки будут как после правки."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз амалиёти дастӣ барои ҳамин матни бонк пур шуд. Пас аз боркунӣ амалиётро тағйир диҳед, то сатрҳои оянда бо тағйироти шумо пур шаванд."
           }
         },
         "tr": {
@@ -447,6 +789,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заповнено з операції, яку ви ввели вручну для такого самого тексту цього банку. Змініть операцію після завантаження — наступні рядки врахують цю зміну."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shu bankdagi aynan shu matn uchun qo‘lda kiritgan amalingiz asosida to‘ldirildi. Yuklagandan so‘ng amalni o‘zgartirsangiz, keyingi qatorlarda ham shu o‘zgarish qo‘llanadi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根据你之前为该银行相同文本手动填写的交易填充。导入后修改交易，后续行将按你的修改填充。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根據你先前為此銀行相同文字手動輸入的交易填入。載入後更改交易，後續項目便會套用你的更改。"
           }
         }
       }
