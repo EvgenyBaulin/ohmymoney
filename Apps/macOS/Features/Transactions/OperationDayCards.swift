@@ -94,7 +94,9 @@ struct OperationDayCards<MenuItems: View>: View {
   }
 
   private func plainList(columns: Bool) -> some View {
-    List(selection: $selection) {
+    // Read once outside the guides: their closures run off the main actor.
+    let side = Self.rowSide(columns: columns)
+    return List(selection: $selection) {
       ForEach(listing.days) { day in
         Section {
           ForEach(day.rows) { item in
@@ -110,10 +112,8 @@ struct OperationDayCards<MenuItems: View>: View {
             .listSectionSeparatorTint(theme.borderHairline)
             // The hairline runs across the whole card, edge to edge, as the frames draw it: the
             // row's own margin is given back on both sides.
-            .alignmentGuide(.listRowSeparatorLeading) { _ in -Self.rowSide(columns: columns) }
-            .alignmentGuide(.listRowSeparatorTrailing) { row in
-              row.width + Self.rowSide(columns: columns)
-            }
+            .alignmentGuide(.listRowSeparatorLeading) { _ in -side }
+            .alignmentGuide(.listRowSeparatorTrailing) { row in row.width + side }
           }
         } header: {
           OperationDayHead(day: day.day, totals: day.totals)
@@ -134,7 +134,7 @@ struct OperationDayCards<MenuItems: View>: View {
   }
 
   /// The margin of a row at its sides: 18 in the tablet's columns, 14 in a phone's card.
-  static func rowSide(columns: Bool) -> CGFloat {
+  nonisolated static func rowSide(columns: Bool) -> CGFloat {
     columns ? OperationsMetrics.rowHorizontal : OperationsMetrics.phoneRowHorizontal
   }
 
