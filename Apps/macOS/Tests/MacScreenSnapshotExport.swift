@@ -297,7 +297,8 @@ final class MacScreenSnapshotExport: SectionFigmaHarness {
     }
   }
 
-  private func mainWindowOpeningPanel(_ selection: SidebarItem, details: Bool = true, height: CGFloat? = nil
+  private func mainWindowOpeningPanel(
+    _ selection: SidebarItem, details: Bool = true, height: CGFloat? = nil
   ) -> NSWindow {
     let actions = OperationActions()
     let root =
@@ -312,6 +313,7 @@ final class MacScreenSnapshotExport: SectionFigmaHarness {
   /// A unified window of 1440 × 900, as the main window of the app is.
   private func place<Root: View>(_ root: Root, height: CGFloat? = nil) -> NSWindow {
     let size = CGSize(width: self.size.width, height: height ?? self.size.height)
+    // dependencies: the root is built by `AppScenes.root`, which hands them over
     let controller = NSHostingController(rootView: root)
     controller.sceneBridgingOptions = [.toolbars]
     let window = NSWindow(

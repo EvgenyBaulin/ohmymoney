@@ -29,6 +29,7 @@ final class ThemeLayoutIndependenceTests: XCTestCase {
     .frame(width: 480)
     .coordinateSpace(name: "root")
     .environment(\.appTheme, colors)
+    // dependencies: the hero and the surface read only the theme, which is handed over above
     let host = NSHostingView(rootView: root)
     let window = NSWindow(
       contentRect: CGRect(x: 0, y: 0, width: 480, height: 600), styleMask: [.titled],
