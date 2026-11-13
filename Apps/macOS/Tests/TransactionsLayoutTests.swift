@@ -272,9 +272,14 @@ final class TransactionsLayoutTests: XCTestCase {
       print("layout \(what) pass \(records.count): \(record); bar \(actions?.barFrame ?? .zero)")
       fflush(stdout)
       records.append(record)
-      // Ten identical passes are all `assertSettled` needs: the rest would only spend seconds
-      // of every run proving the same thing again.
-      if records.count >= 10, records.suffix(10).allSatisfy({ $0 == record }) { break }
+      // Ten identical passes with nothing left dirty are all `assertSettled` needs: the rest
+      // would only spend seconds of every run proving the same thing again. The dirty flags
+      // count too: next to a dozen parallel hosts a late update can mark the layout after the
+      // frames have stood still, and a real loop keeps it dirty to the last pass anyway.
+      let dirty =
+        (window.contentView?.needsLayout ?? false)
+        || (window.contentView?.needsUpdateConstraints ?? false)
+      if records.count >= 10, !dirty, records.suffix(10).allSatisfy({ $0 == record }) { break }
     }
     return records
   }
