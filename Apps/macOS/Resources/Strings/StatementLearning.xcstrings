@@ -209,6 +209,18 @@
             }
           }
         },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld行を以前の入力内容で補完しました"
+                }
+              }
+            }
+          }
+        },
         "ka": {
           "variations": {
             "plural": {
@@ -258,6 +270,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld сап мурда жазганыңыздай толтурулду"
+                }
+              }
+            }
+          }
+        },
+        "nl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld regel ingevuld zoals je die eerder schreef"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld regels ingevuld zoals je die eerder schreef"
                 }
               }
             }
@@ -455,6 +485,18 @@
             }
           }
         },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已按之前的填写方式填充 %lld 行"
+                }
+              }
+            }
+          }
+        },
         "zh-Hant": {
           "variations": {
             "plural": {
@@ -527,6 +569,12 @@
             "value": "Come l’avevi scritto"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以前の入力内容"
+          }
+        },
         "ka": {
           "stringUnit": {
             "state": "translated",
@@ -543,6 +591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мурда жазганыңыздай"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zoals je het eerder schreef"
           }
         },
         "pl": {
@@ -591,6 +645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avval yozganingizdek"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按之前的填写方式"
           }
         },
         "zh-Hant": {
@@ -659,6 +719,12 @@
             "value": "Compilata da un’operazione inserita a mano con lo stesso testo di questa banca. Modifica l’operazione dopo il caricamento e le righe successive seguiranno la modifica."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この銀行の同じテキストに対して手入力した取引から補完しました。読み込み後に取引を変更すると、次の行から変更が反映されます。"
+          }
+        },
         "ka": {
           "stringUnit": {
             "state": "translated",
@@ -675,6 +741,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бул банктын ушундай эле тексти үчүн кол менен киргизген операцияңыздан толтурулду. Жүктөгөндөн кийин операцияны өзгөртсөңүз, кийинки саптар да өзгөртүүгө жараша толтурулат."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingevuld op basis van een handmatig ingevoerde transactie met dezelfde tekst van deze bank. Wijzig de transactie na het laden; volgende regels nemen je wijziging over."
           }
         },
         "pl": {
@@ -723,6 +795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shu bankdagi aynan shu matn uchun qo‘lda kiritgan amalingiz asosida to‘ldirildi. Yuklagandan so‘ng amalni o‘zgartirsangiz, keyingi qatorlarda ham shu o‘zgarish qo‘llanadi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根据你之前为该银行相同文本手动填写的交易填充。导入后修改交易，后续行将按你的修改填充。"
           }
         },
         "zh-Hant": {
