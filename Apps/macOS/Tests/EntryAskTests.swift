@@ -147,16 +147,28 @@ final class EntryAskTests: XCTestCase {
   }
 
   /// Presses a button of the dialog. The save goes on a moment after the dialog is gone, in a
-  /// task of the main actor: it runs only while the test waits, so the test does.
-  private func click(_ title: String, in sheet: NSWindow, host: EntryHost) async throws {
+  /// task of the main actor: it runs only while the test waits, so the test does. A button that
+  /// writes names what the write leaves behind (`until`), and the test waits for that rather than
+  /// for a pause: next to a dozen parallel hosts the save can come later than any fixed pause.
+  private func click(
+    _ title: String, in sheet: NSWindow, host: EntryHost, until done: (() throws -> Bool)? = nil
+  ) async throws {
     let buttons = host.views(of: NSButton.self, in: sheet.contentView)
     let button = try XCTUnwrap(
       buttons.first { $0.title == title }, "no «\(title)» among \(buttons.map(\.title))")
     button.performClick(nil)
     let deadline = Date().addingTimeInterval(3)
     while host.window.attachedSheet != nil, Date() < deadline { host.settle(0.05) }
-    try await Task.sleep(for: .milliseconds(800))
-    host.settle(0.2)
+    guard let done else {
+      try await Task.sleep(for: .milliseconds(800))
+      host.settle(0.2)
+      return
+    }
+    let saved = Date().addingTimeInterval(10)
+    while try !done(), Date() < saved {
+      try await Task.sleep(for: .milliseconds(50))
+      host.settle(0.05)
+    }
   }
 
   /// A line that repeats what was written a moment ago asks before it writes again: «Не
@@ -182,7 +194,8 @@ final class EntryAskTests: XCTestCase {
     host.settle(0.3)
     let again = try XCTUnwrap(sheet(of: host), "the question is asked again")
     try await click(
-      host.environment.language("entry.repeat.add", table: "Entry"), in: again, host: host)
+      host.environment.language("entry.repeat.add", table: "Entry"), in: again, host: host,
+      until: { try host.transactions.count() == 3 })
     XCTAssertEqual(try host.transactions.count(), 3, "«Добавить» writes the repeat")
   }
 
@@ -213,7 +226,8 @@ final class EntryAskTests: XCTestCase {
     let asked = try XCTUnwrap(sheet(of: host), "the question was not asked")
     XCTAssertEqual(try host.transactions.count(), 1, "nothing is written before the answer")
     try await click(
-      host.environment.language("entry.ahead.record", table: "Entry"), in: asked, host: host)
+      host.environment.language("entry.ahead.record", table: "Entry"), in: asked, host: host,
+      until: { try host.transactions.count() == 2 })
     let saved = try host.transactions.recentEntries(limit: 5)
     XCTAssertEqual(saved.count, 2)
     XCTAssertEqual(saved.first?.transaction.amountE4, AmountE4(whole: 250))
@@ -232,7 +246,8 @@ final class EntryAskTests: XCTestCase {
     host.settle(0.3)
     let asked = try XCTUnwrap(sheet(of: host), "the question was not asked")
     try await click(
-      host.environment.language("entry.ahead.planPayment", table: "Entry"), in: asked, host: host)
+      host.environment.language("entry.ahead.planPayment", table: "Entry"), in: asked, host: host,
+      until: { try !host.planning.scheduled().isEmpty })
     XCTAssertEqual(try host.transactions.count(), 1, "no operation was written")
     let plans = try host.planning.scheduled()
     XCTAssertEqual(plans.count, 1)

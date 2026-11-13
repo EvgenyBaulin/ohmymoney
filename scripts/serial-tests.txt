@@ -7,3 +7,4 @@ EntryWalkTests    # SwiftUI moves the keyboard of a window only in the active ap
 AppWindowsTests   # AppKit orders the windows strictly only in the active app
 HiddenAmountsTests # the eye of the toolbar is relabelled only while the app is the active one
 QuickEntryFormTests # ⌘N puts the keyboard in the quick line only in the active app
+MacScreenSnapshotTests # the window server's picture of glass is exact only while no dozen hosts draw at once
