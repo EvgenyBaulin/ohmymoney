@@ -10993,10 +10993,22 @@
     },
     "look.bank.noCardFee": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — kart olmadan bank ayda %@ tutur. Hesab şərtlərini yoxlayın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ — без карты банк спаганяе %@ за месяц. Праверце ўмовы рахунку."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — bez karty si banka účtuje %@ měsíčně. Zkontrolujte podmínky účtu."
           }
         },
         "de": {
@@ -11023,16 +11035,52 @@
             "value": "%@ — sans carte, la banque facture %@ par mois. Consultez les conditions du compte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — առանց քարտի բանկը գանձում է ամսական %@։ Ստուգեք հաշվի պայմանները։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ — senza carta, la banca addebita %@ al mese. Controlla le condizioni del conto."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — カードがない場合、銀行から月額%@が請求されます。口座の条件を確認してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — ბარათის გარეშე ბანკი თვეში %@-ს ჩამოგაჭრით. შეამოწმეთ ანგარიშის პირობები."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ — картасыз банк айына %@ алады. Шот шарттарын тексеріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — 카드가 없으면 은행에서 매달 %@을 청구합니다. 계좌 약관을 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — картасыз банк айына %@ алат. Эсептин шарттарын текшериңиз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — zonder kaart rekent de bank %@ per maand. Bekijk de rekeningvoorwaarden."
           }
         },
         "pl": {
@@ -11047,10 +11095,22 @@
             "value": "%@ — sem cartão, o banco cobra %@ por mês. Consulte as condições da conta."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — sem cartão, o banco cobra %@ por mês. Consulte as condições da conta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ — без карты банк берёт %@ в месяц. Проверьте условия счёта."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — бе корт бонк дар як моҳ %@ мегирад. Шартҳои ҳисобро санҷед."
           }
         },
         "tr": {
@@ -11063,6 +11123,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — без картки банк стягує %@ на місяць. Перевірте умови рахунку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — kartasiz bank oyiga %@ oladi. Hisob shartlarini tekshiring."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — 未持卡时，银行每月收取 %@。请查看账户条款。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — 未持有卡片時，銀行每月收取 %@。請查看帳戶條款。"
           }
         }
       }
@@ -73412,10 +73490,22 @@
     "why.free.interestTax": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu il qazanılmış faiz gəlirinə vergi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Падатак на працэнты, атрыманыя сёлета"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daň z úroků získaných letos"
           }
         },
         "de": {
@@ -73442,16 +73532,52 @@
             "value": "Impôt sur les intérêts perçus cette année"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս տարի ստացված տոկոսների հարկը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Imposta sugli interessi maturati quest’anno"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年受け取った利息にかかる税金"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წელს მიღებული პროცენტის გადასახადი"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Биыл есептелген пайызға салынатын салық"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "올해 받은 이자에 대한 세금"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Быйыл алынган пайызга салык"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belasting over de dit jaar ontvangen rente"
           }
         },
         "pl": {
@@ -73466,10 +73592,22 @@
             "value": "Imposto sobre os rendimentos deste ano"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposto sobre os juros recebidos este ano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Налог с процентов, набежавших за год"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Андоз аз фоизи дар соли ҷорӣ гирифташуда"
           }
         },
         "tr": {
@@ -73482,6 +73620,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Податок на відсотки, отримані цього року"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu yil olingan foizlar solig‘i"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年利息收入的税款"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年利息所得稅"
           }
         }
       }
