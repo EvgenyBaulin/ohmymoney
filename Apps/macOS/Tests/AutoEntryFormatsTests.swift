@@ -143,8 +143,11 @@ final class AutoEntryFormatsTests: XCTestCase {
     try FileManager.default.createDirectory(at: bank, withIntermediateDirectories: true)
     try Data("SAMPLEBANK\n".utf8).write(
       to: root.appendingPathComponent("samplebank_1/senders.txt"))
-    try Data("^paid (\\d+) at (.+)$\n-----COLUMNS-----\noutcome;payee\n-----EXAMPLE-----\npaid 5 at SAMPLE\n".utf8)
-      .write(to: bank.appendingPathComponent("a.txt"))
+    try Data(
+      "^paid (\\d+) at (.+)$\n-----COLUMNS-----\noutcome;payee\n-----EXAMPLE-----\npaid 5 at SAMPLE\n"
+        .utf8
+    )
+    .write(to: bank.appendingPathComponent("a.txt"))
     try Data("^(unclosed\n-----COLUMNS-----\npayee\n".utf8).write(
       to: bank.appendingPathComponent("broken.txt"))
     try Data("not a format".utf8).write(to: root.appendingPathComponent("readme.md"))

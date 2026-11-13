@@ -56,7 +56,8 @@ struct Migration0025Tests {
       #expect(!column.isNotNull)
       let sql =
         try String.fetchOne(
-          db, sql: "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'debt_instalments'")
+          db,
+          sql: "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'debt_instalments'")
         ?? ""
       #expect(!sql.contains("due_on TEXT CHECK"), "an added column carries no CHECK")
       let names = try db.columns(in: "credit_statements").map(\.name)
@@ -64,12 +65,14 @@ struct Migration0025Tests {
         names == ["id", "payment_method_id", "statement_on", "minimum_e4", "pay_by"])
       let index = try String.fetchOne(
         db,
-        sql: "SELECT sql FROM sqlite_master WHERE type = 'index' AND name = 'idx_credit_statements_key'"
+        sql:
+          "SELECT sql FROM sqlite_master WHERE type = 'index' AND name = 'idx_credit_statements_key'"
       )
       #expect(index?.contains("UNIQUE") == true)
       let triggers = try String.fetchAll(
         db,
-        sql: "SELECT name FROM sqlite_master WHERE type = 'trigger' AND tbl_name = 'credit_statements' ORDER BY name"
+        sql:
+          "SELECT name FROM sqlite_master WHERE type = 'trigger' AND tbl_name = 'credit_statements' ORDER BY name"
       )
       #expect(
         triggers == [
@@ -192,7 +195,8 @@ struct Migration0025Tests {
       debtId: id, fromIndex: 2, amountE4: AmountE4(whole: 10),
       dueOn: DateOnly(year: 2026, month: 12, day: 7))
     #expect(Array(ExportTables.row(step).suffix(2)) == ["10", "2026-12-07"])
-    #expect(ExportTables.row(DebtInstalmentStep(debtId: id, fromIndex: 2, amountE4: .zero)).last == "")
+    #expect(
+      ExportTables.row(DebtInstalmentStep(debtId: id, fromIndex: 2, amountE4: .zero)).last == "")
     let statement = CreditStatementOverride(
       accountId: id, closesOn: DateOnly(year: 2026, month: 11, day: 5),
       minimumE4: AmountE4(whole: 3100), due: DateOnly(year: 2026, month: 11, day: 25))

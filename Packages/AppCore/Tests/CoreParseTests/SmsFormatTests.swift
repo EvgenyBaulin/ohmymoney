@@ -10,7 +10,8 @@ private func format(
   id: String = "t", bank: BankBrand = .unknown
 ) -> SmsFormat {
   SmsFormat(
-    id: id, bank: bank, pattern: pattern, columns: columns.split(
+    id: id, bank: bank, pattern: pattern,
+    columns: columns.split(
       separator: ";", omittingEmptySubsequences: false
     ).map { SmsColumn(name: String($0)) ?? .skip }, operation: operation, examples: examples)
 }
@@ -47,7 +48,8 @@ struct SmsFormatFileTests {
   }
 
   @Test func aFileWithoutColumnsIsRefused() {
-    #expect(SmsFormat.parse(fileText: "^a$\n-----EXAMPLE-----\na", id: "x") == .failure(.missingColumns))
+    #expect(
+      SmsFormat.parse(fileText: "^a$\n-----EXAMPLE-----\na", id: "x") == .failure(.missingColumns))
   }
 
   @Test func anUnknownColumnIsNamed() {
@@ -56,7 +58,8 @@ struct SmsFormatFileTests {
   }
 
   @Test func anUnknownSectionIsRefused() {
-    let result = SmsFormat.parse(fileText: "^(a)$\n-----COLUMNS-----\npayee\n-----SPAM-----\nx", id: "x")
+    let result = SmsFormat.parse(
+      fileText: "^(a)$\n-----COLUMNS-----\npayee\n-----SPAM-----\nx", id: "x")
     #expect(result == .failure(.unknownSection("-----SPAM-----")))
   }
 
@@ -84,7 +87,8 @@ struct SmsFormatReadingTests {
 
   @Test func theForeignAmountKeepsItsOwnCurrency() throws {
     let f = format(
-      #"^paid ([\d.]+) (\w{3}) of ([\d.]+) (\w{3})$"#, "op_outcome;op_instrument;outcome;instrument",
+      #"^paid ([\d.]+) (\w{3}) of ([\d.]+) (\w{3})$"#,
+      "op_outcome;op_instrument;outcome;instrument",
       examples: [])
     let reading = try #require(try f.read("paid 12.50 USD of 1100.00 RUB")?.get())
     #expect(reading.money == money("12.5", "USD"))
@@ -120,7 +124,8 @@ struct SmsFormatReadingTests {
 
   @Test func readsADayByItsPattern() throws {
     let f = format(
-      #"^(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}) ([\d.]+)$"#, "date#dd.MM.yyyy HH:mm;outcome", examples: [])
+      #"^(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}) ([\d.]+)$"#, "date#dd.MM.yyyy HH:mm;outcome",
+      examples: [])
     let reading = try #require(try f.read("03.04.2026 21:15 10.00")?.get())
     #expect(reading.day == DateOnly(year: 2026, month: 4, day: 3))
     #expect(reading.time == TimeOfDay(hour: 21, minute: 15))
@@ -464,7 +469,8 @@ struct SmsFormatFolderTests {
     ])
     #expect(contents.entries.count == 1)
     #expect(contents.skipped.first?.path == "b/formats/b.txt")
-    #expect(contents.skipped.first?.problems == [.exampleMatchesOther(1, other: "folder.b/formats/a")])
+    #expect(
+      contents.skipped.first?.problems == [.exampleMatchesOther(1, other: "folder.b/formats/a")])
   }
 
   @Test func theFolderFormatsAreReadAfterTheOwnOnes() throws {
@@ -561,7 +567,8 @@ struct SmsFormatLineTests {
 
   @Test func aCashbackInAnotherCurrencyThanTheAmountIsNotWritten() throws {
     let message = try message(
-      #"^paid ([\d.]+) (\w{3}) at (.+), cashback ([\d.]+)$"#, "op_outcome;op_instrument;payee;cashback",
+      #"^paid ([\d.]+) (\w{3}) at (.+), cashback ([\d.]+)$"#,
+      "op_outcome;op_instrument;payee;cashback",
       "paid 12.00 USD at SAMPLE, cashback 9.00")
     #expect(message.cashback?.currency == .rub)
     #expect(!message.suggestedLine().contains("кэшбэк"))

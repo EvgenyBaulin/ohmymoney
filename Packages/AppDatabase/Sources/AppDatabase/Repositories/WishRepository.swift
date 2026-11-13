@@ -13,8 +13,10 @@ public struct WishRepository: Sendable {
 
   public func imageURL(of id: UUID) throws -> URL? {
     try writer.read { db in
-      try String.fetchOne(db, sql: "SELECT image_url FROM wishes WHERE id = ?", arguments: [id.uuidString])
-        .flatMap(URL.init(string:))
+      try String.fetchOne(
+        db, sql: "SELECT image_url FROM wishes WHERE id = ?", arguments: [id.uuidString]
+      )
+      .flatMap(URL.init(string:))
     }
   }
 

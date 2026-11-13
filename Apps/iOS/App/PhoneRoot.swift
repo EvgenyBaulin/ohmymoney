@@ -485,7 +485,8 @@ struct PhoneContent<Content: View, Entry: View>: View {
         .contentMargins(
           .bottom,
           Self.scrollClearance(onPhone: UIDevice.current.userInterfaceIdiom == .phone),
-          for: .scrollContent)
+          for: .scrollContent
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // Over the bar of the phone the page fades out instead of ending in a hard edge.
         .overlay(alignment: .bottom) { if fades { NavBarFade() } }

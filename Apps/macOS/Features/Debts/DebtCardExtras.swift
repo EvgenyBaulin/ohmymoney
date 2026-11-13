@@ -114,7 +114,8 @@ struct DebtCardExtras: View {
         Label {
           Text(verbatim: DebtPauseText.card(pause, environment))
         } icon: {
-          Image(systemName: pause.contains(environment.today) ? "pause.circle.fill" : "pause.circle")
+          Image(
+            systemName: pause.contains(environment.today) ? "pause.circle.fill" : "pause.circle")
         }
         .appFont(.callout)
         .accessibilityIdentifier("debts.pause")

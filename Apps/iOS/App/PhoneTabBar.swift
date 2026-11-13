@@ -135,7 +135,8 @@ struct PhoneTabBar: View {
         colors: colors, labelsOnAll: !activeLabelOnly
       ) { router.open(PhoneRoute(tab: .more)) }
       .frame(
-        maxWidth: router.isMoreLit(visible: layout.visible) && activeLabelOnly ? nil : .infinity)
+        maxWidth: router.isMoreLit(visible: layout.visible) && activeLabelOnly ? nil : .infinity
+      )
       .layoutPriority(router.isMoreLit(visible: layout.visible) && activeLabelOnly ? 1 : 0)
     }
     .padding(.horizontal, 8)

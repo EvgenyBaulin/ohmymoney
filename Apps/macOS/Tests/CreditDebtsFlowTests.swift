@@ -308,7 +308,8 @@ final class CreditDebtsFlowTests: XCTestCase {
     let backwards = DebtPause(from: first.adding(days: 5), to: first)
     XCTAssertTrue(actions.setPause(debt, backwards))
     try await show()
-    XCTAssertNil(try debts().first { $0.id == debt.id }?.pause, "a pause that ends first is not kept")
+    XCTAssertNil(
+      try debts().first { $0.id == debt.id }?.pause, "a pause that ends first is not kept")
   }
 
   /// «Это платёж вперёд» in «Платёж…»: the answer is kept, the planned early repayment stays

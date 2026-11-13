@@ -118,7 +118,8 @@ struct AttachmentRetentionTests {
     let today = CalendarContext.utc.day(of: t0)
     var purchase = Transaction(
       id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
-      amountRubE4: AmountE4(whole: 10), warrantyUntil: CalendarContext.utc.adding(days: -1, to: today),
+      amountRubE4: AmountE4(whole: 10),
+      warrantyUntil: CalendarContext.utc.adding(days: -1, to: today),
       returnUntil: CalendarContext.utc.adding(days: 1, to: today))
     #expect(
       AttachmentRetention.actions(

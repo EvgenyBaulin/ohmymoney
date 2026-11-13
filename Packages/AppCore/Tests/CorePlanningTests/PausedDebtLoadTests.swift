@@ -69,8 +69,9 @@ struct PausedDebtPlanTests {
   }
 
   @Test func theNextPaymentOfTheCardSkipsThePause() {
-    let paused = book(pause: DebtPause(
-      from: DateOnly(iso: "2026-09-01")!, to: DateOnly(iso: "2026-10-31")!))
+    let paused = book(
+      pause: DebtPause(
+        from: DateOnly(iso: "2026-09-01")!, to: DateOnly(iso: "2026-10-31")!))
     let line = paused.snapshot().debts.iOwe.first
     #expect(line?.nextPayment == Fx.day("2026-11-05"))
     #expect(book(pause: nil).snapshot().debts.iOwe.first?.nextPayment == Fx.day("2026-09-05"))

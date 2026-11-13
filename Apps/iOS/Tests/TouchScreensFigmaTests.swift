@@ -115,7 +115,9 @@ final class TouchScreensFigmaTests: XCTestCase {
     XCTAssertFalse(narrow.doNowStandsBesideMain(columns: 2))
     XCTAssertEqual(OverviewPageMetrics.of(.pad, columns: 3).side, 28)
     XCTAssertEqual(OverviewPageMetrics.of(.pad, columns: nil).side, 28)
-    XCTAssertEqual(OverviewPageMetrics.of(.phone, columns: 1).side, PhoneMetrics.screenMargin, "the phone keeps its 20")
+    XCTAssertEqual(
+      OverviewPageMetrics.of(.phone, columns: 1).side, PhoneMetrics.screenMargin,
+      "the phone keeps its 20")
     XCTAssertFalse(OverviewPageMetrics.phone.doNowWithMain)
   }
 

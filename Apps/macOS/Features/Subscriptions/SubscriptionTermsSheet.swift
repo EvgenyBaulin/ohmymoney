@@ -40,7 +40,9 @@ struct SubscriptionTermsSheet: View {
     _people = State(initialValue: Set(request.people))
     _bankBenefit = State(initialValue: request.terms.bankBenefitE4 ?? .zero)
     _bankShareText = State(
-      initialValue: request.terms.bankCashbackShare.map { NumberText.decimal($0, fractionDigits: 0...2) }
+      initialValue: request.terms.bankCashbackShare.map {
+        NumberText.decimal($0, fractionDigits: 0...2)
+      }
         ?? "")
   }
 

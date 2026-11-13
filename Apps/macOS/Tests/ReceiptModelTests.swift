@@ -456,7 +456,9 @@ final class ReceiptModelTests: XCTestCase {
 
   func testPrintedFiscalWithBadNumbersHasNoKey() async throws {
     let model = try await model()
-    model.read(printedLines: ["КАССОВЫЙ ЧЕК", "ИТОГ 250.00", "29.10.2026 18:32", "ФН 123", "ФД 1", "ФП 2"])
+    model.read(printedLines: [
+      "КАССОВЫЙ ЧЕК", "ИТОГ 250.00", "29.10.2026 18:32", "ФН 123", "ФД 1", "ФП 2",
+    ])
     XCTAssertEqual(model.stage, .found)
     XCTAssertEqual(model.checkNoteKey, "receipt.check.numbers")
     XCTAssertNil(model.receipt?.numbers)

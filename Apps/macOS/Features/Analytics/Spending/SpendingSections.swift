@@ -167,7 +167,8 @@ struct WeekendShareBar: View {
   /// 0...1 of the track, from whole thousandths so no money passes through floating point.
   private var share: CGFloat {
     guard whole > 0 else { return 0 }
-    let thousandths = min(1000, max(0, part.multipliedReportingOverflow(by: 1000).partialValue / whole))
+    let thousandths = min(
+      1000, max(0, part.multipliedReportingOverflow(by: 1000).partialValue / whole))
     return CGFloat(thousandths) / 1000
   }
 

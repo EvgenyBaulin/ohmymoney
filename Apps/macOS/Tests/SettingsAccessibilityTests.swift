@@ -697,7 +697,9 @@ final class SettingsAccessibilityTests: XCTestCase {
   private static func spokenWithin(_ object: NSObject, depth: Int = 0) -> String {
     guard depth < 6 else { return "" }
     let children = attribute(object, "accessibilityChildren") as? [Any] ?? []
-    return ([spoken(object)] + children.compactMap { $0 as? NSObject }
+    return
+      ([spoken(object)]
+      + children.compactMap { $0 as? NSObject }
       .map { spokenWithin($0, depth: depth + 1) }).joined(separator: " | ")
   }
 

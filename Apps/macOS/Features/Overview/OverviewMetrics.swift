@@ -51,7 +51,8 @@ struct OverviewPageMetrics: Equatable, Sendable {
   /// title 34 bold 12 under the status bar with 19 to the main card; the main card 14 × 16 with
   /// a figure of 20.
   static let phone = OverviewPageMetrics(
-    side: PhoneMetrics.screenMargin, top: 12, bottom: 16, stackGap: 10, groupGap: 10, nameTop: 6, nameGap: 10,
+    side: PhoneMetrics.screenMargin, top: 12, bottom: 16, stackGap: 10, groupGap: 10, nameTop: 6,
+    nameGap: 10,
     columnGap: StyleMetrics.columnGap, rowGap: 10, titlePoints: 34, titleBottom: 9,
     mainHorizontal: 14, mainVertical: 16, mainFigurePoints: 20, tileEdgeIsHairline: true,
     doNowBesideMain: nil, countIsAccent: true)

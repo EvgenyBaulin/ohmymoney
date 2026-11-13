@@ -88,7 +88,8 @@ public enum PointsValue {
       guard points.raw > 0 else { continue }
       notices.append(
         BurnNotice(
-          accountId: account.id, on: burn.on, daysLeft: DepositDays.serial(burn.on) - DepositDays.serial(today), points: points,
+          accountId: account.id, on: burn.on,
+          daysLeft: DepositDays.serial(burn.on) - DepositDays.serial(today), points: points,
           rubles: rubPerPoint[account.id].map { rubles(points: points, rubPerPoint: $0) }))
     }
     return notices.sorted { ($0.on, $0.accountId.uuidString) < ($1.on, $1.accountId.uuidString) }

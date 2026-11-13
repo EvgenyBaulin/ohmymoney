@@ -96,7 +96,9 @@ struct NamesakeTests {
 
 @Suite("Dictionary records are namesake candidates with real history")
 struct ReferenceNamesakeTests {
-  private func entry(_ n: Int, _ day: String, goalCategory: UUID? = nil, place: UUID? = nil)
+  private func entry(
+    _ n: Int, _ day: String, goalCategory: UUID? = nil, place: UUID? = nil
+  )
     -> TransactionEntry
   {
     SchedFx.operation(n, day, "10", category: goalCategory, place: place)
@@ -108,7 +110,10 @@ struct ReferenceNamesakeTests {
     let bare = Goal(name: "Trip", targetE4: .zero)
     let records = Namesakes.goals(
       [goal, bare],
-      entries: [entry(1, "2024-02-03", goalCategory: category), entry(2, "2025-05-01", goalCategory: category)],
+      entries: [
+        entry(1, "2024-02-03", goalCategory: category),
+        entry(2, "2025-05-01", goalCategory: category),
+      ],
       calendar: .utc)
     #expect(records[0].archived)
     #expect(records[0].period?.first == SchedFx.day("2024-02-03").monthKey)
@@ -141,6 +146,9 @@ struct ReferenceNamesakeTests {
     let proposals = Namesakes.proposals(
       for: NamesakeRecord(kind: .person, id: SchedFx.id(3), name: "ANNA"), among: [live, archived])
     #expect(proposals.count == 2)
-    #expect(proposals.map(\.choices) == [[.renameNew, .renameExisting], [.renameArchived, .restoreArchived]])
+    #expect(
+      proposals.map(\.choices) == [
+        [.renameNew, .renameExisting], [.renameArchived, .restoreArchived],
+      ])
   }
 }

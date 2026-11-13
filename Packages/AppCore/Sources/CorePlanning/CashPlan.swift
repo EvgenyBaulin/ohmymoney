@@ -108,7 +108,9 @@ public struct CashPlan: Hashable, Sendable {
 
   /// Everything the grey line takes away from what can be spent now. The goal savings are not
   /// in it: they are taken off the money now itself (`FreeMoney.main`).
-  public var total: AmountE4 { scheduled + debts + goalPlans + events + npdTax + creditCards + interestTax }
+  public var total: AmountE4 {
+    scheduled + debts + goalPlans + events + npdTax + creditCards + interestTax
+  }
 
   /// The plan from `today` through `until` (D, as `FreeMoney.window` clips it).
   ///

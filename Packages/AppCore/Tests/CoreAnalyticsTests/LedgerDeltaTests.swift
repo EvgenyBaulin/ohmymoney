@@ -46,9 +46,12 @@ struct LedgerDeltaTests {
       left.rows(attributedTo: months) == right.rows(attributedTo: months),
       sourceLocation: sourceLocation)
     #expect(
-      left.rows(in: DayRange(DateOnly(year: 2024, month: 1, day: 1), DateOnly(year: 2027, month: 1, day: 1)))
+      left.rows(
+        in: DayRange(DateOnly(year: 2024, month: 1, day: 1), DateOnly(year: 2027, month: 1, day: 1))
+      )
         == right.rows(
-          in: DayRange(DateOnly(year: 2024, month: 1, day: 1), DateOnly(year: 2027, month: 1, day: 1))),
+          in: DayRange(
+            DateOnly(year: 2024, month: 1, day: 1), DateOnly(year: 2027, month: 1, day: 1))),
       sourceLocation: sourceLocation)
   }
 
@@ -132,7 +135,8 @@ struct LedgerDeltaTests {
 
     let removed = base.removing([first.id])
     expectSame(
-      try #require(ledger.delta(to: removed)), Ledger(dataset: removed, calendar: Synthetic.calendar))
+      try #require(ledger.delta(to: removed)),
+      Ledger(dataset: removed, calendar: Synthetic.calendar))
 
     var deleted = second
     deleted.transaction.deletedAt = Date(timeIntervalSince1970: 1_800_000_000)
@@ -187,12 +191,14 @@ struct LedgerDeltaTests {
 
     // A refund of a purchase.
     let purchase = try plain(in: base, skipping: 4)
-    var refund = copy(of: purchase, at: purchase.transaction.occurredAt.addingTimeInterval(86_400), number: 900)
+    var refund = copy(
+      of: purchase, at: purchase.transaction.occurredAt.addingTimeInterval(86_400), number: 900)
     refund.transaction.kind = .refund
     refund.parts[0].refundOfPartId = purchase.parts[0].id
     let refunded = base.upserting([refund])
     #expect(ledger.delta(to: refunded) == nil)
-    expectSame(ledger.updated(to: refunded), Ledger(dataset: refunded, calendar: Synthetic.calendar))
+    expectSame(
+      ledger.updated(to: refunded), Ledger(dataset: refunded, calendar: Synthetic.calendar))
 
     // The purchase a refund takes back from, once it is edited.
     let refundedLedger = ledger.updated(to: refunded)
@@ -204,7 +210,8 @@ struct LedgerDeltaTests {
       refundedLedger.updated(to: reedited), Ledger(dataset: reedited, calendar: Synthetic.calendar))
 
     // The operation of the first day goes: the first day of the ledger has to be found again.
-    let oldest = try #require(base.entries.min { $0.transaction.occurredAt < $1.transaction.occurredAt })
+    let oldest = try #require(
+      base.entries.min { $0.transaction.occurredAt < $1.transaction.occurredAt })
     let withoutFirst = base.removing([oldest.id])
     #expect(ledger.delta(to: withoutFirst) == nil)
     expectSame(

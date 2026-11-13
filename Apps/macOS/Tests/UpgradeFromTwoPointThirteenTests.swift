@@ -191,7 +191,8 @@ final class UpgradeFromTwoPointThirteenTests: XCTestCase {
     XCTAssertEqual(
       try scalar("SELECT COUNT(*) FROM transactions WHERE deleted_at IS NOT NULL", at: url), 1)
     XCTAssertEqual(
-      try scalar("SELECT SUM(amount_rub_e4) FROM transaction_parts WHERE transaction_id = 'T2'", at: url),
+      try scalar(
+        "SELECT SUM(amount_rub_e4) FROM transaction_parts WHERE transaction_id = 'T2'", at: url),
       70_000_000)
     XCTAssertEqual(
       try scalar("SELECT SUM(amount_e4) FROM debt_entries", at: url), 5_000_000_000)

@@ -44,9 +44,10 @@ public enum SmsFormatProposal {
         continue
       }
       var end = cursor
-      while end < source.count, source[end].isNumber || ".,".contains(source[end])
-        || (source[end].isWhitespace && end + 1 < source.count && source[end + 1].isNumber
-          && end > cursor && source[end - 1].isNumber)
+      while end < source.count,
+        source[end].isNumber || ".,".contains(source[end])
+          || (source[end].isWhitespace && end + 1 < source.count && source[end + 1].isNumber
+            && end > cursor && source[end - 1].isNumber)
       {
         end += 1
       }

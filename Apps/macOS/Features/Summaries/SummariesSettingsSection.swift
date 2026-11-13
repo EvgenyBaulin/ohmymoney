@@ -27,7 +27,9 @@ struct SummariesSettingsSection: View {
         switchRow("week", $week)
         switchRow("month", $month)
         switchRow("year", $year)
-        Button { SummariesRoute.open() } label: {
+        Button {
+          SummariesRoute.open()
+        } label: {
           HStack {
             Text(verbatim: t("summaries.settings.open"))
               .appFont(AppFont.system(size: 13, weight: .medium))

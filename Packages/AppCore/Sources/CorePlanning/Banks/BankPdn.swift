@@ -103,7 +103,8 @@ public struct BankPdn: Hashable, Sendable {
       limits += rubles.decimal
     }
     return BankPdn(
-      creditsRub: creditLoad.monthlyPaymentsRub, cardsRub: DebtRubles.round(limits * cardLimitShare),
+      creditsRub: creditLoad.monthlyPaymentsRub,
+      cardsRub: DebtRubles.round(limits * cardLimitShare),
       instalmentsRub: instalmentLoad.monthlyPaymentsRub, incomeRub: incomeRub,
       withoutRate: DebtRubles.sorted(withoutRate))
   }

@@ -193,14 +193,19 @@ struct RecomputePerformanceTests {
   func theBudgetOfOneWriteOnTheLargeSet() {
     let (_, data) = RecomputeAfterOneWriteTests.dataset(
       months: SampleDataGenerator.largeSetMonths, density: SampleDataGenerator.largeSetDensity)
-    let held = RecomputeAfterOneWriteTests.Figures.built(from: data, today: RecomputeAfterOneWriteTests.today)
+    let held = RecomputeAfterOneWriteTests.Figures.built(
+      from: data, today: RecomputeAfterOneWriteTests.today)
     let next = RecomputeAfterOneWriteTests.oneWrite(on: data)
     var rows = 0
-    let quick = InsightsBench.measure("recompute after one write, \(data.entries.count) operations") {
+    let quick = InsightsBench.measure("recompute after one write, \(data.entries.count) operations")
+    {
       rows = held.afterWrite(next, today: RecomputeAfterOneWriteTests.today).ledger.rows.count
     }
     InsightsBench.measure("recompute from nothing, \(data.entries.count) operations") {
-      rows = RecomputeAfterOneWriteTests.Figures.built(from: next, today: RecomputeAfterOneWriteTests.today).ledger.rows.count
+      rows =
+        RecomputeAfterOneWriteTests.Figures.built(
+          from: next, today: RecomputeAfterOneWriteTests.today
+        ).ledger.rows.count
     }
     #expect(rows > 0)
     #expect(quick.median < .milliseconds(300))

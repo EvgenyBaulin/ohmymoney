@@ -35,7 +35,8 @@ struct RuleReferenceMergeTests {
     let category = UUID()
     try references.save(Place(id: source, name: "Pyatyorochka"))
     try references.save(Place(id: target, name: "Pyaterochka"))
-    let byCondition = rule([.place(source), .amountAbove(AmountE4(whole: 10))], [.setCategory(category)])
+    let byCondition = rule(
+      [.place(source), .amountAbove(AmountE4(whole: 10))], [.setCategory(category)])
     let byAction = rule([.textContains("shop")], [.setPlace(source)], position: 1)
     let unrelated = rule([.place(target)], [.setCategory(category)], position: 2)
     for item in [byCondition, byAction, unrelated] { try rules.append(item) }

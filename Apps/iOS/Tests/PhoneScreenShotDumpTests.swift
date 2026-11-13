@@ -62,13 +62,17 @@ final class PhoneScreenShotDumpTests: XCTestCase {
     let all = harness.sampleEntries
     var found: [(String, TransactionEntry)] = []
     if let one = all.first(where: { $0.parts.count == 1 }) { found.append(("onePart", one)) }
-    if let many = all.first(where: { $0.parts.count >= 3 }) ?? all.first(where: { $0.parts.count == 2 }) {
+    if let many = all.first(where: { $0.parts.count >= 3 })
+      ?? all.first(where: { $0.parts.count == 2 })
+    {
       found.append(("severalParts", many))
     }
     if let other = all.first(where: { $0.parts.contains { $0.reimbursable } }) {
       found.append(("paidForSomeoneElse", other))
     }
-    if let forWhom = all.first(where: { $0.parts.contains { $0.forPersonId != nil && !$0.reimbursable } }) {
+    if let forWhom = all.first(where: {
+      $0.parts.contains { $0.forPersonId != nil && !$0.reimbursable }
+    }) {
       found.append(("forSomeone", forWhom))
     }
     return found

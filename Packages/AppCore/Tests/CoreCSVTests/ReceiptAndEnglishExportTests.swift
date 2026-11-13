@@ -42,7 +42,9 @@ struct ReceiptAndEnglishExportTests {
     #expect(row.count == ExportTables.categories.columns.count)
     #expect(Array(row.suffix(4).prefix(2)) == ["Groceries", "Продукты"])
     #expect(
-      Array(ExportTables.row(Category(kind: .expense, name: "Такси")).suffix(4)) == ["", "", "", ""])
+      Array(ExportTables.row(Category(kind: .expense, name: "Такси")).suffix(4)) == [
+        "", "", "", "",
+      ])
   }
 
   @Test func theFilesStayFiftyThreeAndNoColumnEndsInE4() {

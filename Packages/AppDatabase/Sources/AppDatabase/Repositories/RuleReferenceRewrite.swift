@@ -23,8 +23,12 @@ extension SpendingRulesRepository {
     }
     var changed: [RewrittenRule] = []
     for rule in try rules(db)
-    where rule.conditions.contains(where: { $0.references.contains { $0.kind == kind && $0.id == source } })
-      || rule.actions.contains(where: { $0.references.contains { $0.kind == kind && $0.id == source } })
+    where rule.conditions.contains(where: {
+      $0.references.contains { $0.kind == kind && $0.id == source }
+    })
+      || rule.actions.contains(where: {
+        $0.references.contains { $0.kind == kind && $0.id == source }
+      })
     {
       var after = rule
       after.conditions = rule.conditions.compactMap { $0.mappingReferences(follow) }
@@ -39,8 +43,9 @@ extension SpendingRulesRepository {
   /// Takes the rewrites back; a rule edited since is left as the owner made it.
   static func revertRules(_ rewrites: [RewrittenRule], db: Database) throws {
     for rewrite in rewrites {
-      guard let row = try Row.fetchOne(
-        db, sql: "SELECT * FROM rules WHERE id = ?", arguments: [rewrite.after.id.uuidString]),
+      guard
+        let row = try Row.fetchOne(
+          db, sql: "SELECT * FROM rules WHERE id = ?", arguments: [rewrite.after.id.uuidString]),
         let current = try? Rule(row: row),
         current.conditions == rewrite.after.conditions, current.actions == rewrite.after.actions
       else { continue }

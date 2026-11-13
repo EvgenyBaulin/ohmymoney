@@ -32,14 +32,16 @@ final class PhoneScreenLayoutTests: XCTestCase {
   ) {
     harness.environment.theme.fontSize = fontSize
     for screen in PhoneScreen.all {
-      let shown = PhoneScreenRegistry.open(screen, in: harness, size: size, dark: dark, idiom: idiom)
+      let shown = PhoneScreenRegistry.open(
+        screen, in: harness, size: size, dark: dark, idiom: idiom)
       let layout = audit.problems(
         shown, size: size, reachesRightMargin: idiom == .phone && screen == .tab(.overview))
       let mac = audit.macElements(shown)
       harness.close(shown.window)
       let where_ = "\(screen) at \(Int(size.width)) pt, \(fontSize)"
       if PhoneLayoutKnownIssues.contains(
-        screen, width: size.width, idiom: idiom, largestText: fontSize == .xlarge) {
+        screen, width: size.width, idiom: idiom, largestText: fontSize == .xlarge)
+      {
         XCTAssertFalse(
           layout.isEmpty, "\(where_) fits now: take it out of PhoneLayoutKnownIssues",
           file: file, line: line)
@@ -105,7 +107,9 @@ final class PhoneScreenEmptyBookTests: XCTestCase {
       let shown = PhoneScreenRegistry.open(screen, in: harness, size: PhoneSize.narrow)
       let layout = audit.problems(shown, size: PhoneSize.narrow)
       harness.close(shown.window)
-      if PhoneLayoutKnownIssues.contains(screen, width: PhoneSize.narrow.width, idiom: .phone) { continue }
+      if PhoneLayoutKnownIssues.contains(screen, width: PhoneSize.narrow.width, idiom: .phone) {
+        continue
+      }
       XCTAssertTrue(layout.isEmpty, "\(screen), empty book: \(layout.joined(separator: "; "))")
     }
     await harness.tearDown()
@@ -116,7 +120,9 @@ final class PhoneScreenEmptyBookTests: XCTestCase {
 /// attachments of the test in the result bundle), and the Russian and English of the busiest.
 @MainActor
 final class PhoneScreenPictureTests: XCTestCase {
-  private func pictures(dark: Bool, language: AppLanguage.Choice, screens: [PhoneScreen]) async throws {
+  private func pictures(
+    dark: Bool, language: AppLanguage.Choice, screens: [PhoneScreen]
+  ) async throws {
     executionTimeAllowance = 300
     let harness = try await PhoneHarness.make(language: language)
     for screen in screens {
@@ -194,11 +200,13 @@ final class PhonePlanningButtonsTests: XCTestCase {
         let leaves = harness.leaves(of: shown.window, in: shown.content)
         harness.close(shown.window)
         let buttons = leaves.filter { titles.contains($0.label) && $0.isControl }
-        XCTAssertFalse(buttons.isEmpty, "no payment button at \(Int(size.width)) pt (\(language.rawValue))")
+        XCTAssertFalse(
+          buttons.isEmpty, "no payment button at \(Int(size.width)) pt (\(language.rawValue))")
         for button in buttons {
           XCTAssertLessThanOrEqual(
             button.frame.height, 34,
-            "«\(button.label)» is \(Int(button.frame.width)) × \(Int(button.frame.height)) at \(Int(size.width)) pt (\(language.rawValue)): broken over lines")
+            "«\(button.label)» is \(Int(button.frame.width)) × \(Int(button.frame.height)) at \(Int(size.width)) pt (\(language.rawValue)): broken over lines"
+          )
         }
       }
       await harness.tearDown()

@@ -360,13 +360,16 @@ struct Schema0005CheckTests {
       try String.fetchSet(db, sql: "SELECT name FROM sqlite_master WHERE type = 'trigger'")
     }
     #expect(
-      Set(triggers.filter { !$0.hasPrefix("sync_") && !$0.hasPrefix("attachments_")
-          && !$0.hasPrefix("thing_valuations_") }) == [
-        "card_of_account_transactions_insert", "card_of_account_transactions_update",
-        "card_of_account_scheduled_insert", "card_of_account_scheduled_update",
-        "card_of_account_cashback_insert", "card_of_account_cashback_update",
-        "main_card_of_account_insert", "main_card_of_account_update", "main_card_follows_card",
-      ])
+      Set(
+        triggers.filter {
+          !$0.hasPrefix("sync_") && !$0.hasPrefix("attachments_")
+            && !$0.hasPrefix("thing_valuations_")
+        }) == [
+          "card_of_account_transactions_insert", "card_of_account_transactions_update",
+          "card_of_account_scheduled_insert", "card_of_account_scheduled_update",
+          "card_of_account_cashback_insert", "card_of_account_cashback_update",
+          "main_card_of_account_insert", "main_card_of_account_update", "main_card_follows_card",
+        ])
   }
 
   /// A merge of two accounts moves the cards first and the rows that name them after: then every

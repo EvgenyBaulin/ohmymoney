@@ -237,11 +237,13 @@ struct AccountsSidebarSection: View {
       ? borrowedFigure(line.account)
       : SidebarFigure.of(line, money: environment.money, words: t, withoutRate: withoutRate)
     return SidebarAccountRowBody(
-      name: line.account.name, nameFont: indented
+      name: line.account.name,
+      nameFont: indented
         ? AccountsSidebarMetrics.memberName : AccountsSidebarMetrics.looseName,
       dot: line.account.accountAccent?.swatch ?? Color.secondary,
       isMain: line.account.isDefault, main: figure.main, caption: figure.caption,
-      mainLabel: t("accounts.main"))
+      mainLabel: t("accounts.main")
+    )
     .padding(.leading, indented ? AccountsSidebarMetrics.memberIndent : 0)
     .tag(SidebarItem.account(line.account.id))
     .moveDisabled(line.account.isDefault)

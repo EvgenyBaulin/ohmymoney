@@ -22,7 +22,8 @@ struct MerchantCodeAndFeeExportTests {
     #expect(MerchantCode.normalized("54a1") == nil)
     #expect(MerchantCode.normalized("") == nil)
     #expect(MerchantCode.normalized(String?.none) == nil)
-    #expect(Transaction(kind: .expense, occurredAt: Date(), amountE4: .zero, mcc: "742").mcc == "0742")
+    #expect(
+      Transaction(kind: .expense, occurredAt: Date(), amountE4: .zero, mcc: "742").mcc == "0742")
   }
 
   @Test func theCodeAndTheFeeGoLastAndEmptyForNone() {
@@ -74,9 +75,11 @@ struct MerchantCodeAndFeeExportTests {
       recordedAt: Date(timeIntervalSince1970: 1_790_000_000))
     let row = ExportTables.row(value)
     #expect(row.count == ExportTables.thingValuations.columns.count)
-    #expect(row[1...6] == [
-      "asset", owner.uuidString, "2026-11-11", "123.45", "EUR", "market",
-    ][0...5])
+    #expect(
+      row[1...6]
+        == [
+          "asset", owner.uuidString, "2026-11-11", "123.45", "EUR", "market",
+        ][0...5])
     #expect(!ExportTables.thingValuations.columns.contains { $0.hasSuffix("_e4") })
   }
 

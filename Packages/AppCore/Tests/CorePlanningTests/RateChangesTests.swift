@@ -61,8 +61,9 @@ struct RateChangesTests {
     #expect(reminder.due == DateOnly(year: 2026, month: 12, day: 2))
     #expect(reminder.urgency == .soon)
     #expect(reminder.id == "rate:\(near.id.uuidString.lowercased()):2026-12-02")
-    #expect(RateChanges.reminders(accounts: [near], today: DateOnly(year: 2026, month: 12, day: 2))
-      .first?.urgency == .today)
+    #expect(
+      RateChanges.reminders(accounts: [near], today: DateOnly(year: 2026, month: 12, day: 2))
+        .first?.urgency == .today)
   }
 
   @Test func theReminderPipelineCarriesIt() {

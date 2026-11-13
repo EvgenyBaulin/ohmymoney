@@ -51,31 +51,31 @@ struct GeneralSettingsView: View {
           updatesGroup
         #endif
       #else
-      Picker(selection: $language.choice) {
-        ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
-          Text(verbatim: environment.language(choice.settingsKey, table: "Settings"))
-            .tag(choice)
-        }
-      } label: {
-        Text(verbatim: environment.language("settings.language", table: "Settings"))
-      }
-      .pickerStyle(.inline)
-
-      // «Запись чисел» (0563): how the interface writes a number; files stay as they are.
-      Section {
-        Picker(selection: $theme.numberStyle) {
-          ForEach(NumberStyle.allCases, id: \.self) { style in
-            Text(verbatim: Self.numberStyleSample(style)).tag(style)
+        Picker(selection: $language.choice) {
+          ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
+            Text(verbatim: environment.language(choice.settingsKey, table: "Settings"))
+              .tag(choice)
           }
         } label: {
-          Text(verbatim: environment.language("settings.numbers", table: "Settings"))
+          Text(verbatim: environment.language("settings.language", table: "Settings"))
         }
-        .accessibilityIdentifier("settings.numbers")
-      } footer: {
-        Text(verbatim: environment.language("settings.numbers.hint", table: "Settings"))
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-      }
+        .pickerStyle(.inline)
+
+        // «Запись чисел» (0563): how the interface writes a number; files stay as they are.
+        Section {
+          Picker(selection: $theme.numberStyle) {
+            ForEach(NumberStyle.allCases, id: \.self) { style in
+              Text(verbatim: Self.numberStyleSample(style)).tag(style)
+            }
+          } label: {
+            Text(verbatim: environment.language("settings.numbers", table: "Settings"))
+          }
+          .accessibilityIdentifier("settings.numbers")
+        } footer: {
+          Text(verbatim: environment.language("settings.numbers.hint", table: "Settings"))
+            .appFont(.callout)
+            .foregroundStyle(.secondary)
+        }
 
       #endif
 
@@ -95,15 +95,15 @@ struct GeneralSettingsView: View {
       }
 
       #if !os(macOS)
-      // The tips on the spot (`GuideTips`): on this Mac only, never in the data.
-      Section {
-        Toggle(
-          isOn: Binding(get: { GuideStore.shared.tipsOff }, set: { GuideTips.setOff($0) })
-        ) {
-          Text(verbatim: environment.language("settings.tips.off", table: "Settings"))
+        // The tips on the spot (`GuideTips`): on this Mac only, never in the data.
+        Section {
+          Toggle(
+            isOn: Binding(get: { GuideStore.shared.tipsOff }, set: { GuideTips.setOff($0) })
+          ) {
+            Text(verbatim: environment.language("settings.tips.off", table: "Settings"))
+          }
+          .accessibilityIdentifier("settings.tips.off")
         }
-        .accessibilityIdentifier("settings.tips.off")
-      }
 
       #endif
 
@@ -216,7 +216,9 @@ struct GeneralSettingsView: View {
       @Bindable var language = environment.language
       @Bindable var theme = environment.theme
       SettingsCardGroup(title: g("settings.general.group.language")) {
-        SettingsCardRow(symbol: "globe", title: environment.language("settings.language", table: "Settings")) {
+        SettingsCardRow(
+          symbol: "globe", title: environment.language("settings.language", table: "Settings")
+        ) {
           SettingsValueMenu(
             value: environment.language(language.choice.settingsKey, table: "Settings")
           ) {
@@ -245,7 +247,8 @@ struct GeneralSettingsView: View {
           .accessibilityIdentifier("settings.numbers")
         }
         SettingsCardRow(
-          symbol: "moon", title: environment.language("settings.appearance.scheme", table: "Settings")
+          symbol: "moon",
+          title: environment.language("settings.appearance.scheme", table: "Settings")
         ) {
           SettingsValueMenu(value: AppearanceSettingsView.schemeTitle(theme.scheme, environment)) {
             Picker("", selection: $theme.scheme) {

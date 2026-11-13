@@ -107,7 +107,8 @@ struct ExportPandasTests {
       ExportTables.subscriptionUsers, ExportTables.subscriptionKeepGroups, ExportTables.attachments,
       ExportTables.wishes, ExportTables.wishPrices, ExportTables.shoppingItems,
       ExportTables.ownedItems, ExportTables.habitBadges, ExportTables.noSpendDays,
-      ExportTables.bankCashbackCategories, ExportTables.cashbackOffers, ExportTables.creditStatements,
+      ExportTables.bankCashbackCategories, ExportTables.cashbackOffers,
+      ExportTables.creditStatements,
     ] where rows[table] == nil {
       rows[table] = []
     }

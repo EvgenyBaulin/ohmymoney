@@ -30,7 +30,8 @@ struct PrintedReceiptTests {
     let numbers = try #require(printed.receipt.numbers)
     // The same receipt read from its QR (no leading zeros) is the same key.
     let fromQR = try #require(
-      ReceiptQRParser.parse("t=20261029T1832&s=1250.50&fn=9960440300000000&i=12345&fp=2345678901&n=1")
+      ReceiptQRParser.parse(
+        "t=20261029T1832&s=1250.50&fn=9960440300000000&i=12345&fp=2345678901&n=1")
     )
     #expect(numbers.isSameReceipt(as: try #require(fromQR.numbers)))
   }
