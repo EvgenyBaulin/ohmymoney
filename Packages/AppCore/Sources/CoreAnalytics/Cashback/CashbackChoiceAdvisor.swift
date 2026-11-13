@@ -12,16 +12,69 @@ public enum CashbackChoiceAdvisor {
   /// More offers than this are not combined in every way: the best picks are taken one by one.
   static let exhaustiveLimit = 14
 
+  /// One kind of purchase for the bank's table: a category and, when the operation has one, its
+  /// merchant code.
+  public struct SpendingBucket: Hashable, Sendable {
+    public var categoryId: UUID
+    public var mcc: String?
+
+    public init(categoryId: UUID, mcc: String? = nil) {
+      self.categoryId = categoryId
+      self.mcc = MerchantCode.normalized(mcc)
+    }
+  }
+
   /// What the purchases that earn cashback cost by category, rubles a month on average over
   /// the `months` before `month`: the money charged (refunds taken back), as a bank counts it.
   /// Hidden accounts count too — only the total of a category is used, never an account.
   public static func monthlySpending(
     ledger: Ledger, before month: MonthKey, months: Int = monthsOfHistory
   ) -> [UUID: AmountE4] {
+    monthlyCodedSpending(ledger: ledger, before: month, months: months).plain
+  }
+
+  /// The spending of `monthlySpending` and, beside it, the same split by merchant code too (an
+  /// operation without one has a bucket of its own), so that a label with code lists can tell
+  /// which purchases it covers. Rows without code lists read `plain`, so their figures are the
+  /// ones `monthlySpending` gives, to the kopeck.
+  public struct CodedSpending: Hashable, Sendable {
+    public var plain: [UUID: AmountE4]
+    public var buckets: [SpendingBucket: AmountE4]
+
+    public init(plain: [UUID: AmountE4] = [:], buckets: [SpendingBucket: AmountE4] = [:]) {
+      self.plain = plain
+      self.buckets = buckets
+    }
+
+    /// What a read of these rows is taken over: the code split only when a row has lists.
+    func source(for rows: [BankCategoryMapping]) -> [SpendingBucket: AmountE4] {
+      rows.contains(where: \.hasCodes) ? buckets : CashbackChoiceAdvisor.buckets(plain)
+    }
+  }
+
+  public static func monthlyCodedSpending(
+    ledger: Ledger, before month: MonthKey, months: Int = monthsOfHistory
+  ) -> CodedSpending {
+    let totals = spendingTotals(ledger: ledger, before: month, months: months)
+    var byCategory: [UUID: Decimal] = [:]
+    for (bucket, total) in totals { byCategory[bucket.categoryId, default: 0] += total }
+    return CodedSpending(
+      plain: averaged(byCategory, months: months), buckets: averaged(totals, months: months))
+  }
+
+  private static func averaged<Key>(_ totals: [Key: Decimal], months: Int) -> [Key: AmountE4] {
+    totals.compactMapValues { total in
+      try? AmountE4(decimal: DecimalMath.round(total / Decimal(months), scale: 2))
+    }
+  }
+
+  private static func spendingTotals(
+    ledger: Ledger, before month: MonthKey, months: Int
+  ) -> [SpendingBucket: Decimal] {
     guard months > 0 else { return [:] }
     let range = DayRange(month.adding(months: -months).firstDay, month.previous.lastDay)
     var earns: [UUID: Bool] = [:]
-    var totals: [UUID: Decimal] = [:]
+    var totals: [SpendingBucket: Decimal] = [:]
     for row in ledger.rows(in: range) where row.kind == .expense {
       guard !OverviewSummary.isCountDifference(row) else {
         continue
@@ -38,11 +91,11 @@ public enum CashbackChoiceAdvisor {
           return value
         }()
       guard counts, !ledger.tree.isLoanCategory(categoryId) else { continue }
-      totals[categoryId, default: 0] += (row.amountRubE4 - row.refundedRubE4).decimal
+      let bucket = SpendingBucket(
+        categoryId: categoryId, mcc: ledger.entry(row.transactionId)?.transaction.mcc)
+      totals[bucket, default: 0] += (row.amountRubE4 - row.refundedRubE4).decimal
     }
-    return totals.compactMapValues { total in
-      try? AmountE4(decimal: DecimalMath.round(total / Decimal(months), scale: 2))
-    }
+    return totals
   }
 
   /// The categories a bank's label stands for, by that bank's table.
@@ -57,17 +110,59 @@ public enum CashbackChoiceAdvisor {
     .map(\.categoryId)
   }
 
+  /// Whether a label's rows (the rows of one bank's table with that label) cover a kind of
+  /// purchase. A row with a code list takes a purchase that has a code by the code alone
+  /// (excluded codes lose, a non-empty include list must hold the code); an exclusion-only row
+  /// still goes by category, minus the excluded codes. A purchase without a code, or a row
+  /// without lists, goes by category and what lies under it, as before codes existed.
+  static func covers(rows: [BankCategoryMapping], bucket: SpendingBucket, tree: CategoryTree)
+    -> Bool
+  {
+    rows.contains { row in
+      if let mcc = bucket.mcc, row.hasCodes {
+        if row.excludeCodes.contains(mcc) { return false }
+        if !row.includeCodes.isEmpty { return row.includeCodes.contains(mcc) }
+      }
+      return CashbackAdvisor.isUnder(bucket.categoryId, row.categoryId, tree: tree)
+    }
+  }
+
+  /// The rows of one bank's table that carry a label.
+  static func rows(of label: String, bankId: UUID?, mappings: [BankCategoryMapping])
+    -> [BankCategoryMapping]
+  {
+    guard let bankId else { return [] }
+    let key = BankCategoryMapping.normalized(label)
+    return mappings.filter {
+      $0.bankId == bankId && BankCategoryMapping.normalized($0.label) == key
+    }
+  }
+
+  static func buckets(_ spending: [UUID: AmountE4]) -> [SpendingBucket: AmountE4] {
+    Dictionary(uniqueKeysWithValues: spending.map { (SpendingBucket(categoryId: $0.key), $0.value) })
+  }
+
   /// The monthly spending a label covers: its categories and everything under them, each
   /// category counted once.
   public static func spending(
     of label: String, bankId: UUID?, mappings: [BankCategoryMapping],
     spending: [UUID: AmountE4], tree: CategoryTree
   ) -> AmountE4 {
-    let roots = categories(of: label, bankId: bankId, mappings: mappings)
-    guard !roots.isEmpty else { return .zero }
+    self.spending(
+      of: label, bankId: bankId, mappings: mappings, coded: CodedSpending(plain: spending),
+      tree: tree)
+  }
+
+  /// The monthly spending a label covers when merchant codes are known (`covers`).
+  public static func spending(
+    of label: String, bankId: UUID?, mappings: [BankCategoryMapping],
+    coded: CodedSpending, tree: CategoryTree
+  ) -> AmountE4 {
+    let rows = Self.rows(of: label, bankId: bankId, mappings: mappings)
+    guard !rows.isEmpty else { return .zero }
     return AmountE4.sum(
-      spending.filter { id, _ in
-        roots.contains { CashbackAdvisor.isUnder(id, $0, tree: tree) }
+      coded.source(for: rows).filter { bucket, _ in
+        covers(rows: rows, bucket: bucket, tree: tree)
       }.values)
   }
 
@@ -83,8 +178,18 @@ public enum CashbackChoiceAdvisor {
     of offer: CashbackOffer, bankId: UUID?, mappings: [BankCategoryMapping],
     spending: [UUID: AmountE4], tree: CategoryTree
   ) -> AmountE4 {
+    value(
+      of: offer, bankId: bankId, mappings: mappings, coded: CodedSpending(plain: spending),
+      tree: tree)
+  }
+
+  /// `value` with merchant codes known.
+  public static func value(
+    of offer: CashbackOffer, bankId: UUID?, mappings: [BankCategoryMapping],
+    coded: CodedSpending, tree: CategoryTree
+  ) -> AmountE4 {
     let base = Self.spending(
-      of: offer.label, bankId: bankId, mappings: mappings, spending: spending, tree: tree)
+      of: offer.label, bankId: bankId, mappings: mappings, coded: coded, tree: tree)
     let value = DecimalMath.round(base.decimal * offer.percent.fraction, scale: 2, mode: .down)
     return (try? AmountE4(decimal: value)) ?? .zero
   }
@@ -96,20 +201,32 @@ public enum CashbackChoiceAdvisor {
     offers: [CashbackOffer], pick: Int, bankId: UUID?, mappings: [BankCategoryMapping],
     spending: [UUID: AmountE4], tree: CategoryTree, accountCap: AmountE4? = nil, limit: Int = 3
   ) -> [Pick] {
+    best(
+      offers: offers, pick: pick, bankId: bankId, mappings: mappings,
+      coded: CodedSpending(plain: spending), tree: tree, accountCap: accountCap, limit: limit)
+  }
+
+  /// `best` with merchant codes known: a purchase is reached by a label through `covers`.
+  public static func best(
+    offers: [CashbackOffer], pick: Int, bankId: UUID?, mappings: [BankCategoryMapping],
+    coded: CodedSpending, tree: CategoryTree, accountCap: AmountE4? = nil, limit: Int = 3
+  ) -> [Pick] {
+    let offerRows = offers.map { rows(of: $0.label, bankId: bankId, mappings: mappings) }
+    let spending = coded.source(for: offerRows.flatMap { $0 })
     let count = min(max(pick, 0), offers.count)
     guard count > 0 else { return [] }
     // Each offer: the categories it reaches (with what lies under them) and its percent.
-    let reach: [[UUID: Decimal]] = offers.map { offer in
-      let roots = categories(of: offer.label, bankId: bankId, mappings: mappings)
-      var map: [UUID: Decimal] = [:]
-      for (id, _) in spending
-      where roots.contains(where: { CashbackAdvisor.isUnder(id, $0, tree: tree) }) {
-        map[id] = offer.percent.fraction
+    let reach: [[SpendingBucket: Decimal]] = offers.indices.map { index in
+      let offer = offers[index]
+      let rows = offerRows[index]
+      var map: [SpendingBucket: Decimal] = [:]
+      for (bucket, _) in spending where covers(rows: rows, bucket: bucket, tree: tree) {
+        map[bucket] = offer.percent.fraction
       }
       return map
     }
     func worth(_ chosen: [Int]) -> AmountE4 {
-      var best: [UUID: Decimal] = [:]
+      var best: [SpendingBucket: Decimal] = [:]
       for index in chosen {
         for (id, fraction) in reach[index] { best[id] = max(best[id] ?? 0, fraction) }
       }
