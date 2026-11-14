@@ -129,11 +129,7 @@ struct OperationsScreen: View {
         }
       }
     }
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: { width in
-      self.width = width
-    }
+    .measuredWidth($width)
     .task {
       // `--present inspector`: the newest operation in the editor, as a double click does.
       guard await LaunchPresentation.due(.inspector) else { return }

@@ -115,11 +115,7 @@ struct PhoneRoot: View {
     }
     .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
     .environment(\.windowWidth, width)
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
     .modifier(PhoneRequests(router: router))
     .modifier(PhoneSheets(deps: deps, router: router))
     // The palette, the question sheet and the saved views, as on the Mac.

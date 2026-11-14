@@ -41,11 +41,7 @@ struct PhoneCalendarView: View {
         .handingOver(dependencies)
     }
     .onChange(of: detail) { _, _ in entryGate?.send(.tappedOutside) }
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
   }
 
   private func page(_ snapshot: DataSnapshot) -> some View {

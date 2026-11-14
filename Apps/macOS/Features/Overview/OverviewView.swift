@@ -220,11 +220,7 @@ private struct OverviewHeader: View {
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("overview.grid")
     .frame(maxWidth: .infinity, alignment: .leading)
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      measured = $0
-    }
+    .measuredWidth($measured)
     .listRowSeparator(.hidden)
     .selectionDisabled()
   }

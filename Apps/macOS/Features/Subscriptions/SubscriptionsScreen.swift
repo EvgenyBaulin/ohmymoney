@@ -44,11 +44,7 @@ struct SubscriptionsScreen: View {
       .padding(20)
     }
     .background(surfaces.background)
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
+    .measuredWidth($width)
     .sheetFrame(minWidth: 520, idealWidth: 860, minHeight: 480, idealHeight: 680)
     .task(id: compute.generation) { await load() }
     .onAppear { dismissed = DebtReminderMarks.read(from: .standard).dismissed }

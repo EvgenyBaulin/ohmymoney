@@ -7,12 +7,10 @@
 # this script enforces: a size taken off the screen (`onGeometryChange`, `GeometryReader`)
 # never comes back into the layout of the same branch.
 #
-# Only a HEIGHT is judged, not a width, and that is on purpose. A view's height is decided by
-# its content, from the bottom up: a height sent back down can propose a new height, which is
-# a loop with no end. A width in this app is imposed from the top down — the window gives it
-# to the scene — so a view that reflows by a measured width settles in one pass. Four places
-# do exactly that and are right to (`WindowWidthReader`, `OverviewView`, `AnalyticsSections`,
-# `PlanningView`); a rule that also caught them would be four waivers of noise.
+# Widths saved for layout must use measuredWidth / MeasuredWidth.resolve: whole points
+# rounded down, ignoring changes below half a point. The companion Python guard checks
+# width and frame writes (including GeometryReader and onScrollGeometryChange).
+# The height rules below remain independent and stricter.
 #
 # Two shapes are flagged:
 #
@@ -132,13 +130,15 @@ if [ "${1:-}" = "--self-test" ]; then
     scan "$good"
     exit 1
   fi
+  python3 "$here/check-measured-width.py" --self-test || exit 1
   echo "check-geometry self-test: ok"
   exit 0
 fi
 
 if [ $# -eq 0 ]; then set -- Apps; fi
+python3 "$here/check-measured-width.py" "$@" || exit 1
 if ! scan "$@"; then
   echo "geometry: a measured height feeds the layout"
   exit 1
 fi
-echo "geometry: no measured heights in the layout"
+echo "geometry: heights safe; saved widths stabilized"

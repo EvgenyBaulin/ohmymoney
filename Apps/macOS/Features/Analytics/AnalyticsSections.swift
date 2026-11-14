@@ -17,36 +17,33 @@ struct AnalyticsSectionView: View {
   /// numbers of the screen (`AnalyticsMetrics`).
   var side: CGFloat = 20
   var top: CGFloat = 20
-  @State private var width: CGFloat = 0
 
   /// From here on two small charts stand side by side.
   static let wideWidth: CGFloat = 860
 
   var body: some View {
-    ScrollView {
-      VStack(alignment: .leading, spacing: 16) {
-        if let headerLine {
-          Text(verbatim: headerLine)
-            .appFont(AnalyticsCardType.subtitle)
-            .foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
-            .accessibilityIdentifier("analytics.section.line")
+    // Choose the columns in the first layout pass, so Charts do not start in a narrow stack
+    // and then move to a wide row just because a stored measurement arrived later.
+    // geometry: width is read directly, never stored or fed back into the reader's size.
+    GeometryReader { geometry in
+      ScrollView {
+        VStack(alignment: .leading, spacing: 16) {
+          if let headerLine {
+            Text(verbatim: headerLine)
+              .appFont(AnalyticsCardType.subtitle)
+              .foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+              .accessibilityIdentifier("analytics.section.line")
+          }
+          sectionBody(isWide: geometry.size.width >= Self.wideWidth)
         }
-        sectionBody
+        .padding(.horizontal, side)
+        .padding(.top, top)
+        .padding(.bottom, 20)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
       }
-      .padding(.horizontal, side)
-      .padding(.top, top)
-      .padding(.bottom, 20)
-      .frame(maxWidth: .infinity, alignment: .topLeading)
-    }
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
     }
   }
-
-  private var isWide: Bool { width >= Self.wideWidth }
 
   /// The line over the cards: only where the section does not show the period of the header
   /// (`AnalyticsSectionLine`), and «часть скрыта» whenever a hidden account is covered.
@@ -59,7 +56,7 @@ struct AnalyticsSectionView: View {
   }
 
   @ViewBuilder
-  private var sectionBody: some View {
+  private func sectionBody(isWide: Bool) -> some View {
     switch section {
     case .overview: OverviewSection(state: state, retry: retry, isWide: isWide)
     case .quality: QualitySection(state: state, retry: retry, isWide: isWide)

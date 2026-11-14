@@ -1,17 +1,11 @@
-// None of these feed a measured height back into the layout: a width reflows from the top
-// down, a floating element leaves its room to the safe area, and a frame measured for a
+// None of these feed a measured height back into the layout: widths are stabilized, a floating element leaves its room to the safe area, and a frame measured for a
 // popover never reaches a size.
 struct GoodBar: View {
   @State private var width: CGFloat = 0
 
   var body: some View {
     content
-      // The window gives the width from the top down, so reflowing by it settles at once.
-      .onGeometryChange(for: CGFloat.self) {
-        $0.size.width
-      } action: {
-        width = $0
-      }
+      .measuredWidth($width)
       .padding(.horizontal, width > 800 ? 24 : 12)
   }
 }
