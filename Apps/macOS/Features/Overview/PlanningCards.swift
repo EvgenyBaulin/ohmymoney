@@ -23,34 +23,7 @@ struct CanSaveCard: View {
         guard let tree = compute.snapshot?.ledger.tree else { return nil }
         return PlanningText.categoryPath(id, tree: tree)
       }
-      VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
-        Text(verbatim: tile.figure)
-          .appFont(StyleType.tileFigure)
-          .foregroundStyle(surfaces.primary)
-          .fixedSize(horizontal: false, vertical: true)
-        if let shortfall = tile.shortfall {
-          Text(verbatim: shortfall)
-            .appFont(StyleType.tileRow.monospacedDigit())
-            .fixedSize(horizontal: false, vertical: true)
-            .accessibilityIdentifier("overview.canSave.shortfall")
-          ForEach(Array(tile.hints.enumerated()), id: \.offset) { _, hint in
-            Text(verbatim: hint)
-              .appFont(StyleType.tileHint)
-              .foregroundStyle(surfaces.secondary)
-              .fixedSize(horizontal: false, vertical: true)
-          }
-        }
-        TileFigureRow(label: tile.savedLabel, figure: tile.saved)
-        if canSave.lowData {
-          Label {
-            Text(verbatim: environment.language("common.noData"))
-          } icon: {
-            Image(systemName: "hourglass")
-          }
-          .appFont(StyleType.tileHint)
-          .foregroundStyle(surfaces.secondary)
-        }
-      }
+      CanSaveTileBody(tile: tile, lowData: canSave.lowData)
     }
   }
 
@@ -64,6 +37,47 @@ struct CanSaveCard: View {
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Planning") }
+}
+
+/// The words of the card «Можно отложить»: the figure or the sentence in its place, the shortage
+/// and what could cover it. Every line wraps to as many rows as it needs — a long sentence in a
+/// half-width card must never be cut.
+struct CanSaveTileBody: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
+  let tile: CanSaveTile
+  let lowData: Bool
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
+      Text(verbatim: tile.figure)
+        .appFont(StyleType.tileFigure)
+        .foregroundStyle(surfaces.primary)
+        .fixedSize(horizontal: false, vertical: true)
+      if let shortfall = tile.shortfall {
+        Text(verbatim: shortfall)
+          .appFont(StyleType.tileRow.monospacedDigit())
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("overview.canSave.shortfall")
+        ForEach(Array(tile.hints.enumerated()), id: \.offset) { _, hint in
+          Text(verbatim: hint)
+            .appFont(StyleType.tileHint)
+            .foregroundStyle(surfaces.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+      }
+      TileFigureRow(label: tile.savedLabel, figure: tile.saved)
+      if lowData {
+        Label {
+          Text(verbatim: environment.language("common.noData"))
+        } icon: {
+          Image(systemName: "hourglass")
+        }
+        .appFont(StyleType.tileHint)
+        .foregroundStyle(surfaces.secondary)
+      }
+    }
+  }
 }
 
 /// Scheduled payments and debt payments due within seven days, overdue ones first: the title
