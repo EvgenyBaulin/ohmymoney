@@ -128,9 +128,12 @@ struct OverviewDoNowCard: View {
                 verbatim: environment.format(
                   "overview.doNow.count", table: OverviewDoNow.table, counts: list.items.count)
                   + " · ")
-              Button(t("overview.doNow.all")) { screen.open(.worthALook) }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("overview.doNow.all")
+              TouchButton(
+                title: t("overview.doNow.all"), identifier: "overview.doNow.all",
+                idiom: LayoutIdiom.resolved(idiom), alignment: .trailing
+              ) { screen.open(.worthALook) } drawn: { tap in
+                Button(t("overview.doNow.all"), action: tap).buttonStyle(.plain)
+              }
             }
             .appFont(StyleType.rowDetail)
             .foregroundStyle(Self.countInk(in: theme, idiom: LayoutIdiom.resolved(idiom)))
@@ -176,9 +179,12 @@ struct OverviewDoNowCard: View {
             .foregroundStyle(surfaces.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        Button(text.button) { perform(item, snapshot: snapshot) }
-          .buttonStyle(.rowAction)
-          .accessibilityIdentifier("overview.doNow.\(item.action.rawValue)")
+        TouchButton(
+          title: text.button, identifier: "overview.doNow.\(item.action.rawValue)",
+          idiom: LayoutIdiom.resolved(idiom), alignment: .center
+        ) { perform(item, snapshot: snapshot) } drawn: { tap in
+          Button(text.button, action: tap).buttonStyle(.rowAction)
+        }
       }
       .padding(.vertical, StyleMetrics.doNowRowVertical)
       if let message = failure[item.id] {
@@ -222,5 +228,39 @@ struct OverviewDoNowCard: View {
 
   private func t(_ key: String) -> String {
     environment.language(key, table: OverviewDoNow.table)
+  }
+}
+
+/// A small button of a card. On the Mac it is the button as drawn. On a phone and a tablet it
+/// reaches 44 × 44 pt with its picture and the room it takes unchanged: a button's accessibility
+/// frame is its own layout, so the control a finger finds is a clear 44 pt button laid over the
+/// drawn one, which stands behind it for the eye only.
+private struct TouchButton<Drawn: View>: View {
+  let title: String
+  let identifier: String
+  let idiom: LayoutIdiom
+  let alignment: Alignment
+  let action: () -> Void
+  /// The button as drawn, given what a tap on it does.
+  @ViewBuilder let drawn: (@escaping () -> Void) -> Drawn
+  private static var side: CGFloat { 44 }
+
+  var body: some View {
+    if idiom == .mac {
+      drawn(action)
+        .accessibilityIdentifier(identifier)
+    } else {
+      drawn {}
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+        .overlay(alignment: alignment) {
+          Button(action: action) {
+            Color.clear.frame(minWidth: Self.side, minHeight: Self.side)
+          }
+          .buttonStyle(.plain)
+          .accessibilityLabel(title)
+          .accessibilityIdentifier(identifier)
+        }
+    }
   }
 }

@@ -359,7 +359,7 @@ struct RowActionButtonStyle: ButtonStyle {
       .background(theme.fillNeutral, in: shape)
       .overlay { shape.strokeBorder(theme.borderOutline, lineWidth: StyleMetrics.cardBorder) }
       .contentShape(shape)
-      .opacity(isEnabled ? (configuration.isPressed ? 0.8 : 1) : 0.4)
+    .opacity(isEnabled ? (configuration.isPressed ? 0.8 : 1) : 0.4)
   }
 }
 
