@@ -37,12 +37,17 @@ struct KeyRateTests {
     #expect(same.changes.count == 1)
   }
 
-  @Test func theBuiltInTableEndsAtSixteenAndFallsInSteps() {
+  @Test func theBuiltInTableKeepsTheDaysTheRatesCameIntoForce() {
     let builtIn = KeyRateTable.builtIn
-    #expect(builtIn.latest?.ratePercent == dec("16"))
+    // The Bank of Russia's table up to the decision of 23.10.2026: 14 % since 27.07.2026.
+    #expect(builtIn.latest?.ratePercent == dec("14"))
+    #expect(builtIn.latest?.effectiveOn == d(2026, 7, 27))
     #expect(builtIn.rate(on: d(2025, 1, 15)) == dec("21"))
-    #expect(builtIn.rate(on: d(2025, 10, 23)) == dec("17"))
-    #expect(builtIn.rate(on: d(2025, 10, 24)) == dec("16.5"))
+    // A decision on Friday 24.10.2025 came into force on Monday 27.10.2025.
+    #expect(builtIn.rate(on: d(2025, 10, 26)) == dec("17"))
+    #expect(builtIn.rate(on: d(2025, 10, 27)) == dec("16.5"))
+    #expect(builtIn.rate(on: d(2026, 6, 21)) == dec("14.5"))
+    #expect(builtIn.rate(on: d(2026, 6, 22)) == dec("14.25"))
     // Every year's highest rate matches the free sum of interest tax the app carries.
     #expect(builtIn.rate(on: d(2025, 6, 5)) == dec("21"))
   }
@@ -97,13 +102,13 @@ struct KeyRateTests {
   }
 
   @Test func theFetchedRowsWinTheirDayAndAFirstRowThatIsNoChangeVanishes() {
-    let fetched = [change(2025, 12, 19, "16"), change(2026, 2, 13, "15.5")]
+    let fetched = [change(2026, 7, 27, "14"), change(2026, 12, 21, "13.5")]
     let merged = KeyRateTable.builtIn.merged(with: fetched)
-    // 19 Dec 2025 is the same rate as the built-in row: no second row.
+    // 27 Jul 2026 is the same rate as the built-in row: no second row.
     #expect(merged.changes.count == KeyRateTable.builtIn.changes.count + 1)
-    #expect(merged.latest?.ratePercent == dec("15.5"))
-    let corrected = KeyRateTable.builtIn.merged(with: [change(2025, 12, 19, "15.75")])
-    #expect(corrected.rate(on: d(2025, 12, 19)) == dec("15.75"))
+    #expect(merged.latest?.ratePercent == dec("13.5"))
+    let corrected = KeyRateTable.builtIn.merged(with: [change(2026, 7, 27, "13.75")])
+    #expect(corrected.rate(on: d(2026, 7, 27)) == dec("13.75"))
   }
 
   @Test func theCacheAsksOnceADay() {
@@ -149,7 +154,8 @@ struct KeyRateTests {
     #expect(rate == dec("22"))
     #expect(drop.to == dec("15.5"))
     #expect(
-      KeyRateAdvisor.refinance(debts: [dear], table: .builtIn, today: d(2026, 6, 1)).isEmpty)
+      // 21 % held from 28.10.2024 to 08.06.2025: no fall over the 90 days before 1 Jun 2025.
+      KeyRateAdvisor.refinance(debts: [dear], table: .builtIn, today: d(2025, 6, 1)).isEmpty)
   }
 
   @Test func aDepositThatEndsWhileTheRateFallsGetsALineEvenWithNothingInTheShowcase() {

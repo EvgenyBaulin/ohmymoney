@@ -59,13 +59,15 @@ public struct KeyRateTable: Hashable, Sendable {
     self.changes = kept
   }
 
-  /// What the app carries. Checked against the Bank of Russia's decisions up to 19.12.2025
-  /// (16 %); a later decision is known only from the page, when the owner reads it.
+  /// What the app carries: the day each rate came into force (the Monday after the Friday of
+  /// the decision), checked against the Bank of Russia's table up to the decision of
+  /// 23.10.2026 (14 % kept); a later decision is known only from the page, when it is read.
   public static let builtIn = KeyRateTable(
     changes: [
-      (2023, 12, 18, "16"), (2024, 7, 26, "18"), (2024, 9, 13, "19"), (2024, 10, 25, "21"),
-      (2025, 6, 6, "20"), (2025, 7, 25, "18"), (2025, 9, 12, "17"), (2025, 10, 24, "16.5"),
-      (2025, 12, 19, "16"),
+      (2023, 12, 18, "16"), (2024, 7, 29, "18"), (2024, 9, 16, "19"), (2024, 10, 28, "21"),
+      (2025, 6, 9, "20"), (2025, 7, 28, "18"), (2025, 9, 15, "17"), (2025, 10, 27, "16.5"),
+      (2025, 12, 22, "16"), (2026, 2, 16, "15.5"), (2026, 3, 23, "15"), (2026, 4, 27, "14.5"),
+      (2026, 6, 22, "14.25"), (2026, 7, 27, "14"),
     ].compactMap { row in
       Decimal(string: row.3, locale: Locale(identifier: "en_US_POSIX")).map {
         KeyRateChange(
