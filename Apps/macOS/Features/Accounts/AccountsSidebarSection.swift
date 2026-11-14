@@ -783,8 +783,8 @@ extension View {
   }
 }
 
-/// The content of an account's row in the sidebar: the colour dot, the name that takes what
-/// room is left (and is cut at its end), and the figure with its caption at the right.
+/// The content of an account's row in the sidebar: the colour dot, the name and the figure with
+/// its caption, at the right of the name or, when the name is too long for that, under it.
 struct SidebarAccountRowBody: View {
   let name: String
   let nameFont: AppFont
@@ -798,6 +798,23 @@ struct SidebarAccountRowBody: View {
   private var secondaryInk: Color { Color(theme.palette.sidebarSecondaryText) }
 
   var body: some View {
+    // The figure goes beside the name while both fit on one line; a name too long for that
+    // keeps its room and the figure drops under it, whole, instead of cutting either.
+    ViewThatFits(in: .horizontal) {
+      HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
+        nameLine(lines: 1)
+        Spacer(minLength: 4)
+        figure(alignment: .trailing)
+      }
+      VStack(alignment: .leading, spacing: 0) {
+        nameLine(lines: 2)
+        figure(alignment: .leading)
+          .padding(.leading, AccountsSidebarMetrics.dot + AccountsSidebarMetrics.gap)
+      }
+    }
+  }
+
+  private func nameLine(lines: Int) -> some View {
     HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
       // The colour of the account as a dot, grey when it has none; the name stands beside it.
       Circle()
@@ -806,23 +823,25 @@ struct SidebarAccountRowBody: View {
         .accessibilityHidden(true)
       Text(verbatim: name)
         .appFont(nameFont)
-        .lineLimit(1)
+        .lineLimit(lines)
         // The main account is told in words to VoiceOver.
         .accessibilityValue(isMain ? Text(verbatim: mainLabel) : Text(verbatim: ""))
-      Spacer(minLength: 4)
-      VStack(alignment: .trailing, spacing: 0) {
-        Text(verbatim: main)
-          .appFont(AccountsSidebarMetrics.figure)
+    }
+  }
+
+  private func figure(alignment: HorizontalAlignment) -> some View {
+    VStack(alignment: alignment, spacing: 0) {
+      Text(verbatim: main)
+        .appFont(AccountsSidebarMetrics.figure)
+        .foregroundStyle(secondaryInk)
+        .sidebarAmount()
+        .accessibilityIdentifier("sidebar.row.figure")
+      if let caption {
+        Text(verbatim: caption)
+          .appFont(.caption)
+          .monospacedDigit()
           .foregroundStyle(secondaryInk)
-          .sidebarAmount()
-          .accessibilityIdentifier("sidebar.row.figure")
-        if let caption {
-          Text(verbatim: caption)
-            .appFont(.caption)
-            .monospacedDigit()
-            .foregroundStyle(secondaryInk)
-            .lineLimit(1)
-        }
+          .lineLimit(1)
       }
     }
   }
