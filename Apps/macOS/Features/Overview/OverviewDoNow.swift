@@ -31,7 +31,9 @@ enum OverviewDoNow {
       reviews: DoNowSources.reviews(
         entries: entries, today: environment.today, calendar: environment.calendar),
       statements: DoNowSources.statements(
-        entries: entries, today: environment.today, calendar: environment.calendar),
+        entries: entries, today: environment.today, calendar: environment.calendar,
+        archivedAccounts: Set(
+          snapshot.dataset.paymentMethods.filter(\.archived).map(\.id))),
       today: environment.today)
   }
 
@@ -66,7 +68,9 @@ enum OverviewDoNow {
     case .review:
       return DoNowRowText(
         title: environment.format("overview.doNow.review", table: table, counts: item.count),
-        detail: environment.language("overview.doNow.reviewDetail", table: table),
+        detail: environment.language(
+          item.id == "review:\(DoNowSources.olderReviewId)"
+            ? "overview.doNow.reviewOlderDetail" : "overview.doNow.reviewDetail", table: table),
         button: environment.language("overview.doNow.reviewButton", table: table), urgent: true)
     case .load:
       let name = snapshot.dataset.paymentMethods.first { $0.id == item.accountId }?.name ?? ""

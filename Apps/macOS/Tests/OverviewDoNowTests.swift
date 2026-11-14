@@ -54,13 +54,19 @@ final class OverviewDoNowTests: XCTestCase {
       PartDraft(categoryId: categorized ? food.id : nil, amount: AmountE4(whole: 100))
     ]
     var entry = try draft.materialize()
-    if account != nil { entry.transaction.source = "statement" }
+    if account != nil {
+      entry.transaction.source = "statement"
+      // The statement was loaded on the day the operation is dated, as the rule reads it.
+      entry.transaction.createdAt = draft.occurredAt
+    }
     return entry
   }
 
-  private func snapshot(_ entries: [TransactionEntry]) -> DataSnapshot {
+  private func snapshot(
+    _ entries: [TransactionEntry], paymentMethods: [PaymentMethod] = []
+  ) -> DataSnapshot {
     DataSnapshot.build(
-      dataset: Dataset(entries: entries, categories: [food]),
+      dataset: Dataset(entries: entries, categories: [food], paymentMethods: paymentMethods),
       calendar: .system, today: environment.today, context: SnapshotContext(),
       version: DataVersion(load: 0))
   }
@@ -113,5 +119,32 @@ final class OverviewDoNowTests: XCTestCase {
     let covered = shown.presented(hiding: HiddenAccounts(ids: [hidden]))
     XCTAssertTrue(OverviewDoNow.list(snapshot: covered, environment: environment).isEmpty)
     XCTAssertFalse(OverviewGroupedGrid.extras(covered, environment).contains(.doNow))
+  }
+
+  /// An archived account asks for no statement, an open one does.
+  func testAnArchivedAccountAsksForNoStatement() throws {
+    let closed = PaymentMethod(name: "Closed", archived: true)
+    let open = PaymentMethod(name: "Open")
+    let shown = snapshot(
+      [try entry(daysAgo: 20, statementOf: closed.id), try entry(daysAgo: 20, statementOf: open.id)],
+      paymentMethods: [closed, open])
+    let list = OverviewDoNow.list(snapshot: shown, environment: environment)
+    XCTAssertEqual(list.items.map(\.accountId), [open.id])
+  }
+
+  /// Operations without a category older than the week stay on the list as their own, lower
+  /// row with its own words.
+  func testOlderUncategorizedOperationsKeepTheirOwnRow() throws {
+    let waiting = snapshot([
+      try entry(daysAgo: 1, categorized: false), try entry(daysAgo: 20, categorized: false),
+      try entry(daysAgo: 90, categorized: false),
+    ])
+    let list = OverviewDoNow.list(snapshot: waiting, environment: environment)
+    XCTAssertEqual(list.items.map(\.action), [.review, .review])
+    XCTAssertEqual(list.items.map(\.count), [1, 2])
+    let recent = OverviewDoNow.text(list.items[0], snapshot: waiting, environment: environment)
+    let older = OverviewDoNow.text(list.items[1], snapshot: waiting, environment: environment)
+    XCTAssertNotEqual(recent.detail, older.detail)
+    XCTAssertFalse(older.detail.isEmpty)
   }
 }
