@@ -17,6 +17,20 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     .overview, .operations, .debts, .capital, .analytics, .calendar, .purchases,
   ]
 
+  /// Opens the card of the first debt in «Долги» instead of the board when the window is made.
+  private var opensDebtCard = false
+
+  private func openDebtCardIfAsked() throws {
+    guard opensDebtCard else { return }
+    let debt = try XCTUnwrap(compute.snapshot?.dataset.debts.first, "the book has a debt")
+    DebtsView.debtToOpen = debt.id
+  }
+
+  override func tearDown() async throws {
+    DebtsView.debtToOpen = nil
+    try await super.tearDown()
+  }
+
   /// A pinned chip, so that the strip above the capsule has its height.
   private func seedChips() throws {
     let references = try XCTUnwrap(environment.references)
@@ -53,6 +67,7 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     try TestEnvironment.requireSwiftUIAccessibility()
     environment.language.choice = language
     try seedChips()
+    try openDebtCardIfAsked()
     let window = mainWindow(section, width: width, height: height)
     settle(window)
     let top = try barTop(in: window)
@@ -84,6 +99,7 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     try TestEnvironment.requireSwiftUIAccessibility()
     environment.language.choice = language
     try seedChips()
+    try openDebtCardIfAsked()
     let window = mainWindow(section, width: width, height: height)
     settle(window)
     let top = try barTop(in: window)
@@ -123,6 +139,18 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
         for language in [AppLanguage.Choice.russian, .english] {
           try checkScrolledToTheEnd(section, width: width, height: height, language: language)
         }
+      }
+    }
+  }
+
+  /// The card of one debt (the journal is its last block) reads to its end above the bar, wide
+  /// and narrow, in both languages.
+  func testTheCardOfADebtScrolledToTheEndClearsTheBar() throws {
+    opensDebtCard = true
+    for (width, height) in [(CGFloat(1_440), CGFloat(900)), (1_024, 700)] {
+      for language in [AppLanguage.Choice.russian, .english] {
+        try checkScrolledToTheEnd(.debts, width: width, height: height, language: language)
+        try checkClearance(.debts, width: width, height: height, language: language)
       }
     }
   }
