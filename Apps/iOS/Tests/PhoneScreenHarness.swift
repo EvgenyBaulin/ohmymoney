@@ -56,12 +56,15 @@ enum AXTree {
         return leaf
       }
       return AXLeaf(
-        label: leaf.label, identifier: leaf.identifier, frame: leaf.frame, value: leaf.value, hint: leaf.hint,
+        label: leaf.label, identifier: leaf.identifier, frame: leaf.frame, value: leaf.value,
+        hint: leaf.hint,
         traits: leaf.traits, scrollsSideways: true, element: leaf.element)
     }
   }
 
-  private static func sidewaysScrollers(in view: UIView, window: UIWindow, into rects: inout [CGRect]) {
+  private static func sidewaysScrollers(
+    in view: UIView, window: UIWindow, into rects: inout [CGRect]
+  ) {
     guard !view.isHidden, view.alpha > 0.01 else { return }
     if let scroll = view as? UIScrollView, scroll.contentSize.width > scroll.bounds.width + 1 {
       rects.append(scroll.convert(scroll.bounds, to: window))
@@ -190,7 +193,9 @@ final class PhoneHarness {
       directory: directory, dataDirectoryBefore: before)
     environment.language.choice = language
     await harness.startPipeline(
-      withData ? harness.sampleDataset(language: language == .english ? "en" : "ru") : Dataset(entries: []))
+      withData
+        ? harness.sampleDataset(language: language == .english ? "en" : "ru") : Dataset(entries: [])
+    )
     return harness
   }
 

@@ -61,7 +61,8 @@ public enum BankSubscriptionPaybacks {
         let accountId = payment.paymentMethodId, let bankId = accountBank[accountId]
       else { continue }
       let price = SubscriptionMath.price(of: payment, on: today, prices: book.prices)
-      let monthly = SubscriptionMath.monthlyEquivalent(price, rule: RecurrenceRule(payment: payment))
+      let monthly = SubscriptionMath.monthlyEquivalent(
+        price, rule: RecurrenceRule(payment: payment))
       guard let cost = rubles(monthly, payment.currency, rubPerUnit),
         let benefit = rubles(terms.bankBenefitE4 ?? .zero, payment.currency, rubPerUnit)
       else { continue }

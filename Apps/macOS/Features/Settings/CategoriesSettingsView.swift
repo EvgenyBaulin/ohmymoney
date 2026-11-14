@@ -81,66 +81,66 @@ struct CategoriesSettingsView: View {
 
   var body: some View {
     layout
-    .onAppear {
-      reload()
-      if startsExpanded { expanded = Set(categories.map(\.id)) }
-    }
-    .onChange(of: editingName) { left, _ in
-      if let left { commitName(of: left) }
-    }
-    .onDisappear {
-      if let editingName { commitName(of: editingName) }
-    }
-    .refusedWriteAlert($refused, environment)
-    .onChange(of: kind) { _, _ in
-      // A root of one kind is never the parent of a category of the other.
-      newParent = nil
-      limitRefusal = nil
-      reload()
-    }
-    // A limit set or taken back elsewhere — in Planning, by ⌘Z — shows in its row at once;
-    // so does self-employment switched on or off.
-    .onChange(of: compute.generation) {
-      selfEmployment = SelfEmploymentSettingsForm.read(environment)
-      reloadLimits()
-      reloadAppearances()
-    }
-    // «Налог → Другая…»: a rate typed by hand, on a sheet over the settings.
-    .sheet(item: $otherTax) { category in
-      OtherTaxSheet(category: category) { rate in
-        setTax(of: category, to: .other(rate))
+      .onAppear {
+        reload()
+        if startsExpanded { expanded = Set(categories.map(\.id)) }
       }
-      .handingOver(dependencies)
-    }
-    // A sheet, not a `confirmationDialog`: when the operations of a category have to move,
-    // the owner has to choose where — and a dialog holds buttons, not a picker. On the root
-    // of the tab, never on a row: the rows are rebuilt by every reload.
-    .sheet(item: $deleting) { question in
-      CategoryDeletionSheet(
-        question: question, moveTo: $moveTo,
-        options: moveOptions(excluding: question),
-        title: deleteTitle, message: deleteMessage(question),
-        archive: {
-          setArchived(question.category, true)
-          deleting = nil
-        },
-        delete: { delete(question) },
-        cancel: { deleting = nil }
-      )
-      .handingOver(dependencies)
-    }
-    .confirmationDialog(
-      CategoryQualityText.title(environment.language), isPresented: isAsking,
-      titleVisibility: .visible, presenting: pastQuality
-    ) { question in
-      Button(CategoryQualityText.apply(environment.language)) {
-        store.apply(question.change, to: question.ids)
+      .onChange(of: editingName) { left, _ in
+        if let left { commitName(of: left) }
       }
-      .disabled(store.isWritingInBackground)
-      Button(CategoryQualityText.keep(environment.language), role: .cancel) {}
-    } message: { question in
-      Text(verbatim: CategoryQualityText.message(question.ids.count, environment.language))
-    }
+      .onDisappear {
+        if let editingName { commitName(of: editingName) }
+      }
+      .refusedWriteAlert($refused, environment)
+      .onChange(of: kind) { _, _ in
+        // A root of one kind is never the parent of a category of the other.
+        newParent = nil
+        limitRefusal = nil
+        reload()
+      }
+      // A limit set or taken back elsewhere — in Planning, by ⌘Z — shows in its row at once;
+      // so does self-employment switched on or off.
+      .onChange(of: compute.generation) {
+        selfEmployment = SelfEmploymentSettingsForm.read(environment)
+        reloadLimits()
+        reloadAppearances()
+      }
+      // «Налог → Другая…»: a rate typed by hand, on a sheet over the settings.
+      .sheet(item: $otherTax) { category in
+        OtherTaxSheet(category: category) { rate in
+          setTax(of: category, to: .other(rate))
+        }
+        .handingOver(dependencies)
+      }
+      // A sheet, not a `confirmationDialog`: when the operations of a category have to move,
+      // the owner has to choose where — and a dialog holds buttons, not a picker. On the root
+      // of the tab, never on a row: the rows are rebuilt by every reload.
+      .sheet(item: $deleting) { question in
+        CategoryDeletionSheet(
+          question: question, moveTo: $moveTo,
+          options: moveOptions(excluding: question),
+          title: deleteTitle, message: deleteMessage(question),
+          archive: {
+            setArchived(question.category, true)
+            deleting = nil
+          },
+          delete: { delete(question) },
+          cancel: { deleting = nil }
+        )
+        .handingOver(dependencies)
+      }
+      .confirmationDialog(
+        CategoryQualityText.title(environment.language), isPresented: isAsking,
+        titleVisibility: .visible, presenting: pastQuality
+      ) { question in
+        Button(CategoryQualityText.apply(environment.language)) {
+          store.apply(question.change, to: question.ids)
+        }
+        .disabled(store.isWritingInBackground)
+        Button(CategoryQualityText.keep(environment.language), role: .cancel) {}
+      } message: { question in
+        Text(verbatim: CategoryQualityText.message(question.ids.count, environment.language))
+      }
   }
 
   private var formLayout: some View {
@@ -1204,7 +1204,8 @@ struct CategoryLimitField: View {
       .focused($focused)
       .help(environment.language("categories.limit.placeholder", table: "Settings"))
       .accessibilityLabel(
-        Text(verbatim: environment.language("categories.limit.placeholder", table: "Settings")))
+        Text(verbatim: environment.language("categories.limit.placeholder", table: "Settings"))
+      )
       .accessibilityIdentifier("categories.row.limit")
       .onSubmit {
         if draft.submit(shown: shown, write: commit) == .written { focused = false }
@@ -1648,7 +1649,8 @@ enum EssentialChoice: String, CaseIterable, Hashable {
                   .foregroundStyle(surfaces.secondary)
                   .rotationEffect(.degrees(isOpen ? 90 : 0))
                   .frame(
-                    width: CategoriesMacMetrics.chevron, height: CategoriesMacMetrics.chevron)
+                    width: CategoriesMacMetrics.chevron, height: CategoriesMacMetrics.chevron
+                  )
                   .contentShape(.rect)
               }
               .buttonStyle(.plain)
@@ -1676,8 +1678,11 @@ enum EssentialChoice: String, CaseIterable, Hashable {
               })
             Spacer(minLength: 0)
           }
-          .padding(.leading, CategoriesMacMetrics.rowHorizontal + CategoriesMacMetrics.markSide
-            + CategoriesMacMetrics.rowGap + (isChild ? CategoriesMacMetrics.childIndent : 0))
+          .padding(
+            .leading,
+            CategoriesMacMetrics.rowHorizontal + CategoriesMacMetrics.markSide
+              + CategoriesMacMetrics.rowGap + (isChild ? CategoriesMacMetrics.childIndent : 0)
+          )
           .padding(.trailing, CategoriesMacMetrics.rowHorizontal)
           .padding(.bottom, CategoriesMacMetrics.rowVertical)
         }

@@ -272,9 +272,11 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     else { return nil }
     let day = (try? RowMapping.optionalInteger(row, "interest_day")) ?? nil
     // The announced rate counts only with its day and above zero; anything else reads as none.
-    var nextRate = row.hasColumn("interest_next_rate")
+    var nextRate =
+      row.hasColumn("interest_next_rate")
       ? RowMapping.decimal(row, "interest_next_rate") : nil
-    let nextRateOn = row.hasColumn("interest_next_rate_on")
+    let nextRateOn =
+      row.hasColumn("interest_next_rate_on")
       ? RowMapping.day(row, "interest_next_rate_on") : nil
     if let value = nextRate, value <= 0 || value > 100 || nextRateOn == nil { nextRate = nil }
     return DepositTerms(

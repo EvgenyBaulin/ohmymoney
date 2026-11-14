@@ -201,7 +201,7 @@ struct ContentCard: ViewModifier {
   let fillsHeight: Bool
 
   /// 12 pt on the Mac; the phone design rounds its cards to 22 and lifts them with a soft shadow.
-  static var cornerRadius: CGFloat {
+  nonisolated static var cornerRadius: CGFloat {
     #if os(iOS)
       22
     #else

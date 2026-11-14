@@ -157,7 +157,8 @@ final class CapitalFigmaTests: SectionFigmaHarness {
     let cushion = try frame(of: "cushion.section", in: window)
     let assets = try frame(of: "capital.assets", in: window)
     XCTAssertEqual(hero.minX, PhoneMetrics.screenMargin, accuracy: 1.5, "20 from the edge: \(hero)")
-    XCTAssertEqual(hero.width, 440 - 2 * PhoneMetrics.screenMargin, accuracy: 1.5, "440 less both margins")
+    XCTAssertEqual(
+      hero.width, 440 - 2 * PhoneMetrics.screenMargin, accuracy: 1.5, "440 less both margins")
     for (upper, lower, name) in [
       (hero, chart, "hero → months"), (chart, shares, "months → shares"),
       (shares, cushion, "shares → cushion"), (cushion, assets, "cushion → property"),

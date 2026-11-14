@@ -9,7 +9,8 @@ import Testing
 /// the month. Synthetic numbers; 2026 has 365 days.
 @Suite("A savings account with a next rate and a minimum-balance base")
 struct SavingsRateChangeTests {
-  let april = DepositPeriod(start: DateOnly(iso: "2026-03-31")!, payDate: DateOnly(iso: "2026-04-30")!)
+  let april = DepositPeriod(
+    start: DateOnly(iso: "2026-03-31")!, payDate: DateOnly(iso: "2026-04-30")!)
 
   func steps(_ list: [(String, Int)]) -> [(from: DateOnly, amount: AmountE4)] {
     list.map { (DateOnly(iso: $0.0)!, AmountE4(whole: Int64($0.1))) }
@@ -56,9 +57,11 @@ struct SavingsRateChangeTests {
             terms: plain, segments: segments, period: april,
             through: DateOnly(iso: "2026-04-30")!))
     }
-    #expect(cents(DepositInterest.accrued(
-      terms: plain, segments: segments, period: april, through: DateOnly(iso: "2026-04-30")!))
-      == "1315.07")
+    #expect(
+      cents(
+        DepositInterest.accrued(
+          terms: plain, segments: segments, period: april, through: DateOnly(iso: "2026-04-30")!))
+        == "1315.07")
   }
 
   @Test func theLowestBalanceOfTheMonthIsWhatEarnsAllMonth() {
@@ -68,11 +71,13 @@ struct SavingsRateChangeTests {
     let lowest = DepositTerms(rate: 16, period: .monthly, base: .minBalance)
     let through = DateOnly(iso: "2026-04-30")!
     #expect(
-      cents(DepositInterest.accrued(terms: daily, segments: segments, period: april, through: through))
+      cents(
+        DepositInterest.accrued(terms: daily, segments: segments, period: april, through: through))
         == "1280")
     // 60,000 for the 30 days.
     #expect(
-      cents(DepositInterest.accrued(terms: lowest, segments: segments, period: april, through: through))
+      cents(
+        DepositInterest.accrued(terms: lowest, segments: segments, period: april, through: through))
         == "789.04")
   }
 
@@ -83,14 +88,17 @@ struct SavingsRateChangeTests {
     let lowest = DepositTerms(rate: 16, period: .quarterly, base: .minBalance)
     // February 50,000 for 28 days, March 100,000 for 31.
     #expect(
-      cents(DepositInterest.accrued(
-        terms: lowest, segments: segments, period: quarter, through: quarter.payDate))
+      cents(
+        DepositInterest.accrued(
+          terms: lowest, segments: segments, period: quarter, through: quarter.payDate))
         == "1972.6")
     let held = DepositInterest.monthlyMinimum(
       segments, after: quarter.start, through: quarter.payDate)
     #expect(held.count == 2)
-    #expect(held[0].from == DateOnly(iso: "2026-01-31")! && held[0].amount == AmountE4(whole: 50_000))
-    #expect(held[1].from == DateOnly(iso: "2026-02-28")! && held[1].amount == AmountE4(whole: 100_000))
+    #expect(
+      held[0].from == DateOnly(iso: "2026-01-31")! && held[0].amount == AmountE4(whole: 50_000))
+    #expect(
+      held[1].from == DateOnly(iso: "2026-02-28")! && held[1].amount == AmountE4(whole: 100_000))
   }
 
   @Test func theRateThatHoldsOnADayIsTheAnnouncedOneFromItsDayOn() {
@@ -108,7 +116,9 @@ struct SavingsRateChangeTests {
     let round = try JSONDecoder().decode(
       DepositTerms.self,
       from: JSONEncoder().encode(
-        DepositTerms(rate: 16, period: .monthly, base: .minBalance, nextRate: 9, nextRateOn: DateOnly(iso: "2027-01-01")!)))
+        DepositTerms(
+          rate: 16, period: .monthly, base: .minBalance, nextRate: 9,
+          nextRateOn: DateOnly(iso: "2027-01-01")!)))
     #expect(round.base == .minBalance && round.nextRate == 9)
   }
 }

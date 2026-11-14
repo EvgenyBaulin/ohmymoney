@@ -71,11 +71,15 @@ public enum PrintedReceiptReader {
     read(entries: recognized.map { ($0.text, $0.confidence) })
   }
 
-  private static func read(entries rawEntries: [(text: String, confidence: Float?)])
+  private static func read(
+    entries rawEntries: [(text: String, confidence: Float?)]
+  )
     -> PrintedReading
   {
-    let entries = rawEntries.map { (text: $0.text, folded: fold($0.text), confidence: $0.confidence) }
-      .filter { !$0.folded.isEmpty }
+    let entries = rawEntries.map {
+      (text: $0.text, folded: fold($0.text), confidence: $0.confidence)
+    }
+    .filter { !$0.folded.isEmpty }
     let lines = entries.map(\.folded)
     guard !lines.isEmpty else { return .nothing }
     let drive = fiscalValue(["фн"], in: lines)
@@ -92,7 +96,9 @@ public enum PrintedReceiptReader {
     } else {
       kind = .other
     }
-    guard let total = total(in: lines, kind: kind), let moment = moment(in: lines) else { return .nothing }
+    guard let total = total(in: lines, kind: kind), let moment = moment(in: lines) else {
+      return .nothing
+    }
     var numbers: ReceiptNumbers?
     var rejected = false
     if kind == .fiscal {
@@ -152,7 +158,8 @@ public enum PrintedReceiptReader {
   static func fold(_ text: String) -> String {
     var result = text.folding(
       options: [.caseInsensitive, .diacriticInsensitive], locale: Locale(identifier: "en_US_POSIX"))
-    result = result.replacingOccurrences(of: "ə", with: "e").replacingOccurrences(of: "ı", with: "i")
+    result = result.replacingOccurrences(of: "ə", with: "e").replacingOccurrences(
+      of: "ı", with: "i")
     return result.trimmingCharacters(in: .whitespaces)
   }
 
@@ -201,13 +208,16 @@ public enum PrintedReceiptReader {
     return nil
   }
 
-  private static func validNumbers(drive: String?, document: String?, sign: String?)
+  private static func validNumbers(
+    drive: String?, document: String?, sign: String?
+  )
     -> ReceiptNumbers?
   {
     guard let drive, let document, let sign, drive.count == 16, (1...10).contains(document.count),
       (1...10).contains(sign.count)
     else { return nil }
-    return ReceiptNumbers(fiscalDrive: drive, documentNumber: document, fiscalSign: sign, operation: nil)
+    return ReceiptNumbers(
+      fiscalDrive: drive, documentNumber: document, fiscalSign: sign, operation: nil)
   }
 
   // MARK: Total
@@ -219,19 +229,24 @@ public enum PrintedReceiptReader {
     "чаевые",
   ]
 
-  private static func total(in lines: [String], kind: PaperKind)
+  private static func total(
+    in lines: [String], kind: PaperKind
+  )
     -> (amount: AmountE4, currency: CurrencyCode?)?
   {
     // A slip says «sale» or «amount»; a «total» beside it is the bill's, not what was paid.
     for tier in kind == .slip ? [weakTotals, strongTotals] : [strongTotals, weakTotals] {
       for (index, line) in lines.enumerated() {
         let present = Set(words(line))
-        guard tier.contains(where: present.contains) || (tier == strongTotals && line.contains("к оплате")),
+        guard
+          tier.contains(where: present.contains)
+            || (tier == strongTotals && line.contains("к оплате")),
           !notATotal.contains(where: present.contains)
         else { continue }
         // The sum is on the next line only when this one has no digits at all.
         let hasDigits = line.contains { $0.isASCII && $0.isNumber }
-        for candidate in [line] + (!hasDigits && index + 1 < lines.count ? [lines[index + 1]] : []) {
+        for candidate in [line] + (!hasDigits && index + 1 < lines.count ? [lines[index + 1]] : [])
+        {
           if let amount = amount(on: candidate) {
             return (amount, currency(in: [candidate]) ?? currency(in: [line]))
           }
@@ -246,7 +261,8 @@ public enum PrintedReceiptReader {
   private static func amount(on line: String) -> AmountE4? {
     guard
       let expression = try? NSRegularExpression(
-        pattern: "\\d{1,3}(?:[ \\x{00A0}'.,]\\d{3})+(?:[.,]\\d{1,4})?(?![\\d])|\\d+(?:[.,]\\d{1,4})?")
+        pattern:
+          "\\d{1,3}(?:[ \\x{00A0}'.,]\\d{3})+(?:[.,]\\d{1,4})?(?![\\d])|\\d+(?:[.,]\\d{1,4})?")
     else { return nil }
     let matches = expression.matches(in: line, range: NSRange(line.startIndex..., in: line))
     let tokens = matches.compactMap { Range($0.range, in: line).map { String(line[$0]) } }
@@ -308,7 +324,9 @@ public enum PrintedReceiptReader {
 
   // MARK: Moment
 
-  private static func moment(in lines: [String])
+  private static func moment(
+    in lines: [String]
+  )
     -> (day: DateOnly, time: TimeOfDay, second: Int?)?
   {
     var firstDay: DateOnly?
@@ -327,7 +345,9 @@ public enum PrintedReceiptReader {
   private static func days(in line: String) -> [DateOnly] {
     guard
       let expression = try? NSRegularExpression(
-        pattern: "(?<!\\d)(?:(\\d{4})[-./](\\d{1,2})[-./](\\d{1,2})|(\\d{1,2})[-./](\\d{1,2})[-./](\\d{4}|\\d{2}))(?!\\d)")
+        pattern:
+          "(?<!\\d)(?:(\\d{4})[-./](\\d{1,2})[-./](\\d{1,2})|(\\d{1,2})[-./](\\d{1,2})[-./](\\d{4}|\\d{2}))(?!\\d)"
+      )
     else { return [] }
     func group(_ match: NSTextCheckingResult, _ index: Int) -> Int? {
       Range(match.range(at: index), in: line).flatMap { Int(line[$0]) }

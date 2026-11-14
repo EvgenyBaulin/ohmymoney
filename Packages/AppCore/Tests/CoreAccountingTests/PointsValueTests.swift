@@ -11,7 +11,8 @@ struct PointsValueTests {
   func whole(_ value: Int) -> AmountE4 { AmountE4(whole: Int64(value)) }
 
   @Test func pointsAreWorthTheirRate() {
-    #expect(PointsValue.rubles(points: whole(500), rubPerPoint: Decimal(string: "0.8")!) == whole(400))
+    #expect(
+      PointsValue.rubles(points: whole(500), rubPerPoint: Decimal(string: "0.8")!) == whole(400))
     #expect(PointsValue.rubles(points: whole(500), rubPerPoint: 1) == whole(500))
   }
 

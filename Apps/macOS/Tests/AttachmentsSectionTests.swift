@@ -321,13 +321,13 @@ final class AttachmentsSectionTests: XCTestCase {
     XCTAssertEqual(request.pending, file)
     XCTAssertTrue(deleted.isEmpty, "asking must not delete")
     request.cancel()
-    try request.confirm { deleted += $0 }
+    request.confirm { deleted += $0 }
     XCTAssertTrue(deleted.isEmpty, "a cancelled question deletes nothing")
     request.ask(file)
-    try request.confirm { deleted += $0 }
+    request.confirm { deleted += $0 }
     XCTAssertEqual(deleted, [file.id])
     XCTAssertNil(request.pending)
-    try request.confirm { deleted += $0 }
+    request.confirm { deleted += $0 }
     XCTAssertEqual(deleted, [file.id], "a second confirm has nothing to delete")
   }
 

@@ -21,7 +21,8 @@ struct CategoryModelCatchUpTests {
         day: CalendarContext.utc.adding(days: -(number % 400), to: anchor),
         weekday: 1 + number % 7, kind: .expense,
         text: "\(words[word ?? number % words.count]) \(number % 17)",
-        placeId: number % 5 == 0 ? UUID(uuidString: "00000000-0000-4000-8000-00000000000\(number % 5)") : nil,
+        placeId: number % 5 == 0
+          ? UUID(uuidString: "00000000-0000-4000-8000-00000000000\(number % 5)") : nil,
         amountWhole: Int64(50 + number % 900)),
       partId: UUID(uuidString: String(format: "00000000-0000-4000-9000-%012d", number))!,
       categoryId: categories[category ?? number % categories.count])

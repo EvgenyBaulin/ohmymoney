@@ -236,7 +236,9 @@ struct SpendingCalendarTests {
     #expect(month.day(day(10, 10))?.multiple == Decimal(string: "3.5"))
     #expect(month.day(day(10, 11))?.multiple == 1)
     #expect(month.day(day(10, 13))?.multiple == nil)
-    #expect(SpendingCalendar.multiple(spent: AmountE4(whole: 1_800), usual: AmountE4(whole: 1_000)) == Decimal(string: "1.8"))
+    #expect(
+      SpendingCalendar.multiple(spent: AmountE4(whole: 1_800), usual: AmountE4(whole: 1_000))
+        == Decimal(string: "1.8"))
     #expect(SpendingCalendar.multiple(spent: AmountE4(whole: 5), usual: .zero) == nil)
   }
 

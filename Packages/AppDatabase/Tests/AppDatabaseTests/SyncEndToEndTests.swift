@@ -186,7 +186,8 @@ struct SyncEndToEndTests {
     #expect(try stranger.count("transactions") == 0)
 
     // A device with the right key joins late and reaches the same books from the files alone.
-    let late = try TestDevice("tablet2", journalCodec: sealed(key: 7), snapshotCodec: sealed(key: 9))
+    let late = try TestDevice(
+      "tablet2", journalCodec: sealed(key: 7), snapshotCodec: sealed(key: 9))
     _ = try late.exchange.exchange(with: folder)
     #expect(try late.books() == mac.books())
   }
@@ -266,7 +267,8 @@ struct SyncEndToEndTests {
     // A reader that sees the files in any order, in any batches, reaches the same books.
     var names = try folder.listNames()
     names.shuffle(using: &rng)
-    let reader = try TestDevice("tablet", journalCodec: sealed(key: 7), snapshotCodec: sealed(key: 9))
+    let reader = try TestDevice(
+      "tablet", journalCodec: sealed(key: 7), snapshotCodec: sealed(key: 9))
     let seen = InMemoryFolder()
     var index = 0
     while index < names.count {

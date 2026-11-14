@@ -247,8 +247,10 @@ struct PointsCompareSheet: View {
   private func verdict(_ result: PointsValue.Comparison) -> String {
     let difference = environment.money.exact(result.difference)
     switch result.verdict {
-    case .points: return environment.format("account.points.verdictPoints", table: "Accounts", difference)
-    case .money: return environment.format("account.points.verdictMoney", table: "Accounts", difference)
+    case .points:
+      return environment.format("account.points.verdictPoints", table: "Accounts", difference)
+    case .money:
+      return environment.format("account.points.verdictMoney", table: "Accounts", difference)
     case .same: return t("account.points.verdictSame")
     }
   }

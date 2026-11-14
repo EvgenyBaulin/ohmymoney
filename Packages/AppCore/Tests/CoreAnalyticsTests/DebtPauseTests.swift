@@ -23,16 +23,18 @@ struct DebtPauseTests {
     from: DateOnly(iso: "2027-02-01")!, to: DateOnly(iso: "2027-03-31")!, kind: .holiday)
 
   @Test func withoutAPauseTheDuesAreMonthly() {
-    #expect(state().unpaid(through: day("2030-01-01")).map(\.iso) == [
-      "2027-01-10", "2027-02-10", "2027-03-10", "2027-04-10", "2027-05-10",
-    ])
+    #expect(
+      state().unpaid(through: day("2030-01-01")).map(\.iso) == [
+        "2027-01-10", "2027-02-10", "2027-03-10", "2027-04-10", "2027-05-10",
+      ])
   }
 
   @Test func theDuesInsideThePauseAreSkippedAndTheLaterOnesMoveOn() {
     let paused = state(pause: holiday)
-    #expect(paused.unpaid(through: day("2030-01-01")).map(\.iso) == [
-      "2027-01-10", "2027-04-10", "2027-05-10", "2027-06-10", "2027-07-10",
-    ])
+    #expect(
+      paused.unpaid(through: day("2030-01-01")).map(\.iso) == [
+        "2027-01-10", "2027-04-10", "2027-05-10", "2027-06-10", "2027-07-10",
+      ])
     #expect(paused.due(1) == day("2027-04-10"))
     // What was owed does not change: the five dues still add up to the debt.
     #expect(paused.owed(through: day("2030-01-01")) == AmountE4(whole: 50_000))
@@ -49,14 +51,17 @@ struct DebtPauseTests {
 
   @Test func aPauseWithNoDueInsideItChangesNothing() {
     let quiet = DebtPause(from: day("2027-02-11"), to: day("2027-02-28"))
-    #expect(state(pause: quiet).unpaid(through: day("2030-01-01")) == state().unpaid(through: day("2030-01-01")))
+    #expect(
+      state(pause: quiet).unpaid(through: day("2030-01-01"))
+        == state().unpaid(through: day("2030-01-01")))
   }
 
   @Test func aPauseThatStartsOnTheDueDayAndEndsOnItSkipsIt() {
     let edge = DebtPause(from: day("2027-02-10"), to: day("2027-02-10"), kind: .restructuring)
-    #expect(state(pause: edge).unpaid(through: day("2030-01-01")).map(\.iso) == [
-      "2027-01-10", "2027-03-10", "2027-04-10", "2027-05-10", "2027-06-10",
-    ])
+    #expect(
+      state(pause: edge).unpaid(through: day("2030-01-01")).map(\.iso) == [
+        "2027-01-10", "2027-03-10", "2027-04-10", "2027-05-10", "2027-06-10",
+      ])
   }
 
   @Test func aPauseBeforeTheFirstDueMovesEveryDue() {

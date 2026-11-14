@@ -187,7 +187,9 @@ private struct FootProbe: View {
     .padSidebarFoot(background: Self.foot) {
       Text(verbatim: "Settings")
         .frame(height: 56)
-        .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: {
+        .onGeometryChange(for: CGRect.self) {
+          $0.frame(in: .global)
+        } action: {
           // geometry: a test probe reads where the foot starts to check pixels; nothing lays out by it
           footTop.minY = $0.minY
         }

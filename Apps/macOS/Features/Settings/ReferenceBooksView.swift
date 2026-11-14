@@ -78,36 +78,36 @@ struct ReferenceBooksView: View {
 
   var body: some View {
     layout
-    .onAppear(perform: reload)
-    .onChange(of: store.writeRevision) { _, _ in reload() }
-    .refusedWriteAlert($refused, environment)
-    .onChange(of: book) { _, _ in
-      selection = []
-      note = nil
-      reload()
-    }
-    .onChange(of: showsArchive) { _, isShown in
-      // A row the list no longer shows is no longer picked.
-      if !isShown { selection.subtract(rows.filter(\.archived).map(\.id)) }
-    }
-    .confirmationDialog(
-      merging?.title(environment) ?? "", isPresented: isAskingToMerge,
-      titleVisibility: .visible, presenting: merging
-    ) { question in
-      Button(question.confirm(environment), role: .destructive) { merge(question) }
-      Button(environment.language("action.cancel"), role: .cancel) {}
-    } message: { question in
-      Text(verbatim: question.message(environment))
-    }
-    .confirmationDialog(
-      deleting?.title(environment) ?? "", isPresented: isAskingToDelete,
-      titleVisibility: .visible, presenting: deleting
-    ) { question in
-      Button(environment.language("action.delete"), role: .destructive) { delete(question) }
-      Button(environment.language("action.cancel"), role: .cancel) {}
-    } message: { question in
-      Text(verbatim: question.message(environment))
-    }
+      .onAppear(perform: reload)
+      .onChange(of: store.writeRevision) { _, _ in reload() }
+      .refusedWriteAlert($refused, environment)
+      .onChange(of: book) { _, _ in
+        selection = []
+        note = nil
+        reload()
+      }
+      .onChange(of: showsArchive) { _, isShown in
+        // A row the list no longer shows is no longer picked.
+        if !isShown { selection.subtract(rows.filter(\.archived).map(\.id)) }
+      }
+      .confirmationDialog(
+        merging?.title(environment) ?? "", isPresented: isAskingToMerge,
+        titleVisibility: .visible, presenting: merging
+      ) { question in
+        Button(question.confirm(environment), role: .destructive) { merge(question) }
+        Button(environment.language("action.cancel"), role: .cancel) {}
+      } message: { question in
+        Text(verbatim: question.message(environment))
+      }
+      .confirmationDialog(
+        deleting?.title(environment) ?? "", isPresented: isAskingToDelete,
+        titleVisibility: .visible, presenting: deleting
+      ) { question in
+        Button(environment.language("action.delete"), role: .destructive) { delete(question) }
+        Button(environment.language("action.cancel"), role: .cancel) {}
+      } message: { question in
+        Text(verbatim: question.message(environment))
+      }
   }
 
   @ViewBuilder

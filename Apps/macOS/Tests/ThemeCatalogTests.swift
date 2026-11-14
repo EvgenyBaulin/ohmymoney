@@ -153,7 +153,8 @@ final class ThemeCatalogTests: XCTestCase {
     for (id, scheme, p) in palettes {
       for status in [LimitStatus.over, .warning, .ok] {
         XCTAssertGreaterThanOrEqual(
-          LimitTileRow.textColor(status, p).contrast(on: p.surfaceCard), 4.5, "\(id) \(scheme) \(status)")
+          LimitTileRow.textColor(status, p).contrast(on: p.surfaceCard), 4.5,
+          "\(id) \(scheme) \(status)")
       }
     }
   }

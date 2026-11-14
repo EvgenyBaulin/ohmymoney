@@ -273,7 +273,9 @@ struct EntryBar<Accessory: View>: View {
       readTheLineIntoThePanel()
       refreshRuleHint()
     }
-    .modifier(CarriesBankFields(bank: fast.bank?.message, finishing: fast.drafts.finishing, model: model))
+    .modifier(
+      CarriesBankFields(bank: fast.bank?.message, finishing: fast.drafts.finishing, model: model)
+    )
     // The form at the side follows the selection of the window's lists: one operation selected
     // is edited in it, anything else brings the new operation back.
     .onChange(of: operations?.selection, initial: true) { _, selection in

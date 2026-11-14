@@ -217,7 +217,8 @@ enum AutoEntryFormats {
     {
       message.money.amount = written.amount
       switch written.kind {
-      case .income: message.operation = message.operation.kind == .income ? message.operation : .income
+      case .income:
+        message.operation = message.operation.kind == .income ? message.operation : .income
       case .refund: message.operation = .refund
       case .expense:
         message.operation = message.operation.kind == .expense ? message.operation : .purchase

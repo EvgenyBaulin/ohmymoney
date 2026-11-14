@@ -215,7 +215,8 @@ struct CurrenciesSettingsView: View {
   static func rateText(_ rate: Rate, money: MoneyFormatter) -> String {
     let perUnit = rate.perUnit
     let digits: ClosedRange<Int> =
-      perUnit >= 1000 ? 0...0 : perUnit >= 1 ? 2...2 : perUnit >= Decimal(string: "0.01")! ? 2...4 : 4...6
+      perUnit >= 1000
+      ? 0...0 : perUnit >= 1 ? 2...2 : perUnit >= Decimal(string: "0.01")! ? 2...4 : 4...6
     return "\(money.number(perUnit, fractionDigits: digits)) ₽"
   }
 
@@ -430,7 +431,8 @@ struct CurrenciesSettingsView: View {
             .help(row.lock.map(tooltip) ?? "")
             .frame(width: SettingsCardMetrics.compactSwitchWidth)
             .accessibilityLabel(
-              Text(verbatim: "\(currency.code), \(row.entry.name), \(subtitle(row))"))
+              Text(verbatim: "\(currency.code), \(row.entry.name), \(subtitle(row))")
+            )
             .accessibilityIdentifier("currencies.toggle.\(currency.code)")
         }
         .padding(.horizontal, CurrenciesMetrics.rowHorizontal)

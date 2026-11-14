@@ -7,6 +7,102 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.14.0] — 2026-11-13
+
+A redesigned operation editor and main window, Russian bank rules, your own bank-message formats,
+ten more interface languages, and screens that fit on iPhone and iPad. The database schema grows
+from 21 to 27; opening the app upgrades the database after a verified copy, and older data reads
+as before.
+
+### Added
+
+- **Banks of Russia.** Tax on deposit interest is worked out by year, the two limits of the
+  Faster Payments System (own transfers and transfers to others) are tracked, the number of cards
+  per bank is counted, and a bank-style debt burden is shown next to your debts. A bank condition
+  also keeps a note about tax on cashback and the monthly fee of an account without a card, which
+  the free sum now takes into account.
+- **Bank subscriptions.** Say what a subscription saves or earns besides cashback and what share
+  of the cashback it gives, and see whether it pays for itself.
+- **Savings accounts.** A rate change the bank has announced applies from its day, interest can be
+  counted on the lowest balance of the month, and an account can be marked as a piggy bank.
+- **Points that burn.** An account with points shows the day the nearest points burn and how much
+  they are worth in rubles.
+- **Digital ruble.** A wallet of the digital ruble is an account of its own kind: rubles only, no
+  interest and no cashback.
+- **Credit holidays.** Mark a pause or restructuring of a debt: no payment falls inside it, later
+  payments move on, and a paused day stays out of the planned month and the free sum.
+- **Merchant category and fee.** An operation keeps the merchant category code the bank gave the
+  shop and the commission its text named; the code also helps pick the category.
+- **Valuations of things.** Record what you think an asset or an owned item is worth on a day and
+  watch the value change.
+- **Picture of a wish.** A wish taken from a link keeps the picture of the product page.
+- **Your own SMS formats.** Describe a bank message once (expression, columns, examples) and the
+  app reads it; the app offers a format after you correct a text, ships built-in formats, and
+  reads a whole folder of format files. Cashback named in a text goes into the entry line.
+- **Operation editor.** A new editor with the parts of a purchase and what is left over, and a
+  clear «will the person pay you back?» choice for things bought for someone else.
+- **iPhone.** A tab bar with entry behind the plus button, dictation into the entry line, entry
+  fields and pages that keep clear of the edges of the display, and every screen fits.
+- **iPad.** A sidebar like the Mac one.
+- **Debt payments on the phone.** Stripes show each payment of a debt: extra, on schedule or late.
+- **Calendar.** Subscriptions, debts and goal payments show in the calendar; iPhone marks planned
+  entries by their source.
+- **Undo.** ⇧⌘Z redoes steps, including after deleting or merging accounts.
+- **Themes.** Thirty themes rebuilt from the design, readable by colour alone.
+- **Interface languages.** Belarusian, Italian, Polish, Turkish, Portuguese (Brazil), German,
+  Spanish, French, Ukrainian and Kazakh join English and Russian, with starter categories and entry
+  words in each.
+- **Category marks.** Every category has its own icon and colour, and the app suggests marks on
+  request and shows how well its category model does in **Category hints**.
+- **Receipts.** Printed receipt numbers, foreign totals and slips are read from a photo; a receipt
+  photo stays while a warranty runs.
+- **Exchange between devices.** The journal and snapshots are encrypted, and shared items travel
+  too.
+- **Split payments and credit statements.** A split purchase keeps a payment date per part, and a
+  credit card keeps the minimum payment and due day of each statement.
+- **Number style.** A setting for «1,234.56» or «1 234,56».
+
+### Changed
+
+- The window follows the new design: sidebar, toolbar, entry line, **Overview**, **Operations**,
+  **Planning**, **Capital**, **Purchases**, **Calendar**, **Reports**, **Analytics** and every
+  page of **Settings**. **Debts** is a board without a side list; **Analytics** and **Reports**
+  are sections of the main window.
+- Savings are counted one way everywhere, and a month that cannot save says so plainly and tells
+  you what is short.
+- A negative balance reads as negative, with how much is missing.
+- The expected incomes you no longer need can be archived.
+- The free sum counts thirty days by default, less the cushion.
+- Each screen says which debts its figure counts.
+- Spending rules follow merges of places, accounts, cards and people, and wishes count the free
+  sum as already saved.
+- The model and the ledger update from what a write changed instead of recomputing everything,
+  so the numbers settle faster after a record.
+- Text contrast is checked on all themes, and more controls are named for VoiceOver.
+- On the Mac the layout holds at narrow widths and beside the editor, and the calendar scrolls
+  clear of the entry bar.
+
+### Fixed
+
+- Accounts, cards, banks, goals, events, people, places and categories with the same name no
+  longer block saving; archived ones never do.
+- A count difference no longer counts as income or spending anywhere.
+- The iPhone app no longer crashes at launch.
+- Several defects found in an audit of the money logic.
+
+### Upgrading
+
+The database schema goes from 21 to 27. The update is one way: before it the app makes a checked
+copy with the suffix `-before-migration`, which rotation never removes, also in your backup
+folder. Going back to 2.13.1 means restoring that copy. The migrations only add columns and
+tables that start empty, so no existing row changes. The export now has one more file for the
+valuations of things; the transfer-archive format is unchanged.
+
+### Known limitations
+
+- The newest strings of the bank and message screens are not yet translated into the ten added
+  languages and show in English there.
+
 ## [2.13.1] — 2026-11-04
 
 Fixes from using 2.13.0, and a statement that learns from what was entered by hand. The database

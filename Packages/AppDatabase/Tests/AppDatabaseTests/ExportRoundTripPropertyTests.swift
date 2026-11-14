@@ -52,7 +52,9 @@ struct ExportRoundTripPropertyTests {
     column: String, databaseColumn: String, raw: DatabaseValue
   ) -> String? {
     // A flag an update added reads NULL on the rows it found: the export writes it as «false».
-    if raw.isNull { return ["hidden", "borrowed", "digital_ruble", "piggy"].contains(column) ? "false" : "" }
+    if raw.isNull {
+      return ["hidden", "borrowed", "digital_ruble", "piggy"].contains(column) ? "false" : ""
+    }
     if databaseColumn.hasSuffix("_e4"), let stored = Int64.fromDatabaseValue(raw) {
       return "e4:\(stored)"
     }

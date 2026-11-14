@@ -62,7 +62,7 @@ struct OverviewView: View {
 
   /// The numbers of the page on this platform's own design (`OverviewPageMetrics`): the Mac's,
   /// or the phone's where a phone and a tablet share code that is not told the idiom.
-  static var platformMetrics: OverviewPageMetrics {
+  nonisolated static var platformMetrics: OverviewPageMetrics {
     #if os(iOS)
       .phone
     #else
