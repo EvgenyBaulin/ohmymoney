@@ -237,6 +237,10 @@ public struct PlanningChange: Sendable, Hashable {
   public var categoryRuleMoves: [UUID: UUID] = [:]
   /// A deletion or merge of people, places or events, with the same undo journal as accounts.
   public var changingReferences: ReferenceBookChange?
+  /// Statement import rows to write with the change: after the accounts it makes (a row points
+  /// at its account) and before its operations (an operation points at its row). ⌘Z of the
+  /// change leaves them to the caller, which deletes them by id.
+  public var importRecords: [StatementImportRecord] = []
 
   public init(
     created: [TransactionEntry] = [], upsert: PlanningRows = .empty,
@@ -563,6 +567,9 @@ public struct PlanningRepository: Sendable {
     // rows, so an id or an `external_id` that is already there fails the change. Each is given
     // an account like any other (`TransactionRepository.assigningAccount`), and a refund is
     // held to the part it takes back from.
+    for record in change.importRecords {
+      try StatementImportRepository.insert(record, fileHash: nil, db: db)
+    }
     let lookups = WriteLookups()
     var written: [TransactionEntry] = []
     for entry in change.created {

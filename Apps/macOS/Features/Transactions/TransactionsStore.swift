@@ -507,8 +507,11 @@ public final class TransactionsStore {
     guard let planning, let imports, !isWritingInBackground else { return false }
     func takeBack() { for record in records { try? imports.deleteImport(id: record.id) } }
     do {
-      for record in records { try imports.record(record) }
-      let undo = try planning.apply(change)
+      // The import rows are written inside the change, between the accounts it makes and the
+      // operations that point at the rows.
+      var landing = change
+      landing.importRecords = records
+      let undo = try planning.apply(landing)
       push(.migrated(undo, imports: records.map(\.id)))
       finishWrite(Self.applied(change, undo: undo))
       return true

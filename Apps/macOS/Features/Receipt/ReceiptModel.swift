@@ -459,6 +459,9 @@ final class ReceiptModel {
   }
 
   private func create(_ receipt: ReceiptQR) -> Bool {
+    // Lines above the receipt are said by the sheet, not failed: the receipt stays open so that
+    // the owner can take a line off and write again.
+    if splitRemainder.isNegative { return false }
     guard canCreate, let draft = newDraft else {
       stage = .failed(.notWritten)
       return false

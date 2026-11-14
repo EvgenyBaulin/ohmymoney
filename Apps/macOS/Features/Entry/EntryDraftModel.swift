@@ -2735,8 +2735,8 @@ public final class EntryDraftModel {
     guard !editsSavedOperation, !repeatConfirmed, let transactions else { return nil }
     let since = now.addingTimeInterval(-RecentDuplicate.window)
     let recent = (try? transactions.entries(recordedSince: since)) ?? []
-    return RecentDuplicate.match(
-      of: draftForSaving, among: recent, now: now, calendar: calendar)
+    // No calendar: a repeat is judged by when it was written, whatever date it carries.
+    return RecentDuplicate.match(of: draftForSaving, among: recent, now: now)
   }
 
   /// The operation a saved-operation editor opened, as it was saved: what an edit is compared
