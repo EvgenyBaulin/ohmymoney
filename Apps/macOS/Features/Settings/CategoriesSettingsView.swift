@@ -1003,7 +1003,10 @@ struct CategoriesSettingsView: View {
     var rows = PlanningRowIDs.empty
     // Children first: a parent still referenced by its own child cannot go.
     rows.categories = inside.reversed()
-    guard store.apply(PlanningChange(delete: rows)) else {
+    var change = PlanningChange(delete: rows)
+    // The rules that named a deleted category follow its operations to where they were moved.
+    if moved, let target { for id in inside { change.categoryRuleMoves[id] = target } }
+    guard store.apply(change) else {
       // Something points at the category that was not there when the operations were
       // counted — one filed since, or put in the bin. The move is written by then, a step of
       // ⌘Z of its own, and the owner is told so.

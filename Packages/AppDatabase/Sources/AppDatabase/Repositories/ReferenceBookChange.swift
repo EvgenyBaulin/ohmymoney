@@ -46,6 +46,14 @@ extension ReferenceRepository {
           sql: "DELETE FROM \(book.rawValue) WHERE id = ?", arguments: [id.uuidString])
         undo.deletion.deleted.append(id)
       }
+      let gone = Set(undo.deletion.deleted)
+      switch book {
+      case .people:
+        undo.rules = try SpendingRulesRepository.releaseRules(.person, deleted: gone, db: db)
+      case .places:
+        undo.rules = try SpendingRulesRepository.releaseRules(.place, deleted: gone, db: db)
+      case .events: break
+      }
     case .merge(let book, let source, let target):
       guard source != target else { return undo }
       guard try undo.keep(source, in: book, db: db),

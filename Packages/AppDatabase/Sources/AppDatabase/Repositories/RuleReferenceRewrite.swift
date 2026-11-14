@@ -40,6 +40,39 @@ extension SpendingRulesRepository {
     return changed
   }
 
+  /// What a rule becomes when the rows it names are deleted: the conditions and actions that name
+  /// them go, and a rule left with no condition (it would fire on everything) or no action (it
+  /// would do nothing) is switched off, not left to run in a changed form. `moves` first sends
+  /// the references of a row to the row that took its place (a category deleted with its
+  /// operations moved elsewhere). Done inside the write that deletes, so ⌘Z brings the rules back
+  /// with the rows. Returns what it changed, for ⌘Z.
+  static func releaseRules(
+    _ kind: RuleReferenceKind, deleted ids: Set<UUID>, moves: [UUID: UUID] = [:], db: Database
+  ) throws -> [RewrittenRule] {
+    guard !ids.isEmpty else { return [] }
+    func follow(_ referenceKind: RuleReferenceKind, _ id: UUID) -> UUID? {
+      guard referenceKind == kind, ids.contains(id) else { return id }
+      return moves[id]
+    }
+    func names(_ references: [(kind: RuleReferenceKind, id: UUID)]) -> Bool {
+      references.contains { $0.kind == kind && ids.contains($0.id) }
+    }
+    var changed: [RewrittenRule] = []
+    for rule in try rules(db)
+    where rule.conditions.contains(where: { names($0.references) })
+      || rule.actions.contains(where: { names($0.references) })
+    {
+      var after = rule
+      after.conditions = rule.conditions.compactMap { $0.mappingReferences(follow) }
+      after.actions = rule.actions.compactMap { $0.mappingReferences(follow) }
+      if after.conditions.isEmpty || after.actions.isEmpty { after.enabled = false }
+      after.updatedAt = Date()
+      try after.update(db)
+      changed.append(RewrittenRule(before: rule, after: after))
+    }
+    return changed
+  }
+
   /// Takes the rewrites back; a rule edited since is left as the owner made it.
   static func revertRules(_ rewrites: [RewrittenRule], db: Database) throws {
     for rewrite in rewrites {
@@ -47,7 +80,8 @@ extension SpendingRulesRepository {
         let row = try Row.fetchOne(
           db, sql: "SELECT * FROM rules WHERE id = ?", arguments: [rewrite.after.id.uuidString]),
         let current = try? Rule(row: row),
-        current.conditions == rewrite.after.conditions, current.actions == rewrite.after.actions
+        current.conditions == rewrite.after.conditions, current.actions == rewrite.after.actions,
+        current.enabled == rewrite.after.enabled
       else { continue }
       try rewrite.before.update(db)
     }

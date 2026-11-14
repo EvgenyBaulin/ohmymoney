@@ -154,4 +154,108 @@ struct RuleReferenceMergeTests {
     try planning.revert(undo, at: at.addingTimeInterval(60))
     #expect(try stored(stack) == before)
   }
+
+  // MARK: Deleting what a rule names
+
+  @Test func deletingAPlaceStripsItFromRulesAndSwitchesOffOnesLeftEmptyAndUndoBringsThemBack()
+    throws
+  {
+    let stack = try TestSupport.makeStack()
+    let references = ReferenceRepository(writer: stack.writer)
+    let planning = PlanningRepository(writer: stack.writer)
+    let rules = SpendingRulesRepository(writer: stack.writer)
+    let place = UUID()
+    try references.save(Place(id: place, name: "Corner shop"))
+    let narrowed = try rules.append(
+      rule([.place(place), .amountAbove(AmountE4(whole: 10))], [.setQuality(.good)]))
+    let emptied = try rules.append(rule([.place(place)], [.setQuality(.bad)], position: 1))
+    let sets = try rules.append(rule([.textContains("x")], [.setPlace(place)], position: 2))
+    let before = try stored(stack)
+
+    let undo = try planning.apply(
+      PlanningChange(changingReferences: .delete(book: .places, ids: [place])))
+    let after = try stored(stack)
+    let first = try #require(after.first { $0.id == narrowed.id })
+    #expect(first.conditions == [.amountAbove(AmountE4(whole: 10))])
+    #expect(first.enabled)
+    #expect(try #require(after.first { $0.id == emptied.id }).enabled == false)
+    #expect(try #require(after.first { $0.id == sets.id }).enabled == false)
+
+    try planning.revert(undo)
+    #expect(try stored(stack) == before)
+  }
+
+  @Test func deletingAPersonLeavesNoRuleNamingThem() throws {
+    let stack = try TestSupport.makeStack()
+    let references = ReferenceRepository(writer: stack.writer)
+    let planning = PlanningRepository(writer: stack.writer)
+    let rules = SpendingRulesRepository(writer: stack.writer)
+    let person = UUID()
+    try references.save(Person(id: person, name: "Anna"))
+    try rules.append(rule([.textContains("gift")], [.setForPerson(person)]))
+    _ = try planning.apply(
+      PlanningChange(changingReferences: .delete(book: .people, ids: [person])))
+    let left = try #require(try stored(stack).first)
+    #expect(left.actions.isEmpty)
+    #expect(!left.enabled)
+  }
+
+  @Test func deletingACategoryMovesItsRulesToTheCategoryThatTookItsOperations() throws {
+    let stack = try TestSupport.makeStack()
+    let planning = PlanningRepository(writer: stack.writer)
+    let rules = SpendingRulesRepository(writer: stack.writer)
+    let old = CoreKit.Category(kind: .expense, name: "Old", quality: .neutral)
+    let new = CoreKit.Category(kind: .expense, name: "New", quality: .neutral)
+    _ = try planning.apply(PlanningChange(upsert: PlanningRows(categories: [old, new])))
+    try rules.append(rule([.category(old.id)], [.setQuality(.good)]))
+    try rules.append(rule([.textContains("x")], [.setCategory(old.id)], position: 1))
+    let before = try stored(stack)
+
+    var change = PlanningChange(delete: PlanningRowIDs(categories: [old.id]), at: at)
+    change.categoryRuleMoves = [old.id: new.id]
+    let undo = try planning.apply(change)
+    let moved = try stored(stack)
+    #expect(moved[0].conditions == [.category(new.id)])
+    #expect(moved[1].actions == [.setCategory(new.id)])
+    #expect(moved[0].enabled && moved[1].enabled)
+
+    try planning.revert(undo, at: at.addingTimeInterval(60))
+    #expect(try stored(stack) == before)
+  }
+
+  @Test func deletingAnUnusedCategorySwitchesOffTheRuleThatNeededIt() throws {
+    let stack = try TestSupport.makeStack()
+    let planning = PlanningRepository(writer: stack.writer)
+    let rules = SpendingRulesRepository(writer: stack.writer)
+    let old = CoreKit.Category(kind: .expense, name: "Old", quality: .neutral)
+    _ = try planning.apply(PlanningChange(upsert: PlanningRows(categories: [old])))
+    try rules.append(rule([.textContains("x")], [.setCategory(old.id)]))
+    _ = try planning.apply(PlanningChange(delete: PlanningRowIDs(categories: [old.id]), at: at))
+    let left = try #require(try stored(stack).first)
+    #expect(left.actions.isEmpty)
+    #expect(!left.enabled)
+  }
+
+  @Test func deletingAnAccountReleasesRulesThatNameItOrItsCards() throws {
+    let stack = try TestSupport.makeStack()
+    let planning = PlanningRepository(writer: stack.writer)
+    let rules = SpendingRulesRepository(writer: stack.writer)
+    let kept = PaymentMethod(name: "Kept", kind: .card, currency: .rub, isDefault: true)
+    let going = PaymentMethod(name: "Going", kind: .card, currency: .rub)
+    let card = PaymentCard(accountId: going.id, name: "Black")
+    _ = try planning.apply(
+      PlanningChange(upsert: PlanningRows(paymentMethods: [kept, going], cards: [card])))
+    try rules.append(rule([.account(going.id)], [.setQuality(.good)]))
+    try rules.append(rule([.card(card.id), .account(kept.id)], [.setQuality(.bad)], position: 1))
+    let before = try stored(stack)
+    let undo = try planning.apply(
+      PlanningChange(delete: PlanningRowIDs(paymentMethods: [going.id]), at: at))
+    let after = try stored(stack)
+    #expect(!after[0].enabled)
+    #expect(after[1].conditions == [.account(kept.id)])
+    #expect(after[1].enabled)
+    try planning.revert(undo, at: at.addingTimeInterval(60))
+    #expect(try stored(stack) == before)
+  }
 }
+

@@ -231,6 +231,10 @@ public struct PlanningChange: Sendable, Hashable {
   /// them, and ⌘Z puts all of it back (`PlanningUndo.accountMerge`). Only two accounts of one
   /// bank merge (`AccountWriteError.otherBank`).
   public var mergingAccounts: AccountMergePlan?
+  /// For a category deleted by `delete`: the category that took its operations. The spending
+  /// rules that named it follow there; a category not listed just leaves its rules (they lose
+  /// the reference, and one left with no condition or action is switched off).
+  public var categoryRuleMoves: [UUID: UUID] = [:]
   /// A deletion or merge of people, places or events, with the same undo journal as accounts.
   public var changingReferences: ReferenceBookChange?
 
@@ -595,6 +599,25 @@ public struct PlanningRepository: Sendable {
       .filter { !$0.transaction.isDeleted }
 
     let gone = change.delete
+    // Spending rules name rows only inside their JSON, so nothing cascades: they are released
+    // before the rows go, in this write, and ⌘Z puts them back with the rows.
+    var releasedRules: [RewrittenRule] = []
+    let goneAccounts = Set(gone.paymentMethods)
+    var goneCards = Set(gone.cards)
+    for account in goneAccounts {
+      goneCards.formUnion(
+        try String.fetchAll(
+          db, sql: "SELECT id FROM cards WHERE payment_method_id = ?",
+          arguments: [account.uuidString]
+        ).compactMap(UUID.init(uuidString:)))
+    }
+    releasedRules += try SpendingRulesRepository.releaseRules(
+      .category, deleted: Set(gone.categories), moves: change.categoryRuleMoves, db: db)
+    releasedRules += try SpendingRulesRepository.releaseRules(
+      .card, deleted: goneCards, db: db)
+    releasedRules += try SpendingRulesRepository.releaseRules(
+      .account, deleted: goneAccounts, db: db)
+    cardRules += releasedRules
     try journal.delete(ReconciledBalance.self, ids: gone.reconciledBalances, db: db)
     try journal.delete(Reconciliation.self, ids: gone.reconciliations, db: db)
     try journal.delete(Transfer.self, ids: gone.transfers, db: db)
