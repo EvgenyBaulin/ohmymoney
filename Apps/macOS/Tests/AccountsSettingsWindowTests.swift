@@ -223,6 +223,8 @@ final class AccountsSettingsWindowTests: XCTestCase {
     XCTAssertEqual(AccountsTreeMetrics.indent, 12)
     XCTAssertEqual(AccountsTreeMetrics.mark, 14)
     XCTAssertEqual(AccountsTreeMetrics.symbol, 16)
+    // The «…» has a slot of its own after «+», so it never lies on the currency code.
+    XCTAssertEqual(AccountsTreeMetrics.menuSlot, 16)
     XCTAssertEqual(AccountsTreeMetrics.searchHeight, 30)
     XCTAssertEqual(AccountsTreeMetrics.barHeight, 44)
     XCTAssertEqual(AccountsTreeMetrics.panelPadding, 14)

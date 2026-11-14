@@ -25,6 +25,17 @@ public enum CardNameOwner: Hashable, Sendable {
 /// name of its own account — the card an account starts with does —, but never a name of another
 /// account or of another live card: the entry line would read either for the other one.
 public enum CardRules {
+  /// The words after a card's name: its aliases, then the mark of the main card — unless an
+  /// alias already says the same word (the owner's alias «Основная» on the main card), compared
+  /// without case and edge spaces.
+  public static func captionParts(aliases: [String], isMain: Bool, mainWord: String) -> [String] {
+    func key(_ text: String) -> String {
+      text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+    }
+    guard isMain, !aliases.contains(where: { key($0) == key(mainWord) }) else { return aliases }
+    return aliases + [mainWord]
+  }
+
   /// The card a new account starts with, named `named` — else like the account: an account of
   /// the kind «card» or «account» is paid from with a card; cash and other kinds have none. A
   /// credit card always has one, whatever its kind: it is never opened without a card.

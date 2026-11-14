@@ -152,6 +152,18 @@ struct CardRulesTests {
     #expect(CardRules.cardAfterAccountChange(id(11), to: nil, cards: cards) == nil)
     #expect(CardRules.cardAfterAccountChange(nil, to: id(1), cards: cards) == nil)
   }
+
+  /// «Основная · основная» was drawn when the alias of the main card was the word for it.
+  @Test func theMainMarkIsNotRepeatedWhenAnAliasSaysTheSame() {
+    func parts(_ aliases: [String], main: Bool) -> [String] {
+      CardRules.captionParts(aliases: aliases, isMain: main, mainWord: "основная")
+    }
+    #expect(parts(["Основная"], main: true) == ["Основная"])
+    #expect(parts(["ОСНОВНАЯ ", "папа"], main: true) == ["ОСНОВНАЯ ", "папа"])
+    #expect(parts(["Зарплатная"], main: true) == ["Зарплатная", "основная"])
+    #expect(parts([], main: true) == ["основная"])
+    #expect(parts(["Основная"], main: false) == ["Основная"])
+  }
 }
 
 /// The card a purchase on an account is made with unless it says otherwise.

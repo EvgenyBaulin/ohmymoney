@@ -348,13 +348,12 @@ struct AccountsSettingsView: View {
         if folded.contains(node.id) { folded.remove(node.id) } else { folded.insert(node.id) }
       },
       toggleMark: { toggleMark(node) },
-      plus: { plus(node) }
+      plus: { plus(node) },
+      menuSlot: {
+        // The menu of the row, named for VoiceOver; on the screen only under the pointer.
+        rowMenuButton(node, shown: hovered == node.id || isChosen)
+      }
     )
-    .overlay(alignment: .trailing) {
-      // The menu of the row, named for VoiceOver; on the screen only under the pointer.
-      rowMenuButton(node, shown: hovered == node.id || isChosen)
-        .padding(.trailing, plusHelp(of: node) == nil ? 8 : 24)
-    }
     .contentShape(.rect)
     .onTapGesture { choose(node) }
     #if os(macOS)
@@ -508,10 +507,19 @@ struct AccountsSettingsView: View {
       return environment.format(
         "tree.count.items", table: EntryLinks.table, counts: node.children.count)
     case .account(let account):
-      // The main account is told in words, never by the order alone.
+      // A credit card tells what is left of its limit; the main account is told in words,
+      // never by the order alone.
+      if let available = node.creditAvailable, let limit = node.creditLimit, !account.archived {
+        let code = account.mainCurrency
+        return environment.format(
+          "account.credit.available", table: AccountText.table,
+          environment.money.rounded(available, currency: code),
+          environment.money.rounded(limit, currency: code))
+      }
       return account.isDefault && !account.archived ? t("accounts.main") : nil
     case .card(let card):
-      let parts = card.aliases + (isMainCard(card) ? [w("tree.card.main")] : [])
+      let parts = CardRules.captionParts(
+        aliases: card.aliases, isMain: isMainCard(card), mainWord: w("tree.card.main"))
       return parts.isEmpty ? nil : parts.joined(separator: " · ")
     default:
       return nil
@@ -1090,15 +1098,20 @@ struct AccountsSettingsView: View {
     _ key: String, isOn: Binding<Bool>, note: String?, enabled: Bool
   ) -> some View {
     VStack(alignment: .leading, spacing: 2) {
-      Toggle(isOn: isOn) {
+      // The label on the left, the switch pushed to the right edge as the pickers' values are.
+      HStack(spacing: 8) {
         Text(verbatim: w(key))
           .appFont(.callout)
           .foregroundStyle(theme.contentPrimary)
+        Spacer(minLength: 8)
+        Toggle(isOn: isOn) { Text(verbatim: w(key)) }
+          .labelsHidden()
+          .toggleStyle(.switch)
+          .tint(theme.accentDefault)
+          .disabled(!enabled)
+          .accessibilityLabel(Text(verbatim: w(key)))
+          .accessibilityIdentifier("accounts.\(key)")
       }
-      .toggleStyle(.switch)
-      .tint(theme.accentDefault)
-      .disabled(!enabled)
-      .accessibilityIdentifier("accounts.\(key)")
       if let note {
         Text(verbatim: note)
           .appFont(.footnote)
