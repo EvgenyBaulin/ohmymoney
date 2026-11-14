@@ -77,6 +77,8 @@ enum WorthALookNoteText {
       return WarrantyText.note(reminder, names: warrantyNames, environment)
     case .cashback(let cashback):
       return CashbackNoteText.text(cashback, accounts: accounts, labels: labels, environment)
+    case .keyRate(let keyRate):
+      return KeyRateText.note(keyRate, debts: debts, environment)
     case .purchase(let purchase):
       return PurchaseHookText.note(purchase, environment)
     case .habit(let habit):
@@ -114,6 +116,7 @@ enum WorthALookNoteText {
     case .purchase(let purchase): PurchaseHookText.symbol(purchase)
     case .habit(let habit): HabitText.symbol(habit)
     case .cashback(let cashback): CashbackNoteText.symbol(cashback)
+    case .keyRate: KeyRateText.symbol
     }
   }
 
@@ -224,6 +227,7 @@ enum WorthALookNoteText {
     case .habit(let habit): HabitText.actions(habit)
     case .cashback(.choose): [.chooseCashback, .done]
     case .cashback: [.done]
+    case .keyRate: [.openDebts, .done]
     }
   }
 
@@ -413,7 +417,8 @@ extension WorthALook {
         dismissed: DebtReminderMarks.read(from: defaults).dismissed),
       purchases: snapshot.planning.purchaseNotes,
       habits: HabitNotesOnMac.notes(of: snapshot, defaults: defaults),
-      cashback: snapshot.planning.cashbackNotes)
+      cashback: snapshot.planning.cashbackNotes,
+      keyRate: KeyRateText.notes(for: snapshot))
   }
 }
 

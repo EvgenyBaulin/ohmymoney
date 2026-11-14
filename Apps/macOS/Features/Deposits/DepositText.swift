@@ -122,7 +122,8 @@ enum DepositText {
         return f("dep.pick.topup", environment, Self.pick(pick.entry, environment))
       }
     }
-    return ([head] + lines).joined(separator: "\n")
+    let fall = advice.keyRateFall.map { [KeyRateText.fall($0, environment)] } ?? []
+    return ([head] + lines + fall).joined(separator: "\n")
   }
 
   /// The advice for the deposits of a snapshot, against the built-in list and the owner's offers.
@@ -134,7 +135,8 @@ enum DepositText {
         balances.balance(
           BalanceKey(accountId: account.id, currency: account.mainCurrency), at: balances.now)
       },
-      entries: DepositShowcase.entries(own: snapshot.dataset.depositOffers), today: snapshot.today)
+      entries: DepositShowcase.entries(own: snapshot.dataset.depositOffers), today: snapshot.today,
+      keyRates: KeyRateText.table())
   }
 
   /// Every key, so a test finds each in both languages.
@@ -155,5 +157,5 @@ enum DepositText {
     "payout.kind", "payout.none", "payout.dividend", "payout.coupon", "payout.asset",
     "payout.noAssets", "payout.tag.dividend", "payout.tag.coupon", "payout.fromAsset",
     "payout.newTitle", "payout.recurringHint",
-  ]
+  ] + KeyRateText.keys
 }

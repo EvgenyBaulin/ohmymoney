@@ -72,6 +72,9 @@ enum WorthALookCover {
       case .regret(let question): return operation(question.transactionId)
       case .wishReady, .birthday: return false
       }
+    case .keyRate:
+      // About a debt and the rate of the bank, not about an account: debts are not hidden.
+      return false
     case .cashback(let cashback):
       switch cashback {
       case .choose(let due): return account(due.accountId)

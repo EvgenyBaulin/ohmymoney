@@ -20,6 +20,7 @@ struct DepositShowcaseSheet: View {
   @State private var indicator: CentralBankIndicator?
   @State private var fetchFailed = false
   @State private var settingLoaded = false
+  @State private var keyRates = KeyRateTable.builtIn
 
   /// The terms offered by the filter, in months; 0 is «любой».
   static let terms = [0, 1, 3, 6, 12, 24, 36]
@@ -64,6 +65,7 @@ struct DepositShowcaseSheet: View {
       if parserOn, let indicator {
         centralBankBlock(indicator)
       }
+      keyRateBlock(today: today)
       ScrollView {
         LazyVStack(alignment: .leading, spacing: 8) {
           if entries.isEmpty {
@@ -91,7 +93,7 @@ struct DepositShowcaseSheet: View {
       }
     }
     .padding(20)
-    .sheetFrame(width: 560, height: 620)
+    .sheetFrame(width: 560, height: 720)
     .task {
       reload()
       await loadParserSetting()
@@ -99,7 +101,13 @@ struct DepositShowcaseSheet: View {
     .onChange(of: parserOn) { _, on in
       guard settingLoaded else { return }
       try? environment.settings?.set(DepositParserSetting.key, to: DepositParserSetting.stored(on))
-      if on { Task { await refreshFetched() } }
+      if on {
+        Task { await refreshFetched() }
+      } else {
+        // What the page gave is forgotten; the built-in table stays.
+        KeyRateService().forget()
+        keyRates = KeyRateText.table()
+      }
     }
     .sheet(item: $editing, onDismiss: reload) { target in
       DepositOfferEditor(target: target).handingOver(dependencies)
@@ -120,6 +128,26 @@ struct DepositShowcaseSheet: View {
     }
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("deposits.centralBank")
+  }
+
+  /// «Ключевая ставка»: the rate now and its steps over the last two years.
+  @ViewBuilder
+  private func keyRateBlock(today: DateOnly) -> some View {
+    let points = keyRates.points(from: today.adding(months: -24), through: today)
+    if points.count > 1, let now = KeyRateText.current(keyRates, environment) {
+      VStack(alignment: .leading, spacing: 4) {
+        Label(t("dep.keyRate.title"), systemImage: "chart.line.uptrend.xyaxis")
+          .appFont(.callout)
+        KeyRateChart(points: points, calendar: environment.calendar) { point in
+          KeyRateText.describe(point, environment)
+        }
+        .frame(height: 56)
+        Text(verbatim: now).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("dep.keyRate.source")).appFont(.caption).foregroundStyle(.secondary)
+      }
+      .accessibilityElement(children: .contain)
+      .accessibilityIdentifier("deposits.keyRate")
+    }
   }
 
   private func row(
@@ -186,6 +214,7 @@ struct DepositShowcaseSheet: View {
   private func loadParserSetting() async {
     let stored = (try? environment.settings?.string(DepositParserSetting.key)) ?? nil
     parserOn = DepositParserSetting.isEnabled(from: stored)
+    keyRates = KeyRateText.table()
     settingLoaded = true
     if parserOn { await refreshFetched() }
   }
@@ -194,6 +223,7 @@ struct DepositShowcaseSheet: View {
     let result = await DepositRateService().load(today: environment.today)
     fetched = result.entries
     indicator = result.indicator
+    keyRates = await KeyRateService().load(today: environment.today)
     fetchFailed = result.failed
   }
 

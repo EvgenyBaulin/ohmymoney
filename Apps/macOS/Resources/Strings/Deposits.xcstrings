@@ -4968,6 +4968,74 @@
         }
       }
     },
+    "dep.keyRate.now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Now %1$@%% (since %2$@)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас %1$@ %% (с %2$@)."
+          }
+        }
+      }
+    },
+    "dep.keyRate.point": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@%% from %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %% с %2$@"
+          }
+        }
+      }
+    },
+    "dep.keyRate.source": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The table of decisions ships with the app; with the open sources on, it is topped up from the page of the Bank of Russia."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблица решений идёт с приложением; при включённом чтении открытых источников дополняется страницей Банка России."
+          }
+        }
+      }
+    },
+    "dep.keyRate.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Key rate of the Bank of Russia"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключевая ставка Банка России"
+          }
+        }
+      }
+    },
     "dep.newClient": {
       "extractionState": "manual",
       "localizations": {
@@ -9305,6 +9373,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "存款「%1$@」將於 %2$@ 到期。目前的存款方案如下（非財務建議）："
+          }
+        }
+      }
+    },
+    "look.keyRate.fall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key rate fell from %2$@%% to %3$@%% on %1$@: new deposits are likely to pay less than before."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключевая ставка с %1$@ снизилась с %2$@ %% до %3$@ %%: ставки новых вкладов, скорее всего, ниже прежних."
+          }
+        }
+      }
+    },
+    "look.keyRate.refinance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key rate fell from %1$@%% to %2$@%% — “%3$@” is at %4$@%%. It may be worth checking whether refinancing would cost less (this is not financial advice)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключевая ставка снизилась с %1$@ %% до %2$@ %% — у «%3$@» ставка %4$@ %%. Стоит проверить, нет ли рефинансирования выгоднее (это не финансовая консультация)."
           }
         }
       }
