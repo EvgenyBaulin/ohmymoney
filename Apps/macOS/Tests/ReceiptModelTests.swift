@@ -178,6 +178,90 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertEqual(try live().count, 1)
   }
 
+  // MARK: Splitting a receipt by categories
+
+  /// Two live expense categories of the starter set, for the lines of a split.
+  private func twoCategories(_ model: ReceiptModel) throws -> (UUID, UUID) {
+    let ids = model.splitCategories.map(\.id)
+    XCTAssertGreaterThanOrEqual(ids.count, 2)
+    return (ids[0], ids[1])
+  }
+
+  /// A receipt of 6,000 split by hand — 4,000 and 2,000 — is one operation of two parts, written
+  /// in one step of ⌘Z; what the lines leave goes to «Не помню» (nothing left here).
+  func testAReceiptSplitByHandIsOneOperationOfSeveralPartsAndOneUndo() async throws {
+    let model = try await model()
+    model.read(payload: "t=20261029T183200&s=6000.00&n=1")
+    let (food, gift) = try twoCategories(model)
+    model.addSplitLine(category: food, amount: AmountE4(whole: 4_000))
+    model.addSplitLine(category: gift, amount: AmountE4(whole: 2_000))
+    XCTAssertEqual(model.splitRemainder, .zero)
+    XCTAssertTrue(model.canCreate)
+
+    XCTAssertTrue(model.confirm())
+    let made = try XCTUnwrap(live().first)
+    XCTAssertEqual(made.transaction.amountE4, AmountE4(whole: 6_000))
+    XCTAssertEqual(
+      Dictionary(uniqueKeysWithValues: made.parts.map { ($0.categoryId, $0.amountE4) }),
+      [food: AmountE4(whole: 4_000), gift: AmountE4(whole: 2_000)])
+    XCTAssertTrue(made.parts.allSatisfy { $0.categorySource == .manual })
+    store.undo()
+    XCTAssertTrue(try live().isEmpty, "one ⌘Z takes the whole operation back")
+  }
+
+  /// Lines that leave something of the receipt put the rest on «Не помню»; a category named
+  /// twice is one part.
+  func testWhatTheLinesLeaveGoesToDontRememberAndACategoryNamedTwiceIsOnePart() async throws {
+    let model = try await model()
+    model.read(payload: "t=20261029T183200&s=1000.00&n=1")
+    let (food, _) = try twoCategories(model)
+    model.addSplitLine(category: food, amount: AmountE4(whole: 300))
+    model.addSplitLine(category: food, amount: AmountE4(whole: 200))
+    XCTAssertEqual(model.splitRemainder, AmountE4(whole: 500))
+    XCTAssertTrue(model.confirm())
+    let parts = try XCTUnwrap(live().first).parts
+    XCTAssertEqual(parts.count, 2)
+    XCTAssertEqual(parts.first { $0.categoryId == food }?.amountE4, AmountE4(whole: 500))
+    XCTAssertEqual(parts.first { $0.categoryId == unknown.id }?.amountE4, AmountE4(whole: 500))
+  }
+
+  /// Lines above the receipt are said, not written: nothing can be created until they fit.
+  func testLinesAboveTheReceiptBlockTheWrite() async throws {
+    let model = try await model()
+    model.read(payload: "t=20261029T183200&s=100.00&n=1")
+    let (food, gift) = try twoCategories(model)
+    model.addSplitLine(category: food, amount: AmountE4(whole: 80))
+    model.addSplitLine(category: gift, amount: AmountE4(whole: 40))
+    XCTAssertTrue(model.splitRemainder.isNegative)
+    XCTAssertFalse(model.canCreate)
+    XCTAssertFalse(model.confirm())
+    XCTAssertTrue(try live().isEmpty)
+    model.removeSplitLine(at: 1)
+    XCTAssertTrue(model.canCreate)
+    XCTAssertTrue(model.confirm())
+  }
+
+  func testTheSplitIsClearedAndNotKeptForTheNextReceipt() async throws {
+    let model = try await model()
+    model.read(payload: "t=20261029T183200&s=100.01&n=1")
+    let (food, gift) = try twoCategories(model)
+    model.addSplitLine(category: gift, amount: AmountE4(whole: 50))
+    model.clearSplit()
+    XCTAssertTrue(model.splitLines.isEmpty)
+    model.addSplitLine(category: food, amount: AmountE4(whole: 1))
+    model.reset()
+    XCTAssertTrue(model.splitLines.isEmpty, "another receipt starts without lines")
+  }
+
+  /// A zero or negative line is no line.
+  func testAnEmptyLineIsNotAdded() async throws {
+    let model = try await model()
+    model.read(payload: "t=20261029T183200&s=100.00&n=1")
+    let (food, _) = try twoCategories(model)
+    model.addSplitLine(category: food, amount: .zero)
+    XCTAssertTrue(model.splitLines.isEmpty)
+  }
+
   func testTheOwnerCanSayItIsAnotherPurchaseAndGoBack() async throws {
     let coffee = try purchase("Кофе", rubles: 250, day: 29)
     let model = try await model()

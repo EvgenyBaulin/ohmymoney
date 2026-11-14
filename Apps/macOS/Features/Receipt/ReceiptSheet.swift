@@ -319,6 +319,7 @@ struct ReceiptSheet: View {
       }
       Text(verbatim: t(model.canCreate ? "receipt.new.category" : "receipt.new.refundHint"))
         .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+      if model.receipt?.isRefund != true { ReceiptSplitSection(model: model) }
       if !model.similar.isEmpty {
         Text(verbatim: t("receipt.similar.title")).appFont(.headline)
         ForEach(model.similar.prefix(3), id: \.id) { choice in
