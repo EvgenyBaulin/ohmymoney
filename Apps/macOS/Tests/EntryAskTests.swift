@@ -254,7 +254,10 @@ final class EntryAskTests: XCTestCase {
     XCTAssertEqual(plans.first?.name, "sofa")
     XCTAssertEqual(plans.first?.amountE4, AmountE4(whole: 250))
     XCTAssertEqual(plans.first?.nextDate, DateOnly(year: 2030, month: 12, day: 31))
-    XCTAssertEqual(try host.line().stringValue, "", "the line is cleared")
+    // The line is cleared once the write has landed, a beat after the plan is in the database.
+    let line = try host.line()
+    _ = host.settle(until: { line.stringValue.isEmpty })
+    XCTAssertEqual(line.stringValue, "", "the line is cleared")
     XCTAssertTrue(host.store.canUndo)
     host.store.undo()
     host.settle(0.3)
