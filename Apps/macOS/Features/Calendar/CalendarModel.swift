@@ -25,8 +25,10 @@ enum CalendarScreen {
     let planning = snapshot.planning
     let today = snapshot.today
     let range = SpendingCalendar.range(scope: scope, anchor: anchor, firstWeekday: firstWeekday)
+    // The card of what is coming looks thirty days ahead whichever month is on screen.
+    let through = max(range.end, today.adding(days: SpendingCalendar.upcomingDays - 1))
     let plans = CalendarPlans.collect(
-      ledger: snapshot.ledger, book: planning.book, today: today, through: range.end,
+      ledger: snapshot.ledger, book: planning.book, today: today, through: through,
       rubPerUnit: planning.rubPerUnit, matches: planning.matches)
     let built = SpendingCalendar.build(
       ledger: snapshot.ledger, scope: scope, anchor: anchor, today: today,
@@ -81,15 +83,26 @@ enum CalendarLayout {
     upcoming(in: calendar, limit: .max).count
   }
 
-  /// The plans of the days shown from today on, soonest first, payments before incomes within
-  /// a day, at most `limit`; the days ahead only, so a past day never appears.
+  /// The plans of the next thirty days from today, soonest first, payments before incomes within
+  /// a day, at most `limit`. Whichever month or week is on screen: the days of the weeks drawn
+  /// and the plans the calendar keeps for what lies outside them, so the last day of a month and
+  /// a month already past still say what is coming.
   static func upcoming(
     in calendar: SpendingCalendar, limit: Int = upcomingLimit
   ) -> [CalendarPlan] {
-    let plans = calendar.weeks.flatMap { $0 }
-      .filter { $0.inScope || calendar.scope == .week }
+    let horizon = calendar.today.adding(days: SpendingCalendar.upcomingDays - 1)
+    let drawn = calendar.weeks.flatMap { $0 }
       .filter { $0.isToday || $0.isFuture }
       .flatMap(\.plans)
+    let plans = (drawn + calendar.outsidePlans)
+      .filter { $0.day <= horizon }
+      .enumerated()
+      .sorted {
+        let left = ($0.element.day.dayNumber, $0.element.kind == .payment ? 0 : 1)
+        let right = ($1.element.day.dayNumber, $1.element.kind == .payment ? 0 : 1)
+        return left != right ? left < right : $0.offset < $1.offset
+      }
+      .map(\.element)
     return Array(plans.prefix(limit))
   }
 }
@@ -159,6 +172,7 @@ enum CalendarText {
     "calendar.plannedIn", "calendar.plansWithoutRate", "calendar.usual", "calendar.lowData",
     "calendar.atTodaysRate", "calendar.planned", "calendar.payment", "calendar.income",
     "calendar.day.empty", "calendar.open", "calendar.total", "calendar.upcoming",
+    "calendar.upcoming.none",
     "calendar.legend.level",
   ]
 

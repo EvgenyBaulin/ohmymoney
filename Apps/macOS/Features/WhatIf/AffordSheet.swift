@@ -50,6 +50,7 @@ struct AffordSheet: View {
         Button(text("afford.close")) { dismiss() }
           .keyboardShortcut(.cancelAction)
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
       }
     }
     .padding(20)

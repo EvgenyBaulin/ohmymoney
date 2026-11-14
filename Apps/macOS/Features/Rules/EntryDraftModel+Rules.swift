@@ -98,7 +98,7 @@ extension EntryDraftModel {
     return RuleSubject(
       kind: draft.kind, placeId: draft.placeId, accountId: draft.paymentMethodId,
       cardId: draft.cardId, amountRubE4: rubles, weekday: calendar.weekdayIndex(day),
-      minuteOfDay: clock.hour * 60 + clock.minute, texts: texts,
+      minuteOfDay: RuleSubject.namedMinute(clock, at: draft.occurredAt), texts: texts,
       parts: [
         RuleSubject.PartFacts(
           partId: nil, categoryScope: scope, text: NameKey.fold(first?.note ?? ""))

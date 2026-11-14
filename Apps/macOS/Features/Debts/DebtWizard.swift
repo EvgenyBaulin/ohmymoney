@@ -393,6 +393,7 @@ struct DebtWizard: View {
             .frame(maxWidth: .infinity)
         }
         .keyboardShortcut(.defaultAction)
+        .disablesOnUnreadableAmount()
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
         .disabled(dependencies == nil || !model.canLeave(model.step))
@@ -404,6 +405,7 @@ struct DebtWizard: View {
           Text(verbatim: t("wizard.next")).frame(maxWidth: .infinity)
         }
         .keyboardShortcut(.defaultAction)
+        .disablesOnUnreadableAmount()
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
         .disabled(!model.canLeave(model.step))

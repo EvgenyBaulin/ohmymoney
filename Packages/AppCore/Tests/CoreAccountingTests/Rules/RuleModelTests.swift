@@ -97,6 +97,33 @@ struct RuleModelTests {
         == [.retiredCategory(book.coffee.id)], "a subcategory of an archived category")
   }
 
+  @Test func conditionsThatContradictEachOtherCanNeverFire() {
+    let cafe = book.coffee.id
+    // More than 1 000 and less than 500: no sum fits.
+    #expect(
+      problems(
+        book.rule(
+          [.amountAbove(AmountE4(raw: 10_000_000)), .amountBelow(AmountE4(raw: 5_000_000))],
+          [.setCategory(cafe)])) == [.contradictoryAmounts])
+    // The same figure on both sides leaves nothing too: «never equal» on each.
+    #expect(
+      problems(
+        book.rule(
+          [.amountAbove(AmountE4(raw: 5_000_000)), .amountBelow(AmountE4(raw: 5_000_000))],
+          [.setCategory(cafe)])) == [.contradictoryAmounts])
+    // A window is fine.
+    #expect(
+      problems(
+        book.rule(
+          [.amountAbove(AmountE4(raw: 5_000_000)), .amountBelow(AmountE4(raw: 10_000_000))],
+          [.setCategory(cafe)])).isEmpty)
+    // An operation is one kind.
+    #expect(
+      problems(book.rule([.kind(.income), .kind(.expense)], [.setCategory(cafe)]))
+        .contains(.contradictoryKinds))
+    #expect(problems(book.rule([.kind(.expense), .kind(.expense)], [.setCategory(cafe)])).isEmpty)
+  }
+
   @Test func kindsOfCategoriesMustAgree() {
     let mixed = book.rule([.category(book.cafe.id)], [.setCategory(book.salary.id)])
     #expect(problems(mixed) == [.mixedCategoryKinds])

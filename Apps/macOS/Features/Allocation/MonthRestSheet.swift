@@ -79,6 +79,7 @@ struct MonthRestSheet: View {
           }
         }
         .keyboardShortcut(.defaultAction)
+        .disablesOnUnreadableAmount()
         .disabled(target == nil || amount.raw <= 0 || (target == .cushion && cushionAccount == nil))
       }
     }

@@ -14,6 +14,27 @@ extension AccountMerge {
   public static func canMerge(_ source: PaymentMethod, into target: PaymentMethod) -> Bool {
     source.id != target.id && bank(of: source) == bank(of: target)
   }
+
+  /// What a merge does to who can see the money. The merged account takes the target's
+  /// visibility, so a difference between the two changes what the screens show.
+  public enum VisibilityEffect: Hashable, Sendable {
+    case none
+    /// A hidden account is merged into a visible one: its operations and balance show up in the
+    /// lists and in the capital without «Показать скрытые».
+    case sourceBecomesVisible
+    /// A visible account is merged into a hidden one: its whole history leaves the screens.
+    case sourceBecomesHidden
+  }
+
+  public static func visibilityEffect(
+    source: PaymentMethod, target: PaymentMethod
+  ) -> VisibilityEffect {
+    switch (source.hidden, target.hidden) {
+    case (true, false): .sourceBecomesVisible
+    case (false, true): .sourceBecomesHidden
+    default: .none
+    }
+  }
 }
 
 /// Why one bank cannot be merged into another.

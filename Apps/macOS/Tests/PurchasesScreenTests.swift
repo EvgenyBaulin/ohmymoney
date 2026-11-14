@@ -450,7 +450,8 @@ final class PurchasesPageTests: XCTestCase {
     "purchases.category.sales", "purchases.waiting.empty", "purchases.waiting.total",
     "purchases.waiting.hint", "purchases.waiting.noNote", "purchases.waiting.until",
     "purchases.waiting.late", "purchases.waiting.credited", "purchases.waiting.postpone",
-    "purchases.postpone.title", "purchases.postpone.day", "purchases.savings.empty",
+    "purchases.postpone.title", "purchases.postpone.day", "purchases.credit.title",
+    "purchases.credit.day", "purchases.credit.hint", "purchases.savings.empty",
     "purchases.savings.month", "purchases.savings.year", "purchases.savings.byMonth",
     "purchases.savings.count", "purchases.savings.share", "purchases.shopping.add",
     "purchases.shopping.addButton", "purchases.shopping.empty", "purchases.shopping.clear",
@@ -663,6 +664,17 @@ final class PurchaseActionsTests: CapitalStoreTestCase {
     XCTAssertEqual(purchases.credit(operation.id), .done)
     XCTAssertNil(try repository.entry(id: operation.id)?.transaction.refundWaitingUntil)
     XCTAssertEqual(purchases.credit(UUID()), .refused(.notFound))
+  }
+
+  func testCreditingOnADayDatesTheRefundThatDay() throws {
+    var operation = try expense(2_500, note: "кроссовки")
+    operation.transaction.refundWaitingUntil = DateOnly(year: 2026, month: 10, day: 27)
+    XCTAssertTrue(store.save(operation))
+    let arrived = DateOnly(year: 2026, month: 11, day: 3)
+    XCTAssertEqual(purchases.credit(operation.id, on: arrived), .done)
+    let saved = try XCTUnwrap(try XCTUnwrap(environment.transactions).entry(id: operation.id))
+    XCTAssertNil(saved.transaction.refundWaitingUntil)
+    XCTAssertEqual(environment.calendar.day(of: saved.transaction.occurredAt), arrived)
   }
 
   // MARK: Settings

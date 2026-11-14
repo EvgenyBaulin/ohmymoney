@@ -154,6 +154,13 @@ struct MigrationFlow: View {
         )
         .foregroundStyle(.secondary)
       }
+      // The other application's transfers between accounts are not moved, so a balance may
+      // differ from the bank's: say to count it again.
+      Text(verbatim: t("migration.done.reconcile"))
+        .appFont(.callout).foregroundStyle(.secondary)
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: 460)
+        .accessibilityIdentifier("migration.done.reconcile")
       Text(verbatim: t("migration.done.undo"))
         .appFont(.callout).foregroundStyle(.secondary)
         .multilineTextAlignment(.center)
@@ -335,6 +342,10 @@ struct MigrationPairingStep: View {
             Text(verbatim: t("migration.account.skip")).tag(UUID?.none)
             ForEach(model.accounts) { account in
               Text(verbatim: account.name).tag(UUID?.some(account.id))
+            }
+            ForEach(model.proposedForPicker) { account in
+              Text(verbatim: account.name + " · " + t("migration.account.new"))
+                .tag(UUID?.some(account.id))
             }
           } label: {
             Text(verbatim: name.isEmpty ? t("migration.account.unnamed") : name)

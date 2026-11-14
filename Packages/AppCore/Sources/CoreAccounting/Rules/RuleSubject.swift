@@ -30,6 +30,7 @@ public struct RuleSubject: Hashable, Sendable {
   public var amountRubE4: AmountE4?
   /// 1 = Monday … 7 = Sunday, in the zone the operation was recorded in.
   public var weekday: Int?
+  /// `nil` when nobody named the time: an operation written «вчера» is saved at noon sharp.
   public var minuteOfDay: Int?
   /// The place's name and aliases and the operation's description, folded (`NameKey`).
   public var texts: [String]
@@ -71,12 +72,22 @@ public struct RuleSubject: Hashable, Sendable {
       kind: transaction.kind, placeId: transaction.placeId,
       accountId: transaction.paymentMethodId, cardId: transaction.cardId,
       amountRubE4: transaction.amountRubE4, weekday: calendar.weekdayIndex(day),
-      minuteOfDay: clock.hour * 60 + clock.minute, texts: texts,
+      minuteOfDay: Self.namedMinute(clock, at: transaction.occurredAt), texts: texts,
       parts: entry.parts.map { part in
         PartFacts(
           partId: part.id, categoryScope: Self.scope(of: part.categoryId, in: tree),
           text: NameKey.fold(part.note ?? ""))
       })
+  }
+
+  /// The minute of the day of `instant`, or `nil` for noon sharp to the second — the time an
+  /// operation gets when its day was named and its hour was not. A rule about the hour then has
+  /// nothing to judge; it is not guessed from when the owner sat down to write.
+  public static func namedMinute(_ clock: TimeOfDay, at instant: Date) -> Int? {
+    let unnamed =
+      clock.hour == 12 && clock.minute == 0
+      && instant.timeIntervalSince1970.truncatingRemainder(dividingBy: 60) == 0
+    return unnamed ? nil : clock.hour * 60 + clock.minute
   }
 
   static func scope(of categoryId: UUID?, in tree: CategoryTree) -> Set<UUID> {

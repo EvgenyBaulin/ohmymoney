@@ -36,6 +36,19 @@ public enum OperationAhead {
     return plan
   }
 
+  /// Days ahead from which a date reads like a typo of the year rather than a plan.
+  public static let farDays = 60
+
+  /// How many whole months ahead of `today` a date further than `farDays` is, rounded to the
+  /// nearest month and never below two; `nil` for a date that is not far (or is in the past).
+  /// The question about an operation dated ahead says it, so «15.11.2027» is not mistaken for
+  /// «15.11.2026».
+  public static func monthsAhead(of day: DateOnly, today: DateOnly) -> Int? {
+    let days = today.days(to: day)
+    guard days > farDays else { return nil }
+    return max(2, (days * 2 + 30) / 61)  // days / 30.5, rounded
+  }
+
   /// The payment an expense dated ahead becomes: «Разово» — every month, ending on its own date,
   /// which is how Planning reads one charge —, named `name`, with what the expense said: amount,
   /// currency, category, account and card, event, for whom, and who gives the money back. A

@@ -343,11 +343,14 @@ struct PurchaseActions {
     (try? environment.transactions?.entry(id: id)) ?? store.entry(id: id)
   }
 
-  /// «Зачислено»: the wait ends and the operation counts as an ordinary refund.
+  /// «Зачислено»: the wait ends and the operation counts as an ordinary refund, dated the day the
+  /// money came (today unless the owner said another).
   @discardableResult
-  func credit(_ transactionId: UUID) -> PurchaseOutcome {
+  func credit(_ transactionId: UUID, on day: DateOnly? = nil) -> PurchaseOutcome {
     guard var entry = entry(transactionId) else { return .refused(.notFound) }
-    entry.transaction = WaitingRefunds.credited(entry.transaction)
+    entry.transaction = WaitingRefunds.credited(
+      entry.transaction, on: day ?? environment.today, now: environment.now(),
+      calendar: environment.calendar)
     return store.save(entry) ? .done : .failed
   }
 

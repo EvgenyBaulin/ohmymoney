@@ -152,6 +152,7 @@ struct SubscriptionTermsSheet: View {
           .keyboardShortcut(.cancelAction)
         Button(t("subs.terms.save")) { save() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
           .accessibilityIdentifier("subs.terms.save")
       }
     }
@@ -238,6 +239,7 @@ struct SubscriptionCancelSheet: View {
           .keyboardShortcut(.cancelAction)
         Button(t("subs.cancel.confirm")) { confirm() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
           .accessibilityIdentifier("subs.cancel.confirm")
       }
     }

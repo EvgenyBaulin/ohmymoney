@@ -1372,6 +1372,18 @@ struct AccountMergeSheet: View {
         Image(systemName: "star.fill")
       }
     }
+    if let effect = visibilityEffect {
+      Label {
+        Text(
+          verbatim: t(
+            effect == .sourceBecomesVisible
+              ? "account.merge.hiddenShows" : "account.merge.visibleHides"))
+      } icon: {
+        Image(systemName: "eye.trianglebadge.exclamationmark")
+      }
+      .foregroundStyle(.orange)
+      .accessibilityIdentifier("account.merge.visibility")
+    }
     if sourceHasCards {
       Label {
         Text(
@@ -1388,7 +1400,27 @@ struct AccountMergeSheet: View {
     .fixedSize(horizontal: false, vertical: true)
   }
 
+  /// How the merge changes who sees the money: set when the two differ in being hidden.
+  private var visibilityEffect: AccountMerge.VisibilityEffect? {
+    guard let target = targets.first(where: { $0.id == target }) else { return nil }
+    let effect = AccountMerge.visibilityEffect(source: source, target: target)
+    return effect == .none ? nil : effect
+  }
+
+  /// A hidden account joining a visible one shows its money: that takes the same proof as
+  /// «Показать скрытые» (Touch ID or the password of the Mac), unless the hidden accounts are
+  /// already shown.
   private func merge() {
+    guard source.hidden, !environment.shield.isRevealed else {
+      performMerge()
+      return
+    }
+    Task {
+      if await environment.revealHiddenAccounts() { performMerge() }
+    }
+  }
+
+  private func performMerge() {
     guard let books, let target else { return }
     var typed: [BalanceKey: AmountE4] = [:]
     for (key, text) in answers where !text.trimmingCharacters(in: .whitespaces).isEmpty {

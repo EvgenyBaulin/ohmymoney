@@ -119,6 +119,7 @@ struct DebtSheetView: View {
           }
         }
         .keyboardShortcut(.defaultAction)
+        .disablesOnUnreadableAmount()
         .buttonStyle(.borderedProminent)
         .disabled(!action.enabled)
       }

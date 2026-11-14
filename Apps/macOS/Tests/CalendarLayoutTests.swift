@@ -58,11 +58,32 @@ final class CalendarLayoutTests: XCTestCase {
     XCTAssertEqual(CalendarLayout.upcomingCount(in: value), 12)
   }
 
+  func testUpcomingLooksThirtyDaysAheadWhicheverMonthIsOnScreen() {
+    // The drawn days are all in the past (a month browsed back), the plans come from outside.
+    let days = [day(1, today: 12), day(2, today: 12)]
+    var value = calendar(days)
+    value.today = DateOnly(year: 2026, month: 10, day: 12)
+    var far = plan("Net", on: 12)
+    far.day = value.today.adding(days: 40)
+    value.outsidePlans = [plan("Rent", on: 13), far]
+    XCTAssertEqual(CalendarLayout.upcoming(in: value).map(\.name), ["Rent"], "40 days is past 30")
+    XCTAssertEqual(CalendarLayout.upcomingCount(in: value), 1)
+    value.outsidePlans = []
+    XCTAssertTrue(CalendarLayout.upcoming(in: value).isEmpty)
+  }
+
+  func testTheNeighbouringDaysOfTheWeeksDrawnCountToo() {
+    var neighbour = day(14, today: 12, plans: [plan("Rent", on: 14)])
+    neighbour.inScope = false
+    let value = calendar([day(12, today: 12), neighbour])
+    XCTAssertEqual(CalendarLayout.upcoming(in: value).map(\.name), ["Rent"])
+  }
+
   func testNewStringsExistInBothLanguages() {
     for choice in [AppLanguage.Choice.russian, .english] {
       let environment = AppEnvironment()
       environment.language.choice = choice
-      for key in ["calendar.upcoming", "calendar.legend.level"] {
+      for key in ["calendar.upcoming", "calendar.upcoming.none", "calendar.legend.level"] {
         XCTAssertNotEqual(CalendarText.t(key, environment), key)
       }
     }

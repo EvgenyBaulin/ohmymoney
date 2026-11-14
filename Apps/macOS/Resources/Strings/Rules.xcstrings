@@ -24064,6 +24064,40 @@
         }
       }
     },
+    "rules.problem.contradictoryAmounts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sum limits contradict each other: no amount is both above one and below the other"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Границы суммы противоречат друг другу: ни одна сумма не бывает и больше одной, и меньше другой"
+          }
+        }
+      }
+    },
+    "rules.problem.contradictoryKinds": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Two different kinds of operation in one rule: an operation is of one kind only"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В правиле два разных вида операции: операция бывает только одного вида"
+          }
+        }
+      }
+    },
     "rules.problem.emptyText": {
       "extractionState": "manual",
       "localizations": {

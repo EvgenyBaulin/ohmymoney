@@ -80,6 +80,7 @@ struct DebtReviewSheet: View {
             .accessibilityIdentifier("debts.review.notNeeded")
           Button(t("form.save")) { answer(item, debt: debt, saving: true) }
             .keyboardShortcut(.defaultAction)
+            .disablesOnUnreadableAmount()
             .buttonStyle(.borderedProminent)
             .disabled(dependencies == nil)
         }
@@ -89,6 +90,7 @@ struct DebtReviewSheet: View {
           Spacer()
           Button(environment.language("action.ok")) { close() }
             .keyboardShortcut(.defaultAction)
+            .disablesOnUnreadableAmount()
         }
       }
     }

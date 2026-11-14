@@ -51,6 +51,13 @@ public struct ReceiptDraft: Hashable, Sendable {
   /// rounding or a tip and the moment is within a day (`ReceiptMatch.similar`). Offered
   /// to choose from, never taken for the receipt's own.
   public var similar: [ReceiptCandidate] = []
+  /// Smaller operations of the same kind and currency written for the day of the receipt that
+  /// hold no receipt yet: a purchase paid in two ways was entered as two operations, and a third
+  /// one for the whole receipt would count it twice. Nearest to the receipt's moment first.
+  public var sameDay: [ReceiptCandidate] = []
+  /// Two to four of `sameDay` that add up to the sum of the receipt exactly: the receipt is
+  /// most likely theirs. Empty when no such few exist.
+  public var splitParts: [ReceiptCandidate] = []
 }
 
 public enum ReceiptMatch {
@@ -95,6 +102,8 @@ public enum ReceiptMatch {
     }
     var draft = draft(for: receipt, calendar: calendar)
     draft.similar = similar(to: receipt, among: candidates, calendar: calendar)
+    draft.sameDay = sameDay(of: receipt, among: candidates, calendar: calendar)
+    draft.splitParts = split(receipt.amountE4, among: draft.sameDay)
     return .new(draft)
   }
 
@@ -146,6 +155,60 @@ public enum ReceiptMatch {
         return $0.0.id.uuidString < $1.0.id.uuidString
       }
       .map(\.0)
+  }
+
+  /// How many operations of the day are looked at for a split: the combinations stay few.
+  static let sameDayLimit = 12
+
+  /// The operations of the receipt's kind and currency with no receipt, recorded on the day of
+  /// the receipt, each smaller than the receipt; the nearest to its moment first.
+  public static func sameDay(
+    of receipt: ReceiptQR, among candidates: [ReceiptCandidate], calendar: CalendarContext
+  ) -> [ReceiptCandidate] {
+    let moment = receipt.moment(in: calendar)
+    let kind = receipt.operation.transactionKind
+    return Array(
+      candidates
+        .filter {
+          $0.kind == kind && $0.currency == receipt.currency && $0.receipt == nil
+            && $0.amountE4.raw > 0 && $0.amountE4 < receipt.amountE4
+            && calendar.day(of: $0.occurredAt, recordedIn: $0.timeZoneId) == receipt.day
+        }
+        .sorted {
+          let left = abs($0.occurredAt.timeIntervalSince(moment))
+          let right = abs($1.occurredAt.timeIntervalSince(moment))
+          return left != right ? left < right : $0.id.uuidString < $1.id.uuidString
+        }
+        .prefix(sameDayLimit))
+  }
+
+  /// The fewest of `parts` (two to four) whose sums add up to `total` exactly, in the order they
+  /// are given; empty when none do.
+  public static func split(_ total: AmountE4, among parts: [ReceiptCandidate]) -> [ReceiptCandidate]
+  {
+    guard parts.count >= 2 else { return [] }
+    func search(
+      from start: Int, left: Int64, need: Int, chosen: [Int]
+    ) -> [Int]? {
+      if need == 0 { return left == 0 ? chosen : nil }
+      guard start < parts.count else { return nil }
+      for index in start..<parts.count {
+        let raw = parts[index].amountE4.raw
+        guard raw <= left else { continue }
+        if let found = search(
+          from: index + 1, left: left - raw, need: need - 1, chosen: chosen + [index])
+        {
+          return found
+        }
+      }
+      return nil
+    }
+    for size in 2...min(4, parts.count) {
+      if let found = search(from: 0, left: total.raw, need: size, chosen: []) {
+        return found.map { parts[$0] }
+      }
+    }
+    return []
   }
 
   /// A new operation with the sum, the day and the time of the receipt, on the clock of `calendar`.

@@ -124,6 +124,7 @@ struct PlanningChoices {
 struct FormButtons: View {
   @Dependency(\.environment) private var environment
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.hasUnreadableAmount) private var hasUnreadableAmount
   let title: String
   let enabled: Bool
   /// Why the save did not happen, asked only when it did not: a form is never left open
@@ -143,6 +144,13 @@ struct FormButtons: View {
 
   var body: some View {
     VStack(alignment: .trailing, spacing: 6) {
+      if hasUnreadableAmount {
+        Text(verbatim: environment.language("amount.unreadable.form"))
+          .appFont(.caption)
+          .foregroundStyle(.red)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("form.amountUnreadable")
+      }
       if let failed {
         Text(verbatim: failed)
           .appFont(.caption)
@@ -158,13 +166,14 @@ struct FormButtons: View {
             dismiss()
           } else {
             let reason = failure()
-            failed =
-              reason.isEmpty ? environment.language("form.notSaved", table: "Planning") : reason
+            failed = WriteRefusalWords.failureText(reason: reason, environment)
           }
         }
         .keyboardShortcut(.defaultAction)
         .buttonStyle(.borderedProminent)
-        .disabled(!enabled)
+        .disabled(
+          !UnreadableAmountRule.isEnabled(
+            formAllows: enabled, hasUnreadableAmount: hasUnreadableAmount))
       }
     }
     .padding(.top, 8)

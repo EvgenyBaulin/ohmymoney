@@ -36,6 +36,7 @@ struct AllocationSheetView: View {
           Spacer()
           Button(environment.language("action.ok")) { dismiss() }
             .keyboardShortcut(.defaultAction)
+            .disablesOnUnreadableAmount()
         }
       }
     }
@@ -144,6 +145,17 @@ struct AllocationSheetView: View {
             .monospacedDigit()
             .accessibilityIdentifier("allocation.unallocated")
         }
+        if let over = sheet.overspentE4(chosenE4: chosen) {
+          Label {
+            Text(
+              verbatim: AllocationText.format(
+                "allocation.overBudget", environment, money.rounded(over, currency: currency)))
+          } icon: {
+            Image(systemName: "exclamationmark.triangle")
+          }
+          .foregroundStyle(.red)
+          .accessibilityIdentifier("allocation.overBudget")
+        }
         if sheet.shownNotWrittenE4.raw > 0 {
           Text(
             verbatim: AllocationText.format(
@@ -189,6 +201,7 @@ struct AllocationSheetView: View {
         }
       }
       .keyboardShortcut(.defaultAction)
+      .disablesOnUnreadableAmount()
       .disabled(!amounts.values.contains { $0.raw > 0 })
       .accessibilityIdentifier("allocation.write")
     }
@@ -269,6 +282,14 @@ struct AllocationSheetView: View {
     case .noCushionAccount:
       Label {
         Text(verbatim: AllocationText.t("allocation.note.noCushion", environment))
+      } icon: {
+        Image(systemName: "exclamationmark.circle")
+      }
+      .appFont(.caption)
+      .foregroundStyle(.secondary)
+    case .noRate:
+      Label {
+        Text(verbatim: AllocationText.t("allocation.note.noRate", environment))
       } icon: {
         Image(systemName: "exclamationmark.circle")
       }

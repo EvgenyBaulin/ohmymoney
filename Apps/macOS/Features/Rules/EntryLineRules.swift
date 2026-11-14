@@ -24,6 +24,10 @@ enum EntryLineRules {
     let parsed = reading.parsed
     let day = parsed.date ?? calendar.day(of: now)
     let clock = reading.timeOfDay ?? calendar.timeOfDay(now)
+    // A line that names another day and no time is saved at noon: its hour is nobody's.
+    let minute: Int? =
+      reading.timeOfDay != nil || day == calendar.day(of: now)
+      ? clock.hour * 60 + clock.minute : nil
     var texts: [String] = []
     if let place = parsed.placeId.flatMap({ places[$0] }) {
       texts.append(place.name)
@@ -45,7 +49,7 @@ enum EntryLineRules {
       accountId: parsed.paymentMethodId ?? fallback?.paymentMethodId,
       cardId: parsed.cardId ?? (parsed.withoutCard ? nil : fallback?.cardId),
       amountRubE4: rubles, weekday: calendar.weekdayIndex(day),
-      minuteOfDay: clock.hour * 60 + clock.minute, texts: texts,
+      minuteOfDay: minute, texts: texts,
       parts: [RuleSubject.PartFacts(partId: nil, categoryScope: scope, text: "")])
   }
 

@@ -46,6 +46,10 @@ public struct ExportCopyDraft: Sendable {
   public var operationsLeftOut: Int { diff("transactions") }
   public var transfersLeftOut: Int { diff("transfers") }
   public var accountsLeftOut: Int { diff("payment_methods") }
+  /// Planned payments, expected incomes, debt entries and goals that went with a hidden account.
+  public var plansLeftOut: Int {
+    ["scheduled_payments", "expected_income", "debt_entries", "goals"].map(diff).reduce(0, +)
+  }
 
   private func diff(_ table: String) -> Int {
     (rowCountsBefore[table] ?? 0) - (rowCounts[table] ?? 0)
@@ -151,9 +155,23 @@ public struct ExportCopyMaker: Sendable {
         DELETE FROM transfers
         WHERE from_payment_method_id IN (\(marks)) OR to_payment_method_id IN (\(marks))
         """, arguments: twice)
-    try db.execute(
-      sql: "UPDATE goals SET account_id = NULL WHERE account_id IN (\(marks))",
-      arguments: arguments)
+    // What the owner planned on a hidden account goes with it: a rent or a pay kept without its
+    // account would still tell what the account is.
+    for table in ["scheduled_payments", "expected_income", "debt_entries"] {
+      try db.execute(
+        sql: "DELETE FROM \(table) WHERE payment_method_id IN (\(marks))", arguments: arguments)
+    }
+    do {
+      try db.execute(
+        sql: "DELETE FROM goals WHERE account_id IN (\(marks))", arguments: arguments)
+    } catch let error as GRDB.DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
+      // A goal something still points at stays, without the account.
+      try db.execute(
+        sql: """
+          UPDATE goals SET account_id = NULL, transfer_on_contribution = 0
+          WHERE account_id IN (\(marks))
+          """, arguments: arguments)
+    }
     try db.execute(
       sql: """
         UPDATE payment_methods SET cashback_points_account_id = NULL

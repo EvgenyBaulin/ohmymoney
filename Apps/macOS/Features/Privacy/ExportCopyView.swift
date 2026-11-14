@@ -150,6 +150,15 @@ struct ExportCopyView: View {
           )
           .appFont(.callout).foregroundStyle(.secondary)
         }
+        // Before the copy is made: what goes with the hidden accounts besides their operations.
+        if model.plansLeftOut > 0 {
+          Text(
+            verbatim: environment.format(
+              "privacy.copy.plansLeftOut", table: Self.table, counts: model.plansLeftOut)
+          )
+          .appFont(.callout).foregroundStyle(.secondary)
+          .accessibilityIdentifier("privacy.copy.preview.plans")
+        }
         Label {
           Text(verbatim: t("privacy.copy.originalStays"))
         } icon: {
@@ -212,6 +221,11 @@ struct ExportCopyView: View {
             verbatim: environment.format(
               "privacy.copy.leftOut", table: Self.table,
               counts: report.operationsLeftOut + report.transfersLeftOut))
+        }
+        if report.plansLeftOut > 0 {
+          Text(
+            verbatim: environment.format(
+              "privacy.copy.plansLeftOut", table: Self.table, counts: report.plansLeftOut))
         }
         Text(verbatim: t("privacy.copy.done.locked"))
       }

@@ -13,6 +13,8 @@ public struct ExportCopyReport: Equatable, Sendable {
   public let operationsLeftOut: Int
   public let transfersLeftOut: Int
   public let accountsLeftOut: Int
+  /// Plans, debt entries and goals of a hidden account left out with it.
+  public let plansLeftOut: Int
   public let attachments: Int
   public let encrypted: Bool
 }
@@ -151,7 +153,8 @@ public struct ExportCopyService: Sendable {
         transfers: draft.rowCounts["transfers"] ?? 0,
         accounts: draft.rowCounts["payment_methods"] ?? 0,
         operationsLeftOut: draft.operationsLeftOut, transfersLeftOut: draft.transfersLeftOut,
-        accountsLeftOut: draft.accountsLeftOut, attachments: carried, encrypted: true)
+        accountsLeftOut: draft.accountsLeftOut, plansLeftOut: draft.plansLeftOut,
+        attachments: carried, encrypted: true)
       AppLog.info(
         "copy.export.done", .archive, "the copy was written and read back",
         [

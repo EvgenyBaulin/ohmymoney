@@ -31890,6 +31890,23 @@
         }
       }
     },
+    "account.merge.hiddenShows": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This account is hidden: after the merge its operations and balance become visible without «Show hidden»."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт скрыт: после слияния его операции и остаток станут видны без «Показать скрытые»."
+          }
+        }
+      }
+    },
     "account.merge.into": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -33493,6 +33510,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "無法計算此貨幣的餘額。若知道餘額，請輸入；也可留空，稍後再對帳。"
+          }
+        }
+      }
+    },
+    "account.merge.visibleHides": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The account you keep is hidden: after the merge the whole history of this account disappears from the screens."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт, в который вливаем, скрыт: после слияния вся история этого счёта пропадёт с экранов."
           }
         }
       }

@@ -174,6 +174,25 @@ struct StatementManualMatchTests {
       matches == [StatementManualMatch(incomingIndex: 0, candidateIDs: ["m1"], certainty: .merge)])
   }
 
+  @Test func aBigSumMergesSilentlyOnlyWithinFiftyRoubles() {
+    let big = StatementManualEntry(id: "b1", day: day(14), amount: AmountE4(whole: -12_000))
+    // 100 ₽ is under 1 % of 12 000 ₽ and yet a second purchase may stand behind it: ask.
+    let farther = StatementManualMatcher.match(
+      newOperations: [(0, op(-12_100, d: 16))], manual: [big])
+    #expect(farther.first?.certainty == .ask && farther.first?.candidateIDs == ["b1"])
+    // 40 ₽ and under 1 %: still the same purchase, merged without a question.
+    let near = StatementManualMatcher.match(
+      newOperations: [(0, op(-12_040, d: 16))], manual: [big])
+    #expect(near.first?.certainty == .merge)
+    // Fifty roubles exactly is the edge that still merges; a rouble more asks.
+    #expect(
+      StatementManualMatcher.match(newOperations: [(0, op(-12_050, d: 14))], manual: [big])
+        .first?.certainty == .merge)
+    #expect(
+      StatementManualMatcher.match(newOperations: [(0, op(-12_051, d: 14))], manual: [big])
+        .first?.certainty == .ask)
+  }
+
   @Test func biggerDifferenceAsks() {
     let bank = op(-270, d: 14)
     let matches = StatementManualMatcher.match(newOperations: [(0, bank)], manual: [entry])

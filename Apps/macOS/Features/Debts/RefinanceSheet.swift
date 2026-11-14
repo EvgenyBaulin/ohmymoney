@@ -98,6 +98,7 @@ struct RefinanceSheet: View {
           .keyboardShortcut(.cancelAction)
         Button(t("refinance.record")) { record() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
           .buttonStyle(.borderedProminent)
           .disabled(terms == nil || dependencies == nil)
           .accessibilityIdentifier("debts.refinance.record")

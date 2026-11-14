@@ -3589,6 +3589,40 @@
         }
       }
     },
+    "amount.unreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The amount does not read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма не читается"
+          }
+        }
+      }
+    },
+    "amount.unreadable.form": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An amount does not read: finish or clear it to save."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма не читается: допишите или очистите её, чтобы сохранить."
+          }
+        }
+      }
+    },
     "app.name": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -24861,6 +24895,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "資料庫未接受更改。請再試一次。若問題持續發生，請收集問題報告：輔助說明 → 收集問題報告⋯"
+          }
+        }
+      }
+    },
+    "write.refused.readOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read-only mode is on: nothing can be changed. Turn it off to edit."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включён режим «Только просмотр»: ничего нельзя изменить. Выключите его, чтобы править."
+          }
+        }
+      }
+    },
+    "write.refused.readOnly.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read-only mode is on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включён режим «Только просмотр»"
           }
         }
       }

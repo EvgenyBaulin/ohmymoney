@@ -97,7 +97,11 @@ struct DebtsView: View {
     } message: { line in
       Text(verbatim: deletionMessage(line))
     }
-    .alert(t("debts.deleteFailed"), isPresented: $deleteFailed) {
+    .alert(
+      environment.shield.isReadOnly
+        ? environment.language("write.refused.readOnly") : t("debts.deleteFailed"),
+      isPresented: $deleteFailed
+    ) {
       Button(environment.language("action.ok")) {}
     }
   }

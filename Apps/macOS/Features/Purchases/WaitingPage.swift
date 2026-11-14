@@ -67,9 +67,7 @@ struct WaitingPage: View {
       )
       .accessibilityIdentifier("purchases.waiting.expected")
       PurchasesActionRow {
-        Button(t("purchases.waiting.credited")) {
-          if let dependencies { report(PurchaseActions(dependencies).credit(refund.transactionId)) }
-        }
+        Button(t("purchases.waiting.credited")) { open(.credit(refund)) }
         .accessibilityIdentifier("purchases.waiting.credited")
         Button(t("purchases.waiting.postpone")) { open(.postpone(refund)) }
           .accessibilityIdentifier("purchases.waiting.postpone")
@@ -108,5 +106,43 @@ struct WaitingPostponeSheet: View {
     }
     .padding(20)
     .sheetFrame(width: 420, height: 240)
+  }
+}
+
+/// «Зачислено когда?»: the day the money came, today unless said otherwise. The refund is dated
+/// that day, so the balance of the account and the month of the spending follow the bank.
+struct WaitingCreditSheet: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.dependencies) private var dependencies
+  let refund: WaitingRefund
+  @State private var day: DateOnly?
+
+  private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
+
+  var body: some View {
+    VStack(alignment: .leading) {
+      Text(verbatim: t("purchases.credit.title")).appFont(.headline)
+      Form {
+        DatePicker(
+          t("purchases.credit.day"),
+          selection: Binding(
+            get: { environment.calendar.startOfDay(day ?? environment.today) },
+            set: { day = environment.calendar.day(of: $0) }),
+          in: ...environment.calendar.endOfDay(environment.today),
+          displayedComponents: .date)
+        Text(verbatim: t("purchases.credit.hint"))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+      }
+      .formStyle(.grouped)
+      FormButtons(title: t("purchases.waiting.credited"), enabled: true) {
+        guard let dependencies else { return false }
+        return PurchaseActions(dependencies).credit(
+          refund.transactionId, on: day ?? environment.today) == .done
+      }
+    }
+    .padding(20)
+    .sheetFrame(width: 420, height: 260)
+    .accessibilityIdentifier("purchases.credit.sheet")
   }
 }

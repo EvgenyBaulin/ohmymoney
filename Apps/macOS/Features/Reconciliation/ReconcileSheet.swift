@@ -186,12 +186,14 @@ struct ReconcileSheet: View {
           Button(t("reconcile.saveStart")) { save(false) }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.defaultAction)
+            .disablesOnUnreadableAmount()
             .disabled(!savable)
         case .save:
           // Nothing differs: nothing to decline, and the counts follow the books from now on.
           Button(t("reconcile.save")) { save(true) }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.defaultAction)
+            .disablesOnUnreadableAmount()
             .disabled(!savable)
         case .saveOrRecord:
           Button(t("reconcile.saveOnly")) { save(false) }
@@ -202,6 +204,7 @@ struct ReconcileSheet: View {
             .help(t("reconcile.recordHint"))
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.defaultAction)
+            .disablesOnUnreadableAmount()
         }
       }
     }

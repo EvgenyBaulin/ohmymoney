@@ -6709,6 +6709,23 @@
         }
       }
     },
+    "receipt.sameDay.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already written for this day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже записано за этот день"
+          }
+        }
+      }
+    },
     "receipt.scan": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -7177,16 +7194,16 @@
     "receipt.split.title": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Разделить по категориям"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Split by categories"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разделить по категориям"
           }
         }
       }
