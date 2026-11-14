@@ -55,7 +55,7 @@ struct SeriesLineChart: View {
           let dense = line.points.count > Self.pointLimit
           ForEach(line.points, id: \.x) { point in
             LineMark(
-              x: .value("Position", point.x), y: .value("Amount", point.value),
+              x: .value("Position", point.x - low), y: .value("Amount", point.value),
               series: .value("Series", line.id)
             )
             .foregroundStyle(line.style.tint.color(accent))
@@ -66,7 +66,7 @@ struct SeriesLineChart: View {
             .accessibilityValue(Text(verbatim: point.valueText))
           }
           if let last = line.points.last {
-            PointMark(x: .value("Position", last.x), y: .value("Amount", last.value))
+            PointMark(x: .value("Position", last.x - low), y: .value("Amount", last.value))
               .foregroundStyle(line.style.tint.color(accent))
               .symbol(line.style.symbol.shape)
               .symbolSize(56)
@@ -82,7 +82,7 @@ struct SeriesLineChart: View {
           }
         }
         if let hovered {
-          RuleMark(x: .value("Position", hovered))
+          RuleMark(x: .value("Position", hovered - low))
             .foregroundStyle(.secondary)
             .annotation(
               position: .top, spacing: 0,
@@ -93,14 +93,16 @@ struct SeriesLineChart: View {
             .accessibilityHidden(true)
         }
       }
-      // Room after the last point for the words at the ends of the lines.
-      .chartXScale(domain: low...(high + max(1, (high - low) / 6)))
-      .chartXSelection(value: $hovered)
+      // The axis starts at 0: Charts describes a numeric axis to VoiceOver in steps counted from
+      // zero, and a step that begins before the plot would sit outside the chart (outside the
+      // screen on a wide iPad). Room after the last point for the words at the ends of the lines.
+      .chartXScale(domain: 0...(high - low + max(1, (high - low) / 6)))
+      .chartXSelection(value: hoveredOffset)
       .chartXAxis {
-        AxisMarks(values: xLabels.keys.sorted()) { value in
+        AxisMarks(values: xLabels.keys.sorted().map { $0 - low }) { value in
           AxisGridLine()
           AxisValueLabel {
-            if let x = value.as(Int.self), let text = xLabels[x] {
+            if let x = value.as(Int.self), let text = xLabels[x + low] {
               Text(verbatim: text)
                 .appFont(.caption.monospacedDigit())
             }
@@ -121,6 +123,14 @@ struct SeriesLineChart: View {
       .frame(height: height)
       ChartLegend(items: series.map { ChartLegend.series($0.id, $0.label, $0.style) })
     }
+  }
+
+  /// The selection in the offsets the chart draws (`x - low`) as the positions of the points.
+  private var hoveredOffset: Binding<Int?> {
+    let low = series.flatMap { $0.points.map(\.x) }.min() ?? 0
+    return Binding(
+      get: { hovered.map { $0 - low } },
+      set: { hovered = $0.map { $0 + low } })
   }
 
   private func title(at x: Int) -> String {

@@ -90,7 +90,8 @@ final class PhoneScreenLayoutTests: XCTestCase {
     for size in PadSize.all { walk(size: size, idiom: .pad) }
   }
 
-  /// Regression: the chart's accessible range label escaped the left edge on wide iPads.
+  /// Regression: the accessible step «От 0 до 2» of the comparison chart's numeric axis began one
+  /// unit before the plot and so left the screen's left edge on wide iPads.
   func testAnalyticsFitsWideIPadsOnFirstPresentation() {
     for width: CGFloat in [1024, 1366] {
       let size = CGSize(width: width, height: 1024)
