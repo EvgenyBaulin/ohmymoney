@@ -6,14 +6,17 @@ import GRDB
 // mapped by hand like every other record (`RowMapping`).
 
 /// A row whose bank or category does not read fails the read of that row (`UnreadableValue`):
-/// the repository leaves it out, untouched in the database.
+/// the repository leaves it out, untouched in the database. A list of merchant codes that does
+/// not read (`include_mcc`, `exclude_mcc`, `Schema/0028_bank_cashback_merchant_codes.sql`) reads
+/// as no list, so the row still maps its label by category; the check of the database names it.
 extension BankCategoryMapping: @retroactive FetchableRecord, @retroactive PersistableRecord {
   public static let databaseTableName = "bank_cashback_categories"
 
   public init(row: Row) throws {
     self.init(
       id: try RowMapping.uuid(row, "id"), bankId: try RowMapping.uuid(row, "bank_id"),
-      label: row["label"] ?? "", categoryId: try RowMapping.uuid(row, "category_id"))
+      label: row["label"] ?? "", categoryId: try RowMapping.uuid(row, "category_id"),
+      includeCodes: Self.codes(row, "include_mcc"), excludeCodes: Self.codes(row, "exclude_mcc"))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -21,6 +24,33 @@ extension BankCategoryMapping: @retroactive FetchableRecord, @retroactive Persis
     container["bank_id"] = bankId.uuidString
     container["label"] = label
     container["category_id"] = categoryId.uuidString
+    // An empty list is NULL, never an empty text: a row saved without lists stays the row the
+    // update found, byte for byte, and two devices never disagree over '' and NULL.
+    container["include_mcc"] = includeCodes.isEmpty ? nil : includeCodes.text
+    container["exclude_mcc"] = excludeCodes.isEmpty ? nil : excludeCodes.text
+  }
+
+  private static func codes(_ row: Row, _ column: String) -> MerchantCodeList {
+    guard let text = codesText(row[column] as DatabaseValue?) else { return .empty }
+    return MerchantCodeList(parsing: text) ?? .empty
+  }
+
+  /// The stored text of a list; a lone code a hand edit left as a number reads as its digits,
+  /// anything else that is not text as no list.
+  static func codesText(_ value: DatabaseValue?) -> String? {
+    switch value?.storage {
+    case .string(let text)?: text
+    case .int64(let number)?: String(number)
+    default: nil
+    }
+  }
+
+  /// Whether a stored list reads: NULL and empty text read as no list; a number or a blob that
+  /// is not a code, or text that is not a list of codes, does not.
+  static func readsAsCodes(_ value: DatabaseValue?) -> Bool {
+    guard let value, !value.isNull else { return true }
+    guard let text = codesText(value) else { return false }
+    return MerchantCodeList(parsing: text) != nil
   }
 }
 

@@ -42,6 +42,11 @@ struct CashbackChoiceDraft: Equatable {
   var mapping: [String: UUID]
   /// The rows of the bank's table as stored, to keep a label's other categories and the ids.
   let storedMappings: [BankCategoryMapping]
+  /// The merchant codes the bank counts in a label and the ones it leaves out, as typed
+  /// («5411, 5811-5814»), by the label as compared. They belong to the label's row of the
+  /// category chosen for it; an empty text is no list.
+  var includeText: [String: String]
+  var excludeText: [String: String]
 
   init(
     accountId: UUID, bankId: UUID?, month: MonthKey, offers: [CashbackOffer],
@@ -62,10 +67,17 @@ struct CashbackChoiceDraft: Equatable {
     let ofBank = mappings.filter { $0.bankId == bankId }
     storedMappings = ofBank
     var map: [String: UUID] = [:]
+    var include: [String: String] = [:]
+    var exclude: [String: String] = [:]
     for row in ofBank where map[BankCategoryMapping.normalized(row.label)] == nil {
-      map[BankCategoryMapping.normalized(row.label)] = row.categoryId
+      let key = BankCategoryMapping.normalized(row.label)
+      map[key] = row.categoryId
+      include[key] = row.includeCodes.text
+      exclude[key] = row.excludeCodes.text
     }
     mapping = map
+    includeText = include
+    excludeText = exclude
   }
 
   /// Rows whose percent does not read (blank rows are dropped on save).
@@ -73,7 +85,24 @@ struct CashbackChoiceDraft: Equatable {
     Set(rows.filter { !$0.isBlank && $0.percent == nil }.map(\.id))
   }
 
-  var canSave: Bool { problems.isEmpty }
+  /// Labels of the rows whose list of codes does not read, as compared.
+  var codeProblems: Set<String> {
+    var found: Set<String> = []
+    for row in rows where !row.isBlank {
+      let key = BankCategoryMapping.normalized(row.label)
+      if Self.codes(includeText[key]) == nil || Self.codes(excludeText[key]) == nil {
+        found.insert(key)
+      }
+    }
+    return found
+  }
+
+  var canSave: Bool { problems.isEmpty && codeProblems.isEmpty }
+
+  /// A typed list; `nil` when it does not read, the empty list for no text.
+  static func codes(_ text: String?) -> MerchantCodeList? {
+    MerchantCodeList(parsing: text ?? "")
+  }
 
   /// The offers to save: every row with a label and a percent.
   var offers: [CashbackOffer] {
@@ -99,15 +128,26 @@ struct CashbackChoiceDraft: Equatable {
         result = others
         continue
       }
-      if kept.contains(where: { $0.categoryId == category }) { continue }
+      // The lists go to the label's row of the chosen category; a list that does not read
+      // keeps what that row had (the sheet does not save while one does not read).
+      if let index = result.firstIndex(where: {
+        BankCategoryMapping.normalized($0.label) == key && $0.categoryId == category
+      }) {
+        let stored = result[index]
+        result[index].includeCodes = Self.codes(includeText[key]) ?? stored.includeCodes
+        result[index].excludeCodes = Self.codes(excludeText[key]) ?? stored.excludeCodes
+        continue
+      }
       // The label's first category is the one the sheet edits; a second stays.
       let rest = kept.dropFirst()
-      let id = kept.first?.id ?? UUID()
+      let first = kept.first
       result =
         others + [
           BankCategoryMapping(
-            id: id, bankId: bankId, label: row.label.trimmingCharacters(in: .whitespaces),
-            categoryId: category)
+            id: first?.id ?? UUID(), bankId: bankId,
+            label: row.label.trimmingCharacters(in: .whitespaces), categoryId: category,
+            includeCodes: Self.codes(includeText[key]) ?? first?.includeCodes ?? .empty,
+            excludeCodes: Self.codes(excludeText[key]) ?? first?.excludeCodes ?? .empty)
         ] + rest
     }
     return result
@@ -119,8 +159,15 @@ struct CashbackChoiceDraft: Equatable {
   )
     -> [CashbackChoiceAdvisor.Pick]
   {
+    best(coded: .init(plain: spending), tree: tree, accountCap: accountCap)
+  }
+
+  /// The same with the spending split by merchant code, so the lists typed count.
+  func best(
+    coded: CashbackChoiceAdvisor.CodedSpending, tree: CategoryTree, accountCap: AmountE4?
+  ) -> [CashbackChoiceAdvisor.Pick] {
     CashbackChoiceAdvisor.best(
-      offers: offers, pick: pick, bankId: bankId, mappings: mappings, spending: spending,
+      offers: offers, pick: pick, bankId: bankId, mappings: mappings, coded: coded,
       tree: tree, accountCap: accountCap)
   }
 

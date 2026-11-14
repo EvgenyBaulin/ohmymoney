@@ -1,3 +1,4 @@
+import CoreKit
 import Foundation
 import GRDB
 
@@ -37,6 +38,10 @@ public enum DatabaseCheck {
     /// An account with an announced rate and no day it holds from (or the other way round). Only
     /// reported: the app reads the announcement as none until both are there.
     case nextRateIncomplete
+    /// A row of a bank's table of cashback categories whose list of merchant codes does not
+    /// read. Only reported: the app reads such a list as none — the label goes by category —
+    /// and the owner types it again.
+    case merchantCodesUnreadable
   }
 
   public struct Finding: Sendable, Hashable, Codable {
@@ -233,12 +238,39 @@ public enum DatabaseCheck {
           rule: .nextRateIncomplete, table: "payment_methods", count: lostRates.count,
           isRepairable: false, ids: lostRates.prefix(idsShown).map { $0["id"] }))
     }
+    let unreadableCodes = try unreadableMerchantCodes(db)
+    if !unreadableCodes.isEmpty {
+      findings.append(
+        Finding(
+          rule: .merchantCodesUnreadable, table: "bank_cashback_categories",
+          count: unreadableCodes.count, isRepairable: false,
+          ids: Array(unreadableCodes.prefix(idsShown))))
+    }
 
     let operations =
       try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM transactions WHERE deleted_at IS NULL") ?? 0
     let accounts =
       try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM payment_methods WHERE archived = 0") ?? 0
     return Report(operations: operations, accounts: accounts, findings: findings)
+  }
+
+  /// The rows of the banks' tables of cashback categories whose list of merchant codes does not
+  /// read (`MerchantCodeList`), by id. SQL can not parse a list, so the rows that have one are
+  /// read here; a database before the lists existed has none.
+  private static func unreadableMerchantCodes(_ db: Database) throws -> [String] {
+    let columns = Set(try db.columns(in: "bank_cashback_categories").map(\.name))
+    guard columns.contains("include_mcc"), columns.contains("exclude_mcc") else { return [] }
+    return try Row.fetchAll(
+      db,
+      sql: """
+        SELECT id, include_mcc, exclude_mcc FROM bank_cashback_categories
+        WHERE include_mcc IS NOT NULL OR exclude_mcc IS NOT NULL
+        ORDER BY id
+        """
+    ).filter { row in
+      !BankCategoryMapping.readsAsCodes(row["include_mcc"] as DatabaseValue?)
+        || !BankCategoryMapping.readsAsCodes(row["exclude_mcc"] as DatabaseValue?)
+    }.map { $0["id"] }
   }
 
   /// Deletes the rows of the repairable findings in one write, and returns how many went. A

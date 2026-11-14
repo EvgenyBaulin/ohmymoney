@@ -81,7 +81,7 @@ public enum CashbackHints {
     let dataset = ledger.dataset
     let book = CashbackRuleBook(
       rules: dataset.cashbackRules, tree: ledger.tree, cards: dataset.cards,
-      accounts: dataset.paymentMethods)
+      accounts: dataset.paymentMethods, mappings: dataset.cashbackChoice.mappings)
     guard !book.isEmpty else { return [] }
     let month = today.monthKey
     let mainId = CashbackAdvisor.mainAccount(dataset)
@@ -92,6 +92,7 @@ public enum CashbackHints {
       var amounts: [AmountE4] = []
       var holders: [CashbackHolder: Int] = [:]
       var categories: [UUID: Int] = [:]
+      var codes: [String: Int] = [:]
       var currency: CurrencyCode = .rub
     }
     var groups: [String: (place: UUID?, category: UUID?, group: Group)] = [:]
@@ -115,6 +116,9 @@ public enum CashbackHints {
       slot.group.amounts.append(transaction.amountRubE4 - row.refundedRubE4)
       slot.group.holders[held, default: 0] += 1
       if let category { slot.group.categories[category, default: 0] += 1 }
+      if let code = MerchantCode.normalized(transaction.mcc) {
+        slot.group.codes[code, default: 0] += 1
+      }
       slot.group.currency = transaction.movedMoney.currency
       groups[key] = slot
     }
@@ -132,6 +136,10 @@ public enum CashbackHints {
           left.value != right.value
             ? left.value < right.value : left.key.uuidString > right.key.uuidString
         }?.key
+      // The code the place charges with most often; none known, the rules go by category.
+      let code = group.codes.max { left, right in
+        left.value != right.value ? left.value < right.value : left.key > right.key
+      }?.key
       let candidates = CashbackAdvisor.candidates(
         accounts: dataset.paymentMethods, cards: dataset.cards, book: book, hidden: hidden,
         currency: group.currency)
@@ -139,10 +147,10 @@ public enum CashbackHints {
       guard
         let best = CashbackAdvisor.options(
           categoryId: category, amountRub: total, month: month, candidates: candidates, book: book,
-          tracker: tracker
+          tracker: tracker, mcc: code
         ).first, best.candidate.holder != usualHolder
       else { continue }
-      let usualRule = book.rule(for: usualHolder, categoryId: category, month: month)
+      let usualRule = book.rule(for: usualHolder, categoryId: category, month: month, mcc: code)
       let usualPercent = usualRule?.percent ?? .zero
       guard best.percent > usualPercent else { continue }
       let usualEarned = total.decimal * usualPercent.fraction
@@ -209,7 +217,7 @@ public enum CashbackHints {
     guard !monthRules.isEmpty else { return [] }
     let book = CashbackRuleBook(
       rules: dataset.cashbackRules, tree: ledger.tree, cards: dataset.cards,
-      accounts: dataset.paymentMethods)
+      accounts: dataset.paymentMethods, mappings: dataset.cashbackChoice.mappings)
     let caps = CashbackCaps(rules: dataset.cashbackRules, accounts: dataset.paymentMethods)
     let mainId = CashbackAdvisor.mainAccount(dataset)
     let end = min(today ?? month.lastDay, month.lastDay)

@@ -99,7 +99,7 @@ public struct CashbackReport: Sendable {
     let cards = dataset.cards
     let book = CashbackRuleBook(
       rules: dataset.cashbackRules, tree: ledger.tree, cards: cards,
-      accounts: dataset.paymentMethods)
+      accounts: dataset.paymentMethods, mappings: dataset.cashbackChoice.mappings)
     let mainId = dataset.paymentMethods.first { $0.isDefault && !$0.archived }?.id
     let pointsOwners = CashbackPoints.owners(among: dataset.paymentMethods)
     hasRules = !book.isEmpty

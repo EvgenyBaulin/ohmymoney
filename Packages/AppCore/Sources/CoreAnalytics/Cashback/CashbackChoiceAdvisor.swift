@@ -46,9 +46,11 @@ public enum CashbackChoiceAdvisor {
       self.buckets = buckets
     }
 
-    /// What a read of these rows is taken over: the code split only when a row has lists.
+    /// What a read of these rows is taken over: the code split only when a row has lists and
+    /// the split is known; spending given by category alone reads as purchases without a code.
     func source(for rows: [BankCategoryMapping]) -> [SpendingBucket: AmountE4] {
-      rows.contains(where: \.hasCodes) ? buckets : CashbackChoiceAdvisor.buckets(plain)
+      rows.contains(where: \.hasCodes) && !buckets.isEmpty
+        ? buckets : CashbackChoiceAdvisor.buckets(plain)
     }
   }
 
@@ -111,20 +113,11 @@ public enum CashbackChoiceAdvisor {
   }
 
   /// Whether a label's rows (the rows of one bank's table with that label) cover a kind of
-  /// purchase. A row with a code list takes a purchase that has a code by the code alone
-  /// (excluded codes lose, a non-empty include list must hold the code); an exclusion-only row
-  /// still goes by category, minus the excluded codes. A purchase without a code, or a row
-  /// without lists, goes by category and what lies under it, as before codes existed.
+  /// purchase, by the one reading every figure of cashback takes (`BankCategoryMapping.covers`).
   static func covers(rows: [BankCategoryMapping], bucket: SpendingBucket, tree: CategoryTree)
     -> Bool
   {
-    rows.contains { row in
-      if let mcc = bucket.mcc, row.hasCodes {
-        if row.excludeCodes.contains(mcc) { return false }
-        if !row.includeCodes.isEmpty { return row.includeCodes.contains(mcc) }
-      }
-      return CashbackAdvisor.isUnder(bucket.categoryId, row.categoryId, tree: tree)
-    }
+    BankCategoryMapping.covers(rows, categoryId: bucket.categoryId, mcc: bucket.mcc, tree: tree)
   }
 
   /// The rows of one bank's table that carry a label.

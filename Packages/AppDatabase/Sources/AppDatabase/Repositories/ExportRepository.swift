@@ -322,7 +322,12 @@ public struct ExportRepository: Sendable {
         if let mapping = try? BankCategoryMapping(row: row) {
           csv.append(ExportTables.row(mapping))
         } else {
-          csv.append(Self.text(row, ["id", "bank_id", "label", "category_id"]))
+          csv.append(
+            Self.text(row, ["id", "bank_id", "label", "category_id"])
+              + [
+                BankCategoryMapping.codesText(row["include_mcc"] as DatabaseValue?) ?? "",
+                BankCategoryMapping.codesText(row["exclude_mcc"] as DatabaseValue?) ?? "",
+              ])
         }
       }
     case ExportTables.cashbackOffers.fileName:

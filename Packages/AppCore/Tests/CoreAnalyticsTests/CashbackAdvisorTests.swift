@@ -73,13 +73,13 @@ private enum Book {
 
   static func ledger(
     _ entries: [TransactionEntry], rules: [CashbackRule] = rules,
-    accounts: [PaymentMethod] = accounts()
+    accounts: [PaymentMethod] = accounts(), mappings: [BankCategoryMapping] = []
   ) -> Ledger {
-    Ledger(
-      dataset: Dataset(
-        entries: entries, categories: categories, places: [Place(id: shop, name: "Shop")],
-        paymentMethods: accounts, cards: cards, cashbackRules: rules),
-      calendar: .utc)
+    var dataset = Dataset(
+      entries: entries, categories: categories, places: [Place(id: shop, name: "Shop")],
+      paymentMethods: accounts, cards: cards, cashbackRules: rules)
+    if !mappings.isEmpty { dataset.cashbackChoice = CashbackChoiceBook(mappings: mappings) }
+    return Ledger(dataset: dataset, calendar: .utc)
   }
 
   static let september = MonthKey(year: 2026, month: 9)
@@ -624,5 +624,164 @@ struct CashbackMerchantCodeTests {
     let round = try JSONDecoder().decode(
       BankCategoryMapping.self, from: JSONEncoder().encode(Self.eatingOut))
     #expect(round == Self.eatingOut)
+  }
+}
+
+/// The expected cashback of a purchase, the advice of a card and «Упущенный кэшбэк» read the
+/// code lists of the bank's table through the rule's category (`CashbackRuleBook`): Alpha's
+/// bank names «Рестораны» → Cafes with codes 5811-5814 except 5813; Alpha has Cafes 5 % and
+/// everything else 1 %.
+@Suite("Expected cashback by merchant code")
+struct CashbackRuleByCodeTests {
+  static let eatingOut = CashbackMerchantCodeTests.eatingOut
+
+  static func purchase(
+    _ n: Int, _ category: UUID, _ amount: String, mcc: String?, day: String = "09-10",
+    on account: UUID = Book.alpha, card: UUID? = nil
+  ) -> TransactionEntry {
+    var entry = Book.buy(n, day, category, amount, on: account, card: card)
+    entry.transaction.mcc = mcc
+    return entry
+  }
+
+  static func earned(
+    _ entry: TransactionEntry, mappings: [BankCategoryMapping], rules: [CashbackRule] = Book.rules,
+    holder: CashbackHolder = .account(Book.alpha)
+  ) -> AmountE4? {
+    let ledger = Book.ledger([entry], rules: rules, mappings: mappings)
+    let book = CashbackRuleBook(
+      rules: rules, tree: ledger.tree, cards: Book.cards, accounts: Book.accounts(),
+      mappings: mappings)
+    return CashbackMath.expected(
+      entry, holder: holder, book: book, tree: ledger.tree, calendar: ledger.calendar,
+      refunded: { _ in .zero }
+    )?.money.amount
+  }
+
+  @Test func withoutListsTheFigureIsTheOldOneToTheKopeck() {
+    let plainRow = BankCategoryMapping(
+      bankId: Book.bank, label: "Рестораны", categoryId: Book.cafes)
+    for (n, category, mcc) in [
+      (9001, Book.cafes, "5813"), (9002, Book.fuel, "5812"), (9003, Book.coffee, nil),
+    ] as [(Int, UUID, String?)] {
+      let entry = Self.purchase(n, category, "333.33", mcc: mcc)
+      let old = Self.earned(entry, mappings: [])
+      #expect(Self.earned(entry, mappings: [plainRow]) == old)
+      // A list at another bank changes nothing for Alpha.
+      var elsewhere = Self.eatingOut
+      elsewhere.bankId = id(9999)
+      #expect(Self.earned(entry, mappings: [elsewhere]) == old)
+    }
+    #expect(Self.earned(Self.purchase(9004, Book.cafes, "333.33", mcc: nil), mappings: [])
+      == money("16.67"))
+  }
+
+  @Test func theListsDecideForAPurchaseWithACode() {
+    let rows = [Self.eatingOut]
+    // In the list: Cafes 5 %.
+    #expect(Self.earned(Self.purchase(9101, Book.cafes, "1000", mcc: "5812"), mappings: rows)
+      == money("50"))
+    // Excluded: the label does not take it, everything else does.
+    #expect(Self.earned(Self.purchase(9102, Book.cafes, "1000", mcc: "5813"), mappings: rows)
+      == money("10"))
+    // A code outside a non-empty include list: not the label's.
+    #expect(Self.earned(Self.purchase(9103, Book.cafes, "1000", mcc: "5999"), mappings: rows)
+      == money("10"))
+    // No code: by category, as before.
+    #expect(Self.earned(Self.purchase(9104, Book.coffee, "1000", mcc: nil), mappings: rows)
+      == money("50"))
+    // A code the list names, in a category the row does not name: the bank counts the code.
+    #expect(Self.earned(Self.purchase(9105, Book.fuel, "1000", mcc: "5812"), mappings: rows)
+      == money("50"))
+  }
+
+  @Test func anExclusionOnlyRowIsTheCategoryWithoutTheExcludedCodes() {
+    let rows = [
+      BankCategoryMapping(
+        bankId: Book.bank, label: "Кафе", categoryId: Book.cafes,
+        excludeCodes: MerchantCodeList(parsing: "5813")!)
+    ]
+    #expect(Self.earned(Self.purchase(9201, Book.cafes, "1000", mcc: "5813"), mappings: rows)
+      == money("10"))
+    #expect(Self.earned(Self.purchase(9202, Book.coffee, "1000", mcc: "5999"), mappings: rows)
+      == money("50"))
+    #expect(Self.earned(Self.purchase(9203, Book.fuel, "1000", mcc: "5812"), mappings: rows)
+      == money("10"))
+  }
+
+  @Test func aRowWithoutListsBesideOneWithListsStillTakesTheCategory() {
+    // Two labels for Cafes: one by codes, one plain. The plain one takes every Cafes purchase.
+    let plain = BankCategoryMapping(bankId: Book.bank, label: "Кафе", categoryId: Book.cafes)
+    #expect(
+      Self.earned(
+        Self.purchase(9301, Book.cafes, "1000", mcc: "5999"), mappings: [Self.eatingOut, plain])
+        == money("50"))
+  }
+
+  @Test func theMonthStepComesFirstAndInItTheNamedCodeWins() {
+    let fuelMonth = Book.rule(9401, Book.alpha, nil, Book.fuel, 30_000, month: Book.september)
+    let rows = [Self.eatingOut]
+    // Fuel's own month rule beats Cafes' «always» rule that names the code.
+    #expect(
+      Self.earned(
+        Self.purchase(9402, Book.fuel, "1000", mcc: "5812"), mappings: rows,
+        rules: Book.rules + [fuelMonth]) == money("30"))
+    // A month rule of Cafes that names the code beats Fuel's month rule.
+    let cafesMonth = Book.rule(9403, Book.alpha, nil, Book.cafes, 70_000, month: Book.september)
+    #expect(
+      Self.earned(
+        Self.purchase(9404, Book.fuel, "1000", mcc: "5812"), mappings: rows,
+        rules: Book.rules + [fuelMonth, cafesMonth]) == money("70"))
+    // Another month: the September rules are not there, «always» Cafes takes the code.
+    #expect(
+      Self.earned(
+        Self.purchase(9405, Book.fuel, "1000", mcc: "5812", day: "10-10"), mappings: rows,
+        rules: Book.rules + [fuelMonth, cafesMonth]) == money("50"))
+  }
+
+  @Test func theAdviceOfACardReadsThePlacesCode() {
+    let ledger = Book.ledger([], mappings: [Self.eatingOut])
+    let book = CashbackRuleBook(
+      rules: Book.rules, tree: ledger.tree, cards: Book.cards, accounts: Book.accounts(),
+      mappings: [Self.eatingOut])
+    let candidates = CashbackAdvisor.candidates(
+      accounts: Book.accounts(), cards: Book.cards, book: book)
+    let tracker = CashbackCapTracker(caps: CashbackCaps(rules: [], accounts: []))
+    let byCode = CashbackAdvisor.options(
+      categoryId: Book.fuel, amountRub: money("1000"), month: Book.september,
+      candidates: candidates, book: book, tracker: tracker, mcc: "5812")
+    #expect(byCode.first?.candidate.accountId == Book.alpha)
+    #expect(byCode.first?.percent == CashbackPercent(e4: 50_000))
+    let byCategory = CashbackAdvisor.options(
+      categoryId: Book.fuel, amountRub: money("1000"), month: Book.september,
+      candidates: candidates, book: book, tracker: tracker)
+    #expect(byCategory.first?.percent == CashbackPercent(e4: 10_000))
+  }
+
+  @Test func theMissedCashbackSeesTheCardTheCodeWouldHavePaidMore() {
+    // Fuel 1000 with code 5812 paid by Beta's card: 1 % there; Alpha's «Рестораны» takes 5812.
+    let entry = Self.purchase(
+      9501, Book.fuel, "1000", mcc: "5812", on: Book.beta, card: Book.betaCard)
+    let plain = MissedCashback(ledger: Book.ledger([entry]), period: .month(Book.september))
+    #expect(plain.items.isEmpty)
+    let coded = MissedCashback(
+      ledger: Book.ledger([entry], mappings: [Self.eatingOut]), period: .month(Book.september))
+    let item = try? #require(coded.items.first)
+    #expect(item?.actualRub == money("10"))
+    #expect(item?.bestRub == money("50"))
+    #expect(item?.best.accountId == Book.alpha)
+    // The report of the card that was used says the same figure as the missed list.
+    let report = CashbackReport(
+      ledger: Book.ledger([entry], mappings: [Self.eatingOut]), period: .month(Book.september))
+    #expect(expected(report, Book.beta, Book.september) == money("10"))
+  }
+
+  @Test func theReportOfTheAccountCountsByTheCode() {
+    let entry = Self.purchase(9601, Book.fuel, "1000", mcc: "5812")
+    let plain = CashbackReport(ledger: Book.ledger([entry]), period: .month(Book.september))
+    #expect(expected(plain, Book.alpha, Book.september) == money("10"))
+    let coded = CashbackReport(
+      ledger: Book.ledger([entry], mappings: [Self.eatingOut]), period: .month(Book.september))
+    #expect(expected(coded, Book.alpha, Book.september) == money("50"))
   }
 }

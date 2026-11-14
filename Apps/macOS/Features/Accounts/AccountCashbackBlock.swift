@@ -52,7 +52,7 @@ struct AccountCashbackModel: Equatable, Sendable {
     let dataset = ledger.dataset
     let book = CashbackRuleBook(
       rules: dataset.cashbackRules, tree: ledger.tree, cards: dataset.cards,
-      accounts: dataset.paymentMethods)
+      accounts: dataset.paymentMethods, mappings: dataset.cashbackChoice.mappings)
     let cards = Dictionary(
       dataset.cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     func money(_ amounts: [CurrencyCode: AmountE4]) -> [Money] {

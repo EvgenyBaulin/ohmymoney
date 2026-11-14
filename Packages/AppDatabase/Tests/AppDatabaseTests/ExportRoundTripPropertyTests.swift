@@ -341,7 +341,7 @@ struct ExportRoundTripPropertyTests {
       {
         try db.execute(
           sql:
-            "INSERT INTO bank_cashback_categories (id, bank_id, label, category_id) VALUES (?, ?, 'Кафе, «рестораны»', ?)",
+            "INSERT INTO bank_cashback_categories (id, bank_id, label, category_id, include_mcc, exclude_mcc) VALUES (?, ?, 'Кафе, «рестораны»', ?, '5462, 5811-5814', '5813')",
           arguments: [UUID().uuidString, bank, category])
       }
       try db.execute(
@@ -526,6 +526,7 @@ struct ExportRoundTripPropertyTests {
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
           "0027_savings_points_digital_pause",
+          "0028_bank_cashback_merchant_codes",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
