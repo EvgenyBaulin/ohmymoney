@@ -12,9 +12,11 @@ import Foundation
 /// format is not changed for the preview.
 public enum ArchivePeek {
   /// How many bytes from the start of the file `read(prefix:)` needs at most: the local header
-  /// of the manifest and the manifest itself. A manifest is a few kilobytes even with every
-  /// table counted.
-  public static let prefixByteCount = 256 * 1024
+  /// of the manifest and the manifest itself. The manifest lists every entry of the archive with
+  /// its digest, so it grows with the attachments: about 170 bytes each, and a plain zip holds
+  /// at most 65 535 entries — some 11 MB. The preview reads only this much of the file, never
+  /// the database after it.
+  public static let prefixByteCount = 16 * 1024 * 1024
 
   public enum Result: Equatable, Sendable {
     /// A password protects the file: what is inside cannot be seen without it.

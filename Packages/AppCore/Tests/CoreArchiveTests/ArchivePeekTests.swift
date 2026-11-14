@@ -38,12 +38,30 @@ struct ArchivePeekTests {
   /// Only the start of a big file is read: the database after the manifest is never needed.
   @Test func theStartOfABigArchiveIsEnough() throws {
     let data = try archive(rowCounts: ["transactions": 1], extra: 600_000).build()
-    #expect(data.count > ArchivePeek.prefixByteCount)
+    #expect(data.count > 4_096)
     guard case .plain(let facts) = ArchivePeek.read(prefix: data.prefix(4_096)) else {
       Issue.record("the manifest was not read from the start of the file")
       return
     }
     #expect(facts.operations == 1)
+  }
+
+  /// Every file of an archive is listed in the manifest with its digest, attachments included:
+  /// the manifest of an owner with a few thousand receipt photos is far over the old few
+  /// kilobytes, and the preview must still read it from the prefix it asks for.
+  @Test func aManifestWithManyAttachmentsIsStillReadFromThePrefix() throws {
+    var builder = try archive(rowCounts: ["transactions": 4])
+    for index in 0..<3_000 {
+      let hash = AttachmentHash.hexDigest(of: Data("photo \(index)".utf8))
+      try builder.add(path: AttachmentArchive.path(forHash: hash)!, data: Data("p".utf8))
+    }
+    let data = try builder.build()
+    let result = ArchivePeek.read(prefix: data.prefix(ArchivePeek.prefixByteCount))
+    guard case .plain(let facts) = result else {
+      Issue.record("the manifest did not fit in the prefix: \(result)")
+      return
+    }
+    #expect(facts.operations == 4)
   }
 
   /// An export of a report has tables, no operations: no number is made up for it.

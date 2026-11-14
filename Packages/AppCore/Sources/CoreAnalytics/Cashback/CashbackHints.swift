@@ -96,6 +96,12 @@ public enum CashbackHints {
     }
     var groups: [String: (place: UUID?, category: UUID?, group: Group)] = [:]
     var seen = Set<UUID>()
+    // What refunds took back from any part of a purchase makes the whole receipt cheaper, not
+    // only what they took from its first part.
+    var refundedByPurchase: [UUID: AmountE4] = [:]
+    for row in ledger.rows(in: range) where row.kind == .expense {
+      refundedByPurchase[row.transactionId, default: .zero] += row.refundedRubE4
+    }
     for row in ledger.rows(in: range) where row.isFirstPart && row.kind == .expense {
       guard !OverviewSummary.isCountDifference(row) else { continue }
       guard seen.insert(row.transactionId).inserted, let entry = ledger.entry(row.transactionId),
@@ -112,7 +118,8 @@ public enum CashbackHints {
       guard let key else { continue }
       var slot =
         groups[key] ?? (transaction.placeId, transaction.placeId == nil ? category : nil, Group())
-      slot.group.amounts.append(transaction.amountRubE4 - row.refundedRubE4)
+      slot.group.amounts.append(
+        transaction.amountRubE4 - (refundedByPurchase[row.transactionId] ?? .zero))
       slot.group.holders[held, default: 0] += 1
       if let category { slot.group.categories[category, default: 0] += 1 }
       slot.group.currency = transaction.movedMoney.currency
