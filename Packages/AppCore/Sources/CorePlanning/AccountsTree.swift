@@ -75,6 +75,19 @@ public enum AccountsTree {
       return nil
     }
 
+    /// The limit of a credit card; `nil` for any other account and for a limit never given.
+    public var creditLimit: AmountE4? {
+      guard let limit = account?.credit?.limitE4, limit > .zero else { return nil }
+      return limit
+    }
+
+    /// «Доступно X из Y» of a credit card: the limit plus its balance (the debt is below
+    /// zero); below zero once the card is over its limit. `nil` when nothing was counted.
+    public var creditAvailable: AmountE4? {
+      guard let limit = creditLimit, let amount else { return nil }
+      return limit + amount
+    }
+
     /// Accounts under it, itself included, at any depth.
     public var accounts: [PaymentMethod] {
       (account.map { [$0] } ?? []) + children.flatMap(\.accounts)

@@ -197,4 +197,61 @@ struct AccountsTreeTests {
     #expect(hidden.children.map(\.name) == ["Тайный"])
     #expect(hidden.children[0].amount == nil, "no balance of a covered account")
   }
+
+  /// A credit card in the group of its bank: the debt stands as a minus in the total of the
+  /// bank and of the group, the account counted once (debit 39,332, debt 12,000 → 27,332).
+  @Test func aCreditCardDebtIsTakenOffTheTotalsOfItsBankAndGroup() throws {
+    let debit = PaymentMethod(
+      id: Self.id(51), name: "Дебетовая", groupId: money.id, sort: 1, bankId: tbank.id)
+    let card = PaymentMethod(
+      id: Self.id(52), name: "Кредитка", groupId: money.id, sort: 2, bankId: tbank.id,
+      credit: CreditCardTerms(limitE4: Self.rub(50_000)))
+    func line(_ account: PaymentMethod, _ units: Int64) -> AccountsSnapshot.AccountLine {
+      AccountsSnapshot.AccountLine(
+        account: account,
+        keys: [
+          AccountsSnapshot.KeyLine(
+            key: BalanceKey(accountId: account.id, currency: .rub), balance: Self.rub(units),
+            rub: Self.rub(units), anchorAt: nil, isHeld: true)
+        ], totalRub: Self.rub(units), unknown: 0)
+    }
+    let snapshot = AccountsSnapshot(
+      sections: [
+        .init(
+          group: money, accounts: [line(debit, 39_332), line(card, -12_000)],
+          totalRub: Self.rub(27_332), inSummary: true)
+      ], inSummaryTotalRub: Self.rub(27_332), unanchored: [], withoutRate: [], balances: .empty)
+    let nodes = AccountsTree.build(
+      accounts: [debit, card], groups: [money], banks: [tbank], cards: [], snapshot: snapshot,
+      locale: Locale(identifier: "ru"))
+    let group = try #require(nodes.first)
+    #expect(group.amount == Self.rub(27_332))
+    let bank = try #require(group.children.first)
+    #expect(bank.amount == Self.rub(27_332))
+    let creditNode = try #require(bank.children.first { $0.account?.id == card.id })
+    #expect(creditNode.amount == Self.rub(-12_000))
+    #expect(creditNode.creditAvailable == Self.rub(38_000))
+    #expect(creditNode.creditLimit == Self.rub(50_000))
+    let debitNode = try #require(bank.children.first { $0.account?.id == debit.id })
+    #expect(debitNode.creditAvailable == nil, "only a credit card has «доступно X из Y»")
+  }
+
+  @Test func aCardOverItsLimitIsAvailableBelowZeroAndNoLimitSaysNothing() {
+    var node = AccountsTree.Node(
+      id: "a",
+      kind: .account(
+        PaymentMethod(
+          id: Self.id(53), name: "К", credit: CreditCardTerms(limitE4: Self.rub(10_000)))),
+      amount: Self.rub(-12_000), currency: .rub)
+    #expect(node.creditAvailable == Self.rub(-2_000))
+    node.amount = nil
+    #expect(node.creditAvailable == nil, "an uncounted card has no figure")
+    let free = AccountsTree.Node(
+      id: "b",
+      kind: .account(
+        PaymentMethod(id: Self.id(54), name: "Б", credit: CreditCardTerms(limitE4: .zero))),
+      amount: Self.rub(-5), currency: .rub)
+    #expect(free.creditLimit == nil, "a limit never given is not shown")
+    #expect(free.creditAvailable == nil)
+  }
 }

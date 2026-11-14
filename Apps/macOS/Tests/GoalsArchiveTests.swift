@@ -68,6 +68,26 @@ final class GoalsArchiveTests: XCTestCase {
       AmountE4(whole: 150_000))
   }
 
+  /// Putting a goal in the archive is a step of ⌘Z too: undo makes it live again, redo sends it
+  /// back, and the target stays as it was.
+  func testPuttingAGoalInTheArchiveIsOneStepOfUndoAndRedo() throws {
+    let trip = Goal(name: "Отпуск", targetE4: AmountE4(whole: 100_000))
+    try references.save(trip)
+
+    XCTAssertTrue(actions.archive(trip))
+    XCTAssertTrue(try references.goals().isEmpty)
+    XCTAssertTrue(store.canUndo, "the archive of a goal is no step of ⌘Z")
+
+    store.undo()
+    XCTAssertEqual(try references.goals().map(\.id), [trip.id])
+    XCTAssertEqual(try references.goals().first?.targetE4, AmountE4(whole: 100_000))
+    XCTAssertTrue(store.canRedo)
+
+    store.redo()
+    XCTAssertTrue(try references.goals().isEmpty)
+    XCTAssertEqual(try references.goals(includeArchived: true).first?.archived, true)
+  }
+
   /// «Сохранить» of a new goal named as one in the archive — «отпуск» for «Отпуск» — saves a
   /// second goal and leaves the archived one alone: the form only advises (renaming, bringing
   /// the old one back, «Удалить старую…»), and the new goal starts from zero in a subcategory

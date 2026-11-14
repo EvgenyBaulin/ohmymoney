@@ -61,6 +61,9 @@ final class ReceiptModel {
   var chosenId: UUID?
   /// «Это другая покупка»: a new operation although something fits.
   private(set) var wantsNew = false
+  /// The receipt shared by hand between categories, for a new operation (the QR carries only
+  /// the total). Empty: the whole receipt goes to «Не помню», as before.
+  private(set) var splitLines: [ReceiptSplit.Line] = []
 
   private let environment: AppEnvironment
   private let store: TransactionsStore
@@ -176,6 +179,7 @@ final class ReceiptModel {
     numbersRejected = false
     chosenId = nil
     wantsNew = false
+    splitLines = []
   }
 
   private func accept(_ receipt: ReceiptQR, photo: ReceiptPhoto?, printed: PrintedReceipt? = nil) {
@@ -185,6 +189,7 @@ final class ReceiptModel {
     printedMerchant = printed?.merchant
     numbersRejected = printed?.numbersRejected ?? false
     wantsNew = false
+    splitLines = []
     let proposed = ReceiptMatch.propose(
       receipt, among: candidates(for: receipt), calendar: environment.calendar)
     proposal = proposed
@@ -259,8 +264,42 @@ final class ReceiptModel {
   var isSupplementing: Bool { !wantsNew && !choices.isEmpty }
 
   /// A refund the books have no refund for is not made out of thin air: a refund is always of a
-  /// purchase, and is recorded on it.
-  var canCreate: Bool { newDraft.map { $0.kind != .refund } ?? false }
+  /// purchase, and is recorded on it. Lines of a split above the receipt block the write too.
+  var canCreate: Bool {
+    guard let draft = newDraft, draft.kind != .refund else { return false }
+    return !splitRemainder.isNegative
+  }
+
+  // MARK: Splitting by categories
+
+  /// The categories a line may take: live expense categories, the system ones left out (what the
+  /// lines leave goes to «Не помню» by itself).
+  var splitCategories: [CoreKit.Category] {
+    (dataset()?.categories ?? []).filter {
+      $0.kind == .expense && !$0.archived && $0.systemRole == nil
+    }
+  }
+
+  /// The receipt as a split: its total and the lines so far.
+  private var split: ReceiptSplit {
+    ReceiptSplit(total: receipt?.amountE4 ?? .zero, lines: splitLines)
+  }
+
+  /// What the lines leave of the receipt; below zero when they exceed it.
+  var splitRemainder: AmountE4 { split.remainder }
+
+  /// A line of `amount` in `category`; a zero or negative sum is no line.
+  func addSplitLine(category: UUID, amount: AmountE4) {
+    guard amount > .zero else { return }
+    splitLines.append(ReceiptSplit.Line(categoryId: category, amountE4: amount))
+  }
+
+  func removeSplitLine(at index: Int) {
+    guard splitLines.indices.contains(index) else { return }
+    splitLines.remove(at: index)
+  }
+
+  func clearSplit() { splitLines = [] }
 
   var newDraft: ReceiptDraft? {
     if case .new(let draft) = proposal { return draft }
@@ -411,6 +450,17 @@ final class ReceiptModel {
       stage = .failed(.noCategory)
       return false
     }
+    // The lines of a split become the parts; what they leave goes to «Не помню».
+    var amounts = [(category: category.id, source: CategorySource.system, amount: draft.amountE4)]
+    if !splitLines.isEmpty {
+      guard case .success(let lines) = split.parts(remainderCategory: category.id) else {
+        stage = .failed(.notWritten)
+        return false
+      }
+      amounts = lines.map {
+        ($0.categoryId, $0.categoryId == category.id ? .system : .manual, $0.amountE4)
+      }
+    }
     let id = UUID()
     let now = environment.now()
     let transaction = Transaction(
@@ -420,11 +470,11 @@ final class ReceiptModel {
       receipt: receipt.numbers)
     let entry = TransactionEntry(
       transaction: transaction,
-      parts: [
+      parts: amounts.map {
         TransactionPart(
-          transactionId: id, categoryId: category.id, categorySource: .system,
-          amountE4: draft.amountE4)
-      ])
+          transactionId: id, categoryId: $0.category, categorySource: $0.source,
+          amountE4: $0.amount)
+      })
     guard store.save(entry) else {
       stage = .failed(.notWritten)
       return false

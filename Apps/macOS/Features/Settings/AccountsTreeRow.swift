@@ -29,6 +29,9 @@ enum AccountsTreeMetrics {
   static let chevron: CGFloat = 10
   static let symbol: CGFloat = 16
   static let plus: CGFloat = 12
+  /// The slot of the row's «…» after «+»: it keeps its place whether the glyph is drawn or not,
+  /// so no row moves when the pointer comes.
+  static let menuSlot: CGFloat = 16
   /// The bar of the accounts picked: 44 tall, radius 8.
   static let barHeight: CGFloat = 44
   static let panelPadding: CGFloat = 14
@@ -38,7 +41,7 @@ enum AccountsTreeMetrics {
 
 /// One row of the tree: the mark that picks it, the handle, the indent of its depth, the chevron
 /// that folds it, its symbol, its name with what tells it apart, its money and «+».
-struct AccountsTreeRow: View {
+struct AccountsTreeRow<MenuSlot: View>: View {
   let row: AccountsTree.Row
   let title: String
   /// Words after the name: «в сводке», «··4821 · основная», «2 счёта».
@@ -59,6 +62,8 @@ struct AccountsTreeRow: View {
   var toggleFold: () -> Void = {}
   var toggleMark: () -> Void = {}
   var plus: () -> Void = {}
+  /// The «…» of the row, in its own slot after «+».
+  @ViewBuilder var menuSlot: () -> MenuSlot
   @Environment(\.appTheme) private var theme
 
   var body: some View {
@@ -102,6 +107,8 @@ struct AccountsTreeRow: View {
         .help(plusHelp)
         .accessibilityLabel(Text(verbatim: plusHelp))
       }
+      menuSlot()
+        .frame(width: AccountsTreeMetrics.menuSlot, height: AccountsTreeMetrics.menuSlot)
     }
     .padding(.horizontal, AccountsTreeMetrics.rowPadding)
     .frame(height: AccountsTreeMetrics.rowHeight)
