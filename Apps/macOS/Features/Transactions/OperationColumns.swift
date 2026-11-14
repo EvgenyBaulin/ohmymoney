@@ -174,6 +174,31 @@ struct OperationColumnLayout: Hashable, Sendable {
     widths[column] ?? column.standardWidth
   }
 
+  /// What a table spends beside its columns' widths: the cell insets and spacing of each column
+  /// (measured: 100 pt for the five default ones).
+  static func tableInsets(of columns: Int) -> Int { 20 * columns }
+
+  /// The layout laid out for a card `room` points wide, table insets included. Columns are
+  /// squeezed to their minimums (`fitted(toWidth:)`); if even the minimums do not fit, the
+  /// optional columns go, with the room itself, from the last in the order to the first and the time last, until
+  /// they do. The description and the amount always stay. The stored layout is untouched.
+  func fitted(toRoom room: Int, step: Int = 1) -> OperationColumnLayout {
+    var layout = self
+    func narrowest(_ layout: OperationColumnLayout) -> Int {
+      layout.visible.reduce(0) { $0 + $1.minimumWidth }
+        + Self.tableInsets(of: layout.visible.count)
+    }
+    let droppable = visible.filter { $0.canBeHidden }
+    let order = droppable.filter { $0 != .time }.reversed() + droppable.filter { $0 == .time }
+    for column in order where narrowest(layout) > room {
+      layout.hidden.insert(column)
+    }
+    // The widths follow the room in `step`s (never below the minimums), so that a window edge
+    // being dragged does not change them on every point.
+    let columns = max(0, room - Self.tableInsets(of: layout.visible.count))
+    return layout.fitted(toWidth: columns / step * step)
+  }
+
   /// The same layout with its widths squeezed to fit `available` points, for a window too narrow
   /// for the widths the owner or the design chose: the description gives way first (down to its
   /// minimum), then the other columns share what is left, each in proportion to the room it has

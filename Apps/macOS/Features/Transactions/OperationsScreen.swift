@@ -94,12 +94,10 @@ struct OperationsScreen: View {
     guard width > 0 else { return layout }
     let margins = OperationsMetrics.pageSide * (editorColumnShown ? 1 : 2)
     let editor = editorColumnShown ? TransactionInspector.idealWidth + 1 : 0
-    let room = Int(width - margins - editor) - Self.tableInsets
-    return layout.fitted(toWidth: max(0, room) / Self.fitStep * Self.fitStep)
+    let room = Int(width - margins - editor)
+    return layout.fitted(toRoom: room, step: Self.fitStep)
   }
 
-  /// The cell insets and the scroller the table spends beside its columns.
-  static let tableInsets = 40
   static let fitStep = 40
 
   var body: some View {
