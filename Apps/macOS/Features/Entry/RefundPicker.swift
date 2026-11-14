@@ -231,6 +231,7 @@ struct RefundPicker: View {
       }
       .buttonStyle(.borderedProminent)
       .keyboardShortcut(.defaultAction)
+      .disablesOnUnreadableAmount()
       .disabled(picker.choice == nil)
     }
   }

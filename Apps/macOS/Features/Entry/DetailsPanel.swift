@@ -2018,6 +2018,7 @@ struct AmountFieldEcho {
 /// Text that does not read — «1700+», «abc» — leaves the amount as it was. A form that must not
 /// save that amount under such text passes `reads`: false while the text does not read.
 struct AmountField: View {
+  @Dependency(\.environment) private var environment
   @Binding var amount: AmountE4
   /// Given, it is told every amount typed together with the text behind it, and writes the
   /// amount itself: the total of an operation keeps a formula typed in it (`amount_expr`).
@@ -2032,6 +2033,8 @@ struct AmountField: View {
   @State private var lastShown: AmountE4 = .zero
   /// The text the field has just written back itself: its amount was told when it was typed.
   @State private var echo = AmountFieldEcho()
+  /// The text does not read: the amount stays as it was, and the field and the sheet say so.
+  @State private var unreadable = false
   @FocusState private var isFocused: Bool
 
   /// `locale` is accepted and not needed: amounts are written the same way in every language.
@@ -2053,14 +2056,31 @@ struct AmountField: View {
     .labelsHidden()
     .appFont(prominent ? EntryType.amount : .body.monospacedDigit())
     .focused($isFocused)
+    .overlay {
+      if unreadable {
+        // Not the colour alone: a mark stands in the field as well.
+        RoundedRectangle(cornerRadius: 5).stroke(.red, lineWidth: 1.5).allowsHitTesting(false)
+        HStack {
+          Spacer()
+          Image(systemName: "exclamationmark.circle.fill")
+            .foregroundStyle(.red)
+            .padding(.trailing, 4)
+            .help(environment.language("amount.unreadable"))
+        }
+        .allowsHitTesting(false)
+      }
+    }
+    .preference(key: UnreadableAmountKey.self, value: unreadable)
+    .accessibilityValue(unreadable ? Text(verbatim: environment.language("amount.unreadable")) : Text(verbatim: ""))
     .onAppear { show(amount) }
     .onChange(of: amount) { _, newValue in
       guard newValue != lastShown else { return }
       show(newValue)
     }
     .onChange(of: text) { _, newValue in
-      guard echo.tells(newValue) else { return }
       let parsed = Self.amount(from: newValue)
+      unreadable = parsed == nil
+      guard echo.tells(newValue) else { return }
       if let reads, reads.wrappedValue != (parsed != nil) { reads.wrappedValue = parsed != nil }
       guard let parsed else { return }
       lastShown = parsed

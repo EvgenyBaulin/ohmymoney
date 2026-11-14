@@ -17,6 +17,24 @@ struct AccountMergeTests {
     PaymentMethod(id: id(2), name: "New card", currency: .rub, otherCurrencies: [kzt])
   }
 
+  @Test func aMergeOfAccountsOfDifferentVisibilityIsNamedAndKeepsTheTargetsVisibility() {
+    var hidden = source
+    hidden.hidden = true
+    var shown = target
+    shown.hidden = false
+    #expect(
+      AccountMerge.visibilityEffect(source: hidden, target: shown) == .sourceBecomesVisible)
+    #expect(AccountMerge.visibilityEffect(source: shown, target: hidden) == .sourceBecomesHidden)
+    #expect(AccountMerge.visibilityEffect(source: shown, target: shown) == .none)
+    #expect(AccountMerge.visibilityEffect(source: hidden, target: hidden) == .none)
+    // The merged account is the target's: it is hidden exactly when the target was.
+    let plan = AccountMerge.plan(
+      source: hidden, target: shown, transfers: [],
+      balances: balances([], counted: []), at: moment("2026-03-10")
+    ).plan
+    #expect(plan.target.hidden == false)
+  }
+
   func key(_ account: UUID, _ currency: CurrencyCode) -> BalanceKey {
     BalanceKey(accountId: account, currency: currency)
   }

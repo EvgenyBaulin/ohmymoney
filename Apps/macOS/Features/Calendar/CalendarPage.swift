@@ -393,11 +393,18 @@ struct CalendarUpcomingCard: View {
 
   var body: some View {
     let plans = CalendarLayout.upcoming(in: calendar)
-    if !plans.isEmpty {
+    Group {
       VStack(alignment: .leading, spacing: SectionMetrics.cardGap) {
         SectionCardHeader(
           title: CalendarText.t("calendar.upcoming", environment),
           caption: "\(CalendarLayout.upcomingCount(in: calendar))")
+        // The card stays on the screen when nothing is coming, and says so.
+        if plans.isEmpty {
+          Text(verbatim: CalendarText.t("calendar.upcoming.none", environment))
+            .appFont(SectionType.rowDetail)
+            .foregroundStyle(.secondary)
+            .accessibilityIdentifier("calendar.upcoming.none")
+        }
         ForEach(plans) { plan in
           HStack(spacing: SectionMetrics.rowGap) {
             Image(systemName: CalendarMark.symbol(plan.source))

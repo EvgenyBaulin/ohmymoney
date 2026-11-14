@@ -3554,7 +3554,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Without it the copy has no hidden accounts, and none of their operations or transfers."
+            "value": "Without it the copy has no hidden accounts, and none of their operations, transfers, planned payments, expected incomes, debt payments or goals."
           }
         },
         "es": {
@@ -3638,7 +3638,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без галочки в копии нет скрытых счетов, их операций и переводов."
+            "value": "Без галочки в копии нет скрытых счетов, их операций, переводов, плановых платежей, ожидаемых доходов, платежей по долгам и целей."
           }
         },
         "tg": {
@@ -4607,6 +4607,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "副本將使用此密碼鎖定。沒有密碼便無法開啟，且密碼無法復原。原始資料仍由你保管，不會變更。"
+          }
+        }
+      }
+    },
+    "privacy.copy.plansLeftOut": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plans, debt payments and goals of hidden accounts left out: %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плановые платежи, доходы, платежи по долгам и цели скрытых счетов не вошли: %lld"
           }
         }
       }

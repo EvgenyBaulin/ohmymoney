@@ -181,7 +181,8 @@ final class ExportCopyModel {
       transfers: pending.report.transfers, accounts: pending.report.accounts,
       operationsLeftOut: pending.report.operationsLeftOut,
       transfersLeftOut: pending.report.transfersLeftOut,
-      accountsLeftOut: pending.report.accountsLeftOut, attachments: pending.report.attachments,
+      accountsLeftOut: pending.report.accountsLeftOut, plansLeftOut: pending.report.plansLeftOut,
+      attachments: pending.report.attachments,
       encrypted: pending.report.encrypted)
     discardTemporary()
     stage = .done(report)
@@ -227,6 +228,9 @@ final class ExportCopyModel {
     guard let counts else { return 0 }
     return counts.operationsLeftOut + counts.transfersLeftOut
   }
+
+  /// Plans, debt entries and goals of the hidden accounts the copy leaves out.
+  var plansLeftOut: Int { counts?.plansLeftOut ?? 0 }
 
   /// The hidden accounts exist and go into the copy: the dialog warns.
   var warnsAboutHidden: Bool {

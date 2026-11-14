@@ -14,6 +14,8 @@ struct MigrationOutcome: Equatable {
   var written = 0
   var categoriesMade = 0
   var accounts = 0
+  /// Accounts made for names of the file the book had none of.
+  var accountsMade = 0
 }
 
 /// The move from another application: a file in, its columns, its accounts and categories paired
@@ -48,6 +50,10 @@ final class MigrationModel {
   var ticks: Set<Int> = []
   /// Folded name of the other application's account → own account (`nil`: not moved).
   private(set) var accountMap: [String: UUID?] = [:]
+  /// Accounts proposed for the other application's names the book has no account of: made only
+  /// when a line is written to them (`apply`), under the name the file gave. Nothing is made
+  /// before.
+  private(set) var proposedAccounts: [String: PaymentMethod] = [:]
   private(set) var categoryTargets: [String: MigrationCategoryTarget] = [:]
   private(set) var outcome: MigrationOutcome?
   private(set) var isWriting = false
@@ -122,6 +128,7 @@ final class MigrationModel {
       mapping = rememberedMapping(for: table) ?? MigrationColumnGuesser.guess(table)
       fileState = .table
       accountMap = [:]
+      proposedAccounts = [:]
       categoryTargets = [:]
       reparse()
       await fetchMissingRates()
@@ -205,10 +212,33 @@ final class MigrationModel {
         accountMap[key] = .some(id)
       } else if let same = open.first(where: { NameKey.fold($0.name) == key }) {
         accountMap[key] = .some(same.id)
+      } else if let proposal = proposal(named: name) {
+        // No account of that name: its history gets an account of its own, not the main one —
+        // the main balance would take the money of «Копилка» and «Наличные».
+        proposedAccounts[key] = proposal
+        accountMap[key] = .some(proposal.id)
       } else {
         accountMap[key] = .some(fallback)
       }
     }
+  }
+
+  /// The account a name of the file gets when the book has none like it: the name as the file
+  /// wrote it, in the currency of its first line. `nil` for a line that names no account.
+  private func proposal(named name: String) -> PaymentMethod? {
+    let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !trimmed.isEmpty else { return nil }
+    let currency =
+      parse.operations.map(\.operation).first { $0.accountRef == name }?.currency ?? .rub
+    return PaymentMethod(name: trimmed, currency: currency)
+  }
+
+  /// The proposed accounts that some line is still set to go to: what the picker lists besides
+  /// the book's own.
+  var proposedForPicker: [PaymentMethod] {
+    let chosen = Set(accountMap.values.compactMap { $0 })
+    return proposedAccounts.values.filter { chosen.contains($0.id) }
+      .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
   }
 
   // MARK: Categories
@@ -399,6 +429,31 @@ final class MigrationModel {
     let parents = Set(made.filter { used.contains($0.id) }.compactMap(\.parentId))
     made = made.filter { used.contains($0.id) || parents.contains($0.id) }
     var change = PlanningChange(created: write.entries, at: stamp)
+    // Only the proposed accounts a written line goes to are made.
+    let usedAccounts = Set(write.entries.compactMap(\.transaction.paymentMethodId))
+    // An account of the app always stands under a bank and starts with a card named like it, as
+    // the setup makes them: a bank of the same name, else a new one.
+    var newBanks: [Bank] = []
+    for var method in proposedAccounts.values.sorted(by: { $0.name < $1.name })
+    where usedAccounts.contains(method.id) {
+      let known = dataset.banks + newBanks
+      if let bank = BankRules.live(named: method.name, among: known) {
+        method.bankId = bank.id
+      } else {
+        let bank = Bank(
+          id: BanksMigration.bankId(forAccount: method.id), name: method.name,
+          sort: BankRules.sortForNewBank(among: known.filter { !$0.archived }))
+        newBanks.append(bank)
+        method.bankId = bank.id
+      }
+      change.upsert.paymentMethods.append(method)
+      if let card = CardRules.startingCard(
+        for: method, id: CardsMigration.cardId(forAccount: method.id))
+      {
+        change.upsert.cards.append(card)
+      }
+    }
+    change.upsert.banks += newBanks
     change.upsert.categories = made
     change.settings = unsorted.settings.filter { key, _ in
       made.contains { $0.id.uuidString == unsorted.settings[key] ?? nil }
@@ -406,7 +461,8 @@ final class MigrationModel {
     for (key, value) in remembered(plan: plan) { change.settings[key] = value }
     guard store.applyMigration(change, imports: write.imports) else { return false }
     outcome = MigrationOutcome(
-      written: write.entries.count, categoriesMade: made.count, accounts: write.imports.count)
+      written: write.entries.count, categoriesMade: made.count, accounts: write.imports.count,
+      accountsMade: change.upsert.paymentMethods.count)
     AppLog.info(
       "migration.applied", .db, "history from another application was moved in",
       [

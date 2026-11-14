@@ -2903,6 +2903,57 @@
         }
       }
     },
+    "purchases.credit.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credited on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зачислено"
+          }
+        }
+      }
+    },
+    "purchases.credit.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The refund is dated that day: the balance of the account follows the bank."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат запишется этим днём: остаток счёта сойдётся с банком."
+          }
+        }
+      }
+    },
+    "purchases.credit.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When did the money arrive?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда пришли деньги?"
+          }
+        }
+      }
+    },
     "purchases.files.failed": {
       "extractionState": "manual",
       "localizations": {

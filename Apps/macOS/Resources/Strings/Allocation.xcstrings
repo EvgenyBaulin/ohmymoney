@@ -2328,6 +2328,23 @@
         }
       }
     },
+    "allocation.note.noRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No exchange rate for this day: the line is empty"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет курса на этот день: строка пустая"
+          }
+        }
+      }
+    },
     "allocation.over": {
       "extractionState": "manual",
       "localizations": {
@@ -2479,6 +2496,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "分配金額超過收入：%@"
+          }
+        }
+      }
+    },
+    "allocation.overBudget": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You are allocating more than there is: by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы раскладываете больше, чем есть: на %@"
           }
         }
       }

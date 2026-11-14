@@ -387,7 +387,47 @@ final class MigrationModelTests: XCTestCase {
     XCTAssertFalse(model.canApply)
   }
 
+  func testANameTheBookHasNoAccountOfGetsAProposalMadeOnlyWhenItIsUsed() async throws {
+    let card = try makeAccount("Карта")
+    let model = try await model()
+    await load(model, Self.zenmoney)
+    // «Наличные» is no account of the book: not the main one, but one of its own, proposed.
+    let cashId = try XCTUnwrap(model.account(for: "Наличные"))
+    XCTAssertNotEqual(cashId, card.id)
+    XCTAssertTrue(model.proposedForPicker.contains { $0.id == cashId && $0.name == "Наличные" })
+    try await reload()
+    XCTAssertFalse(dataset?.paymentMethods.contains { $0.name == "Наличные" } == true, "not yet")
+    let applied = await model.apply()
+    XCTAssertTrue(applied)
+    try await reload()
+    XCTAssertTrue(dataset?.paymentMethods.contains { $0.id == cashId } == true)
+    XCTAssertEqual(model.outcome?.accountsMade, 1)
+  }
+
+  func testAProposedAccountTheOwnerPassedOverIsNeverMade() async throws {
+    let card = try makeAccount("Карта")
+    let model = try await model()
+    await load(model, Self.zenmoney)
+    model.setAccount(card.id, for: "Наличные")
+    XCTAssertTrue(model.proposedForPicker.isEmpty)
+    let applied = await model.apply()
+    XCTAssertTrue(applied)
+    try await reload()
+    XCTAssertFalse(dataset?.paymentMethods.contains { $0.name == "Наличные" } == true)
+    XCTAssertEqual(model.outcome?.accountsMade, 0)
+  }
+
   func testTheWordsOfTheMoveExistInBothLanguages() throws {
+    for code in ["en", "ru"] {
+      let bundle = try XCTUnwrap(
+        Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:)))
+      for key in ["migration.account.new", "migration.done.reconcile"] {
+        XCTAssertNotEqual(bundle.localizedString(forKey: key, value: nil, table: "Migration"), key)
+      }
+    }
+  }
+
+  func testTheWordsOfTheRolesExistInBothLanguages() throws {
     for code in ["en", "ru"] {
       let bundle = try XCTUnwrap(
         Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:)))

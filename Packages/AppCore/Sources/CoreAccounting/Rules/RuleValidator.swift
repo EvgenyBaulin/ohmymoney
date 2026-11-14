@@ -23,6 +23,10 @@ public enum RuleProblem: Hashable, Sendable {
   /// A rule that sets an expense category on income, or the other way round, has nothing to do:
   /// the kinds the conditions allow never take that category.
   case categoryNeverFits
+  /// «More than A» and «less than B» with A not below B: no sum satisfies both.
+  case contradictoryAmounts
+  /// Two different kinds of operation in one rule: an operation is of one kind.
+  case contradictoryKinds
 }
 
 public enum RuleValidator {
@@ -51,6 +55,21 @@ public enum RuleValidator {
         break
       }
     }
+    let lowest = rule.conditions.compactMap { condition -> AmountE4? in
+      if case .amountAbove(let amount) = condition { return amount }
+      return nil
+    }.max()
+    let highest = rule.conditions.compactMap { condition -> AmountE4? in
+      if case .amountBelow(let amount) = condition { return amount }
+      return nil
+    }.min()
+    if let lowest, let highest, lowest >= highest { add(.contradictoryAmounts) }
+    let transactionKinds = Set(
+      rule.conditions.compactMap { condition -> TransactionKind? in
+        if case .kind(let kind) = condition { return kind }
+        return nil
+      })
+    if transactionKinds.count > 1 { add(.contradictoryKinds) }
     var seenFields: Set<RuleField> = []
     var kinds: Set<CategoryKind> = []
     for action in rule.actions {

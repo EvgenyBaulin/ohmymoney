@@ -44,11 +44,23 @@ enum AppScreens {
 extension View {
   /// The size of a sheet: fixed on the Mac, where a sheet is a panel of its own; on a phone the
   /// sheet is as wide as the screen and as tall as its content, so none of these numbers apply.
-  @ViewBuilder
   func sheetFrame(
     width: CGFloat? = nil, height: CGFloat? = nil,
     minWidth: CGFloat? = nil, idealWidth: CGFloat? = nil, maxWidth: CGFloat? = nil,
     minHeight: CGFloat? = nil, idealHeight: CGFloat? = nil
+  ) -> some View {
+    framedSheet(
+      width: width, height: height, minWidth: minWidth, idealWidth: idealWidth,
+      maxWidth: maxWidth, minHeight: minHeight, idealHeight: idealHeight
+    )
+    // The sheet is also the scope an unreadable amount is told in (`UnreadableAmountKey`).
+    .unreadableAmountScope()
+  }
+
+  @ViewBuilder
+  private func framedSheet(
+    width: CGFloat?, height: CGFloat?, minWidth: CGFloat?, idealWidth: CGFloat?,
+    maxWidth: CGFloat?, minHeight: CGFloat?, idealHeight: CGFloat?
   ) -> some View {
     #if os(macOS)
       if let width {

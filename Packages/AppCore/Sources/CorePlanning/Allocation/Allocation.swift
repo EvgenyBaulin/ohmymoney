@@ -25,6 +25,8 @@ public struct AllocationLine: Hashable, Sendable, Identifiable {
     case noCushionAccount
     /// The cushion still lacks this much.
     case cushionLeft(AmountE4)
+    /// A fixed sum in another currency and no rate of the day: the line is empty, not guessed.
+    case noRate
   }
 
   public var id: String
@@ -101,6 +103,14 @@ public struct AllocationSheet: Hashable, Sendable {
   /// The income was edited down below what is allocated.
   public var overAllocatedE4: AmountE4?
   public var raise: AllocationRaise?
+
+  /// By how much the lines the owner chose, together, go beyond what is left to allocate
+  /// (the income less what was written and what is only shown); `nil` while they fit. The sheet
+  /// says so and still lets the owner write: taking from one's own money is a choice.
+  public func overspentE4(chosenE4: AmountE4) -> AmountE4? {
+    let left = unallocatedE4 - chosenE4
+    return left.raw < 0 ? .zero - left : nil
+  }
 
   public init(
     incomeId: UUID, currency: CurrencyCode, incomeE4: AmountE4, taxE4: AmountE4 = .zero,
@@ -308,17 +318,20 @@ public enum Allocation {
       return account.holds(currency) ? currency : account.mainCurrency
     }
 
+    // A second visit to an income already partly allocated takes its percents of what is still
+    // unallocated, not of the whole income a second time.
+    let ruleBase = earlier.raw > 0 ? max(.zero, base - earlier) : base
     for rule in dataset.allocationRules.filter(\.active).sorted(by: { $0.sort < $1.sort }) {
-      let amount =
-        Self.amount(
-          of: rule, base: base, incomeCurrency: currency, day: day, dayRates: dayRates)
-        ?? .zero
+      let rated = Self.amount(
+        of: rule, base: ruleBase, incomeCurrency: currency, day: day, dayRates: dayRates)
+      let amount = rated ?? .zero
       switch rule.target {
       case .goal(let goalId):
         guard let goal = liveGoals[goalId] else { continue }
         goalsWithRule.insert(goalId)
         var suggested = amount
         var note: AllocationLine.Note?
+        if rated == nil { note = .noRate }
         if let status = statuses[goalId],
           let missing = converter.convert(status.remaining, from: goal.currency, to: currency),
           missing <= amount
@@ -337,16 +350,17 @@ public enum Allocation {
           AllocationLine(
             id: "account:\(accountId.uuidString)", kind: .account(accountId), ruleId: rule.id,
             suggestedE4: amount, targetCurrency: targetCurrency(of: accountId),
-            transferTo: accountId))
+            transferTo: accountId, note: rated == nil ? .noRate : nil))
       case .cushion(let chosen):
         hasCushionRule = true
         let target =
           chosen.flatMap { accounts[$0]?.archived == false ? $0 : nil } ?? cushionAccount
-        lines.append(
-          cushionLine(
-            ruleId: rule.id, amount: amount, account: target,
-            missing: cushionMissing.flatMap { converter.convert($0, from: .rub, to: currency) },
-            currency: targetCurrency(of: target)))
+        var line = cushionLine(
+          ruleId: rule.id, amount: amount, account: target,
+          missing: cushionMissing.flatMap { converter.convert($0, from: .rub, to: currency) },
+          currency: targetCurrency(of: target))
+        if rated == nil { line.note = .noRate }
+        lines.append(line)
       }
     }
 

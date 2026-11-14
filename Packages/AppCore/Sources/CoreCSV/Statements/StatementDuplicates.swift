@@ -275,6 +275,9 @@ public enum StatementManualMatcher {
   /// Relative difference up to which a hand-entered amount is taken as the same operation
   /// (a tip rounded in the bank's favour).
   public static let mergeTolerance = Decimal(string: "0.01")!
+  /// A line merges without a question only when the amounts also differ by no more than this
+  /// (fifty roubles, E4): on a large sum 1 % is a whole other purchase.
+  public static let mergeLimit = AmountE4(whole: 50)
   /// Beyond the merge tolerance but within this, the person is asked; farther lines are not
   /// candidates at all.
   public static let askTolerance = Decimal(string: "0.20")!
@@ -289,6 +292,7 @@ public enum StatementManualMatcher {
       var index: Int
       var entry: StatementManualEntry
       var relative: Decimal
+      var delta: Int64
       var days: Int
     }
     var pairs: [Pair] = []
@@ -305,7 +309,7 @@ public enum StatementManualMatcher {
         guard relative <= askTolerance else { continue }
         pairs.append(
           Pair(
-            index: item.index, entry: entry, relative: relative,
+            index: item.index, entry: entry, relative: relative, delta: delta,
             days: abs(StatementMoment.days(from: entry.day, to: item.operation.moment.day))))
       }
     }
@@ -321,7 +325,7 @@ public enum StatementManualMatcher {
       guard let best = free.first else { continue }
       let nearest = free.filter { $0.relative == best.relative && $0.days == best.days }
       let certainty: StatementManualMatch.Certainty =
-        best.relative <= mergeTolerance ? .merge : .ask
+        best.relative <= mergeTolerance && best.delta <= mergeLimit.raw ? .merge : .ask
       if nearest.count == 1 {
         claimed.insert(best.entry.id)
         matches.append(

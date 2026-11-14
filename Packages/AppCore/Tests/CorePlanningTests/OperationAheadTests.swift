@@ -32,6 +32,19 @@ struct OperationAheadTests {
     return draft
   }
 
+  @Test func aDateMoreThanSixtyDaysAheadIsFarAndNamesTheMonths() {
+    // A typo in the year: 15.11.2027 written on 4.10.2026.
+    #expect(
+      OperationAhead.monthsAhead(of: DateOnly(year: 2027, month: 11, day: 15), today: today) == 13)
+    #expect(
+      OperationAhead.monthsAhead(of: DateOnly(year: 2026, month: 12, day: 4), today: today) == 2)
+    // Sixty days exactly and nearer are an ordinary plan ahead.
+    #expect(OperationAhead.monthsAhead(of: today.adding(days: 60), today: today) == nil)
+    #expect(OperationAhead.monthsAhead(of: today.adding(days: 61), today: today) == 2)
+    #expect(OperationAhead.monthsAhead(of: today, today: today) == nil)
+    #expect(OperationAhead.monthsAhead(of: today.adding(days: -400), today: today) == nil)
+  }
+
   @Test func anExpenseAheadMayBecomeAPayment() {
     #expect(OperationAhead.plan(for: draft(), today: today, calendar: calendar) == .payment)
   }

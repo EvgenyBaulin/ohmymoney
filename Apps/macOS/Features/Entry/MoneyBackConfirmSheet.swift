@@ -757,6 +757,7 @@ struct MoneyBackConfirmSheet: View {
       Button(t("moneyBack.record"), action: record)
         .buttonStyle(.borderedProminent)
         .keyboardShortcut(.defaultAction)
+        .disablesOnUnreadableAmount()
         .disabled(!canRecord)
     }
   }

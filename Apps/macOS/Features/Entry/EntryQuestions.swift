@@ -27,7 +27,13 @@ struct AheadQuestion: Identifiable {
   var id: String { "\(plan)-\(day.iso)" }
 
   @MainActor func title(_ environment: AppEnvironment) -> String {
-    environment.language.format("entry.ahead.title", table: "Entry", environment.dates.longDay(day))
+    // A date far ahead names the distance too: a typo in the year must not pass for a plan.
+    if let months = OperationAhead.monthsAhead(of: day, today: environment.today) {
+      return environment.language.format(
+        "entry.ahead.titleFar", table: "Entry", environment.dates.longDay(day), months)
+    }
+    return environment.language.format(
+      "entry.ahead.title", table: "Entry", environment.dates.longDay(day))
   }
 
   /// The key of the button that makes the plan.

@@ -88,6 +88,7 @@ struct DepositShowcaseSheet: View {
         Spacer()
         Button(environment.language("action.close")) { dismiss() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
       }
     }
     .padding(20)
@@ -278,6 +279,7 @@ struct DepositOfferEditor: View {
           if save() { dismiss() }
         }
         .keyboardShortcut(.defaultAction)
+        .disablesOnUnreadableAmount()
         .disabled(!valid)
       }
     }

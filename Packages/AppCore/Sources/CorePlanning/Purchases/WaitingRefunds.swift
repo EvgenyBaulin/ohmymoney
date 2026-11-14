@@ -105,6 +105,21 @@ public struct WaitingRefunds: Hashable, Sendable {
     return copy
   }
 
+  /// The same edit with the day the money really came: the refund is dated that day, so the
+  /// balance of the account and the month of the spending follow the bank, not the day of the
+  /// note. The day of the note stays when it is the day asked for; today keeps the clock time of
+  /// `now`, any other day is noon.
+  public static func credited(
+    _ transaction: Transaction, on day: DateOnly, now: Date, calendar: CalendarContext
+  ) -> Transaction {
+    var copy = credited(transaction)
+    let written = calendar.day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId)
+    guard day != written else { return copy }
+    copy.occurredAt = day == calendar.day(of: now) ? now : calendar.noon(of: day)
+    copy.timeZoneId = TravelDay.recordedId(in: calendar.timeZone)
+    return copy
+  }
+
   /// The edit that moves the expected day.
   public static func expecting(_ transaction: Transaction, by day: DateOnly) -> Transaction {
     var copy = transaction

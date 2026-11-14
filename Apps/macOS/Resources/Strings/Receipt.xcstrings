@@ -6709,6 +6709,23 @@
         }
       }
     },
+    "receipt.sameDay.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already written for this day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже записано за этот день"
+          }
+        }
+      }
+    },
     "receipt.scan": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -7017,6 +7034,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "或是以下其中一筆？金額略有差異（可能是四捨五入或小費）。"
+          }
+        }
+      }
+    },
+    "receipt.split.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The operations of this day add up to the receipt: %@. Most likely it is the same purchase: do not add a third one."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записи этого дня как раз дают сумму чека: %@. Скорее всего это та же покупка: не добавляйте третью."
           }
         }
       }

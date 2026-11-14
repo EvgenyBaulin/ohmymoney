@@ -247,9 +247,30 @@ final class ReceiptModel {
     return draft.similar
   }
 
+  /// Smaller operations already written for the day of the receipt: a purchase paid in two
+  /// ways was entered as two, and a new one for the whole receipt would count it twice.
+  var sameDay: [ReceiptCandidate] {
+    guard case .new(let draft) = proposal, !wantsNew else { return [] }
+    return draft.sameDay
+  }
+
+  /// The few of them that add up to the receipt exactly: very likely what the receipt is for.
+  var splitParts: [ReceiptCandidate] {
+    guard case .new(let draft) = proposal, !wantsNew else { return [] }
+    return draft.splitParts
+  }
+
+  /// «600 + 400» for the operations that add up to the receipt.
+  var splitSumText: String {
+    splitParts.map { environment.money.exact($0.amountE4, currency: $0.currency) }
+      .joined(separator: " + ")
+  }
+
   /// The owner picked a similar operation: the time goes to it like to an exact match.
   func useSimilar(_ id: UUID) {
-    guard let receipt, let found = similar.first(where: { $0.id == id }) else { return }
+    guard let receipt, let found = (similar + sameDay).first(where: { $0.id == id }) else {
+      return
+    }
     let zone = CalendarContext(timeZone: environment.calendar.zone(recordedIn: found.timeZoneId))
     proposal = .supplement(found, moment: receipt.moment(in: zone), others: [])
     wantsNew = false

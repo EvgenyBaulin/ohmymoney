@@ -13,6 +13,9 @@ public struct ExportCopyCounts: Equatable, Sendable {
   public var transfersLeftOut: Int
   /// Accounts the owner hid (all of them, whether they go into the copy or not).
   public var hiddenAccounts: Int
+  /// Planned payments, expected incomes, debt entries and goals tied to a hidden account that
+  /// the copy leaves out with it.
+  public var plansLeftOut: Int
   /// Rows of attached files whose operations stay in the copy.
   public var attachments: Int
   public var attachmentBytes: Int64
@@ -20,8 +23,9 @@ public struct ExportCopyCounts: Equatable, Sendable {
   public init(
     operations: Int = 0, transfers: Int = 0, accounts: Int = 0, operationsLeftOut: Int = 0,
     transfersLeftOut: Int = 0, hiddenAccounts: Int = 0, attachments: Int = 0,
-    attachmentBytes: Int64 = 0
+    attachmentBytes: Int64 = 0, plansLeftOut: Int = 0
   ) {
+    self.plansLeftOut = plansLeftOut
     self.operations = operations
     self.transfers = transfers
     self.accounts = accounts
@@ -94,6 +98,22 @@ public struct ExportCopyPreviewer: Sendable {
       let accountsAll = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM payment_methods") ?? 0
       let accounts = skipHidden ? accountsAll - hidden.count : accountsAll
 
+      var plans = 0
+      if skipHidden {
+        let marks = databaseQuestionMarks(count: hidden.count)
+        let arguments = StatementArguments(Array(hidden))
+        for table in ["scheduled_payments", "expected_income", "debt_entries"] {
+          plans +=
+            try Int.fetchOne(
+              db, sql: "SELECT COUNT(*) FROM \(table) WHERE payment_method_id IN (\(marks))",
+              arguments: arguments) ?? 0
+        }
+        plans +=
+          try Int.fetchOne(
+            db, sql: "SELECT COUNT(*) FROM goals WHERE account_id IN (\(marks))",
+            arguments: arguments) ?? 0
+      }
+
       var attachments = 0
       var bytes: Int64 = 0
       if request.includeAttachments {
@@ -106,7 +126,8 @@ public struct ExportCopyPreviewer: Sendable {
       return ExportCopyCounts(
         operations: operations, transfers: transfers, accounts: accounts,
         operationsLeftOut: operationsAll - operations, transfersLeftOut: transfersAll - transfers,
-        hiddenAccounts: hidden.count, attachments: attachments, attachmentBytes: bytes)
+        hiddenAccounts: hidden.count, attachments: attachments, attachmentBytes: bytes,
+        plansLeftOut: plans)
     }
   }
 }

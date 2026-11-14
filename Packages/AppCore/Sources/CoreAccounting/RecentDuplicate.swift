@@ -15,8 +15,13 @@ public enum RecentDuplicate {
   /// carries an external id and is never a repeat. «Провести» of a planned payment carries one
   /// too, but it is the owner's record of money paid, and a repeat like any other. The latest
   /// one when there are several. Nil for a zero amount.
+  ///
+  /// With a `calendar`, the repeat must also be of the same day: three bus rides entered in a row
+  /// for yesterday, the day before and today are three purchases, not a double press. Without
+  /// one, the day is not looked at.
   public static func match(
-    of draft: TransactionDraft, among recent: [TransactionEntry], now: Date
+    of draft: TransactionDraft, among recent: [TransactionEntry], now: Date,
+    calendar: CalendarContext? = nil
   ) -> TransactionEntry? {
     guard draft.kind == .expense || draft.kind == .income, !draft.amount.isZero else { return nil }
     let earliest = now.addingTimeInterval(-window)
@@ -25,6 +30,10 @@ public enum RecentDuplicate {
       return written.deletedAt == nil && isTheOwnersOwn(written) && written.kind == draft.kind
         && written.amountE4 == draft.amount && written.currency == draft.currency
         && written.createdAt >= earliest
+        && calendar.map {
+          $0.day(of: written.occurredAt, recordedIn: written.timeZoneId)
+            == $0.day(of: draft.occurredAt)
+        } ?? true
     }.max { $0.transaction.createdAt < $1.transaction.createdAt }
   }
 

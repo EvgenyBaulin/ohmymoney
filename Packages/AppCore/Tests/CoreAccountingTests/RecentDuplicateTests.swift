@@ -109,6 +109,21 @@ struct RecentDuplicateTests {
     #expect(RecentDuplicate.match(of: draft("30000"), among: recent, now: now)?.id == id(1))
   }
 
+  /// A batch written afterwards: the same fare for three different days is no double press.
+  @Test func theSameFareOnAnotherDayIsNoRepeatButTheSameDayIs() {
+    let calendar = CalendarContext.utc
+    let recent = [written("120", secondsAgo: 30)]
+    var yesterday = draft("120")
+    yesterday.occurredAt = now.addingTimeInterval(-86_400)
+    #expect(RecentDuplicate.match(of: yesterday, among: recent, now: now, calendar: calendar) == nil)
+    // Without a calendar the day is not looked at, as before.
+    #expect(RecentDuplicate.match(of: yesterday, among: recent, now: now) != nil)
+    var today = draft("120")
+    today.occurredAt = now
+    #expect(
+      RecentDuplicate.match(of: today, among: recent, now: now, calendar: calendar)?.id == id(1))
+  }
+
   @Test func aZeroAmountRepeatsNothing() {
     let recent = [written("0", secondsAgo: 10)]
     #expect(RecentDuplicate.match(of: draft("0"), among: recent, now: now) == nil)

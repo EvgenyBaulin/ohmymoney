@@ -172,6 +172,12 @@ public struct SpendingCalendar: Hashable, Sendable {
   public var usual: AmountE4?
   /// A day shown with spending could not be compared: too little history before it.
   public var lowData: Bool
+  /// The plans of today and the 29 days after it that fall outside the weeks shown, soonest
+  /// first: «Ближайшие события» are the next thirty days whichever month is on screen.
+  public var outsidePlans: [CalendarPlan]
+
+  /// How many days from today «Ближайшие события» look ahead, today included.
+  public static let upcomingDays = 30
 
   /// The weekdays of the columns, 1 = Monday … 7 = Sunday, from `firstWeekday`.
   public var weekdays: [Int] { Self.weekdays(startingWith: firstWeekday) }
@@ -186,8 +192,9 @@ public struct SpendingCalendar: Hashable, Sendable {
   public init(
     scope: CalendarScope, anchor: DateOnly, today: DateOnly, firstWeekday: Int,
     currency: CurrencyCode, range: DayRange, weeks: [[SpendingCalendarDay]], spent: AmountE4,
-    usual: AmountE4?, lowData: Bool
+    usual: AmountE4?, lowData: Bool, outsidePlans: [CalendarPlan] = []
   ) {
+    self.outsidePlans = outsidePlans
     self.scope = scope
     self.anchor = anchor
     self.today = today
@@ -286,6 +293,13 @@ public struct SpendingCalendar: Hashable, Sendable {
       plansByDay[plan.day.dayNumber, default: []].append(plan)
     }
 
+    let horizon = today.adding(days: upcomingDays - 1)
+    let outside = plans.filter { !range.contains($0.day) && $0.day >= today && $0.day <= horizon }
+      .sorted {
+        ($0.day.dayNumber, $0.kind == .payment ? 0 : 1, $0.name)
+          < ($1.day.dayNumber, $1.kind == .payment ? 0 : 1, $1.name)
+      }
+
     let month = anchor.monthKey
     var lowData = false
     var spentTotal = AmountE4.zero
@@ -338,7 +352,7 @@ public struct SpendingCalendar: Hashable, Sendable {
       scope: scope, anchor: anchor, today: today, firstWeekday: firstWeekday, currency: currency,
       range: range, weeks: weeks,
       spent: convert(spentTotal, to: currency, rubPerUnit: rubPerUnit) ?? spentTotal,
-      usual: usual, lowData: lowData)
+      usual: usual, lowData: lowData, outsidePlans: outside)
   }
 
   // MARK: - Rules

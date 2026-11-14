@@ -72,6 +72,7 @@ struct HiddenPlans: Hashable, Sendable {
         return day
       }
     }
+    copy.outsidePlans = calendar.outsidePlans.filter { !hides($0) }
     return copy
   }
 

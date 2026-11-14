@@ -185,6 +185,8 @@ struct RuleWording {
     case .twoActionsOnOneField(let field): f("rules.problem.twoActions", fieldName(field))
     case .unknownTag: t("rules.problem.unknownTag")
     case .categoryNeverFits: t("rules.problem.neverFits")
+    case .contradictoryAmounts: t("rules.problem.contradictoryAmounts")
+    case .contradictoryKinds: t("rules.problem.contradictoryKinds")
     }
   }
 

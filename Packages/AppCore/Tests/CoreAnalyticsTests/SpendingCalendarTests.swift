@@ -286,4 +286,31 @@ struct SpendingCalendarTests {
     #expect(todays.plannedOut == nil)
     #expect(todays.plansWithoutRate)
   }
+
+  /// «Ближайшие события» do not depend on the month on show: what falls in the thirty days from
+  /// today and outside the weeks drawn travels with the calendar.
+  @Test func plansOfTheNextThirtyDaysOutsideTheShownWeeksAreKept() {
+    func plan(_ name: String, _ on: DateOnly) -> CalendarPlan {
+      CalendarPlan(
+        kind: .payment, sourceId: UUID(), day: on, name: name, amount: AmountE4(whole: 100),
+        currency: .rub)
+    }
+    let inRange = plan("InRange", day(10, 20))
+    let nextMonth = plan("NextMonth", day(11, 10))  // 27 days ahead: outside October's weeks
+    let farther = plan("Farther", day(11, 20))  // 37 days ahead: beyond the thirty days
+    let past = plan("Past", day(10, 1))
+    let plans = [inRange, nextMonth, farther, past]
+
+    let october = SpendingCalendar.build(
+      ledger: ledger([]), scope: .month, anchor: today, today: today, firstWeekday: 1,
+      plans: plans)
+    #expect(october.outsidePlans == [nextMonth])
+
+    // Browsing September, a month wholly in the past: the coming plans are still there.
+    let september = SpendingCalendar.build(
+      ledger: ledger([]), scope: .month, anchor: day(9, 15), today: today, firstWeekday: 1,
+      plans: plans)
+    #expect(september.outsidePlans.map(\.name) == ["InRange", "NextMonth"])
+    #expect(september.days.allSatisfy { $0.plans.isEmpty })
+  }
 }

@@ -284,10 +284,12 @@ struct MissedDaysSheet: View {
       if step == .balances {
         Button(t("missed.next")) { toDays() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
           .disabled(balances.isEmpty)
       } else {
         Button(t("missed.save")) { save() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
           .disabled(missing.isEmpty)
           .accessibilityIdentifier("missed.save")
       }

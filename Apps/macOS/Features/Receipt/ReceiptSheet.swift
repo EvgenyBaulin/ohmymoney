@@ -319,6 +319,30 @@ struct ReceiptSheet: View {
       }
       Text(verbatim: t(model.canCreate ? "receipt.new.category" : "receipt.new.refundHint"))
         .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+      if !model.splitParts.isEmpty {
+        Label {
+          Text(
+            verbatim: ReceiptText.format("receipt.split.title", environment, model.splitSumText)
+          )
+          .fixedSize(horizontal: false, vertical: true)
+        } icon: {
+          Image(systemName: "exclamationmark.triangle")
+        }
+        .foregroundStyle(.orange)
+        .accessibilityIdentifier("receipt.split")
+      }
+      if !model.sameDay.isEmpty {
+        Text(verbatim: t("receipt.sameDay.title")).appFont(.headline)
+        ForEach(model.sameDay.prefix(5), id: \.id) { choice in
+          Button(
+            "\(model.title(of: choice.id)) · "
+              + environment.money.exact(choice.amountE4, currency: choice.currency)
+          ) {
+            model.useSimilar(choice.id)
+          }
+          .accessibilityIdentifier("receipt.sameDay")
+        }
+      }
       if !model.similar.isEmpty {
         Text(verbatim: t("receipt.similar.title")).appFont(.headline)
         ForEach(model.similar.prefix(3), id: \.id) { choice in

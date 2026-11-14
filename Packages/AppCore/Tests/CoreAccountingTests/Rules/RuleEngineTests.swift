@@ -84,6 +84,25 @@ struct RuleEngineTests {
     #expect(!RuleEngine.holds(night, at(12, 0), part: nil))
   }
 
+  /// «Еда вчера» is saved at noon of that day: nobody named the time, so a rule about the hour
+  /// has nothing to read — it must not fire (or fail) on the hour of the writing.
+  @Test func anOperationWithoutANamedTimeIsNoMatchForARuleAboutTheHour() {
+    var entry = book.expense(hourShift: 3)
+    let late = RuleCondition.timeBetween(fromMinute: 23 * 60, toMinute: 24 * 60 - 1)
+    let midday = RuleCondition.timeBetween(fromMinute: 11 * 60, toMinute: 13 * 60)
+    #expect(RuleEngine.holds(midday, book.subject(entry), part: nil), "11:53 is a real time")
+    // Noon sharp, the moment an entry without a time gets.
+    entry.transaction.occurredAt = Date(timeIntervalSince1970: 1_760_011_200)
+    #expect(book.subject(entry).minuteOfDay == nil)
+    #expect(!RuleEngine.holds(midday, book.subject(entry), part: nil))
+    #expect(!RuleEngine.holds(late, book.subject(entry), part: nil))
+    // The weekday is still known.
+    #expect(book.subject(entry).weekday != nil)
+    // A time named to the minute at 12:00 plus a few seconds is a real time.
+    entry.transaction.occurredAt = Date(timeIntervalSince1970: 1_760_011_230)
+    #expect(book.subject(entry).minuteOfDay == 12 * 60)
+  }
+
   @Test func allConditionsMustHold() {
     let rule = book.rule(
       [.textContains("яндекс"), .amountAbove(AmountE4(whole: 1_000))], [.addTag(UUID())])

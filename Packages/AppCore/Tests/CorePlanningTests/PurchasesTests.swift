@@ -508,6 +508,26 @@ struct WaitingRefundsTests {
       WaitingRefunds.expecting(credited, by: Fx.today).refundWaitingUntil == Fx.today)
   }
 
+  @Test func creditingOnTheDayTheMoneyCameMovesTheRefundToThatDay() {
+    let calendar = CalendarContext.utc
+    let entry = Fx.refund(1_000, on: Fx.today.adding(days: -11), waitingUntil: Fx.today)
+    let now = calendar.noon(of: Fx.today).addingTimeInterval(3_600)
+    let later = WaitingRefunds.credited(
+      entry.transaction, on: Fx.today, now: now, calendar: calendar)
+    #expect(!WaitingRefunds.isWaiting(later))
+    #expect(calendar.day(of: later.occurredAt) == Fx.today)
+    #expect(later.occurredAt == now, "today keeps the clock time of now")
+    let earlier = Fx.today.adding(days: -2)
+    let past = WaitingRefunds.credited(
+      entry.transaction, on: earlier, now: now, calendar: calendar)
+    #expect(calendar.day(of: past.occurredAt) == earlier)
+    // The day of the note itself: nothing moves.
+    let same = WaitingRefunds.credited(
+      entry.transaction, on: Fx.today.adding(days: -11), now: now, calendar: calendar)
+    #expect(same.occurredAt == entry.transaction.occurredAt)
+    #expect(!WaitingRefunds.isWaiting(same))
+  }
+
   @Test func aWaitingRefundDoesNotReduceSpendingOrMoveMoney() {
     let purchase = Fx.expense(1_000, on: Fx.today.adding(days: -5))
     var waiting = Fx.refund(1_000, on: Fx.today, waitingUntil: Fx.today.adding(days: 3))

@@ -32,6 +32,49 @@ struct ReceiptMatchTests {
     #expect(Self.calendar.timeOfDay(moment) == TimeOfDay(hour: 18, minute: 32))
   }
 
+  /// A purchase of 1 250.50 paid 600.00 in cash and 650.50 by card was entered as two
+  /// operations: the receipt must not become a third.
+  @Test func aReceiptThatTheOperationsOfTheDayAddUpToIsRecognisedAsTheirs() {
+    let candidates = [
+      Self.candidate("01", day: 29, hour: 18, amount: 6_000_000),
+      Self.candidate("02", day: 29, hour: 18, amount: 6_505_000),
+      Self.candidate("03", day: 29, hour: 9, amount: 1_000_000),
+      Self.candidate("04", day: 28, hour: 18, amount: 3_000_000),  // another day
+      Self.candidate("05", day: 29, hour: 18, amount: 5_000_000, kind: .income),
+    ]
+    guard
+      case .new(let draft) = ReceiptMatch.propose(
+        Self.receipt, among: candidates, calendar: Self.calendar)
+    else {
+      Issue.record("no operation has the sum of the receipt: a new one")
+      return
+    }
+    #expect(Set(draft.sameDay.map(\.id)) == [Fixture.id("01"), Fixture.id("02"), Fixture.id("03")])
+    #expect(Set(draft.splitParts.map(\.id)) == [Fixture.id("01"), Fixture.id("02")])
+  }
+
+  @Test func withoutAnExactSplitTheDayIsListedAndNothingIsClaimed() {
+    let candidates = [
+      Self.candidate("01", day: 29, amount: 6_000_000),
+      Self.candidate("02", day: 29, amount: 5_000_000),
+    ]
+    guard
+      case .new(let draft) = ReceiptMatch.propose(
+        Self.receipt, among: candidates, calendar: Self.calendar)
+    else {
+      Issue.record("expected a new operation")
+      return
+    }
+    #expect(draft.sameDay.count == 2)
+    #expect(draft.splitParts.isEmpty)
+    // An operation as big as the receipt is no part of it.
+    #expect(
+      ReceiptMatch.sameDay(
+        of: Self.receipt, among: [Self.candidate("03", day: 29, amount: 12_505_000)],
+        calendar: Self.calendar
+      ).isEmpty)
+  }
+
   @Test func aDayEitherWayIsEnoughTwoDaysAreNot() {
     for day in [28, 30] {
       let proposal = ReceiptMatch.propose(

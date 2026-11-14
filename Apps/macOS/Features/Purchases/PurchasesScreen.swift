@@ -13,6 +13,7 @@ enum PurchasesSheet: Identifiable, Hashable {
   case valuation(OwnedLine)
   case files(OwnedLine)
   case postpone(WaitingRefund)
+  case credit(WaitingRefund)
 
   var id: String {
     switch self {
@@ -26,6 +27,7 @@ enum PurchasesSheet: Identifiable, Hashable {
     case .valuation(let line): "thing.value.\(line.id)"
     case .files(let line): "thing.files.\(line.id)"
     case .postpone(let refund): "waiting.postpone.\(refund.id)"
+    case .credit(let refund): "waiting.credit.\(refund.id)"
     }
   }
 }
@@ -217,6 +219,7 @@ struct PurchasesScreen: View {
     case .valuation(let line): ThingValuationSheet(line: line)
     case .files(let line): ThingFilesSheet(line: line)
     case .postpone(let refund): WaitingPostponeSheet(refund: refund)
+    case .credit(let refund): WaitingCreditSheet(refund: refund)
     }
   }
 }

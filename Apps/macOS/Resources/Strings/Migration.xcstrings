@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "migration.account.new": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "new account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "новый счёт"
+          }
+        }
+      }
+    },
     "migration.account.skip": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -4785,6 +4802,23 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "migration.done.reconcile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the balances: after a move they may differ from the bank. Count each account once in Accounts."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверьте остатки: после переезда они могли разойтись с банком. Сверьте каждый счёт в «Счетах»."
           }
         }
       }

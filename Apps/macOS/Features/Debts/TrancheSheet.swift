@@ -59,6 +59,7 @@ struct TrancheSheet: View {
           .keyboardShortcut(.cancelAction)
         Button(t("tranche.add")) { save() }
           .keyboardShortcut(.defaultAction)
+          .disablesOnUnreadableAmount()
           .buttonStyle(.borderedProminent)
           .disabled(amount.raw <= 0 || dependencies == nil)
       }

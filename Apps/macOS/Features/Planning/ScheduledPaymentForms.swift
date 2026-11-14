@@ -1170,6 +1170,7 @@ struct ChargeRow: View {
 struct CountingFormButtons: View {
   @Dependency(\.environment) private var environment
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.hasUnreadableAmount) private var hasUnreadableAmount
   let title: String
   let enabled: Bool
   let failure: () -> String
@@ -1204,6 +1205,12 @@ struct CountingFormButtons: View {
 
   var body: some View {
     VStack(alignment: .trailing, spacing: 6) {
+      if hasUnreadableAmount {
+        Text(verbatim: environment.language("amount.unreadable.form"))
+          .appFont(.caption)
+          .foregroundStyle(.red)
+          .fixedSize(horizontal: false, vertical: true)
+      }
       if let failed {
         Text(verbatim: failed)
           .appFont(.caption)
@@ -1234,7 +1241,9 @@ struct CountingFormButtons: View {
         }
         .keyboardShortcut(.defaultAction)
         .buttonStyle(.borderedProminent)
-        .disabled(!enabled)
+        .disabled(
+          !UnreadableAmountRule.isEnabled(
+            formAllows: enabled, hasUnreadableAmount: hasUnreadableAmount))
       }
       // One dialog per view: the dated question hangs on the row of buttons.
       .beforeTheCountQuestion($dated) { count, wasBefore in
@@ -1252,7 +1261,7 @@ struct CountingFormButtons: View {
       dismiss()
     } else {
       let reason = failure()
-      failed = reason.isEmpty ? environment.language("form.notSaved", table: "Planning") : reason
+      failed = WriteRefusalWords.failureText(reason: reason, environment)
     }
   }
 }
