@@ -183,7 +183,8 @@ public struct MissedCashback: Sendable {
         entry, holder: held, book: book, tree: ledger.tree, calendar: ledger.calendar,
         refunded: refunded
       ).map { tracker.admit($0, month: month, account: account) }
-      let day = ledger.calendar.day(of: transaction.occurredAt)
+      // The day the ledger filed the purchase under: read in the zone it was recorded in.
+      let day = ledger.calendar.day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId)
       guard period.range.contains(day), !(account.map(hidden.contains) ?? false) else { continue }
       let currency = transaction.movedMoney.currency
       if candidatesByCurrency[currency] == nil {

@@ -47,8 +47,9 @@ public enum AttachmentArchive {
   }
 
   /// A plain zip addresses 32 bits and 65 535 entries. Each entry costs its two headers on top of
-  /// its bytes.
-  static let perEntryOverhead: Int64 = 30 + 46 + 2 * Int64(directory.count + 69)
+  /// its bytes, and its name stands in both: `attachments/aa/bb/<64 hex digits>`.
+  static let perEntryOverhead: Int64 =
+    30 + 46 + 2 * Int64(directory.count + "aa/bb/".count + AttachmentHash.hexLength)
 
   /// Chooses the files for an archive that already holds `baseBytes` in `baseEntries` entries
   /// (the database, the CSV files, the settings, the manifest). Distinct contents are taken newest

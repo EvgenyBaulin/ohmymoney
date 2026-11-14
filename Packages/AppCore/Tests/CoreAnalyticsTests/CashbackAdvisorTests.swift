@@ -244,6 +244,22 @@ struct CashbackAdvisorTests {
     #expect(hidden.items.isEmpty)
   }
 
+  /// A dinner at 02:00 on 1 October in Bali is October's: the period reads the day in the zone the
+  /// purchase was recorded in, the same zone its rule month and the ledger use, not the zone of
+  /// the Mac it is opened on.
+  @Test func missedCashbackReadsThePurchaseDayInItsRecordedZone() throws {
+    var late = Book.buy(5601, "10-01", Book.supermarkets, "1000", on: Book.alpha)
+    // 02:00 in UTC+8 is 18:00 of 30 September in UTC.
+    late.transaction.occurredAt = Date(timeIntervalSince1970: 1_790_791_200)  // 2026-09-30T18:00Z
+    late.transaction.timeZoneId = "Asia/Makassar"
+    let ledger = Book.ledger([late])
+    let october = MissedCashback(ledger: ledger, period: .month(Book.october))
+    #expect(october.items.map(\.transactionId) == [id(5601)])
+    #expect(october.byMonth.map(\.month) == [Book.october])
+    let september = MissedCashback(ledger: ledger, period: .month(Book.september))
+    #expect(september.items.isEmpty)
+  }
+
   @Test func missedCashbackWeighsTheRoomLeftAtThatMoment() {
     let entries = [
       Book.buy(5501, "09-02", Book.supermarkets, "1000", on: Book.beta, card: Book.betaCard),
@@ -414,6 +430,28 @@ struct CashbackHintTests {
       CashbackHints.payHere(
         ledger: ledger, today: DateOnly(iso: "2026-10-20")!, minGain: money("500")
       ).isEmpty)
+  }
+
+  /// A split purchase whose second part was refunded earns its place on what is left of the
+  /// whole receipt: the hint prices 6 000, not the 8 000 the receipt first said.
+  @Test func aRefundOfALaterPartTakesItsMoneyOutOfTheHint() throws {
+    var entries = (0..<2).map {
+      Book.buy(
+        5800 + $0, "10-\(10 + $0)", Book.supermarkets, "2000", on: Book.alpha, place: Book.shop)
+    }
+    entries.append(
+      CashbackBook.operation(
+        5810, on: "10-12", parts: [(Book.supermarkets, "2000"), (Book.pharmacy, "2000")],
+        account: Book.alpha, place: Book.shop))
+    entries.append(
+      CashbackBook.operation(
+        5811, .refund, on: "10-13", parts: [(Book.pharmacy, "2000")], account: Book.alpha,
+        refundOf: id(58_101), place: Book.shop))
+    let ledger = Book.ledger(entries, accounts: Book.accounts(betaCap: nil))
+    let hint = try #require(
+      CashbackHints.payHere(ledger: ledger, today: DateOnly(iso: "2026-10-20")!).first)
+    // 6 000 at 5 % instead of 1 %.
+    #expect(hint.gainRub == money("240"))
   }
 
   @Test func theTrapOfAMonthCategory() throws {
