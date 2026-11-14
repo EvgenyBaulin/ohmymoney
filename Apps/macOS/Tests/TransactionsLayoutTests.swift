@@ -506,6 +506,37 @@ final class TransactionsLayoutTests: XCTestCase {
     XCTAssertEqual(actions.editing?.id, plain.id, "the edit sheet, with no room beside the table")
   }
 
+  /// A window narrower than the 1 450 pt the table's standard columns want: the columns give way
+  /// (the description first), so the table is no wider than its card and the amount column is
+  /// whole inside it — with and without the editor column beside the table.
+  func testTheTableFitsItsCardInWindowsUnderTheWidthOfItsStandardColumns() throws {
+    for width in [CGFloat(1_300), 1_120, 1_000] {
+      for withEditor in [false, true] {
+        let window = makeWindow(width: width, height: 760)
+        try waitForTable(window)
+        if withEditor {
+          actions.edit([plain.id], store: store)
+        }
+        settle(window, passes: 30, "\(Int(width)) pt, editor \(withEditor)")
+        let table = try XCTUnwrap(Self.table(in: window))
+        let scroll = try XCTUnwrap(table.enclosingScrollView)
+        let clip = scroll.contentView.bounds.width
+        XCTAssertLessThanOrEqual(
+          table.frame.width, clip + 0.5,
+          "\(Int(width)) pt, editor \(withEditor): the table is \(Int(table.frame.width)) wide in a card of \(Int(clip))"
+        )
+        if let amount = table.tableColumns.first(where: {
+          $0.identifier.rawValue.contains("amount")
+        }) {
+          XCTAssertGreaterThanOrEqual(
+            amount.width, CGFloat(OperationColumn.amount.minimumWidth),
+            "\(Int(width)) pt: the amount column")
+        }
+        window.close()
+      }
+    }
+  }
+
   /// At 820 pt the screen is narrower than the editor and a table beside it
   /// (`OperationsScreen.widthForEditorColumn`): the operation opens in the edit sheet, the window
   /// keeps its width and the sidebar its place. In the window of Transactions the inspector made

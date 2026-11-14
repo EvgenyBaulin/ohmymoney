@@ -86,6 +86,22 @@ struct OperationsScreen: View {
 
   private var layout: OperationColumnLayout { OperationColumnLayout(storage: columnsText) }
 
+  /// What the table is made with: the columns' widths squeezed to the room the card has beside
+  /// the page margins and the open editor column, so a window under about 1 450 pt shows the
+  /// amounts instead of scrolling them away. The room is counted in steps, so that dragging the
+  /// window edge does not build the table again on every point. Unknown width: as chosen.
+  private var fittedLayout: OperationColumnLayout {
+    guard width > 0 else { return layout }
+    let margins = OperationsMetrics.pageSide * (editorColumnShown ? 1 : 2)
+    let editor = editorColumnShown ? TransactionInspector.idealWidth + 1 : 0
+    let room = Int(width - margins - editor) - Self.tableInsets
+    return layout.fitted(toWidth: max(0, room) / Self.fitStep * Self.fitStep)
+  }
+
+  /// The cell insets and the scroller the table spends beside its columns.
+  static let tableInsets = 40
+  static let fitStep = 40
+
   var body: some View {
     VStack(spacing: 0) {
       header
@@ -387,7 +403,7 @@ struct OperationsScreen: View {
       deps: deps,
       listing: shown,
       selection: Bindable(actions).selection,
-      layout: layout,
+      layout: fittedLayout,
       menu: { ids in BulkMenuItems(ids: ids, actions: actions, offersEdit: true) },
       primaryAction: { ids in actions.edit(ids, store: store) },
       deleteAction: { ids in actions.requestDeletion(of: ids, store: store) }

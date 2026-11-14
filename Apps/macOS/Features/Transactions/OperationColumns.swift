@@ -174,6 +174,49 @@ struct OperationColumnLayout: Hashable, Sendable {
     widths[column] ?? column.standardWidth
   }
 
+  /// The same layout with its widths squeezed to fit `available` points, for a window too narrow
+  /// for the widths the owner or the design chose: the description gives way first (down to its
+  /// minimum), then the other columns share what is left, each in proportion to the room it has
+  /// above its own minimum. Time and amount keep what their fixed text needs. A table whose
+  /// minimums alone are wider than `available` stays at those minimums and scrolls. The stored
+  /// layout is untouched; this is only what the table is laid out with.
+  func fitted(toWidth available: Int) -> OperationColumnLayout {
+    let columns = visible
+    let total = columns.reduce(0) { $0 + width(of: $1) }
+    var excess = total - available
+    guard excess > 0 else { return self }
+    var fitted = widths
+    for column in columns { fitted[column] = width(of: column) }
+    if let description = columns.first(where: { $0 == .description }) {
+      let give = min(excess, max(0, width(of: description) - description.minimumWidth))
+      fitted[description] = width(of: description) - give
+      excess -= give
+    }
+    if excess > 0 {
+      let others = columns.filter { $0 != .description }
+      let room = others.reduce(0) { $0 + max(0, width(of: $1) - $1.minimumWidth) }
+      if room > 0 {
+        let take = min(excess, room)
+        var taken = 0
+        for column in others {
+          let spare = max(0, width(of: column) - column.minimumWidth)
+          let share = take * spare / room
+          fitted[column] = width(of: column) - share
+          taken += share
+        }
+        // Whole points left over by the division come off the widest spare, one each.
+        var rest = take - taken
+        for column in others.sorted(by: { width(of: $0) > width(of: $1) }) where rest > 0 {
+          if let current = fitted[column], current > column.minimumWidth {
+            fitted[column] = current - 1
+            rest -= 1
+          }
+        }
+      }
+    }
+    return OperationColumnLayout(order: order, hidden: hidden, widths: fitted)
+  }
+
   /// Shows or hides a column; the description and the amount stay.
   mutating func setShown(_ shown: Bool, _ column: OperationColumn) {
     if shown {

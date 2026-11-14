@@ -352,4 +352,51 @@ final class OperationsScenarioColumnsTests: XCTestCase {
     XCTAssertFalse(layout.isShown(.place))
     XCTAssertEqual(OperationColumnLayout(storage: layout.storage), layout)
   }
+
+  // MARK: A window narrower than the columns
+
+  private func total(_ layout: OperationColumnLayout) -> Int {
+    layout.visible.reduce(0) { $0 + layout.width(of: $1) }
+  }
+
+  func testRoomEnoughLeavesTheWidthsAsChosen() {
+    let layout = OperationColumnLayout.standard
+    XCTAssertEqual(layout.fitted(toWidth: total(layout)), layout)
+    XCTAssertEqual(layout.fitted(toWidth: 5_000), layout)
+  }
+
+  func testANarrowWindowTakesTheRoomFromTheDescriptionFirst() {
+    let layout = OperationColumnLayout.standard
+    let room = total(layout) - 200
+    let fitted = layout.fitted(toWidth: room)
+    XCTAssertEqual(total(fitted), room)
+    XCTAssertEqual(fitted.width(of: .description), layout.width(of: .description) - 200)
+    for column in [OperationColumn.amount, .time, .category, .account] {
+      XCTAssertEqual(fitted.width(of: column), layout.width(of: column), "\(column)")
+    }
+  }
+
+  func testAVeryNarrowWindowShrinksEveryColumnButNotBelowItsMinimum() {
+    let layout = OperationColumnLayout.standard
+    for room in stride(from: 900, through: 300, by: -50) {
+      let fitted = layout.fitted(toWidth: room)
+      for column in layout.visible {
+        XCTAssertGreaterThanOrEqual(
+          fitted.width(of: column), column.minimumWidth, "\(column) at \(room)")
+        XCTAssertLessThanOrEqual(fitted.width(of: column), layout.width(of: column))
+      }
+      let minimum = layout.visible.reduce(0) { $0 + $1.minimumWidth }
+      XCTAssertEqual(total(fitted), max(room, minimum), "room \(room)")
+    }
+  }
+
+  func testFittingTheColumnsKeepsTheStoredLayout() {
+    var layout = OperationColumnLayout.standard
+    layout.setShown(true, .note)
+    let fitted = layout.fitted(toWidth: 600)
+    XCTAssertEqual(fitted.order, layout.order)
+    XCTAssertEqual(fitted.visible, layout.visible)
+    XCTAssertEqual(layout, OperationColumnLayout(storage: layout.storage))
+  }
 }
+
