@@ -114,7 +114,7 @@ public enum RefundCandidates {
     for entry in entries {
       let transaction = entry.transaction
       guard transaction.kind == .expense, !transaction.isDeleted else { continue }
-      let day = calendar.day(of: transaction.occurredAt)
+      let day = calendar.day(of: transaction)
       if let since, day < since { continue }
       if let latest = query.latestDay, day > latest { continue }
       let plan = transaction.creditDebtId.flatMap { plans[$0] }

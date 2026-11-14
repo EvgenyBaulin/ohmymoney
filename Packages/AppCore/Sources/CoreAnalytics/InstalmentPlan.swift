@@ -85,7 +85,7 @@ public enum InstalmentPlan {
     purchase: TransactionEntry, price: AmountE4, count: Int, everyDays: Int?, paymentDay: Int?,
     markup: AmountE4?, name: String, id: UUID, calendar: CalendarContext = .system
   ) -> (Debt, DebtEntry) {
-    let day = calendar.day(of: purchase.transaction.occurredAt)
+    let day = calendar.day(of: purchase.transaction)
     let parts = min(max(count, 2), 120)
     let markup = markup.flatMap { $0.raw > 0 ? $0 : nil }
     let steps = everyDays.map {

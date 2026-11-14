@@ -331,7 +331,7 @@ public enum BulkEditRule {
     if transaction.accountCurrency == leg, let kept = transaction.accountAmountE4 {
       return (leg, kept)
     }
-    let day = calendar.day(of: transaction.occurredAt)
+    let day = calendar.day(of: transaction)
     // A refund taken back from a purchase carries the purchase's rate for its rubles, but the
     // account received it at the rates of the refund's own day.
     if RefundRules.takesBack(entry) {

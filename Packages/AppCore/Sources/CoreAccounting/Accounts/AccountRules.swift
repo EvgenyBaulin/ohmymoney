@@ -266,8 +266,10 @@ public enum AccountRules {
       return LegEdit(outcome: .cleared)
     }
     let old = before.transaction
-    let oldDay = calendar.day(of: old.occurredAt)
-    let newDay = calendar.day(of: after.occurredAt)
+    let oldDay = calendar.day(of: old)
+    // An edit that leaves the moment where it was keeps the zone it was recorded in, so the day
+    // stays; a moved moment is a new date typed on this Mac.
+    let newDay = after.occurredAt == old.occurredAt ? oldDay : calendar.day(of: after.occurredAt)
     let wasRefund = RefundRules.takesBack(before)
     let isRefund = RefundRules.takesBack(after)
     // A new rate of the same currency. A refund taken back from a purchase carries the

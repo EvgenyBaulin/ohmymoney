@@ -144,10 +144,10 @@ private struct OperationEdit {
 
   init(before: Transaction, after: Transaction, calendar: CalendarContext) {
     self.after = after
-    afterDay = calendar.day(of: after.occurredAt)
+    afterDay = calendar.day(of: after)
     amountChanged = before.amountE4 != after.amountE4
     kindChanged = before.kind != after.kind
-    dayChanged = calendar.day(of: before.occurredAt) != afterDay
+    dayChanged = calendar.day(of: before) != afterDay
     movesDebts =
       amountChanged || kindChanged || dayChanged || before.currency != after.currency
       || before.debtId != after.debtId || before.creditDebtId != after.creditDebtId

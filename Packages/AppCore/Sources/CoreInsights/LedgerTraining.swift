@@ -34,7 +34,7 @@ public enum LedgerTraining {
     rows.reserveCapacity(entries.count)
     for entry in entries {
       let transaction = entry.transaction
-      let day = calendar.day(of: transaction.occurredAt)
+      let day = calendar.day(of: transaction)
       for part in entry.parts where !refunds.isLinked(refundPart: part.id) {
         let category = part.categoryId.flatMap { categories[$0] }
         // A subcategory of Goals is a goal's own: the role of the root counts as much as the

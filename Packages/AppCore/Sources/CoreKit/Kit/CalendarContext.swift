@@ -50,6 +50,11 @@ public struct CalendarContext: Sendable {
     return CalendarContext(timeZone: zone).day(of: instant)
   }
 
+  /// The day of an operation: the day its instant is on in the zone it was recorded in.
+  public func day(of transaction: Transaction) -> DateOnly {
+    day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId)
+  }
+
   /// The time on the clock of the zone an operation was recorded in.
   public func timeOfDay(_ instant: Date, recordedIn zoneId: String?) -> TimeOfDay {
     let zone = zone(recordedIn: zoneId)
