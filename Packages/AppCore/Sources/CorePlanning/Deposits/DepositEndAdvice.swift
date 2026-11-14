@@ -24,6 +24,18 @@ public struct DepositEndAdvice: Hashable, Sendable, Identifiable {
   public var accountId: UUID
   public var endsOn: DateOnly
   public var picks: [Pick]
+  /// The key rate fell notably in the last months, so a new deposit is likely to pay less than
+  /// the showcase says it did; `nil` when it did not, or the advice was asked without the rates.
+  public var keyRateFall: KeyRateDrop?
+
+  public init(
+    accountId: UUID, endsOn: DateOnly, picks: [Pick], keyRateFall: KeyRateDrop? = nil
+  ) {
+    self.accountId = accountId
+    self.endsOn = endsOn
+    self.picks = picks
+    self.keyRateFall = keyRateFall
+  }
 
   public var id: String { "\(accountId.uuidString):\(endsOn.iso)" }
 }
@@ -37,9 +49,10 @@ public enum DepositEndAdvisor {
   /// only to say something.
   public static func advice(
     accounts: [PaymentMethod], balanceE4: (PaymentMethod) -> AmountE4?,
-    entries: [DepositShowcaseEntry], today: DateOnly
+    entries: [DepositShowcaseEntry], today: DateOnly, keyRates: KeyRateTable? = nil
   ) -> [DepositEndAdvice] {
-    accounts.compactMap { account -> DepositEndAdvice? in
+    let fall = keyRates.flatMap { KeyRateAdvisor.notableDrop($0, today: today) }
+    return accounts.compactMap { account -> DepositEndAdvice? in
       guard !account.archived, account.mainCurrency == .rub, let terms = account.interest,
         let ends = terms.endsOn
       else { return nil }
@@ -60,8 +73,9 @@ public enum DepositEndAdvisor {
       if let entry = best(entries, DepositFilter(requiresTopup: true)) {
         picks.append(.init(condition: .topup, entry: entry))
       }
-      guard !picks.isEmpty else { return nil }
-      return DepositEndAdvice(accountId: account.id, endsOn: ends, picks: picks)
+      // A fall of the key rate is worth a line even when the showcase has nothing to put against.
+      guard !picks.isEmpty || fall != nil else { return nil }
+      return DepositEndAdvice(accountId: account.id, endsOn: ends, picks: picks, keyRateFall: fall)
     }
     .sorted { ($0.endsOn, $0.accountId.uuidString) < ($1.endsOn, $1.accountId.uuidString) }
   }
