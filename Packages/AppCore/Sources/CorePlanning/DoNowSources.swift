@@ -5,37 +5,53 @@ import Foundation
 /// Where the «Разобрать» and «Загрузить» items of «Что сделать сейчас» come from. Both are
 /// read off the operations already in the book; nothing is guessed.
 public enum DoNowSources {
-  /// An operation that is a week old or younger and has a part without a category waits for a
-  /// decision.
+  /// An operation that is a week old or younger and has a part without a category is the recent
+  /// «Разобрать» source.
   public static let reviewDays = 7
   /// A bank whose last loaded statement is this many days old or older asks for the next one.
   public static let statementDays = 14
 
-  /// «Разобрать»: one source counting the operations of the last `reviewDays` days (today
-  /// included) with a part that has no category. Deleted operations do not count.
+  /// Ids of the two «Разобрать» sources. The older one sorts after the recent one, which is the
+  /// order the list shows them in.
+  public static let recentReviewId = "uncategorized"
+  public static let olderReviewId = "uncategorized-older"
+
+  /// «Разобрать»: operations with a part that has no category, deleted ones not counted. The
+  /// last `reviewDays` days (today included) are one source; what is older does not vanish but
+  /// is a second source below it.
   public static func reviews(
     entries: [TransactionEntry], today: DateOnly, calendar: CalendarContext
   ) -> [DoNowSource] {
     let from = today.adding(days: -(reviewDays - 1))
-    let waiting = entries.filter { entry in
-      guard entry.transaction.deletedAt == nil else { return false }
+    var recent = 0
+    var older = 0
+    for entry in entries where entry.transaction.deletedAt == nil {
+      guard entry.parts.contains(where: { $0.categoryId == nil }) else { continue }
       let day = calendar.day(of: entry.transaction.occurredAt)
-      return day >= from && day <= today && entry.parts.contains { $0.categoryId == nil }
+      if day > today { continue }
+      if day >= from { recent += 1 } else { older += 1 }
     }
-    return waiting.isEmpty ? [] : [DoNowSource(id: "uncategorized", count: waiting.count)]
+    var sources: [DoNowSource] = []
+    if recent > 0 { sources.append(DoNowSource(id: recentReviewId, count: recent)) }
+    if older > 0 { sources.append(DoNowSource(id: olderReviewId, count: older)) }
+    return sources
   }
 
-  /// «Загрузить»: for each account that has had statements loaded, one source when the newest
-  /// statement operation is `statementDays` old or older. An account with no statement
-  /// operation at all never asks: the owner may not use statements for it.
+  /// «Загрузить»: for each open account that has had statements loaded, one source when the
+  /// newest statement was loaded `statementDays` ago or earlier. The day of loading is when the
+  /// operations were created, not the day of the newest operation in the file: a quiet card
+  /// whose last operation is old is not asked. An account with no statement operation at all
+  /// never asks (the owner may not use statements for it), nor does an archived one.
   public static func statements(
-    entries: [TransactionEntry], today: DateOnly, calendar: CalendarContext
+    entries: [TransactionEntry], today: DateOnly, calendar: CalendarContext,
+    archivedAccounts: Set<UUID> = []
   ) -> [DoNowSource] {
     var latest: [UUID: DateOnly] = [:]
     for entry in entries where entry.transaction.deletedAt == nil {
-      guard entry.transaction.source == "statement", let account = entry.transaction.paymentMethodId
+      guard entry.transaction.source == "statement", let account = entry.transaction.paymentMethodId,
+        !archivedAccounts.contains(account)
       else { continue }
-      let day = calendar.day(of: entry.transaction.occurredAt)
+      let day = calendar.day(of: entry.transaction.createdAt)
       if latest[account].map({ day > $0 }) ?? true { latest[account] = day }
     }
     let limit = today.adding(days: -statementDays)
