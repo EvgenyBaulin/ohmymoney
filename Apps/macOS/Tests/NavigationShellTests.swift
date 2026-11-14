@@ -122,4 +122,17 @@ final class NavigationShellTests: XCTestCase {
       XCTAssertEqual(again?.item, .section(section), "a window brought back by macOS")
     }
   }
+
+  /// The floating line is not on Planning and Reports; every other section has it. The form at
+  /// the right is placed by the style and the width of the window alone — never by the section —
+  /// so a window wide enough shows it open on every section.
+  func testTheEntryLineIsMissingOnlyOnPlanningAndReportsAndTheFormIsOnEveryWindow() {
+    for section in MainWindow.Section.allCases {
+      XCTAssertEqual(
+        section.showsEntryLine, ![.planning, .reports].contains(section), "\(section)")
+    }
+    XCTAssertEqual(EntryFormDock.placement(style: .form, windowWidth: 1_400), .docked)
+    XCTAssertEqual(EntryFormDock.placement(style: .form, windowWidth: 0), .docked)
+    XCTAssertEqual(EntryFormDock.placement(style: .line, windowWidth: 1_400), .line)
+  }
 }
