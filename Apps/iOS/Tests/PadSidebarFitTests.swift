@@ -27,32 +27,27 @@ final class PadSidebarFitTests: XCTestCase {
 
   // MARK: Figures
 
-  func testAFigureStaysOneLineBesideALongNameAtEverySize() {
-    let names = [
-      "Очень длинное название накопительного счёта в банке",
-      "A very long name of a savings account at the bank",
-    ]
+  func testAFigureDropsUnderANameTooLongToShareItsLine() {
     let figures = ["1 234 567,89 ₽", "1,234,567.89 ₽", "≈ 18,531 ₽"]
     // The panel is 250 pt at every window size; the list keeps 16 pt at each side of a row.
     let width = CGFloat(PadLayout.sidebarWidth) - 32
-    for name in names {
-      for figure in figures {
+    for figure in figures {
+      let short = fittingSize(row(name: "Cash", main: figure), width: width)
+      // A name that shares its line with the figure keeps the row one line tall.
+      let fits = fittingSize(row(name: "Savings", main: figure), width: width)
+      XCTAssertEqual(fits.height, short.height, accuracy: 0.5)
+      for name in [
+        "Очень длинное название накопительного счёта в банке",
+        "A very long name of a savings account at the bank",
+      ] {
         let long = fittingSize(row(name: name, main: figure), width: width)
-        let short = fittingSize(row(name: "A", main: figure), width: width)
-        XCTAssertEqual(long.height, short.height, accuracy: 0.5, "\(figure) wraps beside \(name)")
+        // The figure is under the name: the row is taller, never wider than the panel.
+        XCTAssertGreaterThan(long.height, short.height + 8, "\(figure) stays beside \(name)")
         XCTAssertLessThanOrEqual(long.width, width + 0.5)
+        // The name keeps two lines of its own and the figure one: nothing is cut to make room.
+        XCTAssertLessThan(long.height, short.height * 3 + 1)
       }
     }
-  }
-
-  func testTheFigureIsWholeAndTheNameIsTheOneCutShort() {
-    let width = CGFloat(PadLayout.sidebarWidth) - 32
-    let withFigure = fittingSize(row(name: "A", main: "1,234,567.89 ₽"), width: 1_000)
-    // The figure alone needs this much; a long name leaves it exactly that.
-    let narrow = fittingSize(
-      row(name: String(repeating: "Wide ", count: 20), main: "1,234,567.89 ₽"), width: width)
-    XCTAssertLessThanOrEqual(narrow.width, width + 0.5)
-    XCTAssertGreaterThan(withFigure.width, 60)
   }
 
   private func row(name: String, main: String) -> some View {
