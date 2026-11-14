@@ -16,7 +16,7 @@ struct CashbackChoiceSheet: View {
 
   @State private var draft: CashbackChoiceDraft?
   @State private var choices: [CoreKit.Category] = []
-  @State private var spending: [UUID: AmountE4] = [:]
+  @State private var spending = CashbackChoiceAdvisor.CodedSpending()
   @State private var failed = false
 
   static let table = "SyncHistory"
@@ -64,7 +64,7 @@ struct CashbackChoiceSheet: View {
     choices = CashbackRules.categoryChoices(
       tree: CategoryTree(categories), categories: categories,
       reconcileCategoryIds: actions.reconcileCategoryIds)
-    spending = CashbackChoiceAdvisor.monthlySpending(ledger: ledger, before: month)
+    spending = CashbackChoiceAdvisor.monthlyCodedSpending(ledger: ledger, before: month)
     let book = dataset.cashbackChoice
     let previous = book.offers(of: accountId, month: month.previous).filter(\.chosen).count
     draft = CashbackChoiceDraft(
@@ -137,7 +137,7 @@ struct CashbackChoiceSheet: View {
   private func bestSection(_ current: CashbackChoiceDraft) -> some View {
     let tree = CategoryTree(store.listing?.dataset.categories ?? [])
     let picks = current.best(
-      spending: spending, tree: tree, accountCap: account?.cashbackMonthlyCapE4)
+      coded: spending, tree: tree, accountCap: account?.cashbackMonthlyCapE4)
     Section {
       if picks.isEmpty || picks.allSatisfy({ $0.expectedRub.isZero }) {
         Text(verbatim: t("cashback.choice.noBest")).foregroundStyle(.secondary)
@@ -203,12 +203,45 @@ struct CashbackChoiceSheet: View {
           } label: {
             Text(verbatim: shown)
           }
+          codesFields(key: key, current: current)
         }
       }
     } header: {
       Text(verbatim: t("cashback.choice.mapping"))
     } footer: {
-      Text(verbatim: t("cashback.choice.mappingHint")).foregroundStyle(.secondary)
+      Text(verbatim: t("cashback.choice.mappingHint") + " " + t("cashback.choice.codesHint"))
+        .foregroundStyle(.secondary)
+    }
+  }
+
+  /// The merchant codes of a label: the ones the bank counts and the ones it leaves out.
+  @ViewBuilder
+  private func codesFields(key: String, current: CashbackChoiceDraft) -> some View {
+    TextField(
+      text: Binding(
+        get: { draft?.includeText[key] ?? "" }, set: { draft?.includeText[key] = $0 }),
+      prompt: Text(verbatim: t("cashback.choice.codesPrompt"))
+    ) {
+      Text(verbatim: t("cashback.choice.includeCodes"))
+    }
+    .monospacedDigit()
+    .accessibilityIdentifier("cashback.choice.includeCodes")
+    TextField(
+      text: Binding(
+        get: { draft?.excludeText[key] ?? "" }, set: { draft?.excludeText[key] = $0 }),
+      prompt: Text(verbatim: t("cashback.choice.codesPrompt"))
+    ) {
+      Text(verbatim: t("cashback.choice.excludeCodes"))
+    }
+    .monospacedDigit()
+    .accessibilityIdentifier("cashback.choice.excludeCodes")
+    if current.codeProblems.contains(key) {
+      Label {
+        Text(verbatim: t("cashback.choice.codesUnreadable"))
+      } icon: {
+        Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange)
+      }
+      .appFont(.caption)
     }
   }
 

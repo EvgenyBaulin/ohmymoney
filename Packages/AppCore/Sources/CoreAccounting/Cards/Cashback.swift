@@ -52,6 +52,13 @@ extension CashbackRule {
 /// A card prices a purchase with its own rules and the rules of its account together: the card's
 /// own rule wins where both have one for the same month and category, and the account's rules
 /// cover everything else. The book also knows how each account rounds, as the account says.
+///
+/// Merchant codes: a rule is tied to the bank's table of the account's bank by its category —
+/// the rows of that table that stand for the rule's category (`BankCategoryMapping`). Where one
+/// of those rows has a code list, the rule takes a purchase with a code by the rows' reading
+/// (`BankCategoryMapping.covers`), and a rule whose rows name the code in an include list takes
+/// it whatever the owner's category. Where no row has a list, or the purchase has no code, the
+/// rule goes by category exactly as before.
 public struct CashbackRuleBook: Sendable {
   private struct Key: Hashable {
     var holder: CashbackHolder
@@ -64,12 +71,18 @@ public struct CashbackRuleBook: Sendable {
   private let tree: CategoryTree
   private let accountOfCard: [UUID: UUID]
   private let roundingOfAccount: [UUID: CashbackRounding]
+  private let bankOfAccount: [UUID: UUID]
+  /// By bank, then by category: every row of the bank's table that stands for the category,
+  /// kept only for categories where at least one of those rows has a code list.
+  private let codedRows: [UUID: [UUID: [BankCategoryMapping]]]
 
-  /// `cards` tell which account a card follows, `accounts` how each rounds; a card or account
-  /// that is not given has no account above it, and rounds as `CashbackRounding.standard`.
+  /// `cards` tell which account a card follows, `accounts` how each rounds and which bank it
+  /// is at; a card or account that is not given has no account above it, and rounds as
+  /// `CashbackRounding.standard`. `mappings` are the banks' tables «категория банка → ваша»;
+  /// without rows that have code lists the book prices by category alone.
   public init(
     rules: [CashbackRule], tree: CategoryTree, cards: [PaymentCard] = [],
-    accounts: [PaymentMethod] = []
+    accounts: [PaymentMethod] = [], mappings: [BankCategoryMapping] = []
   ) {
     var byKey: [Key: CashbackRule] = [:]
     var byHolder: [CashbackHolder: [CashbackRule]] = [:]
@@ -87,6 +100,15 @@ public struct CashbackRuleBook: Sendable {
       cards.map { ($0.id, $0.accountId) }, uniquingKeysWith: { first, _ in first })
     self.roundingOfAccount = Dictionary(
       accounts.map { ($0.id, $0.cashbackRounding) }, uniquingKeysWith: { first, _ in first })
+    self.bankOfAccount = Dictionary(
+      accounts.compactMap { account in account.bankId.map { (account.id, $0) } },
+      uniquingKeysWith: { first, _ in first })
+    var byBank: [UUID: [UUID: [BankCategoryMapping]]] = [:]
+    for row in mappings {
+      byBank[row.bankId, default: [:]][row.categoryId, default: []].append(row)
+    }
+    self.codedRows = byBank.mapValues { $0.filter { $0.value.contains(where: \.hasCodes) } }
+      .filter { !$0.value.isEmpty }
   }
 
   public var isEmpty: Bool { byKey.isEmpty }
@@ -126,8 +148,15 @@ public struct CashbackRuleBook: Sendable {
   /// The bank's categories of the month win over a standing rate on the same purchase, and
   /// «everything else» is the last word of both. Where a card and its account both have the rule
   /// of a step, the card's is taken.
+  ///
+  /// With a merchant code (`mcc`) and a bank table whose rows for a rule's category have code
+  /// lists, each step of a month and of «always» first takes a rule whose rows name the code in an
+  /// include list (the bank counts the purchase by the code; of two such rules the higher percent),
+  /// then the rules of the category path that the rows cover; a rule whose rows leave the code out
+  /// is passed over, and the purchase goes on to the next step. Without a code or without lists
+  /// the order is the one above, to the rule.
   public func rule(
-    for holder: CashbackHolder, categoryId: UUID?, month: MonthKey
+    for holder: CashbackHolder, categoryId: UUID?, month: MonthKey, mcc: String? = nil
   ) -> CashbackRule? {
     var holders = [holder]
     if case .card(let id) = holder, let account = accountOfCard[id] {
@@ -135,12 +164,31 @@ public struct CashbackRuleBook: Sendable {
     }
     guard holders.contains(where: { byHolder[$0] != nil }) else { return nil }
     let path = categoryPath(categoryId)
+    let coded = self.account(of: holder).flatMap { bankOfAccount[$0] }.flatMap { codedRows[$0] }
+    let code = coded == nil ? nil : MerchantCode.normalized(mcc)
     for scope in [month, nil] as [MonthKey?] {
+      if let coded, let code {
+        for held in holders {
+          let named = rules(of: held).filter { rule in
+            guard rule.month == scope, let category = rule.categoryId,
+              let rows = coded[category]
+            else { return false }
+            return BankCategoryMapping.names(rows, mcc: code)
+          }
+          if let best = named.max(by: Self.lowerPercentFirst) { return best }
+        }
+      }
       for category in path {
         for held in holders {
-          if let rule = byKey[Key(holder: held, month: scope, categoryId: category)] {
-            return rule
+          guard let rule = byKey[Key(holder: held, month: scope, categoryId: category)] else {
+            continue
           }
+          if let rows = coded?[category],
+            !BankCategoryMapping.covers(rows, categoryId: categoryId, mcc: code, tree: tree)
+          {
+            continue
+          }
+          return rule
         }
       }
     }
@@ -150,6 +198,13 @@ public struct CashbackRuleBook: Sendable {
       }
     }
     return nil
+  }
+
+  /// Orders two rules that name the same code: the lower percent first, then the larger id, so
+  /// that `max` takes the higher percent and, of two equal, the smaller id.
+  private static func lowerPercentFirst(_ left: CashbackRule, _ right: CashbackRule) -> Bool {
+    if left.percent != right.percent { return left.percent < right.percent }
+    return left.id.uuidString > right.id.uuidString
   }
 
   /// The category and the categories above it, nearest first; empty without a category.
@@ -303,7 +358,8 @@ public enum CashbackMath {
     var byRule: [UUID: Decimal] = [:]
     for (part, base) in zip(entry.parts, bases) {
       guard !tree.isLoanCategory(part.categoryId),
-        let rule = book.rule(for: holder, categoryId: part.categoryId, month: month)
+        let rule = book.rule(
+          for: holder, categoryId: part.categoryId, month: month, mcc: transaction.mcc)
       else { continue }
       if !used.contains(rule.id) { used.append(rule.id) }
       let amount = part.amountE4.decimal

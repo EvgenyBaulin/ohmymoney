@@ -11,12 +11,43 @@ public struct BankCategoryMapping: Identifiable, Hashable, Sendable, Codable {
   public var label: String
   /// A category or a subcategory of expenses; its subcategories go with it.
   public var categoryId: UUID
+  /// Merchant codes the bank counts in this label. A purchase that has a code and meets a row
+  /// with a non-empty list belongs to the label by the code alone; a purchase without a code,
+  /// or a row without a list, goes by `categoryId` as before.
+  public var includeCodes: MerchantCodeList
+  /// Merchant codes the bank leaves out of this label (they win over `includeCodes`).
+  public var excludeCodes: MerchantCodeList
 
-  public init(id: UUID = UUID(), bankId: UUID, label: String, categoryId: UUID) {
+  public init(
+    id: UUID = UUID(), bankId: UUID, label: String, categoryId: UUID,
+    includeCodes: MerchantCodeList = .empty, excludeCodes: MerchantCodeList = .empty
+  ) {
     self.id = id
     self.bankId = bankId
     self.label = label
     self.categoryId = categoryId
+    self.includeCodes = includeCodes
+    self.excludeCodes = excludeCodes
+  }
+
+  /// Whether the row has any code list; without one it goes by category only.
+  public var hasCodes: Bool { !includeCodes.isEmpty || !excludeCodes.isEmpty }
+
+  private enum CodingKeys: String, CodingKey {
+    case id, bankId, label, categoryId, includeCodes, excludeCodes
+  }
+
+  // Data written before the code lists existed has no such keys: the lists are then empty.
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    id = try container.decode(UUID.self, forKey: .id)
+    bankId = try container.decode(UUID.self, forKey: .bankId)
+    label = try container.decode(String.self, forKey: .label)
+    categoryId = try container.decode(UUID.self, forKey: .categoryId)
+    includeCodes =
+      try container.decodeIfPresent(MerchantCodeList.self, forKey: .includeCodes) ?? .empty
+    excludeCodes =
+      try container.decodeIfPresent(MerchantCodeList.self, forKey: .excludeCodes) ?? .empty
   }
 
   /// The label as it is compared: case, «ё» and spaces around do not matter.

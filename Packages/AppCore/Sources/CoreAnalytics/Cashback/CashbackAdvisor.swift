@@ -51,13 +51,17 @@ public enum CashbackAdvisor {
 
   /// The ways to pay `amountRub` of `categoryId` in `month`, the best first: the rule each
   /// card would take, the room its ceilings still leave. Ties go to the order of `candidates`.
+  /// `mcc` is the merchant code the place charges with, when known: a bank table with code
+  /// lists then prices by it (`CashbackRuleBook.rule`).
   public static func options(
     categoryId: UUID?, amountRub: AmountE4, month: MonthKey, candidates: [CashbackCandidate],
-    book: CashbackRuleBook, tracker: CashbackCapTracker
+    book: CashbackRuleBook, tracker: CashbackCapTracker, mcc: String? = nil
   ) -> [Option] {
     var options: [(Int, Option)] = []
     for (index, candidate) in candidates.enumerated() {
-      guard let rule = book.rule(for: candidate.holder, categoryId: categoryId, month: month)
+      guard
+        let rule = book.rule(
+          for: candidate.holder, categoryId: categoryId, month: month, mcc: mcc)
       else { continue }
       var value = amountRub.decimal.magnitude * rule.percent.fraction
       if let room = tracker.room(rule: rule.id, account: candidate.accountId, month: month) {
@@ -162,7 +166,7 @@ public struct MissedCashback: Sendable {
     let dataset = ledger.dataset
     let book = CashbackRuleBook(
       rules: dataset.cashbackRules, tree: ledger.tree, cards: dataset.cards,
-      accounts: dataset.paymentMethods)
+      accounts: dataset.paymentMethods, mappings: dataset.cashbackChoice.mappings)
     let caps = CashbackCaps(rules: dataset.cashbackRules, accounts: dataset.paymentMethods)
     let mainId = CashbackAdvisor.mainAccount(dataset)
     var tracker = CashbackCapTracker(caps: caps)

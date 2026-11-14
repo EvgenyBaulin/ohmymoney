@@ -503,8 +503,13 @@ public enum ExportTables {
   /// month, with the percent and whether the owner took it. The monthly ceilings came with the
   /// same file: `monthly_cap` goes last in `cashback_rules.csv`, `cashback_monthly_cap` and
   /// `cashback_choice_day` (the day the bank opens the choice) last in `payment_methods.csv`.
+  ///
+  /// `include_mcc` and `exclude_mcc` came with `Schema/0028_bank_cashback_merchant_codes.sql`
+  /// and go last: the merchant codes the bank counts in the label and the ones it leaves out, as
+  /// «5411, 5811-5814» (`MerchantCodeList.text`), empty for no list.
   public static let bankCashbackCategories = ExportTable(
-    fileName: "bank_cashback_categories.csv", columns: ["id", "bank_id", "label", "category_id"])
+    fileName: "bank_cashback_categories.csv",
+    columns: ["id", "bank_id", "label", "category_id", "include_mcc", "exclude_mcc"])
 
   public static let cashbackOffers = ExportTable(
     fileName: "cashback_offers.csv",
@@ -1066,6 +1071,8 @@ extension ExportTables {
       mapping.bankId.uuidString,
       mapping.label,
       mapping.categoryId.uuidString,
+      mapping.includeCodes.text,
+      mapping.excludeCodes.text,
     ]
   }
 

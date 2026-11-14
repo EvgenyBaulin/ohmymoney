@@ -72,6 +72,8 @@ public final class EntryDraftModel {
   public private(set) var banks: [Bank] = []
   /// Every cashback rule, for what the ↓ panel expects an operation to earn.
   public private(set) var cashbackRules: [CashbackRule] = []
+  /// The banks' tables «категория банка → ваша», for the merchant codes a rule takes.
+  private(set) var bankMappings: [BankCategoryMapping] = []
 
   /// Buying on credit or in instalments: which debt the purchase joins, or a new one, and
   /// how it will be repaid. The expense itself is recorded once, now, in its own category;
@@ -354,6 +356,9 @@ public final class EntryDraftModel {
   /// Where the cards and the cashback rules are read from: the database of the app, handed over
   /// in `init(environment:)`. Without it the panel knows no card and expects no cashback.
   var readsCards: (() -> (cards: [PaymentCard], rules: [CashbackRule]))?
+  /// Where the banks' tables of cashback categories are read from, handed over in
+  /// `init(environment:)`. Without it the rules price by category alone.
+  var readsBankMappings: (() -> [BankCategoryMapping])?
   /// The accounts and cards the pickers leave out while the hidden accounts are covered. Handed
   /// over in `init(environment:)`; without it every account is offered.
   var readsCovered: (() -> (accounts: Set<UUID>, cards: Set<UUID>))?
@@ -402,6 +407,10 @@ public final class EntryDraftModel {
         (try? repository.cards(includeArchived: true)) ?? [], (try? repository.rules()) ?? []
       )
     }
+    readsBankMappings = { [weak environment] in
+      guard let writer = environment?.stack?.writer else { return [] }
+      return (try? CashbackChoiceRepository(writer: writer).book().mappings) ?? []
+    }
     readsCashbackCategory = { [weak environment] in
       (try? environment?.settings?.string(AnalyticsSettings.cashbackCategoryKey))
         .flatMap { $0 }.flatMap(UUID.init(uuidString:))
@@ -432,6 +441,7 @@ public final class EntryDraftModel {
       cards = read.cards
       cashbackRules = read.rules
     }
+    if let mappings = readsBankMappings?() { bankMappings = mappings }
     guard let references else { return }
     people = (try? references.people()) ?? []
     let everyPlace = (try? references.places(includeArchived: true)) ?? []
@@ -605,7 +615,9 @@ public final class EntryDraftModel {
 
   /// The rules of every account and card, with how each account rounds.
   private func cashbackBook(tree: CategoryTree) -> CashbackRuleBook {
-    CashbackRuleBook(rules: cashbackRules, tree: tree, cards: cards, accounts: allAccounts)
+    CashbackRuleBook(
+      rules: cashbackRules, tree: tree, cards: cards, accounts: allAccounts,
+      mappings: bankMappings)
   }
 
   /// What the field needs to know of the operation to say where a figure comes from.
@@ -653,6 +665,7 @@ public final class EntryDraftModel {
       cards = read.cards
       cashbackRules = read.rules
     }
+    if let mappings = readsBankMappings?() { bankMappings = mappings }
     cashbackField = CashbackFieldState()
     return outcome
   }

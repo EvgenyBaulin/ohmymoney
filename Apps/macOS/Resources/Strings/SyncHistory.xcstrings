@@ -1201,6 +1201,91 @@
         }
       }
     },
+    "cashback.choice.codesHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If the bank lists MCC, type them: a purchase with an MCC then goes by the codes, one without by your category. «Except MCC» alone keeps your category without those codes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Если банк называет MCC, впишите их: покупка с MCC тогда идёт по кодам, без MCC — по вашей категории. Только «Кроме MCC» — ваша категория без этих кодов."
+          }
+        }
+      }
+    },
+    "cashback.choice.codesPrompt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        }
+      }
+    },
+    "cashback.choice.codesUnreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC are four-digit codes separated by commas; a range is written with a dash: 5811-5814."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — четырёхзначные коды через запятую, диапазон — через дефис: 5811-5814."
+          }
+        }
+      }
+    },
+    "cashback.choice.excludeCodes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Except MCC"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кроме MCC"
+          }
+        }
+      }
+    },
+    "cashback.choice.includeCodes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank's MCC"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC банка"
+          }
+        }
+      }
+    },
     "cashback.choice.label": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

@@ -206,6 +206,63 @@ final class SyncHistoryScreenTests: XCTestCase {
     XCTAssertEqual(draft.unmappedChosen, ["АЗС"])
   }
 
+  /// The merchant codes of a label: they read from the bank's table, a list that does not read
+  /// stops the save, and they are kept when the sheet maps the label to another category or
+  /// saves it unchanged — a save never drops the lists of a row.
+  func testTheMonthsChoiceKeepsAndEditsTheMerchantCodesOfALabel() throws {
+    let bank = UUID()
+    let account = UUID()
+    let cafes = UUID()
+    let fastFood = UUID()
+    let november = MonthKey(year: 2026, month: 11)
+    let stored = BankCategoryMapping(
+      bankId: bank, label: "Рестораны", categoryId: cafes,
+      includeCodes: try XCTUnwrap(MerchantCodeList(parsing: "5811-5814")),
+      excludeCodes: try XCTUnwrap(MerchantCodeList(parsing: "5813")))
+    let other = BankCategoryMapping(
+      bankId: bank, label: "Аптеки", categoryId: cafes,
+      excludeCodes: try XCTUnwrap(MerchantCodeList(parsing: "5122")))
+    var draft = CashbackChoiceDraft(
+      accountId: account, bankId: bank, month: november, offers: [], mappings: [stored, other])
+    let key = BankCategoryMapping.normalized("Рестораны")
+    XCTAssertEqual(draft.includeText[key], "5811-5814")
+    XCTAssertEqual(draft.excludeText[key], "5813")
+    draft.rows = [.init(label: "Рестораны", percentText: "5")]
+    // Saved unchanged: the row keeps its id and lists; a label not on the sheet is untouched.
+    XCTAssertEqual(Set(draft.mappings), [stored, other])
+    // A list that does not read stops the save and names the label.
+    draft.includeText[key] = "58x1"
+    XCTAssertEqual(draft.codeProblems, [key])
+    XCTAssertFalse(draft.canSave)
+    draft.includeText[key] = "5814, 5811–5812"
+    XCTAssertTrue(draft.canSave)
+    let edited = try XCTUnwrap(draft.mappings.first { $0.id == stored.id })
+    XCTAssertEqual(edited.includeCodes.text, "5811-5812, 5814")
+    XCTAssertEqual(edited.excludeCodes.text, "5813")
+    // Mapped to another category: the same row, the lists go with it.
+    draft.mapping[key] = fastFood
+    let moved = try XCTUnwrap(draft.mappings.first { $0.id == stored.id })
+    XCTAssertEqual(moved.categoryId, fastFood)
+    XCTAssertEqual(moved.includeCodes.text, "5811-5812, 5814")
+    XCTAssertEqual(moved.excludeCodes.text, "5813")
+    // Emptied: no list, by category again.
+    draft.includeText[key] = ""
+    draft.excludeText[key] = " "
+    XCTAssertFalse(try XCTUnwrap(draft.mappings.first { $0.id == stored.id }).hasCodes)
+    // The best choice counts the codes: 5812 in Fast food is the label's after the move.
+    draft.includeText[key] = "5812"
+    draft.rows[0].chosen = false
+    let tree = CategoryTree([
+      CoreKit.Category(id: cafes, kind: .expense, name: "Cafes"),
+      CoreKit.Category(id: fastFood, kind: .expense, name: "Fast food"),
+    ])
+    let coded = CashbackChoiceAdvisor.CodedSpending(
+      plain: [cafes: AmountE4(whole: 1_000)],
+      buckets: [.init(categoryId: cafes, mcc: "5812"): AmountE4(whole: 1_000)])
+    let best = try XCTUnwrap(draft.best(coded: coded, tree: tree, accountCap: nil).first)
+    XCTAssertEqual(best.expectedRub, AmountE4(whole: 50))
+  }
+
   func testTheLinesOfCashbackInBothLanguages() {
     let account = UUID()
     let card = UUID()

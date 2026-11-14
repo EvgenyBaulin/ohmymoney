@@ -112,6 +112,7 @@ struct Migration0014Tests {
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
           "0027_savings_points_digital_pause",
+          "0028_bank_cashback_merchant_codes",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
