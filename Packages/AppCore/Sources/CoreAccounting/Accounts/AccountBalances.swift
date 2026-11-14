@@ -509,7 +509,7 @@ public struct AccountBalances: Hashable, Sendable {
     for entry in entries where entry.transaction.kind == .expense {
       guard let debtId = entry.transaction.creditDebtId else { continue }
       let key = CreditOpening(
-        debtId: debtId, day: calendar.day(of: entry.transaction.occurredAt),
+        debtId: debtId, day: calendar.day(of: entry.transaction),
         amount: entry.transaction.amountE4)
       openings[key, default: 0] += 1
     }

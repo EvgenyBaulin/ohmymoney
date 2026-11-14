@@ -168,7 +168,7 @@ public enum CreditStatements {
         moved.amountE4.raw > 0 ? .payment : isFee ? .cashLike : .purchase
       result.append(
         CreditMovement(
-          id: entry.id, day: calendar.day(of: moved.at), at: moved.at, amountE4: moved.amountE4,
+          id: entry.id, day: calendar.day(of: entry.transaction), at: moved.at, amountE4: moved.amountE4,
           kind: kind, isFee: isFee && kind == .cashLike))
     }
     for transfer in transfers {
