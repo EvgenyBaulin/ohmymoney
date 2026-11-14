@@ -96,7 +96,8 @@ struct Migration0027Tests {
       // The kind of an account keeps its CHECK: the digital ruble is a flag, not a kind.
       let kinds =
         try String.fetchOne(
-          db, sql: "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'payment_methods'")
+          db, sql: "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'payment_methods'"
+        )
         ?? ""
       #expect(kinds.contains("'card', 'cash', 'account', 'other'"))
     }
@@ -245,16 +246,19 @@ struct Migration0027Tests {
 
   @Test func theNewColumnsGoLastInTheCSVAndTheNumberOfFilesIsUnchanged() throws {
     #expect(ExportTables.all.count == 55)
-    #expect(Array(ExportTables.paymentMethods.columns.suffix(7)) == [
-      "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",
-      "points_burn", "digital_ruble", "piggy",
-    ])
-    #expect(Array(ExportTables.debts.columns.suffix(3)) == [
-      "pause_from", "pause_to", "pause_kind",
-    ])
-    #expect(Array(ExportTables.subscriptionTerms.columns.suffix(2)) == [
-      "bank_benefit", "bank_cashback_share",
-    ])
+    #expect(
+      Array(ExportTables.paymentMethods.columns.suffix(7)) == [
+        "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",
+        "points_burn", "digital_ruble", "piggy",
+      ])
+    #expect(
+      Array(ExportTables.debts.columns.suffix(3)) == [
+        "pause_from", "pause_to", "pause_kind",
+      ])
+    #expect(
+      Array(ExportTables.subscriptionTerms.columns.suffix(2)) == [
+        "bank_benefit", "bank_cashback_share",
+      ])
     let stack = try TestSupport.makeStack()
     try stack.writer.write { db in
       try db.execute(sql: Self.seed)

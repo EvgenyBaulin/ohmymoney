@@ -94,7 +94,8 @@ public final class SmsCompiledFormat: @unchecked Sendable {
     var text = raw.trimmingCharacters(in: CharacterSet(charactersIn: " ,:;-–—\"'«»"))
     if text.hasSuffix(".") {
       let words = text.split(separator: " ")
-      let initial = words.count > 1 && words.last?.count == 2 && words.last?.first?.isUppercase == true
+      let initial =
+        words.count > 1 && words.last?.count == 2 && words.last?.first?.isUppercase == true
       if !initial { text.removeLast() }
     }
     return text
@@ -215,7 +216,9 @@ enum SmsFormatNumbers {
   /// one; of two kinds the last one is.
   static func amount(_ raw: String) -> AmountE4? {
     var text = raw.filter { !$0.isWhitespace && $0 != "\u{202F}" }
-    while let first = text.first, "+-−–".contains(first) || !first.isNumber && first != "." && first != "," {
+    while let first = text.first,
+      "+-−–".contains(first) || !first.isNumber && first != "." && first != ","
+    {
       text.removeFirst()
     }
     while let last = text.last, !last.isNumber { text.removeLast() }

@@ -93,7 +93,8 @@ final class OperationsScenarioColumnsTests: XCTestCase {
     XCTAssertTrue(OperationColumnLayout.standard.storage.hasSuffix("-event,-mcc"))
     // A layout kept by an older build, with no word of it, shows the new column hidden.
     let older = OperationColumnLayout(
-      storage: "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event")
+      storage:
+        "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event")
     XCTAssertEqual(older, .standard)
   }
 
@@ -102,7 +103,8 @@ final class OperationsScenarioColumnsTests: XCTestCase {
   func testTheStandardTextNamesEveryColumnInOrderWithTheOthersHidden() {
     XCTAssertEqual(
       OperationColumnLayout.standard.storage,
-      "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event,-mcc")
+      "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event,-mcc"
+    )
   }
 
   func testATextOfCommasAloneIsTheStandardLayout() {

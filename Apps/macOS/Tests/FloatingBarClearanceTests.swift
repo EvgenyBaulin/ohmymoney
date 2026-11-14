@@ -302,7 +302,8 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
 
   /// The editor's foot is pinned above the bar and the page of fields scrolls above it: the
   /// viewport ends where the foot begins, and scrolled to its end the last field is whole.
-  private func checkEditorFoot(width: CGFloat, height: CGFloat, language: AppLanguage.Choice) throws {
+  private func checkEditorFoot(width: CGFloat, height: CGFloat, language: AppLanguage.Choice) throws
+  {
     try TestEnvironment.requireSwiftUIAccessibility()
     environment.language.choice = language
     try seedChips()

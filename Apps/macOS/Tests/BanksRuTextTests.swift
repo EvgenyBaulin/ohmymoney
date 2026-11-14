@@ -38,7 +38,8 @@ final class BanksRuTextTests: XCTestCase {
       let before = BanksRuText.cardCountNote(
         count: 16, limit: 20, from: DateOnly(year: 2027, month: 9, day: 1), inForce: false,
         environment)
-      XCTAssertTrue(before.contains("16") && before.contains("20") && before.contains("2027"), before)
+      XCTAssertTrue(
+        before.contains("16") && before.contains("20") && before.contains("2027"), before)
       let after = BanksRuText.cardCountNote(
         count: 21, limit: 20, from: DateOnly(year: 2027, month: 9, day: 1), inForce: true,
         environment)
@@ -110,7 +111,8 @@ final class BanksRuTextTests: XCTestCase {
   func testTheNotesOfTheNewKindsHaveWordsAndASymbol() {
     let environment = environments()[1]
     let notes: [BankNote] = [
-      .cardCount(count: 17, limit: 20, from: DateOnly(year: 2027, month: 9, day: 1), inForce: false),
+      .cardCount(
+        count: 17, limit: 20, from: DateOnly(year: 2027, month: 9, day: 1), inForce: false),
       .interestTax(
         year: 2026, taxE4: rub(3_900), estimate: true, dueDay: InterestTax.dueDay(year: 2026)),
       .cashbackTax(year: 2026, totalRub: rub(120_000)),

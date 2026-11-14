@@ -56,7 +56,9 @@ extension Namesakes {
   public static func places(
     _ places: [Place], entries: [TransactionEntry], calendar: CalendarContext
   ) -> [NamesakeRecord] {
-    let history = months(of: entries, calendar: calendar) { [$0.transaction.placeId].compactMap { $0 } }
+    let history = months(of: entries, calendar: calendar) {
+      [$0.transaction.placeId].compactMap { $0 }
+    }
     return places.map {
       NamesakeRecord(
         kind: .place, id: $0.id, name: $0.name, archived: $0.archived,
@@ -91,7 +93,9 @@ extension Namesakes {
   public static func cards(
     _ cards: [PaymentCard], entries: [TransactionEntry], calendar: CalendarContext
   ) -> [NamesakeRecord] {
-    let history = months(of: entries, calendar: calendar) { [$0.transaction.cardId].compactMap { $0 } }
+    let history = months(of: entries, calendar: calendar) {
+      [$0.transaction.cardId].compactMap { $0 }
+    }
     return cards.map {
       NamesakeRecord(
         kind: .card, id: $0.id, name: $0.name, archived: $0.archived,

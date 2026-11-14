@@ -113,7 +113,8 @@ final class SyncEncryptionTests: XCTestCase {
       occurredAt: CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 11, day: 1)),
       amount: AmountE4(whole: 1), note: "synthetic note")
     draft.normalizeSinglePart()
-    let saved = try TransactionRepository(writer: stack.writer).save(try draft.materialize(timeZone: CalendarContext.utc.timeZone))
+    let saved = try TransactionRepository(writer: stack.writer).save(
+      try draft.materialize(timeZone: CalendarContext.utc.timeZone))
     let folder = DirectoryJournalFolder(url: directory)
     XCTAssertGreaterThan(try exchange.flush(to: folder), 0)
     let journalName = try XCTUnwrap(

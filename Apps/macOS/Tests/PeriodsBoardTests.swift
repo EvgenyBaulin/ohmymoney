@@ -139,7 +139,8 @@ final class PeriodsBoardTests: XCTestCase {
     // visible one when it is not the hidden one and is as large as the visible one.
     let restored = try Data(contentsOf: restoredURL)
     XCTAssertNotEqual(restored, hidden)
-    XCTAssertEqual(Double(restored.count), Double(visible.count), accuracy: Double(visible.count) / 100)
+    XCTAssertEqual(
+      Double(restored.count), Double(visible.count), accuracy: Double(visible.count) / 100)
     environment.amounts.hidesAmounts = true
     store.refreshShare(snapshot, environment: environment)
     let manuallyHiddenURL = try XCTUnwrap(store.shareURL)

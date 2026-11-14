@@ -1066,4 +1066,3 @@ extension View {
       .accessibilityIdentifier("main.content")
   }
 }
-

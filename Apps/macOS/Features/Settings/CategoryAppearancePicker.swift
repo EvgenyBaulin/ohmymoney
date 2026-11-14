@@ -22,7 +22,9 @@ struct CategoryMarkView: View {
     Image(systemName: icon ?? "circle.dashed")
       .font(.system(size: side * 0.45, weight: .semibold))  // font-fixed: grows with the mark
       .frame(width: side, height: side)
-      .foregroundStyle(icon == nil ? Color(palette.contentSecondary) : Color(shown.ink(in: palette)))
+      .foregroundStyle(
+        icon == nil ? Color(palette.contentSecondary) : Color(shown.ink(in: palette))
+      )
       .background(
         icon == nil ? Color(palette.contentSecondaryTint) : Color(shown.tint(in: palette)),
         in: .circle
@@ -93,7 +95,8 @@ struct CategoryAppearancePicker: View {
         .frame(width: 36, height: 36)
         .foregroundStyle(Color(palette.contentPrimary))
         .background(chosen ? Color(palette.accentTint) : .clear, in: .circle)
-        .overlay(Circle().strokeBorder(chosen ? Color(palette.accentDefault) : .clear, lineWidth: 2))
+        .overlay(
+          Circle().strokeBorder(chosen ? Color(palette.accentDefault) : .clear, lineWidth: 2))
     }
     .buttonStyle(.plain)
     .help(Text(verbatim: name))
@@ -113,7 +116,8 @@ struct CategoryAppearancePicker: View {
         .frame(width: 30, height: 30)
         .foregroundStyle(Color(tone.ink(in: palette)))
         .background(Color(tone.tint(in: palette)), in: .circle)
-        .overlay(Circle().strokeBorder(chosen ? Color(tone.ink(in: palette)) : .clear, lineWidth: 2))
+        .overlay(
+          Circle().strokeBorder(chosen ? Color(tone.ink(in: palette)) : .clear, lineWidth: 2))
     }
     .buttonStyle(.plain)
     .help(Text(verbatim: name))

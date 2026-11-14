@@ -29,7 +29,9 @@ struct ShoppingPage: View {
           .appFont(PurchasesType.field)
           .padding(.horizontal, PurchasesMetrics.fieldHorizontal)
           .padding(.vertical, PurchasesMetrics.fieldVertical)
-          .background(surfaces.card, in: RoundedRectangle(cornerRadius: PurchasesMetrics.fieldRadius))
+          .background(
+            surfaces.card, in: RoundedRectangle(cornerRadius: PurchasesMetrics.fieldRadius)
+          )
           .overlay {
             RoundedRectangle(cornerRadius: PurchasesMetrics.fieldRadius)
               .strokeBorder(theme.borderOutline, lineWidth: 1)

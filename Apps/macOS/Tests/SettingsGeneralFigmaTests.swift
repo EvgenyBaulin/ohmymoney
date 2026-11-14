@@ -10,6 +10,7 @@ import XCTest
 final class SettingsGeneralFigmaTests: XCTestCase {
   #if os(macOS)
     private func height<Content: View>(_ view: Content, width: CGFloat = 702) -> CGFloat {
+      // dependencies: only the settings rows and cards are measured, and they read none
       NSHostingView(rootView: view.frame(width: width)).fittingSize.height
     }
 
@@ -33,8 +34,9 @@ final class SettingsGeneralFigmaTests: XCTestCase {
 
     /// A row of a list of switches with its hint is 53: 11 · 16 · 2 · 13 · 11.
     func testACompactRowWithAHintIsFiftyThreeTall() {
-      let row = SettingsCardRow(title: "Week", hint: "On Monday", showsDivider: false, compact: true)
-      { Color.clear.frame(width: 40, height: 24) }
+      let row = SettingsCardRow(
+        title: "Week", hint: "On Monday", showsDivider: false, compact: true
+      ) { Color.clear.frame(width: 40, height: 24) }
       XCTAssertEqual(height(row), 53, accuracy: 3)
     }
 

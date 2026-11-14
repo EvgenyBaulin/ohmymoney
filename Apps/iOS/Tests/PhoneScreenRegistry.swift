@@ -102,7 +102,11 @@ private struct PhoneShellHost<Page: View>: View {
           title: { environment.language($0.titleKey, table: $0.titleTable ?? "Common") },
           moreTitle: environment.language("phone.tab.more", table: "Phone")
         )
-        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { barHeight = $0 }
+        .onGeometryChange(for: CGFloat.self) {
+          $0.size.height
+        } action: {
+          barHeight = $0
+        }
       }
       .overlay(alignment: .bottomTrailing) {
         if PhoneEntryState.hostsEntry(router.tab) {
@@ -166,7 +170,9 @@ enum PhoneScreenRegistry {
         NavigationStack {
           PhoneContent(
             deps: deps, actions: actions,
-            content: { OperationsScreen(deps: deps, actions: actions, state: OperationsScreenState()) },
+            content: {
+              OperationsScreen(deps: deps, actions: actions, state: OperationsScreenState())
+            },
             entry: { EmptyView() }
           )
           .navigationTitle(environment.language("section.operations"))
@@ -190,7 +196,8 @@ enum PhoneScreenRegistry {
       page = AnyView(
         MoreTab(
           deps: deps, session: harness.session, lock: harness.lock, router: router,
-          actions: actions, phoneTabs: .constant(NavItem.defaultPhoneTabs), entry: { AnyView(EmptyView()) }))
+          actions: actions, phoneTabs: .constant(NavItem.defaultPhoneTabs),
+          entry: { AnyView(EmptyView()) }))
     }
     // A tablet has a side bar and no bar of the sections; its pages stand bare.
     let (window, _) =
@@ -223,7 +230,8 @@ enum PhoneScreenRegistry {
           .navigationTitle(environment.language(section.titleKey, table: "Settings"))
           .navigationBarTitleDisplayMode(.inline)
       }
-      let (window, _) = harness.host(view, size: size, dark: dark, idiom: idiom == .pad ? .pad : nil)
+      let (window, _) = harness.host(
+        view, size: size, dark: dark, idiom: idiom == .pad ? .pad : nil)
       harness.settleStable(window)
       return PhoneScreenShown(window: window, content: window, hasShell: false)
 

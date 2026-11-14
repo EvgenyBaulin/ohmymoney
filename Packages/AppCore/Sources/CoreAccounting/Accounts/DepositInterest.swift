@@ -79,7 +79,9 @@ public enum DepositInterest {
       let first = DepositDays.civil(monthStart)
       let monthEnd = min(
         DepositDays.serial(
-          DateOnly(year: first.year, month: first.month, day: DepositDays.length(of: first.monthKey))), last)
+          DateOnly(
+            year: first.year, month: first.month, day: DepositDays.length(of: first.monthKey))),
+        last)
       var lowest: AmountE4?
       for day in monthStart...monthEnd {
         // A day earns on the balance at the end of the day before it.

@@ -172,7 +172,8 @@ extension CategoryModelServiceTests {
       CategoryExample(
         query: CategoryQuery(
           day: DateOnly(year: 2026, month: 9, day: 1 + number % 17), weekday: 1 + number % 7,
-          kind: .expense, text: ["milk", "bus", "gym"][number % 3], amountWhole: Int64(100 + number)),
+          kind: .expense, text: ["milk", "bus", "gym"][number % 3], amountWhole: Int64(100 + number)
+        ),
         partId: UUID(uuidString: String(format: "00000000-0000-4000-9000-%012d", start + number))!,
         categoryId: number % 2 == 0 ? groceries : transport)
     }
@@ -214,7 +215,8 @@ extension CategoryModelServiceTests {
       box.catchUp(to: before + moreExamples(20, from: 900), anchor: today, limit: 8),
       "more parts than the limit")
     XCTAssertEqual(
-      box.catchUp(to: before, anchor: today, limit: 8), CategoryModel.train(on: before, anchor: today))
+      box.catchUp(to: before, anchor: today, limit: 8),
+      CategoryModel.train(on: before, anchor: today))
   }
 
   /// A correction made while a difference was being worked out is not overwritten by it.

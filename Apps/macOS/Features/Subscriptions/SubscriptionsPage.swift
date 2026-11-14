@@ -115,7 +115,8 @@ struct SubscriptionsPage: Sendable {
   /// owner typed, or what was received as income, whichever is more (`CashbackReport`).
   static func bankCashback(ledger: Ledger, today: DateOnly) -> [UUID: AmountE4] {
     let bankOf = Dictionary(
-      ledger.dataset.paymentMethods.compactMap { account in account.bankId.map { (account.id, $0) } },
+      ledger.dataset.paymentMethods.compactMap { account in account.bankId.map { (account.id, $0) }
+      },
       uniquingKeysWith: { first, _ in first })
     var byBank: [UUID: (expected: AmountE4, received: AmountE4)] = [:]
     let report = CashbackReport(ledger: ledger, period: .month(today.monthKey))

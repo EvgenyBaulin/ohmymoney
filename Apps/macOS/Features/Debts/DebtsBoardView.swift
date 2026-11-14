@@ -142,7 +142,8 @@ struct DebtsBoardView: View {
     HStack(alignment: .top, spacing: DebtsMetrics.columnGap) {
       summaryTile(
         "iOwe", symbol: "arrow.down.right", ink: theme.accentDefault, tint: theme.accentTint,
-        label: t("debts.iOwe"), amount: board.summary.iOwe, line: board.summary.iOweLine(environment))
+        label: t("debts.iOwe"), amount: board.summary.iOwe,
+        line: board.summary.iOweLine(environment))
       summaryTile(
         "monthly", symbol: "calendar", ink: theme.chart2, tint: theme.chart2Tint,
         label: t("debts.monthly"), amount: board.summary.monthly,

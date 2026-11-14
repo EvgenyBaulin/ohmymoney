@@ -54,7 +54,8 @@ enum WindowAccessibility {
     for type in [NSEvent.EventType.leftMouseDown, .leftMouseUp] {
       guard
         let event = NSEvent.mouseEvent(
-          with: type, location: point, modifierFlags: [], timestamp: ProcessInfo.processInfo.systemUptime,
+          with: type, location: point, modifierFlags: [],
+          timestamp: ProcessInfo.processInfo.systemUptime,
           windowNumber: window.windowNumber, context: nil, eventNumber: 0, clickCount: 1,
           pressure: 1)
       else { continue }

@@ -128,8 +128,9 @@ public struct SmsFormatLibrary: Sendable {
     guard !entries.isEmpty, !text.isEmpty, text.count <= Self.longestText else { return .noFormat }
     var byTier: [SmsFormatSource: [SmsFormatCandidate]] = [:]
     for entry in entries where entry.fits(sender: sender) {
-      guard case .success(let reading)? = entry.compiled.read(
-        text, defaultCurrency: defaultCurrency, today: today)
+      guard
+        case .success(let reading)? = entry.compiled.read(
+          text, defaultCurrency: defaultCurrency, today: today)
       else { continue }
       byTier[entry.source, default: []].append(
         SmsFormatCandidate(

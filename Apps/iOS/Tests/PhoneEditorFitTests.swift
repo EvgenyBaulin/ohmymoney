@@ -146,7 +146,6 @@ final class PhoneEditorFitTests: XCTestCase {
 
   func testTheEditorFitsAnIPhoneProScreen() throws { try assertEditorFits(width: 402) }
 
-
   /// The toolbar of the phone has no «Палитра команд»: it is the list of keyboard shortcuts.
   func testThePhoneToolbarHasNoCommandPalette() throws {
     let size = CGSize(width: 402, height: 800)

@@ -71,7 +71,9 @@ final class PhoneDebtStripesTests: XCTestCase {
 
   /// The columns, in points, that have a pixel within a few levels of `color`, and how many
   /// pixels do.
-  private func columns(of color: ThemeColor, in image: UIImage) throws -> (
+  private func columns(
+    of color: ThemeColor, in image: UIImage
+  ) throws -> (
     range: ClosedRange<CGFloat>?, count: Int
   ) {
     let cg = try XCTUnwrap(image.cgImage)

@@ -586,7 +586,9 @@ struct AccountEditor: View {
           Text(verbatim: t("account.editor.pointsBurnOn"))
         }
         LabeledContent {
-          TextField(text: $draft.pointsBurnText, prompt: Text(verbatim: t("account.editor.pointsBurnAll"))) {
+          TextField(
+            text: $draft.pointsBurnText, prompt: Text(verbatim: t("account.editor.pointsBurnAll"))
+          ) {
             Text(verbatim: t("account.editor.pointsBurnAmount"))
           }
           .labelsHidden()

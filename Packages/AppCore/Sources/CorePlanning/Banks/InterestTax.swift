@@ -125,7 +125,9 @@ public enum InterestTax {
     for payout in payouts where payout.payDate.year == year {
       if case .received = payout.state { continue }
       let currency = payout.target.currency
-      guard let converted = DebtRubles.convert(payout.expectedE4, from: currency, rubPerUnit: rubPerUnit),
+      guard
+        let converted = DebtRubles.convert(
+          payout.expectedE4, from: currency, rubPerUnit: rubPerUnit),
         let sofar = DebtRubles.convert(payout.accruedE4, from: currency, rubPerUnit: rubPerUnit)
       else {
         missing.insert(currency)
