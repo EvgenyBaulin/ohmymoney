@@ -54,8 +54,16 @@ struct NavBarButton: View {
   /// The room a tab keeps at its sides. With every name shown the tabs share the width of the
   /// bar and the longest name («Планирование») has to fit in what is left, scaled down to 0.7
   /// at most: a wide margin turned it into «Планиров…».
+  /// The height of a tab: the symbol with its name under it inside the pill, the same for the open
+  /// tab and the rest, so the name never reaches over the edge of the highlight.
+  static let tabHeight: CGFloat = 52
+  /// The one size of every name under a symbol — the smallest the app allows (9 pt). Only the
+  /// longest name («Планирование») may shrink, by 0.85 at most, when its tab is narrower still.
+  static let labelPointSize: CGFloat = 9
+  static let labelMinimumScale: CGFloat = 0.85
+
   static func horizontalPadding(isActive: Bool, labelsOnAll: Bool) -> CGFloat {
-    if labelsOnAll { return 3 }
+    if labelsOnAll { return 1 }
     return isActive ? 14 : 10
   }
 
@@ -68,9 +76,10 @@ struct NavBarButton: View {
               .imageScale(.large)
               .symbolVariant(.none)
             Text(verbatim: title)
-              .appFont(.caption2.weight(.medium))
+              // One size for every tab name; a long one is never shrunk to look smaller than the rest
+              .appFont(AppFont.system(size: Self.labelPointSize, weight: .medium))
               .lineLimit(1)
-              .minimumScaleFactor(0.7)
+              .minimumScaleFactor(Self.labelMinimumScale)
           }
         } else {
           HStack(spacing: 6) {
@@ -88,7 +97,8 @@ struct NavBarButton: View {
       }
       .foregroundStyle(isActive ? colors.activeContent : colors.icon)
       .padding(.horizontal, Self.horizontalPadding(isActive: isActive, labelsOnAll: labelsOnAll))
-      .frame(minWidth: 44, minHeight: 44)
+      .frame(minWidth: 44, minHeight: labelsOnAll ? Self.tabHeight : 44)
+      .frame(height: labelsOnAll ? Self.tabHeight : nil)
       .background {
         if isActive { Capsule().fill(colors.pill) }
       }
@@ -116,6 +126,8 @@ struct PhoneTabBar: View {
 
   /// The height of the fade the screens wear over the bar.
   static let fadeHeight: CGFloat = 56
+  /// The room the tabs keep inside the bar at each side.
+  static let innerPadding: CGFloat = 4
 
   var body: some View {
     let colors = NavBarColors(theme: theme, colorScheme: colorScheme, contrast: contrast)
@@ -139,7 +151,7 @@ struct PhoneTabBar: View {
       )
       .layoutPriority(router.isMoreLit(visible: layout.visible) && activeLabelOnly ? 1 : 0)
     }
-    .padding(.horizontal, 8)
+    .padding(.horizontal, Self.innerPadding)
     .padding(.vertical, 6)
     .background(colors.background, in: RoundedRectangle(cornerRadius: 34, style: .continuous))
     .shadow(color: .black.opacity(0.18), radius: 12, y: 4)

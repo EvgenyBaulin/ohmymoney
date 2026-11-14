@@ -47,10 +47,17 @@ struct PhoneRoot: View {
   }
 
   var body: some View {
-    VStack(spacing: 0) {
-      appContent
-      TouchHistoryBar(store: deps.store).appDependencies(deps)
-    }
+    appContent
+      // Undo and redo float over the screen above the bar of the sections, out of the zone of
+      // the home indicator; the screen keeps its size. The line, when up, covers that spot.
+      .modifier(
+        FloatingTouchHistory(
+          bottomInset: TouchHistoryPlacement.bottomInset(
+            placement: layout.placement, barHeight: barHeight, onPhone: !isPad),
+          onPhone: !isPad,
+          bar: Group {
+            if !entryGate.isShown { TouchHistoryBar(store: deps.store).appDependencies(deps) }
+          }))
   }
 
   private var appContent: some View {
