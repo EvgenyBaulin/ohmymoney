@@ -83,6 +83,7 @@ final class EntryFieldOrderPanelTests: XCTestCase {
   }
 
   func testTabInTheLineGoesToTheFirstFieldOfTheOrder() async throws {
+    try TestEnvironment.requireActiveApp()
     let host = try await EntryHost()
     self.host = host
     let line = try host.line()

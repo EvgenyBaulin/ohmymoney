@@ -198,7 +198,6 @@ struct ReportsWindow: View {
     // drop under it, right-aligned, instead of pushing the page out of the window.
     ViewThatFits(in: .horizontal) {
       ScreenTitleRow(title: t("reports.window.title")) { headerButtons }
-        .fixedSize(horizontal: true, vertical: false)
       VStack(alignment: .leading, spacing: StyleMetrics.headerButtonGap) {
         ScreenTitleRow(title: t("reports.window.title")) { EmptyView() }
         HStack(spacing: StyleMetrics.headerButtonGap) {
@@ -209,14 +208,16 @@ struct ReportsWindow: View {
     }
   }
 
+  /// «Вычеты…» stands first, outside the design's group: the period, «Поделиться…» and the
+  /// orange «Выгрузить CSV…» keep the distances the frame draws between them.
   @ViewBuilder private var headerButtons: some View {
+    deductionsButton
     if tab == .byPeriods {
       SummaryPeriodMenu(store: summaries)
       SummaryShareMenu(store: summaries)
     } else {
       periodButton
     }
-    deductionsButton
     exportButton
   }
 

@@ -17,6 +17,16 @@ struct EntryFieldFlow: Layout {
     static let defaultValue = false
   }
 
+  /// A cell whose control cannot shrink — a date picker is as wide as its text. Where the cell is
+  /// narrower than the control by more than a few points, it takes a row of its own instead of
+  /// reaching past the edge of the column.
+  struct KeepsItsWidth: LayoutValueKey {
+    static let defaultValue = false
+  }
+
+  /// The room a fixed control may lack in its cell before the cell leaves the flow.
+  static let widthTolerance: CGFloat = 4
+
   /// How many columns a width holds: as many as fit at the narrowest cell, never more than
   /// `maxColumns`, never fewer than one.
   static func columns(
@@ -49,20 +59,24 @@ struct EntryFieldFlow: Layout {
     return rows
   }
 
-  private func plan(_ subviews: Subviews, width: CGFloat) -> (rows: [[Int]], cell: CGFloat) {
+  private func plan(_ subviews: Subviews, width: CGFloat) -> (rows: [[Int]], cell: CGFloat, alone: [Bool]) {
     let count = Self.columns(
       width: width, maxColumns: maxColumns, minimumCellWidth: minimumCellWidth, spacing: spacing)
-    let rows = Self.rows(alone: subviews.map { $0[Alone.self] }, columns: count)
     let cell = max(0, (width - spacing * CGFloat(count - 1)) / CGFloat(count))
-    return (rows, cell)
+    let alone = subviews.map { subview in
+      subview[Alone.self]
+        || (count > 1 && subview[KeepsItsWidth.self]
+          && subview.sizeThatFits(.unspecified).width > cell + Self.widthTolerance)
+    }
+    return (Self.rows(alone: alone, columns: count), cell, alone)
   }
 
   func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
     let width = proposal.width ?? (minimumCellWidth * CGFloat(maxColumns))
-    let (rows, cell) = plan(subviews, width: width)
+    let (rows, cell, aloneCells) = plan(subviews, width: width)
     var height: CGFloat = 0
     for (rowIndex, row) in rows.enumerated() {
-      let alone = row.count == 1 && subviews[row[0]][Alone.self]
+      let alone = row.count == 1 && aloneCells[row[0]]
       let rowHeight =
         row.map {
           subviews[$0].sizeThatFits(.init(width: alone ? width : cell, height: nil)).height
@@ -75,10 +89,10 @@ struct EntryFieldFlow: Layout {
   func placeSubviews(
     in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()
   ) {
-    let (rows, cell) = plan(subviews, width: bounds.width)
+    let (rows, cell, aloneCells) = plan(subviews, width: bounds.width)
     var y = bounds.minY
     for row in rows {
-      let alone = row.count == 1 && subviews[row[0]][Alone.self]
+      let alone = row.count == 1 && aloneCells[row[0]]
       let cellWidth = alone ? bounds.width : cell
       var rowHeight: CGFloat = 0
       for index in row {
