@@ -70,6 +70,9 @@ public struct LedgerRow: Hashable, Sendable {
   /// The card that paid, a card of `paymentMethodId`; `nil` — the account itself. The money is
   /// the account's: a card only says what paid.
   public var cardId: UUID? = nil
+  /// The owner marked the operation «разовое»: it stays in the totals and the limits, and is
+  /// left out of the averages the forecasts and the limit suggestions are made of.
+  public var isOneOff: Bool = false
 
   /// The person the part is about: whom it was for, or who owes it.
   public var personId: UUID? { forPersonId ?? debtorPersonId }
@@ -587,7 +590,7 @@ private struct RowBuilder: Sendable {
           debtId: transaction.debtId,
           creditDebtId: transaction.creditDebtId,
           link: OperationLink(externalId: transaction.externalId),
-          cardId: transaction.cardId))
+          cardId: transaction.cardId, isOneOff: transaction.isOneOff))
     }
     return (rows, key)
   }

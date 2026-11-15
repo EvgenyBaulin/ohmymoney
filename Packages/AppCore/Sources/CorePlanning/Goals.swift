@@ -268,8 +268,11 @@ public enum GoalRules {
     let overdue = goal.targetDate.map { today > $0 } ?? false
     if let date = goal.targetDate {
       if overdue {
+        // A date that has passed asks no monthly sum: the whole remainder at once would be
+        // a figure nobody can pay, and it would sink the total of the goals that are alive.
+        // The card says «срок прошёл, осталось …» and offers to move the date.
         monthsLeft = 0
-        neededMonthly = remaining
+        neededMonthly = nil
       } else {
         // The target month itself is one of the months to save in.
         let months = max(1, month.months(to: date.monthKey) + 1)

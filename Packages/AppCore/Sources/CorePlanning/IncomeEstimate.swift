@@ -31,12 +31,16 @@ public struct MonthIncomeEstimate: Hashable, Sendable {
   public var lowData: Bool
   /// Expectations due this month in a currency without a known rate: left out, not guessed.
   public var expectationsWithoutRate: [UUID]
+  /// What this month's due dates that have passed without the money came to, in rubles: shown
+  /// next to the estimate as «не пришло», and in no figure of the month.
+  public var notArrived: AmountE4
 
   public init(
     month: MonthKey, received: AmountE4, expectedRemaining: AmountE4, median3: AmountE4?,
     monthsInMedian: Int, value: AmountE4?, source: Source, lowData: Bool,
-    expectationsWithoutRate: [UUID] = []
+    expectationsWithoutRate: [UUID] = [], notArrived: AmountE4 = .zero
   ) {
+    self.notArrived = notArrived
     self.month = month
     self.received = received
     self.expectedRemaining = expectedRemaining
@@ -65,14 +69,34 @@ public struct ExpectedIncomeItem: Hashable, Sendable {
   }
 }
 
+/// A due date that has passed with its money not come in full, and what is still owed on it, in
+/// rubles — `nil` when the currency has no rate.
+public struct OverdueIncomeItem: Hashable, Sendable {
+  public var incomeId: UUID
+  public var name: String
+  public var due: DateOnly
+  public var rub: AmountE4?
+  /// A one-off expectation (a recurring one is not closed or moved as a whole).
+  public var isOneOff: Bool
+
+  public init(incomeId: UUID, name: String, due: DateOnly, rub: AmountE4?, isOneOff: Bool) {
+    self.incomeId = incomeId
+    self.name = name
+    self.due = due
+    self.rub = rub
+    self.isOneOff = isOneOff
+  }
+}
+
 /// The expected income of the current month: the income received this month plus what is
 /// still expected before its end; with nothing expected, the median income of 3 months.
 ///
 /// * **Received** is the Overview figure: income that belongs to the month and arrived by
 ///   today.
-/// * **Expected** is what the due dates of this month — from the 1st through `until`, the
-///   end of the month by default — still wait for. A due date of an earlier month that was
-///   never paid is overdue, not this month's income, and stays out. A payment already
+/// * **Expected** is what the due dates of this month — from today through `until`, the
+///   end of the month by default — still wait for. A due date that has passed unpaid —
+///   of an earlier month or of this one — is overdue, not income to count on: it stays out of
+///   every figure of the month and is listed apart (`overdue`, `notArrived`). A payment already
 ///   entered for a due date and dated after `until` is not waited for in that window.
 /// * When some expectation is due this month the estimate is received + expected, even if
 ///   it came in whole already. Otherwise it is the median of the last complete months, at
@@ -100,6 +124,9 @@ public enum IncomeEstimate {
     let expectationsExist = expectations.exist
     let expected = expectations.total
     let withoutRate = expectations.withoutRate
+    let notArrived = AmountE4.sum(
+      overdue(statuses: statuses, today: today).filter { $0.due.monthKey == month }.compactMap(
+        \.rub))
 
     let history = SavingsMath.completeMonths(
       before: month, historyStart: historyStart(firstDay: ledger.firstDay), count: medianMonths)
@@ -123,7 +150,8 @@ public enum IncomeEstimate {
     return MonthIncomeEstimate(
       month: month, received: received, expectedRemaining: expected, median3: median3,
       monthsInMedian: median3 == nil ? 0 : history.count, value: value, source: source,
-      lowData: source == .receivedOnly, expectationsWithoutRate: withoutRate)
+      lowData: source == .receivedOnly, expectationsWithoutRate: withoutRate,
+      notArrived: notArrived)
   }
 
   /// What the due dates of this month still wait for — the `expectedRemaining` of `month`, due
@@ -144,7 +172,10 @@ public enum IncomeEstimate {
     var items: [ExpectedIncomeItem] = []
     for status in statuses where !status.income.closed {
       for occurrence in status.occurrences where occurrence.due.monthKey == month {
-        exist = true
+        // Overdue money is not waited for: it is listed by `overdue`, never added. What was
+        // written ahead for it still is.
+        let isOverdue = occurrence.due < today && !occurrence.isFulfilled
+        if !isOverdue { exist = true }
         guard occurrence.due <= horizon else { continue }
         // A linked operation dated after today fills the due date already, but `received`
         // counts only what came by today: until its day comes it is still expected — within
@@ -152,7 +183,8 @@ public enum IncomeEstimate {
         var item = rublesAhead(
           of: occurrence, month: month, today: today, through: horizon < last ? horizon : nil,
           ledger: ledger)
-        if !occurrence.isFulfilled {
+        if !item.isZero { exist = true }
+        if !occurrence.isFulfilled && !isOverdue {
           if let rubles = occurrence.remainingRub {
             item += rubles
           } else if !withoutRate.contains(status.id) {
@@ -168,6 +200,23 @@ public enum IncomeEstimate {
       }
     }
     return (items, total, exist, withoutRate)
+  }
+
+  /// Every due date of an open expectation that has passed without its money — the earlier
+  /// months' included — oldest first. An expectation without a rate lists with `rub == nil`.
+  public static func overdue(
+    statuses: [ExpectedIncomeStatus], today: DateOnly
+  ) -> [OverdueIncomeItem] {
+    var items: [OverdueIncomeItem] = []
+    for status in statuses where !status.income.closed {
+      for occurrence in status.occurrences where occurrence.due < today && !occurrence.isFulfilled {
+        items.append(
+          OverdueIncomeItem(
+            incomeId: status.id, name: status.income.name, due: occurrence.due,
+            rub: occurrence.remainingRub, isOneOff: status.income.kind == .oneOff))
+      }
+    }
+    return items.sorted { ($0.due, $0.incomeId.uuidString) < ($1.due, $1.incomeId.uuidString) }
   }
 
   /// The first month the income history counts: the month of the first record when it is on
@@ -202,9 +251,8 @@ public enum IncomeEstimate {
   /// What the expectations still wait for from today through `through`, in rubles at today's
   /// rate — the grey line «ещё ждём до D» of the free sum, shown and never added.
   ///
-  /// Every due date from the 1st of today's month through `through` counts, an overdue one of
-  /// this month included (a due date of an earlier month never paid is not waited for any
-  /// more, as `month` has it): its unfulfilled remainder, plus the operations already linked to
+  /// Every due date from today through `through` counts (a due date that passed unpaid is not
+  /// waited for any more, as `month` has it): its unfulfilled remainder, plus the operations already linked to
   /// it that are dated after today and by `through` — written ahead, their money has not come
   /// yet. `statuses` have to reach `through` (`ExpectedIncomeRules.statuses(through:)`).
   /// Expectations whose remainder has no rate are left out and listed.
@@ -217,6 +265,7 @@ public enum IncomeEstimate {
     for status in statuses where !status.income.closed {
       for occurrence in status.occurrences where occurrence.due >= first {
         guard occurrence.due <= through else { continue }
+        let isOverdue = occurrence.due < today && !occurrence.isFulfilled
         for transactionId in occurrence.transactionIds {
           guard let entry = ledger.entry(transactionId) else { continue }
           for part in entry.parts {
@@ -226,7 +275,7 @@ public enum IncomeEstimate {
             total += row.amountRubE4
           }
         }
-        guard !occurrence.isFulfilled else { continue }
+        guard !occurrence.isFulfilled, !isOverdue else { continue }
         if let rubles = occurrence.remainingRub {
           total += rubles
         } else if !withoutRate.contains(status.id) {

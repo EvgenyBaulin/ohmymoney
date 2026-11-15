@@ -79,7 +79,7 @@ struct FreeMoneyTests {
   }
 
   /// Income still expected is a line of its own, never added: the salary of 5 September is
-  /// late and still waited for, and through November so are October's and November's.
+  /// overdue and not waited for, and through November October's and November's are.
   @Test func incomeStillExpectedIsShownNotAdded() {
     var fx = Fx()
     fx.count([(Fx.main, .rub, "20000")], at: Fx.at("2026-09-18", 20))
@@ -92,11 +92,11 @@ struct FreeMoneyTests {
     let month = snapshot.freeMoney
     #expect(
       month.info == [
-        FreeToSpendLine(key: FreeMoney.Key.stillExpected, sign: .plus, amount: Fx.money("100000"))
+        FreeToSpendLine(key: FreeMoney.Key.stillExpected, sign: .plus, amount: .zero)
       ])
     #expect(month.grey == Fx.money("20000"))
     let later = snapshot.freeMoney(until: Fx.day("2026-11-30"), ledger: fx.ledger)
-    #expect(later.info.first?.amount == Fx.money("300000"))
+    #expect(later.info.first?.amount == Fx.money("200000"))
     #expect(later.grey == Fx.money("20000"))
   }
 

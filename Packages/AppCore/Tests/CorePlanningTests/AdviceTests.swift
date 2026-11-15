@@ -78,7 +78,7 @@ struct AdviceData: SavingsFixtures {
   @discardableResult
   mutating func add(
     _ kind: TransactionKind, _ iso: String, _ parts: [AdvicePart], method: UUID? = nil,
-    externalId: String? = nil
+    externalId: String? = nil, oneOff: Bool = false
   ) -> UUID {
     next += 1
     let transactionId = uid(next)
@@ -97,14 +97,15 @@ struct AdviceData: SavingsFixtures {
       TransactionEntry(
         transaction: Transaction(
           id: transactionId, kind: kind, occurredAt: when, amountE4: total, amountRubE4: total,
-          paymentMethodId: method, externalId: externalId, createdAt: when, updatedAt: when),
+          paymentMethodId: method, externalId: externalId, createdAt: when, updatedAt: when,
+          isOneOff: oneOff),
         parts: stored))
     return transactionId
   }
 
   mutating func spend(
     _ iso: String, _ amount: String, _ category: UUID, quality: Quality = .neutral,
-    forWhom: ForWhom = .me, method: UUID? = nil, event: UUID? = nil
+    forWhom: ForWhom = .me, method: UUID? = nil, event: UUID? = nil, oneOff: Bool = false
   ) {
     add(
       .expense, iso,
@@ -112,7 +113,7 @@ struct AdviceData: SavingsFixtures {
         AdvicePart(
           amount: amount, category: category, quality: quality, forWhom: forWhom, event: event)
       ],
-      method: method)
+      method: method, oneOff: oneOff)
   }
 
   mutating func refund(
@@ -338,15 +339,32 @@ struct AdviceTests: SavingsFixtures {
   func goalStatus(
     _ name: String, id: Int, remaining: String, date: String? = nil, monthsLeft: Int? = nil,
     needed: String? = nil, pace: String? = nil, projected: MonthKey? = nil,
-    byDate: String? = nil
+    byDate: String? = nil, realism: GoalRealism = .behindPlan
   ) -> GoalStatus {
     GoalStatus(
       goal: Goal(id: uid(id), name: name, targetE4: rub("100000"), targetDate: date.map(self.date)),
       saved: rub("100000") - rub(remaining), remaining: rub(remaining), progressBp: 0,
       contributedThisMonth: .zero, neededMonthly: needed.map(rub), monthsLeft: monthsLeft,
-      pace: pace.map(rub), paceSource: pace == nil ? nil : .plan, realism: .behindPlan,
+      pace: pace.map(rub), paceSource: pace == nil ? nil : .plan, realism: realism,
       projectedCompletion: projected, amountByTargetDate: byDate.map(rub),
       coveredByCanSave: nil)
+  }
+
+  /// A goal whose date has passed adds nothing to what all the goals need a month: the total
+  /// is the live goals' 13 750, and the overdue goal is still advised about, not «no data».
+  @Test func anOverdueGoalIsLeftOutOfWhatAllGoalsNeed() {
+    let statuses = [
+      goalStatus(
+        "Car", id: 500, remaining: "45000", date: "2026-12-31", monthsLeft: 4, needed: "13750"),
+      goalStatus(
+        "Holiday", id: 501, remaining: "150000", date: "2026-10-01", monthsLeft: 0,
+        realism: .overdue),
+    ]
+    let items = AdviceRules.goals(statuses, canSaveP50: rub("20000"))
+    #expect(items.count == 2)
+    #expect(items[0].notes.contains(term("advice.term.allGoalsNeed", money("13750"))))
+    #expect(items[1].status != .notEnoughData(reasonKey: "advice.reason.goalNoDateNoPace"))
+    #expect(items[1].terms.contains(term("advice.term.goalRemaining", money("150000"))))
   }
 
   /// «Car» needs 13 750 a month for 4 months; at 10 000 it is reached in February and has
@@ -512,6 +530,27 @@ struct AdviceTests: SavingsFixtures {
       ])
     #expect(items[1].terms[1] == term("advice.term.monthsWithSpending", .count(3)))
     #expect(items[0].result?.key == "advice.term.suggestedLimit")
+  }
+
+  /// A one-off purchase of 200 000 in «Food» changes no suggestion: the median forgets it.
+  @Test func aOneOffPurchaseIsLeftOutOfTheLimitSuggestions() {
+    var data = history()
+    data.spend("2026-05-12", "200000", data.food, oneOff: true)
+    let items = AdviceRules.limitSuggestions(data.context(today), budgets: data.book.budgets)
+    #expect(items.map(\.result?.value) == [money("10600"), money("10000"), money("4800")])
+  }
+
+  /// The daily rate of a limit is taken from the purchases not marked one-off: the marked one
+  /// counts in the month but is no pace.
+  @Test func aOneOffPurchaseIsNoPaceOfALimit() {
+    var data = history()
+    data.spend("2026-08-12", "5000", data.taxi, oneOff: true)
+    let marked = data.ledger.rows.first { $0.isOneOff }
+    #expect(marked != nil)
+    let budget = Budget(scope: .category, categoryId: data.taxi, amountE4: rub("4000"))
+    #expect(marked.map { !LimitRules.isVariable($0, for: budget) } == true)
+    let ordinary = data.ledger.rows.first { !$0.isOneOff && $0.categoryId == data.taxi }
+    #expect(ordinary.map { LimitRules.isVariable($0, for: budget) } == true)
   }
 
   /// July and August only: two complete months are too few.

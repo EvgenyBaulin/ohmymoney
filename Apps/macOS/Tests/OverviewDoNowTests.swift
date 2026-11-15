@@ -150,4 +150,41 @@ final class OverviewDoNowTests: XCTestCase {
     XCTAssertNotEqual(recent.detail, older.detail)
     XCTAssertFalse(older.detail.isEmpty)
   }
+
+  /// A one-off income that was due a week ago and did not come: «<Доход> не пришёл?» with its
+  /// answers, after the payments and before the things to sort out; the same income due
+  /// tomorrow asks nothing yet.
+  func testAnIncomeThatDidNotComeAsksInTheList() throws {
+    let calendar = CalendarContext.system
+    let late = ExpectedIncome(
+      name: "Проект", totalE4: AmountE4(whole: 30_000),
+      dueDate: calendar.adding(days: -7, to: environment.today))
+    let soon = ExpectedIncome(
+      name: "Премия", totalE4: AmountE4(whole: 5_000),
+      dueDate: calendar.adding(days: 1, to: environment.today))
+    var dataset = Dataset(entries: [try entry(daysAgo: 1)], categories: [food])
+    dataset.planning = PlanningBook(expected: [late, soon])
+    let waiting = DataSnapshot.build(
+      dataset: dataset, calendar: .system, today: environment.today, context: SnapshotContext(),
+      version: DataVersion(load: 0))
+    let list = OverviewDoNow.list(snapshot: waiting, environment: environment)
+    XCTAssertEqual(list.items.map(\.action), [.income])
+    XCTAssertEqual(list.items.first?.incomeId, late.id)
+    let text = try XCTUnwrap(
+      list.items.first.map { OverviewDoNow.text($0, snapshot: waiting, environment: environment) })
+    XCTAssertTrue(text.title.contains("Проект"))
+    XCTAssertTrue(text.title.contains("не пришёл"))
+    XCTAssertFalse(text.button.isEmpty)
+    XCTAssertTrue(text.urgent)
+    // What did not come is in no figure of the month, and is listed apart.
+    XCTAssertEqual(waiting.planning.income.notArrived, AmountE4(whole: 30_000))
+    // Closed, it asks no more.
+    var closed = late
+    closed.closed = true
+    dataset.planning = PlanningBook(expected: [closed, soon])
+    let quiet = DataSnapshot.build(
+      dataset: dataset, calendar: .system, today: environment.today, context: SnapshotContext(),
+      version: DataVersion(load: 0))
+    XCTAssertTrue(OverviewDoNow.list(snapshot: quiet, environment: environment).isEmpty)
+  }
 }

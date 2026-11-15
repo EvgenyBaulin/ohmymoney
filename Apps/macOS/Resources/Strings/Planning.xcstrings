@@ -1,74 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "overview.canSave.incomeDeficit": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You cannot save from %@ income: spending exceeds income by %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Из дохода %@ отложить не получится: траты больше дохода на %@"
-          }
-        }
-      }
-    },
-    "overview.canSave.projectedDeficit": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You are not expected to save from %@ income: projected spending exceeds income by %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Из дохода %@ отложить, вероятно, не получится: ожидаемые траты больше дохода на %@"
-          }
-        }
-      }
-    },
-    "overview.canSave.previousMoney": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ is free on your accounts — this is money from earlier months"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "на счетах свободно %@ — это прошлые деньги"
-          }
-        }
-      }
-    },
-    "overview.canSave.incomeRisk": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "With high spending, expenses will exceed monthly income by %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "При высоких тратах расходы превысят доход месяца на %@"
-          }
-        }
-      }
-    },
     "advice.badComparison.title": {
       "extractionState": "manual",
       "localizations": {
@@ -53157,6 +53089,23 @@
         }
       }
     },
+    "goals.overdue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the date has passed, %@ left"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "срок прошёл, осталось %@"
+          }
+        }
+      }
+    },
     "goals.projected": {
       "extractionState": "manual",
       "localizations": {
@@ -57805,6 +57754,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "截至 %@"
+          }
+        }
+      }
+    },
+    "goals.shiftDeadline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move the date"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сдвинуть срок"
           }
         }
       }
@@ -85220,6 +85186,74 @@
         }
       }
     },
+    "overview.canSave.incomeDeficit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You cannot save from %@ income: spending exceeds income by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Из дохода %@ отложить не получится: траты больше дохода на %@"
+          }
+        }
+      }
+    },
+    "overview.canSave.incomeRisk": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With high spending, expenses will exceed monthly income by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При высоких тратах расходы превысят доход месяца на %@"
+          }
+        }
+      }
+    },
+    "overview.canSave.previousMoney": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is free on your accounts — this is money from earlier months"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "на счетах свободно %@ — это прошлые деньги"
+          }
+        }
+      }
+    },
+    "overview.canSave.projectedDeficit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You are not expected to save from %@ income: projected spending exceeds income by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Из дохода %@ отложить, вероятно, не получится: ожидаемые траты больше дохода на %@"
+          }
+        }
+      }
+    },
     "overview.canSave.risk": {
       "extractionState": "manual",
       "localizations": {
@@ -88121,6 +88155,23 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "overview.notArrived": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not arrived"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не пришло"
           }
         }
       }

@@ -292,10 +292,73 @@ struct IncomeEstimateTests: SavingsFixtures {
     #expect(dues.contains(date("2026-09-07")))
     #expect(dues.last == date("2027-09-13"))
     #expect(dues.filter { $0 <= date("2026-09-30") }.count == 24)
-    // 7, 14, 21 and 28 September, then 50 Mondays through 13 September 2027.
+    // The 7th and 14th passed unpaid; 21 and 28 September, then 50 Mondays through 13
+    // September 2027.
     #expect(
       IncomeEstimate.stillExpected(
         statuses: statuses, today: today, through: through, ledger: ledger
-      ).amount == rub("54000"))
+      ).amount == rub("52000"))
+  }
+
+  /// A project due on the 5th, today the 19th, nothing came: it is overdue, so it joins no
+  /// figure of the month — the estimate falls back to the median — and is listed as not arrived.
+  @Test func anOverdueExpectationOfTheMonthIsNeitherExpectedNorCounted() {
+    let book = history()
+    let project = ExpectedIncome(
+      id: uid(600), name: "Project", totalE4: rub("30000"), dueDate: date("2026-09-05"))
+    let result = estimate(book, [project])
+    #expect(result.expectedRemaining == .zero)
+    #expect(result.source == .median)
+    #expect(result.value == rub("100000"))
+    #expect(result.notArrived == rub("30000"))
+    let listed = IncomeEstimate.overdue(
+      statuses: ExpectedIncomeRules.statuses(
+        book: PlanningBook(expected: [project]), ledger: book.ledger, today: today),
+      today: today)
+    #expect(listed.map(\.incomeId) == [project.id])
+    #expect(listed.first?.rub == rub("30000"))
+    #expect(listed.first?.isOneOff == true)
+  }
+
+  /// A due date today is not overdue yet: the money may still come before the day ends.
+  @Test func aDueDateTodayIsStillExpected() {
+    let book = history()
+    let project = ExpectedIncome(
+      id: uid(600), name: "Project", totalE4: rub("30000"), dueDate: today)
+    let result = estimate(book, [project])
+    #expect(result.expectedRemaining == rub("30000"))
+    #expect(result.notArrived == .zero)
+    #expect(result.source == .expectations)
+  }
+
+  /// A part of the overdue sum came: only what is still owed is «not arrived».
+  @Test func aPartlyPaidOverdueDueDateListsTheRest() {
+    var book = history()
+    let project = ExpectedIncome(
+      id: uid(600), name: "Project", totalE4: rub("30000"), dueDate: date("2026-09-05"))
+    let paid = book.income("2026-09-06", "10000", category: book.projects)
+    let result = estimate(book, [project], links: [(project.id, paid)])
+    #expect(result.expectedRemaining == .zero)
+    #expect(result.notArrived == rub("20000"))
+  }
+
+  /// «Перенести» and «Указать дату»: a one-off expectation gets a new day and, once that day is
+  /// ahead, joins the month's figures again; a recurring or closed one has nothing to move.
+  @Test func aMovedExpectationIsWaitedForAgain() {
+    let book = history()
+    let project = ExpectedIncome(
+      id: uid(600), name: "Project", totalE4: rub("30000"), dueDate: date("2026-09-05"))
+    #expect(estimate(book, [project]).expectedRemaining == .zero)
+    let postponed = ExpectedIncomeRules.postponed(project, today: today)
+    #expect(postponed?.dueDate == date("2026-09-26"))
+    #expect(estimate(book, [postponed ?? project]).expectedRemaining == rub("30000"))
+    #expect(ExpectedIncomeRules.moved(project, to: date("2026-09-30"))?.dueDate == date("2026-09-30"))
+    var closed = project
+    closed.closed = true
+    #expect(ExpectedIncomeRules.moved(closed, to: today) == nil)
+    let salary = ExpectedIncome(
+      id: uid(610), name: "Salary", kind: .recurring, totalE4: rub("1000"),
+      dueDate: date("2026-08-05"), freq: .monthly, day: 5)
+    #expect(ExpectedIncomeRules.moved(salary, to: today) == nil)
   }
 }

@@ -174,6 +174,23 @@ public enum ExpectedIncomeRules {
     return status.received >= status.income.totalE4
   }
 
+  /// Days «Перенести» puts a one-off income that did not come off by, counted from today.
+  public static let postponeDays = 7
+
+  /// A one-off income expected on `day` instead: the answer to «не пришёл?» when the owner knows
+  /// the day. A recurring or closed expectation has no single date to move, and gives `nil`.
+  public static func moved(_ income: ExpectedIncome, to day: DateOnly) -> ExpectedIncome? {
+    guard income.kind == .oneOff, !income.closed else { return nil }
+    var moved = income
+    moved.dueDate = day
+    return moved
+  }
+
+  /// The same moved a week on from today — one press, no date to choose.
+  public static func postponed(_ income: ExpectedIncome, today: DateOnly) -> ExpectedIncome? {
+    moved(income, to: today.adding(days: postponeDays))
+  }
+
   /// The incomes whose name another one of `incomes` has too, whatever the case and the spaces
   /// around it. Names may repeat; a menu tells these apart by amount and date.
   public static func namesakes(among incomes: [ExpectedIncome]) -> Set<UUID> {

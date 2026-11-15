@@ -26,8 +26,14 @@ enum OverviewDoNow {
       guard let account = $0.paymentMethodId else { return true }
       return !hidden.isHidden(account)
     }
+    // One-off incomes whose day passed without the money, apart from those of hidden accounts.
+    let expected = snapshot.planning.expected.filter {
+      guard let account = $0.income.paymentMethodId else { return true }
+      return !hidden.isHidden(account)
+    }
     return WhatToDoNow.list(
       payments: payments,
+      overdueIncomes: IncomeEstimate.overdue(statuses: expected, today: environment.today),
       reviews: DoNowSources.reviews(
         entries: entries, today: environment.today, calendar: environment.calendar),
       statements: DoNowSources.statements(
@@ -65,6 +71,19 @@ enum OverviewDoNow {
         title: environment.format("overview.doNow.post", table: table, payment?.name ?? ""),
         detail: environment.format("overview.doNow.postDetail", table: table, when, amount),
         button: environment.language("overview.doNow.postButton", table: table), urgent: true)
+    case .income:
+      let status = snapshot.planning.expected.first { $0.id == item.incomeId }
+      let due = item.day ?? environment.today
+      var detail = environment.format(
+        "overview.doNow.incomeDetail", table: table, environment.dates.dayAndMonth(due))
+      if let status, status.remaining.raw > 0 {
+        detail += " · " + money.rounded(status.remaining, currency: status.income.currency)
+      }
+      return DoNowRowText(
+        title: environment.format(
+          "overview.doNow.income", table: table, status?.income.name ?? ""),
+        detail: detail,
+        button: environment.language("overview.doNow.incomeButton", table: table), urgent: true)
     case .review:
       return DoNowRowText(
         title: environment.format("overview.doNow.review", table: table, counts: item.count),
@@ -98,6 +117,9 @@ struct OverviewDoNowCard: View {
   /// In a row of tiles the card takes the height of the row.
   var fillsHeight = false
   @State private var failure: [String: String] = [:]
+  /// The income whose day of coming is being chosen, and the day chosen so far.
+  @State private var datingIncome: UUID?
+  @State private var pickedDay = Date()
 
   /// The colour of a row's dot: the accent for what is due, the secondary ink for the rest; the
   /// words of the row say which it is.
@@ -181,13 +203,17 @@ struct OverviewDoNowCard: View {
             .foregroundStyle(surfaces.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        TouchButton(
-          title: text.button, identifier: "overview.doNow.\(item.action.rawValue)",
-          idiom: LayoutIdiom.resolved(idiom), alignment: .center
-        ) {
-          perform(item, snapshot: snapshot)
-        } drawn: { tap in
-          Button(text.button, action: tap).buttonStyle(.rowAction)
+        if item.action == .income {
+          incomeMenu(item, text: text, snapshot: snapshot)
+        } else {
+          TouchButton(
+            title: text.button, identifier: "overview.doNow.\(item.action.rawValue)",
+            idiom: LayoutIdiom.resolved(idiom), alignment: .center
+          ) {
+            perform(item, snapshot: snapshot)
+          } drawn: { tap in
+            Button(text.button, action: tap).buttonStyle(.rowAction)
+          }
         }
       }
       .padding(.vertical, StyleMetrics.doNowRowVertical)
@@ -197,8 +223,72 @@ struct OverviewDoNowCard: View {
     }
   }
 
+  /// «Не пришёл?»: the three answers — the day it will come, closed, moved a week on.
+  private func incomeMenu(_ item: DoNowItem, text: DoNowRowText, snapshot: DataSnapshot)
+    -> some View
+  {
+    Menu(text.button) {
+      Button(t("overview.doNow.income.setDate")) {
+        pickedDay = environment.calendar.noon(of: environment.today)
+        datingIncome = item.incomeId
+      }
+      Button(t("overview.doNow.income.close")) { answer(item, .close, snapshot: snapshot) }
+      Button(t("overview.doNow.income.move")) { answer(item, .postpone, snapshot: snapshot) }
+    }
+    .accessibilityIdentifier("overview.doNow.income")
+    .sheet(
+      isPresented: Binding(
+        get: { datingIncome != nil && datingIncome == item.incomeId },
+        set: { if !$0 { datingIncome = nil } })
+    ) {
+      VStack(spacing: 16) {
+        Text(verbatim: t("overview.doNow.income.setDate")).appFont(.headline)
+        DatePicker("", selection: $pickedDay, displayedComponents: .date)
+          .datePickerStyle(.graphical)
+          .labelsHidden()
+        HStack {
+          Button(environment.language("action.cancel")) { datingIncome = nil }
+            .keyboardShortcut(.cancelAction)
+          Button(environment.language("action.save")) {
+            answer(
+              item, .moveTo(environment.calendar.day(of: pickedDay)), snapshot: snapshot)
+            datingIncome = nil
+          }
+          .keyboardShortcut(.defaultAction)
+        }
+      }
+      .padding(20)
+      .presentationDetents([.medium])
+      .handingOver(dependencies)
+    }
+  }
+
+  enum IncomeAnswer {
+    case close
+    case postpone
+    case moveTo(DateOnly)
+  }
+
+  /// Writes the answer to «не пришёл?» on the expectation as the database holds it, one step of ⌘Z.
+  private func answer(_ item: DoNowItem, _ answer: IncomeAnswer, snapshot: DataSnapshot) {
+    guard let dependencies, let id = item.incomeId,
+      let income = snapshot.planning.expected.first(where: { $0.id == id })?.income
+    else { return }
+    let actions = PlanningActions(dependencies)
+    switch answer {
+    case .close: actions.close(income)
+    case .postpone:
+      if let moved = ExpectedIncomeRules.postponed(income, today: environment.today) {
+        actions.save(moved)
+      }
+    case .moveTo(let day):
+      if let moved = ExpectedIncomeRules.moved(income, to: day) { actions.save(moved) }
+    }
+  }
+
   private func perform(_ item: DoNowItem, snapshot: DataSnapshot) {
     switch item.action {
+    case .income: break
     case .post: post(item, snapshot: snapshot)
     case .review:
       TileWhyNavigation.go(.section(.operations), environment: environment, openWindow: openWindow)

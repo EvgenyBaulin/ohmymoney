@@ -16,8 +16,8 @@ struct ExpectedIncomeMonthTests {
   static let seeds: [UInt64] = Array(1...30)
 
   /// A salary of 100 000 on the 10th; October's came early, on 15 September, written for
-  /// October. September's has not come: waited for through the end of September; through
-  /// October only September's is — October's is in.
+  /// October. September's has not come, and its day has passed: it is overdue, so nothing is
+  /// waited for through September, nor through October — October's is in.
   @Test func anIncomeForNextMonthIsNotThisMonths() {
     var fx = Fx()
     fx.count([(Fx.main, .rub, "1000")], at: Fx.at("2026-09-01", 9))
@@ -31,9 +31,9 @@ struct ExpectedIncomeMonthTests {
     }
     fx.expectedLinks = [ExpectedIncomeLink(expectedIncomeId: salary.id, transactionId: early)]
     let snapshot = fx.snapshot()
-    #expect(snapshot.freeMoney.info.first?.amount == Fx.money("100000"))
+    #expect(snapshot.freeMoney.info.first?.amount == .zero)
     let october = snapshot.freeMoney(until: Fx.day("2026-10-31"), ledger: fx.ledger)
-    #expect(october.info.first?.amount == Fx.money("100000"))
+    #expect(october.info.first?.amount == .zero)
 
     // Written for September, the same money is September's: nothing is waited for this month,
     // October's salary is.
@@ -76,7 +76,8 @@ struct ExpectedIncomeMonthTests {
         fx.expectedLinks.append(ExpectedIncomeLink(expectedIncomeId: income.id, transactionId: id))
         received = part
       }
-      guard !income.closed, due >= Fx.today.monthKey.firstDay, due <= until else { continue }
+      // A due date that passed unpaid is overdue, not waited for.
+      guard !income.closed, due >= Fx.today, due <= until else { continue }
       let left = max(.zero, total - received)
       model += dollars ? SubscriptionMath.rounded(left.decimal * 90) : left
     }
