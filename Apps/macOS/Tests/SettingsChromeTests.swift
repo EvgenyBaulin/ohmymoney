@@ -23,7 +23,13 @@ final class SettingsChromeTests: XCTestCase {
         let quiet = SettingsIconTile.colors(isSelected: false, colors)
         let chosen = SettingsIconTile.colors(isSelected: true, colors)
         XCTAssertEqual(quiet.plate, Color(palette.accentTint), "\(theme.id)")
-        XCTAssertEqual(quiet.glyph, Color(palette.accentDefault), "\(theme.id)")
+        // The accent itself where it already holds 3 : 1 on the tint; pulled just enough where not.
+        XCTAssertEqual(quiet.glyph, Color(SettingsIconTile.quietGlyph(colors)), "\(theme.id)")
+        if palette.accentDefault.contrast(
+          on: palette.accentTint.composited(over: palette.surfaceSidebar)) >= 3
+        {
+          XCTAssertEqual(quiet.glyph, Color(palette.accentDefault), "\(theme.id)")
+        }
         XCTAssertEqual(chosen.plate, Color(palette.accentDefault), "\(theme.id)")
         XCTAssertEqual(chosen.glyph, Color(palette.contentOnAccent), "\(theme.id)")
       }

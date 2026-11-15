@@ -450,6 +450,7 @@ struct AccountScreen: View {
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.appTheme) private var theme
 
   let accountId: UUID
   /// The selection of the window, shared with Overview: its bar floats in the entry bar.
@@ -505,7 +506,7 @@ struct AccountScreen: View {
           if let accent = account.accountAccent {
             // A stripe in the colour of the account, standing by its name.
             Capsule()
-              .fill(accent.swatch)
+              .fill(Color(WindowTint.markColor(for: accent, colors: theme)))
               .frame(width: 4, height: 28)
               .accessibilityHidden(true)
               .accessibilityIdentifier("account.screen.accent")

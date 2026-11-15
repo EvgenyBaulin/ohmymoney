@@ -122,15 +122,16 @@ struct OverviewAccountsStrip: View {
         .minimumScaleFactor(0.6)
         .lineLimit(1)
     }
-    // White on the owner's colour (4.5 : 1 or more, and darker still toward the corner);
-    // the theme's text colour on the theme's gradients.
-    .foregroundStyle(line.accent == nil ? theme.heroContent : .white)
+    // White or black on the owner's colour, whichever reads at 4.5 : 1 on both ends of the
+    // gradient (`cardPaint`); the theme's text colour on the theme's gradients.
+    .foregroundStyle(line.accent.map { Color($0.cardPaint.ink) } ?? theme.heroContent)
     .padding(.horizontal, 14)
     .padding(.vertical, 12)
     .frame(width: Self.cardSize.width, height: Self.cardSize.height, alignment: .leading)
     .background(
       LinearGradient(
-        colors: [tint, tint.mix(with: .black, by: 0.3)], startPoint: .topLeading,
+        colors: line.accent.map { [Color($0.cardPaint.start), Color($0.cardPaint.end)] }
+          ?? [tint, tint.mix(with: .black, by: 0.3)], startPoint: .topLeading,
         endPoint: .bottomTrailing),
       in: .rect(cornerRadius: 22)
     )

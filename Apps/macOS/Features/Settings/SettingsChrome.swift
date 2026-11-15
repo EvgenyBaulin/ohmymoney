@@ -86,7 +86,15 @@ struct SettingsIconTile: View {
   static func colors(isSelected: Bool, _ theme: AppThemeColors) -> (plate: Color, glyph: Color) {
     isSelected
       ? (Color(theme.palette.accentDefault), Color(theme.palette.contentOnAccent))
-      : (Color(theme.palette.accentTint), Color(theme.palette.accentDefault))
+      : (Color(theme.palette.accentTint), Color(quietGlyph(theme)))
+  }
+
+  /// The quiet tile's symbol: the accent, pulled toward black or white only as far as 3 : 1 on
+  /// its tint needs (several light themes' accents are paler than that on their own tint).
+  static func quietGlyph(_ theme: AppThemeColors) -> ThemeColor {
+    let palette = theme.palette
+    return palette.accentDefault.ensuringContrast(
+      3, on: palette.accentTint.composited(over: palette.surfaceSidebar))
   }
 }
 
@@ -124,13 +132,14 @@ struct SettingsSidebarLabel: View {
   let title: String
   let highlight: SidebarHighlight
   @Environment(\.appTheme) private var theme
+  @Environment(\.windowTint) private var tint
 
   var body: some View {
     HStack(spacing: SettingsChromeMetrics.rowGap) {
       SettingsIconTile(symbol: section.tileSymbol, isSelected: highlight.isSelected)
       Text(verbatim: title)
         .appFont(AppFont.body.weight(highlight.isSelected ? .semibold : .medium))
-        .foregroundStyle(highlight.text(theme))
+        .foregroundStyle(highlight.text(theme, tint: tint))
         .lineLimit(1)
     }
     .padding(.leading, SettingsChromeMetrics.rowLeading)

@@ -49,14 +49,32 @@ struct SidebarHighlight: Equatable {
     SidebarHighlight(isSelected: selection == .section(section))
   }
 
-  func plate(_ theme: AppThemeColors) -> Color {
-    isSelected ? Color(theme.palette.accentTint) : .clear
+  /// The plate and the ink of a lit row. Without a `tint` they are the theme's own; with one (an
+  /// account's colour, an accent circle) the plate is that colour at 16 % over the sidebar and
+  /// the ink is the colour pulled to 4.5 : 1 on both the plate and the sidebar, so the theme's
+  /// contrast still comes first.
+  static func litColors(_ theme: AppThemeColors, tint: ThemeColor?) -> (
+    plate: ThemeColor, text: ThemeColor
+  ) {
+    let palette = theme.palette
+    guard let tint else { return (palette.accentTint, palette.sidebarSelectionText) }
+    let sidebar = palette.surfaceSidebar
+    let plate = ThemeColor(red: tint.red, green: tint.green, blue: tint.blue, alpha: 41)
+      .composited(over: sidebar)
+    return (plate, tint.ensuringTextContrast(on: [plate, sidebar]))
   }
 
-  func text(_ theme: AppThemeColors) -> Color {
-    isSelected ? Color(theme.palette.sidebarSelectionText) : Color(theme.palette.sidebarText)
+  func plate(_ theme: AppThemeColors, tint: ThemeColor? = nil) -> Color {
+    isSelected ? Color(Self.litColors(theme, tint: tint).plate) : .clear
+  }
+
+  func text(_ theme: AppThemeColors, tint: ThemeColor? = nil) -> Color {
+    isSelected
+      ? Color(Self.litColors(theme, tint: tint).text) : Color(theme.palette.sidebarText)
   }
 
   /// The row's symbol follows its text, so the whole row changes with the theme.
-  func symbol(_ theme: AppThemeColors) -> Color { text(theme) }
+  func symbol(_ theme: AppThemeColors, tint: ThemeColor? = nil) -> Color {
+    text(theme, tint: tint)
+  }
 }

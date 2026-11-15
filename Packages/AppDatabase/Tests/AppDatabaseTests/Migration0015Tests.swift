@@ -258,6 +258,22 @@ struct Migration0015Tests {
     }
   }
 
+  /// The palette grew past twelve colours: a key a later build writes (`13`…`26`) must survive a
+  /// read, not turn into «no colour» and be lost on the next save.
+  @Test func everyKeyOfTheWidePaletteReadsBack() throws {
+    let stack = try TestSupport.makeStack()
+    let keys = (1...26).map { String(format: "%02d", $0) }
+    let methods = keys.map { PaymentMethod(name: "К\($0)", accent: $0) }
+    try stack.writer.write { db in
+      for method in methods { try method.insert(db) }
+    }
+    try stack.writer.read { (db: Database) throws in
+      for method in methods {
+        #expect(try PaymentMethod.fetchOne(db, key: method.id.uuidString)?.accent == method.accent)
+      }
+    }
+  }
+
   @Test func aWordNoBuildWritesReadsAsNone() throws {
     let stack = try TestSupport.makeStack()
     let method = PaymentMethod(name: "Карта")

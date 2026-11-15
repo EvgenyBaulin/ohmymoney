@@ -219,14 +219,15 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     return day
   }
 
-  /// A palette key (`01` to `12`); any other text — only a hand edit leaves one — reads as none.
+  /// A palette key (`01` to `26`); any other text — only a hand edit leaves one — reads as none.
   private static func accent(_ row: Row) -> String? {
     guard let text: String = row["accent"] else { return nil }
     return Self.accentKeys.contains(text) ? text : nil
   }
 
-  /// The keys of the palette an account may be drawn in.
-  static let accentKeys: Set<String> = Set((1...12).map { String(format: "%02d", $0) })
+  /// The keys of the palette an account may be drawn in. The palette only grows: a key is added
+  /// here with its colour, and never removed, or a stored colour would read as none.
+  static let accentKeys: Set<String> = Set((1...26).map { String(format: "%02d", $0) })
 
   /// The terms of a credit card. A limit or a grace period that does not read reads as no
   /// credit card, any other term that does not as not said: one damaged cell must not stop the

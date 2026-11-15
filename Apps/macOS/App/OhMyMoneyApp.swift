@@ -522,7 +522,7 @@ struct MainWindow: View {
         // 19.09 in the inspector, and the journal line `dependencies.missing … DayList.swift`
         // of 21.09 in this window. The window holds the dependencies as a value, so it hands
         // them over again here; below the root nothing has to trust the environment.
-        .appDependencies(deps)
+        .appDependencies(deps, account: selectedAccountAccent)
     } detail: {
       HStack(spacing: 0) {
         // The entry bar takes its width from the whole window, and the detail column it
@@ -575,8 +575,10 @@ struct MainWindow: View {
       .overlay(alignment: .trailing) { floatingForm }
       .animation(.snappy, value: formPresence)
       // The other column of the same split, for the same reason.
-      .appDependencies(deps)
+      .appDependencies(deps, account: selectedAccountAccent)
     }
+    // On an account's screen the window — toolbar included — takes the account's colour.
+    .accountWindowTint(selectedAccountAccent)
     .navigationTitle(windowTitle)
     .mainContentAccessibility(windowTitle)
     .onChange(of: windowWidth, initial: true) { _, width in sidebar.resize(to: width) }
@@ -914,6 +916,13 @@ struct MainWindow: View {
         GroupScreen(scope: .summary, actions: overviewActions) { selection = .account($0) }
       }
     }
+  }
+
+  /// The colour of the account on screen, if it has one: the window tints itself with it.
+  private var selectedAccountAccent: AccountAccent? {
+    guard case .account(let id) = selection else { return nil }
+    return compute.snapshot?.planning.accounts.sections.flatMap(\.accounts)
+      .first { $0.account.id == id }?.account.accountAccent
   }
 
   /// Back to Overview when the account or the group on screen is no longer among the live ones

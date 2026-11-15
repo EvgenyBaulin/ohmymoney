@@ -9,13 +9,15 @@ import SwiftUI
 /// only reads the scheme the tree already has.
 struct AppThemeModifier: ViewModifier {
   let theme: AppTheme
+  /// The colour of the account on the screen, if there is one: the window's tint follows it.
+  var account: AccountAccent?
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.colorSchemeContrast) private var contrast
 
   func body(content: Content) -> some View {
     let colors = ThemeResolver.resolve(
       theme: theme.themeID, colorScheme: colorScheme, increasedContrast: contrast == .increased)
-    content.themed(colors, accent: theme.accent)
+    content.themed(colors, accent: theme.accent, account: account)
   }
 }
 
@@ -23,14 +25,18 @@ extension View {
   /// Hands `colors` and the accent they and `accent` make to this view and everything below.
   /// The settings preview uses this with colours of its own; the scenes use it through
   /// `AppThemeModifier`.
-  func themed(_ colors: AppThemeColors, accent: AppTheme.Accent) -> some View {
+  func themed(
+    _ colors: AppThemeColors, accent: AppTheme.Accent, account: AccountAccent? = nil
+  ) -> some View {
+    let accountTint = account.map { WindowTint.themeColor(for: $0, colors: colors) }
     // Hierarchical `.secondary` must use the theme's opaque ink too; otherwise SwiftUI dims
     // the primary ink over our custom backgrounds, independently of the contrast tokens.
-    foregroundStyle(colors.contentPrimary, colors.contentSecondary)
+    return foregroundStyle(colors.contentPrimary, colors.contentSecondary)
       .environment(\.appTheme, colors)
-      .environment(\.appAccent, accent.resolved(in: colors))
+      .environment(\.appAccent, accountTint.map { Color($0) } ?? accent.resolved(in: colors))
+      .environment(\.windowTint, accountTint ?? accent.paletteColor)
       .environment(\.themeSurfaces, ThemeSurfaces(colors))
-      .tint(accent.resolvedTint(in: colors))
+      .tint(accountTint.map { Color($0) } ?? accent.resolvedTint(in: colors))
   }
 }
 
@@ -77,6 +83,10 @@ struct ThemeSurfaces: Equatable {
 }
 
 extension EnvironmentValues {
+  /// The colour the window's selection and symbols take over the theme's own: the account's on
+  /// its screen (pulled to read on the theme), else the accent circle's; `nil` leaves the
+  /// theme's plate and ink (`SidebarHighlight`).
+  @Entry var windowTint: ThemeColor?
   @Entry var themeSurfaces = ThemeSurfaces(.fallback)
 }
 
