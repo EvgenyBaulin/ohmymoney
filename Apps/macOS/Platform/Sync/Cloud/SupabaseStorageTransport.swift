@@ -72,7 +72,9 @@ final class SupabaseStorageTransport: ExchangeFileTransport, @unchecked Sendable
   func files() throws -> [ExchangeFileInfo] {
     var result: [String: Date] = [:]
     var offset = 0
+    var pages = 0
     while true {
+      try CloudPaging.count(&pages)
       var request = URLRequest(url: try url("/storage/v1/object/list/\(config.bucket)"))
       request.httpMethod = "POST"
       request.setValue("application/json", forHTTPHeaderField: "Content-Type")

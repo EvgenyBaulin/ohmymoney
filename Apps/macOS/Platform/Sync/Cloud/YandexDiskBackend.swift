@@ -38,7 +38,9 @@ struct YandexDiskBackend: CloudBackend {
     }
     var files: [ExchangeFileInfo] = []
     var offset = 0
+    var pages = 0
     while true {
+      try CloudPaging.count(&pages)
       let response = try client.send(
         .cloud(
           url(

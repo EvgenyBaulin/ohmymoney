@@ -44,7 +44,9 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
   func files() throws -> [ExchangeFileInfo] {
     var latest: [String: Date] = [:]
     var pageToken: String?
+    var pages = 0
     repeat {
+      try CloudPaging.count(&pages)
       var parts = URLComponents(string: GoogleDriveConfig.api + "/files")
       var items = [
         URLQueryItem(name: "spaces", value: "appDataFolder"),
@@ -129,7 +131,9 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
       let json = try? JSONSerialization.jsonObject(with: response.body) as? [String: Any],
       let entries = json["files"] as? [[String: Any]]
     else { throw ExchangeTransportError.unavailable }
-    return entries.first?["id"] as? String
+    guard let id = entries.first?["id"] as? String else { return nil }
+    guard CloudFileName.isSafeRemoteId(id) else { throw ExchangeTransportError.malformed }
+    return id
   }
 
   private func download(id: String) throws -> Data {

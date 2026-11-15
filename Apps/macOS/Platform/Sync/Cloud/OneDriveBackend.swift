@@ -47,7 +47,9 @@ struct OneDriveBackend: CloudBackend {
     var files: [ExchangeFileInfo] = []
     var next: URL? = URL(
       string: "\(root)/children?$select=name,lastModifiedDateTime,file&$top=200")
+    var pages = 0
     while let address = next {
+      try CloudPaging.count(&pages)
       let response = try client.send(.cloud(address))
       if response.status == 404 { return files }
       guard response.status == 200, let page = try? JSONDecoder().decode(Page.self, from: response.body)
@@ -80,7 +82,10 @@ struct OneDriveBackend: CloudBackend {
   }
 
   func replace(_ name: String, data: Data) throws {
-    _ = try upload(name, data: data, behavior: "replace")
+    // A conflict (a folder at that path) is a refusal, not a written snapshot.
+    guard try upload(name, data: data, behavior: "replace") else {
+      throw ExchangeTransportError.unavailable
+    }
   }
 
   private func upload(_ name: String, data: Data, behavior: String) throws -> Bool {

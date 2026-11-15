@@ -134,9 +134,36 @@ final class SharedReportModel {
     guard let answer = lock.answer else { throw EncryptedExport.Failure.passwordMissing }
     let report = report
     let folder = FileManager.default.temporaryDirectory
-      .appendingPathComponent("shared-report-\(UUID().uuidString)", isDirectory: true)
+      .appendingPathComponent("\(Self.folderPrefix)\(UUID().uuidString)", isDirectory: true)
     try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
     defer { lock.reset() }
+    do {
+      return try writeFile(
+        in: folder, answer: answer, report: report, words: words, appVersion: appVersion,
+        schemaVersion: schemaVersion)
+    } catch {
+      // Nothing half-made stays in the temporary folder.
+      try? FileManager.default.removeItem(at: folder)
+      throw error
+    }
+  }
+
+  /// Removes the temporary folder a written report sits in, once it was moved or the move was
+  /// given up: a plain report must not wait in the temporary folder. Only a folder this model
+  /// made is touched.
+  nonisolated static func discard(_ file: URL?) {
+    guard let folder = file?.deletingLastPathComponent(),
+      folder.lastPathComponent.hasPrefix(folderPrefix)
+    else { return }
+    try? FileManager.default.removeItem(at: folder)
+  }
+
+  nonisolated static let folderPrefix = "shared-report-"
+
+  private func writeFile(
+    in folder: URL, answer: EncryptedExportForm.Answer, report: SharedReport,
+    words: SharedReportWords, appVersion: String, schemaVersion: Int
+  ) throws -> URL {
     switch (format, answer) {
     case (.pdf, .plain), (.pdf, .locked):
       var password: String?

@@ -42,6 +42,7 @@ struct DropboxBackend: CloudBackend {
 
   func list() throws -> [ExchangeFileInfo] {
     var files: [ExchangeFileInfo] = []
+    var pages = 0
     var response = try client.send(
       .cloud(
         api.appendingPathComponent("files/list_folder"), method: "POST",
@@ -59,6 +60,7 @@ struct DropboxBackend: CloudBackend {
         files.append(ExchangeFileInfo(name: entry.name, modified: modified))
       }
       guard page.has_more else { return files }
+      try CloudPaging.count(&pages)
       response = try client.send(
         .cloud(
           api.appendingPathComponent("files/list_folder/continue"), method: "POST",
@@ -81,7 +83,10 @@ struct DropboxBackend: CloudBackend {
   }
 
   func replace(_ name: String, data: Data) throws {
-    _ = try upload(name, data: data, mode: "overwrite")
+    // A conflict (a folder at that path) is a refusal, not a written snapshot.
+    guard try upload(name, data: data, mode: "overwrite") else {
+      throw ExchangeTransportError.unavailable
+    }
   }
 
   private func upload(_ name: String, data: Data, mode: String) throws -> Bool {
