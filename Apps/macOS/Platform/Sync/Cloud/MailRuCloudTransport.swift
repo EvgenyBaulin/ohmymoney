@@ -35,7 +35,7 @@ struct MailRuCloudConfig: Equatable, Sendable {
   }
 }
 
-/// Exchange files in one folder of Mail.ru Cloud (WebDAV: PROPFIND, GET, PUT, MKCOL).
+/// Exchange files in one folder of Mail.ru Cloud (WebDAV: PROPFIND, GET, PUT, MOVE, MKCOL).
 final class MailRuCloudTransport: ExchangeFileTransport, @unchecked Sendable {
   private let http: CloudHTTPClient
   private let base: String
@@ -102,12 +102,41 @@ final class MailRuCloudTransport: ExchangeFileTransport, @unchecked Sendable {
         return
       } catch ExchangeTransportError.missing {}
     }
-    var status = try put(name, data)
+    // The bytes land under a temporary name and are moved onto the real one, so a dropped
+    // connection leaves a stray temporary file (never listed) and no half-written exchange file.
+    let temporary = "\(name).part-\(UUID().uuidString)"
+    var status = try put(temporary, data)
     if status == 404 || status == 409 {
       try makeFolder()
-      status = try put(name, data)
+      status = try put(temporary, data)
     }
     guard (200...204).contains(status) else { throw ExchangeTransportError.unavailable }
+    let moved: Int
+    do {
+      moved = try move(temporary, to: name, overwrite: replacing)
+    } catch {
+      discard(temporary)
+      throw error
+    }
+    guard (200...204).contains(moved) else {
+      discard(temporary)
+      throw moved == 412 ? ExchangeTransportError.fileChanged : ExchangeTransportError.unavailable
+    }
+  }
+
+  private func move(_ source: String, to name: String, overwrite: Bool) throws -> Int {
+    var request = URLRequest(url: try url(source))
+    request.httpMethod = "MOVE"
+    request.setValue(try url(name).absoluteString, forHTTPHeaderField: "Destination")
+    request.setValue(overwrite ? "T" : "F", forHTTPHeaderField: "Overwrite")
+    return try http.send(request).status
+  }
+
+  /// Best effort: a leftover temporary file is harmless, the listing ignores it.
+  private func discard(_ name: String) {
+    guard var request = (try? url(name)).map({ URLRequest(url: $0) }) else { return }
+    request.httpMethod = "DELETE"
+    _ = try? http.send(request)
   }
 
   private func put(_ name: String, _ data: Data) throws -> Int {

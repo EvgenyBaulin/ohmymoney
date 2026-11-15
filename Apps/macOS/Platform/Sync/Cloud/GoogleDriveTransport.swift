@@ -31,7 +31,9 @@ enum GoogleDriveConfig {
   }
 }
 
-/// Exchange files in the hidden app-data folder of Google Drive (Drive API v3).
+/// Exchange files in the hidden app-data folder of Google Drive (Drive API v3). Drive names are
+/// not unique: two devices writing at once can leave two files of one name. Every read picks the
+/// same one of them, the earliest created (ties by id), on every device and every call.
 final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
   private let http: CloudHTTPClient
   private let pageSize: Int
@@ -42,7 +44,7 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
   }
 
   func files() throws -> [ExchangeFileInfo] {
-    var latest: [String: Date] = [:]
+    var chosen: [String: Candidate] = [:]
     var pageToken: String?
     var pages = 0
     repeat {
@@ -51,7 +53,7 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
       var items = [
         URLQueryItem(name: "spaces", value: "appDataFolder"),
         URLQueryItem(name: "pageSize", value: String(pageSize)),
-        URLQueryItem(name: "fields", value: "nextPageToken,files(id,name,modifiedTime)"),
+        URLQueryItem(name: "fields", value: "nextPageToken,files(id,name,modifiedTime,createdTime)"),
         URLQueryItem(name: "q", value: "trashed=false"),
       ]
       if let pageToken { items.append(URLQueryItem(name: "pageToken", value: pageToken)) }
@@ -66,11 +68,15 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
         guard let name = entry["name"] as? String, CloudFileName.isExchangeFile(name),
           let text = entry["modifiedTime"] as? String, let date = CloudDates.iso(text)
         else { continue }
-        latest[name] = max(latest[name] ?? .distantPast, date)
+        let id = entry["id"] as? String ?? ""
+        let created = (entry["createdTime"] as? String).flatMap(CloudDates.iso) ?? date
+        let candidate = Candidate(id: id, created: created, modified: date)
+        if let known = chosen[name], !candidate.precedes(known) { continue }
+        chosen[name] = candidate
       }
       pageToken = json["nextPageToken"] as? String
     } while pageToken != nil
-    return latest.map { ExchangeFileInfo(name: $0.key, modified: $0.value) }
+    return chosen.map { ExchangeFileInfo(name: $0.key, modified: $0.value.modified) }
   }
 
   func readFile(named name: String) throws -> Data {
@@ -121,9 +127,9 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
     parts?.queryItems = [
       URLQueryItem(name: "spaces", value: "appDataFolder"),
       URLQueryItem(name: "q", value: "name='\(name)' and trashed=false"),
-      URLQueryItem(name: "fields", value: "files(id,modifiedTime)"),
-      URLQueryItem(name: "orderBy", value: "modifiedTime desc"),
-      URLQueryItem(name: "pageSize", value: "1"),
+      URLQueryItem(name: "fields", value: "files(id,modifiedTime,createdTime)"),
+      URLQueryItem(name: "orderBy", value: "createdTime"),
+      URLQueryItem(name: "pageSize", value: "100"),
     ]
     guard let url = parts?.url else { throw ExchangeTransportError.malformed }
     let response = try http.send(URLRequest(url: url))
@@ -131,9 +137,26 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
       let json = try? JSONSerialization.jsonObject(with: response.body) as? [String: Any],
       let entries = json["files"] as? [[String: Any]]
     else { throw ExchangeTransportError.unavailable }
-    guard let id = entries.first?["id"] as? String else { return nil }
-    guard CloudFileName.isSafeRemoteId(id) else { throw ExchangeTransportError.malformed }
-    return id
+    let candidates: [Candidate] = entries.compactMap { entry in
+      guard let id = entry["id"] as? String else { return nil }
+      let modified = (entry["modifiedTime"] as? String).flatMap(CloudDates.iso) ?? .distantPast
+      let created = (entry["createdTime"] as? String).flatMap(CloudDates.iso) ?? modified
+      return Candidate(id: id, created: created, modified: modified)
+    }
+    guard let first = candidates.min(by: { $0.precedes($1) }) else { return nil }
+    guard CloudFileName.isSafeRemoteId(first.id) else { throw ExchangeTransportError.malformed }
+    return first.id
+  }
+
+  /// One Drive file of a name; the earliest created wins, the id breaks a tie.
+  private struct Candidate {
+    var id: String
+    var created: Date
+    var modified: Date
+
+    func precedes(_ other: Candidate) -> Bool {
+      created != other.created ? created < other.created : id < other.id
+    }
   }
 
   private func download(id: String) throws -> Data {

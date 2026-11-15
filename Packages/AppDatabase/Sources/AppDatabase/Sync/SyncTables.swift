@@ -49,3 +49,23 @@ public enum SyncTables {
     "sync_history",
   ]
 }
+
+extension SyncTables {
+  /// Empties the bookkeeping of the exchange in a copy of the database that leaves this device
+  /// inside a transfer archive. What the exchange remembers (the versions held, the files
+  /// applied, every old description in the history, the id of the device that wrote them) is
+  /// this device's: a second device restoring the archive starts a journal of its own, as the
+  /// starting set of a new device does. The books are not touched. Deleted rows are wiped from
+  /// the free pages and the file is rebuilt.
+  public static func stripBookkeeping(inCopyAt url: URL) throws {
+    let queue = try DatabaseQueue(path: url.path)
+    defer { try? queue.close() }
+    try queue.writeWithoutTransaction { db in try db.execute(sql: "PRAGMA secure_delete = ON") }
+    try queue.write { db in
+      for table in bookkeeping where try db.tableExists(table) {
+        try db.execute(sql: "DELETE FROM \(table)")
+      }
+    }
+    try queue.writeWithoutTransaction { db in try db.execute(sql: "VACUUM") }
+  }
+}

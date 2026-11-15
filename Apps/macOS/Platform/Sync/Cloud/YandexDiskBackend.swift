@@ -8,6 +8,11 @@ struct YandexDiskBackend: CloudBackend {
   let client: CloudHTTPClient
   var base = URL(string: "https://cloud-api.yandex.net/v1/disk/resources")!
   var pageSize = 100
+  /// A 202 answer means "accepted, still being stored": the operation is polled this many
+  /// times, `pollDelay` seconds apart, before the file counts as not written.
+  var maxPolls = 30
+  var pollDelay: TimeInterval = 1
+  var pollSleep: @Sendable (TimeInterval) -> Void = { Thread.sleep(forTimeInterval: $0) }
 
   static let config = CloudOAuthConfig(
     providerId: "yandex", clientId: CloudDriveKeys.yandex,
@@ -93,7 +98,10 @@ struct YandexDiskBackend: CloudBackend {
   }
 
   private func upload(_ name: String, data: Data, overwrite: Bool) throws -> Bool {
-    struct Link: Decodable { var href: String }
+    struct Link: Decodable {
+      var href: String
+      var operation_id: String?
+    }
     let ask = try client.send(
       .cloud(url("upload", [("path", "app:/\(name)"), ("overwrite", overwrite ? "true" : "false")])))
     if ask.status == 409 { return false }
@@ -102,7 +110,40 @@ struct YandexDiskBackend: CloudBackend {
     else { throw ExchangeTransportError.unavailable }
     let put = try client.send(.cloud(address, method: "PUT", body: data), authorized: false)
     if put.status == 409 { return false }
-    guard put.status == 201 || put.status == 202 else { throw ExchangeTransportError.unavailable }
-    return true
+    switch put.status {
+    case 201: return true
+    case 202:
+      try awaitStored(name, operationId: link.operation_id)
+      return true
+    default: throw ExchangeTransportError.unavailable
+    }
+  }
+
+  /// Waits until the accepted upload has really finished: by its operation status when the
+  /// service named one, otherwise until the file shows up. Failure or running out of polls is
+  /// "not written", never a silent success.
+  private func awaitStored(_ name: String, operationId: String?) throws {
+    struct Status: Decodable { var status: String }
+    for attempt in 0..<maxPolls {
+      if attempt > 0 { pollSleep(pollDelay) }
+      if let operationId, CloudFileName.isSafeRemoteId(operationId) {
+        let base = self.base.deletingLastPathComponent()
+        let response = try client.send(
+          .cloud(base.appendingPathComponent("operations/\(operationId)")))
+        guard response.status == 200,
+          let status = try? JSONDecoder().decode(Status.self, from: response.body)
+        else { throw ExchangeTransportError.unavailable }
+        switch status.status {
+        case "success": return
+        case "in-progress": continue
+        default: throw ExchangeTransportError.unavailable
+        }
+      } else {
+        let response = try client.send(.cloud(url("", [("path", "app:/\(name)")])))
+        if response.status == 200 { return }
+        guard response.status == 404 else { throw ExchangeTransportError.unavailable }
+      }
+    }
+    throw ExchangeTransportError.unavailable
   }
 }

@@ -430,8 +430,8 @@ final class MailRuCloudTransportTests: XCTestCase {
     }
     let transport = try makeTransport()
     try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }
-    XCTAssertEqual(StubProtocol.requests.map(\.method), ["GET", "PUT", "MKCOL", "PUT"])
-    XCTAssertEqual(StubProtocol.requests.last?.body, payload)
+    XCTAssertEqual(StubProtocol.requests.map(\.method), ["GET", "PUT", "MKCOL", "PUT", "MOVE"])
+    XCTAssertEqual(StubProtocol.requests[3].body, payload)
   }
 
   func testReadAndMissing() throws {
