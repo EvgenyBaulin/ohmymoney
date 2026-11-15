@@ -82,6 +82,7 @@ struct CapitalChartSection: View {
       emptyReason: CapitalText.t("capital.chart.notEnough", environment),
       retry: { compute.retry(ComputeStep.data) }
     ) { chart in
+      VStack(alignment: .leading, spacing: 8) {
       NetWorthChart(
         model: chart,
         names: (
@@ -100,6 +101,8 @@ struct CapitalChartSection: View {
             ? CapitalText.t("capital.chart.now", environment)
             : environment.dates.monthTitle(point.day.monthKey)
         })
+      CapitalPastFooter(model: chart)
+      }
     }
   }
 
@@ -115,7 +118,9 @@ struct CapitalChartSection: View {
         points = allPoints
       }
       let chart = NetWorthChartModel(
-        points, events: snapshot.planning.capital.events, hiding: snapshot.hiding)
+        points, events: snapshot.planning.capital.events, hiding: snapshot.hiding,
+        pastCashDay: snapshot.planning.capital.pastCashDay,
+        pastCash: snapshot.dataset.capitalSettings.pastCash)
       return chart.hasLine ? .ready(chart, at: at) : .notEnoughData
     }
   }

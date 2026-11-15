@@ -465,6 +465,7 @@ struct CapitalMonthsCard: View {
           },
           height: CapitalMetrics.chartHeight)
         months(chart)
+        CapitalPastFooter(model: chart)
       }
     }
   }
@@ -505,7 +506,9 @@ struct CapitalMonthsCard: View {
         points = allPoints
       }
       let chart = NetWorthChartModel(
-        points, events: snapshot.planning.capital.events, hiding: snapshot.hiding)
+        points, events: snapshot.planning.capital.events, hiding: snapshot.hiding,
+        pastCashDay: snapshot.planning.capital.pastCashDay,
+        pastCash: snapshot.dataset.capitalSettings.pastCash)
       return chart.hasLine ? .ready(chart, at: at) : .notEnoughData
     }
   }
