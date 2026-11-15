@@ -81,13 +81,22 @@ final class SharedReportExportTests: XCTestCase {
     XCTAssertFalse(document.isEncrypted)
 
     let locked = try XCTUnwrap(
-      SharedReportPDF.data(report, words: words(report), password: "секрет"))
+      SharedReportPDF.data(report, words: words(report), password: "secret-1"))
     let closed = try XCTUnwrap(CGPDFDocument(CGDataProvider(data: locked as CFData)!))
     XCTAssertTrue(closed.isEncrypted)
     XCTAssertFalse(closed.unlockWithPassword("wrong"))
-    XCTAssertTrue(closed.unlockWithPassword("секрет"))
+    XCTAssertTrue(closed.unlockWithPassword("secret-1"))
     XCTAssertEqual(closed.numberOfPages, pages.count)
     XCTAssertFalse(locked.range(of: Data("Line 1".utf8)) != nil, "no text in the open")
+  }
+
+  /// The PDF format's own encryption takes a Latin-1 password only: the system refuses to start
+  /// a locked document with a Cyrillic one, so the writer answers nil, never an open file.
+  func testAPDFPasswordOutsideLatinOneIsRefusedNotWrittenOpen() throws {
+    let model = SharedReportModel(dataset: try dataset(lines: 3), today: today, calendar: calendar)
+    let report = model.report
+    XCTAssertNil(SharedReportPDF.data(report, words: words(report), password: "секрет"))
+    XCTAssertNotNil(SharedReportPDF.data(report, words: words(report), password: "secret-1"))
   }
 
   func testATableWithAPasswordGoesIntoTheLockedFileAndReadsBack() throws {
@@ -97,7 +106,9 @@ final class SharedReportExportTests: XCTestCase {
     model.lock.password = "pw"
     model.lock.confirmation = "pw"
     let report = model.report
-    let url = try model.write(words: words(report), appVersion: "2.16.0", schemaVersion: 30)
+    // Few rounds: the key derivation of the real count takes minutes in a debug build.
+    let url = try model.write(
+      words: words(report), appVersion: "2.16.0", schemaVersion: 30, iterations: 1_000)
     defer { try? FileManager.default.removeItem(at: url.deletingLastPathComponent()) }
     XCTAssertEqual(url.pathExtension, EncryptedExport.fileExtension)
     XCTAssertTrue(model.lock.password.isEmpty, "the password is forgotten once written")
@@ -117,6 +128,8 @@ final class SharedReportExportTests: XCTestCase {
     defer { try? FileManager.default.removeItem(at: url.deletingLastPathComponent()) }
     XCTAssertEqual(url.pathExtension, "csv")
     let rows = try CSVReader.rows(from: try Data(contentsOf: url))
-    XCTAssertEqual(rows.count, 1 + 2 + 1)
+    // Line 0 is on the hidden account and stays out: the header, its line, one category total.
+    XCTAssertEqual(report.lines.count, 1)
+    XCTAssertEqual(rows.count, 1 + report.lines.count + report.totals.count)
   }
 }

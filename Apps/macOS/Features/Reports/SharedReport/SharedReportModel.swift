@@ -129,7 +129,8 @@ final class SharedReportModel {
   /// says: a PDF (locked with the password when asked), a CSV, or a CSV inside the app's locked
   /// file. The password is forgotten once the file is written.
   func write(
-    words: SharedReportWords, appVersion: String, schemaVersion: Int
+    words: SharedReportWords, appVersion: String, schemaVersion: Int,
+    iterations: Int = EncryptionHeader.recommendedIterations
   ) throws -> URL {
     guard let answer = lock.answer else { throw EncryptedExport.Failure.passwordMissing }
     let report = report
@@ -140,7 +141,7 @@ final class SharedReportModel {
     do {
       return try writeFile(
         in: folder, answer: answer, report: report, words: words, appVersion: appVersion,
-        schemaVersion: schemaVersion)
+        schemaVersion: schemaVersion, iterations: iterations)
     } catch {
       // Nothing half-made stays in the temporary folder.
       try? FileManager.default.removeItem(at: folder)
@@ -162,7 +163,7 @@ final class SharedReportModel {
 
   private func writeFile(
     in folder: URL, answer: EncryptedExportForm.Answer, report: SharedReport,
-    words: SharedReportWords, appVersion: String, schemaVersion: Int
+    words: SharedReportWords, appVersion: String, schemaVersion: Int, iterations: Int
   ) throws -> URL {
     switch (format, answer) {
     case (.pdf, .plain), (.pdf, .locked):
@@ -184,7 +185,7 @@ final class SharedReportModel {
         name: fileName(locked: false), data: report.csv(words.csv))
       try EncryptedExport.write(
         [file], password: password, to: url, appVersion: appVersion,
-        schemaVersion: schemaVersion)
+        schemaVersion: schemaVersion, iterations: iterations)
       return url
     }
   }

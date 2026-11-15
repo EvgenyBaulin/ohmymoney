@@ -21,10 +21,14 @@ final class CloudInfraReviewTests: XCTestCase {
       retry: CloudRetryPolicy(sleep: { _ in }))
   }
 
-  private let snapshot = "snapshot-device1.ohmymoney-snapshot"
+  private static let snapshot = "snapshot-device1.ohmymoney-snapshot"
 
-  private func assertUnavailable(_ body: () throws -> Void, file: StaticString = #filePath, line: UInt = #line) {
-    XCTAssertThrowsError(try body(), file: file, line: line) {
+  /// The transports refuse the main thread, so every call here runs on a background one.
+  private func assertUnavailable(
+    _ body: @escaping @Sendable () throws -> Void, file: StaticString = #filePath,
+    line: UInt = #line
+  ) {
+    XCTAssertThrowsError(try offMainThread(body), file: file, line: line) {
       XCTAssertEqual($0 as? ExchangeTransportError, .unavailable, file: file, line: line)
     }
   }
@@ -34,12 +38,12 @@ final class CloudInfraReviewTests: XCTestCase {
       client: client { _ in
         CloudHTTPResponse(status: 409, body: Data(#"{"error_summary":"path/conflict/folder/"}"#.utf8))
       })
-    assertUnavailable { try backend.replace(snapshot, data: Data([1])) }
+    assertUnavailable { try backend.replace(Self.snapshot, data: Data([1])) }
   }
 
   func testOneDriveReplaceRefusedByTheServerIsAFailure() {
     let backend = OneDriveBackend(client: client { _ in CloudHTTPResponse(status: 409) })
-    assertUnavailable { try backend.replace(snapshot, data: Data([1])) }
+    assertUnavailable { try backend.replace(Self.snapshot, data: Data([1])) }
   }
 
   func testDropboxListingThatRepeatsItsCursorGivesUp() {
@@ -61,7 +65,7 @@ final class CloudInfraReviewTests: XCTestCase {
     let page = #"{"files":[],"nextPageToken":"same"}"#
     let transport = GoogleDriveTransport(
       client: client { _ in CloudHTTPResponse(status: 200, body: Data(page.utf8)) })
-    XCTAssertThrowsError(try transport.files())
+    XCTAssertThrowsError(try offMainThread { _ = try transport.files() })
   }
 
   func testGoogleFileIdFromTheServerIsNotPutInAPath() {
@@ -72,7 +76,8 @@ final class CloudInfraReviewTests: XCTestCase {
         return CloudHTTPResponse(
           status: 200, body: Data(#"{"files":[{"id":"../../about?x=","modifiedTime":"2026-01-01T00:00:00Z"}]}"#.utf8))
       })
-    XCTAssertThrowsError(try transport.readFile(named: "journal-device1-0000000001.json"))
+    XCTAssertThrowsError(
+      try offMainThread { _ = try transport.readFile(named: "journal-device1-0000000001.json") })
     XCTAssertEqual(sent.all.count, 1, "no request was made with the foreign id")
   }
 
@@ -118,4 +123,16 @@ private final class SentPaths: @unchecked Sendable {
   private var items: [String] = []
   func add(_ value: String) { lock.withLock { items.append(value) } }
   var all: [String] { lock.withLock { items } }
+}
+
+private func offMainThread(_ work: @escaping @Sendable () throws -> Void) throws {
+  final class Box: @unchecked Sendable { var result: Result<Void, Error>? }
+  let box = Box()
+  let done = DispatchSemaphore(value: 0)
+  DispatchQueue.global().async {
+    box.result = Result { try work() }
+    done.signal()
+  }
+  done.wait()
+  try box.result?.get()
 }
