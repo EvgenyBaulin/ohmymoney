@@ -1252,10 +1252,106 @@
     "cashback.choice.codesHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank MCC kodlarını göstərirsə, daxil edin: MCC-li alışlar kodlara, digərləri kateqoriyanıza görə hesablanır. Yalnız «MCC istisna» seçilərsə, bu kodlar kateqoriyanızdan çıxarılır."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калі банк указвае MCC, увядзіце іх: куплі з MCC будуць улічвацца паводле кодаў, без MCC — паводле вашай катэгорыі. «Акрамя MCC» выключае гэтыя коды з вашай катэгорыі."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokud banka uvádí MCC, zadejte je: nákup s MCC se zařadí podle kódů, bez MCC podle vaší kategorie. Volba «Kromě MCC» zachová kategorii bez těchto kódů."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wenn die Bank MCCs angibt, gib sie ein: Käufe mit MCC werden anhand der Codes zugeordnet, Käufe ohne MCC anhand deiner Kategorie. Mit „Außer MCC“ bleibt deine Kategorie ohne diese Codes erhalten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "If the bank lists MCC, type them: a purchase with an MCC then goes by the codes, one without by your category. «Except MCC» alone keeps your category without those codes."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si el banco indica MCC, escríbelos: las compras con MCC usarán los códigos; las demás, tu categoría. «Excepto MCC» conserva tu categoría sin esos códigos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si la banque indique des codes MCC, saisissez-les : les achats avec un code MCC suivent ces codes, les autres votre catégorie. « Sauf MCC » seul conserve votre catégorie sans ces codes."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Եթե բանկը նշում է MCC կոդերը, մուտքագրեք դրանք․ MCC ունեցող գնումների համար կկիրառվեն կոդերը, իսկ առանց MCC-ի՝ ձեր կատեգորիան։ Միայն «Բացի MCC-ից» ընտրելու դեպքում կատեգորիան կպահպանվի՝ առանց այդ կոդերի։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se la banca indica gli MCC, inseriscili: gli acquisti con MCC seguiranno i codici, gli altri la categoria scelta. Con «Escludi MCC», la categoria resta valida senza quei codici."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行がMCCを指定している場合は入力してください。MCCがある購入はコードに従い、ない購入はカテゴリに従います。「対象外のMCC」のみを指定すると、そのコードを除くカテゴリが適用されます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თუ ბანკი MCC კოდებს უთითებს, შეიყვანეთ ისინი: MCC-იანი შენაძენი კოდებით განისაზღვრება, დანარჩენი — თქვენი კატეგორიით. „MCC-ის გარდა“ გამორიცხავს ამ კოდებს თქვენი კატეგორიიდან."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк MCC кодтарын көрсетсе, оларды енгізіңіз: MCC коды бар сатып алуға кодтар, ал коды жоқ сатып алуға санатыңыз қолданылады. Тек «MCC-ден басқа» таңдалса, осы кодтардан басқа сатып алуларға санатыңыз қолданылады."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк MCC коддорун көрсөтсө, киргизиңиз: MCC бар сатып алууга коддор, жок болсо сиздин категорияңыз колдонулат. «MCCден тышкары» коддордон башкасына сиздин категорияңызды колдонот."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermeldt de bank MCC's? Vul ze in. Een aankoop met een MCC volgt dan de codes; een aankoop zonder MCC volgt je categorie. Met alleen 'Behalve MCC' blijft je categorie gelden zonder die codes."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeśli bank podaje kody MCC, wpisz je: zakup z kodem MCC zostanie rozliczony według kodów, a bez kodu — według kategorii. Sama opcja „Oprócz MCC” zachowuje kategorię bez tych kodów."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se o banco informar MCCs, digite-os: compras com MCC seguem os códigos; compras sem MCC seguem sua categoria. «Exceto MCC» mantém sua categoria sem esses códigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se o banco indicar MCC, introduza-os: as compras com MCC seguem os códigos; as restantes, a categoria. «Exceto MCC» mantém a categoria sem esses códigos."
           }
         },
         "ru": {
@@ -1263,19 +1359,163 @@
             "state": "translated",
             "value": "Если банк называет MCC, впишите их: покупка с MCC тогда идёт по кодам, без MCC — по вашей категории. Только «Кроме MCC» — ваша категория без этих кодов."
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агар бонк MCC-ро нишон диҳад, онҳоро ворид кунед: хариди дорои MCC аз рӯи рамзҳо, хариди бе MCC аз рӯи категорияи шумо ҳисоб мешавад. Танҳо «Ба ҷуз MCC» категорияи шуморо бе ин рамзҳо нигоҳ медорад."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka MCC kodlarını listeliyorsa girin: MCC içeren alışverişler kodlara, içermeyenler kategorinize göre eşleştirilir. Yalnızca «MCC hariç» seçeneği, bu kodlar dışında kategorinizi korur."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Якщо банк указує MCC, введіть їх: покупки з MCC визначатимуться за кодами, а без MCC — за вашою категорією. «Крім MCC» зберігає вашу категорію без указаних кодів."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank MCC kodlarini ko‘rsatsa, ularni kiriting: MCC kodli xaridlar kodlar bo‘yicha, kodsizlari esa kategoriyangiz bo‘yicha hisoblanadi. Faqat «MCC kodlaridan tashqari» tanlansa, bu kodlarsiz kategoriyangiz qo‘llanadi."
+          }
         }
       }
     },
     "cashback.choice.codesPrompt": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "5411, 5811-5814"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5411, 5811-5814"
+          }
+        },
+        "uz": {
           "stringUnit": {
             "state": "translated",
             "value": "5411, 5811-5814"
@@ -1286,10 +1526,106 @@
     "cashback.choice.codesUnreadable": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC kodları vergüllə ayrılan dördrəqəmli kodlardır; aralıq tire ilə yazılır: 5811-5814."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — гэта чатырохзначныя коды, падзеленыя коскамі. Дыяпазон запісваецца праз злучок: 5811-5814."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC jsou čtyřmístné kódy oddělené čárkami; rozsah se zapisuje s pomlčkou: 5811-5814."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCCs sind vierstellige Codes, die durch Kommas getrennt werden. Ein Bereich wird mit Bindestrich angegeben: 5811-5814."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC are four-digit codes separated by commas; a range is written with a dash: 5811-5814."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los MCC son códigos de cuatro cifras separados por comas. Escribe los intervalos con un guion: 5811-5814."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les codes MCC comportent quatre chiffres et sont séparés par des virgules. Pour une plage, utilisez un tiret : 5811-5814."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC-ները քառանիշ կոդեր են՝ բաժանված ստորակետերով։ Միջակայքը գրվում է գծիկով՝ 5811-5814։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli MCC sono codici di quattro cifre separati da virgole; indica un intervallo con un trattino: 5811-5814."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCCは4桁のコードをカンマで区切って入力します。範囲は5811-5814のようにハイフンで指定します。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC ოთხნიშნა კოდებია, რომლებიც მძიმეებით გამოიყოფა; დიაპაზონი დეფისით იწერება: 5811-5814."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — үтірмен бөлінген төрт таңбалы кодтар. Ауқым сызықша арқылы жазылады: 5811-5814."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — үтүр менен бөлүнгөн төрт орундуу коддор; диапазон сызыкча менен жазылат: 5811-5814."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC's zijn viercijferige codes, gescheiden door komma's. Schrijf een reeks met een streepje: 5811-5814."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kody MCC mają cztery cyfry i są rozdzielane przecinkami. Zakres zapisz z myślnikiem: 5811-5814."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCCs são códigos de quatro dígitos separados por vírgulas; intervalos são escritos com hífen: 5811-5814."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os MCC são códigos de quatro dígitos separados por vírgulas; use um hífen para intervalos: 5811-5814."
           }
         },
         "ru": {
@@ -1297,16 +1633,136 @@
             "state": "translated",
             "value": "MCC — четырёхзначные коды через запятую, диапазон — через дефис: 5811-5814."
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — рамзҳои чоррақамаанд, ки бо вергул ҷудо мешаванд; диапазон бо тире навишта мешавад: 5811-5814."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC kodları virgülle ayrılmış dört basamaklı sayılardır; aralıklar kısa çizgiyle yazılır: 5811-5814."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — це чотиризначні коди, розділені комами; діапазон записується через дефіс: 5811-5814."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC — vergul bilan ajratilgan to‘rt xonali kodlar; oraliq chiziqcha bilan yoziladi: 5811-5814."
+          }
         }
       }
     },
     "cashback.choice.excludeCodes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC istisna"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акрамя MCC"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kromě MCC"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Außer MCC"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Except MCC"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Excepto MCC"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sauf MCC"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացի MCC-ից"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escludi MCC"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "対象外のMCC"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC-ის გარდა"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC-ден басқа"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCCден тышкары"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behalve MCC"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oprócz MCC"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exceto MCC"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exceto MCC"
           }
         },
         "ru": {
@@ -1314,22 +1770,166 @@
             "state": "translated",
             "value": "Кроме MCC"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ба ҷуз MCC"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC hariç"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Крім MCC"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC kodlaridan tashqari"
+          }
         }
       }
     },
     "cashback.choice.includeCodes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankın MCC kodları"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC банка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC banky"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCCs der Bank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Bank's MCC"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC de la banque"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկի MCC-ները"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC della banca"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行指定のMCC"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბანკის MCC"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктің MCC кодтары"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктын MCC коддору"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC van bank"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC banku"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCCs do banco"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC do banco"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC банка"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC-и бонк"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankanın MCC kodları"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC банку"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankning MCC kodlari"
           }
         }
       }

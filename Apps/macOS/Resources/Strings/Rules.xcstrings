@@ -24067,10 +24067,106 @@
     "rules.problem.contradictoryAmounts": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ limitləri ziddiyyətlidir: heç bir məbləğ həm birindən çox, həm də digərindən az ola bilməz"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Абмежаванні сумы супярэчаць адно аднаму: ніводная сума не адпавядае абодвум"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limity částky si odporují: žádná částka není vyšší než jeden a zároveň nižší než druhý"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Betragsgrenzen widersprechen sich: Kein Betrag liegt über der einen und unter der anderen Grenze."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The sum limits contradict each other: no amount is both above one and below the other"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los límites de importe se contradicen: ningún importe es mayor que uno y menor que el otro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les limites de montant se contredisent : aucun montant n’est supérieur à l’une et inférieur à l’autre"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումարի սահմանները հակասում են իրար․ ոչ մի գումար չի բավարարում երկուսին էլ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I limiti di importo sono incompatibili: nessun importo può essere superiore a uno e inferiore all’altro"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額の条件が矛盾しています。両方の条件を満たす金額はありません"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის ზღვრები ერთმანეთს ეწინააღმდეგება: ვერცერთი თანხა ვერ იქნება ერთზე მეტი და მეორეზე ნაკლები"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома шектері бір-біріне қайшы: бірінен жоғары әрі екіншісінен төмен сома жоқ"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма чектери бири-бирине каршы келет: бир чектен жогору жана экинчисинен төмөн сумма жок"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De bedraglimieten spreken elkaar tegen: geen enkel bedrag ligt boven de ene en onder de andere limiet"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limity kwot są sprzeczne: żadna kwota nie jest jednocześnie powyżej jednego i poniżej drugiego"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os limites de valor são contraditórios: nenhum valor está acima de um e abaixo do outro"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os limites de valor são contraditórios: nenhum valor é superior a um e inferior ao outro"
           }
         },
         "ru": {
@@ -24078,22 +24174,166 @@
             "state": "translated",
             "value": "Границы суммы противоречат друг другу: ни одна сумма не бывает и больше одной, и меньше другой"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маҳдудиятҳои маблағ мухолифанд: ягон маблағ аз як ҳад зиёд ва аз ҳади дигар кам нест"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar sınırları çelişiyor: Bir sınırın üstünde ve diğerinin altında olan bir tutar yok"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обмеження суми суперечать одне одному: жодна сума не може бути більшою за одне й меншою за інше"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summa chegaralari bir-biriga zid: hech bir summa biridan yuqori va ikkinchisidan past emas"
+          }
         }
       }
     },
     "rules.problem.contradictoryKinds": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir qaydada iki fərqli əməliyyat növü var: əməliyyat yalnız bir növə aid ola bilər"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Два розныя тыпы аперацыі ў адным правіле: аперацыя мае толькі адзін тып"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dva různé typy transakcí v jednom pravidle: transakce může být jen jednoho typu"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwei verschiedene Vorgangsarten in einer Regel: Ein Vorgang hat nur eine Art."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Two different kinds of operation in one rule: an operation is of one kind only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hay dos tipos de operación en una regla: cada operación solo tiene un tipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deux types d’opération différents dans une même règle : une opération ne peut avoir qu’un seul type"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մեկ կանոնում գործարքի երկու տարբեր տեսակ կա․ գործարքը կարող է ունենալ միայն մեկ տեսակ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Due tipi di operazione diversi nella stessa regola: un’operazione può avere un solo tipo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1つのルールに異なる種類の取引が2つあります。取引の種類は1つだけです"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ერთ წესში ოპერაციის ორი სხვადასხვა ტიპია: ოპერაციას მხოლოდ ერთი ტიპი აქვს"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бір ережеде екі түрлі операция түрі бар: операцияның бір ғана түрі болады"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бир эрежеде операциянын эки түрү көрсөтүлгөн: операция бир гана түргө кирет"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Twee verschillende soorten transacties in één regel: een transactie heeft maar één soort"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dwa różne typy operacji w jednej regule: operacja może mieć tylko jeden typ"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dois tipos de operação em uma regra: cada operação tem apenas um tipo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dois tipos de operação diferentes na mesma regra: cada operação tem apenas um tipo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В правиле два разных вида операции: операция бывает только одного вида"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар як қоида ду навъи гуногуни амалиёт аст: амалиёт танҳо як навъ дорад"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir kuralda iki farklı işlem türü var: Bir işlem yalnızca tek bir türde olabilir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В одному правилі вказано два різні типи операції: операція може мати лише один тип"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitta qoidada ikki xil amal turi bor: amal faqat bir turga tegishli"
           }
         }
       }

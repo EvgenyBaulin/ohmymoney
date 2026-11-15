@@ -6776,16 +6776,142 @@
     "debts.card.missedMinimumPaid": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
+        "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Минимум по выписке внесён в срок (до %@), но льготный период потерян: проценты пойдут, вся задолженность по карте теперь долг"
+            "value": "Çıxarışın minimum məbləği %@ tərəfindən ödənildi, lakin güzəşt müddəti itirildi: faiz hesablanacaq və kartın bütün borcu artıq borcdur"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны плацёж па выпісцы ўнесены да %@, але льготны перыяд страчаны: будуць налічаны працэнты, а ўся запазычанасць па карце стала доўгам"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ uhradil(a) minimální splátku, ale bezúročné období skončilo. Bude účtován úrok a celý dluh na kartě je nyní splatný."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ hat den Mindestbetrag der Abrechnung bezahlt. Die zinsfreie Zeit ist jedoch verloren: Es fallen Zinsen an, und der gesamte Kartenbetrag gilt nun als Schuld."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The minimum of the statement was paid by %@, but the grace period is lost: interest will come and the whole debt of the card is a debt now"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ pagó el mínimo del extracto, pero se perdió el período de gracia: se cobrarán intereses y el saldo total de la tarjeta es ahora una deuda"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le minimum du relevé a été payé par %@, mais le délai de grâce est perdu : des intérêts seront facturés et la totalité du solde de la carte est désormais une dette"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Քաղվածքի նվազագույն վճարը կատարվել է %@-ի կողմից, սակայն արտոնյալ ժամկետն ավարտվել է․ տոկոսներ կհաշվարկվեն, և քարտի ամբողջ գումարն այժմ պարտք է"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ha pagato il minimo dell’estratto conto, ma il periodo di grazia è scaduto: matureranno interessi e l’intero saldo della carta è ora un debito"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@までに最低支払額は支払われましたが、無利息期間が終了しました。利息が発生し、カードの利用残高全額が返済対象になります"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამონაწერის მინიმალური თანხა გადაიხადა: %@, მაგრამ საშეღავათო პერიოდი დაკარგულია: დაერიცხება პროცენტი და ბარათის მთელი დავალიანება უკვე ვალია"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзіндідегі ең аз төлемді %@ төледі, бірақ жеңілдік кезеңі жоғалды: пайыз есептеледі және картадағы бүкіл сома қарызға айналды"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@까지 명세서의 최소 결제 금액을 납부했지만 무이자 기간이 종료되어 이자가 발생하며, 카드 전체 잔액이 부채로 처리됩니다"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көчүрмөдөгү минималдуу төлөмдү %@ төлөдү, бирок жеңилдетилген мөөнөт жоголду: пайыздар кошулат жана картанын бүт суммасы карыз болуп эсептелет"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ heeft het minimumbedrag van het afschrift betaald, maar de rentevrije periode is vervallen. Er wordt rente berekend en de volledige kaartschuld is nu een schuld."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ opłacił(a) kwotę minimalną z wyciągu, ale okres bezodsetkowy przepadł. Zostaną naliczone odsetki, a całe saldo karty jest teraz długiem."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O pagamento mínimo da fatura foi feito por %@, mas o período sem juros foi perdido: haverá cobrança de juros e todo o saldo do cartão agora é uma dívida"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mínimo do extrato foi pago até %@, mas o período sem juros foi perdido: serão cobrados juros e todo o saldo do cartão é agora uma dívida"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимум по выписке внесён в срок (до %@), но льготный период потерян: проценты пойдут, вся задолженность по карте теперь долг"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳадди ақали ҳисобот то %@ пардохт шуд, аммо давраи имтиёзнок аз даст рафт: фоиз ҳисоб мешавад ва тамоми маблағи корт қарз аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekstrenin asgari tutarı %@ tarafından ödendi, ancak faizsiz dönem kaybedildi: faiz işleyecek ve kartın tüm borcu artık borç sayılacak"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний платіж за випискою сплачено до %@, але пільговий період втрачено: буде нараховано відсотки, а весь борг за карткою тепер є заборгованістю"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ko‘chirma bo‘yicha minimal to‘lovni amalga oshirdi, ammo imtiyozli davr yo‘qotildi: foizlar hisoblanadi va kartadagi butun summa qarzga aylanadi"
           }
         }
       }

@@ -2421,16 +2421,142 @@
     "allocation.note.noRate": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu gün üçün məzənnə yoxdur: sətir boşdur"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма курсу на гэты дзень: радок пусты"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro tento den není kurz: řádek je prázdný"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Wechselkurs für diesen Tag: Die Zeile ist leer"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No exchange rate for this day: the line is empty"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin tipo de cambio para este día: la línea está vacía"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun taux de change pour ce jour : la ligne est vide"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս օրվա փոխարժեքը չկա․ տողը դատարկ է"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun tasso di cambio per questo giorno: la riga è vuota"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この日の為替レートがないため、行は空です"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ დღის კურსი არ არის: ხაზი ცარიელია"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл күнге айырбас бағамы жоқ: жол бос"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 날짜의 환율이 없어 선이 표시되지 않음"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бул күнгө алмашуу курсу жок: сап бош"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geen wisselkoers voor deze dag: de regel is leeg"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak kursu na ten dzień: linia jest pusta"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem taxa de câmbio para este dia: a linha está vazia"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem taxa de câmbio para este dia: a linha fica vazia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет курса на этот день: строка пустая"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қурби асъор барои ин рӯз нест: хат холӣ аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu gün için döviz kuru yok: satır boş"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає курсу на цей день: рядок порожній"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kun uchun valyuta kursi yo‘q: chiziq bo‘sh"
           }
         }
       }
@@ -2599,16 +2725,142 @@
     "allocation.overBudget": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mövcud məbləğdən %@ çox ayırırsınız"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы размяркоўваеце больш, чым ёсць, на %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozdělujete o %@ více, než máte"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du verteilst %@ mehr, als verfügbar ist"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "You are allocating more than there is: by %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estás asignando más de lo disponible: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous répartissez plus que disponible : %@ en trop"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բաշխում եք առկա գումարից ավելի՝ %@-ով"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stai allocando più del disponibile: %@ in eccesso"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "割り当て額が残高を%@超えています"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაწილებთ არსებულზე მეტს: %@-ით"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қолда бардан %@ артық бөлдіңіз"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보유 금액보다 %@ 초과 배분 중"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бар суммадан %@ көбүрөөк бөлүп жатасыз"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je verdeelt meer dan beschikbaar: %@ te veel"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przydzielasz więcej, niż masz: o %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você está alocando %@ a mais do que tem"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Está a distribuir mais do que o disponível: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вы раскладываете больше, чем есть: на %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шумо аз маблағи мавҷуда %@ зиёд ҷудо мекунед"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut tutardan %@ fazla ayırıyorsunuz"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розподілено більше, ніж є: на %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mavjud mablag‘dan %@ ko‘p taqsimlayapsiz"
           }
         }
       }

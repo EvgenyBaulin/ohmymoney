@@ -3730,10 +3730,112 @@
     "amount.unreadable": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ oxunmur"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдаецца прачытаць суму"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Částku nelze přečíst"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Betrag ist nicht lesbar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The amount does not read"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede leer el importe"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le montant n’est pas lisible"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումարը հնարավոր չէ կարդալ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo non leggibile"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額を読み取れません"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა არ იკითხება"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома оқылмайды"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "금액을 읽을 수 없음"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма окулбай жатат"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het bedrag is onleesbaar"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie można odczytać kwoty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o valor"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não é possível ler o montante"
           }
         },
         "ru": {
@@ -3741,22 +3843,172 @@
             "state": "translated",
             "value": "Сумма не читается"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағ хонда намешавад"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar okunamıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося розпізнати суму"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summani o‘qib bo‘lmadi"
+          }
         }
       }
     },
     "amount.unreadable.form": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ oxunmur: saxlamaq üçün onu tamamlayın və ya silin."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдаецца прачытаць суму. Каб захаваць, дапішыце яе або ачысціце поле."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Částku nelze přečíst. Pro uložení ji dokončete nebo smažte."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Betrag ist nicht lesbar. Vervollständige oder lösche ihn, um zu sichern."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "An amount does not read: finish or clear it to save."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede leer un importe. Complétalo o bórralo para guardar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un montant n’est pas lisible : complétez-le ou effacez-le pour enregistrer."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումարը հնարավոր չէ կարդալ։ Պահելու համար լրացրեք կամ մաքրեք այն։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un importo non è leggibile: completalo o cancellalo per salvare."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額を読み取れません。保存するには、入力を完了するか消去してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა არ იკითხება: შესანახად დაასრულეთ ან წაშალეთ."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома оқылмайды: сақтау үшін оны толықтырыңыз немесе өшіріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "금액을 읽을 수 없습니다. 저장하려면 입력을 완료하거나 지우십시오."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма окулбай жатат: сактоо үчүн аны толуктаңыз же тазалаңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een bedrag is onleesbaar. Vul het aan of wis het om te bewaren."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie można odczytać kwoty. Uzupełnij ją lub wyczyść, aby zapisać."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler um valor. Complete-o ou apague-o para salvar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não é possível ler um montante. Complete-o ou apague-o para guardar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сумма не читается: допишите или очистите её, чтобы сохранить."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағ хонда намешавад: барои захира онро пурра кунед ё пок кунед."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir tutar okunamıyor: Kaydetmek için tamamlayın veya silin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося розпізнати суму. Допишіть або очистьте її, щоб зберегти."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summani o‘qib bo‘lmadi: saqlash uchun uni to‘ldiring yoki tozalang."
           }
         }
       }
@@ -25826,10 +26078,112 @@
     "write.refused.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız oxuma rejimi aktivdir: heç nəyi dəyişmək olmaz. Redaktə etmək üçün onu söndürün."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключаны рэжым толькі для чытання: змены немагчымыя. Выключыце яго, каб рэдагаваць."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je zapnutý režim pouze pro čtení. Pro úpravy ho vypněte."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Schreibschutz ist aktiviert. Deaktiviere ihn, um Änderungen vorzunehmen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Read-only mode is on: nothing can be changed. Turn it off to edit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El modo de solo lectura está activado. Desactívalo para editar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mode lecture seule est activé : aucune modification n’est possible. Désactivez-le pour modifier."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միացված է միայն կարդալու ռեժիմը․ փոփոխություններ կատարել հնարավոր չէ։ Խմբագրելու համար անջատեք այն։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La modalità di sola lettura è attiva: non puoi apportare modifiche. Disattivala per modificare."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "読み取り専用モードがオンのため、変更できません。編集するにはオフにしてください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩართულია მხოლოდ წაკითხვის რეჟიმი: ცვლილებები შეუძლებელია. რედაქტირებისთვის გამორთეთ."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тек оқу режимі қосулы: ештеңені өзгерту мүмкін емес. Өңдеу үшін оны өшіріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "읽기 전용 모드가 켜져 있어 변경할 수 없습니다. 편집하려면 읽기 전용 모드를 끄십시오."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окуу режими күйүк: өзгөртүү мүмкүн эмес. Түзөтүү үчүн аны өчүрүңүз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alleen-lezen is ingeschakeld. Schakel dit uit om wijzigingen aan te brengen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tryb tylko do odczytu jest włączony. Wyłącz go, aby edytować."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O modo somente leitura está ativado. Desative-o para editar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O modo só de leitura está ativo: não é possível alterar nada. Desative-o para editar."
           }
         },
         "ru": {
@@ -25837,22 +26191,172 @@
             "state": "translated",
             "value": "Включён режим «Только просмотр»: ничего нельзя изменить. Выключите его, чтобы править."
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳолати танҳо барои хондан фаъол аст: тағйирот ворид карда намешавад. Барои таҳрир онро хомӯш кунед."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salt okunur mod açık: Hiçbir şey değiştirilemez. Düzenlemek için modu kapatın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнено режим лише для читання. Вимкніть його, щоб внести зміни."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat o‘qish rejimi yoqilgan: hech narsani o‘zgartirib bo‘lmaydi. Tahrirlash uchun uni o‘chiring."
+          }
         }
       }
     },
     "write.refused.readOnly.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız oxuma rejimi aktivdir"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключаны рэжым толькі для чытання"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Režim pouze pro čtení je zapnutý"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schreibschutz ist aktiviert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Read-only mode is on"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo de solo lectura activado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode lecture seule activé"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միացված է միայն կարդալու ռեժիմը"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modalità di sola lettura attiva"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "読み取り専用モードがオンです"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩართულია მხოლოდ წაკითხვის რეჟიმი"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тек оқу режимі қосулы"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "읽기 전용 모드가 켜져 있음"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окуу режими күйүк"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alleen-lezen is ingeschakeld"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tryb tylko do odczytu jest włączony"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo somente leitura ativado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O modo só de leitura está ativo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включён режим «Только просмотр»"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳолати танҳо барои хондан фаъол аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salt okunur mod açık"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнено режим лише для читання"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat o‘qish rejimi yoqilgan"
           }
         }
       }

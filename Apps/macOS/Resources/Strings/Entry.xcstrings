@@ -4538,16 +4538,142 @@
     "entry.ahead.titleFar": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatın tarixi %@ — %lld ay sonradır"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата аперацыі — %@, праз %lld мес."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operace je datována %@ — za %lld měsíců"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Buchung ist auf %@ datiert – in %lld Monaten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The operation is dated %@ — %lld months ahead"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La operación está fechada el %@, dentro de %lld meses"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’opération est datée du %@ — dans %lld mois"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գործողության ամսաթիվն է %@՝ %lld ամիս հետո"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’operazione è datata %@, tra %lld mesi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取引日は%@です（%lldか月後）"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციის თარიღია %@ — %lld თვით წინ"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция күні — %@, %lld айдан кейін"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "거래일이 %@입니다. %lld개월 후"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операциянын датасы: %@ — %lld ай алдыда"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De transactie dateert van %@ — over %lld maanden"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacja ma datę %@ — za %lld mies."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A operação está datada de %@ — daqui a %lld meses"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A operação está datada de %@ — daqui a %lld meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операция на %@ — через %lld мес. вперёд"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаи амалиёт %@ — %lld моҳ баъд аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşlem tarihi %@ — %lld ay sonra"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцію датовано %@ — на %lld міс. наперед"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operatsiya sanasi: %@ — %lld oy keyin"
           }
         }
       }
@@ -32904,16 +33030,142 @@
     "entry.taxDeduction": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergi güzəşti"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатковы вылік"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daňový odpočet"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steuerabzug"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Tax deduction"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deducción fiscal"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déduction fiscale"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հարկային նվազեցում"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detrazione fiscale"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "税額控除"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საგადასახადო გამოქვითვა"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Салық шегерімі"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "소득공제"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Салыктык чегерүү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belastingaftrek"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ulga podatkowa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dedução fiscal"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dedução fiscal"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Налоговый вычет"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тарҳи андоз"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergi indirimi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податкове вирахування"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soliq chegirmasi"
           }
         }
       }

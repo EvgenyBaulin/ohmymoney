@@ -4,16 +4,142 @@
     "migration.account.new": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yeni hesab"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "новы рахунак"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nový účet"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "new account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cuenta nueva"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nouveau compte"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "նոր հաշիվ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nuovo conto"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新規口座"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი ანგარიში"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жаңа шот"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 계좌"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жаңы эсеп"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nieuwe rekening"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nowe konto"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nova conta"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nova conta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "новый счёт"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ҳисоби нав"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yeni hesap"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "новий рахунок"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yangi hisob"
           }
         }
       }
@@ -4809,16 +4935,142 @@
     "migration.done.reconcile": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balansları yoxlayın: köçürmədən sonra bankdakı balansdan fərqlənə bilər. Hesablarda hər hesabı bir dəfə sayın."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праверце балансы: пасля пераносу яны могуць адрознівацца ад даных банка. Улічыце кожны рахунак адзін раз у раздзеле «Рахункі»."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkontrolujte zůstatky: po přesunu se mohou lišit od banky. V Účtech započítejte každý účet jen jednou."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prüfe die Salden: Nach einem Umzug können sie von den Banksalden abweichen. Zähle jedes Konto unter „Konten“ nur einmal."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Check the balances: after a move they may differ from the bank. Count each account once in Accounts."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprueba los saldos: tras el traslado pueden diferir de los del banco. Cuenta cada cuenta una sola vez en Cuentas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifiez les soldes : après un transfert, ils peuvent différer de ceux de la banque. Ne comptez chaque compte qu’une fois dans Comptes."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ստուգեք մնացորդները․ տեղափոխումից հետո դրանք կարող են տարբերվել բանկի տվյալներից։ «Հաշիվներ» բաժնում յուրաքանչյուր հաշիվ հաշվեք մեկ անգամ։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controlla i saldi: dopo un trasferimento potrebbero differire da quelli della banca. Conteggia ogni conto una sola volta in Conti."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "残高を確認してください。移行後は銀行の残高と異なる場合があります。「口座」で各口座を1回ずつ集計してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეამოწმეთ ნაშთები: გადატანის შემდეგ ისინი შეიძლება ბანკის მონაცემებისგან განსხვავდებოდეს. ანგარიშებში თითოეული ანგარიში ერთხელ დაითვალეთ."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қалдықтарды тексеріңіз: көшіргеннен кейін олар банктегі қалдықтан өзгеше болуы мүмкін. «Шоттар» бөлімінде әр шотты бір рет есептеңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잔액 확인: 이동 후 은행 잔액과 다를 수 있습니다. 계좌에서 각 계좌를 한 번씩 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калдыктарды текшериңиз: көчүрүүдөн кийин алар банктагыдан айырмаланышы мүмкүн. Эсептер бөлүмүндө ар бир эсепти бир жолу гана санаңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controleer de saldi: na een migratie kunnen ze afwijken van de bank. Tel elke rekening één keer mee in 'Rekeningen'."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdź salda: po przeniesieniu mogą różnić się od sald w banku. Uwzględnij każde konto tylko raz w sekcji Konta."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confira os saldos: após a transferência, eles podem ser diferentes dos saldos no banco. Conte cada conta uma vez em Contas."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verifique os saldos: após a migração, podem ser diferentes dos do banco. Conte cada conta uma só vez em Contas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сверьте остатки: после переезда они могли разойтись с банком. Сверьте каждый счёт в «Счетах»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бақияи ҳисобҳоро санҷед: пас аз интиқол онҳо метавонанд аз бақияи бонк фарқ кунанд. Ҳар ҳисобро дар «Ҳисобҳо» як бор ҳисоб кунед."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bakiyeleri kontrol edin: Taşıma sonrasında bankadakilerden farklı olabilirler. Her hesabı Hesaplar'da yalnızca bir kez sayın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірте баланси: після перенесення вони можуть відрізнятися від даних банку. Врахуйте кожен рахунок один раз у розділі «Рахунки»."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qoldiqlarni tekshiring: ko‘chirishdan so‘ng ular bankdagidan farq qilishi mumkin. Hisoblarda har bir hisobni bir marta hisoblang."
           }
         }
       }

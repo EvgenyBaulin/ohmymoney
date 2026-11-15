@@ -17386,16 +17386,136 @@
     "categories.add.parent": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Üst kateqoriya"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бацькоўская катэгорыя"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nadřazená kategorie"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übergeordnete Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Parent category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría superior"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégorie parente"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերին կատեգորիա"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria principale"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "親カテゴリ"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მშობელი კატეგორია"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Негізгі санат"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Негизги категория"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bovenliggende categorie"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategoria nadrzędna"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria superior"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria principal"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Родительская категория"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорияи асосӣ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Üst kategori"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Батьківська категорія"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yuqori turkum"
           }
         }
       }
@@ -50123,6 +50243,143 @@
         }
       }
     },
+    "integrity.finding.merchantCodesUnreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Satıcı kodları siyahısı oxunmayan bank keşbek kateqoriyaları"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыі кэшбэку банка са спісам кодаў прадаўцоў, які не ўдаецца прачытаць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankovní kategorie cashbacku s nečitelným seznamem kódů obchodníků"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Cashback-Kategorien mit einer unlesbaren Händlercode-Liste"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank cashback categories with a list of merchant codes that does not read"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorías de devolución del banco con una lista de códigos de comercio que no se puede leer"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégories de cashback bancaire dont la liste des codes marchands est illisible"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բանկի քեշբեքի կատեգորիաներ՝ առևտրականների կոդերի չընթեռնվող ցանկով"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorie cashback della banca con un elenco di codici esercente illeggibile"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加盟店コードのリストを読み取れない銀行のキャッシュバックカテゴリ"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბანკის ქეშბექის კატეგორიები, რომელთა სავაჭრო ობიექტების კოდების სია ვერ იკითხება"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сатушы кодтарының тізімі оқылмайтын банк кэшбэк санаттары"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сатуучу коддорунун тизмеси окулбаган банк кэшбэк категориялары"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashbackcategorieën van banken met een onleesbare lijst met winkelcodes"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie zwrotu bankowego z nieczytelną listą kodów sprzedawców"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorias de cashback bancário com uma lista de códigos de estabelecimentos ilegível"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorias de reembolso bancário com uma lista de códigos de comerciante ilegível"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категории кэшбэка банков с нечитаемым списком MCC"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорияҳои кешбэки бонк бо рӯйхати кодҳои тоҷирон, ки хонда намешавад"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Satıcı kodları listesi okunamayan banka para iadesi kategorileri"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії кешбеку банку з нечитабельним списком кодів продавців"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savdo nuqtalari kodlari roʻyxatini oʻqib boʻlmaydigan bank keshbek turkumlari"
+          }
+        }
+      }
+    },
     "integrity.finding.nextRateIncomplete": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -50275,23 +50532,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "已設定新利率但未設定生效日，或已設定生效日但未設定新利率的帳戶"
-          }
-        }
-      }
-    },
-    "integrity.finding.merchantCodesUnreadable": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bank cashback categories with a list of merchant codes that does not read"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Категории кэшбэка банков с нечитаемым списком MCC"
           }
         }
       }
@@ -51235,16 +51475,136 @@
     "integrity.finding.taxDeductionUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu versiyaya məlum olmayan vergi endirimi növü olan əməliyyatlar, borclar və ya hesablar"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыі, даўгі або рахункі з невядомым гэтай версіі відам падатковага выліку"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transakce, dluhy nebo účty s typem daňového odpočtu, který tato verze nezná"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buchungen, Schulden oder Konten mit einer dieser Version unbekannten Steuerabzugsart"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Operations, debts or accounts with a kind of tax deduction this version does not know"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operaciones, deudas o cuentas con un tipo de deducción fiscal que esta versión desconoce"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opérations, dettes ou comptes avec un type de déduction fiscale inconnu de cette version"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գործարքներ, պարտքեր կամ հաշիվներ՝ այս տարբերակին անհայտ հարկային նվազեցման տեսակով"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazioni, debiti o conti con un tipo di detrazione fiscale non riconosciuto da questa versione"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このバージョンでは認識できない種類の税額控除がある取引、負債、または口座"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციები, ვალები ან ანგარიშები საგადასახადო გამოქვითვის ტიპით, რომელსაც ეს ვერსია არ იცნობს"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Салық шегерімінің осы нұсқаға белгісіз түрі бар операциялар, қарыздар немесе шоттар"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Салыктык чегерүүнүн бул версияга белгисиз түрү бар операциялар, карыздар же эсептер"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transacties, schulden of rekeningen met een onbekend type belastingaftrek"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacje, długi lub konta z rodzajem ulgi podatkowej nieznanym tej wersji"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operações, dívidas ou contas com um tipo de dedução fiscal desconhecido nesta versão"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operações, dívidas ou contas com um tipo de dedução fiscal desconhecido nesta versão"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операции, долги или счета с незнакомым видом налогового вычета"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Амалиёт, қарзҳо ё ҳисобҳо бо навъи тарҳи андоз, ки ба ин версия номаълум аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu sürümün tanımadığı vergi indirimi türüne sahip işlemler, borçlar veya hesaplar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операції, борги або рахунки з невідомим цій версії типом податкового відрахування"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soliq chegirmasi turi ushbu versiyaga nomaʼlum boʻlgan operatsiyalar, qarzlar yoki hisoblar"
           }
         }
       }

@@ -2906,10 +2906,112 @@
     "purchases.credit.day": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mədaxil tarixi"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата залічэння"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Připsáno dne"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gutgeschrieben am"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Credited on"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonado el"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédité le"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքագրվել է"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accreditato il"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入金日"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩარიცხვის თარიღი"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есепке алынған күн"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "입금일"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түшкөн күнү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bijgeschreven op"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data uznania"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creditado em"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creditado em"
           }
         },
         "ru": {
@@ -2917,16 +3019,142 @@
             "state": "translated",
             "value": "Зачислено"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаи воридшавӣ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaba geçiş tarihi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараховано"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisobga tushgan sana"
+          }
         }
       }
     },
     "purchases.credit.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geri ödəniş həmin tarixə yazılır: hesabın balansı bankdakı balansa uyğun olur."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне будзе датавана гэтым днём: баланс рахунку супадзе з банкаўскім."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vratka je zaznamenána k tomuto dni, takže zůstatek účtu odpovídá bance."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Erstattung wird auf diesen Tag datiert. Der Kontostand entspricht dem der Bank."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The refund is dated that day: the balance of the account follows the bank."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El reembolso se registra ese día: el saldo de la cuenta coincide con el del banco."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement est daté de ce jour : le solde du compte correspond à celui de la banque."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերադարձը գրանցվում է այդ ամսաթվով․ հաշվի մնացորդը համընկնում է բանկի մնացորդին։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il rimborso è registrato in quella data: il saldo del conto segue quello della banca."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返金はその日付で記録され、口座残高は銀行の残高と一致します。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის დაბრუნება ამ თარიღით აღირიცხება: ანგარიშის ნაშთი ბანკის მონაცემებს ემთხვევა."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарым сол күнмен белгіленеді: шоттағы қалдық банкке сәйкес болады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "환불은 해당 날짜로 기록되며, 계좌 잔액은 은행과 일치합니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каражат ошол күнгө кайтарылган болуп эсептелет: эсептин калдыгы банктагыга дал келет."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De terugbetaling krijgt die datum, zodat het rekeningsaldo overeenkomt met dat van de bank."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot zostanie zapisany z tą datą, aby saldo konta zgadzało się z saldem w banku."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O reembolso terá essa data: o saldo da conta acompanhará o do banco."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O reembolso tem essa data: o saldo da conta acompanha o banco."
           }
         },
         "ru": {
@@ -2934,22 +3162,172 @@
             "state": "translated",
             "value": "Возврат запишется этим днём: остаток счёта сойдётся с банком."
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бозгашт бо ин сана сабт мешавад: бақияи ҳисоб бо бонк мувофиқ мемонад."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İade bu tarihe kaydedilir; hesap bakiyesi bankayla eşleşir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення датовано цим днем: баланс рахунку відповідає даним банку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qaytarilgan mablag‘ shu sana bilan qayd etiladi: hisob qoldig‘i bankdagiga mos keladi."
+          }
         }
       }
     },
     "purchases.credit.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul nə vaxt daxil oldu?"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калі паступілі грошы?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kdy peníze dorazily?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wann ist das Geld eingegangen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "When did the money arrive?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuándo llegó el dinero?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quand l’argent est-il arrivé ?"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ե՞րբ է գումարը մուտքագրվել։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando è arrivato il denaro?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入金日はいつですか？"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "როდის ჩაირიცხა თანხა?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақша қашан түсті?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "언제 입금되었나요?"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акча качан түштү?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wanneer is het geld ontvangen?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiedy wpłynęły pieniądze?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando o dinheiro chegou?"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando chegou o dinheiro?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Когда пришли деньги?"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пул кай ворид шуд?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para ne zaman geldi?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Коли надійшли гроші?"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul qachon tushdi?"
           }
         }
       }
