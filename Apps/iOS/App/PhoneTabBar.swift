@@ -57,8 +57,9 @@ struct NavBarButton: View {
   /// The height of a tab: the symbol with its name under it inside the pill, the same for the open
   /// tab and the rest, so the name never reaches over the edge of the highlight.
   static let tabHeight: CGFloat = 52
-  /// The one size of every name under a symbol — the smallest the app allows (9 pt). Only the
-  /// longest name («Планирование») may shrink, by 0.85 at most, when its tab is narrower still.
+  /// The one size of every name under a symbol — the smallest the app allows (9 pt). The tab of
+  /// Planning says «Планы» (`NavItem.phoneBarKey`), so every name fits whole; a longer name from
+  /// «Оформление» may still shrink, by 0.85 at most, when its tab is narrower.
   static let labelPointSize: CGFloat = 9
   static let labelMinimumScale: CGFloat = 0.85
 

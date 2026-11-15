@@ -12,7 +12,7 @@ import XCTest
 final class PhoneTabBarFitTests: XCTestCase {
   private func titles(_ environment: AppEnvironment) -> [String] {
     NavItem.defaultPhoneTabs.map {
-      environment.language($0.titleKey, table: $0.titleTable ?? "Common")
+      environment.language($0.phoneBarKey.key, table: $0.phoneBarKey.table)
     } + [environment.language("phone.tab.more", table: "Phone")]
   }
 

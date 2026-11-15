@@ -43,7 +43,8 @@ struct PhoneRoot: View {
   }
 
   private func title(_ item: NavItem) -> String {
-    environment.language(item.titleKey, table: item.titleTable ?? "Common")
+    let name = item.phoneBarKey
+    return environment.language(name.key, table: name.table)
   }
 
   var body: some View {

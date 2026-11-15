@@ -87,9 +87,16 @@ public enum CashbackHints {
     let mainId = CashbackAdvisor.mainAccount(dataset)
     let tracker = monthTracker(ledger: ledger, book: book, today: today, mainId: mainId)
     let range = DayRange(today.adding(days: -29), today)
+    // What every purchase of those months really earned under the ceilings, in the order made.
+    let paid = CashbackMath.cappedExpectations(
+      CashbackAdvisor.purchases(ledger, through: DayRange(range.start.monthKey.firstDay, today)),
+      holder: { CashbackAdvisor.holder(of: $0.transaction, mainId: mainId) }, book: book,
+      caps: CashbackCaps(rules: dataset.cashbackRules, accounts: dataset.paymentMethods),
+      tree: ledger.tree, calendar: ledger.calendar, refunded: { ledger.refunded(forPart: $0) })
 
     struct Group {
       var amounts: [AmountE4] = []
+      var purchases: [(id: UUID, holder: CashbackHolder, amount: AmountE4)] = []
       var holders: [CashbackHolder: Int] = [:]
       var categories: [UUID: Int] = [:]
       var codes: [String: Int] = [:]
@@ -119,8 +126,9 @@ public enum CashbackHints {
       guard let key else { continue }
       var slot =
         groups[key] ?? (transaction.placeId, transaction.placeId == nil ? category : nil, Group())
-      slot.group.amounts.append(
-        transaction.amountRubE4 - (refundedByPurchase[row.transactionId] ?? .zero))
+      let net = transaction.amountRubE4 - (refundedByPurchase[row.transactionId] ?? .zero)
+      slot.group.amounts.append(net)
+      slot.group.purchases.append((transaction.id, held, net))
       slot.group.holders[held, default: 0] += 1
       if let category { slot.group.categories[category, default: 0] += 1 }
       if let code = MerchantCode.normalized(transaction.mcc) {
@@ -160,7 +168,16 @@ public enum CashbackHints {
       let usualRule = book.rule(for: usualHolder, categoryId: category, month: month, mcc: code)
       let usualPercent = usualRule?.percent ?? .zero
       guard best.percent > usualPercent else { continue }
-      let usualEarned = total.decimal * usualPercent.fraction
+      // What the usual card paid on these purchases under its ceilings; a purchase made with
+      // another card is priced as the usual card would have paid it, without a ceiling.
+      var usualEarned = Decimal(0)
+      for purchase in group.purchases {
+        if purchase.holder == usualHolder {
+          usualEarned += paid[purchase.id]?.rubles.decimal ?? 0
+        } else {
+          usualEarned += purchase.amount.decimal * usualPercent.fraction
+        }
+      }
       let gain = DecimalMath.round(best.expectedRub.decimal - usualEarned, scale: 0, mode: .down)
       guard let gainRub = try? AmountE4(decimal: gain), gainRub >= minGain else { continue }
       let usualAccount = book.account(of: usualHolder)
@@ -239,7 +256,9 @@ public enum CashbackHints {
       for row in ledger.rows(in: range) where row.kind == .expense {
         guard !OverviewSummary.isCountDifference(row) else { continue }
         guard CashbackAdvisor.isUnder(row.categoryId, category, tree: ledger.tree) else { continue }
-        total += (row.amountRubE4 - row.refundedRubE4).decimal
+        // My expenses, as the Overview counts them: a part paid for somebody else stays out
+        // until it is written off, and what refunds took back is already off.
+        total += row.contribution.decimal
       }
       return total
     }
