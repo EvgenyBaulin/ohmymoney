@@ -139,13 +139,18 @@ extension SyncExchange {
         try db.execute(sql: "VACUUM INTO ?", arguments: [copy.path])
       }
       let queue = try DatabaseQueue(path: copy.path)
+      // Rows of this device alone (place marks and their coordinates) must not survive in the
+      // free pages of the copy that leaves for the other devices: deleted with secure delete,
+      // then the file is rebuilt.
+      try queue.writeWithoutTransaction { db in try db.execute(sql: "PRAGMA secure_delete = ON") }
       try queue.write { db in
         for table in SyncTables.bookkeeping { try db.execute(sql: "DELETE FROM \(table)") }
         for table in SyncTables.deviceLocal {
-        guard try db.tableExists(table) else { continue }
+          guard try db.tableExists(table) else { continue }
           try db.execute(sql: "DELETE FROM \(table)")
         }
       }
+      try queue.writeWithoutTransaction { db in try db.execute(sql: "VACUUM") }
       let verdict = try queue.read { db in try String.fetchOne(db, sql: "PRAGMA integrity_check") }
       try queue.close()
       guard verdict == "ok" else { throw SyncSnapshotError.notWritten }
