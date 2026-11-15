@@ -110,6 +110,9 @@ public struct AccountMonthPlan: Hashable, Sendable {
     /// Interest of deposits expected on the pair through the end of the month and not received
     /// yet, never below zero (`DepositPayouts`).
     public var interest: AmountE4
+    /// Recorded future transfers between accounts owned by the user, signed in this currency.
+    /// They change the account balance but are excluded from the combined forecast.
+    public var internalTransfersAhead: AmountE4
 
     public init(
       key: BalanceKey, account: PaymentMethod, isHeld: Bool = true, now: AmountE4?,
@@ -117,7 +120,7 @@ public struct AccountMonthPlan: Hashable, Sendable {
       debts: AmountE4 = .zero, reconcileLoss: AmountE4 = .zero,
       othersSpending: AmountE4 = .zero, spendingWeight: AmountE4 = .zero,
       withoutRate: [CurrencyCode] = [], overdueIncome: [OverdueIncome] = [],
-      interest: AmountE4 = .zero
+      interest: AmountE4 = .zero, internalTransfersAhead: AmountE4 = .zero
     ) {
       self.key = key
       self.account = account
@@ -133,6 +136,7 @@ public struct AccountMonthPlan: Hashable, Sendable {
       self.withoutRate = withoutRate
       self.overdueIncome = overdueIncome
       self.interest = interest
+      self.internalTransfersAhead = internalTransfersAhead
     }
 
     /// The balance at the end of the month before any variable spending; `nil` while never
@@ -141,6 +145,11 @@ public struct AccountMonthPlan: Hashable, Sendable {
       now.map {
         $0 + writtenAhead + income + interest - scheduled - debts - reconcileLoss - othersSpending
       }
+    }
+
+    /// Recorded movements and unpaid payments, without any estimate of future behavior.
+    public var knownBase: AmountE4? {
+      now.map { $0 + writtenAhead - scheduled - debts }
     }
   }
 
@@ -297,6 +306,11 @@ public struct AccountMonthPlan: Hashable, Sendable {
       ledger: ledger, today: today, through: through,
       scheduledOperations: planMatches.operationIds, mainId: mainId, liveAccounts: live)
     let balances = accounts.balances
+    let ownTransfers = Set(
+      dataset.transfers.filter {
+        accountsById[$0.fromAccountId]?.hasBalance == true
+          && accountsById[$0.toAccountId]?.hasBalance == true
+      }.map(\.id))
     let outflows = Outflows.paced(
       ledger: ledger, today: today, mainId: mainId, liveAccounts: live, balances: balances)
 
@@ -312,6 +326,13 @@ public struct AccountMonthPlan: Hashable, Sendable {
               ahead = atEnd - now
             }
             let routed = router.flows[key] ?? Router.Pending()
+            let transfers = balances.movements(key, after: balances.now, through: endOfMonth)
+              .filter { movement in
+                switch movement.source {
+                case .transferOut(let id), .transferIn(let id): ownTransfers.contains(id)
+                case .operation, .journal: false
+                }
+              }
             return Flows(
               key: key, account: line.account, isHeld: keyLine.isHeld, now: now,
               writtenAhead: ahead, income: routed.income, scheduled: routed.scheduled,
@@ -321,7 +342,8 @@ public struct AccountMonthPlan: Hashable, Sendable {
               spendingWeight: spending.weights[key] ?? .zero,
               withoutRate: routed.withoutRate.sorted { $0.code < $1.code },
               overdueIncome: routed.overdueIncome.sorted { $0.due < $1.due },
-              interest: routed.interest)
+              interest: routed.interest,
+              internalTransfersAhead: AmountE4.sum(transfers.map(\.amountE4)))
           }
         })
     }
@@ -638,7 +660,9 @@ public struct AccountMonthPlan: Hashable, Sendable {
       flows: flows, status: .ready, spending: spending, balance: balance,
       balanceRub: AccountForecast.Band(
         low: rubles(balance.low), middle: rubles(balance.middle), high: rubles(balance.high)),
-      shareBp: shareBp, mayGoNegative: balance.middle.raw < 0 && now.raw >= 0)
+      shareBp: shareBp, mayGoNegative: balance.middle.raw < 0 && now.raw >= 0,
+      nowRub: rubles(now), knownEndRub: flows.knownBase.map(rubles),
+      internalTransfersAheadRub: rubles(flows.internalTransfersAhead))
   }
 }
 
@@ -680,11 +704,16 @@ public struct AccountForecast: Hashable, Sendable {
     /// The middle falls below zero while the balance now is not: a credit card already below
     /// zero is in its normal state.
     public var mayGoNegative: Bool
+    /// Inputs for the combined breakdown, converted at the same rate as the forecast.
+    public var nowRub: AmountE4?
+    public var knownEndRub: AmountE4?
+    public var internalTransfersAheadRub: AmountE4
 
     public init(
       flows: AccountMonthPlan.Flows, status: Status, spending: Band? = nil,
       balance: Band? = nil, balanceRub: Band? = nil, shareBp: Int? = nil,
-      mayGoNegative: Bool = false
+      mayGoNegative: Bool = false, nowRub: AmountE4? = nil, knownEndRub: AmountE4? = nil,
+      internalTransfersAheadRub: AmountE4 = .zero
     ) {
       self.flows = flows
       self.status = status
@@ -693,6 +722,9 @@ public struct AccountForecast: Hashable, Sendable {
       self.balanceRub = balanceRub
       self.shareBp = shareBp
       self.mayGoNegative = mayGoNegative
+      self.nowRub = nowRub
+      self.knownEndRub = knownEndRub
+      self.internalTransfersAheadRub = internalTransfersAheadRub
     }
 
     public var key: BalanceKey { flows.key }

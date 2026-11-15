@@ -175,6 +175,60 @@ final class OverviewTileContentTests: XCTestCase {
     XCTAssertEqual(tile.shortfall.map(framed), "При высоких тратах не хватает до 500 ₽")
   }
 
+  func testMonthlyDeficitAndPreviousMoneyInBothLanguages() {
+    let environment = russian()
+    let income = MonthIncomeEstimate(
+      month: MonthKey(year: 2026, month: 11), received: rub(64_066),
+      expectedRemaining: .zero, median3: nil, monthsInMedian: 0,
+      value: rub(64_066), source: .receivedOnly, lowData: false)
+    let result = CanSave(
+      CanSaveInputs(
+        income: income, spentWithoutGoals: rub(152_269), plannedStillDue: .zero,
+        remainder: MonthForecast.Remainder(
+          p10: .zero, middle: .zero, p90: .zero, lowData: false, computedFor: today,
+          daysLeft: 10, windowDays: 90), alreadySaved: .zero))
+    for choice in [AppLanguage.Choice.russian, .english] {
+      environment.language.choice = choice
+      for available in [Int64(64_415), 0, -1] {
+        let tile = CanSaveTile.make(result, environment, freeNow: rub(available))
+        if available >= 0 {
+          XCTAssertEqual(
+            framed(tile.figure),
+            choice == .russian
+              ? "Из дохода ноября отложить не получится: траты больше дохода на 88 203 ₽"
+              : "You cannot save from November income: spending exceeds income by 88 203 ₽")
+          XCTAssertFalse(
+            ([tile.figure, tile.shortfall ?? ""] + tile.hints)
+              .joined().contains(choice == .russian ? "не хватает" : "Short by"))
+          XCTAssertEqual(
+            tile.previousMoney.map(framed),
+            available > 0
+              ? (choice == .russian
+                ? "на счетах свободно 64 415 ₽ — это прошлые деньги"
+                : "64 415 ₽ is free on your accounts — this is money from earlier months") : nil)
+        } else {
+          XCTAssertNil(tile.previousMoney)
+          XCTAssertTrue(
+            tile.shortfall?.contains(choice == .russian ? "Не хватает" : "Short by") == true)
+        }
+      }
+    }
+  }
+
+  func testSavingsRiskWithFreeMoneyDoesNotSayShortageInEitherLanguage() {
+    let environment = russian()
+    for choice in [AppLanguage.Choice.russian, .english] {
+      environment.language.choice = choice
+      let tile = CanSaveTile.make(
+        canSave(low: -500, high: 200, middle: 100, saved: 0), environment, freeNow: .zero)
+      XCTAssertEqual(
+        tile.shortfall.map(framed),
+        choice == .russian
+          ? "При высоких тратах расходы превысят доход месяца на 500 ₽"
+          : "With high spending, expenses will exceed monthly income by 500 ₽")
+    }
+  }
+
   // MARK: Платежи на 7 дней
 
   private func payment(
