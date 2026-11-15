@@ -49168,6 +49168,23 @@
         }
       }
     },
+    "integrity.finding.taxDeductionUnknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations, debts or accounts with a kind of tax deduction this version does not know"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции, долги или счета с незнакомым видом налогового вычета"
+          }
+        }
+      }
+    },
     "integrity.finding.transferToItself": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

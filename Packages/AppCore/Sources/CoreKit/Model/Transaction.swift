@@ -220,6 +220,8 @@ public struct TransactionPart: Identifiable, Hashable, Sendable, Codable {
   public var note: String?
   /// A refund part: the part of a purchase it takes money back from.
   public var refundOfPartId: UUID?
+  /// The tax deduction the money of this part counts towards; `nil` — none.
+  public var taxDeduction: TaxDeductionKind?
 
   public init(
     id: UUID = UUID(),
@@ -238,7 +240,8 @@ public struct TransactionPart: Identifiable, Hashable, Sendable, Codable {
     eventId: UUID? = nil,
     goalId: UUID? = nil,
     note: String? = nil,
-    refundOfPartId: UUID? = nil
+    refundOfPartId: UUID? = nil,
+    taxDeduction: TaxDeductionKind? = nil
   ) {
     self.id = id
     self.transactionId = transactionId
@@ -257,6 +260,7 @@ public struct TransactionPart: Identifiable, Hashable, Sendable, Codable {
     self.goalId = goalId
     self.note = note
     self.refundOfPartId = refundOfPartId
+    self.taxDeduction = taxDeduction
   }
 }
 

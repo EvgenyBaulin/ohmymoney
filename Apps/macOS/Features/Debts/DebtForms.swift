@@ -289,6 +289,14 @@ struct DebtSheetView: View {
       paymentFields
       if debt.direction == .iOwe {
         Toggle(t("debts.paymentsAreExpenses"), isOn: $debt.paymentsAreExpenses)
+        // A mortgage is a loan with a schedule, not a kind: only the owner says which it is.
+        Toggle(
+          DeductionsText.t("deductions.debt.field", environment),
+          isOn: Binding(
+            get: { debt.taxDeduction == .mortgageInterest },
+            set: { debt.taxDeduction = $0 ? .mortgageInterest : nil })
+        )
+        .accessibilityIdentifier("debt.form.mortgageDeduction")
       }
       scheduleSection(principal: amount)
       // Written on the day its payment falls due: the balance is the one before or after the

@@ -42,6 +42,11 @@ public enum DatabaseCheck {
     /// read. Only reported: the app reads such a list as none — the label goes by category —
     /// and the owner types it again.
     case merchantCodesUnreadable
+    /// A part, debt or account whose kind of tax deduction this build does not know for its
+    /// table (a later build's value, a hand edit). Only reported: the app reads it as none —
+    /// the money counts towards no deduction — and the owner marks it again. One finding per
+    /// table.
+    case taxDeductionUnknown
   }
 
   public struct Finding: Sendable, Hashable, Codable {
@@ -252,12 +257,40 @@ public enum DatabaseCheck {
           ids: Array(unreadableCodes.prefix(idsShown))))
     }
 
+    for (table, kinds) in taxDeductionTables {
+      // A copy of an older schema has no column yet: nothing to check there.
+      guard try db.columns(in: table).contains(where: { $0.name == "tax_deduction" }) else {
+        continue
+      }
+      let known = kinds.map { "'\($0.rawValue)'" }.joined(separator: ", ")
+      let ids = try String.fetchAll(
+        db,
+        sql: """
+          SELECT id FROM \(table) WHERE tax_deduction IS NOT NULL
+            AND (typeof(tax_deduction) <> 'text' OR tax_deduction NOT IN (\(known)))
+          ORDER BY id
+          """)
+      if !ids.isEmpty {
+        findings.append(
+          Finding(
+            rule: .taxDeductionUnknown, table: table, count: ids.count, isRepairable: false,
+            ids: Array(ids.prefix(idsShown))))
+      }
+    }
+
     let operations =
       try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM transactions WHERE deleted_at IS NULL") ?? 0
     let accounts =
       try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM payment_methods WHERE archived = 0") ?? 0
     return Report(operations: operations, accounts: accounts, findings: findings)
   }
+
+  /// The tables that carry a kind of tax deduction and the kinds each may hold.
+  static let taxDeductionTables: [(String, [TaxDeductionKind])] = [
+    ("transaction_parts", TaxDeductionKind.partKinds),
+    ("debts", TaxDeductionKind.debtKinds),
+    ("payment_methods", TaxDeductionKind.accountKinds),
+  ]
 
   /// The rows of the banks' tables of cashback categories whose list of merchant codes does not
   /// read (`MerchantCodeList`), by id. SQL can not parse a list, so the rows that have one are
