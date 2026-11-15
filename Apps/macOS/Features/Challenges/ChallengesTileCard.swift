@@ -13,27 +13,31 @@ struct ChallengeTileFigure: Equatable {
   static func make(_ pick: ChallengeTile.Pick?, _ environment: AppEnvironment) -> Self? {
     guard let pick else { return nil }
     let progress = pick.progress
-    let table = ChallengeText.table
     var details: [String] = []
     if progress.elapsedDays > 0 && !progress.limitIsMissing {
       details.append(
-        environment.format("challenges.streak", table: table, counts: progress.currentStreak))
+        environment.format(
+          "challenges.streak", table: ChallengeText.table, counts: progress.currentStreak))
     }
     if let remaining = progress.remaining {
       details.append(
-        environment.format("challenges.left", table: table, environment.money.rounded(remaining)))
+        environment.format(
+          "challenges.left", table: ChallengeText.table, environment.money.rounded(remaining)))
     }
     if progress.isFinished, let saved = progress.saved, !saved.isZero {
       details.append(
-        environment.format("challenges.saved", table: table, environment.money.rounded(saved)))
+        environment.format(
+          "challenges.saved", table: ChallengeText.table, environment.money.rounded(saved)))
     }
     // A limit that is not set leaves nothing to count a day against: the tile says so instead.
     let caption =
       progress.limitIsMissing
       ? ChallengeText.t("challenges.limit.missing", environment)
       : pick.isRunning
-      ? environment.format("challenges.day", table: table, progress.elapsedDays, progress.dayCount)
-      : ChallengeText.t("challenges.state.\(stateKey(progress.state))", environment)
+        ? environment.format(
+          "challenges.day", table: ChallengeText.table, progress.elapsedDays,
+          progress.dayCount)
+        : ChallengeText.t("challenges.state.\(stateKey(progress.state))", environment)
     return Self(
       title: pick.challenge.title, symbol: ChallengeText.symbol(progress.state),
       caption: caption, details: details)
