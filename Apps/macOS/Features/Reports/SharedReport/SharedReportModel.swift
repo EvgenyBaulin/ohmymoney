@@ -102,8 +102,15 @@ final class SharedReportModel {
 
   var periodIsEmpty: Bool { range.isEmpty }
 
+  /// The PDF format's own encryption takes a Latin-1 password only; the owner is told under
+  /// the field instead of failing at save.
+  var pdfPasswordNeedsLatin: Bool {
+    format == .pdf && lock.encrypt
+      && lock.password.unicodeScalars.contains { $0.value > 0xFF }
+  }
+
   var canSave: Bool {
-    stage != .working && !periodIsEmpty && !request.accountIds.isEmpty
+    stage != .working && !pdfPasswordNeedsLatin && !periodIsEmpty && !request.accountIds.isEmpty
       && !categories.isEmpty && lock.answer != nil
   }
 

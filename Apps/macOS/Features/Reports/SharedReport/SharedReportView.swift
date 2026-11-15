@@ -80,7 +80,15 @@ struct SharedReportView: View {
         if model.lock.encrypt {
           SecureField(p("privacy.copy.password"), text: $model.lock.password)
           SecureField(p("privacy.copy.passwordAgain"), text: $model.lock.confirmation)
-          if let problem = model.lock.problemShown() {
+          if model.pdfPasswordNeedsLatin {
+            Label {
+              Text(verbatim: t("sharedReport.pdf.latinPassword"))
+            } icon: {
+              Image(systemName: "exclamationmark.octagon")
+            }
+            .foregroundStyle(.red)
+            .appFont(.callout)
+          } else if let problem = model.lock.problemShown() {
             Label {
               Text(verbatim: p(problem.messageKey))
             } icon: {

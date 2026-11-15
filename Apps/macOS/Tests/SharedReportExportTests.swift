@@ -67,6 +67,25 @@ final class SharedReportExportTests: XCTestCase {
     XCTAssertFalse(model.canSave)
   }
 
+  func testAPasswordOutsideLatinOneBlocksOnlyThePDF() throws {
+    let model = SharedReportModel(dataset: try dataset(lines: 3), today: today, calendar: calendar)
+    model.lock.password = "секрет"
+    model.lock.confirmation = "секрет"
+    XCTAssertTrue(model.pdfPasswordNeedsLatin, "the hint shows under the field")
+    XCTAssertFalse(model.canSave, "a PDF cannot be locked with it")
+    model.format = .csv
+    XCTAssertFalse(model.pdfPasswordNeedsLatin)
+    XCTAssertTrue(model.canSave, "the locked table takes any password")
+    model.format = .pdf
+    model.lock.password = "secret-1"
+    model.lock.confirmation = "secret-1"
+    XCTAssertFalse(model.pdfPasswordNeedsLatin)
+    XCTAssertTrue(model.canSave)
+    model.lock.encrypt = false
+    model.lock.password = "секрет"
+    XCTAssertFalse(model.pdfPasswordNeedsLatin, "no password is used when not encrypting")
+  }
+
   func testThePDFHasThePagesOfItsLinesAndOpensOnlyWithThePassword() throws {
     let model = SharedReportModel(
       dataset: try dataset(lines: 120), today: today, calendar: calendar)
