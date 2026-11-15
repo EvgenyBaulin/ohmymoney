@@ -3,8 +3,8 @@ import CoreKit
 
 extension AccountMonthPlan {
   /// Balances after recorded future movements, the income and interest still expected on
-  /// each account, and unpaid scheduled and debt payments. Overdue income stays apart and
-  /// brings no money. The account takes no share of the usual spending: that belongs to the
+  /// each account, the usual count losses, the expected spending for others, and unpaid
+  /// scheduled and debt payments. Overdue income stays apart and brings no money. The account takes no share of the usual spending: that belongs to the
   /// combined forecast, which cannot tell which account the spending will come from.
   public func knownBalances() -> AccountForecast {
     var known = self
@@ -13,8 +13,6 @@ extension AccountMonthPlan {
     known.aheadSpendingRub = .zero
     for section in known.sections.indices {
       for pair in known.sections[section].keys.indices {
-        known.sections[section].keys[pair].reconcileLoss = .zero
-        known.sections[section].keys[pair].othersSpending = .zero
         known.sections[section].keys[pair].spendingWeight = .zero
       }
     }

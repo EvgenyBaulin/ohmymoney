@@ -78,14 +78,16 @@ struct KnownAccountBalancesTests {
         == Fx.money("335000"))
   }
 
-  @Test func expectedIncomeAndInterestAreInTheAccountButPacedLossesAreNot() {
+  @Test func expectedIncomeInterestLossesAndOthersSpendingAreInTheAccount() {
     var plan = plan(example())
     plan.sections[0].keys[0].income = Fx.money("100000")
     plan.sections[0].keys[0].interest = Fx.money("1000")
     plan.sections[0].keys[0].reconcileLoss = Fx.money("500")
     plan.sections[0].keys[0].othersSpending = Fx.money("1500")
     let known = plan.knownBalances().line(of: ForecastFx.mainRub)
-    #expect(known?.balance?.middle == Fx.money("116000"))
+    #expect(known?.balance?.middle == Fx.money("114000"))
+    #expect(known?.flows.reconcileLoss == Fx.money("500"))
+    #expect(known?.flows.othersSpending == Fx.money("1500"))
     #expect(known?.flows.income == Fx.money("100000"))
     #expect(known?.flows.interest == Fx.money("1000"))
     // The combined forecast is unchanged by how the account itself is shown.
