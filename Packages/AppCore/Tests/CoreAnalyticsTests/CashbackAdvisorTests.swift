@@ -441,7 +441,8 @@ struct CashbackHintTests {
         5950 + $0, "10-\(10 + $0)", Book.supermarkets, "2000", on: Book.alpha, place: Book.shop)
     }
     func gain(cap: String, _ entries: [TransactionEntry]) throws -> AmountE4 {
-      let rules = Book.rules + [Book.rule(7303, Book.alpha, nil, Book.supermarkets, 10_000, cap: cap)]
+      let rules =
+        Book.rules + [Book.rule(7303, Book.alpha, nil, Book.supermarkets, 10_000, cap: cap)]
       let ledger = Book.ledger(entries, rules: rules, accounts: Book.accounts(betaCap: nil))
       return try #require(
         CashbackHints.payHere(ledger: ledger, today: DateOnly(iso: "2026-10-20")!).first
@@ -760,27 +761,33 @@ struct CashbackRuleByCodeTests {
       elsewhere.bankId = id(9999)
       #expect(Self.earned(entry, mappings: [elsewhere]) == old)
     }
-    #expect(Self.earned(Self.purchase(9004, Book.cafes, "333.33", mcc: nil), mappings: [])
-      == money("16.67"))
+    #expect(
+      Self.earned(Self.purchase(9004, Book.cafes, "333.33", mcc: nil), mappings: [])
+        == money("16.67"))
   }
 
   @Test func theListsDecideForAPurchaseWithACode() {
     let rows = [Self.eatingOut]
     // In the list: Cafes 5 %.
-    #expect(Self.earned(Self.purchase(9101, Book.cafes, "1000", mcc: "5812"), mappings: rows)
-      == money("50"))
+    #expect(
+      Self.earned(Self.purchase(9101, Book.cafes, "1000", mcc: "5812"), mappings: rows)
+        == money("50"))
     // Excluded: the label does not take it, everything else does.
-    #expect(Self.earned(Self.purchase(9102, Book.cafes, "1000", mcc: "5813"), mappings: rows)
-      == money("10"))
+    #expect(
+      Self.earned(Self.purchase(9102, Book.cafes, "1000", mcc: "5813"), mappings: rows)
+        == money("10"))
     // A code outside a non-empty include list: not the label's.
-    #expect(Self.earned(Self.purchase(9103, Book.cafes, "1000", mcc: "5999"), mappings: rows)
-      == money("10"))
+    #expect(
+      Self.earned(Self.purchase(9103, Book.cafes, "1000", mcc: "5999"), mappings: rows)
+        == money("10"))
     // No code: by category, as before.
-    #expect(Self.earned(Self.purchase(9104, Book.coffee, "1000", mcc: nil), mappings: rows)
-      == money("50"))
+    #expect(
+      Self.earned(Self.purchase(9104, Book.coffee, "1000", mcc: nil), mappings: rows)
+        == money("50"))
     // A code the list names, in a category the row does not name: the bank counts the code.
-    #expect(Self.earned(Self.purchase(9105, Book.fuel, "1000", mcc: "5812"), mappings: rows)
-      == money("50"))
+    #expect(
+      Self.earned(Self.purchase(9105, Book.fuel, "1000", mcc: "5812"), mappings: rows)
+        == money("50"))
   }
 
   @Test func anExclusionOnlyRowIsTheCategoryWithoutTheExcludedCodes() {
@@ -789,12 +796,15 @@ struct CashbackRuleByCodeTests {
         bankId: Book.bank, label: "Кафе", categoryId: Book.cafes,
         excludeCodes: MerchantCodeList(parsing: "5813")!)
     ]
-    #expect(Self.earned(Self.purchase(9201, Book.cafes, "1000", mcc: "5813"), mappings: rows)
-      == money("10"))
-    #expect(Self.earned(Self.purchase(9202, Book.coffee, "1000", mcc: "5999"), mappings: rows)
-      == money("50"))
-    #expect(Self.earned(Self.purchase(9203, Book.fuel, "1000", mcc: "5812"), mappings: rows)
-      == money("10"))
+    #expect(
+      Self.earned(Self.purchase(9201, Book.cafes, "1000", mcc: "5813"), mappings: rows)
+        == money("10"))
+    #expect(
+      Self.earned(Self.purchase(9202, Book.coffee, "1000", mcc: "5999"), mappings: rows)
+        == money("50"))
+    #expect(
+      Self.earned(Self.purchase(9203, Book.fuel, "1000", mcc: "5812"), mappings: rows)
+        == money("10"))
   }
 
   @Test func aRowWithoutListsBesideOneWithListsStillTakesTheCategory() {

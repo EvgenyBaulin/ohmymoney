@@ -19,7 +19,8 @@ struct SupabaseConfig: Equatable, Sendable {
     let secret = key.trimmingCharacters(in: .whitespacesAndNewlines)
     guard let parsed = URL(string: trimmed), parsed.scheme == "https",
       let host = parsed.host, !host.isEmpty, !secret.isEmpty,
-      !bucket.isEmpty, bucket.allSatisfy({ $0.isASCII && ($0.isLetter || $0.isNumber || "-_".contains($0)) })
+      !bucket.isEmpty,
+      bucket.allSatisfy({ $0.isASCII && ($0.isLetter || $0.isNumber || "-_".contains($0)) })
     else { return nil }
     self.projectURL = parsed
     self.key = secret
@@ -102,7 +103,8 @@ final class SupabaseStorageTransport: ExchangeFileTransport, @unchecked Sendable
 
   func readFile(named name: String) throws -> Data {
     try CloudFileName.validate(name)
-    var request = URLRequest(url: try url("/storage/v1/object/authenticated/\(config.bucket)/\(name)"))
+    var request = URLRequest(
+      url: try url("/storage/v1/object/authenticated/\(config.bucket)/\(name)"))
     request.httpMethod = "GET"
     let response = try http.send(request)
     switch response.status {

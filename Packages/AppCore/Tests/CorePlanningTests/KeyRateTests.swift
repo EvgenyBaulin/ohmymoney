@@ -7,7 +7,9 @@ import Testing
 @Suite("The key rate: the table, the page, the merge, and the lines it brings")
 struct KeyRateTests {
   func d(_ y: Int, _ m: Int, _ day: Int) -> DateOnly { DateOnly(year: y, month: m, day: day) }
-  func dec(_ s: String) -> Decimal { Decimal(string: s, locale: Locale(identifier: "en_US_POSIX"))! }
+  func dec(_ s: String) -> Decimal {
+    Decimal(string: s, locale: Locale(identifier: "en_US_POSIX"))!
+  }
   func change(_ y: Int, _ m: Int, _ day: Int, _ rate: String) -> KeyRateChange {
     KeyRateChange(effectiveOn: d(y, m, day), ratePercent: dec(rate))
   }
@@ -81,7 +83,9 @@ struct KeyRateTests {
 
   func page(_ rows: [(String, String)]) -> Data {
     let body = rows.map { "<tr><td>\($0.0)</td><td>\($0.1)</td></tr>" }.joined()
-    return Data("<html><table class=\"data\"><tr><th>Дата</th><th>Ставка</th></tr>\(body)</table></html>".utf8)
+    return Data(
+      "<html><table class=\"data\"><tr><th>Дата</th><th>Ставка</th></tr>\(body)</table></html>".utf8
+    )
   }
 
   @Test func thePageGivesTheDaysTheRateChanged() {

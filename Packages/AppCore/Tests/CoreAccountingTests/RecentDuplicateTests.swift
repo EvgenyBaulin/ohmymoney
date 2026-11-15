@@ -115,7 +115,8 @@ struct RecentDuplicateTests {
     let recent = [written("120", secondsAgo: 30)]
     var yesterday = draft("120")
     yesterday.occurredAt = now.addingTimeInterval(-86_400)
-    #expect(RecentDuplicate.match(of: yesterday, among: recent, now: now, calendar: calendar) == nil)
+    #expect(
+      RecentDuplicate.match(of: yesterday, among: recent, now: now, calendar: calendar) == nil)
     // Without a calendar the day is not looked at, as before.
     #expect(RecentDuplicate.match(of: yesterday, among: recent, now: now) != nil)
     var today = draft("120")

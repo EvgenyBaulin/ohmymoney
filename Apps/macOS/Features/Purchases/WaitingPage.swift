@@ -68,7 +68,7 @@ struct WaitingPage: View {
       .accessibilityIdentifier("purchases.waiting.expected")
       PurchasesActionRow {
         Button(t("purchases.waiting.credited")) { open(.credit(refund)) }
-        .accessibilityIdentifier("purchases.waiting.credited")
+          .accessibilityIdentifier("purchases.waiting.credited")
         Button(t("purchases.waiting.postpone")) { open(.postpone(refund)) }
           .accessibilityIdentifier("purchases.waiting.postpone")
       }

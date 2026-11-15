@@ -110,7 +110,8 @@ final class SyncCoordinator {
   /// Exchanges through a cloud drive instead of a folder; `nil` goes back to what the wiring
   /// made (the CloudKit folder, if any) or to the chosen folder. Nothing already sent or
   /// waiting is lost.
-  func useDrive(_ drive: CloudDrive?, folder: TransportExchangeFolder? = nil, thenSync: Bool = true) {
+  func useDrive(_ drive: CloudDrive?, folder: TransportExchangeFolder? = nil, thenSync: Bool = true)
+  {
     CloudDriveSelection.select(folder == nil ? nil : drive, in: defaults)
     if let folder {
       remoteFolder = folder

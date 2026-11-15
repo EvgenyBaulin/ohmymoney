@@ -258,4 +258,3 @@ struct RuleReferenceMergeTests {
     #expect(try stored(stack) == before)
   }
 }
-

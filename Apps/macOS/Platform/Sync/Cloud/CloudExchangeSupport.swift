@@ -129,9 +129,10 @@ enum CloudDates {
   }
 }
 
-
 extension URLRequest {
-  static func cloud(_ url: URL, method: String = "GET", body: Data? = nil, headers: [String: String] = [:])
+  static func cloud(
+    _ url: URL, method: String = "GET", body: Data? = nil, headers: [String: String] = [:]
+  )
     -> URLRequest
   {
     var request = URLRequest(url: url)

@@ -69,7 +69,8 @@ struct PlaceMarksScreen: View {
     .navigationTitle(t("places.title"))
     .navigationBarTitleDisplayMode(.inline)
     .task { reload() }
-    .sheet(item: Binding(get: { naming.map(Naming.init) }, set: { if $0 == nil { naming = nil } })) {
+    .sheet(item: Binding(get: { naming.map(Naming.init) }, set: { if $0 == nil { naming = nil } }))
+    {
       item in
       nameSheet(point: item.point)
     }
@@ -116,7 +117,7 @@ struct PlaceMarksScreen: View {
           systemImage: "mappin",
           coordinate: mark.point.coordinate)
         MapCircle(center: mark.point.coordinate, radius: CLLocationDistance(mark.radiusMeters))
-        .foregroundStyle(.tint.opacity(0.15))
+          .foregroundStyle(.tint.opacity(0.15))
       }
     }
     .frame(height: 280)

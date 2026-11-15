@@ -48,7 +48,8 @@ struct ChallengeTileTests {
   @Test("a challenge finished long ago is not on the tile")
   func staleFinished() {
     let done = challenge("Done", F.day(11, 1), days: 7)
-    #expect(pick([done], today: F.day(11, 7).adding(days: ChallengeTile.finishedStaysDays + 1)) == nil)
+    #expect(
+      pick([done], today: F.day(11, 7).adding(days: ChallengeTile.finishedStaysDays + 1)) == nil)
   }
 
   @Test("no challenges: nothing to show")

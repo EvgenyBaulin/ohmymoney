@@ -20,7 +20,8 @@ final class PhoneFlagsTests: XCTestCase {
     for choice in [AppLanguage.Choice.english, .russian] {
       let env = environment(choice)
       XCTAssertNotEqual(
-        DeductionsText.t("deductions.mortgage.priorUnknown", env), "deductions.mortgage.priorUnknown")
+        DeductionsText.t("deductions.mortgage.priorUnknown", env),
+        "deductions.mortgage.priorUnknown")
       for key in [
         "challenges.limit.missing", "challenges.limit.set", "challenges.limit.title",
         "challenges.limit.hint",

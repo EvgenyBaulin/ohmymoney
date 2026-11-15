@@ -270,7 +270,9 @@ struct ChallengeRow: View {
 
   @ViewBuilder
   private var savingLines: some View {
-    if let saved = progress.saved, let base = progress.baseline, let source = progress.baselineSource {
+    if let saved = progress.saved, let base = progress.baseline,
+      let source = progress.baselineSource
+    {
       line(environment.format("challenges.saved", table: ChallengeText.table, money(saved)))
         .accessibilityIdentifier("challenge.saved")
       Text(

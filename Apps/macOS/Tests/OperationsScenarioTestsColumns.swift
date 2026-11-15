@@ -399,4 +399,3 @@ final class OperationsScenarioColumnsTests: XCTestCase {
     XCTAssertEqual(layout, OperationColumnLayout(storage: layout.storage))
   }
 }
-

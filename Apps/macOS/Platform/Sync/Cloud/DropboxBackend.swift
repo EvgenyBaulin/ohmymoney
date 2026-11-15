@@ -33,7 +33,8 @@ struct DropboxBackend: CloudBackend {
   }
 
   private func json(_ object: [String: Any]) -> Data {
-    (try? JSONSerialization.data(withJSONObject: object, options: [.sortedKeys, .withoutEscapingSlashes])) ?? Data()
+    (try? JSONSerialization.data(
+      withJSONObject: object, options: [.sortedKeys, .withoutEscapingSlashes])) ?? Data()
   }
 
   private func isError(_ response: CloudHTTPResponse, _ tag: String) -> Bool {

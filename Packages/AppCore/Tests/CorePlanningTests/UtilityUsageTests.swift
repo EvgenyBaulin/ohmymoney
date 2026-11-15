@@ -193,10 +193,17 @@ struct UtilityReadingCheckTests {
 
   @Test func aValueBelowTheLastUnmarkedReadingNeedsAnAnswer() {
     let readings = [S.reading(2026, 9, 21, 1000)]
-    #expect(UtilityUsage.isBelowLast(AmountE4(whole: 100), restart: false, readings: readings, of: S.water))
-    #expect(!UtilityUsage.isBelowLast(AmountE4(whole: 100), restart: true, readings: readings, of: S.water))
-    #expect(!UtilityUsage.isBelowLast(AmountE4(whole: 1010), restart: false, readings: readings, of: S.water))
-    #expect(!UtilityUsage.isBelowLast(AmountE4(whole: 5), restart: false, readings: [], of: S.water))
+    #expect(
+      UtilityUsage.isBelowLast(
+        AmountE4(whole: 100), restart: false, readings: readings, of: S.water))
+    #expect(
+      !UtilityUsage.isBelowLast(
+        AmountE4(whole: 100), restart: true, readings: readings, of: S.water))
+    #expect(
+      !UtilityUsage.isBelowLast(
+        AmountE4(whole: 1010), restart: false, readings: readings, of: S.water))
+    #expect(
+      !UtilityUsage.isBelowLast(AmountE4(whole: 5), restart: false, readings: [], of: S.water))
   }
 
   @Test func theFlaggedReadingsComeBackWithTheirValueAndDay() {

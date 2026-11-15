@@ -141,7 +141,8 @@ private final class FakeYandex: FakeDrive, @unchecked Sendable {
         let items = page(entries, offset: offset).slice.map { entry in
           #"{"name":"\#(entry)","type":"\#(entry == "folder" ? "dir" : "file")","modified":"\#(iso)"}"#
         }
-        return json(#"{"_embedded":{"items":[\#(items.joined(separator: ","))],"total":\#(entries.count)}}"#)
+        return json(
+          #"{"_embedded":{"items":[\#(items.joined(separator: ","))],"total":\#(entries.count)}}"#)
       case "/v1/disk/resources/upload":
         if files[name] != nil, query(request, "overwrite") != "true" { return (409, [:], Data()) }
         return json(#"{"href":"https://uploader.example/put/\#(name)"}"#)
@@ -408,7 +409,9 @@ final class CloudDriveTransportTests: XCTestCase {
       ]
       for (name, data, replacing) in refused {
         do {
-          try await offMain { try transport.writeFile(named: name, data: data, replacing: replacing) }
+          try await offMain {
+            try transport.writeFile(named: name, data: data, replacing: replacing)
+          }
           XCTFail("\(drive) accepted \(name)")
         } catch {
           XCTAssertEqual(error as? ExchangeTransportError, .malformed, "\(drive)")
@@ -442,7 +445,9 @@ final class CloudDriveTransportTests: XCTestCase {
       let transport = rig.transport
       // The server stops accepting the token the client holds.
       rig.server.lock.withLock { rig.server.token = "rotated" }
-      try await offMain { try transport.writeFile(named: journal(1), data: sealed("a"), replacing: false) }
+      try await offMain {
+        try transport.writeFile(named: journal(1), data: sealed("a"), replacing: false)
+      }
       XCTAssertEqual(rig.server.refreshCount, 1, "\(drive) renewed once")
       let stored = try rig.store.load()
       XCTAssertEqual(stored?.accessToken, rig.server.token, "\(drive)")
@@ -502,10 +507,13 @@ final class CloudDriveTransportTests: XCTestCase {
       let rig = makeRig(drive, attempts: 1)
       let transport = rig.transport
       // The upload itself dies; the listing request that follows is not affected.
-      rig.server.faultFilter = drive == .yandexDisk ? "uploader.example" : drive == .dropbox ? "files/upload" : "content"
+      rig.server.faultFilter =
+        drive == .yandexDisk ? "uploader.example" : drive == .dropbox ? "files/upload" : "content"
       rig.server.faults = [.dropConnection]
       do {
-        try await offMain { try transport.writeFile(named: journal(1), data: sealed("a"), replacing: false) }
+        try await offMain {
+          try transport.writeFile(named: journal(1), data: sealed("a"), replacing: false)
+        }
         XCTFail("\(drive) reported a cut upload as written")
       } catch {
         XCTAssertEqual(error as? ExchangeTransportError, .unavailable, "\(drive)")
@@ -579,7 +587,9 @@ final class CloudDriveTransportTests: XCTestCase {
   func testTheTokenIsNotSentToTheStorageHostOfYandex() async throws {
     let rig = makeRig(.yandexDisk)
     let transport = rig.transport
-    try await offMain { try transport.writeFile(named: journal(1), data: sealed("a"), replacing: false) }
+    try await offMain {
+      try transport.writeFile(named: journal(1), data: sealed("a"), replacing: false)
+    }
     _ = try await offMain { try transport.readFile(named: journal(1)) }
     let storage = rig.server.requests.filter {
       $0.url.contains("uploader.example") || $0.url.contains("downloader.example")
@@ -613,7 +623,8 @@ final class CloudDriveTransportTests: XCTestCase {
     XCTAssertEqual(items["state"], "st")
     XCTAssertEqual(items["response_type"], "code")
     XCTAssertEqual(items["scope"], "Files.ReadWrite.AppFolder offline_access")
-    XCTAssertEqual(CloudDrive.dropbox.oauth!.extraAuthorizeParameters["token_access_type"], "offline")
+    XCTAssertEqual(
+      CloudDrive.dropbox.oauth!.extraAuthorizeParameters["token_access_type"], "offline")
   }
 
   func testPKCEChallengeMatchesTheRFCVector() {
@@ -632,7 +643,8 @@ final class CloudDriveTransportTests: XCTestCase {
     XCTAssertThrowsError(try CloudOAuthFlow.code(from: good, state: "other")) {
       XCTAssertEqual($0 as? CloudSignInError, .stateMismatch)
     }
-    let denied = URL(string: "io.github.evgenybaulin.ohmymoney:/oauth/x?error=access_denied&state=S")!
+    let denied = URL(
+      string: "io.github.evgenybaulin.ohmymoney:/oauth/x?error=access_denied&state=S")!
     XCTAssertThrowsError(try CloudOAuthFlow.code(from: denied, state: "S")) {
       XCTAssertEqual($0 as? CloudSignInError, .denied)
     }
@@ -663,7 +675,10 @@ final class CloudDriveTransportTests: XCTestCase {
     XCTAssertTrue(body.text.contains("client_id=app-key"))
     XCTAssertFalse(body.text.contains("client_secret"))
     let stored = try store.load()
-    XCTAssertEqual(stored, CloudTokens(accessToken: "A", refreshToken: "R", expiresAt: Date(timeIntervalSince1970: 4600)))
+    XCTAssertEqual(
+      stored,
+      CloudTokens(accessToken: "A", refreshToken: "R", expiresAt: Date(timeIntervalSince1970: 4600))
+    )
     XCTAssertTrue(authorizer.isSignedIn)
     authorizer.disconnect()
     XCTAssertFalse(authorizer.isSignedIn)

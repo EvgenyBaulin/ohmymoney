@@ -126,7 +126,10 @@ final class OverviewDoNowTests: XCTestCase {
     let closed = PaymentMethod(name: "Closed", archived: true)
     let open = PaymentMethod(name: "Open")
     let shown = snapshot(
-      [try entry(daysAgo: 20, statementOf: closed.id), try entry(daysAgo: 20, statementOf: open.id)],
+      [
+        try entry(daysAgo: 20, statementOf: closed.id),
+        try entry(daysAgo: 20, statementOf: open.id),
+      ],
       paymentMethods: [closed, open])
     let list = OverviewDoNow.list(snapshot: shown, environment: environment)
     XCTAssertEqual(list.items.map(\.accountId), [open.id])

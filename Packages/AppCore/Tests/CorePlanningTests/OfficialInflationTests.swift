@@ -5,7 +5,9 @@ import Testing
 
 @Suite("Official inflation: the built-in Rosstat table and the figures counted from it")
 struct OfficialInflationTests {
-  func dec(_ s: String) -> Decimal { Decimal(string: s, locale: Locale(identifier: "en_US_POSIX"))! }
+  func dec(_ s: String) -> Decimal {
+    Decimal(string: s, locale: Locale(identifier: "en_US_POSIX"))!
+  }
   let table = OfficialInflation.builtIn
 
   @Test("A month reads as the percent change, 101.62 is 1.62 %")
@@ -63,7 +65,8 @@ struct OfficialInflationTests {
   @Test("A table with a gap gives no figure across the gap")
   func gap() {
     let t = OfficialInflation(months: [
-      .init(year: 2026, month: 1, index: dec("101")), .init(year: 2026, month: 3, index: dec("101")),
+      .init(year: 2026, month: 1, index: dec("101")),
+      .init(year: 2026, month: 3, index: dec("101")),
     ])
     #expect(t.cumulativePercent(fromYear: 2025, month: 12, throughYear: 2026, month: 3) == nil)
     #expect(t.monthlyPercent(year: 2026, month: 2) == nil)

@@ -181,7 +181,9 @@ final class ThemeCatalogTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(
           p.secondaryText.contrast(on: surface), 4.5, "\(id) \(scheme) secondary ink")
       }
-      let own = [p.surfaceBackground, p.surfaceCard, plate].map { p.contentSecondary.contrast(on: $0) }
+      let own = [p.surfaceBackground, p.surfaceCard, plate].map {
+        p.contentSecondary.contrast(on: $0)
+      }
       if (own.min() ?? 0) >= 4.5 {
         XCTAssertEqual(p.secondaryText, p.contentSecondary, "\(id) \(scheme) keeps its ink")
       }

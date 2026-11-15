@@ -131,7 +131,9 @@ struct OverviewDoNowCard: View {
               TouchButton(
                 title: t("overview.doNow.all"), identifier: "overview.doNow.all",
                 idiom: LayoutIdiom.resolved(idiom), alignment: .trailing
-              ) { screen.open(.worthALook) } drawn: { tap in
+              ) {
+                screen.open(.worthALook)
+              } drawn: { tap in
                 Button(t("overview.doNow.all"), action: tap).buttonStyle(.plain)
               }
             }
@@ -182,7 +184,9 @@ struct OverviewDoNowCard: View {
         TouchButton(
           title: text.button, identifier: "overview.doNow.\(item.action.rawValue)",
           idiom: LayoutIdiom.resolved(idiom), alignment: .center
-        ) { perform(item, snapshot: snapshot) } drawn: { tap in
+        ) {
+          perform(item, snapshot: snapshot)
+        } drawn: { tap in
           Button(text.button, action: tap).buttonStyle(.rowAction)
         }
       }

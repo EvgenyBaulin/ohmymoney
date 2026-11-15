@@ -179,7 +179,8 @@ public enum ChallengeRules {
   ) -> ChallengeProgress {
     let dayCount = challenge.dayCount
     let lastDay = min(today, challenge.stoppedOn ?? challenge.end, challenge.end)
-    let elapsed = today < challenge.start ? 0 : max(0, min(dayCount, challenge.start.days(to: lastDay) + 1))
+    let elapsed =
+      today < challenge.start ? 0 : max(0, min(dayCount, challenge.start.days(to: lastDay) + 1))
     let kind = challenge.kind ?? .avoid
 
     let byDay =
@@ -193,7 +194,8 @@ public enum ChallengeRules {
     var best = 0
     var brokenOn: DateOnly?
     var running = AmountE4.zero
-    let newSubscriptions = kind == .noNewSubscriptions ? newSubscriptions(challenge, in: planning) : []
+    let newSubscriptions =
+      kind == .noNewSubscriptions ? newSubscriptions(challenge, in: planning) : []
     for offset in 0..<elapsed {
       let day = challenge.start.adding(days: offset)
       let net = byDay[day] ?? .zero

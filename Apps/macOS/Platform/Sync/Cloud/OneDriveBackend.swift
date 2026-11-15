@@ -52,7 +52,8 @@ struct OneDriveBackend: CloudBackend {
       try CloudPaging.count(&pages)
       let response = try client.send(.cloud(address))
       if response.status == 404 { return files }
-      guard response.status == 200, let page = try? JSONDecoder().decode(Page.self, from: response.body)
+      guard response.status == 200,
+        let page = try? JSONDecoder().decode(Page.self, from: response.body)
       else { throw ExchangeTransportError.unavailable }
       for entry in page.value where entry.file != nil {
         guard let modified = CloudDates.parse(entry.lastModifiedDateTime) else {
@@ -96,7 +97,8 @@ struct OneDriveBackend: CloudBackend {
       else { throw ExchangeTransportError.malformed }
       let response = try client.send(
         .cloud(
-          address, method: "PUT", body: data, headers: ["Content-Type": "application/octet-stream"]))
+          address, method: "PUT", body: data, headers: ["Content-Type": "application/octet-stream"])
+      )
       if response.status == 409 { return false }
       guard response.status == 200 || response.status == 201 else {
         throw ExchangeTransportError.unavailable
@@ -108,14 +110,17 @@ struct OneDriveBackend: CloudBackend {
 
   private func uploadInPieces(_ name: String, data: Data, behavior: String) throws -> Bool {
     struct Session: Decodable { var uploadUrl: String }
-    guard let start = item(name, "createUploadSession") else { throw ExchangeTransportError.malformed }
+    guard let start = item(name, "createUploadSession") else {
+      throw ExchangeTransportError.malformed
+    }
     let body = try JSONSerialization.data(withJSONObject: [
       "item": ["@microsoft.graph.conflictBehavior": behavior]
     ])
     let opened = try client.send(
       .cloud(start, method: "POST", body: body, headers: ["Content-Type": "application/json"]))
     if opened.status == 409 { return false }
-    guard opened.status == 200, let session = try? JSONDecoder().decode(Session.self, from: opened.body),
+    guard opened.status == 200,
+      let session = try? JSONDecoder().decode(Session.self, from: opened.body),
       let upload = URL(string: session.uploadUrl), upload.scheme == "https"
     else { throw ExchangeTransportError.unavailable }
     var offset = 0

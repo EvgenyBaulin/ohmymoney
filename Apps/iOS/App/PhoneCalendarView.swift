@@ -238,7 +238,8 @@ struct PhoneCalendarDayChips: View {
             .appFont(.caption)
             .frame(minWidth: Self.side, minHeight: Self.side)
             .foregroundStyle(selected ? surfaces.onAccent : surfaces.primary)
-            .background(Self.fillsChip(selected: selected) ? surfaces.accent : .clear,
+            .background(
+              Self.fillsChip(selected: selected) ? surfaces.accent : .clear,
               in: .rect(cornerRadius: Self.radius))
           }
           .buttonStyle(.plain)

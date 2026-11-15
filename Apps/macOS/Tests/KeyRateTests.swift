@@ -47,7 +47,8 @@ final class KeyRateTests: XCTestCase {
       accountId: UUID(), endsOn: DateOnly(year: 2026, month: 11, day: 16), picks: [],
       keyRateFall: drop)
     for choice in [AppLanguage.Choice.russian, .english] {
-      let text = DepositText.endsLine(advice, accounts: [advice.accountId: "Вклад"], environment(choice))
+      let text = DepositText.endsLine(
+        advice, accounts: [advice.accountId: "Вклад"], environment(choice))
       XCTAssertEqual(text.components(separatedBy: "\n").count, 2, "\(choice)")
       XCTAssertTrue(text.contains("16"))
     }

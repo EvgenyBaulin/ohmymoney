@@ -167,7 +167,8 @@ enum SidebarItem: Hashable, Sendable {
         .foregroundStyle(lit.text(theme, tint: tint))
         .beginnerQuiet(BeginnerModeOnMac.section(of: item))
         .background(
-          lit.plate(theme, tint: tint), in: .rect(cornerRadius: SidebarMetrics.plateRadius))
+          lit.plate(theme, tint: tint), in: .rect(cornerRadius: SidebarMetrics.plateRadius)
+        )
         // The list keeps its rows 16 from the column's edges; the design's plate stands 12 from
         // them, so it reaches 4 beyond the row on each side.
         .padding(.horizontal, -SidebarMetrics.listOutset)

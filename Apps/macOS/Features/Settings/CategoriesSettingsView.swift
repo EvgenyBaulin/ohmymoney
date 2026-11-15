@@ -369,7 +369,9 @@ struct CategoriesSettingsView: View {
     markButton(category, tree: tree, isChild: isChild)
     TextField(text: nameBinding(for: category)) { EmptyView() }
       .labelsHidden()
-      .accessibilityLabel(Text(verbatim: environment.language("references.name", table: "Settings")))
+      .accessibilityLabel(
+        Text(verbatim: environment.language("references.name", table: "Settings"))
+      )
       .textFieldStyle(.plain)
       .fontWeight(isChild ? .regular : .semibold)
       .focused($editingName, equals: category.id)
@@ -1629,7 +1631,9 @@ enum EssentialChoice: String, CaseIterable, Hashable {
           VStack(alignment: .leading, spacing: SettingsCardMetrics.textGap) {
             TextField(text: nameBinding(for: category)) { EmptyView() }
               .labelsHidden()
-              .accessibilityLabel(Text(verbatim: environment.language("references.name", table: "Settings")))
+              .accessibilityLabel(
+                Text(verbatim: environment.language("references.name", table: "Settings"))
+              )
               .textFieldStyle(.plain)
               .appFont(AppFont.system(size: 13, weight: .medium))
               .foregroundStyle(surfaces.primary)

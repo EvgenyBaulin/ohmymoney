@@ -41,8 +41,9 @@ final class PhoneShotsFixesTests: XCTestCase {
       rootView: content.modifier(
         FloatingTouchHistory(
           bottomInset: 90, onPhone: true,
-          bar: Color.red.frame(width: 120, height: 44))))
-      .sizeThatFits(in: CGSize(width: 390, height: 900))
+          bar: Color.red.frame(width: 120, height: 44)))
+    )
+    .sizeThatFits(in: CGSize(width: 390, height: 900))
     XCTAssertEqual(with, before)
   }
 

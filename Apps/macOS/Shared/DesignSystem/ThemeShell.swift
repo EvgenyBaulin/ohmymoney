@@ -53,7 +53,9 @@ struct SidebarHighlight: Equatable {
   /// account's colour, an accent circle) the plate is that colour at 16 % over the sidebar and
   /// the ink is the colour pulled to 4.5 : 1 on both the plate and the sidebar, so the theme's
   /// contrast still comes first.
-  static func litColors(_ theme: AppThemeColors, tint: ThemeColor?) -> (
+  static func litColors(
+    _ theme: AppThemeColors, tint: ThemeColor?
+  ) -> (
     plate: ThemeColor, text: ThemeColor
   ) {
     let palette = theme.palette

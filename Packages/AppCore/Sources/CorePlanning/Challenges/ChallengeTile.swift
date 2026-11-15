@@ -27,7 +27,9 @@ public enum ChallengeTile {
     let open = items.filter { !$0.progress.isFinished }
     let chosen =
       open.first { $0.progress.state == .running } ?? open.first
-      ?? items.first { today.days(to: $0.challenge.stoppedOn ?? $0.challenge.end) >= -finishedStaysDays }
+      ?? items.first {
+        today.days(to: $0.challenge.stoppedOn ?? $0.challenge.end) >= -finishedStaysDays
+      }
     return chosen.map { Pick(challenge: $0.challenge, progress: $0.progress) }
   }
 }

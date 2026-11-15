@@ -140,22 +140,23 @@ enum DepositText {
   }
 
   /// Every key, so a test finds each in both languages.
-  static let keys = [
-    "dep.title", "dep.subtitle", "dep.version", "dep.filter.term", "dep.filter.amount",
-    "dep.filter.topup", "dep.parser", "dep.parser.failed", "dep.cbr.title", "dep.cbr.body",
-    "dep.diverge", "dep.source.builtIn", "dep.source.centralBank", "dep.source.own",
-    "dep.filter.any", "dep.rate.upTo", "dep.rate.exact", "dep.rate.unknown",
-    "dep.rateOn", "dep.stale", "dep.term.one", "dep.term.range", "dep.term.from", "dep.term.upTo",
-    "dep.amount.range", "dep.amount.from", "dep.amount.upTo", "dep.newClient", "dep.subscription",
-    "dep.topup.yes", "dep.topup.no", "dep.own", "dep.none", "dep.add", "dep.form.new",
-    "dep.form.edit", "dep.form.bank", "dep.form.rate", "dep.form.term", "dep.form.min",
-    "dep.form.max", "dep.form.newClient", "dep.form.subscription", "dep.form.topup",
-    "dep.form.rateOn", "dep.form.note", "dep.form.rateInvalid", "dep.pick.term",
-    "dep.pick.amount", "dep.pick.topup", "look.depositEnds", "dep.open",
-    "crypto.source", "crypto.source.coingecko", "crypto.source.manual", "crypto.source.hint",
-    "crypto.coin.source", "crypto.coin.id", "crypto.coin.hint", "crypto.coin.refusal",
-    "payout.kind", "payout.none", "payout.dividend", "payout.coupon", "payout.asset",
-    "payout.noAssets", "payout.tag.dividend", "payout.tag.coupon", "payout.fromAsset",
-    "payout.newTitle", "payout.recurringHint",
-  ] + KeyRateText.keys
+  static let keys =
+    [
+      "dep.title", "dep.subtitle", "dep.version", "dep.filter.term", "dep.filter.amount",
+      "dep.filter.topup", "dep.parser", "dep.parser.failed", "dep.cbr.title", "dep.cbr.body",
+      "dep.diverge", "dep.source.builtIn", "dep.source.centralBank", "dep.source.own",
+      "dep.filter.any", "dep.rate.upTo", "dep.rate.exact", "dep.rate.unknown",
+      "dep.rateOn", "dep.stale", "dep.term.one", "dep.term.range", "dep.term.from", "dep.term.upTo",
+      "dep.amount.range", "dep.amount.from", "dep.amount.upTo", "dep.newClient", "dep.subscription",
+      "dep.topup.yes", "dep.topup.no", "dep.own", "dep.none", "dep.add", "dep.form.new",
+      "dep.form.edit", "dep.form.bank", "dep.form.rate", "dep.form.term", "dep.form.min",
+      "dep.form.max", "dep.form.newClient", "dep.form.subscription", "dep.form.topup",
+      "dep.form.rateOn", "dep.form.note", "dep.form.rateInvalid", "dep.pick.term",
+      "dep.pick.amount", "dep.pick.topup", "look.depositEnds", "dep.open",
+      "crypto.source", "crypto.source.coingecko", "crypto.source.manual", "crypto.source.hint",
+      "crypto.coin.source", "crypto.coin.id", "crypto.coin.hint", "crypto.coin.refusal",
+      "payout.kind", "payout.none", "payout.dividend", "payout.coupon", "payout.asset",
+      "payout.noAssets", "payout.tag.dividend", "payout.tag.coupon", "payout.fromAsset",
+      "payout.newTitle", "payout.recurringHint",
+    ] + KeyRateText.keys
 }

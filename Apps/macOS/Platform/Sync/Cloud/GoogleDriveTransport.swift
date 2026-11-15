@@ -53,7 +53,8 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
       var items = [
         URLQueryItem(name: "spaces", value: "appDataFolder"),
         URLQueryItem(name: "pageSize", value: String(pageSize)),
-        URLQueryItem(name: "fields", value: "nextPageToken,files(id,name,modifiedTime,createdTime)"),
+        URLQueryItem(
+          name: "fields", value: "nextPageToken,files(id,name,modifiedTime,createdTime)"),
         URLQueryItem(name: "q", value: "trashed=false"),
       ]
       if let pageToken { items.append(URLQueryItem(name: "pageToken", value: pageToken)) }

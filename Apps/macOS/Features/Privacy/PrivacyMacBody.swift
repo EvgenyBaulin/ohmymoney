@@ -58,7 +58,8 @@
                   showsSharedReport = true
                 } label: {
                   SettingsCardRow(
-                    symbol: "doc.text", title: environment.language(
+                    symbol: "doc.text",
+                    title: environment.language(
                       "sharedReport.menu", table: "Utilities"), showsDivider: true
                   ) { chevron }
                   .contentShape(Rectangle())

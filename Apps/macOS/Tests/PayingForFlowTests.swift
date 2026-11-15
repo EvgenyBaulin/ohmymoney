@@ -200,7 +200,8 @@ final class PayingForFlowTests: XCTestCase {
     let model = try model("ужин 6000 поровну с машей и alex")
     XCTAssertEqual(model.shownPayingForWay, .evenly)
     XCTAssertEqual(model.payingForPeople, [masha.id, alex.id])
-    XCTAssertEqual(model.draft.parts.map(\.amount), Array(repeating: AmountE4(whole: 2000), count: 3))
+    XCTAssertEqual(
+      model.draft.parts.map(\.amount), Array(repeating: AmountE4(whole: 2000), count: 3))
     let entry = try save(model)
     XCTAssertEqual(try owedToMe(masha), AmountE4(whole: 2000))
     XCTAssertEqual(try owedToMe(alex), AmountE4(whole: 2000))

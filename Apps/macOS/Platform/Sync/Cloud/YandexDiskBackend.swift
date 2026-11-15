@@ -58,7 +58,8 @@ struct YandexDiskBackend: CloudBackend {
               ),
             ])))
       if response.status == 404 { return files }
-      guard response.status == 200, let page = try? JSONDecoder().decode(Page.self, from: response.body)
+      guard response.status == 200,
+        let page = try? JSONDecoder().decode(Page.self, from: response.body)
       else { throw ExchangeTransportError.unavailable }
       for item in page._embedded.items where item.type == "file" {
         guard let modified = CloudDates.parse(item.modified) else {
@@ -103,7 +104,8 @@ struct YandexDiskBackend: CloudBackend {
       var operation_id: String?
     }
     let ask = try client.send(
-      .cloud(url("upload", [("path", "app:/\(name)"), ("overwrite", overwrite ? "true" : "false")])))
+      .cloud(
+        url("upload", [("path", "app:/\(name)"), ("overwrite", overwrite ? "true" : "false")])))
     if ask.status == 409 { return false }
     guard ask.status == 200, let link = try? JSONDecoder().decode(Link.self, from: ask.body),
       let address = URL(string: link.href), address.scheme == "https"

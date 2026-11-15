@@ -48,7 +48,8 @@ public enum DoNowSources {
   ) -> [DoNowSource] {
     var latest: [UUID: DateOnly] = [:]
     for entry in entries where entry.transaction.deletedAt == nil {
-      guard entry.transaction.source == "statement", let account = entry.transaction.paymentMethodId,
+      guard entry.transaction.source == "statement",
+        let account = entry.transaction.paymentMethodId,
         !archivedAccounts.contains(account)
       else { continue }
       let day = calendar.day(of: entry.transaction.createdAt)

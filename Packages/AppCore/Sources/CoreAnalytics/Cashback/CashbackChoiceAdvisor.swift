@@ -114,14 +114,18 @@ public enum CashbackChoiceAdvisor {
 
   /// Whether a label's rows (the rows of one bank's table with that label) cover a kind of
   /// purchase, by the one reading every figure of cashback takes (`BankCategoryMapping.covers`).
-  static func covers(rows: [BankCategoryMapping], bucket: SpendingBucket, tree: CategoryTree)
+  static func covers(
+    rows: [BankCategoryMapping], bucket: SpendingBucket, tree: CategoryTree
+  )
     -> Bool
   {
     BankCategoryMapping.covers(rows, categoryId: bucket.categoryId, mcc: bucket.mcc, tree: tree)
   }
 
   /// The rows of one bank's table that carry a label.
-  static func rows(of label: String, bankId: UUID?, mappings: [BankCategoryMapping])
+  static func rows(
+    of label: String, bankId: UUID?, mappings: [BankCategoryMapping]
+  )
     -> [BankCategoryMapping]
   {
     guard let bankId else { return [] }
@@ -132,7 +136,8 @@ public enum CashbackChoiceAdvisor {
   }
 
   static func buckets(_ spending: [UUID: AmountE4]) -> [SpendingBucket: AmountE4] {
-    Dictionary(uniqueKeysWithValues: spending.map { (SpendingBucket(categoryId: $0.key), $0.value) })
+    Dictionary(
+      uniqueKeysWithValues: spending.map { (SpendingBucket(categoryId: $0.key), $0.value) })
   }
 
   /// The monthly spending a label covers: its categories and everything under them, each

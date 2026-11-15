@@ -78,7 +78,11 @@ enum CloudDriveSelection {
   }
 
   static func select(_ drive: CloudDrive?, in defaults: UserDefaults = .standard) {
-    if let drive { defaults.set(drive.rawValue, forKey: key) } else { defaults.removeObject(forKey: key) }
+    if let drive {
+      defaults.set(drive.rawValue, forKey: key)
+    } else {
+      defaults.removeObject(forKey: key)
+    }
   }
 }
 
@@ -110,8 +114,9 @@ struct CloudDriveConnection: Sendable {
     do {
       switch drive {
       case .mailRuCloud:
-        guard let config = MailRuCloudConfig(
-          login: values["login"] ?? "", appPassword: values["password"] ?? "")
+        guard
+          let config = MailRuCloudConfig(
+            login: values["login"] ?? "", appPassword: values["password"] ?? "")
         else { throw CloudConnectError.invalidInput }
         try config.save(to: credentials)
       case .supabase:
@@ -159,7 +164,8 @@ struct CloudDriveConnection: Sendable {
     case .supabase:
       guard let config = SupabaseConfig.load(from: credentials) else { return nil }
       return SupabaseStorageTransport(
-        config: config, client: SupabaseStorageTransport.client(config: config, http: http, retry: retry))
+        config: config,
+        client: SupabaseStorageTransport.client(config: config, http: http, retry: retry))
     default:
       guard let authorizer = authorizer(for: drive), authorizer.isSignedIn else { return nil }
       let client = CloudHTTPClient(http: http, authorizer: authorizer, retry: retry)

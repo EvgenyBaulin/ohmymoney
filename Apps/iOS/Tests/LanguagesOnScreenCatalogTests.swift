@@ -28,8 +28,11 @@ final class LanguagesOnScreenCatalogTests: XCTestCase {
     for match in pattern.matches(in: text, range: NSRange(text.startIndex..., in: text)) {
       let whole = String(text[Range(match.range, in: text)!])
       if whole == "%%" { continue }
-      let type = whole.hasPrefix("%#@") ? whole : whole.replacingOccurrences(
-        of: "%(\\d+\\$)?0*\\d*(\\.\\d+)?", with: "", options: .regularExpression)
+      let type =
+        whole.hasPrefix("%#@")
+        ? whole
+        : whole.replacingOccurrences(
+          of: "%(\\d+\\$)?0*\\d*(\\.\\d+)?", with: "", options: .regularExpression)
       var position = next
       if match.range(at: 1).location != NSNotFound,
         let range = Range(match.range(at: 1), in: text), let given = Int(text[range])
@@ -128,7 +131,8 @@ final class LanguagesOnScreenCatalogTests: XCTestCase {
       }
     }
     XCTAssertGreaterThan(compared, 10_000, "the walk read almost nothing")
-    XCTAssertTrue(problems.isEmpty, "\(problems.count): " + problems.prefix(30).joined(separator: "\n"))
+    XCTAssertTrue(
+      problems.isEmpty, "\(problems.count): " + problems.prefix(30).joined(separator: "\n"))
   }
 
   func testTheSpecifierReaderIsPositionAware() {

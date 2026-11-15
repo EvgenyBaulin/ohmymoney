@@ -90,7 +90,9 @@ public enum PlaceGeofencing {
   public static let pause: TimeInterval = 6 * 3600
 
   /// The enabled marks nearest to `point`, nearest first, at most `limit`; ties by id.
-  public static func regions(_ marks: [PlaceMark], around point: GeoPoint, limit: Int)
+  public static func regions(
+    _ marks: [PlaceMark], around point: GeoPoint, limit: Int
+  )
     -> [PlaceMark]
   {
     guard limit > 0 else { return [] }

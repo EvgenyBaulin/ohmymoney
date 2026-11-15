@@ -38,7 +38,8 @@ public enum PlaceAdvisor {
     var holders: [CashbackHolder: Int] = [:]
     var seen = Set<UUID>()
     if let placeId = mark.placeId {
-      for row in ledger.rows where row.isFirstPart && row.kind == .expense
+      for row in ledger.rows
+      where row.isFirstPart && row.kind == .expense
         && row.placeId == placeId
       {
         guard seen.insert(row.transactionId).inserted,

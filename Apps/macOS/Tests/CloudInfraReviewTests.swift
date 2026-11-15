@@ -13,7 +13,9 @@ final class CloudInfraReviewTests: XCTestCase {
     func perform(_ request: URLRequest) throws -> CloudHTTPResponse { reply(request) }
   }
 
-  private func client(_ reply: @escaping @Sendable (URLRequest) -> CloudHTTPResponse)
+  private func client(
+    _ reply: @escaping @Sendable (URLRequest) -> CloudHTTPResponse
+  )
     -> CloudHTTPClient
   {
     CloudHTTPClient(
@@ -36,7 +38,8 @@ final class CloudInfraReviewTests: XCTestCase {
   func testDropboxReplaceRefusedByTheServerIsAFailure() {
     let backend = DropboxBackend(
       client: client { _ in
-        CloudHTTPResponse(status: 409, body: Data(#"{"error_summary":"path/conflict/folder/"}"#.utf8))
+        CloudHTTPResponse(
+          status: 409, body: Data(#"{"error_summary":"path/conflict/folder/"}"#.utf8))
       })
     assertUnavailable { try backend.replace(Self.snapshot, data: Data([1])) }
   }
@@ -74,7 +77,9 @@ final class CloudInfraReviewTests: XCTestCase {
       client: client { request in
         sent.add(request.url?.absoluteString ?? "")
         return CloudHTTPResponse(
-          status: 200, body: Data(#"{"files":[{"id":"../../about?x=","modifiedTime":"2026-01-01T00:00:00Z"}]}"#.utf8))
+          status: 200,
+          body: Data(
+            #"{"files":[{"id":"../../about?x=","modifiedTime":"2026-01-01T00:00:00Z"}]}"#.utf8))
       })
     XCTAssertThrowsError(
       try offMainThread { _ = try transport.readFile(named: "journal-device1-0000000001.json") })

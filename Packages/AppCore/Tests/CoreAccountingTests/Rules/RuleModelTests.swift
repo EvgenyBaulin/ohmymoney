@@ -116,7 +116,8 @@ struct RuleModelTests {
       problems(
         book.rule(
           [.amountAbove(AmountE4(raw: 5_000_000)), .amountBelow(AmountE4(raw: 10_000_000))],
-          [.setCategory(cafe)])).isEmpty)
+          [.setCategory(cafe)])
+      ).isEmpty)
     // An operation is one kind.
     #expect(
       problems(book.rule([.kind(.income), .kind(.expense)], [.setCategory(cafe)]))

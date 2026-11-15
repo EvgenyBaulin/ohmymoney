@@ -81,8 +81,7 @@ public struct SharedBillSettlement: Hashable, Sendable {
 
   /// Greedy: the biggest debtor pays the biggest creditor as much as either can, until all are
   /// even. Never more payments than people less one.
-  private static func transfers(for balances: [SettlementParty: AmountE4]) -> [SettlementTransfer]
-  {
+  private static func transfers(for balances: [SettlementParty: AmountE4]) -> [SettlementTransfer] {
     func ordered(_ items: [(SettlementParty, AmountE4)]) -> [(SettlementParty, AmountE4)] {
       items.sorted { left, right in
         left.1 != right.1 ? left.1 > right.1 : left.0.sortKey < right.0.sortKey

@@ -117,7 +117,8 @@ struct Migration0031Tests {
           """)
     }
     #expect(try repository.all().count == 1)
-    #expect(try stack.writer.read { try Int.fetchOne($0, sql: "SELECT COUNT(*) FROM place_marks") } == 2)
+    #expect(
+      try stack.writer.read { try Int.fetchOne($0, sql: "SELECT COUNT(*) FROM place_marks") } == 2)
   }
 
   @Test func aMarkIsNeverFollowedByTheExchangeNorInTheCSVAndWritesNoJournalLine() throws {
@@ -127,7 +128,8 @@ struct Migration0031Tests {
     #expect(!ExportTables.all.map(\.fileName).contains("place_marks.csv"))
     let triggers = try device.stack.writer.read { db in
       try String.fetchAll(
-        db, sql: "SELECT name FROM sqlite_master WHERE type = 'trigger' AND tbl_name = 'place_marks'")
+        db,
+        sql: "SELECT name FROM sqlite_master WHERE type = 'trigger' AND tbl_name = 'place_marks'")
     }
     #expect(triggers.isEmpty)
     try PlaceMarkRepository(writer: device.stack.writer).save(mark())
@@ -150,7 +152,8 @@ struct Migration0031Tests {
     try mac.exchange.setRecording(true)
     try PlaceMarkRepository(writer: mac.stack.writer).save(mark())
     let folder = DirectoryJournalFolder(url: shared)
-    #expect(try mac.exchange.snapshotIfDue(to: folder, now: Date(timeIntervalSince1970: 1_900_000_000)))
+    #expect(
+      try mac.exchange.snapshotIfDue(to: folder, now: Date(timeIntervalSince1970: 1_900_000_000)))
     let file = shared.appendingPathComponent(
       try FileManager.default.contentsOfDirectory(atPath: shared.path)[0])
     let copy = try DatabaseQueue(path: file.path)
@@ -179,6 +182,7 @@ struct Migration0031Tests {
 
   @Test func theBarrierOfViewOnlyModeLeavesMarksWritable() {
     #expect(
-      !ReadOnlyBarrier.refuses(action: 18 /* SQLITE_INSERT */, table: "place_marks", database: "main"))
+      !ReadOnlyBarrier.refuses(
+        action: 18 /* SQLITE_INSERT */, table: "place_marks", database: "main"))
   }
 }

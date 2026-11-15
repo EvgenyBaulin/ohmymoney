@@ -188,7 +188,8 @@ struct KeychainCloudTokenStore: CloudTokenStoring {
     let status = SecItemCopyMatching(request as CFDictionary, &item)
     if status == errSecItemNotFound { return nil }
     guard status == errSecSuccess else { throw Failure.status(status) }
-    guard let data = item as? Data, let tokens = try? JSONDecoder().decode(CloudTokens.self, from: data)
+    guard let data = item as? Data,
+      let tokens = try? JSONDecoder().decode(CloudTokens.self, from: data)
     else { throw Failure.status(errSecDecode) }
     return tokens
   }
@@ -321,7 +322,9 @@ final class CloudAuthorizer: @unchecked Sendable {
     }
   }
 
-  private func tokenRequest(_ pairs: [(String, String)], keepingRefresh: String?) throws
+  private func tokenRequest(
+    _ pairs: [(String, String)], keepingRefresh: String?
+  ) throws
     -> CloudTokens
   {
     var request = URLRequest(url: config.tokenURL)
@@ -434,7 +437,9 @@ final class CloudHTTPClient: @unchecked Sendable {
       var outgoing = request
       if authorized {
         guard let authorizer else { throw ExchangeTransportError.unavailable }
-        do { try authorizer.authorize(&outgoing) } catch { throw ExchangeTransportError.unavailable }
+        do { try authorizer.authorize(&outgoing) } catch {
+          throw ExchangeTransportError.unavailable
+        }
       }
       let response: CloudHTTPResponse
       do {
@@ -553,7 +558,9 @@ enum CloudOAuthFlow {
       let session = ASWebAuthenticationSession(url: url, callbackURLScheme: scheme) { url, error in
         if let url {
           continuation.resume(returning: url)
-        } else if let error = error as? ASWebAuthenticationSessionError, error.code == .canceledLogin {
+        } else if let error = error as? ASWebAuthenticationSessionError,
+          error.code == .canceledLogin
+        {
           continuation.resume(throwing: CloudSignInError.cancelled)
         } else {
           continuation.resume(throwing: CloudSignInError.badCallback)

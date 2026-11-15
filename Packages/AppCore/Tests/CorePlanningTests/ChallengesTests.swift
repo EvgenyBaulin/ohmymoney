@@ -255,7 +255,8 @@ struct ChallengeStorageTests {
   @Test("open challenges come first, then the finished, and the total counts only finished ones")
   func ordering() throws {
     let done = Challenge(
-      title: "done", kind: .avoid, start: F.day(10, 1), end: F.day(10, 7), baseline: AmountE4(whole: 1_000))
+      title: "done", kind: .avoid, start: F.day(10, 1), end: F.day(10, 7),
+      baseline: AmountE4(whole: 1_000))
     let open = Challenge(
       title: "open", kind: .avoid, start: F.day(11, 10), end: F.day(11, 20),
       baseline: AmountE4(whole: 5_000))
@@ -300,7 +301,8 @@ struct ChallengeLimitTests {
     let cap = Challenge(title: "Cafe", kind: .cap, start: F.day(11, 1), end: F.day(11, 30))
     #expect(ChallengeRules.settingLimit(.zero, on: cap) == nil)
     #expect(ChallengeRules.settingLimit(AmountE4(whole: -5), on: cap) == nil)
-    #expect(ChallengeRules.settingLimit(AmountE4(whole: 3000), on: cap)?.limit == AmountE4(whole: 3000))
+    #expect(
+      ChallengeRules.settingLimit(AmountE4(whole: 3000), on: cap)?.limit == AmountE4(whole: 3000))
     let avoid = Challenge(title: "No cafe", kind: .avoid, start: F.day(11, 1), end: F.day(11, 30))
     #expect(ChallengeRules.settingLimit(AmountE4(whole: 3000), on: avoid) == nil)
   }

@@ -59,7 +59,9 @@ struct EntryFieldFlow: Layout {
     return rows
   }
 
-  private func plan(_ subviews: Subviews, width: CGFloat) -> (rows: [[Int]], cell: CGFloat, alone: [Bool]) {
+  private func plan(
+    _ subviews: Subviews, width: CGFloat
+  ) -> (rows: [[Int]], cell: CGFloat, alone: [Bool]) {
     let count = Self.columns(
       width: width, maxColumns: maxColumns, minimumCellWidth: minimumCellWidth, spacing: spacing)
     let cell = max(0, (width - spacing * CGFloat(count - 1)) / CGFloat(count))

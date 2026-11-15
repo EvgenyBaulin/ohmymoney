@@ -303,7 +303,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             // finding on our explicitly identified native marks; labels, actions, contrast,
             // parent/child issues and unmarked framework containers must still fail.
             let nativeMark =
-              node.identifier == "chart.native.average" || node.identifier == "chart.native.budgetLine"
+              node.identifier == "chart.native.average"
+              || node.identifier == "chart.native.budgetLine"
               || [
                 "chart.native.column.", "chart.native.pair.", "chart.native.share.",
                 "chart.native.netWorth.", "chart.native.ranked.", "chart.native.stack.",
@@ -353,7 +354,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             // (and the page keeps room below its last line for the bar), where it is audited.
             // Only text that lies inside those bands is excused, and the top band only once
             // the page has scrolled (the first viewport shows the unscrolled page header).
-            if issue.auditType == .contrast, node.elementType == .staticText, name.hasPrefix("main-"),
+            if issue.auditType == .contrast, node.elementType == .staticText,
+              name.hasPrefix("main-"),
               node.frame.maxY > windowFrame.maxY - Self.entryBarBand
                 || (viewport > 1 && node.frame.minY < windowFrame.minY + Self.toolbarBand)
             {

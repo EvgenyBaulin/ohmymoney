@@ -36,7 +36,9 @@ final class SystemEveningCenter: EveningCenter {
     await center.pendingNotificationRequests().map(\.identifier)
   }
 
-  func removePending(_ ids: [String]) { center.removePendingNotificationRequests(withIdentifiers: ids) }
+  func removePending(_ ids: [String]) {
+    center.removePendingNotificationRequests(withIdentifiers: ids)
+  }
 
   func add(_ request: UNNotificationRequest) { center.add(request) }
 

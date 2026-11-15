@@ -56,8 +56,10 @@ struct DoNowSourcesTests {
   @Test func aStatementLoadedTwoWeeksAgoAsksForTheNextOne() throws {
     let bank = UUID()
     let entries = [
-      try entry(daysAgo: 30, categorized: true, source: "statement", account: bank, loadedDaysAgo: 30),
-      try entry(daysAgo: 20, categorized: true, source: "statement", account: bank, loadedDaysAgo: 14),
+      try entry(
+        daysAgo: 30, categorized: true, source: "statement", account: bank, loadedDaysAgo: 30),
+      try entry(
+        daysAgo: 20, categorized: true, source: "statement", account: bank, loadedDaysAgo: 14),
       try entry(daysAgo: 1, categorized: true, source: "manual", account: bank),
     ]
     let sources = DoNowSources.statements(entries: entries, today: today, calendar: calendar)
@@ -69,7 +71,8 @@ struct DoNowSourcesTests {
   @Test func aFreshStatementOrNoStatementAtAllAsksForNothing() throws {
     let bank = UUID()
     let entries = [
-      try entry(daysAgo: 13, categorized: true, source: "statement", account: bank, loadedDaysAgo: 13),
+      try entry(
+        daysAgo: 13, categorized: true, source: "statement", account: bank, loadedDaysAgo: 13),
       try entry(daysAgo: 40, categorized: true, source: "manual", account: UUID()),
     ]
     #expect(DoNowSources.statements(entries: entries, today: today, calendar: calendar).isEmpty)
@@ -80,7 +83,8 @@ struct DoNowSourcesTests {
   @Test func theDayOfLoadingCountsNotTheDayOfTheNewestOperation() throws {
     let bank = UUID()
     let entries = [
-      try entry(daysAgo: 25, categorized: true, source: "statement", account: bank, loadedDaysAgo: 11)
+      try entry(
+        daysAgo: 25, categorized: true, source: "statement", account: bank, loadedDaysAgo: 11)
     ]
     #expect(DoNowSources.statements(entries: entries, today: today, calendar: calendar).isEmpty)
   }
@@ -89,8 +93,10 @@ struct DoNowSourcesTests {
     let open = UUID()
     let closed = UUID()
     let entries = [
-      try entry(daysAgo: 60, categorized: true, source: "statement", account: open, loadedDaysAgo: 60),
-      try entry(daysAgo: 60, categorized: true, source: "statement", account: closed, loadedDaysAgo: 60),
+      try entry(
+        daysAgo: 60, categorized: true, source: "statement", account: open, loadedDaysAgo: 60),
+      try entry(
+        daysAgo: 60, categorized: true, source: "statement", account: closed, loadedDaysAgo: 60),
     ]
     let sources = DoNowSources.statements(
       entries: entries, today: today, calendar: calendar, archivedAccounts: [closed])

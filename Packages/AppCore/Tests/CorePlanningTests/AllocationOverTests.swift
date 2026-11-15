@@ -12,7 +12,9 @@ import Testing
 struct AllocationOverTests {
   typealias B = B3Book
 
-  private func setup(income amount: String, currency: CurrencyCode = .rub, rub: String? = nil)
+  private func setup(
+    income amount: String, currency: CurrencyCode = .rub, rub: String? = nil
+  )
     -> (AllocationTests.Setup, UUID)
   {
     var setup = AllocationTests.Setup()

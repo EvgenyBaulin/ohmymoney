@@ -96,7 +96,8 @@ final class PhoneCalendarTests: XCTestCase {
     XCTAssertEqual(line.side, 16)
     XCTAssertEqual(line.leading, 16)
     XCTAssertEqual(line.trailing, 8)
-    XCTAssertEqual(EntryBarMetrics.columnWidth(windowWidth: 440, detailWidth: 440, idiom: .phone), 408)
+    XCTAssertEqual(
+      EntryBarMetrics.columnWidth(windowWidth: 440, detailWidth: 440, idiom: .phone), 408)
     XCTAssertEqual(EntryBarMetrics.bottomInset(idiom: .phone), 8)
     XCTAssertEqual(EntryBarMetrics.bottomInset(idiom: .mac), 18)
     XCTAssertEqual(EntryBarMetrics.bottomInset(idiom: .pad), 18)

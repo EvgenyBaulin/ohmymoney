@@ -22,7 +22,8 @@ struct CreditCardDebtText: Equatable {
   /// Every key the lines use, so a test finds each in both languages.
   static let keys = [
     "debts.cards.header", "debts.card.title", "debts.card.badge", "debts.card.debt",
-    "debts.card.missed", "debts.card.missedMinimumPaid", "debts.card.missedNoDay", "debts.card.estimate", "debts.card.over",
+    "debts.card.missed", "debts.card.missedMinimumPaid", "debts.card.missedNoDay",
+    "debts.card.estimate", "debts.card.over",
     "debts.card.counted", "debts.card.open",
   ]
 
