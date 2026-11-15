@@ -1,3 +1,4 @@
+import AppCore
 import CoreKit
 import Foundation
 import GRDB
@@ -35,5 +36,15 @@ public struct UtilityRepository: Sendable {
 
   public func book() throws -> UtilityBook {
     try writer.read { try Self.book($0) }
+  }
+}
+
+extension PlanningChange {
+  /// A bill with its lines written in one change: the bill (its total follows the lines), the
+  /// lines changed or added, the lines removed. ⌘Z takes all of it back in one step.
+  public init(billEdit edit: UtilityBillLines.Edit, at: Date) {
+    self.init(
+      upsert: PlanningRows(utilityBills: [edit.bill], utilityCharges: edit.charges),
+      delete: PlanningRowIDs(utilityCharges: edit.deletedChargeIDs), at: at)
   }
 }

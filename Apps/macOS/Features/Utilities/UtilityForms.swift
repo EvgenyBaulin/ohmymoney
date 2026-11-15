@@ -270,6 +270,8 @@ struct UtilityReadingForm: View {
 
 /// A bill of a provider for a month: who, which month, how much, by what day, and the payment of
 /// «Планирование» it belongs to. Recognising a bill from a PDF or a photo fills the same form.
+/// The lines of the bill (service, amount, what the meter showed) are changed, added and removed
+/// here; with lines the total follows their sum, and one save is one step of ⌘Z.
 struct UtilityBillForm: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
@@ -283,6 +285,7 @@ struct UtilityBillForm: View {
   @State private var hasPayBy = false
   @State private var payBy = Date()
   @State private var paymentId: UUID?
+  @State private var lines: [UtilityBillLines.Draft] = []
   @State private var loaded = false
 
   private func t(_ key: String) -> String { UtilitiesText.t(key, environment) }
@@ -290,6 +293,10 @@ struct UtilityBillForm: View {
   private var payments: [ScheduledPayment] {
     (compute.snapshot?.dataset.planning.scheduled ?? []).filter(\.active)
   }
+
+  private var hasLines: Bool { lines.contains { !$0.isBlank } }
+
+  private var shownTotal: AmountE4 { hasLines ? UtilityBillLines.total(of: lines) : total }
 
   private var providers: [String] {
     let book = compute.snapshot?.dataset.utilities ?? UtilityBook()
@@ -309,9 +316,17 @@ struct UtilityBillForm: View {
           }
         }
         DatePicker(t("utilities.bill.period"), selection: $periodDay, displayedComponents: .date)
-        LabeledContent(t("utilities.bill.total")) {
-          AmountField(amount: $total, locale: environment.language.locale)
+        if hasLines {
+          LabeledContent(t("utilities.bill.total")) {
+            Text(verbatim: environment.money.exact(shownTotal, currency: bill?.currency ?? .rub))
+              .monospacedDigit()
+          }
+        } else {
+          LabeledContent(t("utilities.bill.total")) {
+            AmountField(amount: $total, locale: environment.language.locale)
+          }
         }
+        linesSection
         Toggle(t("utilities.bill.hasPayBy"), isOn: $hasPayBy)
         if hasPayBy {
           DatePicker(t("utilities.bill.payBy"), selection: $payBy, displayedComponents: .date)
@@ -336,7 +351,7 @@ struct UtilityBillForm: View {
       .formStyle(.grouped)
       FormButtons(
         title: environment.language("action.save"),
-        enabled: !provider.trimmingCharacters(in: .whitespaces).isEmpty && !total.isNegative
+        enabled: !provider.trimmingCharacters(in: .whitespaces).isEmpty && !shownTotal.isNegative
       ) {
         guard let dependencies else { return false }
         let now = environment.now()
@@ -349,12 +364,13 @@ struct UtilityBillForm: View {
         made.totalE4 = total
         made.payBy = hasPayBy ? environment.calendar.day(of: payBy) : nil
         made.scheduledPaymentId = paymentId
-        return dependencies.store.apply(
-          PlanningChange(upsert: PlanningRows(utilityBills: [made]), at: now))
+        let stored = compute.snapshot?.dataset.utilities.charges ?? []
+        let edit = UtilityBillLines.edit(bill: made, drafts: lines, stored: stored)
+        return dependencies.store.apply(PlanningChange(billEdit: edit, at: now))
       }
     }
     .padding(20)
-    .sheetFrame(width: 460, height: 500)
+    .sheetFrame(width: 460, height: 640)
     .onAppear {
       guard !loaded else { return }
       loaded = true
@@ -368,6 +384,41 @@ struct UtilityBillForm: View {
       hasPayBy = bill.payBy != nil
       payBy = bill.payBy.map { environment.calendar.noon(of: $0) } ?? environment.now()
       paymentId = bill.scheduledPaymentId
+      lines = UtilityBillLines.lines(
+        of: bill, in: compute.snapshot?.dataset.utilities.charges ?? [])
+    }
+  }
+
+  private var linesSection: some View {
+    Section {
+      ForEach($lines) { $line in
+        VStack(alignment: .leading, spacing: 4) {
+          HStack {
+            TextField(text: $line.service) { Text(verbatim: t("utilities.line.service")) }
+            Button(role: .destructive) {
+              lines.removeAll { $0.id == line.id }
+            } label: {
+              Image(systemName: "minus.circle")
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel(t("utilities.line.remove"))
+          }
+          LabeledContent(t("utilities.line.amount")) {
+            AmountField(amount: $line.amountE4, locale: environment.language.locale)
+          }
+          LabeledContent(t("utilities.line.quantity")) {
+            AmountField(
+              amount: Binding(
+                get: { line.quantityE4 ?? .zero },
+                set: { line.quantityE4 = $0.isZero ? nil : $0 }),
+              locale: environment.language.locale)
+          }
+        }
+      }
+      Button(t("utilities.line.add")) { lines.append(UtilityBillLines.Draft()) }
+        .accessibilityIdentifier("utilities.line.add")
+    } header: {
+      Text(verbatim: t("utilities.lines")).appFont(.callout).secondaryInk()
     }
   }
 }
