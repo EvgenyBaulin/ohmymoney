@@ -181,6 +181,7 @@ struct PlaceMarksScreen: View {
         PlaceHintsSettings.setHints(on)
         Task {
           if on { await PlaceHintsService.shared.askPermissions() }
+          hintsOn = PlaceHintsSettings.hintsEnabled()
           PlaceHintsService.shared.resume(deps: deps)
         }
       })

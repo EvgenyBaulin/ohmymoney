@@ -85,6 +85,9 @@ final class PhoneEveningRemindersTests: XCTestCase {
   func testPermissionIsAskedOnceAndDeclinedMeansNothingScheduled() async {
     let center = FakeCenter(status: .undetermined, grants: false)
     let value = reminders(center)
+    value.permissionPrompt = {
+      await NotificationPermissionGate(center: center).answer(allow: true)
+    }
     await value.apply(now: morning)
     await value.apply(now: morning)
     XCTAssertEqual(center.asked, 1)
@@ -92,9 +95,31 @@ final class PhoneEveningRemindersTests: XCTestCase {
     XCTAssertFalse(value.schedule(nil), "«Стоит посмотреть» says the evening instead")
   }
 
+  func testNotNowDisablesUntilEnabledAgain() async {
+    let center = FakeCenter(status: .undetermined)
+    let value = reminders(center)
+    var explanations = 0
+    value.permissionPrompt = {
+      explanations += 1
+      return false
+    }
+    await value.apply(now: morning)
+    XCTAssertEqual(center.asked, 0)
+    XCTAssertFalse(HabitNotesOnMac.eveningEnabled(suite))
+    await value.apply(now: morning)
+    XCTAssertEqual(explanations, 1)
+    suite.set(true, forKey: HabitNotesOnMac.eveningEnabledKey)
+    await value.apply(now: morning)
+    XCTAssertEqual(explanations, 2)
+    XCTAssertEqual(center.asked, 0)
+  }
+
   func testWithPermissionTheReminderIsDelivered() async {
     let center = FakeCenter(status: .undetermined)
     let value = reminders(center)
+    value.permissionPrompt = {
+      await NotificationPermissionGate(center: center).answer(allow: true)
+    }
     await value.apply(now: morning)
     XCTAssertEqual(center.asked, 1)
     XCTAssertFalse(center.added.isEmpty)

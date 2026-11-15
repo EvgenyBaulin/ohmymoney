@@ -6,7 +6,7 @@ import UIKit
 /// The system's notification center as the evening reminder uses it. A seam: the app talks to
 /// the real center, a test counts what was asked and never shows a system question.
 @MainActor
-protocol EveningCenter: AnyObject {
+protocol EveningCenter: NotificationPermissionCenter {
   func permission() async -> NotificationPlan.Permission
   func requestPermission() async -> Bool
   func pendingIds() async -> [String]
@@ -69,6 +69,7 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
     var calendar: CalendarContext
   }
 
+  var permissionPrompt: (@MainActor () async -> Bool)?
   let center: any EveningCenter
   var defaults: UserDefaults = .standard
   private(set) var permission: NotificationPlan.Permission?
@@ -138,9 +139,14 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
       entryDays: inputs.entryDays, today: inputs.today, hour: hour, enabled: enabled,
       calendar: inputs.calendar, now: now)
     var status = await center.permission()
-    if status == .undetermined, !wanted.isEmpty, !defaults.bool(forKey: Self.askedKey) {
-      defaults.set(true, forKey: Self.askedKey)
-      _ = await center.requestPermission()
+    if status != .allowed, !wanted.isEmpty {
+      let allowed: Bool
+      if let permissionPrompt {
+        allowed = await permissionPrompt()
+      } else {
+        allowed = await NotificationPermissionPrompt.request(.evening, center: center)
+      }
+      if !allowed { defaults.set(false, forKey: HabitNotesOnMac.eveningEnabledKey) }
       status = await center.permission()
     }
     permission = status

@@ -199,9 +199,10 @@ final class PlaceHintsService {
 
   /// Asks for the permissions the hints need; the notice permission is asked here too.
   func askPermissions() async {
-    _ = try? await UNUserNotificationCenter.current().requestAuthorization(options: [
-      .alert, .sound,
-    ])
+    guard await NotificationPermissionPrompt.request(.place) else {
+      PlaceHintsSettings.setHints(false)
+      return
+    }
     controller.requestPermission()
   }
 }

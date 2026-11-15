@@ -21329,6 +21329,278 @@
           }
         }
       }
+    },
+    "notify.permission.allow": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешить"
+          }
+        }
+      }
+    },
+    "notify.permission.later": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сейчас"
+          }
+        }
+      }
+    },
+    "notify.permission.settings.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable notifications in Settings"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включите уведомления в Настройках"
+          }
+        }
+      }
+    },
+    "notify.permission.settings.body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable OhMyMoney notifications in system settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включите уведомления OhMyMoney в настройках системы."
+          }
+        }
+      }
+    },
+    "notify.permission.settings.open": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Settings"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть Настройки"
+          }
+        }
+      }
+    },
+    "notify.permission.evening.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evening reminders"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечернее напоминание"
+          }
+        }
+      }
+    },
+    "notify.permission.evening.body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A reminder helps you record daily spending at your chosen evening time. You can change it in habit settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напоминание поможет записать траты вечером в выбранное время. Изменить его можно в настройках привычек."
+          }
+        }
+      }
+    },
+    "notify.permission.evening.example": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record today’s spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запишите траты за день"
+          }
+        }
+      }
+    },
+    "notify.permission.place.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hints near a place"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подсказки по месту"
+          }
+        }
+      }
+    },
+    "notify.permission.place.body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Near a saved place, a notification suggests a card to pay with. You can turn hints off in place settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядом с сохранённым местом уведомление подскажет карту для оплаты. Подсказки можно выключить в настройках мест."
+          }
+        }
+      }
+    },
+    "notify.permission.place.example": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nearby shop: check your cashback card."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Магазин рядом: проверьте карту с кэшбэком."
+          }
+        }
+      }
+    },
+    "notify.permission.sync.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange notifications"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления обмена"
+          }
+        }
+      }
+    },
+    "notify.permission.sync.body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A notification tells you when exchanged records need your choice. Open the conflict list to review them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомление сообщит, когда записи обмена требуют вашего выбора. Проверьте их в списке конфликтов."
+          }
+        }
+      }
+    },
+    "notify.permission.sync.example": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange: records need your choice."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обмен: записи ждут вашего выбора."
+          }
+        }
+      }
+    },
+    "notify.permission.mac.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders on your Mac"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напоминания на Mac"
+          }
+        }
+      }
+    },
+    "notify.permission.mac.body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications remind you about payments, limits and summaries. Choose reminders in notification settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления напомнят о платежах, лимитах и итогах. Выбрать напоминания можно в настройках уведомлений."
+          }
+        }
+      }
+    },
+    "notify.permission.mac.example": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A scheduled payment is due tomorrow."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завтра запланированный платёж."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
