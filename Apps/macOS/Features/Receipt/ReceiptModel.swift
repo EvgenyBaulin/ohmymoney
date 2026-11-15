@@ -9,6 +9,13 @@ struct ReceiptPhoto: Equatable {
   var filename: String
 }
 
+/// One thing a receipt is read from: a file, the bytes of a picture, or the text of a QR code.
+enum ReceiptInput: Equatable {
+  case file(URL)
+  case data(Data, filename: String)
+  case payload(String)
+}
+
 /// The state of «Чек по QR»: a picture or a scanned text in, one proposal out, one write on
 /// the button. The matching is in `CoreParse` (`ReceiptMatch`); this class reads the books,
 /// writes through the same store as the entry line (so ⌘Z takes it back in one step) and
@@ -29,6 +36,11 @@ final class ReceiptModel {
     case found
     /// The same receipt is already on this operation: nothing is written, it is shown.
     case alreadyRecorded(UUID)
+    /// A link that names a receipt by its numbers only: no sum, so nothing to write, and the
+    /// receipt is not on any operation.
+    case linkOnly
+    /// The last receipt of a queue has ended: the count of how they went.
+    case queueDone(ReceiptQueueTally)
     case done(DoneKind)
     case failed(FailureKind)
   }
@@ -65,6 +77,15 @@ final class ReceiptModel {
   /// the total). Empty: the whole receipt goes to «Не помню», as before.
   private(set) var splitLines: [ReceiptSplit.Line] = []
 
+  /// Several receipts taken one after another, `nil` for a single one.
+  private(set) var queue: ReceiptQueue?
+  private var pending: [ReceiptInput] = []
+  /// The receipt of the queue that waits for the owner's word.
+  private(set) var awaitingOwner = false
+
+  /// Whether a queue is still going: more receipts to read, or one waiting for the owner.
+  var isQueueRunning: Bool { queue.map { !$0.isFinished } ?? false }
+
   private let environment: AppEnvironment
   private let store: TransactionsStore
   private let dataset: @MainActor () -> Dataset?
@@ -89,14 +110,24 @@ final class ReceiptModel {
     }.value
     switch reading {
     case .receipt(let receipt): accept(receipt, photo: photo)
-    case .notReceipt, .noCode:
-      let fallback: Stage = reading == .notReceipt ? .notReceipt : .noCode
+    case .keyOnly, .notReceipt, .noCode:
       stage = .reading
       let lines = await Task.detached(priority: .userInitiated) {
         ReceiptTextReader.lines(in: image)
       }.value
-      read(printed: PrintedReceiptReader.read(recognized: lines), photo: photo, otherwise: fallback)
+      read(
+        printed: PrintedReceiptReader.read(recognized: lines), photo: photo,
+        otherwise: Self.fallback(for: reading), key: Self.key(of: reading))
     }
+  }
+
+  private static func fallback(for reading: ReceiptQRDetector.Reading) -> Stage {
+    reading == .noCode ? .noCode : .notReceipt
+  }
+
+  private static func key(of reading: ReceiptQRDetector.Reading) -> ReceiptNumbers? {
+    if case .keyOnly(let numbers) = reading { return numbers }
+    return nil
   }
 
   func read(fileAt url: URL) async {
@@ -120,14 +151,14 @@ final class ReceiptModel {
     switch reading {
     case .receipt(let receipt):
       accept(receipt, photo: ReceiptPhoto(data: data, filename: filename))
-    case .notReceipt, .noCode:
-      let fallback: Stage = reading == .notReceipt ? .notReceipt : .noCode
+    case .keyOnly, .notReceipt, .noCode:
       let lines = await Task.detached(priority: .userInitiated) {
         ReceiptTextReader.lines(inFile: data)
       }.value
       read(
         printed: PrintedReceiptReader.read(recognized: lines),
-        photo: ReceiptPhoto(data: data, filename: filename), otherwise: fallback)
+        photo: ReceiptPhoto(data: data, filename: filename), otherwise: Self.fallback(for: reading),
+        key: Self.key(of: reading))
     }
   }
 
@@ -146,24 +177,45 @@ final class ReceiptModel {
     read(printed: PrintedReceiptReader.read(recognized: lines), photo: photo, otherwise: otherwise)
   }
 
-  private func read(printed reading: PrintedReading, photo: ReceiptPhoto?, otherwise: Stage) {
+  private func read(
+    printed reading: PrintedReading, photo: ReceiptPhoto?, otherwise: Stage,
+    key: ReceiptNumbers? = nil
+  ) {
     switch reading {
     case .receipt(let printed):
       accept(printed.receipt, photo: photo, printed: printed)
     case .bill:
       stage = .bill
     case .nothing:
-      stage = otherwise
+      if let key {
+        acceptKey(key, photo: photo)
+      } else {
+        stage = otherwise
+      }
     }
   }
 
   /// The text of a QR code a camera has already read.
   func read(payload: String, photo: ReceiptPhoto? = nil) {
-    guard let receipt = ReceiptQRParser.parse(payload) else {
-      stage = .notReceipt
-      return
+    switch ReceiptLinkParser.read(payload) {
+    case .receipt(let receipt): accept(receipt, photo: photo)
+    case .keyOnly(let numbers): acceptKey(numbers, photo: photo)
+    case nil: stage = .notReceipt
     }
-    accept(receipt, photo: photo)
+  }
+
+  /// A receipt known by its numbers only: if an operation holds it, say so; otherwise there is
+  /// nothing to write (the page behind the link is never opened).
+  private func acceptKey(_ numbers: ReceiptNumbers, photo: ReceiptPhoto?) {
+    self.photo = photo
+    receipt = nil
+    proposal = nil
+    if let holder = ReceiptMatch.recorded(numbers: numbers, among: candidates(holding: numbers)) {
+      chosenId = nil
+      stage = .alreadyRecorded(holder.id)
+    } else {
+      stage = .linkOnly
+    }
   }
 
   /// A file that is not a picture, or one that cannot be opened.
@@ -180,6 +232,9 @@ final class ReceiptModel {
     chosenId = nil
     wantsNew = false
     splitLines = []
+    queue = nil
+    pending = []
+    awaitingOwner = false
   }
 
   private func accept(_ receipt: ReceiptQR, photo: ReceiptPhoto?, printed: PrintedReceipt? = nil) {
@@ -210,10 +265,14 @@ final class ReceiptModel {
   /// database: the lists may be a moment behind a write, and a second scan right after the first
   /// must still find it.
   private func candidates(for receipt: ReceiptQR) -> [ReceiptCandidate] {
+    candidates(holding: receipt.numbers)
+  }
+
+  private func candidates(holding numbers: ReceiptNumbers?) -> [ReceiptCandidate] {
     var list = (dataset()?.entries ?? [])
       .filter { !$0.transaction.isDeleted }
       .map { Self.candidate($0.transaction) }
-    if let numbers = receipt.numbers,
+    if let numbers,
       let holders = try? environment.transactions?.operations(holdingReceipt: numbers)
     {
       // The database is the fresher: an operation the lists still show without the numbers is
@@ -250,6 +309,34 @@ final class ReceiptModel {
   var similar: [ReceiptCandidate] {
     guard case .new(let draft) = proposal, !wantsNew else { return [] }
     return draft.similar
+  }
+
+  /// The same near operations with what makes each close, for the screen to say.
+  var nearby: [ReceiptNearMatch] {
+    guard case .new(let draft) = proposal, !wantsNew else { return [] }
+    return draft.nearby
+  }
+
+  /// «Сумма на 0,50 ₽ меньше (округление) · в тот же день» for a near operation.
+  func reason(for match: ReceiptNearMatch) -> String {
+    let amount = environment.money.exact(
+      AmountE4(raw: abs(match.sumDifferenceE4)), currency: match.candidate.currency)
+    let sum: String
+    if match.isRounding {
+      sum = ReceiptText.format(
+        match.sumDifferenceE4 < 0 ? "receipt.near.sum.roundedDown" : "receipt.near.sum.roundedUp",
+        environment, amount)
+    } else {
+      sum = ReceiptText.format(
+        match.sumDifferenceE4 < 0 ? "receipt.near.sum.less" : "receipt.near.sum.more",
+        environment, amount)
+    }
+    let dayKey =
+      match.dayOffset < 0
+      ? "receipt.near.day.before"
+      : match.dayOffset > 0 ? "receipt.near.day.after" : "receipt.near.day.same"
+    let day = ReceiptText.t(dayKey, environment)
+    return ReceiptText.format("receipt.near.reason", environment, sum, day)
   }
 
   /// Smaller operations already written for the day of the receipt: a purchase paid in two
@@ -407,6 +494,83 @@ final class ReceiptModel {
   /// «Этот чек уже записан: «Кофе», 15 января 2026 г.»
   func alreadyRecordedText(_ id: UUID) -> String {
     ReceiptText.format("receipt.already", environment, title(of: id), dayText(of: id))
+  }
+
+  // MARK: Several receipts
+
+  /// Takes the inputs one after another. One input is read as a single receipt. Several make a
+  /// queue: what has one obvious answer is written by itself (`ReceiptQueuePolicy`), a receipt
+  /// that needs a decision waits for it, and at the end the count says how they went.
+  func start(_ inputs: [ReceiptInput]) async {
+    reset()
+    guard inputs.count > 1 else {
+      if let only = inputs.first { await load(only) }
+      return
+    }
+    queue = ReceiptQueue(total: inputs.count)
+    pending = inputs
+    await runQueue()
+  }
+
+  private func load(_ input: ReceiptInput) async {
+    switch input {
+    case .file(let url): await read(fileAt: url)
+    case .data(let data, let filename): await read(data: data, filename: filename)
+    case .payload(let text): read(payload: text)
+    }
+  }
+
+  private func runQueue() async {
+    while !pending.isEmpty {
+      await load(pending.removeFirst())
+      switch stage {
+      case .alreadyRecorded:
+        queue?.settle(.repeated)
+      case .found:
+        guard let proposal else {
+          queue?.settle(.unread)
+          continue
+        }
+        switch ReceiptQueuePolicy.action(for: proposal, printed: printedKind != nil) {
+        case .repeated:
+          queue?.settle(.repeated)
+        case .supplement(let id):
+          chosenId = id
+          queue?.settle(confirm() ? .recorded : .left)
+        case .create:
+          queue?.settle(confirm() ? .recorded : .left)
+        case .ask:
+          awaitingOwner = true
+          return
+        }
+      default:
+        // No code, not a receipt, a guest bill, a link with no sum: nothing was read.
+        queue?.settle(.unread)
+      }
+    }
+    if let queue, queue.isFinished { stage = .queueDone(queue.tally) }
+  }
+
+  /// The button of the receipt on screen. In a queue the next receipt follows by itself.
+  func confirmAndContinue() async {
+    guard isQueueRunning, awaitingOwner else {
+      confirm()
+      return
+    }
+    let written = confirm()
+    // A split above the receipt keeps it open: the owner takes a line off and writes again.
+    if !written, stage == .found { return }
+    queue?.settle(written ? .recorded : .left)
+    awaitingOwner = false
+    await runQueue()
+  }
+
+  /// «Пропустить»: the receipt that waits is passed by, the queue goes on.
+  func skipCurrent() async {
+    guard isQueueRunning, awaitingOwner else { return }
+    queue?.settle(.left)
+    awaitingOwner = false
+    await runQueue()
   }
 
   // MARK: Choices and the write

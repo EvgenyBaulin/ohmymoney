@@ -22,7 +22,7 @@ struct OverviewTilesTests {
         "monthIncome", "savingsRate", "monthRest", "weekdaySpending", "monthlySpending",
         "incomeSources", "topPlaces", "spendingByPerson", "categoryGrew", "categoryShrank",
         "smallPurchases", "backups", "integrity", "ratesStatus", "weekendPrice", "usualDay",
-        "financialHealth", "subscriptions",
+        "financialHealth", "subscriptions", "challenges",
       ])
   }
 
@@ -38,7 +38,7 @@ struct OverviewTilesTests {
     // Waiting with them: every tile of 2.0 and the health of 2.2, which no kept layout names.
     #expect(
       OverviewTile.allCases.filter { !$0.isShownUnnamed }
-        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(22))
+        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(23))
     #expect(
       OverviewTiles.decode("installments,selfEmployment,limits")
         == [.installments, .selfEmployment, .limits])

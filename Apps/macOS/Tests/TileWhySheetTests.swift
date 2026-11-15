@@ -234,6 +234,7 @@ final class TileWhySheetTests: XCTestCase {
       .smallPurchases: .analytics(.overview), .backups: nil, .integrity: nil, .ratesStatus: nil,
       .weekendPrice: .analytics(.days), .usualDay: .analytics(.days),
       .subscriptions: .section(.planning),
+      .challenges: .section(.planning),
     ]
     XCTAssertEqual(Set(expected.keys), Set(OverviewTile.allCases))
     for (tile, target) in expected {

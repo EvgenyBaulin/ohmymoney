@@ -34,6 +34,44 @@ enum ChallengeText {
     return environment.format(
       "challenges.share.kept", table: table, challenge.title, progress.keptDays, progress.dayCount)
   }
+
+  /// The words a finished challenge is shared with as a picture: its state, period, days kept and
+  /// streak, and the saving only when amounts are not hidden — no line carries a sum otherwise.
+  @MainActor
+  static func shareCard(
+    _ challenge: Challenge, _ progress: ChallengeProgress, _ environment: AppEnvironment
+  ) -> (title: String, lines: [String]) {
+    var lines = [
+      environment.format(
+        "challenges.period", table: table, environment.dates.dayAndMonth(challenge.start),
+        environment.dates.dayAndMonth(challenge.end)),
+      environment.format("challenges.keptDays", table: table, counts: progress.keptDays),
+      environment.format("challenges.streak", table: table, counts: progress.bestStreak),
+    ]
+    if !environment.amounts.isHidingNow, let saved = progress.saved, !saved.isZero {
+      lines.append(
+        environment.format("challenges.saved", table: table, environment.money.rounded(saved)))
+    }
+    let state: String
+    switch progress.state {
+    case .succeeded: state = "succeeded"
+    case .failed: state = "failed"
+    case .stopped: state = "stopped"
+    case .running: state = "running"
+    case .upcoming: state = "upcoming"
+    }
+    return (title: t("challenges.state.\(state)", environment), lines: lines)
+  }
+
+  /// The picture to share: one card on the page of the summaries, drawn the same way.
+  @MainActor
+  static func sharePicture(
+    _ challenge: Challenge, _ progress: ChallengeProgress, _ environment: AppEnvironment
+  ) -> URL? {
+    let page = SummaryPage(
+      title: challenge.title, cards: [shareCard(challenge, progress, environment)])
+    return SummaryExport.pngFile(of: page, name: "OhMyMoney-challenge")
+  }
 }
 
 /// «Челленджи»: the ones running with their days, streak and what is left of a limit, the finished
@@ -130,6 +168,8 @@ struct ChallengeRow: View {
   let challenge: Challenge
   let progress: ChallengeProgress
   let onChange: () -> Void
+  /// The picture of a finished challenge, made again when «Скрыть суммы» changes.
+  @State private var picture: URL?
 
   private func t(_ key: String) -> String { ChallengeText.t(key, environment) }
   private func money(_ amount: AmountE4) -> String { environment.money.rounded(amount) }
@@ -233,8 +273,23 @@ struct ChallengeRow: View {
   private var actions: some View {
     HStack {
       if progress.isFinished {
-        ShareLink(item: ChallengeText.shareText(challenge, progress, environment)) {
-          Text(verbatim: t("challenges.share"))
+        Group {
+          if let picture {
+            ShareLink(
+              item: picture,
+              preview: SharePreview(challenge.title, image: Image(systemName: "flame"))
+            ) {
+              Text(verbatim: t("challenges.share"))
+            }
+          } else {
+            ShareLink(item: ChallengeText.shareText(challenge, progress, environment)) {
+              Text(verbatim: t("challenges.share"))
+            }
+          }
+        }
+        .task(id: environment.amounts.isHidingNow) {
+          if let picture { try? FileManager.default.removeItem(at: picture) }
+          picture = ChallengeText.sharePicture(challenge, progress, environment)
         }
         .accessibilityIdentifier("challenge.share")
       } else {

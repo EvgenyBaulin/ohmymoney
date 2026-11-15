@@ -108,6 +108,11 @@ public enum OverviewTile: String, CaseIterable, Sendable, Hashable, Codable {
 
   /// «Подписки»: what the running subscriptions cost a month, and a year and a day beneath.
   case subscriptions
+  // The tile of the challenges, waiting hidden until the owner adds it.
+
+  /// «Челленджи»: the one running now with its day, streak and what is left, or what the last
+  /// finished one saved.
+  case challenges
 }
 
 extension OverviewTile: Identifiable {
@@ -124,7 +129,7 @@ extension OverviewTile {
       .weekOverWeek, .averageDaily, .monthIncome, .savingsRate:
       return .money
     case .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-      .selfEmployment, .monthRest, .subscriptions:
+      .selfEmployment, .monthRest, .subscriptions, .challenges:
       return .plan
     case .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook,
       .currencyChart, .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces,
@@ -146,7 +151,7 @@ extension OverviewTile {
       .averageDaily, .monthIncome, .savingsRate, .monthRest, .weekdaySpending, .monthlySpending,
       .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew, .categoryShrank,
       .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
-      .financialHealth, .subscriptions:
+      .financialHealth, .subscriptions, .challenges:
       false
     default: true
     }

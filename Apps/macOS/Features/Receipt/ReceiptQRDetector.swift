@@ -24,14 +24,22 @@ enum ReceiptQRDetector {
   static func reading(of image: CGImage) -> Reading {
     let found = payloads(in: image)
     if found.isEmpty { return .noCode }
-    if let receipt = found.lazy.compactMap({ ReceiptQRParser.parse($0) }).first {
-      return .receipt(receipt)
+    var key: ReceiptNumbers?
+    for payload in found {
+      switch ReceiptLinkParser.read(payload) {
+      case .receipt(let receipt): return .receipt(receipt)
+      case .keyOnly(let numbers): key = key ?? numbers
+      case nil: break
+      }
     }
+    if let key { return .keyOnly(key) }
     return .notReceipt
   }
 
   enum Reading: Equatable {
     case receipt(ReceiptQR)
+    /// A link that names a receipt by its numbers alone (no sum, no time).
+    case keyOnly(ReceiptNumbers)
     case notReceipt
     case noCode
   }
@@ -46,6 +54,7 @@ enum ReceiptQRDetector {
   static func reading(ofFile data: Data) -> Reading {
     let pictures = isPDF(data) ? pages(ofPDF: data) : sizes(ofImage: data)
     var sawCode = false
+    var key: ReceiptNumbers?
     for picture in pictures {
       let outcome = autoreleasepool { () -> Reading in
         guard let image = picture() else { return .noCode }
@@ -53,10 +62,12 @@ enum ReceiptQRDetector {
       }
       switch outcome {
       case .receipt(let receipt): return .receipt(receipt)
+      case .keyOnly(let numbers): key = key ?? numbers
       case .notReceipt: sawCode = true
       case .noCode: break
       }
     }
+    if let key { return .keyOnly(key) }
     return sawCode ? .notReceipt : .noCode
   }
 
@@ -70,6 +81,7 @@ enum ReceiptQRDetector {
   /// The picture as a whole, then — when it is larger than `reducedSide` — piece by piece.
   private static func reading(ofAll image: CGImage) -> Reading {
     var sawCode = false
+    var key: ReceiptNumbers?
     for rect in [CGRect(x: 0, y: 0, width: image.width, height: image.height)]
       + tiles(width: image.width, height: image.height)
     {
@@ -79,10 +91,12 @@ enum ReceiptQRDetector {
       else { continue }
       switch reading(of: piece) {
       case .receipt(let receipt): return .receipt(receipt)
+      case .keyOnly(let numbers): key = key ?? numbers
       case .notReceipt: sawCode = true
       case .noCode: break
       }
     }
+    if let key { return .keyOnly(key) }
     return sawCode ? .notReceipt : .noCode
   }
 

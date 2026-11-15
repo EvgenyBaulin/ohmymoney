@@ -67,6 +67,33 @@ struct SyncSnapshotTests {
     #expect(try mac.count("sync_heads") > 0)
   }
 
+  /// Marks on the map belong to this device alone: their names and coordinates are neither in
+  /// the rows nor in the free pages of the file that leaves for the other devices.
+  @Test func aSnapshotCarriesNoTraceOfThePlaceMarksOfThisDevice() throws {
+    let shared = try makeFolder()
+    defer { try? FileManager.default.removeItem(at: shared) }
+    let mac = try deviceWithHistory("mac")
+    let marker = "PlaceMarkNobodyElseMaySee"
+    try mac.stack.writer.write { db in
+      for index in 0..<200 {
+        try db.execute(
+          sql: """
+            INSERT INTO place_marks (id, name, latitude_e7, longitude_e7)
+            VALUES (?, ?, 557558000, 376173000)
+            """,
+          arguments: ["mark-\(index)", "\(marker)-\(index)"])
+      }
+    }
+    let folder = DirectoryJournalFolder(url: shared)
+    #expect(try mac.exchange.snapshotIfDue(to: folder, now: day))
+
+    let file = shared.appendingPathComponent(SyncSnapshotName.fileName(deviceId: "mac"))
+    let bytes = try Data(contentsOf: file)
+    #expect(bytes.range(of: Data(marker.utf8)) == nil, "a place mark is left in the file")
+    let copy = try DatabaseQueue(path: file.path)
+    #expect(try copy.read { try Int.fetchOne($0, sql: "SELECT COUNT(*) FROM place_marks") } == 0)
+  }
+
   @Test func aSnapshotIsWrittenAtMostOncePerDayAndAfterSeeding() throws {
     let shared = try makeFolder()
     defer { try? FileManager.default.removeItem(at: shared) }

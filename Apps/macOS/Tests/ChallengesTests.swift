@@ -22,7 +22,8 @@ final class ChallengesTests: XCTestCase {
       "challenges.form.days", "challenges.form.start", "challenges.form.words",
       "challenges.form.category", "challenges.form.category.none", "challenges.form.limit",
       "challenges.form.baseline", "challenges.form.baselineHint", "challenges.start",
-      "challenges.form.everything",
+      "challenges.form.everything", "challenges.tile.none", "why.challenges.none",
+      "why.challenges.ends",
     ]
     keys += ChallengePreset.allCases.map { "challenges.preset.\($0.rawValue)" }
     keys += ChallengeKind.allCases.map { "challenges.kind.\($0.rawValue)" }
