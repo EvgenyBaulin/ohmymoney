@@ -59,6 +59,8 @@ struct AccountsTreeRow<MenuSlot: View>: View {
   let showsMarks: Bool
   /// What «+» adds: `nil` — no «+».
   let plusHelp: String?
+  /// What the fold button says to VoiceOver: «Свернуть «Банк»» or «Развернуть «Банк»».
+  var foldLabel = ""
   var toggleFold: () -> Void = {}
   var toggleMark: () -> Void = {}
   var plus: () -> Void = {}
@@ -166,6 +168,7 @@ struct AccountsTreeRow<MenuSlot: View>: View {
           .contentShape(.rect)
       }
       .buttonStyle(.plain)
+      .accessibilityLabel(Text(verbatim: foldLabel))
     } else {
       Color.clear.frame(width: AccountsTreeMetrics.chevron, height: 1)
     }

@@ -1,6 +1,42 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "accounts.fold.collapse": {
+      "comment": "Spoken name of the fold button of a tree row; other languages fall back to English until translated.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collapse “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свернуть «%@»"
+          }
+        }
+      }
+    },
+    "accounts.fold.expand": {
+      "comment": "Spoken name of the fold button of a tree row; other languages fall back to English until translated.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expand “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Развернуть «%@»"
+          }
+        }
+      }
+    },
     "panel.allFields": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
