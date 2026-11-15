@@ -36,6 +36,7 @@ extension TileExplanations {
       subscriptions(
         book: inputs.ledger.dataset.planning, subscriptions: inputs.ledger.dataset.subscriptions,
         today: inputs.today, rubPerUnit: inputs.planning.rubPerUnit)
+    case .challenges: challenges(ledger: inputs.ledger, today: inputs.today)
     default: TileExplanation(tile: tile, state: .waiting)
     }
   }

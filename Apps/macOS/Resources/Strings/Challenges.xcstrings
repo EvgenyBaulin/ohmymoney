@@ -942,6 +942,23 @@
         }
       }
     },
+    "challenges.tile.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No challenges"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет челленджей"
+          }
+        }
+      }
+    },
     "challenges.title": {
       "extractionState": "manual",
       "localizations": {
@@ -955,6 +972,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Челленджи"
+          }
+        }
+      }
+    },
+    "why.challenges.ends": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ends %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "заканчивается %@"
+          }
+        }
+      }
+    },
+    "why.challenges.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No challenge is running"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас нет челленджей"
           }
         }
       }
