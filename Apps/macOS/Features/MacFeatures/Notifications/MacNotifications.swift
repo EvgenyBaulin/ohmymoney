@@ -7,7 +7,7 @@ import Observation
 /// The system's notification center as the app uses it. A seam: the app talks to the real
 /// center, a test counts what was asked.
 @MainActor
-protocol NotificationPosting: AnyObject {
+protocol NotificationPosting: NotificationPermissionCenter {
   func permission() async -> NotificationPlan.Permission
   func requestPermission() async -> Bool
   func pendingIds() async -> [String]
@@ -161,15 +161,23 @@ final class MacNotifications: NSObject {
 
     let permission = await posting.permission()
     notePermission(permission)
+    if permission == .denied, !fresh.isEmpty {
+      _ = await NotificationPermissionPrompt.request(.mac, center: posting)
+      disableNotifications()
+      return
+    }
     switch NotificationPlan.step(
       notices: fresh, permission: permission,
-      explained: defaults.bool(forKey: Self.explainedKey))
+      explained: false)
     {
     case .nothing:
       return
     case .explain:
-      explaining = true
-      return
+      guard await NotificationPermissionPrompt.request(.mac, center: posting) else {
+        disableNotifications()
+        return
+      }
+      notePermission(await posting.permission())
     case .post:
       break
     }
@@ -190,12 +198,18 @@ final class MacNotifications: NSObject {
       "notify.posted", .ui, "notifications were posted", [LogPair("count", .count(fresh.count))])
   }
 
-  /// «Разрешить» or «Не сейчас» of the app's explanation: asked once either way.
+  private func disableNotifications() {
+    for kind in NotificationPlan.Kind.allCases { defaults.set(false, forKey: Self.key(for: kind)) }
+  }
+
+  /// Routes a pending reminder through the permission sheet.
   func answerExplanation(allow: Bool) async {
     explaining = false
-    defaults.set(true, forKey: Self.explainedKey)
+
     guard allow else { return }
-    _ = await posting.requestPermission()
+    if !(await NotificationPermissionPrompt.request(.mac, center: posting)) {
+      disableNotifications()
+    }
     notePermission(await posting.permission())
     if let dependencies { await refresh(dependencies) }
   }
@@ -283,9 +297,12 @@ extension MacNotifications: HabitNudgeDelivering {
     case .allowed:
       break
     case .undetermined:
-      if !defaults.bool(forKey: Self.explainedKey) { explaining = true }
+      explaining = true
       return false
-    case .denied, nil:
+    case .denied:
+      explaining = true
+      return false
+    case nil:
       return false
     }
     guard !posted.contains(nudge.id) else { return true }

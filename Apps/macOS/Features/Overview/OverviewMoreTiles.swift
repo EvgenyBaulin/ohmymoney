@@ -124,17 +124,16 @@ struct BalanceForecastCard: View {
       VStack(alignment: .leading, spacing: 4) {
         ForEach(model.totals, id: \.currency) { total in
           Text(
-            verbatim: "≈ \(environment.money.rounded(total.middle, currency: total.currency))"
+            verbatim: environment.format(
+              "overview.balanceForecast.totalThrough", table: "Overview",
+              environment.dates.dayAndMonth(model.through),
+              environment.money.rounded(total.middle, currency: total.currency))
           )
           .appFont(model.totals.count == 1 ? .title2.monospacedDigit() : .title3.monospacedDigit())
         }
-        Text(
-          verbatim: environment.format(
-            "overview.balanceForecast.through", table: OverviewTileText.table,
-            environment.dates.dayAndMonth(model.through))
-        )
-        .appFont(.caption)
-        .secondaryInk()
+        Text(verbatim: t("overview.balanceForecast.behavior"))
+          .appFont(.caption)
+          .secondaryInk()
         if OverviewPartHidden.shows(.balanceForecast, covered: compute.snapshot?.coveredAccounts) {
           PartHiddenNote()
         }

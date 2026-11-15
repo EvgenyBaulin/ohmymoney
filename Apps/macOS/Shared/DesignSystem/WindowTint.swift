@@ -28,6 +28,15 @@ enum WindowTint {
     return mark
   }
 
+  /// The colour of the account the sidebar selection names, if it names one that has a colour:
+  /// the window of the Mac and the iPad tint themselves with it. Pure, so it is tested with no
+  /// window.
+  static func accent(of selection: SidebarItem, in accounts: AccountsSnapshot?) -> AccountAccent? {
+    guard case .account(let id) = selection else { return nil }
+    return accounts?.sections.flatMap(\.accounts).first { $0.account.id == id }?.account
+      .accountAccent
+  }
+
   /// The tint for `.tint(_:)`: `nil` leaves the system's alone, as `Accent.system` does.
   static func color(
     accent: AppTheme.Accent, colors: AppThemeColors, account: AccountAccent?

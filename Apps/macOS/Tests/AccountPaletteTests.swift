@@ -146,6 +146,33 @@ final class AccountPaletteWideTests: XCTestCase {
       Color(WindowTint.themeColor(for: black, colors: dark)))
   }
 
+  /// The window (Mac and iPad alike) asks one rule which account's colour to wear: the account
+  /// selected in the sidebar, and nothing for any other selection or an account without one.
+  func testTheWindowWearsTheColourOfTheSelectedAccountOnly() {
+    var green = PaymentMethod(name: "Green")
+    green.accent = AccountAccent.c20.key
+    let plain = PaymentMethod(name: "Plain")
+    func line(_ account: PaymentMethod) -> AccountsSnapshot.AccountLine {
+      AccountsSnapshot.AccountLine(account: account, keys: [], totalRub: .zero, unknown: 0)
+    }
+    let accounts = AccountsSnapshot(
+      sections: [
+        .init(group: nil, accounts: [line(green), line(plain)], totalRub: .zero, inSummary: true)
+      ],
+      inSummaryTotalRub: .zero, unanchored: [], withoutRate: [], balances: .empty)
+    XCTAssertEqual(WindowTint.accent(of: .account(green.id), in: accounts), .c20)
+    XCTAssertNil(WindowTint.accent(of: .account(plain.id), in: accounts))
+    XCTAssertNil(WindowTint.accent(of: .account(UUID()), in: accounts))
+    XCTAssertNil(WindowTint.accent(of: .allAccounts, in: accounts))
+    XCTAssertNil(WindowTint.accent(of: .group(UUID()), in: accounts))
+    XCTAssertNil(WindowTint.accent(of: .account(green.id), in: nil))
+    // The tint it leads to is the account's colour for the theme, as the Mac's window wears it.
+    let colors = AppThemeColors(id: ThemeCatalog.all[0].id, palette: ThemeCatalog.all[0].light)
+    XCTAssertEqual(
+      WindowTint.color(accent: .theme, colors: colors, account: .c20),
+      Color(WindowTint.themeColor(for: .c20, colors: colors)))
+  }
+
   // MARK: Marks and the sidebar
 
   /// A dot or a stripe of any colour is told from the page, the cards and the sidebar of every

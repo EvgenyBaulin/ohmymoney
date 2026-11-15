@@ -6,6 +6,7 @@ import SwiftUI
 /// until one is turned off. Habits of this Mac — `UserDefaults`, never the archive.
 struct MacFeaturesSettingsSection: View {
   @Dependency(\.environment) private var environment
+  @AppStorage(SystemSyncNotifier.enabledKey) private var syncNotifications = true
   @AppStorage(SpotlightIndexer.enabledKey) private var spotlight = false
   @AppStorage(MacNotifications.key(for: .payments)) private var payments = true
   @AppStorage(MacNotifications.key(for: .limits)) private var limits = true
@@ -44,6 +45,7 @@ struct MacFeaturesSettingsSection: View {
                   }
                 }
               }
+            switchRow("notify.permission.sync.title", hint: nil, $syncNotifications)
             switchRow("mac.settings.payments", hint: "mac.settings.payments.hint", $payments)
             switchRow("mac.settings.limits", hint: nil, $limits)
             switchRow("mac.settings.summaries", hint: nil, $summaries)
@@ -76,6 +78,16 @@ struct MacFeaturesSettingsSection: View {
     private func switchRow(_ key: String, hint: String?, _ value: Binding<Bool>) -> some View {
       SettingsCardRow(title: t(key), hint: hint.map(t), compact: true) {
         Toggle("", isOn: value).labelsHidden().toggleStyle(.switch)
+          .onChange(of: value.wrappedValue) { _, on in
+            guard on, key != "mac.settings.spotlight" else { return }
+            Task {
+              let reason: NotificationPermissionReason =
+                key == "notify.permission.sync.title" ? .sync : .mac
+              if !(await NotificationPermissionPrompt.request(reason)) {
+                value.wrappedValue = false
+              }
+            }
+          }
           .accessibilityLabel(Text(verbatim: t(key)))
           .accessibilityIdentifier("settings.mac.\(key.split(separator: ".").last ?? "")")
       }

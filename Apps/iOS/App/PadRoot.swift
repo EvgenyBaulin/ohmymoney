@@ -69,6 +69,8 @@ struct PadRoot<Entry: View>: View {
       NavigationStack { page }
     }
     .modifier(PadSplitStyle(permanent: mode == .permanent))
+    // On an account's screen the whole window takes the colour of the account, as on the Mac.
+    .accountWindowTint(selectedAccountAccent)
     .onChange(of: mode, initial: true) { _, mode in
       visibility = mode == .permanent ? .all : .detailOnly
       compactColumn = mode == .firstScreen ? .sidebar : .detail
@@ -76,6 +78,12 @@ struct PadRoot<Entry: View>: View {
     // A section asked for from anywhere (a notification, a link in a card) takes the screen:
     // an overlay panel goes away, the first screen gives way to it.
     .onChange(of: place) { _, _ in showDetail() }
+  }
+
+  /// The colour of the account on view, only while the accounts section is the one shown.
+  private var selectedAccountAccent: AccountAccent? {
+    guard router.tab == .accounts else { return nil }
+    return WindowTint.accent(of: accountSelection, in: deps.compute.snapshot?.planning.accounts)
   }
 
   private func showDetail() {

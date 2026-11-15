@@ -1,17 +1,8 @@
 import AppCore
 import SwiftUI
 
-/// «Прогноз остатка на 30 сентября» under the balances of an account: for each currency of the
-/// account, about how much will be on it at the end of the month, the interval, and what the
-/// figure is made of — the balance now, what is already written for later days, the expected
-/// income, the interest a deposit is expected to pay (grey: an estimate, income only once
-/// recorded), the payments and subscriptions, the debt payments, what counts keep finding missing,
-/// what is paid for others less money back, and the day-to-day spending by the account's
-/// share. Whole units everywhere: it is an estimate, and the exact balance is
-/// the card above it.
-///
-/// The forecast step gives the day-to-day spending; everything else is the data of the moment
-/// (`DataSnapshot.accountPlan`), so a write shows at once.
+/// An account's balance after known future movements and payments, in each held currency.
+/// The data step owns these figures; spending patterns belong to the combined forecast.
 struct AccountForecastCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
@@ -24,7 +15,7 @@ struct AccountForecastCard: View {
     ComputedBlock(
       title: AccountForecastText.title(through: through, environment),
       state: state, emptyReason: t("account.forecast.notCounted"),
-      retry: { compute.retry(ComputeStep.forecast) }
+      retry: { compute.retry(ComputeStep.data) }
     ) { model in
       AccountForecastLines(model: model)
     }
@@ -36,13 +27,11 @@ struct AccountForecastCard: View {
     compute.snapshot?.accountPlan.through ?? environment.today.monthKey.lastDay
   }
 
-  /// The forecast step's state, its remainder laid over the plan of the current data. An
-  /// account none of whose currencies was ever counted has nothing to forecast from.
+  /// Known balances need no spending forecast or history window.
   private var state: BlockState<AccountForecastModel> {
-    compute.states.forecast.flatMap { remainder, at in
-      guard let snapshot = compute.snapshot else { return .calculating }
+    compute.states.data.flatMap { snapshot, at in
       let model = AccountForecastModel(
-        forecast: snapshot.accountPlan.forecast(remainder: remainder), accountId: accountId)
+        forecast: snapshot.accountPlan.knownBalances(), accountId: accountId)
       return model.hasForecast ? .ready(model, at: at) : .notEnoughData
     }
   }

@@ -97,15 +97,17 @@ struct CanSaveTile: Equatable {
   var savedLabel: String
   var saved: String
   var shortfall: String? = nil
+  var previousMoney: String? = nil
   var hints: [String] = []
 
   @MainActor
   static func make(
     _ canSave: CanSave, _ environment: AppEnvironment,
+    freeNow: AmountE4? = nil,
     categoryName: (UUID) -> String? = { _ in nil }
   ) -> CanSaveTile {
     let money = environment.money
-    let figure: String
+    var figure: String
     var shortfall: String?
     if let gap = canSave.shortfall {
       if canSave.cannotSave {
@@ -126,10 +128,33 @@ struct CanSaveTile: Equatable {
     } else {
       figure = "≈\u{00A0}\(money.rounded(canSave.p50 ?? canSave.low ?? .zero))"
     }
+    var previousMoney: String?
+    let message = canSave.message(freeNow: freeNow)
+    switch message {
+    case .forecast: break
+    case .incomeDeficit(let month, let amount, let previous),
+      .projectedDeficit(let month, let amount, let previous):
+      let key: String
+      if case .incomeDeficit = message {
+        key = "overview.canSave.incomeDeficit"
+      } else {
+        key = "overview.canSave.projectedDeficit"
+      }
+      figure = environment.format(
+        key, table: "Planning", environment.dates.monthOfDate(month.month), money.rounded(amount))
+      shortfall = nil
+      previousMoney = previous.map {
+        environment.format("overview.canSave.previousMoney", table: "Planning", money.rounded($0))
+      }
+    case .risk(let amount):
+      shortfall = environment.format(
+        "overview.canSave.incomeRisk", table: "Planning", money.rounded(amount))
+    }
     return CanSaveTile(
       figure: figure,
       savedLabel: environment.language("overview.alreadySaved", table: "Planning"),
       saved: money.rounded(canSave.alreadySaved), shortfall: shortfall,
+      previousMoney: previousMoney,
       hints: shortfall == nil
         ? []
         : canSave.fundingHints.compactMap { hint in

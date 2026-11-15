@@ -13,17 +13,22 @@ protocol SyncNotifying: AnyObject {
 /// and says nothing when the owner declined: the banner and the list are there either way.
 @MainActor
 final class SystemSyncNotifier: SyncNotifying {
+  static let enabledKey = "notifications.sync.enabled"
   func conflictsAppeared(count: Int, title: String, body: String) {
+    guard UserDefaults.standard.object(forKey: Self.enabledKey) as? Bool ?? true else { return }
     let center = UNUserNotificationCenter.current()
-    center.requestAuthorization(options: [.alert]) { granted, _ in
-      guard granted else { return }
+    Task { @MainActor in
+      guard await NotificationPermissionPrompt.request(.sync) else {
+        UserDefaults.standard.set(false, forKey: Self.enabledKey)
+        return
+      }
       let content = UNMutableNotificationContent()
       content.title = title
       content.body = body
       // One notification for the list: a new one replaces the old.
       let request = UNNotificationRequest(
         identifier: "sync.conflicts", content: content, trigger: nil)
-      center.add(request)
+      try? await center.add(request)
     }
   }
 }

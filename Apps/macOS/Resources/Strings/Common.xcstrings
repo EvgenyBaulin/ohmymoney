@@ -4337,6 +4337,40 @@
         }
       }
     },
+    "chart.summary.many": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chart, %1$d values. Highest: %2$@. Lowest: %3$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "График, значений: %1$d. Наибольшее: %2$@. Наименьшее: %3$@."
+          }
+        }
+      }
+    },
+    "chart.summary.single": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chart, one value: %1$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "График, одно значение: %1$@."
+          }
+        }
+      }
+    },
     "common.archivedName": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

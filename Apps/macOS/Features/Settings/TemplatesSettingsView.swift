@@ -144,6 +144,7 @@ struct TemplatesSettingsView: View {
 
       TextField(text: template.text) { EmptyView() }
         .labelsHidden()
+        .accessibilityLabel(Text(verbatim: t("templates.textField")))
         .textFieldStyle(.plain)
         .onSubmit { rename(template.wrappedValue) }
 
@@ -372,6 +373,7 @@ private struct TemplatesLifecycle: ViewModifier {
         words: HStack(spacing: 4) {
           TextField(text: template.text) { EmptyView() }
             .labelsHidden()
+            .accessibilityLabel(Text(verbatim: t("templates.textField")))
             .textFieldStyle(.plain)
             .appFont(AppFont.system(size: 13, weight: .medium))
             .onSubmit { rename(template.wrappedValue) }

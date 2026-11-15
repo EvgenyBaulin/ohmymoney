@@ -388,15 +388,19 @@ final class HiddenLeaksTests: XCTestCase {
         if case .text(let text) = $0 { text } else { nil }
       }
     }
-    XCTAssertTrue(texts(all).contains(secret.name))
+    // The breakdown is one forecast over all the accounts — money now, known changes, the
+    // estimate — so it names no account at all, hidden or not, and no line is one account's.
+    XCTAssertFalse(texts(all).contains(secret.name))
     XCTAssertFalse(texts(shown).contains(secret.name))
-    XCTAssertTrue(texts(shown).contains(open.name))
+    XCTAssertFalse(texts(shown).contains(open.name))
     XCTAssertEqual(shown.figure, all.figure, "the total is the tile's figure")
     XCTAssertEqual(shown.figure, .approximately(try XCTUnwrap(tile.totals.first).middle, .rub))
-    let folded = try XCTUnwrap(shown.sections.first?.rows.last)
-    XCTAssertEqual(folded.label.key, "privacy.partHidden")
-    XCTAssertNil(folded.value, "the folded line says no amount")
-    XCTAssertFalse(all.sections.flatMap(\.rows).contains { $0.label.key == "privacy.partHidden" })
+    func keys(_ explanation: TileExplanation) -> [String] {
+      explanation.sections.flatMap(\.rows).map(\.label.key)
+    }
+    XCTAssertEqual(keys(shown), keys(all), "covering the accounts changes no line")
+    XCTAssertTrue(shown.notes.contains { $0.key == "privacy.partHidden" }, "says a part is hidden")
+    XCTAssertFalse(all.notes.contains { $0.key == "privacy.partHidden" })
   }
 
   func testWhyOfThePlanTilesAndTheLastRecordNamesNothingHiddenAndKeepsTheFigure() throws {

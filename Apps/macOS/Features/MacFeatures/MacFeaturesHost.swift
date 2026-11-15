@@ -20,20 +20,9 @@ private struct MacFeaturesHost: ViewModifier {
         await MacNotifications.shared.refresh(deps)
         await SpotlightIndexer.shared.refresh(deps)
       }
-      .alert(
-        t("mac.notify.explain.title"),
-        isPresented: Binding(
-          get: { notifications.explaining && !environment.lock.isLocked },
-          set: { shown in if !shown { notifications.explaining = false } })
-      ) {
-        Button(t("mac.notify.explain.allow")) {
-          Task { await notifications.answerExplanation(allow: true) }
-        }
-        Button(t("mac.notify.explain.later"), role: .cancel) {
-          Task { await notifications.answerExplanation(allow: false) }
-        }
-      } message: {
-        Text(verbatim: t("mac.notify.explain.message"))
+      .onChange(of: notifications.explaining) { _, shown in
+        guard shown, !environment.lock.isLocked else { return }
+        Task { await notifications.answerExplanation(allow: true) }
       }
       .onContinueUserActivity(CSSearchableItemActionType) { activity in
         guard let found = activity.userInfo?[CSSearchableItemActivityIdentifier] as? String,

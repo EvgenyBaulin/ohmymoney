@@ -2,55 +2,73 @@ import AppCore
 import Charts
 import SwiftUI
 
-/// One point of the chart of net worth: the end of a month, or now, in whole rubles.
-struct NetWorthChartPoint: Hashable, Identifiable {
-  /// The place on the axis: the month the point closes, counted from year zero; «now» is the
-  /// month after the last end.
-  var x: Int
-  var day: DateOnly
-  var isNow: Bool
-  var net: Int64
-  var have: Int64
-  var owe: Int64
+/// One accessible button per day; a popover lists every event when several share a date.
+private struct CapitalEventMarker: View {
+  @Dependency(\.environment) private var environment
+  let group: NetWorthChartEvents
+  @State private var presented = false
 
-  var id: Int { x }
+  var body: some View {
+    Button {
+      presented.toggle()
+    } label: {
+      HStack(spacing: 2) {
+        Image(systemName: symbol)
+        if group.events.count > 1 {
+          Text(verbatim: environment.money.count(Int64(group.events.count)))
+        }
+      }
+      .appFont(.caption)
+      .padding(7)
+      .background(.background, in: Capsule())
+      .overlay(Capsule().stroke(.secondary, lineWidth: 1))
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel(
+      Text(verbatim: ([environment.dates.longDay(group.day)] + lines).joined(separator: ", "))
+    )
+    .accessibilityIdentifier("capital.chart.events.\(group.day.iso)")
+    .help(([environment.dates.longDay(group.day)] + lines).joined(separator: "\n"))
+    .popover(isPresented: $presented) {
+      ChartCallout(title: environment.dates.longDay(group.day), lines: lines)
+        .padding(12)
+        .presentationCompactAdaptation(.popover)
+    }
+  }
+
+  private var symbol: String {
+    switch group.events.first?.kind {
+    case .purchase: "cart"
+    case .sale: "tag"
+    case .loanOpened: "building.columns"
+    case .loanClosed: "checkmark.seal"
+    case nil: "info.circle"
+    }
+  }
+
+  private var lines: [String] {
+    group.events.map { event in
+      let title = CapitalText.format(
+        "capital.event.\(event.kind.rawValue)", environment, event.name)
+      let amount =
+        event.amountE4.map { environment.money.exact($0, currency: event.currency) }
+        ?? CapitalText.t("capital.event.amountUnknown", environment)
+      return "\(title): \(amount)"
+    }
+  }
 }
 
-/// What the chart of net worth draws, made from the points of the core: whole rubles each,
-/// rounded once (`AmountE4.wholeRubles`), and an axis of months. Nothing in it is a
-/// floating-point number.
-struct NetWorthChartModel: Hashable {
-  var points: [NetWorthChartPoint]
+private struct CapitalEventMarks: ChartContent {
+  let model: NetWorthChartModel
 
-  /// A line needs two points: the end of one full month and now.
-  var hasLine: Bool { points.count >= 2 }
-
-  init(_ points: [CapitalPoint]) {
-    var made: [NetWorthChartPoint] = []
-    for point in points {
-      var x = point.day.year * 12 + point.day.month - 1
-      // Two points never share a place: «now» on the last day of a month stands after its end.
-      if let last = made.last, x <= last.x { x = last.x + 1 }
-      made.append(
-        NetWorthChartPoint(
-          x: x, day: point.day, isNow: point.isNow, net: point.netRub.wholeRubles,
-          have: point.haveRub.wholeRubles, owe: point.iOweRub.wholeRubles))
+  var body: some ChartContent {
+    ForEach(model.events) { group in
+      PointMark(x: .value("Day", group.position), y: .value("Amount", group.net))
+        .symbolSize(0)
+        .annotation(position: .overlay, spacing: 0) {
+          CapitalEventMarker(group: group)
+        }
     }
-    self.points = made
-  }
-
-  /// The month a place of the axis stands for.
-  static func month(at x: Int) -> MonthKey {
-    MonthKey(year: x / 12, month: x % 12 + 1)
-  }
-
-  /// The places that carry a label: every one of up to `limit`, else every n-th from the last,
-  /// so «now» always has its word.
-  func labelled(limit: Int = 7) -> [Int] {
-    let xs = points.map(\.x)
-    guard xs.count > limit, limit > 0 else { return xs }
-    let step = (xs.count + limit - 1) / limit
-    return xs.reversed().enumerated().filter { $0.offset % step == 0 }.map(\.element).reversed()
   }
 }
 
@@ -82,8 +100,9 @@ struct NetWorthChart: View {
         series("have", names.have, Self.haveStyle, \.have, money)
         series("owe", names.owe, Self.oweStyle, \.owe, money)
         series("net", names.net, Self.netStyle, \.net, money)
+        CapitalEventMarks(model: model)
         if let now = model.points.last, now.isNow {
-          PointMark(x: .value("Month", now.x), y: .value("Amount", now.net))
+          PointMark(x: .value("Day", now.position), y: .value("Amount", now.net))
             .symbol {
               Circle()
                 .strokeBorder(Self.netStyle.tint.color(accent), lineWidth: 2)
@@ -92,8 +111,8 @@ struct NetWorthChart: View {
             }
             .accessibilityHidden(true)
         }
-        if let hovered, let point = model.points.first(where: { $0.x == hovered }) {
-          RuleMark(x: .value("Month", hovered))
+        if let hovered, let point = model.nearest(to: hovered) {
+          RuleMark(x: .value("Day", point.position))
             .foregroundStyle(.secondary)
             .annotation(
               position: .top, spacing: 0,
@@ -111,12 +130,15 @@ struct NetWorthChart: View {
         }
       }
       .chartXSelection(value: $hovered)
-      .chartXScale(domain: (model.points.first?.x ?? 0)...(model.points.last?.x ?? 1))
+      .chartXScale(domain: model.domain)
       .chartXAxis {
-        AxisMarks(values: model.labelled()) { value in
+        AxisMarks(values: model.points.filter { model.labelled().contains($0.x) }.map(\.position)) {
+          value in
           AxisGridLine()
           AxisValueLabel {
-            if let x = value.as(Int.self), let point = model.points.first(where: { $0.x == x }) {
+            if let x = value.as(Int.self),
+              let point = model.points.first(where: { $0.position == x })
+            {
               Text(verbatim: label(point))
                 .appFont(.caption.monospacedDigit())
             }
@@ -148,7 +170,7 @@ struct NetWorthChart: View {
   ) -> some ChartContent {
     ForEach(model.points) { point in
       LineMark(
-        x: .value("Month", point.x), y: .value("Amount", point[keyPath: value]),
+        x: .value("Day", point.position), y: .value("Amount", point[keyPath: value]),
         series: .value("Series", id)
       )
       .foregroundStyle(style.tint.color(accent))
@@ -193,22 +215,23 @@ struct NetWorthAreaChart: View {
     Chart {
       ForEach(model.points) { point in
         AreaMark(
-          x: .value("Month", point.x), yStart: .value("Floor", floor),
+          x: .value("Day", point.position), yStart: .value("Floor", floor),
           yEnd: .value("Amount", point.net)
         )
         .foregroundStyle(theme.accentTint)
         // The line below carries the same data with its full label and value. This fill is
         // decoration, not a second series with an artificial baseline as its spoken range.
         .accessibilityHidden(true)
-        LineMark(x: .value("Month", point.x), y: .value("Amount", point.net))
+        LineMark(x: .value("Day", point.position), y: .value("Amount", point.net))
           .foregroundStyle(accent)
           .lineStyle(StrokeStyle(lineWidth: Self.lineWidth, lineCap: .round, lineJoin: .round))
           .accessibilityLabel(Text(verbatim: "\(names.net), \(spoken(point))"))
           .accessibilityValue(Text(verbatim: money.rubles(point.net)))
           .accessibilityIdentifier("chart.native.netWorth.\(point.x)")
       }
+      CapitalEventMarks(model: model)
       if let now = model.points.last, now.isNow {
-        PointMark(x: .value("Month", now.x), y: .value("Amount", now.net))
+        PointMark(x: .value("Day", now.position), y: .value("Amount", now.net))
           .symbol {
             Circle()
               .strokeBorder(accent, lineWidth: Self.lineWidth)
@@ -217,8 +240,8 @@ struct NetWorthAreaChart: View {
           }
           .accessibilityHidden(true)
       }
-      if let hovered, let point = model.points.first(where: { $0.x == hovered }) {
-        RuleMark(x: .value("Month", hovered))
+      if let hovered, let point = model.nearest(to: hovered) {
+        RuleMark(x: .value("Day", point.position))
           .foregroundStyle(.secondary)
           .annotation(
             position: .top, spacing: 0,
@@ -236,7 +259,7 @@ struct NetWorthAreaChart: View {
       }
     }
     .chartXSelection(value: $hovered)
-    .chartXScale(domain: (model.points.first?.x ?? 0)...(model.points.last?.x ?? 1))
+    .chartXScale(domain: model.domain)
     .chartYScale(domain: floor...high)
     .chartXAxis(.hidden)
     .chartYAxis {

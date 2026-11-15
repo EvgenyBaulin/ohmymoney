@@ -118676,6 +118676,24 @@
           }
         }
       }
+    },
+    "templates.textField": {
+      "comment": "Spoken name of the text field of a template row; other languages fall back to English until translated.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Template text"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текст шаблона"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

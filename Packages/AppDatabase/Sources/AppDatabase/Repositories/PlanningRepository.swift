@@ -335,6 +335,8 @@ public struct PlanningUndo: Sendable, Hashable {
   public var referenceBook: ReferenceBookUndo?
   /// Spending rules that followed a merge of cards.
   var cardRules: [RewrittenRule] = []
+  /// Rules released after all merges; undone first when both steps changed the same rule.
+  var releasedRules: [RewrittenRule] = []
   /// The change as it was asked for, so ⇧⌘Z can make it again after ⌘Z took it back.
   public var change: PlanningChange?
 
@@ -655,7 +657,6 @@ public struct PlanningRepository: Sendable {
       .card, deleted: goneCards, db: db)
     releasedRules += try SpendingRulesRepository.releaseRules(
       .account, deleted: goneAccounts, db: db)
-    cardRules += releasedRules
     try journal.delete(ReconciledBalance.self, ids: gone.reconciledBalances, db: db)
     try journal.delete(Reconciliation.self, ids: gone.reconciliations, db: db)
     try journal.delete(Transfer.self, ids: gone.transfers, db: db)
@@ -733,6 +734,7 @@ public struct PlanningRepository: Sendable {
       counts: counts, movedCards: moved, accountMerge: merged, change: change,
       referenceBook: referenceBook)
     undo.cardRules = cardRules
+    undo.releasedRules = releasedRules
     return undo
   }
 
@@ -961,6 +963,7 @@ public struct PlanningRepository: Sendable {
   }
 
   private static func revertRows(_ undo: PlanningUndo, at instant: Date, db: Database) throws {
+    try SpendingRulesRepository.revertRules(undo.releasedRules, db: db)
     if let referenceBook = undo.referenceBook {
       try ReferenceRepository.revert(referenceBook, db: db)
     }

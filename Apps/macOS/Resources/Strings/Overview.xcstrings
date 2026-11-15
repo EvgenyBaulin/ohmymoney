@@ -1,6 +1,91 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "why.balance.moneyNow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money on accounts now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас на счетах"
+          }
+        }
+      }
+    },
+    "why.balance.knownChanges": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recorded future movements and payments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записанные будущие операции и платежи"
+          }
+        }
+      }
+    },
+    "why.balance.estimatedChanges": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected income, interest and spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаемые доходы, проценты и траты"
+          }
+        }
+      }
+    },
+    "overview.balanceForecast.totalThrough": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total on %@ ≈ %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всего на %@ ≈ %@"
+          }
+        }
+      }
+    },
+    "overview.balanceForecast.behavior": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Across all accounts, including usual spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По всем счетам, с учётом обычных трат"
+          }
+        }
+      }
+    },
     "calendar.atTodaysRate": {
       "extractionState": "manual",
       "localizations": {
@@ -95444,7 +95529,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Each counted balance of the accounts in the summary at the end of the month: money now, plus what is due to come, less payments and the likely spending; added up within each currency."
+            "value": "One forecast for the accounts in the summary: money now, plus expected income and interest, less payments and likely spending, converted to rubles at current rates. Transfers between your own accounts are excluded."
           }
         },
         "es": {
@@ -95528,7 +95613,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Каждый сверенный остаток счетов в сводке на конец месяца: деньги сейчас плюс ожидаемые поступления минус платежи и вероятные траты; складываются внутри каждой валюты."
+            "value": "Один прогноз по счетам в сводке: деньги сейчас плюс ожидаемые доходы и проценты минус платежи и вероятные траты, в рублях по текущим курсам. Переводы между своими счетами не учитываются."
           }
         },
         "tg": {

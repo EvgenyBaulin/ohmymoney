@@ -485,6 +485,15 @@ public struct ReferenceRepository: Sendable {
           sql: "DELETE FROM \(book.rawValue) WHERE id = ?", arguments: [id.uuidString])
         if db.changesCount > 0 { result.deleted.append(id) }
       }
+      let kind: RuleReferenceKind?
+      switch book {
+      case .people: kind = .person
+      case .places: kind = .place
+      case .events: kind = nil
+      }
+      if let kind {
+        _ = try SpendingRulesRepository.releaseRules(kind, deleted: Set(result.deleted), db: db)
+      }
       return result
     }
   }

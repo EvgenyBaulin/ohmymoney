@@ -1737,15 +1737,14 @@ enum EssentialChoice: String, CaseIterable, Hashable {
           .padding(.horizontal, CategoriesMacMetrics.chipHorizontal)
           .padding(.vertical, CategoriesMacMetrics.chipVertical)
           .background(fill, in: Capsule())
-          .accessibilityElement(children: .ignore)
+          // The label sits on the menu's own content, as the «…» of a row does: a label on the
+          // menu itself never reached its button.
           .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       }
       .menuStyle(.borderlessButton)
       .menuIndicator(.hidden)
       .fixedSize()
       .disabled(Self.qualityIsFixed(category, in: wholeTree()))
-      // The chip's own text is only the value, «Plain»; VoiceOver also needs whose and what.
-      .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       .accessibilityIdentifier("categories.row.quality")
     }
 

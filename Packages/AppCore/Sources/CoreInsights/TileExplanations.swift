@@ -353,7 +353,7 @@ public enum TileExplanations {
         + (income.expectationsWithoutRate.isEmpty ? [] : [TilePhrase("why.noRate")]))
   }
 
-  /// Each counted balance of the summary at the end of the month, added up by currency.
+  /// The combined behavioral forecast; its allocation is not an account balance forecast.
   public static func balanceForecast(
     _ plan: AccountMonthPlan?, remainder: MonthForecast.Remainder?, accountIds: [UUID]
   ) -> TileExplanation {
@@ -371,11 +371,17 @@ public enum TileExplanations {
         title: model.totals.count > 1
           ? TilePhrase("why.currency", .text(total.currency.code))
           : nil,
-        rows: model.lines.filter { $0.currency == total.currency }.map { line in
+        rows: [
           TileRow(
-            TilePhrase("why.name", .text(line.name)), .approximately(line.middle, line.currency),
-            role: .plus, note: TilePhrase("why.balance.now", .money(line.now, line.currency)))
-        },
+            TilePhrase("why.balance.moneyNow"), .money(model.moneyNow, .rub),
+            role: .plus),
+          TileRow(
+            TilePhrase("why.balance.knownChanges"), .change(model.knownChanges, .rub),
+            role: .plus),
+          TileRow(
+            TilePhrase("why.balance.estimatedChanges"),
+            .change(model.estimatedChanges, .rub), role: .plus),
+        ],
         total: TileRow(
           TilePhrase("why.balance.total", .day(model.through)),
           .approximately(total.middle, total.currency)))

@@ -313,6 +313,33 @@ final class AccountForecastCardTests: XCTestCase {
       .joined(separator: " | ")
   }
 
+  /// The salary still to come on the account is in the card's figure and its lines; the usual
+  /// spending is not taken from the account.
+  func testTheExpectedSalaryIsInTheCardOfItsAccount() throws {
+    let today = DateOnly(year: 2026, month: 9, day: 19)
+    let counted = CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 9, day: 10))
+    let reconciliation = Reconciliation(
+      date: DateOnly(year: 2026, month: 9, day: 10), reconciledAt: counted,
+      actualTotalRubE4: .zero, kind: .accounts)
+    let count = ReconciledBalance(
+      reconciliationId: reconciliation.id, accountId: main.id, currency: .rub,
+      actualE4: whole(50_000))
+    let salary = ExpectedIncome(
+      name: "Salary", totalE4: whole(30_000), dueDate: DateOnly(year: 2026, month: 9, day: 25),
+      paymentMethodId: main.id)
+    let dataset = Dataset(
+      paymentMethods: [main, freedom],
+      planning: PlanningBook(
+        expected: [salary], reconciliations: [reconciliation], reconciledBalances: [count]))
+    let snapshot = DataSnapshot.build(
+      dataset: dataset, calendar: .utc, today: today, context: SnapshotContext(),
+      version: DataVersion(load: 1), now: CalendarContext.utc.startOfDay(today))
+    let model = AccountForecastModel(
+      forecast: snapshot.accountPlan.knownBalances(), accountId: main.id)
+    XCTAssertEqual(model.lines.first?.balance, band(80_000, 80_000, 80_000))
+    XCTAssertEqual(model.lines.first?.flows.income, whole(30_000))
+  }
+
   /// The data step builds the plan with the snapshot, and the card finds the account's lines
   /// in it; an account never counted has nothing to forecast from.
   func testTheSnapshotCarriesThePlanOfTheAccounts() throws {
@@ -331,14 +358,17 @@ final class AccountForecastCardTests: XCTestCase {
       dataset: dataset, calendar: .utc, today: today, context: SnapshotContext(),
       version: DataVersion(load: 1), now: CalendarContext.utc.startOfDay(today))
     XCTAssertEqual(snapshot.accountPlan.through, DateOnly(year: 2026, month: 9, day: 30))
-    let remainder = MonthForecast.Remainder(
-      p10: whole(1_000), middle: whole(2_000), p90: whole(3_000), lowData: true,
-      computedFor: today, daysLeft: 11, windowDays: 0)
-    let forecast = snapshot.accountPlan.forecast(remainder: remainder)
+    let forecast = snapshot.accountPlan.knownBalances()
     let model = AccountForecastModel(forecast: forecast, accountId: main.id)
     XCTAssertTrue(model.hasForecast)
-    XCTAssertTrue(model.lowData)
-    XCTAssertEqual(model.lines.first?.balance, band(47_000, 48_000, 49_000))
+    XCTAssertFalse(model.lowData)
+    XCTAssertEqual(model.lines.first?.balance, band(50_000, 50_000, 50_000))
+    for choice in [AppLanguage.Choice.russian, .english] {
+      let words = AccountForecastText.pairs(model.lines, environment(choice))
+      XCTAssertNil(words.first?.range)
+      XCTAssertEqual(words.first?.breakdown.count, 1)
+      XCTAssertTrue(words.first?.notes.isEmpty == true)
+    }
     XCTAssertFalse(AccountForecastModel(forecast: forecast, accountId: freedom.id).hasForecast)
   }
 }
