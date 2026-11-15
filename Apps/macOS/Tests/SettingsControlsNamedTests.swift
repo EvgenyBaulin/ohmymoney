@@ -22,6 +22,15 @@ final class SettingsControlsNamedTests: XCTestCase {
     "AXTextField", "AXComboBox", "AXIncrementor", "AXDisclosureTriangle", "AXColorWell",
   ]
 
+  /// The parts AppKit draws inside a scroll bar and a stepper: the arrows and the pages are
+  /// not controls of ours. The scroll bar is the system's, and a stepper is checked as the
+  /// whole it is (role `AXIncrementor`), not by its two arrows.
+  private static let systemParts: Set<String> = [
+    "AXIncrementArrow", "AXDecrementArrow", "AXIncrementPage", "AXDecrementPage",
+  ]
+
+  private static let sectionsWithoutControls: Set<SettingsSection> = [.categoryHints]
+
   override func setUp() async throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     dataDirectoryBefore = ProcessInfo.processInfo.environment["OHMYMONEY_DATA_DIR"]
@@ -69,11 +78,16 @@ final class SettingsControlsNamedTests: XCTestCase {
           SettingsSectionContent(section: section).appDependencies(deps),
           size: CGSize(width: 760, height: 700))
         let controls = Self.controls(in: window)
-        XCTAssertFalse(controls.isEmpty, "\(section) offers no control in \(choice.rawValue)")
+        // The report of the category hints is read-only until it has data to retry: it has no
+        // control to name, every other section has some.
+        if !Self.sectionsWithoutControls.contains(section) {
+          XCTAssertFalse(controls.isEmpty, "\(section) offers no control in \(choice.rawValue)")
+        }
         for control in controls where Self.name(of: control).isEmpty {
           XCTFail(
             "\(section), \(choice.rawValue): an unnamed \(Self.role(of: control)) "
-              + "(identifier «\(Self.attribute(control, "accessibilityIdentifier") ?? "")»)")
+              + "(identifier «\(Self.attribute(control, "accessibilityIdentifier") ?? "")», "
+              + "\(Self.describe(control)))")
         }
         window.close()
       }
@@ -85,6 +99,18 @@ final class SettingsControlsNamedTests: XCTestCase {
   private static func attribute(_ object: NSObject, _ name: String) -> String? {
     guard object.responds(to: NSSelectorFromString(name)) else { return nil }
     return object.value(forKey: name) as? String
+  }
+
+  /// What tells an unnamed control apart in a failure message.
+  private static func describe(_ object: NSObject) -> String {
+    let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue ?? .zero
+    let children = (object.value(forKey: "accessibilityChildren") as? [Any] ?? [])
+      .compactMap { $0 as? NSObject }.map { role(of: $0) }
+    return "subrole \(attribute(object, "accessibilitySubrole") ?? "-"), "
+      + "help «\(attribute(object, "accessibilityHelp") ?? "")», "
+      + "value «\(attribute(object, "accessibilityValue") ?? "")», "
+      + "frame \(Int(frame.minX)),\(Int(frame.minY)) \(Int(frame.width))x\(Int(frame.height)), "
+      + "children \(children)"
   }
 
   private static func role(of object: NSObject) -> String {
@@ -118,7 +144,11 @@ final class SettingsControlsNamedTests: XCTestCase {
     var found: [NSObject] = []
     func walk(_ element: Any, depth: Int) {
       guard depth < 60, let object = element as? NSObject else { return }
-      if interactive.contains(role(of: object)) { found.append(object) }
+      if interactive.contains(role(of: object)),
+        !systemParts.contains(attribute(object, "accessibilitySubrole") ?? "")
+      {
+        found.append(object)
+      }
       if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
         for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] {
           walk(child, depth: depth + 1)
