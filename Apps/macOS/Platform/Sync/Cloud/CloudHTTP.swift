@@ -193,15 +193,21 @@ struct KeychainCloudTokenStore: CloudTokenStoring {
     return tokens
   }
 
+  /// What a new item is stored with: this device only, never synced, readable when unlocked.
+  func addAttributes(for data: Data) -> [String: Any] {
+    var item = query
+    item[kSecValueData as String] = data
+    item[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    return item
+  }
+
   func save(_ tokens: CloudTokens) throws {
     let data = try JSONEncoder().encode(tokens)
     let attributes: [String: Any] = [kSecValueData as String: data]
     let updated = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
     if updated == errSecSuccess { return }
     guard updated == errSecItemNotFound else { throw Failure.status(updated) }
-    var item = query
-    item.merge(attributes) { _, new in new }
-    let status = SecItemAdd(item as CFDictionary, nil)
+    let status = SecItemAdd(addAttributes(for: data) as CFDictionary, nil)
     guard status == errSecSuccess else { throw Failure.status(status) }
   }
 

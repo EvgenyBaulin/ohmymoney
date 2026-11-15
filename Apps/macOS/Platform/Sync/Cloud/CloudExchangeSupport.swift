@@ -89,6 +89,26 @@ enum CloudFileName {
   static func isExchangeFile(_ name: String) -> Bool { (try? validate(name)) != nil }
 }
 
+/// A listing that never ends is a server fault (or a hostile one): a drive gives up after this
+/// many pages instead of holding the exchange for ever.
+enum CloudPaging {
+  static let maxPages = 1_000
+
+  static func count(_ pages: inout Int) throws {
+    pages += 1
+    guard pages <= maxPages else { throw ExchangeTransportError.unavailable }
+  }
+}
+
+extension CloudFileName {
+  /// An identifier a server hands back (a Drive file id): it goes into a request path, so
+  /// anything but the plain characters of such an id is refused, never trusted.
+  static func isSafeRemoteId(_ id: String) -> Bool {
+    !id.isEmpty && id.count <= 200
+      && id.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber || "-_".contains($0)) }
+  }
+}
+
 /// Dates of the three services: ISO 8601 with or without fractions, and RFC 1123 for WebDAV.
 enum CloudDates {
   static func parse(_ text: String) -> Date? { iso(text) }

@@ -117,6 +117,8 @@ struct SharedReportView: View {
     .safeAreaInset(edge: .bottom, spacing: 0) { buttons }
     .frame(minWidth: 460, idealWidth: 520, minHeight: 520)
     .fileMover(isPresented: $moving, file: pending) { result in
+      SharedReportModel.discard(pending)
+      pending = nil
       if case .success = result {
         environment.privacyJournal.record(.exportedCopy)
         dismiss()
