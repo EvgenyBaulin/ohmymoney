@@ -39,6 +39,18 @@ public enum ReceiptProposal: Hashable, Sendable {
   case new(ReceiptDraft)
 }
 
+/// An operation that nearly fits a receipt, and why: the sum differs by `sumDifferenceE4` (the
+/// operation's minus the receipt's) and the operation's own day is `dayOffset` days from the
+/// receipt's (−1 the day before, 0 the same day, 1 the day after).
+public struct ReceiptNearMatch: Hashable, Sendable {
+  public var candidate: ReceiptCandidate
+  public var sumDifferenceE4: Int64
+  public var dayOffset: Int
+
+  /// The sums differ by no more than a rouble: a rounding, not a tip or another purchase.
+  public var isRounding: Bool { abs(sumDifferenceE4) <= ReceiptMatch.roundingE4 }
+}
+
 /// The fields of a new operation read from a receipt.
 public struct ReceiptDraft: Hashable, Sendable {
   public var kind: TransactionKind
@@ -51,6 +63,9 @@ public struct ReceiptDraft: Hashable, Sendable {
   /// rounding or a tip and the moment is within a day (`ReceiptMatch.similar`). Offered
   /// to choose from, never taken for the receipt's own.
   public var similar: [ReceiptCandidate] = []
+  /// The same operations as `similar`, each with what makes it close (the difference of sums and
+  /// the day), so the screen can say why it is offered.
+  public var nearby: [ReceiptNearMatch] = []
   /// Smaller operations of the same kind and currency written for the day of the receipt that
   /// hold no receipt yet: a purchase paid in two ways was entered as two operations, and a third
   /// one for the whole receipt would count it twice. Nearest to the receipt's moment first.
@@ -101,7 +116,8 @@ public enum ReceiptMatch {
         first, moment: receipt.moment(in: zone), others: Array(fitting.dropFirst()))
     }
     var draft = draft(for: receipt, calendar: calendar)
-    draft.similar = similar(to: receipt, among: candidates, calendar: calendar)
+    draft.nearby = nearby(to: receipt, among: candidates, calendar: calendar)
+    draft.similar = draft.nearby.map(\.candidate)
     draft.sameDay = sameDay(of: receipt, among: candidates, calendar: calendar)
     draft.splitParts = split(receipt.amountE4, among: draft.sameDay)
     return .new(draft)
@@ -114,8 +130,14 @@ public enum ReceiptMatch {
     _ receipt: ReceiptQR, among candidates: [ReceiptCandidate]
   ) -> ReceiptCandidate? {
     guard let numbers = receipt.numbers else { return nil }
-    return
-      candidates
+    return recorded(numbers: numbers, among: candidates)
+  }
+
+  /// The same for the bare numbers of a receipt (a link that names it without a sum).
+  public static func recorded(
+    numbers: ReceiptNumbers, among candidates: [ReceiptCandidate]
+  ) -> ReceiptCandidate? {
+    candidates
       .filter { $0.receipt.map { $0.isSameReceipt(as: numbers) } ?? false }
       .min {
         if $0.occurredAt != $1.occurredAt { return $0.occurredAt < $1.occurredAt }
@@ -131,28 +153,45 @@ public enum ReceiptMatch {
   /// The longest distance between the moment of the receipt and the operation's.
   static let window: TimeInterval = 24 * 3_600
 
+  /// The largest difference that is still a rounding to the rouble: 1 ₽.
+  static let roundingE4: Int64 = 10_000
+
   /// Operations of the receipt's kind in roubles whose sum is within `tolerance` of the receipt
   /// (but not the same) and whose moment is within `window` of the receipt's; the nearest sum
   /// first, then the nearest moment. A suggestion only: the owner picks it.
   public static func similar(
     to receipt: ReceiptQR, among candidates: [ReceiptCandidate], calendar: CalendarContext
   ) -> [ReceiptCandidate] {
-    let moment = receipt.moment(in: calendar)
+    nearby(to: receipt, among: candidates, calendar: calendar).map(\.candidate)
+  }
+
+  /// `similar` with the reason each operation is offered. The receipt carries the shop's clock,
+  /// so it is read on the clock of the zone each operation was recorded in: a purchase of a
+  /// trip is a few hours from its receipt there, however far apart the owner's own clock puts
+  /// them.
+  public static func nearby(
+    to receipt: ReceiptQR, among candidates: [ReceiptCandidate], calendar: CalendarContext
+  ) -> [ReceiptNearMatch] {
     let kind = receipt.operation.transactionKind
     let allowed = tolerance(of: receipt.amountE4)
     return
       candidates
       .filter { $0.kind == kind && $0.currency == receipt.currency && $0.receipt == nil }
-      .compactMap { candidate -> (ReceiptCandidate, Int64, TimeInterval)? in
-        let apart = abs(candidate.amountE4.raw - receipt.amountE4.raw)
-        let distance = abs(candidate.occurredAt.timeIntervalSince(moment))
-        guard apart != 0, apart <= allowed, distance <= window else { return nil }
-        return (candidate, apart, distance)
+      .compactMap { candidate -> (ReceiptNearMatch, Int64, TimeInterval)? in
+        let difference = candidate.amountE4.raw - receipt.amountE4.raw
+        let zone = CalendarContext(timeZone: calendar.zone(recordedIn: candidate.timeZoneId))
+        let distance = abs(candidate.occurredAt.timeIntervalSince(receipt.moment(in: zone)))
+        guard difference != 0, abs(difference) <= allowed, distance <= window else { return nil }
+        let day = calendar.day(of: candidate.occurredAt, recordedIn: candidate.timeZoneId)
+        let match = ReceiptNearMatch(
+          candidate: candidate, sumDifferenceE4: difference,
+          dayOffset: daysBetween(receipt.day, day, calendar))
+        return (match, abs(difference), distance)
       }
       .sorted {
         if $0.1 != $1.1 { return $0.1 < $1.1 }
         if $0.2 != $1.2 { return $0.2 < $1.2 }
-        return $0.0.id.uuidString < $1.0.id.uuidString
+        return $0.0.candidate.id.uuidString < $1.0.candidate.id.uuidString
       }
       .map(\.0)
   }

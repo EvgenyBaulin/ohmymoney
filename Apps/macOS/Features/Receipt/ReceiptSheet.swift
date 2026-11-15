@@ -53,7 +53,7 @@ struct ReceiptSheet: View {
   @State private var searchesScreenshot = false
   @State private var continuity = ContinuityCameraHandle()
   #if os(iOS)
-    @State private var pickedPhoto: PhotosPickerItem?
+    @State private var pickedPhotos: [PhotosPickerItem] = []
     @State private var takingPhoto = false
   #endif
 
@@ -88,17 +88,20 @@ struct ReceiptSheet: View {
       model = made
       if let sharedPhoto {
         await made.read(data: sharedPhoto.data, filename: sharedPhoto.filename)
-      } else if let url = urls.first {
-        await made.read(fileAt: url)
+      } else if !urls.isEmpty {
+        await made.start(urls.map(ReceiptInput.file))
       }
     }
-    .fileImporter(isPresented: $picking, allowedContentTypes: [.image, .pdf]) { result in
-      guard case .success(let chosen) = result, let model else { return }
-      Task { await model.read(fileAt: chosen) }
+    .fileImporter(
+      isPresented: $picking, allowedContentTypes: [.image, .pdf], allowsMultipleSelection: true
+    ) { result in
+      guard case .success(let chosen) = result, let model, !chosen.isEmpty else { return }
+      Task { await model.start(chosen.map(ReceiptInput.file)) }
     }
     .dropDestination(for: URL.self) { dropped, _ in
-      guard let model, let url = Self.receiptFiles(in: dropped).first else { return false }
-      Task { await model.read(fileAt: url) }
+      let files = Self.receiptFiles(in: dropped)
+      guard let model, !files.isEmpty, !model.isQueueRunning else { return false }
+      Task { await model.start(files.map(ReceiptInput.file)) }
       return true
     } isTargeted: {
       isDropTarget = $0
@@ -120,21 +123,24 @@ struct ReceiptSheet: View {
       }
       .fullScreenCover(isPresented: $scanning) {
         ReceiptScannerScreen(
-          onCode: { payload in
+          onCodes: { payloads in
             scanning = false
-            model?.read(payload: payload)
+            guard let model else { return }
+            Task { await model.start(payloads.map(ReceiptInput.payload)) }
           },
           onClose: { scanning = false })
       }
-      .onChange(of: pickedPhoto) { _, item in
-        guard let item, let model else { return }
+      .onChange(of: pickedPhotos) { _, items in
+        guard !items.isEmpty, let model else { return }
         Task {
-          if let data = try? await item.loadTransferable(type: Data.self) {
-            await model.read(data: data, filename: "receipt.jpg")
-          } else {
-            model.pictureUnreadable()
+          var inputs: [ReceiptInput] = []
+          for item in items {
+            // A picture that cannot be loaded is still one of the queue: it ends as unread.
+            let data = (try? await item.loadTransferable(type: Data.self)) ?? Data()
+            inputs.append(.data(data, filename: "receipt.jpg"))
           }
-          pickedPhoto = nil
+          pickedPhotos = []
+          await model.start(inputs)
         }
       }
     #endif
@@ -170,7 +176,7 @@ struct ReceiptSheet: View {
       case .reading:
         HStack(spacing: 8) {
           ProgressView().controlSize(.small)
-          Text(verbatim: t("receipt.reading")).secondaryInk()
+          Text(verbatim: readingText(model)).secondaryInk()
         }
       case .noCode:
         notice("receipt.noCode", symbol: "qrcode.viewfinder")
@@ -187,6 +193,11 @@ struct ReceiptSheet: View {
         found(model)
       case .alreadyRecorded(let id):
         alreadyRecorded(id, model)
+      case .linkOnly:
+        notice("receipt.linkOnly", symbol: "link")
+        inputs(model)
+      case .queueDone(let tally):
+        queueDone(tally, model)
       case .done(let kind):
         done(kind, model)
       case .failed(let failure):
@@ -195,6 +206,39 @@ struct ReceiptSheet: View {
       }
     }
     .padding(16)
+  }
+
+  /// «Чек 2 из 5…» in a queue, else «Читаем…».
+  private func readingText(_ model: ReceiptModel) -> String {
+    guard let queue = model.queue else { return t("receipt.reading") }
+    return ReceiptText.format(
+      "receipt.queue.reading", environment, min(queue.position + 1, queue.total), queue.total)
+  }
+
+  /// The count at the end of a queue.
+  private func queueDone(_ tally: ReceiptQueueTally, _ model: ReceiptModel) -> some View {
+    VStack(alignment: .leading, spacing: 14) {
+      Label(
+        ReceiptText.format(
+          "receipt.queue.summary", environment, tally.recorded, tally.repeated, tally.unread),
+        systemImage: "checkmark.circle"
+      )
+      .appFont(.title3)
+      .accessibilityIdentifier("receipt.queue.summary")
+      if tally.left > 0 {
+        Text(verbatim: ReceiptText.format("receipt.queue.left", environment, tally.left))
+          .secondaryInk()
+      }
+      if tally.recorded > 0 {
+        Text(verbatim: t("receipt.done.undo")).secondaryInk()
+      }
+      Spacer(minLength: 0)
+      HStack {
+        Spacer()
+        Button(t("receipt.anotherReceipt")) { model.reset() }
+        Button(t("receipt.done")) { dismiss() }.keyboardShortcut(.defaultAction)
+      }
+    }
   }
 
   private func notice(_ key: String, symbol: String) -> some View {
@@ -247,7 +291,7 @@ struct ReceiptSheet: View {
             Label(t("receipt.scan"), systemImage: "qrcode.viewfinder")
           }
           .accessibilityIdentifier("receipt.scan")
-          PhotosPicker(selection: $pickedPhoto, matching: .images) {
+          PhotosPicker(selection: $pickedPhotos, matching: .images) {
             Label(t("receipt.photos"), systemImage: "photo")
           }
         #endif
@@ -269,6 +313,13 @@ struct ReceiptSheet: View {
 
   @ViewBuilder
   private func found(_ model: ReceiptModel) -> some View {
+    if let queue = model.queue {
+      Text(
+        verbatim: ReceiptText.format(
+          "receipt.queue.decide", environment, min(queue.position + 1, queue.total), queue.total)
+      )
+      .appFont(.headline).accessibilityIdentifier("receipt.queue.decide")
+    }
     Label {
       Text(
         verbatim: ReceiptText.format(
@@ -346,11 +397,17 @@ struct ReceiptSheet: View {
       }
       if !model.similar.isEmpty {
         Text(verbatim: t("receipt.similar.title")).appFont(.headline)
-        ForEach(model.similar.prefix(3), id: \.id) { choice in
-          Button("\(model.title(of: choice.id)) · \(model.dayText(of: choice.id))") {
-            model.useSimilar(choice.id)
+        ForEach(model.nearby.prefix(3), id: \.candidate.id) { near in
+          VStack(alignment: .leading, spacing: 2) {
+            Button(
+              "\(model.title(of: near.candidate.id)) · \(model.dayText(of: near.candidate.id))"
+            ) {
+              model.useSimilar(near.candidate.id)
+            }
+            .accessibilityIdentifier("receipt.similar")
+            Text(verbatim: model.reason(for: near)).appFont(.caption).secondaryInk()
+              .accessibilityIdentifier("receipt.similar.reason")
           }
-          .accessibilityIdentifier("receipt.similar")
         }
       }
     }
@@ -358,12 +415,16 @@ struct ReceiptSheet: View {
     HStack {
       Button(t("receipt.cancel")) { dismiss() }
         .keyboardShortcut(.cancelAction)
+      if model.isQueueRunning {
+        Button(t("receipt.queue.skip")) { Task { await model.skipCurrent() } }
+          .accessibilityIdentifier("receipt.queue.skip")
+      }
       Spacer()
       if model.isSupplementing {
         Button(t("receipt.otherPurchase")) { model.makeNew() }
           .accessibilityIdentifier("receipt.other")
         Button(t(model.canKeepPhoto ? "receipt.addTimePhoto" : "receipt.addTime")) {
-          model.confirm()
+          Task { await model.confirmAndContinue() }
         }
         .keyboardShortcut(.defaultAction)
         .accessibilityIdentifier("receipt.confirm")
@@ -371,9 +432,11 @@ struct ReceiptSheet: View {
         if case .supplement = model.proposal {
           Button(t("receipt.backToFound")) { model.backToFound() }
         }
-        Button(t("receipt.anotherReceipt")) { model.reset() }
+        if !model.isQueueRunning {
+          Button(t("receipt.anotherReceipt")) { model.reset() }
+        }
         Button(t(model.canKeepPhoto ? "receipt.createPhoto" : "receipt.create")) {
-          model.confirm()
+          Task { await model.confirmAndContinue() }
         }
         .keyboardShortcut(.defaultAction)
         .disabled(!model.canCreate)

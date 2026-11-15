@@ -547,4 +547,96 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertEqual(model.checkNoteKey, "receipt.check.numbers")
     XCTAssertNil(model.receipt?.numbers)
   }
+
+  // MARK: Several receipts
+
+  private func code(_ sum: String, drive: String = "9999078900001111", document: Int) -> String {
+    "t=20261029T183200&s=\(sum)&fn=\(drive)&i=\(document)&fp=123456789&n=1"
+  }
+
+  /// Four things in one go: two receipts nothing fits, one text that is no receipt and the first
+  /// receipt again (a re-shot). The queue writes what is plain and counts the rest.
+  func testAQueueWritesPlainReceiptsAndCountsRepeatsAndUnreadOnes() async throws {
+    let model = try await model()
+    await model.start([
+      .payload(code("100.00", document: 1)),
+      .payload("hello"),
+      .payload(code("200.00", document: 2)),
+      .payload(code("100.00", document: 1)),
+    ])
+    XCTAssertEqual(
+      model.stage, .queueDone(ReceiptQueueTally(recorded: 2, repeated: 1, unread: 1, left: 0)))
+    XCTAssertEqual(try live().count, 2, "the re-shot was not written twice")
+  }
+
+  func testAReceiptThatSeveralOperationsFitWaitsForTheOwner() async throws {
+    let today = try purchase("Сегодня", rubles: 250, day: 29)
+    try purchase("Вчера", rubles: 250, day: 28)
+    let model = try await model()
+    await model.start([
+      .payload(code("250.00", document: 1)), .payload(code("40.00", document: 2)),
+    ])
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertTrue(model.awaitingOwner)
+    XCTAssertEqual(model.chosenId, today.id)
+    await model.confirmAndContinue()
+    XCTAssertEqual(
+      model.stage, .queueDone(ReceiptQueueTally(recorded: 2, repeated: 0, unread: 0, left: 0)))
+  }
+
+  func testSkippingTheReceiptThatWaitsLeavesItUnwritten() async throws {
+    try purchase("Сегодня", rubles: 250, day: 29)
+    try purchase("Вчера", rubles: 250, day: 28)
+    let model = try await model()
+    await model.start([.payload(code("250.00", document: 1)), .payload("hello")])
+    XCTAssertTrue(model.awaitingOwner)
+    await model.skipCurrent()
+    XCTAssertEqual(
+      model.stage, .queueDone(ReceiptQueueTally(recorded: 0, repeated: 0, unread: 1, left: 1)))
+    XCTAssertEqual(try live().count, 2)
+  }
+
+  func testOneInputIsNoQueue() async throws {
+    let model = try await model()
+    await model.start([.payload(code("100.00", document: 1))])
+    XCTAssertNil(model.queue)
+    XCTAssertEqual(model.stage, .found)
+  }
+
+  // MARK: Links
+
+  func testALinkWithOnlyTheNumbersIsToldAlreadyRecordedOnlyWhenItIs() async throws {
+    let link = "https://lk.example/cheque?fn=9999078900001111&fp=123456789&i=5"
+    let model = try await model()
+    model.read(payload: link)
+    XCTAssertEqual(model.stage, .linkOnly)
+
+    model.read(payload: code("100.00", document: 5))
+    XCTAssertTrue(model.confirm())
+    let written = try XCTUnwrap(live().first)
+    model.read(payload: link)
+    XCTAssertEqual(model.stage, .alreadyRecorded(written.id))
+  }
+
+  func testAFullLinkInsideAMessageIsAReceipt() async throws {
+    let model = try await model()
+    model.read(
+      payload:
+        "Ваш чек: https://check.example/rec?t=20261029T1832&s=99.50&fn=1&i=2&fp=3&n=1 Спасибо")
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertEqual(model.receipt?.amountE4, AmountE4(raw: 995_000))
+  }
+
+  // MARK: Near operations
+
+  func testANearOperationComesWithItsReason() async throws {
+    try purchase("Ужин", rubles: 1_250, day: 29)
+    let model = try await model()
+    model.read(payload: "t=20261029T183200&s=1250.50&n=1")
+    let near = try XCTUnwrap(model.nearby.first)
+    XCTAssertTrue(near.isRounding)
+    let text = model.reason(for: near)
+    XCTAssertFalse(text.isEmpty)
+    XCTAssertFalse(text.contains("receipt.near"), "the catalog has the words")
+  }
 }

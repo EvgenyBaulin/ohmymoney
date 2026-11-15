@@ -4681,6 +4681,23 @@
         }
       }
     },
+    "receipt.linkOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This link names a receipt but holds no sum, so nothing can be written from it. Open the electronic receipt as a file or PDF, or scan its QR code."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта ссылка называет чек, но суммы в ней нет, поэтому записать по ней нельзя. Откройте электронный чек файлом или PDF либо отсканируйте его QR-код."
+          }
+        }
+      }
+    },
     "receipt.menu": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -4833,6 +4850,142 @@
           "stringUnit": {
             "state": "translated",
             "value": "透過 QR 碼讀取收據⋯"
+          }
+        }
+      }
+    },
+    "receipt.near.day.after": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the day after"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "днём позже"
+          }
+        }
+      }
+    },
+    "receipt.near.day.before": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the day before"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "днём раньше"
+          }
+        }
+      }
+    },
+    "receipt.near.day.same": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the same day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в тот же день"
+          }
+        }
+      }
+    },
+    "receipt.near.reason": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "receipt.near.sum.less": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sum is %@ lower"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма на %@ меньше"
+          }
+        }
+      }
+    },
+    "receipt.near.sum.more": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sum is %@ higher"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма на %@ больше"
+          }
+        }
+      }
+    },
+    "receipt.near.sum.roundedDown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sum is %@ lower (a rounding)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма на %@ меньше (округление)"
+          }
+        }
+      }
+    },
+    "receipt.near.sum.roundedUp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sum is %@ higher (a rounding)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма на %@ больше (округление)"
           }
         }
       }
@@ -6397,6 +6550,91 @@
         }
       }
     },
+    "receipt.queue.decide": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receipt %1$ld of %2$ld needs your decision"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чек %1$ld из %2$ld — нужно ваше решение"
+          }
+        }
+      }
+    },
+    "receipt.queue.left": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read but not written: %ld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано, но не записано: %ld"
+          }
+        }
+      }
+    },
+    "receipt.queue.reading": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receipt %1$ld of %2$ld…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чек %1$ld из %2$ld…"
+          }
+        }
+      }
+    },
+    "receipt.queue.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip this one"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропустить"
+          }
+        }
+      }
+    },
+    "receipt.queue.summary": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recorded %1$ld, repeats %2$ld, not read %3$ld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано %1$ld, повторов %2$ld, не прочитано %3$ld"
+          }
+        }
+      }
+    },
     "receipt.reading": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -6882,6 +7120,40 @@
         }
       }
     },
+    "receipt.scan.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done (%ld)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово (%ld)"
+          }
+        }
+      }
+    },
+    "receipt.scan.notReceipt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What is this code?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что это за код?"
+          }
+        }
+      }
+    },
     "receipt.similar.title": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -7041,16 +7313,16 @@
     "receipt.split.add": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить часть"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Add a part"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить часть"
           }
         }
       }
@@ -7058,16 +7330,16 @@
     "receipt.split.amount": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сумма"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
           }
         }
       }
@@ -7075,16 +7347,16 @@
     "receipt.split.category": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Категория"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
           }
         }
       }
@@ -7092,16 +7364,16 @@
     "receipt.split.clear": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сбросить"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Clear"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сбросить"
           }
         }
       }
@@ -7109,16 +7381,16 @@
     "receipt.split.done": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Всё распределено"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "All shared"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё распределено"
           }
         }
       }
@@ -7126,16 +7398,16 @@
     "receipt.split.hint": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Чек знает только общую сумму. Разделите её сами: каждая часть — своя категория."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The receipt knows only the total. Share it yourself: each part has its own category."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чек знает только общую сумму. Разделите её сами: каждая часть — своя категория."
           }
         }
       }
@@ -7143,16 +7415,16 @@
     "receipt.split.left": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Осталось %@ — пойдёт в «Не помню»"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ left — goes to “Don't remember”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось %@ — пойдёт в «Не помню»"
           }
         }
       }
@@ -7160,16 +7432,16 @@
     "receipt.split.over": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Части больше чека на %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The parts exceed the receipt by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Части больше чека на %@"
           }
         }
       }
@@ -7177,16 +7449,16 @@
     "receipt.split.remove": {
       "extractionState": "manual",
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Убрать часть"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Remove the part"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Убрать часть"
           }
         }
       }
