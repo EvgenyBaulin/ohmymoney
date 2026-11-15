@@ -221,11 +221,14 @@ final class OverviewTileContentTests: XCTestCase {
       environment.language.choice = choice
       let tile = CanSaveTile.make(
         canSave(low: -500, high: 200, middle: 100, saved: 0), environment, freeNow: .zero)
+      // `framed` turns the thousands comma into a space, so the expected text goes through it
+      // too: the comma of the English sentence is not a separator of digits.
       XCTAssertEqual(
         tile.shortfall.map(framed),
-        choice == .russian
-          ? "При высоких тратах расходы превысят доход месяца на 500 ₽"
-          : "With high spending, expenses will exceed monthly income by 500 ₽")
+        framed(
+          choice == .russian
+            ? "При высоких тратах расходы превысят доход месяца на 500 ₽"
+            : "With high spending, expenses will exceed monthly income by 500 ₽"))
     }
   }
 
