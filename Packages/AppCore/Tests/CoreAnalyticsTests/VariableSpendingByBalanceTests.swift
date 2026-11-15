@@ -45,6 +45,7 @@ struct VariableSpendingByBalanceTests {
     var link: OperationLink?
     var reimbursable = false
     var accountLeg: (CurrencyCode, String)?
+    var oneOff = false
   }
 
   func ledger(_ operations: [Operation], debts: [Debt] = []) -> Ledger {
@@ -59,7 +60,8 @@ struct VariableSpendingByBalanceTests {
           amountE4: value, amountRubE4: rub, paymentMethodId: operation.account,
           accountCurrency: operation.accountLeg?.0,
           accountAmountE4: operation.accountLeg.map { money($0.1) }, debtId: operation.debt,
-          externalId: operation.link?.externalId, createdAt: at, updatedAt: at),
+          externalId: operation.link?.externalId, createdAt: at, updatedAt: at,
+          isOneOff: operation.oneOff),
         parts: [
           TransactionPart(
             id: id(5000 + index), transactionId: transactionId,
@@ -163,5 +165,19 @@ struct VariableSpendingByBalanceTests {
       ]))
     #expect(spending.weights == [key(main): money("110")])
     #expect(spending.ahead == money("3000"))
+  }
+
+  /// A purchase marked one-off is no pace of spending: the daily series the month forecast is
+  /// made of leaves it out, and keeps the ordinary purchase of the same day.
+  @Test func aPurchaseMarkedOneOffIsLeftOutOfTheVariableSpending() {
+    let book = ledger([
+      Operation(amount: "1000", day: "2026-09-10", account: main.id),
+      Operation(amount: "90000", day: "2026-09-10", account: main.id, oneOff: true),
+    ])
+    let series = VariableSpending(ledger: book)
+    #expect(series.amount(on: day("2026-09-10").dayNumber) == 1000)
+    // The totals keep it: only the average forgets it.
+    let totals = book.rows.reduce(AmountE4.zero) { $0 + $1.contribution }
+    #expect(totals == money("91000"))
   }
 }

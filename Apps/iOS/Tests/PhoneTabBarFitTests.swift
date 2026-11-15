@@ -5,9 +5,8 @@ import XCTest
 @testable import OhMyMoney
 
 /// The names under the five tabs of the bar: with every name shown the tabs share the width,
-/// and the longest name has to fit its tab — scaled down by no more than the 0.7 the label
-/// allows — at each phone width and in both languages. A name that does not fit is cut to
-/// «Планиров…», which is what the screens of the phone showed.
+/// and the longest name has to fit its tab in the two lines the label allows, at each phone
+/// width and in both languages. A name that does not fit was cut to «Планиров…».
 @MainActor
 final class PhoneTabBarFitTests: XCTestCase {
   private func titles(_ environment: AppEnvironment) -> [String] {
@@ -32,8 +31,8 @@ final class PhoneTabBarFitTests: XCTestCase {
         for title in titles(environment) {
           let needed = (title as NSString).size(withAttributes: [.font: font]).width
           XCTAssertLessThanOrEqual(
-            needed * 0.7, room,
-            "«\(title)» (\(language.rawValue)) needs \(Int(needed * 0.7)) pt, its tab has \(Int(room)) at \(Int(width)) pt"
+            needed, CGFloat(NavBarButton.labelLines) * room,
+            "«\(title)» (\(language.rawValue)) needs \(Int(needed)) pt, its tab has 2 × \(Int(room)) at \(Int(width)) pt"
           )
         }
       }

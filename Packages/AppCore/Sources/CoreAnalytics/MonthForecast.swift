@@ -169,6 +169,9 @@ public struct MonthForecast: Hashable, Sendable {
     // and a forecast that took it for spending would grow by every ruble the books ever
     // failed to account for.
     if row.link?.isBookkeeping == true { return false }
+    // A purchase the owner marked one-off is no pace of spending: one big buy must not set
+    // the average of the days to come.
+    if row.isOneOff { return false }
     return !row.contribution.isZero && !row.isGoalContribution && row.debtId == nil
       && !row.reimbursable && row.systemRole == nil
   }

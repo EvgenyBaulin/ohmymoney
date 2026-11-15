@@ -212,11 +212,12 @@ public enum LimitRules {
   /// day by day. Nor a record the app wrote to square the books — the shortfall of money back,
   /// «Списать остаток»: money that left at the purchase, written down at once. The limit
   /// counts it as spent in its month, but spread over the days it would be a spending pace the
-  /// owner never had, as the month forecast and the anomalies say too.
+  /// owner never had, as the month forecast and the anomalies say too. Nor a purchase marked
+  /// one-off: it counts in the month, not in the pace.
   public static func isVariable(
     _ row: LedgerRow, for budget: Budget, scheduledOperations: Set<UUID> = []
   ) -> Bool {
-    guard counts(row, for: budget), row.debtId == nil else { return false }
+    guard counts(row, for: budget), row.debtId == nil, !row.isOneOff else { return false }
     if case .scheduled = row.link { return false }
     if row.link?.isBookkeeping == true { return false }
     return !scheduledOperations.contains(row.transactionId)

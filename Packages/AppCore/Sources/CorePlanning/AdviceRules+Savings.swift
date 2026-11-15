@@ -90,7 +90,7 @@ extension AdviceRules {
       let goal = status.goal
       let subject = AdviceSubject.goal(goal.name)
       let idSuffix = goal.id.uuidString.lowercased()
-      guard status.neededMonthly != nil || status.pace != nil else {
+      guard status.neededMonthly != nil || status.pace != nil || status.realism == .overdue else {
         return .notEnoughData(
           .goal, reason: Reason.goalNoDateNoPace, subject: subject, idSuffix: idSuffix)
       }

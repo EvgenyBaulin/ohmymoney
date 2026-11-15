@@ -102,11 +102,12 @@ final class PlanningScenarioTestsGoalsEvents: XCTestCase {
     XCTAssertEqual(try XCTUnwrap(status(goal(), [], today: "2026-10-14")).realism, .noDate)
   }
 
-  func testAPassedDateIsOverdueAndNeedsEverythingNow() throws {
+  func testAPassedDateIsOverdueAndAsksNoMonthlySum() throws {
     let result = try XCTUnwrap(status(goal(date: "2026-09-30"), [], today: "2026-10-14"))
     XCTAssertEqual(result.realism, .overdue)
     XCTAssertEqual(result.monthsLeft, 0)
-    XCTAssertEqual(result.neededMonthly, S.rub(100_000))
+    XCTAssertNil(result.neededMonthly)
+    XCTAssertEqual(result.remaining, S.rub(100_000))
   }
 
   func testTheNeededMonthlyIsRoundedUpToWholeRubles() throws {

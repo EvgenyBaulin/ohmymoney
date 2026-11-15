@@ -2190,6 +2190,21 @@ public final class EntryDraftModel {
     applyDefaults(today: today)
   }
 
+  // MARK: After midnight
+
+  /// «Записать за вчера?»: a new record written in the small hours, still dated today. The
+  /// offer asks, it never blocks the record and never moves the day by itself.
+  public func offersYesterday(now: Date = Date()) -> Bool {
+    !editsSavedOperation
+      && AfterMidnight.offersYesterday(occurredAt: draft.occurredAt, now: now, calendar: calendar)
+  }
+
+  /// One press of «Вчера»: the record goes to the evening before.
+  public func useYesterday(now: Date = Date(), today: DateOnly) {
+    guard offersYesterday(now: now) else { return }
+    setDate(AfterMidnight.yesterdayMoment(now: now, calendar: calendar), today: today)
+  }
+
   // MARK: The month an income is for
 
   /// The month an income is for as the panel shows it: the one chosen, otherwise the month

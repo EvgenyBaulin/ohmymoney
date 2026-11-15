@@ -189,12 +189,14 @@ struct GoalsTests: SavingsFixtures {
     #expect(status.neededMonthly == rub("55000"))
   }
 
-  /// After the date the whole remainder is needed at once, and the goal is overdue.
-  @Test func neededMonthlyAfterTheDateIsTheWholeRemainder() throws {
+  /// After the date the goal is overdue and asks no monthly sum: the remainder is what is left.
+  @Test func anOverdueGoalNeedsNoMonthlySum() throws {
     let (book, goal) = carBook(date: "2026-12-15")
     let status = try status(goal, book, today: date("2027-01-10"))
     #expect(status.monthsLeft == 0)
-    #expect(status.neededMonthly == rub("45000"))
+    #expect(status.neededMonthly == nil)
+    #expect(status.remaining == rub("45000"))
+    #expect(status.coveredByCanSave == nil)
     #expect(status.contributedThisMonth == .zero)
     #expect(status.realism == .overdue)
     #expect(status.amountByTargetDate == nil)

@@ -1,91 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "why.balance.moneyNow": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Money on accounts now"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сейчас на счетах"
-          }
-        }
-      }
-    },
-    "why.balance.knownChanges": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recorded future movements and payments"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записанные будущие операции и платежи"
-          }
-        }
-      }
-    },
-    "why.balance.estimatedChanges": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expected income, interest and spending"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ожидаемые доходы, проценты и траты"
-          }
-        }
-      }
-    },
-    "overview.balanceForecast.totalThrough": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total on %@ ≈ %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Всего на %@ ≈ %@"
-          }
-        }
-      }
-    },
-    "overview.balanceForecast.behavior": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Across all accounts, including usual spending"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "По всем счетам, с учётом обычных трат"
-          }
-        }
-      }
-    },
     "calendar.atTodaysRate": {
       "extractionState": "manual",
       "localizations": {
@@ -18993,6 +18908,23 @@
         }
       }
     },
+    "overview.balanceForecast.behavior": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Across all accounts, including usual spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По всем счетам, с учётом обычных трат"
+          }
+        }
+      }
+    },
     "overview.balanceForecast.none": {
       "extractionState": "manual",
       "localizations": {
@@ -19454,6 +19386,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 的摘要帳戶"
+          }
+        }
+      }
+    },
+    "overview.balanceForecast.totalThrough": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total on %@ ≈ %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всего на %@ ≈ %@"
           }
         }
       }
@@ -22105,6 +22054,108 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "overview.doNow.income": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Has “%@” not arrived?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» не пришёл?"
+          }
+        }
+      }
+    },
+    "overview.doNow.income.close": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрыть"
+          }
+        }
+      }
+    },
+    "overview.doNow.income.move": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move by a week"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести на неделю"
+          }
+        }
+      }
+    },
+    "overview.doNow.income.setDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set the day it came…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Указать дату прихода…"
+          }
+        }
+      }
+    },
+    "overview.doNow.incomeButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decide"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Решить"
+          }
+        }
+      }
+    },
+    "overview.doNow.incomeDetail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was due %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок был %@"
           }
         }
       }
@@ -58470,6 +58521,40 @@
         }
       }
     },
+    "why.balance.estimatedChanges": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected income, interest and spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаемые доходы, проценты и траты"
+          }
+        }
+      }
+    },
+    "why.balance.knownChanges": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recorded future movements and payments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записанные будущие операции и платежи"
+          }
+        }
+      }
+    },
     "why.balance.leftOut": {
       "extractionState": "manual",
       "localizations": {
@@ -58621,6 +58706,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "部分餘額未計入或缺少匯率，已從總計中排除。"
+          }
+        }
+      }
+    },
+    "why.balance.moneyNow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money on accounts now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас на счетах"
           }
         }
       }

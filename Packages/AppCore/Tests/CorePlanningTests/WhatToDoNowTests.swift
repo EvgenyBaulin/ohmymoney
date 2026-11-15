@@ -61,4 +61,30 @@ struct WhatToDoNowTests {
     let second = WhatToDoNow.list(payments: payments.reversed(), today: today)
     #expect(first == second)
   }
+
+  @Test func anIncomeThatDidNotComeAsksAfterPaymentsAndBeforeReviews() {
+    let late = OverdueIncomeItem(
+      incomeId: UUID(), name: "Project", due: today.adding(days: -3), rub: AmountE4(whole: 10),
+      isOneOff: true)
+    let recurring = OverdueIncomeItem(
+      incomeId: UUID(), name: "Salary", due: today.adding(days: -4), rub: AmountE4(whole: 10),
+      isOneOff: false)
+    let list = WhatToDoNow.list(
+      payments: [payment("p", due: today)], overdueIncomes: [late, recurring],
+      reviews: [DoNowSource(id: "inbox", count: 3)], today: today)
+    #expect(list.items.map(\.action) == [.post, .income, .review])
+    #expect(list.items[1].incomeId == late.incomeId)
+    #expect(list.items[1].day == late.due)
+  }
+
+  @Test func oneItemPerIncomeWhateverHowManyDueDatesPassed() {
+    let id = UUID()
+    let first = OverdueIncomeItem(
+      incomeId: id, name: "Project", due: today.adding(days: -9), rub: nil, isOneOff: true)
+    let second = OverdueIncomeItem(
+      incomeId: id, name: "Project", due: today.adding(days: -2), rub: nil, isOneOff: true)
+    let list = WhatToDoNow.list(payments: [], overdueIncomes: [second, first], today: today)
+    #expect(list.items.count == 1)
+    #expect(list.items.first?.day == first.due)
+  }
 }

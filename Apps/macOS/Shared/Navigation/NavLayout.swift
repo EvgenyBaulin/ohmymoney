@@ -33,11 +33,11 @@ enum NavItem: String, CaseIterable, Hashable, Sendable, Identifiable {
     }
   }
 
-  /// The name under the symbol in the bottom bar of the phone: the same as `titleKey`, except
-  /// «Планирование», which does not fit its tab and is «Планы» there. Mac and iPad keep the full
-  /// word.
+  /// The name under the symbol in the bottom bar of the phone: the same as `titleKey` on every
+  /// device. A name too long for its tab wraps onto a second line (`NavBarButton`) instead of
+  /// being shortened or shrunk.
   var phoneBarKey: (key: String, table: String) {
-    self == .planning ? ("phone.tab.planning", "Phone") : (titleKey, titleTable ?? "Common")
+    (titleKey, titleTable ?? "Common")
   }
 
   /// Line symbols only: the bar draws outlines, and the active one is told by its pill.

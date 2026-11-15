@@ -495,9 +495,9 @@ struct PlanningSnapshotTests {
 
   // MARK: - The free sum
 
-  /// An expectation of this month that is late still waits for its money, as a late payment
-  /// still waits on the other side: 5 000 due on the 10th counts through the 24th.
-  @Test func aLateExpectationOfTheMonthStillCounts() {
+  /// An expectation of this month that is late is overdue, not money to wait for: 5 000 due on
+  /// the 10th counts nowhere, through the 24th or at all.
+  @Test func aLateExpectationOfTheMonthIsNotWaitedFor() {
     let book = PlanningBook(expected: [
       ExpectedIncome(
         id: Fx.id(70), name: "Late", totalE4: Fx.rub("5000"), dueDate: Fx.day("2026-09-10"))
@@ -505,7 +505,7 @@ struct PlanningSnapshotTests {
     let ledger = Fx.ledger([], book: book)
     let planning = PlanningSnapshot.build(ledger: ledger, today: today, now: now, rubPerUnit: [:])
     let free = planning.freeMoney(until: Fx.day("2026-09-24"), ledger: ledger)
-    #expect(free.info.first { $0.key == FreeMoney.Key.stillExpected }?.amount == Fx.rub("5000"))
+    #expect(free.info.first { $0.key == FreeMoney.Key.stillExpected }?.amount == .zero)
     // Shown, never added: with nothing counted there is no money to add it to.
     #expect(free.state == .noReconciliation)
     #expect(free.grey == nil)

@@ -51,17 +51,15 @@ struct NavBarButton: View {
     self.action = action
   }
 
-  /// The room a tab keeps at its sides. With every name shown the tabs share the width of the
-  /// bar and the longest name («Планирование») has to fit in what is left, scaled down to 0.7
-  /// at most: a wide margin turned it into «Планиров…».
-  /// The height of a tab: the symbol with its name under it inside the pill, the same for the open
-  /// tab and the rest, so the name never reaches over the edge of the highlight.
+  /// The least height of a tab: the symbol with its name under it inside the pill, the same for
+  /// the open tab and the rest. A name of two lines makes the tabs, and the bar, taller.
   static let tabHeight: CGFloat = 52
-  /// The one size of every name under a symbol — the smallest the app allows (9 pt). The tab of
-  /// Planning says «Планы» (`NavItem.phoneBarKey`), so every name fits whole; a longer name from
-  /// «Оформление» may still shrink, by 0.85 at most, when its tab is narrower.
+  /// The one size of every name under a symbol — the smallest the app allows (9 pt). A name too
+  /// long for its tab (the full «Планирование») wraps onto a second line: it is never shrunk
+  /// to look smaller than the rest and never cut to «Планиров…».
   static let labelPointSize: CGFloat = 9
-  static let labelMinimumScale: CGFloat = 0.85
+  /// The most lines a name takes.
+  static let labelLines = 2
 
   static func horizontalPadding(isActive: Bool, labelsOnAll: Bool) -> CGFloat {
     if labelsOnAll { return 1 }
@@ -77,10 +75,11 @@ struct NavBarButton: View {
               .imageScale(.large)
               .symbolVariant(.none)
             Text(verbatim: title)
-              // One size for every tab name; a long one is never shrunk to look smaller than the rest
+              // One size for every tab name; a long one wraps instead of shrinking.
               .appFont(AppFont.system(size: Self.labelPointSize, weight: .medium))
-              .lineLimit(1)
-              .minimumScaleFactor(Self.labelMinimumScale)
+              .lineLimit(Self.labelLines)
+              .multilineTextAlignment(.center)
+              .fixedSize(horizontal: false, vertical: true)
           }
         } else {
           HStack(spacing: 6) {
@@ -99,7 +98,6 @@ struct NavBarButton: View {
       .foregroundStyle(isActive ? colors.activeContent : colors.icon)
       .padding(.horizontal, Self.horizontalPadding(isActive: isActive, labelsOnAll: labelsOnAll))
       .frame(minWidth: 44, minHeight: labelsOnAll ? Self.tabHeight : 44)
-      .frame(height: labelsOnAll ? Self.tabHeight : nil)
       .background {
         if isActive { Capsule().fill(colors.pill) }
       }
