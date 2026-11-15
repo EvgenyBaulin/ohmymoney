@@ -432,7 +432,7 @@ struct OperationsScreen: View {
           verbatim: environment.language.format(
             "transactions.olderHidden", table: "Transactions", counts: hidden)
         )
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .lineLimit(1)
         Spacer(minLength: 8)
         Button(t("transactions.showEarlier")) { showEarlier() }
@@ -739,7 +739,7 @@ struct OperationColumnsSheet: View {
         .appFont(.headline)
       Text(verbatim: t("operations.columns.hint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       List {
         ForEach(layout.order) { column in
@@ -778,7 +778,7 @@ struct OperationColumnsSheet: View {
             "operations.columns.width", table: "Transactions", "\(layout.width(of: column))")
         )
         .monospacedDigit()
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Button {
         layout.move(column, by: -1)

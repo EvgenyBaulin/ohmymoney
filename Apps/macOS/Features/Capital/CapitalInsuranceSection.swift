@@ -40,7 +40,7 @@ struct CapitalInsuranceSection: View {
                 .foregroundStyle(.orange)
                 Text(verbatim: words[0]).monospacedDigit()
                 Text(verbatim: words[1]).monospacedDigit()
-                Text(verbatim: words[2]).appFont(.caption).foregroundStyle(.secondary)
+                Text(verbatim: words[2]).appFont(.caption).secondaryInk()
               }
             }
             .buttonStyle(.plain)

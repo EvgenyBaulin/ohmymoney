@@ -256,7 +256,7 @@ struct AccountCreditBlock: View {
         } icon: {
           Image(systemName: "hourglass")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       if let toPay = lines.toPay {
         Label {
@@ -277,13 +277,13 @@ struct AccountCreditBlock: View {
       if let next = lines.nextStatement {
         Text(verbatim: next)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       // Estimates: grey, with «≈» in the words — never colour alone.
       if let estimate = lines.estimate {
         Text(verbatim: estimate)
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("account.credit.estimate")
       }
       ForEach(Array(outlook.statements.suffix(3).reversed()), id: \.closesOn) { statement in
@@ -301,11 +301,11 @@ struct AccountCreditBlock: View {
       ForEach(lines.asks) { ask in
         HStack(alignment: .firstTextBaseline, spacing: 6) {
           Image(systemName: ask.recorded ? "checkmark.circle" : "percent")
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityHidden(true)
           Text(verbatim: ask.text)
             .monospacedDigit()
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Spacer(minLength: 6)
           if !ask.recorded {
             Button(t("account.credit.record")) {
@@ -326,7 +326,7 @@ struct AccountCreditBlock: View {
           Image(systemName: "banknote")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)

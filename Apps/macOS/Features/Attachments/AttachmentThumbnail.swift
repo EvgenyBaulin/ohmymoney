@@ -23,7 +23,7 @@ struct AttachmentThumbnail: View {
       } else {
         Image(systemName: Self.symbol(for: file))
           .appFont(.title3)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .frame(width: side, height: side)

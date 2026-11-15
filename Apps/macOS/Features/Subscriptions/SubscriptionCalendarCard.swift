@@ -61,7 +61,7 @@ struct SubscriptionCalendarCard: View {
         title: t("subs.calendar.only"), caption: caption(items, rates: rates, hiding: hiding))
       if let items {
         if items.isEmpty {
-          Text(verbatim: t("subs.calendar.none")).foregroundStyle(.secondary)
+          Text(verbatim: t("subs.calendar.none")).secondaryInk()
         }
         ForEach(SubscriptionCalendarDay.groups(items, rubPerUnit: rates, hiding: hiding)) {
           group in
@@ -117,7 +117,7 @@ struct SubscriptionCalendarCard: View {
           Image(systemName: item.paid ? "checkmark.circle" : "clock").accessibilityHidden(true)
           Text(verbatim: item.name).lineLimit(1)
           Text(verbatim: t(item.paid ? "subs.calendar.paid" : "subs.calendar.coming"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Spacer(minLength: 6)
           Text(verbatim: environment.money.rounded(item.amount, currency: item.currency))
             .monospacedDigit()

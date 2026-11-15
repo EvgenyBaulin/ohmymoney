@@ -22,14 +22,14 @@ struct SmallPurchaseLimitField: View {
             .accessibilityLabel(Text(verbatim: t("overview.small.field.title")))
             .accessibilityIdentifier("settings.entry.smallPurchaseLimit")
           Text(verbatim: environment.money.symbol(for: .rub))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       } label: {
         Text(verbatim: t("overview.small.field.title"))
       }
       Text(verbatim: t("overview.small.field.hint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
     .onAppear(perform: load)

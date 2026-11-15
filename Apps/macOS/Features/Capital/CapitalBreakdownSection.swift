@@ -62,7 +62,7 @@ struct CapitalBreakdownSection: View {
         Image(systemName: Self.issueSymbol(warning.issue))
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
     }
     ForEach(model.countedTwice, id: \.self) { name in
@@ -73,7 +73,7 @@ struct CapitalBreakdownSection: View {
           Image(systemName: "exclamationmark.triangle")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
         // «Оставить только счёт» lives on the card of the debt: the button opens it there.
         if let debt = Self.debt(named: name, in: model) {
@@ -113,7 +113,7 @@ struct CapitalBreakdownSection: View {
       if groups.isEmpty {
         Text(verbatim: CapitalText.t("capital.nothing", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       ForEach(groups) { group in
         let isOpen = expansion.isOpen(group.id)
@@ -149,7 +149,7 @@ struct CapitalBreakdownSection: View {
       HStack(alignment: .firstTextBaseline, spacing: 8) {
         Image(systemName: "chevron.right")
           .appFont(.caption.weight(.semibold))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .rotationEffect(.degrees(isOpen ? 90 : 0))
           .frame(width: 12)
         Text(verbatim: name)
@@ -161,7 +161,7 @@ struct CapitalBreakdownSection: View {
         if let share {
           Text(verbatim: share)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Text(verbatim: total)
           .appFont(.subheadline.monospacedDigit())
@@ -213,13 +213,13 @@ struct CapitalBreakdownSection: View {
             Image(systemName: Self.issueSymbol(issue))
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         Spacer(minLength: 8)
         if let share = row.shareBp {
           Text(verbatim: environment.money.percent(basisPoints: share))
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Text(verbatim: amountText(line))
           .monospacedDigit()
@@ -230,7 +230,7 @@ struct CapitalBreakdownSection: View {
             "capital.interest", environment, environment.money.rounded(interest))
         )
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       if let accrued = line.accruedNotCountedRub, !accrued.isZero {
         Text(
@@ -238,7 +238,7 @@ struct CapitalBreakdownSection: View {
             "capital.accrued", environment, environment.money.rounded(accrued))
         )
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .padding(.vertical, 2)

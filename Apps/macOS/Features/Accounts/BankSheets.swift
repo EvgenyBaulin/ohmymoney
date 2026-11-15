@@ -34,10 +34,10 @@ struct ForgottenRows: View {
               }
             }
             Text(verbatim: BankText.idle(product.idleDays, environment))
-              .appFont(.caption).foregroundStyle(.secondary)
+              .appFont(.caption).secondaryInk()
             if product.mayCharge {
               Text(verbatim: BankText.t("bank.forgotten.mayCharge", environment))
-                .appFont(.caption).foregroundStyle(.secondary)
+                .appFont(.caption).secondaryInk()
             }
           }
         }
@@ -61,7 +61,7 @@ struct ForgottenMoneySheet: View {
       Text(verbatim: BankText.t("bank.forgotten.title", environment)).appFont(.headline)
       if products.isEmpty {
         Text(verbatim: BankText.t("bank.forgotten.empty", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       } else {
         ScrollView { ForgottenRows(products: products) }
       }
@@ -71,7 +71,7 @@ struct ForgottenMoneySheet: View {
           "\(compute.snapshot?.dataset.bankData.settings.forgottenDays ?? BankSettings.defaultForgottenDays)"
         )
       )
-      .appFont(.caption).foregroundStyle(.secondary)
+      .appFont(.caption).secondaryInk()
       HStack {
         Spacer()
         Button(environment.language("action.close")) { dismiss() }
@@ -119,7 +119,7 @@ struct CardRebindSheet: View {
       }
       if attached.isEmpty {
         Text(verbatim: BankText.t("bank.card.rebind.empty", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       } else {
         ForEach(attached) { item in
           Label(
@@ -128,7 +128,7 @@ struct CardRebindSheet: View {
         }
       }
       Text(verbatim: BankText.t("bank.card.rebind.hint", environment))
-        .appFont(.caption).foregroundStyle(.secondary)
+        .appFont(.caption).secondaryInk()
       HStack {
         Spacer()
         Button(environment.language("action.close")) { dismiss() }
@@ -184,7 +184,7 @@ struct BankFeesSheet: View {
         .appFont(.title3.monospacedDigit())
         .accessibilityIdentifier("bank.fees.summary")
         if report.isEmpty {
-          Text(verbatim: t("bank.fees.empty")).foregroundStyle(.secondary)
+          Text(verbatim: t("bank.fees.empty")).secondaryInk()
         } else {
           Grid(alignment: .trailing, horizontalSpacing: 14, verticalSpacing: 4) {
             GridRow {
@@ -193,7 +193,7 @@ struct BankFeesSheet: View {
               Text(verbatim: t("bank.fees.interest"))
               Text(verbatim: t("bank.fees.total"))
             }
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
             ForEach(report.months) { month in
               GridRow {
                 Text(verbatim: environment.dates.shortMonth(month.month)).gridColumnAlignment(
@@ -209,7 +209,7 @@ struct BankFeesSheet: View {
       } else {
         ProgressView()
       }
-      Text(verbatim: t("bank.fees.hint")).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: t("bank.fees.hint")).appFont(.caption).secondaryInk()
       HStack {
         Button(t("bank.fees.export")) { export() }
           .disabled(report == nil)
@@ -285,7 +285,7 @@ struct ForgottenDaysSetting: View {
       .fixedSize()
       .accessibilityIdentifier("settings.banks.forgottenDays")
       Text(verbatim: BankText.t("bank.settings.forgottenDays.hint", environment))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
   }
 

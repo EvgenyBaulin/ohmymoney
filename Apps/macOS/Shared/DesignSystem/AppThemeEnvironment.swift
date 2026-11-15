@@ -91,5 +91,12 @@ private struct SecondaryInk: ViewModifier {
 extension View {
   /// The secondary ink of the theme, which reads at 4.5 : 1 on every surface (the system's
   /// `.secondary` is lighter than the audit accepts on a card).
+  ///
+  /// Where to use which: on a surface the theme paints (window floor, cards, computed blocks,
+  /// tiles, the hero) secondary text takes this ink; on a system surface (a native `Form` or
+  /// `List` sheet, glass, menus, popovers) `.foregroundStyle(.secondary)` stays, because the
+  /// system picks the contrast there. `theme.contentSecondary` already reads at 4.5 : 1 on the
+  /// page, card and neutral fill in every theme, so it stays as it is. A secondary `Text` that
+  /// is joined with `+` cannot take this modifier (it is a `View`) and keeps `.secondary`.
   func secondaryInk() -> some View { modifier(SecondaryInk()) }
 }

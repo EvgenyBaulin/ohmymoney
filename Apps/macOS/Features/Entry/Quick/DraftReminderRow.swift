@@ -21,7 +21,7 @@ struct DraftReminderRow: View {
     if let line = DraftReminder.line(drafts: drafts, now: now, calendar: environment.calendar) {
       HStack(alignment: .firstTextBaseline, spacing: 8) {
         Image(systemName: "clock.arrow.circlepath")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: QuickText.counted("quick.drafts.reminder", environment, line.count))
           .appFont(.callout)

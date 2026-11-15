@@ -22,7 +22,7 @@ struct AccountsSetupCard: View {
       VStack(alignment: .leading, spacing: 8) {
         Text(verbatim: t("onboarding.card.title"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityAddTraits(.isHeader)
         Text(verbatim: t("onboarding.card.message"))
           .fixedSize(horizontal: false, vertical: true)

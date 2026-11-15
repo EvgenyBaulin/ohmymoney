@@ -181,7 +181,7 @@ struct DebtScheduleSection: View {
             LabeledContent(t("schedule.graceAmount")) {
               HStack {
                 AmountField(amount: $schedule.graceAmount)
-                Text(verbatim: currency.code).foregroundStyle(.secondary)
+                Text(verbatim: currency.code).secondaryInk()
               }
             }
           }
@@ -227,7 +227,7 @@ struct DebtScheduleSection: View {
         } icon: {
           Image(systemName: "exclamationmark.circle")
         }
-        .appFont(.caption).foregroundStyle(.secondary)
+        .appFont(.caption).secondaryInk()
       }
     } header: {
       Text(verbatim: t("schedule.title"))
@@ -259,7 +259,7 @@ struct DebtScheduleSection: View {
 
   private func caption(_ text: String) -> some View {
     Text(verbatim: text)
-      .appFont(.caption).foregroundStyle(.secondary)
+      .appFont(.caption).secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
   }
 

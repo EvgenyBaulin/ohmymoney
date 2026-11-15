@@ -166,7 +166,7 @@ struct QuickEntryStrip: View {
     } icon: {
       Image(systemName: "checkmark.circle")
     }
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   // MARK: Drafts

@@ -68,7 +68,7 @@ struct OverviewSummaryCards: View {
             environment.dates.monthName(bars.highlighted.month))
         )
         .appFont(AnalyticsCardType.subtitle)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .accessibilityIdentifier("analytics.overview.months")
@@ -224,7 +224,7 @@ private struct OverviewDonutView: View {
               verbatim: environment.money.percent(basisPoints: part.basisPoints, fractionDigits: 0)
             )
             .appFont(.system(size: 12, weight: .semibold).monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           .accessibilityElement(children: .combine)
         }
@@ -294,7 +294,7 @@ private struct OverviewQualityView: View {
               Image(systemName: Palette.qualitySymbol(tile.quality))
             }
             .labelStyle(OverviewQualityLabelStyle())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(maxWidth: .infinity, alignment: .leading)
             Text(verbatim: figure(tile))
               .appFont(.system(size: 12, weight: .semibold).monospacedDigit())

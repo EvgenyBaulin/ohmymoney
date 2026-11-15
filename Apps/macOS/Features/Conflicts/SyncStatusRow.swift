@@ -20,12 +20,12 @@ struct SyncStatusRow: View {
         if let detail = ConflictText.statusDetail(status, environment) {
           Text(verbatim: detail)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         ForEach(ConflictText.outcomeLines(coordinator.lastOutcome, environment), id: \.self) {
           Text(verbatim: $0)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       Spacer()

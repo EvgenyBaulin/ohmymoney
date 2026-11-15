@@ -16,7 +16,7 @@ struct PhoneTabLabelsSection: View {
     } footer: {
       Text(verbatim: environment.language("appearance.tabLabels.hint", table: "Appearance"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 }

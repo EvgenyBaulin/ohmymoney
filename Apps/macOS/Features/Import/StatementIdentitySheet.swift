@@ -30,7 +30,7 @@ struct StatementIdentitySheet: View {
     VStack(alignment: .leading, spacing: 14) {
       Text(verbatim: t("import.identity.title")).appFont(.headline)
       Text(verbatim: t("import.identity.body"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       field("import.identity.phones", "import.identity.phones.hint", $phones)
       field("import.identity.names", "import.identity.names.hint", $names)
@@ -66,7 +66,7 @@ struct StatementIdentitySheet: View {
         .scrollContentBackground(.hidden)
         .padding(4)
         .background(.background.secondary, in: .rect(cornerRadius: 8))
-      Text(verbatim: t(hint)).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: t(hint)).appFont(.caption).secondaryInk()
     }
   }
 

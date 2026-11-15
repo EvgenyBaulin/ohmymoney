@@ -40,7 +40,7 @@ struct CushionTileContent: View {
       if partHidden { PartHiddenNote() }
       Text(verbatim: CushionText.tileHint(status, settings: settings, environment))
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Button(CushionText.t("cushion.planning.open", environment)) {
         NotificationCenter.default.post(

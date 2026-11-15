@@ -22,7 +22,7 @@ struct OverviewDiscrepancies: View {
                 })
               {
                 Text(verbatim: environment.language("privacy.partHidden", table: "PrivacyScreens"))
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
               }
               Spacer()
               Text(verbatim: environment.money.exact(difference)).monospacedDigit()

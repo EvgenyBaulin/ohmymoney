@@ -9,7 +9,7 @@ struct PartHiddenNote: View {
   var body: some View {
     Text(verbatim: Self.text(environment.language))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .lineLimit(1)
       .accessibilityIdentifier("privacy.partHidden")
   }

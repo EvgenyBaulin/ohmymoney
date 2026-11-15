@@ -20,7 +20,7 @@ struct OperationHistoryView: View {
         if events.isEmpty {
           Text(verbatim: environment.sync == nil ? t("history.empty.dataSet") : t("history.empty"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("history.empty")
         } else {
           ForEach(text.rows(events)) { row in
@@ -28,10 +28,10 @@ struct OperationHistoryView: View {
               HStack(alignment: .firstTextBaseline) {
                 Text(verbatim: row.title).appFont(.body.weight(.semibold))
                 Spacer(minLength: 8)
-                Text(verbatim: row.when).appFont(.caption).foregroundStyle(.secondary)
+                Text(verbatim: row.when).appFont(.caption).secondaryInk()
               }
               ForEach(Array(row.lines.enumerated()), id: \.offset) { _, line in
-                Text(verbatim: line).appFont(.caption).foregroundStyle(.secondary)
+                Text(verbatim: line).appFont(.caption).secondaryInk()
               }
             }
             .padding(10)

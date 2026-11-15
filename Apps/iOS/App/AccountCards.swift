@@ -94,7 +94,7 @@ struct AccountCardsSection: View {
     return VStack(alignment: .leading, spacing: 6) {
       Text(verbatim: t("sidebar.total"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Text(verbatim: snapshot.inSummaryTotalRub.map { environment.money.rounded($0) } ?? "—")
         .appFont(.largeTitle.bold().monospacedDigit())
         .minimumScaleFactor(0.6)
@@ -102,12 +102,12 @@ struct AccountCardsSection: View {
       if compute.snapshot?.coveredAccounts?.partHidden == true {
         Text(verbatim: environment.language("privacy.partHidden", table: "PrivacyScreens"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if !missing.isEmpty {
         Text(verbatim: withoutRate(missing.map(\.code).joined(separator: ", ")))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)
@@ -137,7 +137,7 @@ struct AccountCardsSection: View {
         .monospacedDigit()
     }
     .appFont(.callout.weight(.semibold))
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .padding(.top, 8)
     .tag(SidebarItem.group(group.id))
     .contextMenu { groupMenu(group, holdsMain: section.accounts.contains { $0.account.isDefault }) }

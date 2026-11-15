@@ -43,7 +43,7 @@ struct ScheduledBlock: View {
               environment.money.rounded(planning.subscriptionsYearly))
           )
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         // The totals keep the payments of a hidden account the list does not show.
         if statuses.count != all.count { PartHiddenNote() }
@@ -55,7 +55,7 @@ struct ScheduledBlock: View {
         } else {
           HStack {
             if statuses.isEmpty {
-              Text(verbatim: t("scheduled.none")).foregroundStyle(.secondary)
+              Text(verbatim: t("scheduled.none")).secondaryInk()
             }
             Spacer()
             if kind == .subscription {
@@ -109,7 +109,7 @@ struct ScheduledBlock: View {
               .buttonStyle(.link)
             }
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
         }
       }
@@ -397,7 +397,7 @@ struct ScheduledRow: View {
     if !pieces.isEmpty {
       Text(verbatim: pieces.joined(separator: " · "))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     // Its card is in the archive: «Провести» pays from the account alone.
     if paidWith.cardArchived {
@@ -407,7 +407,7 @@ struct ScheduledRow: View {
         Image(systemName: "creditcard")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
     // Paid from the main account while its own is archived: said with a symbol and words.
     if status.accountArchived {
@@ -417,7 +417,7 @@ struct ScheduledRow: View {
         Image(systemName: "archivebox")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -448,7 +448,7 @@ struct ScheduledRow: View {
       }
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   private func t(_ key: String) -> String {
@@ -483,7 +483,7 @@ private struct FundingLines: View {
       }
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   /// The lines of one account together, in the order they came: the core orders them.
@@ -567,7 +567,7 @@ private struct MatchedDues: View {
       } icon: {
         Image(systemName: "checkmark.circle")
       }
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       Spacer(minLength: 6)
       Button(t("scheduled.bind")) {
         if let dependencies {

@@ -96,7 +96,7 @@ struct DebtCardExtras: View {
           line, language: environment.language, money: environment.money, dates: environment.dates),
         id: \.self
       ) {
-        Text(verbatim: $0).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: $0).appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       if let planned = debt.plannedPrepay {
@@ -122,7 +122,7 @@ struct DebtCardExtras: View {
         if let shift = DebtPauseText.shift(
           dues: line.dues.knowing(debt), pause: pause, currency: debt.currency, environment)
         {
-          Text(verbatim: shift).appFont(.callout).foregroundStyle(.secondary)
+          Text(verbatim: shift).appFont(.callout).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }
@@ -255,9 +255,9 @@ struct DebtDuesAhead: View {
         ForEach(dues, id: \.day) { due in
           HStack {
             Text(verbatim: environment.dates.longDay(due.day)).monospacedDigit()
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             if due.typed {
-              Text(verbatim: t("dues.typed")).appFont(.caption).foregroundStyle(.secondary)
+              Text(verbatim: t("dues.typed")).appFont(.caption).secondaryInk()
             }
             Spacer()
             Text(verbatim: environment.money.exact(due.amount, currency: line.debt.currency))

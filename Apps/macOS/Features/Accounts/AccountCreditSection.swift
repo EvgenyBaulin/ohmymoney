@@ -229,7 +229,7 @@ struct AccountCreditSection: View {
           ? environment.format("account.credit.hint", table: AccountText.table, currency.code)
           : t("account.credit.offHint")
       )
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -244,7 +244,7 @@ struct AccountCreditSection: View {
           .appFont(.body.monospacedDigit())
           .frame(width: 120)
           .accessibilityIdentifier(identifier)
-        Text(verbatim: currency.code).foregroundStyle(.secondary)
+        Text(verbatim: currency.code).secondaryInk()
       }
     } label: {
       Text(verbatim: t(key))
@@ -262,7 +262,7 @@ struct AccountCreditSection: View {
           .appFont(.body.monospacedDigit())
           .frame(width: 80)
           .accessibilityIdentifier(identifier)
-        Text(verbatim: "%").foregroundStyle(.secondary)
+        Text(verbatim: "%").secondaryInk()
       }
     } label: {
       Text(verbatim: t(key))
@@ -294,7 +294,7 @@ struct AccountMainCardPicker: View {
       .accessibilityIdentifier("account.editor.mainCard")
     } footer: {
       Text(verbatim: t("account.mainCard.hint"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 }

@@ -160,10 +160,10 @@ struct GroupPlanBlock: View {
         .accessibilityAddTraits(.isHeader)
       Text(verbatim: t("group.screen.payments"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityAddTraits(.isHeader)
       if let model, model.payments.isEmpty {
-        Text(verbatim: t("group.screen.paymentsNone")).foregroundStyle(.secondary)
+        Text(verbatim: t("group.screen.paymentsNone")).secondaryInk()
       }
       ForEach(model?.payments ?? []) { payment in
         line(
@@ -177,10 +177,10 @@ struct GroupPlanBlock: View {
       Divider()
       Text(verbatim: t("group.screen.incomes"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityAddTraits(.isHeader)
       if let model, model.incomes.isEmpty {
-        Text(verbatim: t("group.screen.incomesNone")).foregroundStyle(.secondary)
+        Text(verbatim: t("group.screen.incomesNone")).secondaryInk()
       }
       ForEach(model?.incomes ?? []) { income in
         line(
@@ -210,7 +210,7 @@ struct GroupPlanBlock: View {
           Image(systemName: "exclamationmark.circle")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Text(verbatim: due.map(dayText) ?? "—")
         .monospacedDigit()
@@ -221,7 +221,7 @@ struct GroupPlanBlock: View {
         if let account {
           Text(verbatim: account)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
         }
       }
@@ -268,7 +268,7 @@ struct LastRecordCaption: View {
         Image(systemName: "clock")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("account.lastRecord")
     }
   }

@@ -37,7 +37,7 @@ struct InstalmentsTileContent: View {
     VStack(alignment: .leading, spacing: 6) {
       if summary.count == 0 {
         Text(verbatim: Self.t("overview.instalments.none", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("overview.instalments.none")
       } else {
@@ -46,12 +46,12 @@ struct InstalmentsTileContent: View {
           .accessibilityIdentifier("overview.instalments.total")
         Text(verbatim: Self.headline(summary, environment))
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         ForEach(Array(summary.next.prefix(Self.shown).enumerated()), id: \.offset) { _, payment in
           HStack(alignment: .firstTextBaseline, spacing: 8) {
             Text(verbatim: environment.dates.dayAndMonth(payment.due))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             Text(verbatim: names[payment.debtId] ?? "—")
               .lineLimit(1)
               .truncationMode(.tail)

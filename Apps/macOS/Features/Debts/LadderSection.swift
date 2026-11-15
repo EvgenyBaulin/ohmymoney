@@ -23,7 +23,7 @@ struct LadderSection: View {
       VStack(alignment: .leading, spacing: 12) {
         Text(verbatim: t("ladder.title")).appFont(.title2)
         Text(verbatim: t("ladder.hint"))
-          .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+          .secondaryInk().fixedSize(horizontal: false, vertical: true)
         Picker(t("ladder.method"), selection: $methodRaw) {
           Text(verbatim: t("ladder.avalanche")).tag(LadderMethod.avalanche.rawValue)
           Text(verbatim: t("ladder.snowball")).tag(LadderMethod.snowball.rawValue)
@@ -33,10 +33,10 @@ struct LadderSection: View {
         .accessibilityLabel(t("ladder.method"))
         .accessibilityIdentifier("debts.ladder.method")
         Text(verbatim: t("ladder.\(method.rawValue).hint"))
-          .appFont(.caption).foregroundStyle(.secondary).fixedSize(
+          .appFont(.caption).secondaryInk().fixedSize(
             horizontal: false, vertical: true)
         VStack(alignment: .leading, spacing: 6) {
-          Text(verbatim: t("ladder.extra")).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: t("ladder.extra")).appFont(.caption).secondaryInk()
           HStack {
             AmountField(amount: $extra)
               .onSubmit(saveExtra)
@@ -51,13 +51,13 @@ struct LadderSection: View {
               verbatim: environment.format(
                 "ladder.suggested", table: "Debts", environment.money.rounded(suggested))
             )
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
           }
         }
         if let comparison = comparison {
           plan(comparison)
         } else {
-          Text(verbatim: t("ladder.empty")).foregroundStyle(.secondary)
+          Text(verbatim: t("ladder.empty")).secondaryInk()
         }
       }
       .padding(20)
@@ -124,12 +124,12 @@ struct LadderSection: View {
                   verbatim:
                     "\(environment.format("debts.rate.row", table: "Debts", money.rate(debt.ratePercent))) · \(money.rounded(debt.balanceRub))"
                 )
-                .appFont(.caption).foregroundStyle(.secondary).monospacedDigit()
+                .appFont(.caption).secondaryInk().monospacedDigit()
               }
               Spacer(minLength: 8)
               if let month = chosen.payoff[id] {
                 Text(verbatim: environment.dates.monthTitle(month))
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
               }
             }
             .padding(.horizontal, 10).padding(.vertical, 8)
@@ -161,7 +161,7 @@ struct LadderSection: View {
               "ladder.difference", table: "Debts", money.rounded(saved.magnitude),
               environment.language.format("advice.months", table: "Planning", counts: abs(months)))
           )
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         }
       }

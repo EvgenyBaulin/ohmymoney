@@ -108,7 +108,7 @@ struct CurrencyBalancesCard: View {
               Text(verbatim: line.currency.code)
               if line.currency != .rub {
                 Text(verbatim: environment.money.rounded(line.amount, currency: line.currency))
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
               }
               Spacer(minLength: 8)
               Text(verbatim: environment.money.rounded(line.rub)).monospacedDigit()
@@ -131,7 +131,7 @@ struct CurrencyBalancesCard: View {
             Image(systemName: "exclamationmark.triangle")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
     }
@@ -228,7 +228,7 @@ struct WeekdaySpendingCard: View {
                     "overview.weekday.average", table: OverviewTileText.table,
                     environment.money.rounded(average))
                 )
-                .foregroundStyle(.secondary)
+                .secondaryInk()
               }
               Text(verbatim: environment.money.rounded(day.total)).monospacedDigit()
             }
@@ -243,7 +243,7 @@ struct WeekdaySpendingCard: View {
             environment.dates.span(weekdays.interval))
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
   }
@@ -270,7 +270,7 @@ struct MonthlySpendingCard: View {
               environment.dates.monthTitle(current.month))
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         HStack(alignment: .bottom, spacing: 4) {
           ForEach(months, id: \.month) { month in
@@ -284,7 +284,7 @@ struct MonthlySpendingCard: View {
                   height: max(3, 56 * CGFloat(max(month.amount.raw, 0)) / CGFloat(max(largest, 1))))
               Text(verbatim: environment.dates.shortMonth(month.month))
                 .appFont(.caption2)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
             }
@@ -396,7 +396,7 @@ struct CategoryMoveCard: View {
               .appFont(.title2.monospacedDigit())
             if let bp = move.basisPoints {
               Text(verbatim: environment.money.signedPercent(basisPoints: bp))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
           Text(
@@ -405,7 +405,7 @@ struct CategoryMoveCard: View {
               environment.money.rounded(move.previous), environment.money.rounded(move.current))
           )
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         .accessibilityElement(children: .combine)
       }

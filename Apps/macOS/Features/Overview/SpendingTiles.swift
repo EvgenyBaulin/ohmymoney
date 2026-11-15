@@ -136,7 +136,7 @@ struct SpendingFigureTileCard: View {
           HStack(alignment: .firstTextBaseline, spacing: 6) {
             if let symbol = figure.symbol {
               Image(systemName: symbol)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityHidden(true)
             }
             Text(verbatim: figure.value)
@@ -148,7 +148,7 @@ struct SpendingFigureTileCard: View {
           if let caption = figure.caption {
             Text(verbatim: caption)
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .lineLimit(compact ? 2 : 3)
               .fixedSize(horizontal: false, vertical: true)
           }
@@ -156,7 +156,7 @@ struct SpendingFigureTileCard: View {
             ForEach(figure.details, id: \.self) { line in
               Text(verbatim: line)
                 .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .fixedSize(horizontal: false, vertical: true)
             }
           }

@@ -78,7 +78,7 @@ struct RemindersSheet: View {
             if !shown.isEmpty { Divider() }
           }
           if shown.isEmpty && overdue.isEmpty {
-            Text(verbatim: t("reminders.allDone")).foregroundStyle(.secondary)
+            Text(verbatim: t("reminders.allDone")).secondaryInk()
           }
           ForEach(shown) { reminder in
             row(reminder)
@@ -135,7 +135,7 @@ struct RemindersSheet: View {
       .appFont(.subheadline.weight(.semibold))
       Text(verbatim: t("reminders.overdue.explain"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       ForEach(overdue) { due in
         overdueRow(due)
@@ -148,7 +148,7 @@ struct RemindersSheet: View {
       Text(verbatim: overdueText(due))
       Text(verbatim: overdueCaption(due))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       HStack(spacing: 8) {
         ForEach(Self.overdueActions(for: due), id: \.self) { action in
           overdueButton(action, of: due)
@@ -402,7 +402,7 @@ struct RemindersSheet: View {
         Text(verbatim: text(reminder))
         Text(verbatim: t("reminders.urgency.\(reminder.urgency)"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if let reason = failed[reminder.id] {
           Text(verbatim: reason)
             .appFont(.caption)

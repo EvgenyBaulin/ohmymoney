@@ -30,7 +30,7 @@ struct TripSummaryView: View {
         content(event: event, summary: summary, snapshot: snapshot)
       } else {
         Text(verbatim: TravelText.t("travel.summary.missing", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       HStack {
         Spacer()
@@ -126,7 +126,7 @@ struct TripSummaryView: View {
       ) {
         if summary.settlement.isEmpty {
           Text(verbatim: TravelText.t("travel.summary.settlement.none", environment))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         ForEach(summary.settlement, id: \.personId) { share in
           tileRow(
@@ -136,7 +136,7 @@ struct TripSummaryView: View {
         }
         Text(verbatim: TravelText.t("travel.summary.settlement.note", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Button {
           exportFiles()
         } label: {
@@ -160,7 +160,7 @@ struct TripSummaryView: View {
       GoalProgressBar(basisPoints: share)
       Text(verbatim: budgetLine(summary))
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .contentCard()
     .accessibilityElement(children: .contain)
@@ -248,7 +248,7 @@ struct TripSummaryView: View {
   private func line(_ name: String, _ value: String) -> some View {
     HStack(alignment: .firstTextBaseline) {
       Text(verbatim: name)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Spacer()
       Text(verbatim: value)
         .appFont(.body.weight(.semibold).monospacedDigit())

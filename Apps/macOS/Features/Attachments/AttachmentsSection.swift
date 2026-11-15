@@ -85,14 +85,14 @@ struct AttachmentsSection: View {
       }
       if model.files.isEmpty && model.pending.isEmpty {
         Text(verbatim: t("att.empty"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       ForEach(model.files) { row($0) }
       ForEach(model.pending) { pendingRow($0) }
       if model.deferred, !model.pending.isEmpty {
         Text(verbatim: t("att.pending.hint"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
       }
       if model.failedCount > 0 {
         Label {
@@ -278,7 +278,7 @@ struct AttachmentsSection: View {
           VStack(alignment: .leading, spacing: 2) {
             Text(verbatim: file.fileName).lineLimit(1).truncationMode(.middle)
             Text(verbatim: subtitle(file, availability))
-              .appFont(.caption).foregroundStyle(.secondary).lineLimit(1)
+              .appFont(.caption).secondaryInk().lineLimit(1)
           }
           Spacer(minLength: 4)
         }
@@ -325,7 +325,7 @@ struct AttachmentsSection: View {
 
   private func pendingRow(_ source: AttachmentSource) -> some View {
     HStack(spacing: 10) {
-      Image(systemName: "paperclip").foregroundStyle(.secondary).frame(width: 44)
+      Image(systemName: "paperclip").secondaryInk().frame(width: 44)
       Text(verbatim: source.fileName).lineLimit(1).truncationMode(.middle)
       Spacer(minLength: 4)
       Button {

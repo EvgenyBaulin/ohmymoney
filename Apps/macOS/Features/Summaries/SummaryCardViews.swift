@@ -58,7 +58,7 @@ struct WeekMoodRow: View {
               .appFont(.title)
             Text(verbatim: language("summaries.mood.\(mood)", table: "Summaries"))
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .lineLimit(1)
               .minimumScaleFactor(0.7)
           }

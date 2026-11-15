@@ -148,7 +148,7 @@ struct BorrowedCardSection: View {
       }
     } footer: {
       Text(verbatim: footer)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .task {
       people = (try? environment.references?.people()) ?? []

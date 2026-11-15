@@ -26,9 +26,9 @@ struct DebtCostSection: View {
         ForEach(costs) { cost in
           HStack {
             Text(verbatim: cost.name ?? t("costs.kind.\(cost.kind.rawValue)"))
-            Text(verbatim: t("costs.every.\(cost.every.rawValue)")).foregroundStyle(.secondary)
+            Text(verbatim: t("costs.every.\(cost.every.rawValue)")).secondaryInk()
             if cost.inLoan {
-              Text(verbatim: t("costs.inLoan.short")).foregroundStyle(.secondary)
+              Text(verbatim: t("costs.inLoan.short")).secondaryInk()
             }
             Spacer()
             Text(verbatim: environment.money.exact(cost.amountE4, currency: line.debt.currency))
@@ -55,7 +55,7 @@ struct DebtCostSection: View {
             value: environment.money.exact(Self.total(report), currency: line.debt.currency),
             bold: true)
           DebtCostLines(report: report, currency: line.debt.currency)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .contentCard()
@@ -122,7 +122,7 @@ struct DebtCostsSheet: View {
         DatePicker(t("costs.day"), selection: $day, displayedComponents: .date)
         TextField(t("wizard.psk"), text: $pskText)
         Text(verbatim: t("costs.hint"))
-          .appFont(.caption).foregroundStyle(.secondary).fixedSize(
+          .appFont(.caption).secondaryInk().fixedSize(
             horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

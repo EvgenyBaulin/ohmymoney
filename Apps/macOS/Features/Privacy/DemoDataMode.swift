@@ -52,7 +52,7 @@ struct DemoDataBanner: View {
       }
       Text(verbatim: t("privacy.demo.banner.hint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .lineLimit(2)
       Spacer(minLength: 8)
       Button(t("privacy.demo.back")) { DemoDataMode.leave() }

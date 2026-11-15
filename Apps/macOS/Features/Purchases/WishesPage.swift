@@ -25,7 +25,7 @@ struct WishesPage: View {
       if page.wishes.isEmpty {
         Text(verbatim: t("purchases.wishes.empty"))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .sectionCard()
           .accessibilityIdentifier("purchases.wishes.empty")
@@ -102,7 +102,7 @@ struct WishesPage: View {
           if let note = wish.note {
             Text(verbatim: note)
               .appFont(SectionType.rowDetail)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
         }
@@ -150,9 +150,9 @@ struct WishesPage: View {
         }
       }
       .appFont(SectionType.rowDetail)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       if let change = PurchasesText.change(line, environment) {
-        Text(verbatim: change).appFont(SectionType.rowDetail).foregroundStyle(.secondary)
+        Text(verbatim: change).appFont(SectionType.rowDetail).secondaryInk()
       }
     }
   }
@@ -186,11 +186,11 @@ struct WishesPage: View {
           verbatim: PurchasesText.outcome(outcome, currency: line.wish.currency, environment)
         )
         .appFont(.callout.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       } else {
         Text(verbatim: t("purchases.bought.noOutcome"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)

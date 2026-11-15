@@ -25,7 +25,7 @@ struct SyncFolderSettingsView: View {
           verbatim: coordinator.folderName.flatMap { $0.isEmpty ? nil : $0 }
             ?? ConflictText.t("sync.folder.none", environment)
         )
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       } label: {
         Text(verbatim: ConflictText.t("sync.folder.title", environment))
       }
@@ -33,7 +33,7 @@ struct SyncFolderSettingsView: View {
       if !coordinator.hasFolder {
         Text(verbatim: ConflictText.t("sync.folder.suggest", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       HStack {
         Button(

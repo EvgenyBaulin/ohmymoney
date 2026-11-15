@@ -19,11 +19,11 @@ struct StatementQuestionsStep: View {
         staleCard
         if model.questions.isEmpty {
           Text(verbatim: t("import.questions.none"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
             .accessibilityIdentifier("import.questions.none")
         } else {
           Text(verbatim: t("import.questions.hint"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           ForEach(model.questions) { question in
             QuestionCard(model: model, question: question)
@@ -58,7 +58,7 @@ struct StatementQuestionsStep: View {
               "import.transfers.ambiguous", environment, transfers.ambiguous.count),
             systemImage: "questionmark.circle"
           )
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
         }
         ForEach(Array(transfers.withoutStatement.enumerated()), id: \.offset) { _, ask in
           Label(
@@ -67,7 +67,7 @@ struct StatementQuestionsStep: View {
               ask.lines.count, environment.money.exact(ask.total)),
             systemImage: "building.columns"
           )
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         }
         if !transfers.onTheWay.isEmpty {
@@ -75,14 +75,14 @@ struct StatementQuestionsStep: View {
             ImportText.counted("import.transfers.onTheWay", environment, transfers.onTheWay.count),
             systemImage: "paperplane"
           )
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
         }
         if !transfers.overdue.isEmpty {
           Label(
             ImportText.counted("import.transfers.overdue", environment, transfers.overdue.count),
             systemImage: "clock.badge.exclamationmark"
           )
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
         }
       }
       .contentCard()
@@ -111,7 +111,7 @@ struct StatementQuestionsStep: View {
                 environment.dates.longDay(out.operation.moment.day),
                 environment.dates.longDay(into.operation.moment.day))
             )
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
           }
         }
         .toggleStyle(.checkbox)
@@ -147,7 +147,7 @@ struct StatementQuestionsStep: View {
           .toggleStyle(.checkbox)
         }
         Text(verbatim: t("import.stale.hint"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
       }
       .contentCard()
       .accessibilityIdentifier("import.stale")
@@ -169,7 +169,7 @@ struct QuestionCard: View {
     VStack(alignment: .leading, spacing: 8) {
       HStack(alignment: .firstTextBaseline) {
         Label(t("import.topic.\(group.topic.rawValue)"), systemImage: symbol(group.topic))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
         Spacer()
         Text(verbatim: environment.money.exact(group.total)).monospacedDigit()
       }
@@ -179,10 +179,10 @@ struct QuestionCard: View {
           "import.question.summary", environment, question.lines.count,
           environment.dates.longDay(group.from), environment.dates.longDay(group.to))
       )
-      .appFont(.caption).foregroundStyle(.secondary)
+      .appFont(.caption).secondaryInk()
       if !group.messages.isEmpty {
         Text(verbatim: group.messages.prefix(3).joined(separator: " · "))
-          .appFont(.caption).foregroundStyle(.secondary).lineLimit(2)
+          .appFont(.caption).secondaryInk().lineLimit(2)
       }
       HStack {
         Picker(selection: answer) {
@@ -261,7 +261,7 @@ struct StatementImportDone: View {
   var body: some View {
     VStack(spacing: 16) {
       Image(systemName: undone ? "arrow.uturn.backward.circle" : "checkmark.circle")
-        .appFont(.largeTitle).foregroundStyle(.secondary).accessibilityHidden(true)
+        .appFont(.largeTitle).secondaryInk().accessibilityHidden(true)
       Text(verbatim: t(undone ? "import.done.undone" : "import.done.title")).appFont(.title3)
       VStack(alignment: .leading, spacing: 4) {
         line("import.done.created", outcome.created)
@@ -288,7 +288,7 @@ struct StatementImportDone: View {
         }
         .accessibilityIdentifier("import.done.undo")
         Text(verbatim: t("import.done.undoHint"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .multilineTextAlignment(.center).frame(maxWidth: 420)
       }
     }

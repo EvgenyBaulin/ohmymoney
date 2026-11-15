@@ -63,7 +63,7 @@ struct TutorialBar: View {
                     }
                   }
                   .appFont(.caption)
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
                 }
               }
             }

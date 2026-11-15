@@ -17,7 +17,7 @@ struct SelfEmploymentTileCard: View {
         .accessibilityIdentifier("selfEmployed.tile")
     } else {
       Text(verbatim: AllocationText.t("selfEmployed.tile.off", environment))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
         .accessibilityIdentifier("selfEmployed.tile.off")
     }

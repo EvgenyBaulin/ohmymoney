@@ -44,7 +44,7 @@ struct WarrantyScreen: View {
         if items.isEmpty {
           VStack(alignment: .leading, spacing: 4) {
             Text(verbatim: t("warranty.empty")).appFont(.headline)
-            Text(verbatim: t("warranty.empty.hint")).foregroundStyle(.secondary)
+            Text(verbatim: t("warranty.empty.hint")).secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
           .accessibilityIdentifier("warranty.empty")
@@ -56,7 +56,7 @@ struct WarrantyScreen: View {
           .accessibilityIdentifier("warranty.search")
           let split = shown
           if split.running.isEmpty && split.ended.isEmpty {
-            Text(verbatim: t("warranty.nothingFound")).foregroundStyle(.secondary)
+            Text(verbatim: t("warranty.nothingFound")).secondaryInk()
           }
           section("warranty.section.running", split.running)
           section("warranty.section.ended", split.ended)
@@ -117,7 +117,7 @@ struct WarrantyScreen: View {
           Image(systemName: "shippingbox")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .padding(12)

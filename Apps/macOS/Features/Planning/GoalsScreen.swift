@@ -32,7 +32,7 @@ struct GoalsScreen: View {
         if let snapshot = compute.snapshot {
           cards(snapshot)
         } else {
-          Text(verbatim: t("goals.none")).foregroundStyle(.secondary)
+          Text(verbatim: t("goals.none")).secondaryInk()
         }
       }
       .padding(20)
@@ -127,7 +127,7 @@ struct GoalsScreen: View {
       if let account = accountLine(status.goal, snapshot: snapshot) {
         Text(verbatim: account)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       if TripGoal.readyBudget(target: status.goal.targetE4, saved: status.saved) != nil {
@@ -187,7 +187,7 @@ struct GoalsScreen: View {
         if let subtitle {
           Text(verbatim: subtitle)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(2)
         }
       }
@@ -238,14 +238,14 @@ struct GoalsScreen: View {
       if rules.isEmpty {
         Text(verbatim: t("goals.screen.noRules"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       ForEach(rules) { rule in
         HStack(alignment: .firstTextBaseline) {
           Text(verbatim: ruleName(rule, snapshot: snapshot))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
           Spacer(minLength: 8)
           Text(verbatim: ruleAmount(rule))

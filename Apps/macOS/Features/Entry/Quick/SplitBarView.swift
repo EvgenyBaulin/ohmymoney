@@ -73,7 +73,7 @@ struct SplitBarView: View {
       .accessibilityIdentifier("quick.split.bar")
       Text(verbatim: QuickText.t("quick.split.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 

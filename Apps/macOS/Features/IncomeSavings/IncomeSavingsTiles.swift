@@ -74,7 +74,7 @@ private struct IncomeFigureBody: View {
     VStack(alignment: .leading, spacing: 4) {
       HStack(alignment: .firstTextBaseline, spacing: 6) {
         Image(systemName: figure.symbol)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: figure.value)
           .appFont(compact ? .title3.monospacedDigit() : .title2.monospacedDigit())
@@ -85,7 +85,7 @@ private struct IncomeFigureBody: View {
       if let caption = figure.caption {
         Text(verbatim: caption)
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(compact ? 2 : 3)
           .fixedSize(horizontal: false, vertical: true)
       }
@@ -93,7 +93,7 @@ private struct IncomeFigureBody: View {
         ForEach(figure.details, id: \.self) { line in
           Text(verbatim: line)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }

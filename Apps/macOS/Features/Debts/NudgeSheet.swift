@@ -41,7 +41,7 @@ struct NudgeSheet: View {
         .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder))
         .accessibilityIdentifier("debts.nudge.text")
       Text(verbatim: t("nudge.hint"))
-        .appFont(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        .appFont(.caption).secondaryInk().fixedSize(horizontal: false, vertical: true)
       Button {
         copy()
       } label: {

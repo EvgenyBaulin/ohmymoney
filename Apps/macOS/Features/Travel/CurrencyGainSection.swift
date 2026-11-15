@@ -58,14 +58,14 @@ struct CurrencyGainSection: View {
         if Self.touchesHidden(gain, hiding: snapshot.hiding) { PartHiddenNote() }
         Text(verbatim: TravelText.t("travel.gain.note", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if !gain.uncounted.isEmpty {
           Text(
             verbatim: environment.format(
               "travel.gain.uncounted", table: TravelText.table, counts: gain.uncounted.count)
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("travel.gain.uncounted")
         }
         if !gain.unpriced.isEmpty {
@@ -74,7 +74,7 @@ struct CurrencyGainSection: View {
               "travel.gain.unpriced", table: TravelText.table, counts: gain.unpriced.count)
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("travel.gain.unpriced")
         }
       }

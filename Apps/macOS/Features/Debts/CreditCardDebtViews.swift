@@ -60,7 +60,7 @@ struct CreditCardDebtCards: View {
     if !lines.isEmpty {
       VStack(alignment: .leading, spacing: 10) {
         Text(verbatim: environment.language("debts.cards.header", table: "Debts"))
-          .appFont(.headline).foregroundStyle(.secondary)
+          .appFont(.headline).secondaryInk()
         LazyVGrid(
           columns: [GridItem(.adaptive(minimum: 280, maximum: 480), spacing: 14)],
           alignment: .leading, spacing: 14
@@ -121,14 +121,14 @@ struct CreditCardDebtDetail: View {
         Label(text.missed, systemImage: "exclamationmark.triangle")
           .fixedSize(horizontal: false, vertical: true)
         if let estimate = text.estimate {
-          Text(verbatim: estimate).monospacedDigit().foregroundStyle(.secondary)
+          Text(verbatim: estimate).monospacedDigit().secondaryInk()
         }
         if let over = text.overLimit {
           Label(over, systemImage: "exclamationmark.octagon")
             .monospacedDigit().foregroundStyle(.red)
         }
         Text(verbatim: environment.language("debts.card.counted", table: "Debts"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         Button(environment.language("debts.card.open", table: "Debts")) {
           NotificationCenter.default.post(

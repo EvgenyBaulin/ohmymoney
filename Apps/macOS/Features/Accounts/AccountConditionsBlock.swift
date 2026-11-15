@@ -60,10 +60,10 @@ struct AccountConditionsBlock: View {
         minBalanceRow(minimum: minimum, currency: currency, report: report)
       }
       if let note = conditions?.note, !note.isEmpty {
-        Text(verbatim: note).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: note).appFont(.caption).secondaryInk()
       }
       Text(verbatim: BankText.t("bank.service.hint", environment))
-        .appFont(.caption).foregroundStyle(.secondary)
+        .appFont(.caption).secondaryInk()
     }
   }
 
@@ -80,7 +80,7 @@ struct AccountConditionsBlock: View {
       ProgressView(value: share(line))
         .accessibilityHidden(true)
       if let fee = BanksRuText.sbpFeeLine(line, environment) {
-        Text(verbatim: fee).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: fee).appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       if !line.movements.isEmpty {
@@ -95,7 +95,7 @@ struct AccountConditionsBlock: View {
   private func movementRow(_ movement: BankLimitMovement, _ currency: CurrencyCode) -> some View {
     HStack {
       Text(verbatim: environment.dates.dayAndMonth(movement.day))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Text(verbatim: environment.money.rounded(movement.amountE4, currency: currency))
         .monospacedDigit()
         .strikethrough(movement.off)

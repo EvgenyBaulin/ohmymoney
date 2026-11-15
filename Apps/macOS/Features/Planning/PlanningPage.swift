@@ -249,7 +249,7 @@ struct PlanningHeader: View {
       if !compact {
         Text(verbatim: Self.subtitle(environment))
           .appFont(PlanningType.subtitle)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("planning.subtitle")
       }
     }

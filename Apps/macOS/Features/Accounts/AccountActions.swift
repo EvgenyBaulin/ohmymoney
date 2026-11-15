@@ -1318,7 +1318,7 @@ struct AccountMergeSheet: View {
           "account.merge.balances", table: AccountText.table, targetName)
       )
       .appFont(.subheadline)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 6) {
         ForEach(counted, id: \.key) { key, amount in
           GridRow {
@@ -1350,7 +1350,7 @@ struct AccountMergeSheet: View {
             : t("account.merge.unknownHint")
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       }
     }

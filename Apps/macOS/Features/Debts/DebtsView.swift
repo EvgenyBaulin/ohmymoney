@@ -226,7 +226,7 @@ struct DebtsView: View {
 
   private var placeholder: some View {
     Text(verbatim: t("debts.choose"))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .frame(maxWidth: .infinity, maxHeight: .infinity)
   }
 
@@ -473,7 +473,7 @@ private struct DebtDetail: View {
     VStack(alignment: .leading, spacing: 2) {
       Text(verbatim: line.debt.name).appFont(.title2.bold())
       Text(verbatim: t("debts.type.\(line.debt.type.rawValue)"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
   }
 
@@ -503,7 +503,7 @@ private struct DebtDetail: View {
     let debt = line.debt
     return VStack(alignment: .leading, spacing: 8) {
       HStack(alignment: .firstTextBaseline) {
-        Text(verbatim: t("debts.balance")).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: t("debts.balance")).appFont(.callout).secondaryInk()
         Spacer(minLength: 8)
         DebtBadgeCapsule(badge: DebtCardModel.badge(of: debt))
       }
@@ -555,11 +555,11 @@ private struct DebtDetail: View {
             environment.money.exact(partial.due, currency: debt.currency),
             environment.money.exact(partial.left, currency: debt.currency))
         )
-        .appFont(.caption).foregroundStyle(.secondary)
+        .appFont(.caption).secondaryInk()
         .accessibilityIdentifier("debts.partialDue")
       }
       ForEach(scheduleLines, id: \.self) { text in
-        Text(verbatim: text).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: text).appFont(.callout).secondaryInk()
       }
       if debt.direction == .iOwe {
         Toggle(
@@ -581,7 +581,7 @@ private struct DebtDetail: View {
           Text(verbatim: t("debts.toggleMessage"))
         }
         if let payoff = payoff {
-          Text(verbatim: payoff).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: payoff).appFont(.caption).secondaryInk()
         }
       }
       DebtCardExtras(line: line, part: .details, sheet: $creditSheet)
@@ -661,7 +661,7 @@ private struct DebtDetail: View {
   @ViewBuilder
   private var actions: some View {
     if line.debt.closed {
-      Text(verbatim: t("debts.closedCaption")).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: t("debts.closedCaption")).appFont(.caption).secondaryInk()
     }
     FlowButtons {
       ForEach(DebtCardAction.offered(for: line.debt), id: \.self) { action in
@@ -716,7 +716,7 @@ private struct DebtDetail: View {
     return VStack(alignment: .leading, spacing: 10) {
       Text(verbatim: t("debts.journal")).appFont(.headline)
       if line.entries.isEmpty {
-        Text(verbatim: t("debts.journalEmpty")).foregroundStyle(.secondary)
+        Text(verbatim: t("debts.journalEmpty")).secondaryInk()
       }
       ForEach(line.groups, id: \.groupName) { group in
         VStack(alignment: .leading, spacing: 4) {
@@ -740,7 +740,7 @@ private struct DebtDetail: View {
                 }
                 Text(verbatim: entry.date.map(day) ?? "—")
                   .monospacedDigit()
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
                   .lineLimit(1)
                   .frame(width: 110, alignment: .leading)
                 Text(verbatim: entry.description ?? t("debts.kind.\(entry.kind.rawValue)"))
@@ -752,7 +752,7 @@ private struct DebtDetail: View {
                   } icon: {
                     Image(systemName: "checkmark.circle")
                   }
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
                   .help(t("debts.journal.closesTermHelp"))
                 }
                 // An early repayment, by what the owner chose for it.
@@ -762,7 +762,7 @@ private struct DebtDetail: View {
                   } icon: {
                     Image(systemName: "forward.end.circle")
                   }
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
                 }
                 // A tranche: a part of the loan drawn, a planned one while its day is ahead.
                 if entry.tranche {
@@ -771,14 +771,14 @@ private struct DebtDetail: View {
                   } icon: {
                     Image(systemName: "graduationcap")
                   }
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
                 }
                 if let full = entry.fullAmountE4, let share = entry.share {
                   Text(
                     verbatim: environment.money.rounded(full, currency: line.debt.currency) + " × "
                       + environment.money.number(share)
                   )
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
                 }
                 Spacer()
                 Text(
@@ -796,7 +796,7 @@ private struct DebtDetail: View {
                     "debts.journal.interest", table: "Debts",
                     environment.money.exact(interest, currency: line.debt.currency))
                 )
-                .appFont(.caption.monospacedDigit()).foregroundStyle(.secondary)
+                .appFont(.caption.monospacedDigit()).secondaryInk()
               }
             }
             .appFont(.callout)
@@ -845,7 +845,7 @@ private struct PersonDetail: View {
           ForEach(group.parts) { part in
             HStack {
               Text(verbatim: environment.dates.dayAndMonth(part.day)).monospacedDigit()
-                .foregroundStyle(.secondary)
+                .secondaryInk()
               Text(verbatim: part.note ?? "—").lineLimit(1)
               Spacer()
               Text(verbatim: environment.money.exact(part.amountRub)).monospacedDigit()

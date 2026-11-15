@@ -15,7 +15,7 @@ struct ReceiptSplitSection: View {
     VStack(alignment: .leading, spacing: 8) {
       Text(verbatim: text("receipt.split.title")).appFont(.headline)
       Text(verbatim: text("receipt.split.hint"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       ForEach(Array(model.splitLines.enumerated()), id: \.offset) { index, line in
         HStack {
@@ -67,11 +67,11 @@ struct ReceiptSplitSection: View {
           .foregroundStyle(.orange)
         } else if left.isZero {
           Label(text("receipt.split.done"), systemImage: "checkmark.circle")
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         } else {
           let shown = environment.money.exact(left, currency: currency)
           Text(verbatim: ReceiptText.format("receipt.split.left", environment, shown))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Spacer()
         Button(text("receipt.split.clear")) { model.clearSplit() }

@@ -654,7 +654,7 @@ struct DebtWizard: View {
       if !model.everyTwoWeeks { dayStepper }
       LabeledContent(t("wizard.markup")) { AmountField(amount: $model.markup) }
       Text(verbatim: t("wizard.markup.hint"))
-        .appFont(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        .appFont(.caption).secondaryInk().fixedSize(horizontal: false, vertical: true)
       categoryPicker
     case .purchase:
       LabeledContent(t("form.monthlyPayment")) { AmountField(amount: $model.monthly) }
@@ -666,7 +666,7 @@ struct DebtWizard: View {
     case .pledge:
       DatePicker(t("pledge.returnBy"), selection: returnByBinding, displayedComponents: .date)
       Text(verbatim: t("pledge.hint"))
-        .appFont(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        .appFont(.caption).secondaryInk().fixedSize(horizontal: false, vertical: true)
     case .creditCard:
       EmptyView()
     }
@@ -720,7 +720,7 @@ struct DebtWizard: View {
               ? "wizard.preview.markup" : "wizard.preview.interest",
             table: "Debts", money.exact(preview.interest, currency: currency))
         )
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       if let cost = preview.cost {
         DebtCostLines(report: cost, currency: currency)
@@ -735,7 +735,7 @@ struct DebtWizard: View {
             }
             .appFont(.callout)
           } else {
-            Text(verbatim: "…").foregroundStyle(.secondary)
+            Text(verbatim: "…").secondaryInk()
           }
         }
       }
@@ -834,7 +834,7 @@ struct CostRow: View {
         .labelsHidden()
         .fixedSize()
         AmountField(amount: $cost.amount)
-        Text(verbatim: currency.code).foregroundStyle(.secondary)
+        Text(verbatim: currency.code).secondaryInk()
         Button(role: .destructive, action: remove) {
           Image(systemName: "minus.circle")
         }

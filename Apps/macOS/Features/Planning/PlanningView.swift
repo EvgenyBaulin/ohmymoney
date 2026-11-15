@@ -464,6 +464,6 @@ struct FormulaLines: View {
       }
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 }

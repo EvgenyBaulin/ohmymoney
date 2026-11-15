@@ -108,7 +108,7 @@ struct StatementImportFlow: View {
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: t("import.title")).appFont(.headline)
         Text(verbatim: t("import.subtitle"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
       }
       if let model, model.outcome == nil, !model.files.isEmpty {
         Picker(selection: $step) {
@@ -149,15 +149,15 @@ struct StatementImportFlow: View {
     VStack(spacing: 14) {
       if model.isReading {
         ProgressView()
-        Text(verbatim: t("import.reading")).foregroundStyle(.secondary)
+        Text(verbatim: t("import.reading")).secondaryInk()
       } else {
         Image(systemName: "tray.and.arrow.down")
           .appFont(.largeTitle)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: t("import.empty.title")).appFont(.title3)
         Text(verbatim: t("import.empty.body"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .multilineTextAlignment(.center)
           .frame(maxWidth: 420)
         Button {
@@ -179,7 +179,7 @@ struct StatementImportFlow: View {
     HStack(spacing: 12) {
       if model.outcome == nil {
         Text(verbatim: summary(model))
-          .appFont(.callout).foregroundStyle(.secondary).monospacedDigit()
+          .appFont(.callout).secondaryInk().monospacedDigit()
           .accessibilityIdentifier("import.summary")
         if failed {
           Label(t("import.failed"), systemImage: "exclamationmark.octagon")

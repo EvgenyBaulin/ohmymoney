@@ -31,7 +31,7 @@ struct AnalyticsSectionView: View {
           if let headerLine {
             Text(verbatim: headerLine)
               .appFont(AnalyticsCardType.subtitle)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
               .accessibilityIdentifier("analytics.section.line")
           }
@@ -258,7 +258,7 @@ private struct ComparisonChart: View {
         change("analytics.change.income", model.income, money)
       }
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -400,7 +400,7 @@ private struct StreaksView: View {
         .appFont(.title2.monospacedDigit())
       Text(verbatim: AnalyticsText.format(key, environment, count: days))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .accessibilityElement(children: .combine)
   }
@@ -441,7 +441,7 @@ private struct GoalsSplitView: View {
         Text(verbatim: "\(rest.label): \(words(split.rest, split.restShare))")
       }
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -554,7 +554,7 @@ private struct OthersPeopleTable: View {
         Text(verbatim: t("analytics.others.col.total"))
       }
       .appFont(.system(size: 11))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .frame(height: Self.headerHeight, alignment: .top)
       ForEach(people, id: \.personId) { person in
         Divider()
@@ -581,7 +581,7 @@ private struct OthersPeopleTable: View {
         Text(verbatim: t("analytics.others.legend"))
       }
       .appFont(.system(size: 11))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .padding(.top, 0)
     }
   }
@@ -668,7 +668,7 @@ private struct OthersFiguresView: View {
         Text(verbatim: AnalyticsText.t(key, environment))
       } icon: {
         Image(systemName: symbol)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Text(verbatim: environment.money.rubles(value))
         .monospacedDigit()
@@ -698,7 +698,7 @@ private struct ForWhomSection: View {
           TrackBarsChart(rows: AnalyticsText.trackRows(values, names: names, environment))
           Text(verbatim: t("analytics.forWhom.note"))
             .appFont(AnalyticsCardType.subtitle)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
 
@@ -775,12 +775,12 @@ private struct PlacesSection: View {
           ForEach(rows, id: \.placeId) { row in
             HStack(spacing: 8) {
               Image(systemName: "sparkle")
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityHidden(true)
               Text(verbatim: AnalyticsText.name(of: .place(row.placeId), names, environment))
               Spacer(minLength: 8)
               Text(verbatim: environment.dates.longDay(row.firstDay))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
             .appFont(.callout)
             .accessibilityElement(children: .combine)
@@ -819,7 +819,7 @@ private struct PlacesTableView: View {
               if row.isNew {
                 Text(verbatim: AnalyticsText.t("analytics.places.new", environment))
                   .appFont(.caption)
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
               }
             }
             Text(verbatim: environment.money.rubles(row.spent))
@@ -829,7 +829,7 @@ private struct PlacesTableView: View {
             Text(verbatim: row.averageReceipt.map { environment.money.rubles($0) } ?? "—")
               .monospacedDigit()
             Text(verbatim: environment.dates.longDay(row.firstDay))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
           .accessibilityElement(children: .combine)
         }
@@ -841,7 +841,7 @@ private struct PlacesTableView: View {
             "analytics.places.more", environment, count: table.hidden)
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
   }
@@ -849,7 +849,7 @@ private struct PlacesTableView: View {
   private func header(_ key: String) -> some View {
     Text(verbatim: AnalyticsText.t(key, environment))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }
 
@@ -1061,7 +1061,7 @@ private struct EventsTableView: View {
           Text(verbatim: AnalyticsText.name(of: .event(item.eventId), names, environment))
             .lineLimit(1)
           Text(verbatim: environment.dates.span(DayRange(item.start, item.end)))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           amount(item.total)
           amount(item.budget)
           amount(item.left, signed: true)
@@ -1084,7 +1084,7 @@ private struct EventsTableView: View {
   private func header(_ key: String) -> some View {
     Text(verbatim: AnalyticsText.t(key, environment))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }
 
@@ -1195,7 +1195,7 @@ private struct CashbackMonthCard: View {
         line("analytics.cashback.expectedTotal", rows.reduce(0) { $0 + $1.expectedCashback })
         Text(verbatim: AnalyticsText.t("analytics.cashback.note", environment))
           .appFont(AnalyticsCardType.subtitle)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }
@@ -1265,7 +1265,7 @@ private struct CashbackMonthsView: View {
   private func header(_ key: String) -> some View {
     Text(verbatim: AnalyticsText.t(key, environment))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }
 
@@ -1309,7 +1309,7 @@ private struct MethodsTableView: View {
               Image(systemName: "creditcard")
             }
             .padding(.leading, 16)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(Text(verbatim: cardLine.spoken))
             figures(cardLine)
@@ -1334,7 +1334,7 @@ private struct MethodsTableView: View {
   private func header(_ key: String) -> some View {
     Text(verbatim: AnalyticsText.t(key, environment))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }
 
@@ -1367,7 +1367,7 @@ private struct ForecastSection: View {
             "\(range) · \(AnalyticsText.format("analytics.forecast.plannedPayments", environment, money.rubles(plot.planned)))"
         )
         .appFont(AnalyticsCardType.subtitle.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       .bodyGap(AnalyticsCardMetrics.subtitleGap + 2)
       AnalyticsCard(
@@ -1405,7 +1405,7 @@ struct AccountBalancesForecastView: View {
               environment.dates.dayAndMonth(forecast.through))
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .gridColumnAlignment(.trailing)
           header("analytics.accounts.range").gridColumnAlignment(.trailing)
         }
@@ -1433,7 +1433,7 @@ struct AccountBalancesForecastView: View {
               .accessibilityHidden(true)
               Text(verbatim: line.range)
                 .monospacedDigit()
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityHidden(true)
             }
           case .title(let text):
@@ -1456,7 +1456,7 @@ struct AccountBalancesForecastView: View {
           Image(systemName: note.symbol)
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
   }
@@ -1464,7 +1464,7 @@ struct AccountBalancesForecastView: View {
   private func header(_ key: String) -> some View {
     Text(verbatim: AnalyticsText.t(key, environment))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }
 
@@ -1651,7 +1651,7 @@ private struct ForecastView: View {
           money.rubles(plot.planned))
       )
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       if plot.lowData {
         Label {
           Text(verbatim: t("analytics.forecast.lowData"))
@@ -1659,7 +1659,7 @@ private struct ForecastView: View {
           Image(systemName: "hourglass")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
   }
@@ -1795,7 +1795,7 @@ private struct AnomalyRow: View {
           .fixedSize(horizontal: false, vertical: true)
         Text(verbatim: environment.dates.dayAndMonth(anomaly.day))
           .appFont(AnalyticsCardType.subtitle)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .frame(maxWidth: .infinity, alignment: .leading)
       Button(
@@ -1857,7 +1857,7 @@ struct ForecastQualityTable: View {
           + money.count(Int64(backtest.metrics(of: backtest.chosen)?.origins ?? 0))
       )
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       ForEach(backtest.lines, id: \.method) { line in
         VStack(alignment: .leading, spacing: 2) {
           HStack(spacing: 6) {
@@ -1866,7 +1866,7 @@ struct ForecastQualityTable: View {
             if line.method == backtest.chosen {
               Text(verbatim: t("analytics.forecast.inUse"))
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
           Text(
@@ -1879,7 +1879,7 @@ struct ForecastQualityTable: View {
               + "\(environment.money.percent(basisPoints: line.metrics.coverageBp))"
           )
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         }
       }

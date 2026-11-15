@@ -28,7 +28,7 @@ struct PrepaySheet: View {
         LabeledContent(t("form.amount")) {
           HStack {
             AmountField(amount: $amount)
-            Text(verbatim: debt.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: debt.currency.code).secondaryInk()
           }
         }
         Stepper(value: $notice, in: 0...90) {
@@ -131,11 +131,11 @@ struct InstalmentEditSheet: View {
         LabeledContent(t("typed.amount")) {
           HStack {
             AmountField(amount: $amount)
-            Text(verbatim: debt.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: debt.currency.code).secondaryInk()
           }
         }
         Text(verbatim: t("typed.hint"))
-          .appFont(.caption).foregroundStyle(.secondary).fixedSize(
+          .appFont(.caption).secondaryInk().fixedSize(
             horizontal: false, vertical: true)
       }
       .formStyle(.grouped)
@@ -227,7 +227,7 @@ struct PledgeWriteOffSheet: View {
         .accessibilityIdentifier("debts.pledge.category")
         DatePicker(t("form.date"), selection: $day, displayedComponents: .date)
         Text(verbatim: t("pledge.writeOff.hint"))
-          .appFont(.caption).foregroundStyle(.secondary).fixedSize(
+          .appFont(.caption).secondaryInk().fixedSize(
             horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

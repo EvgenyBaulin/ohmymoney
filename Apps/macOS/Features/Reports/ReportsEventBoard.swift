@@ -169,7 +169,7 @@ private struct ReportsEventCard: View {
     VStack(alignment: .leading, spacing: ReportsEventBoardMetrics.cardLineGap) {
       Text(verbatim: title)
         .appFont(ReportsEventBoardType.cardTitle)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .lineLimit(1)
       Text(verbatim: figure)
         .appFont(ReportsEventBoardType.cardFigure)
@@ -184,7 +184,7 @@ private struct ReportsEventCard: View {
           .appFont(ReportsEventBoardType.cardLine)
           .lineLimit(1)
       }
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(ReportsEventBoardMetrics.cardPadding + StyleMetrics.cardBorder)
@@ -246,7 +246,7 @@ struct ReportsEventList: View {
             .lineLimit(1)
           Text(verbatim: ReportsEventText.share(line.share, environment))
             .appFont(ReportsEventBoardType.rowDetail)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

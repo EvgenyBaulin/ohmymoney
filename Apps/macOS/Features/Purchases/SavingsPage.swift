@@ -14,7 +14,7 @@ struct SavingsPage: View {
       if page.savingsYear.count == 0 {
         Text(verbatim: t("purchases.savings.empty"))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .sectionCard()
           .accessibilityIdentifier("purchases.savings.empty")
@@ -43,7 +43,7 @@ struct SavingsPage: View {
 
   private func figure(_ title: String, _ savings: DiscountSavings) -> some View {
     PurchasesFactCard(gap: PurchasesMetrics.totalGap) {
-      Text(verbatim: title).appFont(PurchasesType.fieldLabel).foregroundStyle(.secondary)
+      Text(verbatim: title).appFont(PurchasesType.fieldLabel).secondaryInk()
       Text(verbatim: PurchasesText.savings(savings, environment))
         .appFont(PurchasesType.totalFigure)
       Text(
@@ -56,7 +56,7 @@ struct SavingsPage: View {
             : "")
       )
       .appFont(PurchasesType.fieldLabel)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 }

@@ -28,14 +28,14 @@ struct OwedCard: View {
                 "owed.count", table: "Entry", counts: owed.count)
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           .accessibilityElement(children: .combine)
           if let partly = partlyReturned(under: owed) {
             Text(verbatim: partly)
               .appFont(.caption)
               .monospacedDigit()
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
           // Content, not a floating control: a plain small button, never glass.
           Button(environment.language("reimbursement.title", table: "Entry")) {
@@ -46,7 +46,7 @@ struct OwedCard: View {
         }
       } else {
         Text(verbatim: environment.language("overview.owedNobody", table: "Overview"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
   }

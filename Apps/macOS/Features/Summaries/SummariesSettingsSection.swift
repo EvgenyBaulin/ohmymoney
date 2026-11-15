@@ -36,7 +36,7 @@ struct SummariesSettingsSection: View {
             Spacer()
             Image(systemName: "chevron.right")
               .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron of a link row
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityHidden(true)
           }
           .padding(.horizontal, SettingsCardMetrics.rowHorizontal)

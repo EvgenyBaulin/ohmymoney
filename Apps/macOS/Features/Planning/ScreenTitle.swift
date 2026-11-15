@@ -28,7 +28,7 @@ struct ScreenTitleBlock: View {
       if let subtitle {
         Text(verbatim: subtitle)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
   }

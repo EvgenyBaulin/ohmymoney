@@ -44,7 +44,7 @@ struct MoneyBackRateRows: View {
       GridRow {
         label(t("moneyBack.moneyRate"))
         HStack(spacing: 6) {
-          Text(verbatim: "1 \(currency.code) =").foregroundStyle(.secondary)
+          Text(verbatim: "1 \(currency.code) =").secondaryInk()
           if moneyRateLocked {
             Text(verbatim: moneyRate.map { environment.money.rate($0) } ?? "—")
               .monospacedDigit()
@@ -53,7 +53,7 @@ struct MoneyBackRateRows: View {
               title: t("moneyBack.moneyRate"), text: $typedMoneyRate,
               prompt: moneyRate.map { environment.money.rate($0) } ?? "0.00")
           }
-          Text(verbatim: "RUB").foregroundStyle(.secondary)
+          Text(verbatim: "RUB").secondaryInk()
         }
       }
     }
@@ -62,14 +62,14 @@ struct MoneyBackRateRows: View {
         label(environment.format("moneyBack.purchaseRate", table: "Entry", purchase.description))
         VStack(alignment: .leading, spacing: 4) {
           HStack(spacing: 6) {
-            Text(verbatim: "1 \(purchase.currency.code) =").foregroundStyle(.secondary)
+            Text(verbatim: "1 \(purchase.currency.code) =").secondaryInk()
             RateTextField(
               title: environment.format(
                 "moneyBack.purchaseRate", table: "Entry", purchase.description),
               text: binding(purchase.id), prompt: Self.shown(purchase.costRate)
             )
             .accessibilityIdentifier("moneyBack.purchaseRate")
-            Text(verbatim: "RUB").foregroundStyle(.secondary)
+            Text(verbatim: "RUB").secondaryInk()
           }
           if let typed = Self.typedRate(purchaseRates[purchase.id]) {
             Text(
@@ -80,7 +80,7 @@ struct MoneyBackRateRows: View {
                   Self.rubles(purchase.amount, at: typed) ?? .zero))
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           } else if purchase.provisional {
             Label {
@@ -89,7 +89,7 @@ struct MoneyBackRateRows: View {
               Image(systemName: "hourglass")
             }
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           }
         }
@@ -104,7 +104,7 @@ struct MoneyBackRateRows: View {
   private func label(_ text: String) -> some View {
     Text(verbatim: text)
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .gridColumnAlignment(.leading)
   }
 

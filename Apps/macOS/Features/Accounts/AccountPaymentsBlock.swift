@@ -73,7 +73,7 @@ struct AccountPaymentsBlock: View {
       ) {
         VStack(alignment: .leading, spacing: 6) {
           if let model, model.rows.isEmpty {
-            Text(verbatim: t("account.screen.paymentsNone")).foregroundStyle(.secondary)
+            Text(verbatim: t("account.screen.paymentsNone")).secondaryInk()
           }
           ForEach(model?.rows ?? []) { row in
             rowView(row)
@@ -128,7 +128,7 @@ struct AccountPaymentsBlock: View {
           Image(systemName: "exclamationmark.circle")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Text(
         verbatim: status.nextUnpaid.year == environment.today.year
@@ -147,7 +147,7 @@ struct AccountPaymentsBlock: View {
             Image(systemName: "archivebox")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         } else if let name = row.cardName {
           Label {
             Text(
@@ -157,7 +157,7 @@ struct AccountPaymentsBlock: View {
             Image(systemName: "creditcard")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       Spacer()

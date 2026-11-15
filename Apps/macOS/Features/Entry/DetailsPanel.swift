@@ -101,7 +101,7 @@ struct DetailsPanel: View {
       } else {
         Text(verbatim: t("entry.form.chooseKind"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("entry.form.chooseKind")
       }
@@ -172,7 +172,7 @@ struct DetailsPanel: View {
         Image(systemName: "lock")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
       .accessibilityIdentifier("entry.reconcileDifference.locked")
     }
@@ -371,7 +371,7 @@ struct DetailsPanel: View {
       fieldRow(nil) {
         Text(verbatim: sentence)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("entry.payingFor.outcome")
       }
@@ -403,7 +403,7 @@ struct DetailsPanel: View {
       if let sentence = payingForSentence {
         Text(verbatim: sentence)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("entry.payingFor.outcome")
       }
@@ -602,7 +602,7 @@ struct DetailsPanel: View {
         if let expression = model.draft.amountExpression {
           Text(verbatim: ExpressionEvaluator.canonical(expression) ?? expression)
             .appFont(.caption.monospaced())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }
@@ -614,7 +614,7 @@ struct DetailsPanel: View {
       fieldRow(nil, alone: true) {
         Text(verbatim: approximate)
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(1)
           .minimumScaleFactor(0.7)
           .accessibilityIdentifier("entry.approximate")
@@ -625,7 +625,7 @@ struct DetailsPanel: View {
       fieldRow(nil) {
         Text(verbatim: tax)
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("entry.taxEstimate")
       }
     }
@@ -950,12 +950,12 @@ struct DetailsPanel: View {
           .accessibilityIdentifier("entry.oneOff")
           Text(verbatim: SpendingText.t("spending.oneOff.hint", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           if model.isSplit {
             Text(verbatim: SpendingText.t("spending.oneOff.splitHint", environment))
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
               .accessibilityIdentifier("entry.oneOff.splitHint")
           }
@@ -1050,7 +1050,7 @@ struct DetailsPanel: View {
               environment.dates.monthTitle(model.shownPeriodMonth))
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("entry.periodMonth.cashback")
         }
@@ -1255,10 +1255,10 @@ struct DetailsPanel: View {
     if left.isZero {
       HStack {
         Text(verbatim: t("entry.unallocated"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Text(verbatim: environment.money.exact(left, currency: model.draft.currency))
           .appFont(.body.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .appFont(.caption)
     } else {
@@ -1354,7 +1354,7 @@ struct DetailsPanel: View {
     HStack(spacing: 12) {
       Text(verbatim: t("entry.panel.hint"))
         .appFont(EntryType.label)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Spacer(minLength: 8)
       // «Split…» next to «Записать», as the design draws the foot; once split, the block of the
@@ -1565,7 +1565,7 @@ struct DetailsPanel: View {
           environment.money.exact(plan.monthlyAmount, currency: model.draft.currency))
       )
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
       .accessibilityIdentifier("entry.instalments.summary")
     }
@@ -1732,7 +1732,7 @@ struct DetailsPanel: View {
   /// is indistinguishable from a broken one.
   private func partLabel(_ key: String) -> some View {
     Text(verbatim: t(key))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize()
   }
 
@@ -1881,7 +1881,7 @@ struct DetailsPanel: View {
         .accessibilityIdentifier("entry.refund.purchase")
       } else if model.refundWithoutPurchase {
         Text(verbatim: t("entry.refund.none"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Button(t(model.refundTarget == nil ? "entry.refund.pick" : "entry.refund.change")) {
         model.refundPicking = RefundPickerRequest(savesAfterChoice: false)
@@ -1907,7 +1907,7 @@ struct DetailsPanel: View {
   private func caption(_ key: String) -> some View {
     Text(verbatim: t(key))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 
   private var rateField: some View {
@@ -1919,11 +1919,11 @@ struct DetailsPanel: View {
       if model.draft.rateSource == .manual {
         Text(verbatim: t("entry.rateManual"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       } else if model.draft.rateSource == .coingecko {
         Text(verbatim: t("entry.rateCoingecko"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
   }

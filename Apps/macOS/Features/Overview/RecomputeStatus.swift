@@ -105,7 +105,7 @@ struct RecomputeStatusLine: View {
       }
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   /// The compact form of the rates' block: one line with its symbol.

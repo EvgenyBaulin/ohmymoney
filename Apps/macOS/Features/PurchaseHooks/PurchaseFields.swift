@@ -79,7 +79,7 @@ struct PurchaseFields: View {
   }
 
   private func label(_ key: String) -> some View {
-    Text(verbatim: t(key)).appFont(.caption).foregroundStyle(.secondary)
+    Text(verbatim: t(key)).appFont(.caption).secondaryInk()
   }
 
   // MARK: Discount

@@ -54,7 +54,7 @@ struct QualityTiles: View {
             } ?? "—"
           )
           .appFont(.system(size: 12).monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         .analyticsCard()
         .accessibilityElement(children: .combine)

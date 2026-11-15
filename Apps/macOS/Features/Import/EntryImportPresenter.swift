@@ -129,7 +129,7 @@ private struct EntryImportFlow: View {
       Text(verbatim: t("import.attachment.kind")).appFont(.headline)
       Text(verbatim: file.filename).lineLimit(2)
       Text(verbatim: t("import.attachment.chooseHint"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
       Button(t("import.attachment.statement")) { route = .statement }
       Button(t("import.attachment.receipt")) { route = .receipt }
       Button(t("import.attachment.screenshot")) { route = .screenshot }

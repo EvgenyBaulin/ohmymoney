@@ -89,7 +89,7 @@ struct CommandPaletteView: View {
       if model.results.isEmpty {
         Text(verbatim: t("questions.palette.empty"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .padding(24)
           .accessibilityIdentifier("palette.empty")
@@ -106,7 +106,7 @@ struct CommandPaletteView: View {
   private var field: some View {
     HStack(spacing: 10) {
       Image(systemName: "magnifyingglass")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       TextField(text: $model.query, prompt: Text(verbatim: t("questions.palette.prompt"))) {
         Text(verbatim: t("questions.palette.title"))
@@ -130,7 +130,7 @@ struct CommandPaletteView: View {
       .accessibilityIdentifier("palette.field")
       Button(environment.language("action.close"), action: close)
         .buttonStyle(.borderless)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("palette.close")
     }
     .padding(.horizontal, 16)
@@ -163,7 +163,7 @@ struct CommandPaletteView: View {
   private func header(_ title: String) -> some View {
     Text(verbatim: title)
       .appFont(.caption.weight(.semibold))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .padding(.horizontal, 10)
       .padding(.top, 8)
       .accessibilityAddTraits(.isHeader)
@@ -187,7 +187,7 @@ struct CommandPaletteView: View {
         Spacer(minLength: 8)
         Text(verbatim: QuestionsText.kindName(entry.kind, environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .padding(.horizontal, 10)
       .padding(.vertical, 7)

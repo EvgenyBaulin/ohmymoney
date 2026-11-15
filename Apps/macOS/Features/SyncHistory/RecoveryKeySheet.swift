@@ -72,7 +72,7 @@ struct RecoveryPage: View {
           "recovery.page.fingerprint", table: "SyncHistory", key.fingerprint)
       )
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
     .padding(24)
   }
@@ -154,14 +154,14 @@ struct SyncKeySection: View {
           verbatim: environment.format("recovery.key.made", table: "SyncHistory", key.fingerprint)
         )
         if RecoverySheetMark.wasShown(key, in: defaults) {
-          Text(verbatim: t("recovery.key.shown")).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: t("recovery.key.shown")).appFont(.caption).secondaryInk()
         } else {
           Button(t("recovery.key.show")) { showing = key }
             .accessibilityIdentifier("recovery.show")
         }
         Button(t("recovery.key.new")) { confirmsNew = true }
       } else {
-        Text(verbatim: t("recovery.key.none")).foregroundStyle(.secondary)
+        Text(verbatim: t("recovery.key.none")).secondaryInk()
         Button(t("recovery.key.make")) { make(replacing: false) }
           .accessibilityIdentifier("recovery.make")
       }
@@ -176,7 +176,7 @@ struct SyncKeySection: View {
     } header: {
       Text(verbatim: t("recovery.key.header"))
     } footer: {
-      Text(verbatim: t("recovery.key.hint")).foregroundStyle(.secondary)
+      Text(verbatim: t("recovery.key.hint")).secondaryInk()
     }
     .task { key = store.load() }
     .onChange(of: environment.sync?.status) { _, _ in key = store.load() }

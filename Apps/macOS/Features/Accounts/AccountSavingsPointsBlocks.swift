@@ -36,7 +36,7 @@ struct AccountSavingsBlock: View {
             .accessibilityIdentifier("account.savings.amount")
           Text(verbatim: t("account.savings.hint"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           if put.leftOutForeign > 0 {
             Label {
               Text(
@@ -46,7 +46,7 @@ struct AccountSavingsBlock: View {
               Image(systemName: "globe")
             }
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -94,11 +94,11 @@ struct AccountPointsBlock: View {
             .monospacedDigit()
           }
           if notices(account).isEmpty {
-            Text(verbatim: t("account.points.nothingBurns")).foregroundStyle(.secondary)
+            Text(verbatim: t("account.points.nothingBurns")).secondaryInk()
           }
           Text(verbatim: rateLine(account))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Button(t("account.points.compare")) { compares = true }
             .accessibilityIdentifier("account.points.compare")
         }
@@ -200,11 +200,11 @@ struct PointsCompareSheet: View {
           .accessibilityIdentifier("account.points.compareVerdict")
           Text(verbatim: t("account.points.compareBurn"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         .monospacedDigit()
       } else {
-        Text(verbatim: t("account.points.compareNone")).foregroundStyle(.secondary)
+        Text(verbatim: t("account.points.compareNone")).secondaryInk()
       }
       HStack {
         Spacer()
@@ -228,7 +228,7 @@ struct PointsCompareSheet: View {
           .multilineTextAlignment(.trailing)
           .appFont(.body.monospacedDigit())
           .frame(width: 80)
-        Text(verbatim: suffix).foregroundStyle(.secondary)
+        Text(verbatim: suffix).secondaryInk()
       }
     } label: {
       Text(verbatim: t(key))
