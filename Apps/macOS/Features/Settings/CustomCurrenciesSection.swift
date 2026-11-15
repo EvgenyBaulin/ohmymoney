@@ -214,7 +214,7 @@ struct CustomCurrenciesSection: View {
       }
       if currencies.isEmpty {
         Text(verbatim: t("currencies.custom.empty"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if let refusal {
         Text(verbatim: t(refusal))
@@ -233,7 +233,7 @@ struct CustomCurrenciesSection: View {
     } footer: {
       Text(verbatim: t("currencies.custom.hint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .sheet(item: $sheet, onDismiss: reload) { sheet in
       sheetContent(sheet).handingOver(dependencies)
@@ -246,14 +246,14 @@ struct CustomCurrenciesSection: View {
   private func row(_ currency: CustomCurrency) -> some View {
     HStack(spacing: 8) {
       Image(systemName: currency.archived ? "archivebox" : "dollarsign.circle")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .frame(width: 18)
         .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: Self.title(currency))
         Text(verbatim: caption(currency))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Spacer()
       Menu {
@@ -424,7 +424,7 @@ struct CustomCurrencyEditor: View {
           .accessibilityIdentifier("currencies.custom.coinId")
           Text(verbatim: DepositText.t("crypto.coin.hint", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if previous == nil {
           Section {
@@ -437,7 +437,7 @@ struct CustomCurrencyEditor: View {
             }
           } footer: {
             Text(verbatim: t("currencies.custom.firstRateHint"))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
       }
@@ -570,7 +570,7 @@ struct CustomCurrencyRatesSheet: View {
       List {
         if rates.isEmpty {
           Text(verbatim: t("currencies.custom.noRate"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         ForEach(rates, id: \.date) { rate in
           HStack {
@@ -601,7 +601,7 @@ struct CustomCurrencyRatesSheet: View {
         .onSubmit(addRate)
         .accessibilityIdentifier("currencies.custom.rate")
         Text(verbatim: "₽")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Button(t("currencies.custom.rateSave"), action: addRate)
           .disabled(RateText.rate(rateText) == nil)
       }
@@ -664,7 +664,7 @@ struct CryptoSourcePicker: View {
       .accessibilityIdentifier("currencies.crypto.source")
       Text(verbatim: DepositText.t("crypto.source.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
     .task {

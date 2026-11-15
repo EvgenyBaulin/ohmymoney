@@ -186,7 +186,7 @@ struct CategoriesSettingsView: View {
             // can rename, archive or delete it.
             Text(verbatim: environment.language("categories.orphans", table: "Settings"))
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
       }
@@ -206,6 +206,9 @@ struct CategoriesSettingsView: View {
           EmptyView()
         }
         .labelsHidden()
+        .accessibilityLabel(
+          Text(verbatim: environment.language("categories.add.parent", table: "Settings"))
+        )
         .frame(maxWidth: 180)
         Button(environment.language("references.add", table: "Settings"), action: add)
           .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -229,7 +232,7 @@ struct CategoriesSettingsView: View {
         }
         Text(verbatim: environment.language("categories.limit.hint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
 
@@ -366,6 +369,7 @@ struct CategoriesSettingsView: View {
     markButton(category, tree: tree, isChild: isChild)
     TextField(text: nameBinding(for: category)) { EmptyView() }
       .labelsHidden()
+      .accessibilityLabel(Text(verbatim: environment.language("references.name", table: "Settings")))
       .textFieldStyle(.plain)
       .fontWeight(isChild ? .regular : .semibold)
       .focused($editingName, equals: category.id)
@@ -378,14 +382,14 @@ struct CategoriesSettingsView: View {
     if isSystem {
       Text(verbatim: environment.language("categories.system", table: "Settings"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .help(environment.language("categories.system.help", table: "Settings"))
         .accessibilityIdentifier("categories.row.system")
     } else {
       if category.archived {
         Text(verbatim: environment.language("categories.archived", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if kind == .expense, tree.isEssential(category.id) {
         Label {
@@ -394,7 +398,7 @@ struct CategoriesSettingsView: View {
           Image(systemName: CushionText.symbol)
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("categories.row.essential")
       }
       if kind == .income, selfEmployment.enabled,
@@ -407,7 +411,7 @@ struct CategoriesSettingsView: View {
           Image(systemName: "percent")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("categories.row.tax")
       }
       rowMenu(category, tree: tree)
@@ -728,11 +732,11 @@ struct CategoriesSettingsView: View {
       }
       Text(verbatim: environment.language("categories.cashbackHint", table: "Settings"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       // What the category above receives is set here; what to expect, by the cards' rules.
       Text(verbatim: environment.language(Self.cashbackRulesHintKey, table: "Settings"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -1221,7 +1225,7 @@ struct CategoryLimitField: View {
         if !now { draft.leave(shown: shown, write: commit) }
       }
       Image(systemName: "arrow.clockwise")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .opacity(stored?.rollover == true ? 1 : 0)
         .help(rollover)
         .accessibilityLabel(Text(verbatim: rollover))
@@ -1625,6 +1629,7 @@ enum EssentialChoice: String, CaseIterable, Hashable {
           VStack(alignment: .leading, spacing: SettingsCardMetrics.textGap) {
             TextField(text: nameBinding(for: category)) { EmptyView() }
               .labelsHidden()
+              .accessibilityLabel(Text(verbatim: environment.language("references.name", table: "Settings")))
               .textFieldStyle(.plain)
               .appFont(AppFont.system(size: 13, weight: .medium))
               .foregroundStyle(surfaces.primary)
@@ -1728,6 +1733,8 @@ enum EssentialChoice: String, CaseIterable, Hashable {
           .padding(.horizontal, CategoriesMacMetrics.chipHorizontal)
           .padding(.vertical, CategoriesMacMetrics.chipVertical)
           .background(fill, in: Capsule())
+          .accessibilityElement(children: .ignore)
+          .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       }
       .menuStyle(.borderlessButton)
       .menuIndicator(.hidden)
@@ -1752,6 +1759,7 @@ enum EssentialChoice: String, CaseIterable, Hashable {
             EmptyView()
           }
           .labelsHidden()
+          .accessibilityLabel(Text(verbatim: t("categories.add.parent")))
           .frame(maxWidth: 180)
           Button(t("references.add"), action: add)
             .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)

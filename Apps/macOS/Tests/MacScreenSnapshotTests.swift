@@ -152,6 +152,9 @@ final class MacScreenSnapshotTests: SectionFigmaHarness {
   /// compares it with the reference; the window is closed after, so a run holds few at once.
   private func check(_ window: NSWindow, _ name: String, dark: Bool) async throws {
     window.appearance = NSAppearance(named: dark ? .darkAqua : .aqua)
+    // The Operations table is filled in `onAppear`, after the first layout: without rows the
+    // picture would not check the table at all.
+    if name.hasSuffix("-operations") { await waitForTableRows(in: window) }
     let png = try stablePicture(of: window)
     ScreenSnapshots.verify(
       png: png, name: name, width: ScreenSnapshots.ReferenceWidth.mac, test: self)
@@ -159,6 +162,29 @@ final class MacScreenSnapshotTests: SectionFigmaHarness {
     window.contentView = nil
     window.close()
     windows.removeAll { $0 === window }
+  }
+
+  /// Runs the window until some table beside the sidebar holds rows; fails (not skips) when none ever does.
+  private func waitForTableRows(in window: NSWindow) async {
+    let deadline = Date().addingTimeInterval(30)
+    while Date() < deadline {
+      settle(window, passes: 2)
+      // The listing is built by a task that must get the main actor between the passes.
+      try? await Task.sleep(for: .milliseconds(50))
+      var tables: [NSTableView] = []
+      if let content = window.contentView { Self.allSubviews(of: content, into: &tables) }
+      // The sidebar is a table too and has rows at once: only a table right of it counts.
+      let sidebar = window.contentView.flatMap { Self.sidebarScroll(in: $0) }
+      let pages = tables.filter { $0.enclosingScrollView !== sidebar }
+      if pages.contains(where: { $0.numberOfRows > 0 }) {
+        settle(window, passes: 15)
+        return
+      }
+    }
+    var all: [NSTableView] = []
+    if let content = window.contentView { Self.allSubviews(of: content, into: &all) }
+    let found = all.map { "\(type(of: $0)) rows=\($0.numberOfRows) frame=\($0.frame)" }
+    XCTFail("The Operations table never got rows before the picture; tables: \(found)")
   }
 
   /// A window under load lays out late: the picture is taken again until two in a row agree.

@@ -66,6 +66,8 @@ struct AccessibleMenu<Content: View>: View {
       let button = MenuTriggerButton()
       button.isBordered = false
       button.setAccessibilityElement(true)
+      // SwiftUI's wrapper can otherwise export the trigger as an unnamed generic element.
+      button.setAccessibilityRole(.button)
       button.setAccessibilityChildrenInNavigationOrder([])
       button.target = context.coordinator
       button.action = #selector(Coordinator.openMenu(_:))
@@ -101,5 +103,12 @@ struct AccessibleMenu<Content: View>: View {
   /// give it a different AX parent from the one AppKit reports to the audit.
   private final class MenuTriggerButton: NSButton {
     override func accessibilityChildren() -> [Any]? { [] }
+
+    /// The press action the audit looks for; VoiceOver's «press» opens the menu like a click.
+    override func accessibilityPerformPress() -> Bool {
+      guard isEnabled else { return false }
+      performClick(nil)
+      return true
+    }
   }
 #endif

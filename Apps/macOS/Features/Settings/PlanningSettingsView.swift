@@ -158,7 +158,7 @@ struct PlanningSettingsView: View {
       } footer: {
         Text(verbatim: t("settings.planning.cushionHint"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       Section {
@@ -179,7 +179,7 @@ struct PlanningSettingsView: View {
       } footer: {
         Text(verbatim: t("settings.planning.limitsHint"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       Section {
@@ -199,7 +199,7 @@ struct PlanningSettingsView: View {
       } footer: {
         Text(verbatim: t("settings.anomalies.hint"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .formStyle(.grouped)
@@ -239,7 +239,7 @@ struct PlanningSettingsView: View {
           .disabled(PlanningBlocks.isStandard(layout.order))
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -354,7 +354,7 @@ struct AllocationSettingsSection: View {
     } footer: {
       Text(verbatim: t("settings.allocation.hint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .sheet(isPresented: $showsRules) {
       AllocationRulesSheet().handingOver(dependencies)
@@ -402,7 +402,7 @@ struct PlanningHintsSection: View {
             Image(systemName: "info.circle")
           }
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("settings.hints.burnoutNeedsEssentials")
         }
       }

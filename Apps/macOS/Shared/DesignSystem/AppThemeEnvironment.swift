@@ -57,7 +57,7 @@ struct ThemeSurfaces: Equatable {
     card = Color(palette.surfaceCard)
     cardBorder = Color(palette.borderCard)
     primary = Color(palette.contentPrimary)
-    secondary = Color(palette.contentSecondary)
+    secondary = Color(palette.secondaryText)
     accent = Color(palette.accentDefault)
     onAccent = Color(palette.contentOnAccent)
     positive = Color(palette.statusPositive)
@@ -78,4 +78,18 @@ struct ThemeSurfaces: Equatable {
 
 extension EnvironmentValues {
   @Entry var themeSurfaces = ThemeSurfaces(.fallback)
+}
+
+private struct SecondaryInk: ViewModifier {
+  @Environment(\.themeSurfaces) private var surfaces
+
+  func body(content: Content) -> some View {
+    content.foregroundStyle(surfaces.secondary)
+  }
+}
+
+extension View {
+  /// The secondary ink of the theme, which reads at 4.5 : 1 on every surface (the system's
+  /// `.secondary` is lighter than the audit accepts on a card).
+  func secondaryInk() -> some View { modifier(SecondaryInk()) }
 }

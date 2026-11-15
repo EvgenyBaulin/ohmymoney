@@ -68,6 +68,7 @@ struct StackedShareChart: View {
               Text(verbatim: "\(column.spokenLabel), \(segment.style.label)")
             )
             .accessibilityValue(Text(verbatim: segment.spokenValue))
+            .accessibilityIdentifier("chart.native.stack.\(column.id).\(segment.style.id)")
           }
           let short = Self.unlabelled(column)
           if !short.isEmpty, let top = column.segments.last?.end {
@@ -171,6 +172,7 @@ struct StackedRowChart: View {
             }
             .accessibilityLabel(Text(verbatim: "\(row.spokenLabel), \(segment.style.label)"))
             .accessibilityValue(Text(verbatim: segment.spokenValue))
+            .accessibilityIdentifier("chart.native.stackRow.\(row.id).\(segment.style.id)")
           }
           if endWords, let end = row.segments.last?.end {
             let narrow = Self.unlabelled(row, top: top)

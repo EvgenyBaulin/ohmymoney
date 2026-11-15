@@ -39,7 +39,7 @@ struct BackupSettingsView: View {
           HStack(spacing: 8) {
             Text(verbatim: mirror?.lastPathComponent ?? "—")
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             Button(environment.language("settings.backups.choose", table: "Settings")) {
               chooseFolder()
             }
@@ -52,17 +52,17 @@ struct BackupSettingsView: View {
         if AppPaths.dataSet != nil {
           Text(verbatim: environment.language(Self.dataSetMirrorsNowhereKey, table: "Settings"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         } else if mirror != nil {
           Text(verbatim: environment.language(Self.beforeUpdateCopiesKey, table: "Settings"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         // Said always: what lies where, and what does not leave this Mac.
         Text(verbatim: environment.language("backups.readable.note", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
 
@@ -100,7 +100,7 @@ struct BackupSettingsView: View {
         if list.items.isEmpty {
           Text(verbatim: environment.language("backups.empty", table: "Settings"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         } else {
           let listing = Self.listing(of: list.items.map(\.url))
           let byURL = Dictionary(uniqueKeysWithValues: list.items.map { ($0.url, $0) })
@@ -129,7 +129,7 @@ struct BackupSettingsView: View {
       } footer: {
         Text(verbatim: environment.language("backups.compareArchive.note", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       IntegritySettingsSection()
@@ -229,7 +229,7 @@ struct BackupSettingsView: View {
       }
       Text(verbatim: Self.detail(of: item, in: environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       HStack(spacing: 12) {
         if item.description == nil {
           Button(environment.language("backups.row.describe", table: "Settings")) {

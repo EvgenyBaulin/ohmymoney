@@ -25,6 +25,14 @@ extension ThemePalette {
     contentPrimary.ensuringTextContrast(on: surfaceSidebar.composited(over: surfaceBackground))
   }
 
+  /// The secondary ink of the screens: the theme's own, moved only as far as it needs to read at
+  /// 4.5 : 1 on the page, the card and the sidebar plate alike.
+  var secondaryText: ThemeColor {
+    contentSecondary.ensuringTextContrast(on: [
+      surfaceBackground, surfaceCard, surfaceSidebar.composited(over: surfaceBackground),
+    ])
+  }
+
   var heroText: ThemeColor { heroContent.ensuringTextContrast(on: [heroStart, heroEnd]) }
 
   var cardText: ThemeColor { contentPrimary.ensuringTextContrast(on: surfaceCard) }

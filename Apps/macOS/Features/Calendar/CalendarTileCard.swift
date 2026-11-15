@@ -25,7 +25,7 @@ struct CalendarTileCard: View {
             VStack(spacing: 2) {
               Text(verbatim: environment.dates.shortWeekday(day.day.weekday))
                 .appFont(.caption2)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityHidden(true)
               CalendarDayCell(day: day, calendar: calendar, compact: true)
             }

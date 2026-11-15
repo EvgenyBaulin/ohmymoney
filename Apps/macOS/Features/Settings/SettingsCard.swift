@@ -115,7 +115,7 @@
           if let footer {
             Text(verbatim: footer)
               .appFont(AppFont.system(size: 12))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
         }
@@ -147,10 +147,14 @@
             .foregroundStyle(surfaces.secondary)
             .accessibilityHidden(true)
         }
+        // Without this the pop-up is announced by its chevron picture, «go down».
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: value))
       }
       .menuStyle(.borderlessButton)
       .menuIndicator(.hidden)
       .fixedSize()
+      .accessibilityLabel(Text(verbatim: value))
     }
   }
 

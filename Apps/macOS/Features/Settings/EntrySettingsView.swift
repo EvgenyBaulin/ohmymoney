@@ -137,7 +137,7 @@ struct EntrySettingsView: View {
           Image(systemName: "keyboard")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       }
     }
@@ -162,7 +162,7 @@ struct EntrySettingsView: View {
     let name = Self.name(of: field, environment)
     return HStack(spacing: 8) {
       Image(systemName: "line.3.horizontal")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       Text(verbatim: name)
       Spacer()
@@ -187,7 +187,7 @@ struct EntrySettingsView: View {
   private func hint(_ key: String) -> some View {
     Text(verbatim: t(key))
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
   }
 

@@ -96,7 +96,7 @@ struct CurrenciesSettingsView: View {
       } footer: {
         Text(verbatim: t("settings.currencies.defaultHint"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       Section {
@@ -121,7 +121,7 @@ struct CurrenciesSettingsView: View {
       } footer: {
         Text(verbatim: t("currencies.directory.hint"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       CustomCurrenciesSection()

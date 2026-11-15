@@ -32,12 +32,12 @@ struct CalendarDayCell: View {
         if hasBirthday {
           Image(systemName: "gift")
             .appFont(.caption2)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if hasNote {
           Image(systemName: "note.text")
             .appFont(.caption2)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if let symbol = CalendarText.symbol(of: day.level) {
           Image(systemName: symbol)
@@ -112,12 +112,12 @@ struct CalendarDayCell: View {
             Image(systemName: CalendarText.symbol(of: plan.kind))
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         if day.plans.count > 4 {
           Text(verbatim: "+\(day.plans.count - 4)")
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       } else {
         planLine(.payment, amount: day.plannedOut)
@@ -141,7 +141,7 @@ struct CalendarDayCell: View {
         }
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 

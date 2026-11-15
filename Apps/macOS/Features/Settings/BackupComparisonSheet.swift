@@ -54,14 +54,14 @@ struct BackupComparisonSheet: View {
         .appFont(.headline)
       Text(verbatim: title)
         .appFont(.caption.monospaced())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       switch phase {
       case .loading:
         ProgressView()
           .frame(maxWidth: .infinity, minHeight: 80)
       case .failed(let key):
         Text(verbatim: environment.language(key, table: "Settings"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       case .ready(let comparison):
         ScrollView { content(comparison).frame(maxWidth: .infinity, alignment: .leading) }
       }
@@ -145,7 +145,7 @@ struct BackupComparisonSheet: View {
             ForEach(Array(comparison.changed.prefix(Self.shownLimit).enumerated()), id: \.offset) {
               _, change in
               VStack(alignment: .leading, spacing: 0) {
-                Text(verbatim: describe(change.was)).foregroundStyle(.secondary)
+                Text(verbatim: describe(change.was)).secondaryInk()
                 Text(verbatim: "→ " + describe(change.now))
               }
               .appFont(.callout)
@@ -191,7 +191,7 @@ struct BackupComparisonSheet: View {
           "backups.compare.more", table: "Settings", counts: count - Self.shownLimit)
       )
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 

@@ -63,7 +63,7 @@ struct TemplatesSettingsView: View {
 
       Text(verbatim: environment.language("templates.hintAdded", table: EntryLinks.table))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .padding()
     .modifier(TemplatesLifecycle(reload: reload, refused: $refused, environment: environment))
@@ -77,7 +77,7 @@ struct TemplatesSettingsView: View {
     if let text = adding {
       HStack(spacing: 10) {
         Image(systemName: "pin.fill")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         TextField(
           text: Binding(get: { text }, set: { adding = $0 }),
@@ -169,11 +169,11 @@ struct TemplatesSettingsView: View {
   private func archivedRow(_ template: Template) -> some View {
     HStack(spacing: 10) {
       Image(systemName: "archivebox")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityLabel(Text(verbatim: t("templates.inArchive")))
       Text(verbatim: template.text)
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .lineLimit(1)
       Spacer(minLength: 6)
       details(template)
@@ -199,13 +199,13 @@ struct TemplatesSettingsView: View {
       let currency = Self.amountCurrency(of: template, defaultCurrency: environment.defaultCurrency)
       Text(verbatim: environment.money.exact(amount, currency: currency))
         .appFont(.callout.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     Text(
       verbatim: environment.format("templates.used", table: "Settings", counts: template.useCount)
     )
     .appFont(.callout)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   /// The currency the row shows a template's amount in: the one its chip enters it in
@@ -320,7 +320,7 @@ private struct TemplatesLifecycle: ViewModifier {
           }
           Text(verbatim: environment.language("templates.hintAdded", table: EntryLinks.table))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -347,7 +347,7 @@ private struct TemplatesLifecycle: ViewModifier {
             words
             Text(verbatim: subtitle(of: template))
               .appFont(AppFont.system(size: 11))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
           Spacer(minLength: 8)
           action()
@@ -406,12 +406,12 @@ private struct TemplatesLifecycle: ViewModifier {
         words: HStack(spacing: 4) {
           Text(verbatim: template.text)
             .appFont(AppFont.system(size: 13, weight: .medium))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
           if let amount = amountText(template) {
             Text(verbatim: amount)
               .appFont(AppFont.system(size: 13, weight: .medium).monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
       ) {

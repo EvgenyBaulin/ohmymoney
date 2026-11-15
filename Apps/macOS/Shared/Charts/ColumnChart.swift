@@ -63,7 +63,7 @@ struct ColumnChart: View {
           .annotation(position: .top, alignment: .trailing, spacing: 2) {
             Text(verbatim: average.label)
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
           .accessibilityLabel(Text(verbatim: average.label))
           .accessibilityValue(Text(verbatim: money.rubles(average.value)))

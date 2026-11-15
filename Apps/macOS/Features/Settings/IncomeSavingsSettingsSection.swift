@@ -72,7 +72,7 @@ struct IncomeSavingsSettingsSection: View {
     } footer: {
       Text(verbatim: t("income.settings.footer"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .task(id: compute.generation) {
       if let stored = compute.snapshot?.dataset.incomeSavings { values = stored }
@@ -101,7 +101,7 @@ struct IncomeSavingsSettingsSection: View {
             ) {
               Text(verbatim: "\(values.proportions.savingsPercent) %")
                 .appFont(AppFont.system(size: 13, weight: .semibold).monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
             .accessibilityIdentifier("settings.income.savings")
             if values.proportions != .rule503020 {
@@ -145,7 +145,7 @@ struct IncomeSavingsSettingsSection: View {
           }
           Text(verbatim: t("income.settings.footer"))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -166,7 +166,7 @@ struct IncomeSavingsSettingsSection: View {
         HStack(spacing: 8) {
           Text(verbatim: "\(percent) %")
             .appFont(AppFont.system(size: 13, weight: .semibold).monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Stepper("", value: binding, in: range).labelsHidden()
         }
       }

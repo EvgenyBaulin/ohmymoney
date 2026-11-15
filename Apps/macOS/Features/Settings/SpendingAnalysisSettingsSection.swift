@@ -167,11 +167,11 @@ struct SpendingAnalysisSettingsSection: View {
       }
       Text(verbatim: SpendingText.windowLine(window, environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("settings.weekend.line")
       Text(verbatim: t("spending.settings.weekend.hint"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Button(t("spending.settings.weekend.reset")) { save(.standard) }
         .disabled(window == .standard)

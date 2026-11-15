@@ -74,7 +74,7 @@ struct GeneralSettingsView: View {
         } footer: {
           Text(verbatim: environment.language("settings.numbers.hint", table: "Settings"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
 
       #endif
@@ -91,7 +91,7 @@ struct GeneralSettingsView: View {
       } footer: {
         Text(verbatim: environment.language("settings.starter.hint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       #if !os(macOS)
@@ -120,7 +120,7 @@ struct GeneralSettingsView: View {
       } footer: {
         Text(verbatim: environment.language("settings.events.automaticHint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       // The folder the journal of the exchange with the other devices lives in; the demo and
@@ -150,7 +150,7 @@ struct GeneralSettingsView: View {
       } footer: {
         Text(verbatim: environment.language("settings.forWhom.fixedHint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       // The five values above are fixed and can only be renamed. What
@@ -181,7 +181,7 @@ struct GeneralSettingsView: View {
       } footer: {
         Text(verbatim: environment.language("settings.forWhom.peopleHint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       // «Собрать отчёт о проблеме…» — it is here as well as in the
@@ -197,7 +197,7 @@ struct GeneralSettingsView: View {
           } label: {
             Text(verbatim: environment.language("settings.language.restartHint", table: "Settings"))
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
       #endif

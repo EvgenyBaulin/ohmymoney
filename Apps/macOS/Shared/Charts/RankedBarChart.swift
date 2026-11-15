@@ -69,6 +69,7 @@ struct RankedBarChart: View {
       }
       .accessibilityLabel(Text(verbatim: bar.label))
       .accessibilityValue(Text(verbatim: bar.spokenValue))
+      .accessibilityIdentifier("chart.native.ranked.\(bar.id)")
     }
     .chartXScale(domain: 0...upperBound)
     .chartYAxis {

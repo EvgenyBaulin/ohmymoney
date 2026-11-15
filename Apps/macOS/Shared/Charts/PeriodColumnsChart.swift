@@ -66,6 +66,7 @@ struct PeriodColumnsChart: View {
         .cornerRadius(Self.barRadius)
         .accessibilityLabel(Text(verbatim: column.spokenLabel))
         .accessibilityValue(Text(verbatim: "\(column.valueText), \(column.previousText)"))
+        .accessibilityIdentifier("chart.native.period.\(column.id)")
       }
       ForEach(columns) { column in
         LineMark(x: .value("Span", column.id), y: .value("Before", column.previous))

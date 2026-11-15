@@ -46,7 +46,7 @@ extension AppearanceSettingsView {
       } footer: {
         Text(verbatim: environment.language("settings.appearance.hint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       Section {
@@ -66,7 +66,7 @@ extension AppearanceSettingsView {
           }
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
 
       Section {
@@ -94,7 +94,7 @@ extension AppearanceSettingsView {
       } footer: {
         Text(verbatim: environment.language("appearance.accent.hint", table: "Appearance"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       Section {
@@ -119,7 +119,7 @@ extension AppearanceSettingsView {
       } footer: {
         Text(verbatim: environment.language("settings.appearance.textHint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       #if os(iOS)
@@ -148,7 +148,7 @@ extension AppearanceSettingsView {
     Text(verbatim: environment.language("settings.appearance.accent", table: "Settings"))
     Text(verbatim: Self.accentTitle(accent, environment))
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("settings.appearance.accent.chosen")
   }
 }

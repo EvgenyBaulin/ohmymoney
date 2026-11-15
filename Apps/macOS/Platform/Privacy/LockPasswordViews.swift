@@ -38,7 +38,7 @@ struct LockPasswordFields: View {
         .appFont(.callout)
       } else {
         Text(verbatim: language("privacy.password.rule"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .appFont(.callout)
       }
       HStack {
@@ -101,7 +101,7 @@ struct LockPasswordSheet: View {
       )
       .appFont(.headline)
       Text(verbatim: language("privacy.password.explain"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       LockPasswordFields(
         language: language, problem: lock.passwordProblem, isBusy: lock.isCheckingPassword,
