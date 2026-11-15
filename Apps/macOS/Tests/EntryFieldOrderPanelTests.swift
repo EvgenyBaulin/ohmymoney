@@ -87,12 +87,23 @@ final class EntryFieldOrderPanelTests: XCTestCase {
     let host = try await EntryHost()
     self.host = host
     let line = try host.line()
+    // The key goes through the window, as a press does: only that reaches the line's own handler
+    // of Tab. The editor's `keyDown` alone leaves it to the key view loop, which walks the panel
+    // by position and passes for the order of the fields only until the panel gains a cell.
+    // The panel puts the focus in a task of its own, which the main actor runs only while the test
+    // awaits: a spin of the run loop alone never lets it start.
+    func pressAndWait(_ characters: String, modifiers: NSEvent.ModifierFlags = []) async throws {
+      try host.pressKey(characters, code: 48, modifiers: modifiers)
+      let deadline = Date().addingTimeInterval(10)
+      while ((host.window.firstResponder as? NSTextView)?.delegate as? NSTextField) === line,
+        Date() < deadline
+      {
+        try await Task.sleep(for: .milliseconds(50))
+      }
+      host.settle(0.1)
+    }
     // The order of 1.1: the amount first.
-    XCTAssertTrue(host.window.makeFirstResponder(line))
-    host.settle(0.1)
-    try XCTUnwrap(host.window.firstResponder as? NSTextView).keyDown(
-      with: EntryHost.key("\t", code: 48))
-    host.settle()
+    try await pressAndWait("\t")
     XCTAssertEqual(
       ((host.window.firstResponder as? NSTextView)?.delegate as? NSTextField)?.placeholderString,
       "0", "Tab went to the amount")
@@ -102,23 +113,13 @@ final class EntryFieldOrderPanelTests: XCTestCase {
     host.settle()
     let noteTitle = host.environment.language("entry.note", table: "Entry")
     let note = try host.field(prompt: noteTitle)
-    XCTAssertTrue(host.window.makeFirstResponder(line))
-    host.settle(0.1)
-    // The key as the line's editor receives it: the window of a test host is not always made
-    // key, and a key window is what hands a key press on to its first responder.
-    let editor = try XCTUnwrap(host.window.firstResponder as? NSTextView, "the line's editor")
-    editor.keyDown(with: EntryHost.key("\t", code: 48))
-    host.settle()
+    try await pressAndWait("\t")
     let focused = (host.window.firstResponder as? NSTextView)?.delegate as? NSTextField
     XCTAssertTrue(
       focused === note, "Tab went to «\(focused?.placeholderString ?? "?")»")
 
     // Shift-Tab: the last field of the order that takes the focus.
-    XCTAssertTrue(host.window.makeFirstResponder(line))
-    host.settle(0.1)
-    let again = try XCTUnwrap(host.window.firstResponder as? NSTextView)
-    again.keyDown(with: EntryHost.key("\u{19}", code: 48, modifiers: .shift))
-    host.settle()
+    try await pressAndWait("\u{19}", modifiers: .shift)
     let last = host.window.firstResponder
     XCTAssertFalse(
       ((last as? NSTextView)?.delegate as? NSTextField) === line, "Shift-Tab left the line")
