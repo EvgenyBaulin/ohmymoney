@@ -99,6 +99,21 @@ final class EntrySaveQuestionsTests: AccountsScenarioDatabaseCase {
     XCTAssertEqual(asked(try model(on: account, amount: 15_000), money), [.overLimit, .minBalance])
   }
 
+  /// Records are written after the purchase: a limit, a kept balance and a pause only ask, and
+  /// answering «Записать всё равно» always leaves the operation writable — none of them refuses.
+  func testNoLimitOrKeptBalanceQuestionEverRefusesTheSave() async throws {
+    let (account, money) = try await card(opening: 55_000, minimum: 50_000, available: 5_000)
+    let draft = try model(on: account, amount: 15_000)
+    XCTAssertNil(draft.saveRefusalKey, "before any answer the draft is writable")
+    XCTAssertTrue(draft.canSave)
+    XCTAssertEqual(asked(draft, money), [.overLimit, .minBalance])
+    XCTAssertNil(draft.saveRefusalKey, "after the answers the draft is still writable")
+    XCTAssertTrue(draft.canSave)
+    XCTAssertNil(
+      EntrySaveQuestions.next(for: draft, environment: environment, money: money, now: Date()),
+      "each question is asked once")
+  }
+
   func testNothingToAskWithinTheLimitAndTheBalance() async throws {
     let (account, money) = try await card(opening: 400_000, minimum: 50_000, available: 100_000)
     XCTAssertEqual(asked(try model(on: account, amount: 1_000), money), [])
