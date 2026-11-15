@@ -89,6 +89,10 @@ struct NetWorthChart: View {
   let spoken: (NetWorthChartPoint) -> String
   @State private var hovered: Int?
 
+  /// The first and the last point keep a margin inside the plot: their symbols, the width of
+  /// the line and the marks of events would otherwise stand over the edge of the chart.
+  static let edgePadding: CGFloat = 8
+
   static let netStyle = ChartSeriesStyle(symbol: .circle, dash: [], tint: .accent)
   static let haveStyle = ChartSeriesStyle(symbol: .square, dash: [6, 4], tint: .secondary)
   static let oweStyle = ChartSeriesStyle(symbol: .triangle, dash: [2, 3], tint: .secondary)
@@ -130,7 +134,7 @@ struct NetWorthChart: View {
         }
       }
       .chartXSelection(value: $hovered)
-      .chartXScale(domain: model.domain)
+      .chartXScale(domain: model.domain, range: .plotDimension(padding: Self.edgePadding))
       .chartXAxis {
         AxisMarks(values: model.points.filter { model.labelled().contains($0.x) }.map(\.position)) {
           value in
@@ -203,6 +207,7 @@ struct NetWorthAreaChart: View {
   @State private var hovered: Int?
 
   /// The hollow circle of «now»: 10 across, a 2 pt ring.
+  static let edgePadding = NetWorthChart.edgePadding
   static let nowSide: CGFloat = 10
   static let lineWidth: CGFloat = 2
 
@@ -259,7 +264,7 @@ struct NetWorthAreaChart: View {
       }
     }
     .chartXSelection(value: $hovered)
-    .chartXScale(domain: model.domain)
+    .chartXScale(domain: model.domain, range: .plotDimension(padding: Self.edgePadding))
     .chartYScale(domain: floor...high)
     .chartXAxis(.hidden)
     .chartYAxis {
