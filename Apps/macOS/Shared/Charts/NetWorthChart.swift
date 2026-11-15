@@ -58,6 +58,21 @@ private struct CapitalEventMarker: View {
   }
 }
 
+extension NetWorthChartLine {
+  /// What is recorded is solid; what was worked out or estimated is dashed; before the books
+  /// with no cash it is dashed and grey. The dash and the note under the chart say it; the
+  /// colour only confirms.
+  fileprivate func stroke(width: CGFloat) -> StrokeStyle {
+    StrokeStyle(
+      lineWidth: width, lineCap: .round, lineJoin: .round,
+      dash: self == .recorded ? [] : [6, 4])
+  }
+
+  fileprivate func color(_ accent: Color) -> Color {
+    self == .withoutCash ? Color.secondary : accent
+  }
+}
+
 private struct CapitalEventMarks: ChartContent {
   let model: NetWorthChartModel
 
@@ -99,7 +114,7 @@ struct NetWorthChart: View {
       Chart {
         series("have", names.have, Self.haveStyle, \.have, money)
         series("owe", names.owe, Self.oweStyle, \.owe, money)
-        series("net", names.net, Self.netStyle, \.net, money)
+        netSeries(money)
         CapitalEventMarks(model: model)
         if let now = model.points.last, now.isNow {
           PointMark(x: .value("Day", now.position), y: .value("Amount", now.net))
@@ -124,7 +139,7 @@ struct NetWorthChart: View {
                   "\(names.net): \(money.rubles(point.net))",
                   "\(names.have): \(money.rubles(point.have))",
                   "\(names.owe): \(money.rubles(point.owe))",
-                ])
+                ] + point.notes.map { CapitalText.t("capital.chart.note.\($0.rawValue)", environment) })
             }
             .accessibilityHidden(true)
         }
@@ -160,6 +175,27 @@ struct NetWorthChart: View {
         ChartLegend.series("have", names.have, Self.haveStyle),
         ChartLegend.series("owe", names.owe, Self.oweStyle),
       ])
+    }
+  }
+
+  /// The net line run by run: solid where the books are, dashed where it was worked out.
+  @ChartContentBuilder
+  private func netSeries(_ money: MoneyFormatter) -> some ChartContent {
+    ForEach(model.segments) { segment in
+      ForEach(Array(segment.points.enumerated()), id: \.element.x) { index, point in
+        LineMark(
+          x: .value("Day", point.position), y: .value("Amount", point.net),
+          series: .value("Series", "net.\(segment.id)")
+        )
+        .foregroundStyle(segment.line.color(Self.netStyle.tint.color(accent)))
+        .lineStyle(segment.line.stroke(width: ChartSeriesStyle.lineWidth(contrast)))
+        .symbol(Self.netStyle.symbol.shape)
+        .symbolSize(point.isNow || segment.line != .recorded ? 0 : 28)
+        .accessibilityLabel(Text(verbatim: "\(names.net), \(spoken(point))"))
+        .accessibilityValue(Text(verbatim: money.rubles(point.net)))
+        // The point two runs share is read once.
+        .accessibilityHidden(segment.id > 0 && index == 0)
+      }
     }
   }
 
@@ -222,12 +258,20 @@ struct NetWorthAreaChart: View {
         // The line below carries the same data with its full label and value. This fill is
         // decoration, not a second series with an artificial baseline as its spoken range.
         .accessibilityHidden(true)
-        LineMark(x: .value("Day", point.position), y: .value("Amount", point.net))
-          .foregroundStyle(accent)
-          .lineStyle(StrokeStyle(lineWidth: Self.lineWidth, lineCap: .round, lineJoin: .round))
+      }
+      ForEach(model.segments) { segment in
+        ForEach(Array(segment.points.enumerated()), id: \.element.x) { index, point in
+          LineMark(
+            x: .value("Day", point.position), y: .value("Amount", point.net),
+            series: .value("Series", "net.\(segment.id)")
+          )
+          .foregroundStyle(segment.line.color(accent))
+          .lineStyle(segment.line.stroke(width: Self.lineWidth))
           .accessibilityLabel(Text(verbatim: "\(names.net), \(spoken(point))"))
           .accessibilityValue(Text(verbatim: money.rubles(point.net)))
           .accessibilityIdentifier("chart.native.netWorth.\(point.x)")
+          .accessibilityHidden(segment.id > 0 && index == 0)
+        }
       }
       CapitalEventMarks(model: model)
       if let now = model.points.last, now.isNow {
@@ -253,7 +297,7 @@ struct NetWorthAreaChart: View {
                 "\(names.net): \(money.rubles(point.net))",
                 "\(names.have): \(money.rubles(point.have))",
                 "\(names.owe): \(money.rubles(point.owe))",
-              ])
+              ] + point.notes.map { CapitalText.t("capital.chart.note.\($0.rawValue)", environment) })
           }
           .accessibilityHidden(true)
       }

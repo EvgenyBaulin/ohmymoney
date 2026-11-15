@@ -34,13 +34,38 @@ public struct CapitalPoint: Hashable, Sendable {
   public var withoutRate: [CurrencyCode]
   /// Assets with no valuation yet by `day` (listed for «now» only).
   public var unvalued: [UUID]
+  /// The point lies before the first count of any balance: the books of the accounts had not
+  /// begun, so what it shows of them is what the owner said, never a balance.
+  public var beforeBooks: Bool
+  /// The rough sum the owner named for all accounts, carried to this day along a straight line
+  /// to the first count (`PastCash`); shown, never a balance, and part of «что есть».
+  public var estimatedCashRub: AmountE4
+  /// `estimatedCashRub` is set, even when the sum named is nothing.
+  public var cashEstimated: Bool
+  /// An asset is worth a point on the straight line from its purchase price to its next
+  /// valuation, not a valuation.
+  public var straightLineAssets: Bool
+  /// A loan I owe is worked out from its schedule since it was taken out (`DebtRestoration`),
+  /// not read from the journal.
+  public var restoredDebts: Bool
+  /// Before the books and no rough sum for the accounts: the point holds the assets and the
+  /// debts alone.
+  public var withoutCash: Bool
 
   public init(
     day: DateOnly, isNow: Bool, accountsRub: AmountE4 = .zero, depositsRub: AmountE4 = .zero,
     outOfSummaryRub: AmountE4 = .zero, assetsRub: AmountE4 = .zero,
     owedToMeRub: AmountE4 = .zero, iOweRub: AmountE4 = .zero, cushionRub: AmountE4 = .zero,
-    unanchored: [BalanceKey] = [], withoutRate: [CurrencyCode] = [], unvalued: [UUID] = []
+    unanchored: [BalanceKey] = [], withoutRate: [CurrencyCode] = [], unvalued: [UUID] = [],
+    beforeBooks: Bool = false, estimatedCashRub: AmountE4 = .zero, cashEstimated: Bool = false,
+    straightLineAssets: Bool = false, restoredDebts: Bool = false, withoutCash: Bool = false
   ) {
+    self.beforeBooks = beforeBooks
+    self.estimatedCashRub = estimatedCashRub
+    self.cashEstimated = cashEstimated
+    self.straightLineAssets = straightLineAssets
+    self.restoredDebts = restoredDebts
+    self.withoutCash = withoutCash
     self.day = day
     self.isNow = isNow
     self.accountsRub = accountsRub
@@ -57,7 +82,7 @@ public struct CapitalPoint: Hashable, Sendable {
 
   /// «Что есть».
   public var haveRub: AmountE4 {
-    accountsRub + depositsRub + outOfSummaryRub + assetsRub + owedToMeRub
+    accountsRub + depositsRub + outOfSummaryRub + estimatedCashRub + assetsRub + owedToMeRub
   }
 
   /// Net worth: what I have less what I owe.
@@ -159,11 +184,15 @@ public struct CapitalSnapshot: Hashable, Sendable {
   /// Net worth now less at the end of last month; `nil` without that point.
   public var changeThisMonth: AmountE4?
   public var events: [CapitalEvent]
+  /// The day the owner can be asked what was on all the accounts: the earliest purchase or
+  /// loan before the first count; `nil` when nothing lies before the books.
+  public var pastCashDay: DateOnly?
 
   public init(
     points: [CapitalPoint], now: CapitalPoint, breakdown: CapitalBreakdown,
-    changeThisMonth: AmountE4?, events: [CapitalEvent] = []
+    changeThisMonth: AmountE4?, events: [CapitalEvent] = [], pastCashDay: DateOnly? = nil
   ) {
+    self.pastCashDay = pastCashDay
     self.points = points
     self.now = now
     self.breakdown = breakdown
@@ -218,18 +247,22 @@ public enum NetWorth {
     let thisMonth = today.monthKey
     if let first = books.firstCountMonth {
       let lastFull = thisMonth.previous
-      let start = months.map { max(first, thisMonth.adding(months: -max(0, $0))) } ?? first
+      // The months before the books began show what the owner bought and borrowed then.
+      let lower = books.pastFirstDay.map { min($0.monthKey, first) } ?? first
+      let start = months.map { max(lower, thisMonth.adding(months: -max(0, $0))) } ?? lower
       for month in MonthKey.range(start, through: lastFull) {
         let day = month.lastDay
-        let reading = books.read(
+        var reading = books.read(
           day: day, instant: ledger.calendar.endOfDay(day), isNow: false,
           rate: { dayRates.perUnit($0, on: day) })
+        reading.point.beforeBooks = month < first
         points.append(reading.point)
       }
     }
     let nowReading = books.read(
       day: today, instant: now, isNow: true, rate: { rubPerUnit[$0] })
     points.append(nowReading.point)
+    CapitalPast.applyCash(ledger.dataset.capitalSettings.pastCash, to: &points)
 
     let lastMonthEnd = thisMonth.previous.lastDay
     let change = points.first { !$0.isNow && $0.day == lastMonthEnd }.map {
@@ -240,7 +273,8 @@ public enum NetWorth {
       in: &breakdown, today: today, rubPerUnit: rubPerUnit)
     return CapitalSnapshot(
       points: points, now: nowReading.point, breakdown: breakdown, changeThisMonth: change,
-      events: CapitalEvents.build(ledger: ledger, journal: debtsJournal, today: today))
+      events: CapitalEvents.build(ledger: ledger, journal: debtsJournal, today: today),
+      pastCashDay: books.pastFirstDay)
   }
 
   /// Rubles for `amount` of `currency` at `rate`, rounded once; nothing is worth nothing in any
@@ -274,6 +308,10 @@ public enum NetWorth {
     let journals: [UUID: [DebtEntry]]
     /// The month of the first count of any balance; `nil` with none.
     let firstCountMonth: MonthKey?
+    /// The earliest purchase or loan dated before that month; `nil` with none.
+    let pastFirstDay: DateOnly?
+    /// The loans I owe worked out from their schedule until their journal begins.
+    let restorations: [UUID: DebtRestoration]
 
     init(
       ledger: Ledger, balances: AccountBalances, debtsJournal: [DebtEntry], assets: [Asset],
@@ -308,14 +346,45 @@ public enum NetWorth {
       self.journals = journals
       let firstCount = balances.keys.flatMap { balances.anchors($0).map(\.at) }.min()
       let firstValue = updates.map(\.day.monthKey).min()
-      firstCountMonth = [firstCount.map { balances.day(of: $0).monthKey }, firstValue]
+      let firstMonth = [firstCount.map { balances.day(of: $0).monthKey }, firstValue]
         .compactMap { $0 }.min()
+      firstCountMonth = firstMonth
+      var restorations: [UUID: DebtRestoration] = [:]
+      for debt in self.debts {
+        if let restoration = DebtRestoration(
+          debt: debt, journal: self.journals[debt.id] ?? [], calendar: ledger.calendar)
+        {
+          restorations[debt.id] = restoration
+        }
+      }
+      self.restorations = restorations
+      let beginnings =
+        assets.compactMap { $0.purchase?.day } + restorations.values.map(\.opening.day)
+      pastFirstDay = firstMonth.flatMap { first in
+        beginnings.filter { $0.monthKey < first }.min()
+      }
     }
 
     /// The block of the breakdown an account's money is listed under.
     func group(of account: PaymentMethod) -> CapitalLine.Group {
       if let groupId = account.groupId, leftOutGroups.contains(groupId) { return .outOfSummary }
       return account.interest != nil ? .deposits : .accounts
+    }
+
+    /// The first valuation of an asset dated after `day`, from either place valuations live.
+    func nextValuation(
+      of asset: UUID, after day: DateOnly
+    ) -> (day: DateOnly, amount: AmountE4, currency: CurrencyCode)? {
+      var found: (day: DateOnly, amount: AmountE4, currency: CurrencyCode)?
+      if let legacy = valuations[asset]?.first(where: { $0.day > day }) {
+        found = (legacy.day, legacy.valueE4, assets.first { $0.id == asset }?.currency ?? .rub)
+      }
+      let update = updates.filter { $0.owner == .asset && $0.ownerId == asset && $0.day > day }
+        .min { $0.day < $1.day }
+      if let update, found.map({ update.day < $0.day }) ?? true {
+        found = (update.day, update.amountE4, update.currency)
+      }
+      return found
     }
 
     /// One point, and for «now» the rows of its breakdown.
@@ -389,10 +458,34 @@ public enum NetWorth {
           updates,
           owner: owner, id: asset.id, through: day)
         let useUpdate = update.map { value in legacy.map { value.day >= $0.day } ?? true } ?? false
-        let amount = useUpdate ? update?.amountE4 : legacy?.valueE4
+        var amount = useUpdate ? update?.amountE4 : legacy?.valueE4
         let currency = useUpdate ? (update?.currency ?? asset.currency) : asset.currency
         var issue: CapitalLine.Issue?
         var rub: AmountE4?
+        if amount == nil, !isNow, owner == .asset, let purchase = asset.purchase,
+          purchase.day <= day
+        {
+          // Before its first valuation an asset is worth what it cost, and then the straight
+          // line towards that valuation; «now» keeps saying «no valuation».
+          let next = nextValuation(of: asset.id, after: day)
+          let price = NetWorth.rubles(purchase.priceE4, in: purchase.currency, rate: rate(purchase.currency))
+          let target = next.flatMap { value in
+            NetWorth.rubles(value.amount, in: value.currency, rate: rate(value.currency))
+              .map { (value.day, $0) }
+          }
+          if let price {
+            if let target {
+              point.assetsRub += CapitalPast.onTheLine(
+                from: (purchase.day, price), to: target, at: day)
+              point.straightLineAssets = true
+            } else {
+              point.assetsRub += price
+            }
+          } else {
+            withoutRate.insert(purchase.currency)
+          }
+          continue
+        }
         if let amount {
           rub = NetWorth.rubles(amount, in: currency, rate: rate(currency))
           if let rub {
@@ -429,10 +522,18 @@ public enum NetWorth {
           let days = journal.compactMap { $0.date ?? $0.occurredAt.map(ledger.calendar.day(of:)) }
           guard let last = days.max(), day <= last else { continue }
         }
-        let owed = DebtBalanceAt.owed(
-          of: debt, journal: journal, through: day, calendar: ledger.calendar)
         let iOwe = debt.direction == .iOwe
-        let amount = max(.zero, iOwe ? owed.balance + owed.accruedE4 : owed.balance)
+        let amount: AmountE4
+        if !isNow, let restoration = restorations[debt.id], day < restoration.start {
+          // Before its journal begins a loan is read from its schedule.
+          guard let restored = restoration.balance(on: day) else { continue }
+          amount = restored
+          point.restoredDebts = true
+        } else {
+          let owed = DebtBalanceAt.owed(
+            of: debt, journal: journal, through: day, calendar: ledger.calendar)
+          amount = max(.zero, iOwe ? owed.balance + owed.accruedE4 : owed.balance)
+        }
         guard !amount.isZero else { continue }
         let rub = NetWorth.rubles(amount, in: debt.currency, rate: rate(debt.currency))
         if let rub {
@@ -441,9 +542,12 @@ public enum NetWorth {
           withoutRate.insert(debt.currency)
         }
         guard isNow else { continue }
+        let accrued =
+          DebtBalanceAt.owed(of: debt, journal: journal, through: day, calendar: ledger.calendar)
+          .accruedE4
         let interest =
-          iOwe && owed.accruedE4.raw > 0
-          ? NetWorth.rubles(owed.accruedE4, in: debt.currency, rate: rate(debt.currency)) : nil
+          iOwe && accrued.raw > 0
+          ? NetWorth.rubles(accrued, in: debt.currency, rate: rate(debt.currency)) : nil
         let line = CapitalLine(
           source: .debt(debt.id), group: iOwe ? .iOwe : .owedToMe, name: debt.name,
           currency: debt.currency, amount: amount, amountRub: rub, interestRub: interest,
