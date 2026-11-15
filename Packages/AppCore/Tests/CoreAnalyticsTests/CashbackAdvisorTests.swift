@@ -432,6 +432,29 @@ struct CashbackHintTests {
       ).isEmpty)
   }
 
+  /// What the usual card really paid under its ceiling is what the better card is compared to:
+  /// 2 × 2 000 at 1 % is 40 while the ceiling lasts, 30 when it stops at 30, nothing when
+  /// earlier purchases of the month used it up; Beta pays 200.
+  @Test func theUsualCardsCeilingCountsInTheGain() throws {
+    let entries = (0..<2).map {
+      Book.buy(
+        5950 + $0, "10-\(10 + $0)", Book.supermarkets, "2000", on: Book.alpha, place: Book.shop)
+    }
+    func gain(cap: String, _ entries: [TransactionEntry]) throws -> AmountE4 {
+      let rules = Book.rules + [Book.rule(7303, Book.alpha, nil, Book.supermarkets, 10_000, cap: cap)]
+      let ledger = Book.ledger(entries, rules: rules, accounts: Book.accounts(betaCap: nil))
+      return try #require(
+        CashbackHints.payHere(ledger: ledger, today: DateOnly(iso: "2026-10-20")!).first
+      ).gainRub
+    }
+    #expect(try gain(cap: "1000", entries) == money("160"))
+    #expect(try gain(cap: "50", entries) == money("160"))
+    #expect(try gain(cap: "30", entries) == money("170"))
+    // Earlier in the month a purchase without a place used the whole ceiling of 50.
+    let earlier = Book.buy(5949, "10-01", Book.supermarkets, "5000", on: Book.alpha)
+    #expect(try gain(cap: "50", [earlier] + entries) == money("200"))
+  }
+
   /// A split purchase whose second part was refunded earns its place on what is left of the
   /// whole receipt: the hint prices 6 000, not the 8 000 the receipt first said.
   @Test func aRefundOfALaterPartTakesItsMoneyOutOfTheHint() throws {
@@ -485,6 +508,33 @@ struct CashbackHintTests {
       CashbackHints.traps(
         ledger: ledger, month: Book.october, hidden: [Book.alpha]
       ).isEmpty)
+  }
+
+  @Test func theTrapCountsMyExpensesNotWhatWasPaidForSomebodyElse() throws {
+    var entries: [TransactionEntry] = []
+    var n = 5900
+    for month in ["07", "08", "09"] {
+      entries.append(Book.buy(n, "\(month)-10", Book.pharmacy, "1000", on: Book.alpha))
+      n += 1
+    }
+    entries.append(Book.buy(n, "10-10", Book.pharmacy, "1000", on: Book.alpha))
+    var friend = Book.buy(n + 1, "10-11", Book.pharmacy, "2500", on: Book.alpha)
+    friend.parts[0].reimbursable = true
+    entries.append(friend)
+    let monthRule = Book.rule(7320, Book.alpha, nil, Book.pharmacy, 50_000, month: Book.october)
+    // 3 500 left the card, only 1 000 is mine and that is the usual: no trap.
+    #expect(
+      CashbackHints.traps(
+        ledger: Book.ledger(entries, rules: Book.rules + [monthRule]), month: Book.october
+      )
+      .isEmpty)
+    // Written off, the 2 500 become mine and the trap speaks with the sum of my expenses.
+    entries[entries.count - 1].parts[0].reimbursementStatus = .writtenOff
+    let trap = try #require(
+      CashbackHints.traps(
+        ledger: Book.ledger(entries, rules: Book.rules + [monthRule]), month: Book.october
+      ).first)
+    #expect(trap.spentRub == money("3500"))
   }
 
   @Test func theNotesTogetherWithoutThePutAway() {

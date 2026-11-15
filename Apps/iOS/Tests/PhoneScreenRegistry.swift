@@ -99,7 +99,7 @@ private struct PhoneShellHost<Page: View>: View {
       .safeAreaInset(edge: .bottom, spacing: 0) {
         PhoneTabBar(
           layout: layout, router: router,
-          title: { environment.language($0.titleKey, table: $0.titleTable ?? "Common") },
+          title: { environment.language($0.phoneBarKey.key, table: $0.phoneBarKey.table) },
           moreTitle: environment.language("phone.tab.more", table: "Phone")
         )
         .onGeometryChange(for: CGFloat.self) {

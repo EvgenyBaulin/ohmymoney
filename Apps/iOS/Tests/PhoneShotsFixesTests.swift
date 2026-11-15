@@ -147,7 +147,7 @@ final class PhoneShotsFixesTests: XCTestCase {
       environment.language.choice = language
       let titles =
         NavItem.defaultPhoneTabs.map {
-          environment.language($0.titleKey, table: $0.titleTable ?? "Common")
+          environment.language($0.phoneBarKey.key, table: $0.phoneBarKey.table)
         } + [environment.language("phone.tab.more", table: "Phone")]
       for width in [CGFloat(375), 402, 440] {
         let tab = (width - 2 * PhoneMetrics.screenMargin - 2 * PhoneTabBar.innerPadding) / 5
@@ -157,13 +157,29 @@ final class PhoneShotsFixesTests: XCTestCase {
           XCTAssertLessThanOrEqual(
             needed * NavBarButton.labelMinimumScale, room,
             "«\(title)» \(language.rawValue) at \(Int(width)): \(needed) > \(room)")
-          // Every name but «Планирование» keeps its full size.
-          if title != "Планирование" {
-            XCTAssertLessThanOrEqual(
-              needed, room + 0.5, "«\(title)» \(language.rawValue) at \(Int(width)) shrinks")
-          }
+          // The short «Планы» means no name shrinks.
+          XCTAssertLessThanOrEqual(
+            needed, room + 0.5, "«\(title)» \(language.rawValue) at \(Int(width)) shrinks")
         }
       }
+    }
+  }
+
+  /// On the phone the Planning tab is called «Планы» / «Plans»; the full word stays on the Mac
+  /// and in the sidebar of the iPad, and no other tab is renamed.
+  func testThePlanningTabHasAShortNameOnThePhoneOnly() {
+    let environment = AppEnvironment()
+    let before = environment.language.choice
+    defer { environment.language.choice = before }
+    environment.language.choice = .russian
+    let short = NavItem.planning.phoneBarKey
+    XCTAssertEqual(environment.language(short.key, table: short.table), "Планы")
+    XCTAssertEqual(
+      environment.language(NavItem.planning.titleKey, table: "Common"), "Планирование")
+    environment.language.choice = .english
+    XCTAssertEqual(environment.language(short.key, table: short.table), "Plans")
+    for item in NavItem.allCases where item != .planning {
+      XCTAssertEqual(item.phoneBarKey.key, item.titleKey)
     }
   }
 
