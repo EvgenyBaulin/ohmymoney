@@ -79,7 +79,8 @@ final class PhoneLanguageLayoutTests: XCTestCase {
     let sections: [(name: String, title: String)] = [
       ("overview", environment.language("section.overview")),
       ("operations", environment.language("section.operations")),
-      ("planning", environment.language("section.planning")),
+      // The bar of a phone says the short name of planning (`NavItem.phoneBarKey`).
+      ("planning", environment.language("phone.tab.planning", table: "Phone")),
       ("accounts", environment.language("accounts.section.accounts", table: "Accounts")),
       ("more", environment.language("phone.tab.more", table: "Phone")),
     ]
