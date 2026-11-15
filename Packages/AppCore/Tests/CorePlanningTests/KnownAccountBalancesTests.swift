@@ -78,18 +78,45 @@ struct KnownAccountBalancesTests {
         == Fx.money("335000"))
   }
 
-  @Test func expectationsAndPacedLossesAreOnlyInTheCombinedForecast() {
+  @Test func expectedIncomeAndInterestAreInTheAccountButPacedLossesAreNot() {
     var plan = plan(example())
     plan.sections[0].keys[0].income = Fx.money("100000")
     plan.sections[0].keys[0].interest = Fx.money("1000")
     plan.sections[0].keys[0].reconcileLoss = Fx.money("500")
     plan.sections[0].keys[0].othersSpending = Fx.money("1500")
-    #expect(
-      plan.knownBalances().line(of: ForecastFx.mainRub)?.balance?.middle
-        == Fx.money("15000"))
+    let known = plan.knownBalances().line(of: ForecastFx.mainRub)
+    #expect(known?.balance?.middle == Fx.money("116000"))
+    #expect(known?.flows.income == Fx.money("100000"))
+    #expect(known?.flows.interest == Fx.money("1000"))
+    // The combined forecast is unchanged by how the account itself is shown.
     #expect(
       plan.forecast(remainder: remainder).inSummaryTotalRub?.middle
         == Fx.money("449000"))
+  }
+
+  @Test func aSalaryNotYetPaidComesToItsAccountByTheEndOfTheMonth() {
+    var fx = example()
+    fx.expected = [
+      ExpectedIncome(
+        name: "Salary", categoryId: Fx.salary, totalE4: Fx.money("100000"),
+        dueDate: Fx.day("2026-11-25"), paymentMethodId: Fx.main)
+    ]
+    let known = plan(fx).knownBalances()
+    #expect(known.line(of: ForecastFx.mainRub)?.balance?.middle == Fx.money("115000"))
+    #expect(known.line(of: ForecastFx.cardRub)?.balance?.middle == Fx.money("400000"))
+    #expect(known.line(of: ForecastFx.mainRub)?.mayGoNegative == false)
+  }
+
+  @Test func anOverdueSalaryBringsNoMoneyAndIsShownApart() {
+    var fx = example()
+    fx.expected = [
+      ExpectedIncome(
+        name: "Salary", categoryId: Fx.salary, totalE4: Fx.money("100000"),
+        dueDate: Fx.day("2026-11-10"), paymentMethodId: Fx.main)
+    ]
+    let line = plan(fx).knownBalances().line(of: ForecastFx.mainRub)
+    #expect(line?.balance?.middle == Fx.money("15000"))
+    #expect(line?.flows.overdueIncome.map(\.due) == [Fx.day("2026-11-10")])
   }
 
   @Test func currenciesHaveOneTotalAndAnExchangeIsNotForecastIncome() {
