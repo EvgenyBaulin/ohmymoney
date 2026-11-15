@@ -344,6 +344,9 @@ struct AccountsSettingsView: View {
       amount: amount(of: node), currency: currencyCode(of: node), isChosen: isChosen,
       mark: mark(of: node), showsHandle: isDraggable(row), showsMarks: showsMarks,
       plusHelp: plusHelp(of: node),
+      foldLabel: environment.format(
+        row.isFolded ? "accounts.fold.expand" : "accounts.fold.collapse",
+        table: "SettingsAccounts", title(of: node)),
       toggleFold: {
         if folded.contains(node.id) { folded.remove(node.id) } else { folded.insert(node.id) }
       },
