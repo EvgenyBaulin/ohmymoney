@@ -225,20 +225,24 @@ struct ScheduledRow: View {
         }
         subtitle
         if Self.canPay(status, matches: matches) {
-          HStack(spacing: 14) {
+          // The two buttons stand side by side while they fit and wrap under each other where
+          // the row is narrow; a word of a button is never broken over lines («Про-/пустить» in
+          // three lines was what a narrow row made of it), and the row never claims more width
+          // than it is offered, which longer words (German, French) did.
+          FlowRow(spacing: 14, lineSpacing: 4) {
             Button(t("scheduled.markAsPaid")) { sheet = .markAsPaid(Self.paying(status)) }
+              .lineLimit(1)
+              .fixedSize(horizontal: true, vertical: false)
             Button(t("scheduled.skip")) {
               if let dependencies {
                 PlanningActions(dependencies).skip(payment, due: status.nextUnpaid)
               }
             }
+            .lineLimit(1)
+            .fixedSize(horizontal: true, vertical: false)
           }
           .buttonStyle(.borderless)
           .appFont(.callout)
-          // A word of a button is never broken over lines: «Про-/пустить» in three lines was
-          // what a narrow row made of it.
-          .lineLimit(1)
-          .fixedSize(horizontal: true, vertical: false)
         }
         MatchedDues(status: status)
         if expanded && Self.showsDetails(status, prices: prices) { details }

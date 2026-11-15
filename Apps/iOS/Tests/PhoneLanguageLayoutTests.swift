@@ -16,13 +16,13 @@ final class PhoneLanguageLayoutTests: XCTestCase {
   ]
 
   /// Screens that overflow a 375 pt phone in a language, found by this walk and not fixed yet:
-  /// `screen@language`. The whole Planning page (every card and its rows) is laid out about 50 pt
-  /// wider than the window in German and 30 pt in French, while the other four tabs fit; Overview,
-  /// Operations, Accounts and «Ещё» are not listed. A listed screen must still fail — the walk
-  /// complains once it fits, so the entry comes out with the fix — and an unlisted one must fit.
-  private static let knownOverflows: Set<String> = ["tab.planning@de", "tab.planning@fr"]
+  /// `screen@language`. None now; a listed screen must still fail — the walk complains once it
+  /// fits, so the entry comes out with the fix — and an unlisted one must fit.
+  private static let knownOverflows: Set<String> = []
 
-  private func walk(_ language: AppLanguage.Choice, size: CGSize, fontSize: AppFontSize = .regular)
+  private func walk(
+    _ language: AppLanguage.Choice, size: CGSize, fontSize: AppFontSize = .regular
+  )
     async throws
   {
     let harness = try await PhoneHarness.make(language: language)
@@ -42,7 +42,8 @@ final class PhoneLanguageLayoutTests: XCTestCase {
       } else {
         XCTAssertTrue(problems.isEmpty, "\(where_): " + problems.joined(separator: "; "))
       }
-      XCTAssertTrue(mac.isEmpty, "\(screen) in \(language.rawValue): \(mac.joined(separator: "; "))")
+      XCTAssertTrue(
+        mac.isEmpty, "\(screen) in \(language.rawValue): \(mac.joined(separator: "; "))")
     }
     await harness.tearDown()
   }
