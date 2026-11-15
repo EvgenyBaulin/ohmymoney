@@ -191,10 +191,11 @@ build-ios: generate
 	set -o pipefail; $(IOS_XCB) -configuration Debug -destination 'generic/platform=iOS Simulator' build \
 	    2>&1 | tee $(LOGS)/build-ios.log
 
+# `T=Class[/test]` runs one class or one test of OhMyMoneyTests-iOS instead of the whole bundle.
 test-ios: generate
 	@mkdir -p $(LOGS)
 	set -o pipefail; $(IOS_XCB) -configuration Debug -destination 'platform=iOS Simulator,name=$(IOS_SIM)' \
-	    -only-testing:OhMyMoneyTests-iOS $(TEST_TIME) test 2>&1 | tee $(LOGS)/test-ios.log
+	    -only-testing:OhMyMoneyTests-iOS$(if $(T),/$(T),) $(TEST_TIME) test 2>&1 | tee $(LOGS)/test-ios.log
 	@! grep -q "Executed 0 tests" $(LOGS)/test-ios.log || \
 	    (echo "test-ios: no test ran" && exit 1)
 
