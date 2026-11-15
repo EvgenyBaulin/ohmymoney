@@ -132,6 +132,9 @@ struct PhoneRoot: View {
     .onChange(of: deps.compute.generation, initial: true) { _, _ in
       if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
       HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
+      if let snapshot = deps.compute.snapshot, deps.environment.state == .ready {
+        Task { await PhoneEveningReminders.shared.refresh(snapshot, dependencies: deps) }
+      }
     }
   }
 

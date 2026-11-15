@@ -36,6 +36,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Capital/CapitalPage.swift": 1,
     "Apps/macOS/Features/Capital/CapitalView.swift": 3,
     "Apps/macOS/Features/Capital/CushionSection.swift": 1,
+    "Apps/macOS/Features/Challenges/ChallengesScreen.swift": 1,
     "Apps/macOS/Features/Debts/DebtCardExtras.swift": 1,
     "Apps/macOS/Features/Debts/DebtWizard.swift": 1,
     "Apps/macOS/Features/Debts/DebtsView.swift": 8,

@@ -6,6 +6,11 @@ struct OhMyMoneyIOSApp: App {
   @State private var session = AppSession()
   @State private var lock = AppLock()
 
+  init() {
+    // The answer to a notification can start the app: the delegate must be there by then.
+    PhoneEveningReminders.install()
+  }
+
   var body: some Scene {
     WindowGroup {
       ShieldedRoot(session: session, lock: lock)

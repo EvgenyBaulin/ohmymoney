@@ -439,6 +439,7 @@ struct OverviewNewCardView: View {
     case .savingsRate: SavingsNormTileCard(compact: compact)
     case .financialHealth: FinancialHealthTileCard(compact: compact)
     case .subscriptions: SubscriptionsTileCard(compact: compact)
+    case .challenges: ChallengesTileCard(compact: compact)
     case .monthRest: MonthRestTileCard(compact: compact)
     default: FigureTileCard(tile: tile, compact: compact)
     }

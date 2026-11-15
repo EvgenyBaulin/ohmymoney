@@ -56,7 +56,7 @@ struct OverviewLayoutTests {
     #expect(
       plan == [
         .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-        .selfEmployment, .monthRest, .subscriptions,
+        .selfEmployment, .monthRest, .subscriptions, .challenges,
       ])
     #expect(
       analysis == [
@@ -87,7 +87,7 @@ struct OverviewLayoutTests {
     #expect(
       layout.tiles(in: .plan) == [
         .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-        .selfEmployment, .monthRest, .subscriptions,
+        .selfEmployment, .monthRest, .subscriptions, .challenges,
       ])
     #expect(
       layout.tiles(in: .analysis) == [
@@ -134,8 +134,8 @@ struct OverviewLayoutTests {
     #expect(layout.isHidden(.installments) && layout.isHidden(.selfEmployment))
     #expect(layout.isHidden(.monthRest), "a tile of 2.0 the text does not name waits too")
     #expect(
-      Array(layout.tiles(in: .plan).suffix(4))
-        == [.installments, .selfEmployment, .monthRest, .subscriptions])
+      Array(layout.tiles(in: .plan).suffix(5))
+        == [.installments, .selfEmployment, .monthRest, .subscriptions, .challenges])
     #expect(!layout.isHidden(.capital), "an older tile not named is still shown")
     let added = try #require(layout.showing(.selfEmployment))
     #expect(OverviewLayout.decode(added.encode()) == added)
@@ -155,7 +155,7 @@ struct OverviewLayoutTests {
     #expect(
       text.hasSuffix(
         ";plan:limits,upcoming,expectedIncome,event,spendingCalendar,-installments,-selfEmployment,"
-          + "-monthRest,-subscriptions"
+          + "-monthRest,-subscriptions,-challenges"
       ))
     #expect(OverviewLayout.decode(text) == layout)
     #expect(OverviewLayout.decode(OverviewLayout.standard.encode()) == .standard)
