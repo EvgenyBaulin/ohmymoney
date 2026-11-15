@@ -21,7 +21,7 @@ struct LastRecordLine: View {
         Image(systemName: "square.and.pencil")
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityElement(children: .combine)
       .accessibilityIdentifier("overview.lastRecord")
     }

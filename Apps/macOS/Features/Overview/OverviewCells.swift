@@ -125,11 +125,11 @@ struct OverviewCellView: View {
         if screen.isEditing {
           HStack(spacing: 6) {
             Image(systemName: "link")
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityHidden(true)
             Text(verbatim: environment.language("overview.edit.pair", table: "Overview"))
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             Spacer(minLength: 8)
             Button(environment.language("overview.edit.unpair", table: "Overview")) {
               OverviewTilesActions.unpair(environment, first)

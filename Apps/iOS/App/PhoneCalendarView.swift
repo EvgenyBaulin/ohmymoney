@@ -92,7 +92,7 @@ struct PhoneCalendarView: View {
               choose: { state.choose($0) })
             Text(verbatim: CalendarText.label(of: selected, in: calendar, environment))
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             HStack {
               Button(t("calendar.day.operations")) {
                 detail = PhoneCalendarDayRoute(day: selected.day)
@@ -185,7 +185,7 @@ struct PhoneCalendarWeekList: View {
               }
               if !day.plans.isEmpty {
                 Label("\(day.plans.count)", systemImage: "clock")
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
               }
             }
             .appFont(.callout)
@@ -328,7 +328,7 @@ struct PhoneCalendarDayScreen: View {
             birthdays(snapshot)
             if let selected, selected.plans.isEmpty {
               Text(verbatim: CalendarText.t("calendar.day.noPlans", environment))
-                .appFont(.callout).foregroundStyle(.secondary)
+                .appFont(.callout).secondaryInk()
             }
             if let selected {
               ForEach(selected.plans) { plan in

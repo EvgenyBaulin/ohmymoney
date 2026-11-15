@@ -21,7 +21,7 @@ struct ThingsPage: View {
       if page.things.isEmpty {
         Text(verbatim: t("purchases.things.empty"))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .sectionCard()
           .accessibilityIdentifier("purchases.things.empty")
@@ -67,7 +67,7 @@ struct ThingsPage: View {
               .frame(maxWidth: .infinity, alignment: .leading)
               Image(systemName: showsSold ? "chevron.down" : "chevron.right")
                 .font(.system(size: PurchasesMetrics.detailGlyph - 2))  // font-fixed: a 14 glyph
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityHidden(true)
             }
             .padding(.horizontal, PurchasesMetrics.rowHorizontal(.mac))
@@ -139,14 +139,14 @@ struct ThingsPage: View {
       Text(verbatim: line.name).appFont(.callout.weight(.semibold))
       Text(verbatim: PurchasesText.ownership(line.cost, environment))
         .appFont(.callout.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       if !line.cost.saleRubE4.isZero {
         Text(
           verbatim: PurchasesText.f(
             "purchases.thing.soldFor", environment, environment.money.rounded(line.cost.saleRubE4))
         )
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)

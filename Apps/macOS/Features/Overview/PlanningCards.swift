@@ -182,7 +182,7 @@ struct ExpectedIncomeCard: View {
         snapshot.planning.expected, hiding: HiddenPlans(snapshot: compute.snapshot ?? snapshot)
       ).filter { !$0.isFulfilled }
       if open.isEmpty {
-        Text(verbatim: t("overview.expectedNone")).foregroundStyle(.secondary)
+        Text(verbatim: t("overview.expectedNone")).secondaryInk()
       } else {
         VStack(alignment: .leading, spacing: 5) {
           PlanningFigure(
@@ -228,7 +228,7 @@ struct EventCard: View {
         VStack(alignment: .leading, spacing: 4) {
           Text(verbatim: plan.event.name).appFont(.headline).lineLimit(1)
           Text(verbatim: PlanningText.eventWhen(plan, environment))
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
           if let budget = plan.budget {
             Text(
               verbatim: String(
@@ -243,7 +243,7 @@ struct EventCard: View {
           }
         }
       } else {
-        Text(verbatim: t("overview.eventNone")).foregroundStyle(.secondary)
+        Text(verbatim: t("overview.eventNone")).secondaryInk()
       }
     }
   }

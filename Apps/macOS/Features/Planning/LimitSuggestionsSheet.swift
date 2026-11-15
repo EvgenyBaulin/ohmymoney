@@ -24,12 +24,12 @@ struct LimitSuggestionsSheet: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("limits.suggest.title")).appFont(.headline)
       Text(verbatim: t("limits.suggest.subtitle"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       let rows = suggestions ?? []
       if rows.isEmpty {
         Text(verbatim: t("limits.suggest.none"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("limits.suggest.none")
       } else {
@@ -91,7 +91,7 @@ struct LimitSuggestionsSheet: View {
               environment.money.rounded(suggestion.median))
           )
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       .toggleStyle(.checkbox)
@@ -103,7 +103,7 @@ struct LimitSuggestionsSheet: View {
         .disabled(left.contains(suggestion.id))
         .accessibilityLabel(
           environment.format("limits.suggest.amountOf", table: "Planning", name(of: suggestion)))
-      Text(verbatim: "₽").foregroundStyle(.secondary)
+      Text(verbatim: "₽").secondaryInk()
     }
   }
 

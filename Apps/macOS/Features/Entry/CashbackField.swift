@@ -148,11 +148,11 @@ struct CashbackField: View {
         .accessibilityLabel(Text(verbatim: t("entry.cashback")))
         .accessibilityIdentifier("entry.cashback")
         Text(verbatim: environment.money.symbol(for: context.movedCurrency))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       caption
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .multilineTextAlignment(leading ? .leading : .trailing)
         .fixedSize(horizontal: false, vertical: leading)
     }

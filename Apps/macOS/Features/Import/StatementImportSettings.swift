@@ -46,7 +46,7 @@ struct StatementImportSettingsRows: View {
       .accessibilityIdentifier("import.settings.identity")
       if imports.isEmpty {
         Text(verbatim: t("import.history.empty"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .accessibilityIdentifier("import.history.empty")
       }
       ForEach(imports) { stored in
@@ -102,10 +102,10 @@ struct StatementImportSettingsRows: View {
         Text(verbatim: record.fileName.isEmpty ? t("import.history.unnamed") : record.fileName)
           .lineLimit(1).truncationMode(.middle)
         Text(verbatim: details(record, account: account))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
         if stored.isUndone {
           Label(t("import.history.undone"), systemImage: "arrow.uturn.backward.circle")
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
         }
       }
       Spacer()

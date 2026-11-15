@@ -75,7 +75,7 @@ struct TripBanner: View {
       if let allowance = mode.allowance {
         Text(verbatim: TravelText.dayLine(allowance, environment))
           .appFont(.callout.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("travel.mode.day")
       }
     }
@@ -102,7 +102,7 @@ struct TripBanner: View {
             environment.money.rounded(welcome.totalRub))
         )
         .appFont(.callout.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Spacer()
       Button(TravelText.t("travel.welcome.summary", environment)) {

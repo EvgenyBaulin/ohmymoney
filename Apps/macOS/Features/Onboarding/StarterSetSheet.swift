@@ -28,7 +28,7 @@ struct StarterSetSheet: View {
     VStack(alignment: .leading, spacing: 14) {
       Text(verbatim: t("starter.title")).appFont(.title2.weight(.semibold))
       Text(verbatim: t("starter.subtitle"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 8)], spacing: 8) {
         ForEach(Lifestyle.allCases, id: \.self) { lifestyle in
@@ -78,7 +78,7 @@ struct StarterSetSheet: View {
     VStack(alignment: .leading, spacing: 6) {
       Text(verbatim: t("starter.willAdd")).appFont(.headline)
       if plan.isEmpty {
-        Text(verbatim: t("starter.nothingToAdd")).foregroundStyle(.secondary)
+        Text(verbatim: t("starter.nothingToAdd")).secondaryInk()
       } else {
         ScrollView {
           VStack(alignment: .leading, spacing: 4) {

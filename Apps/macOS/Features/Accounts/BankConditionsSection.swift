@@ -129,7 +129,7 @@ struct BankConditionsSection: View {
     } header: {
       Text(verbatim: t("bank.cond.title"))
     } footer: {
-      Text(verbatim: t("bank.cond.hint")).foregroundStyle(.secondary)
+      Text(verbatim: t("bank.cond.hint")).secondaryInk()
     }
   }
 
@@ -142,7 +142,7 @@ struct BankConditionsSection: View {
           .appFont(.body.monospacedDigit())
           .frame(width: 120)
           .accessibilityIdentifier(key)
-        Text(verbatim: currency.code).foregroundStyle(.secondary)
+        Text(verbatim: currency.code).secondaryInk()
       }
     } label: {
       Text(verbatim: t(key))
@@ -201,7 +201,7 @@ struct CardExpiryField: View {
         }
       }
     } footer: {
-      Text(verbatim: t("bank.card.expiresHint")).foregroundStyle(.secondary)
+      Text(verbatim: t("bank.card.expiresHint")).secondaryInk()
     }
   }
 }

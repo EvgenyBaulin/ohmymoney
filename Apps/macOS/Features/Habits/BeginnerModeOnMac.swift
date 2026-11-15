@@ -80,7 +80,7 @@ struct BeginnerQuiet: ViewModifier {
         content.opacity(0.55)
         Text(verbatim: HabitText.unlock(unlock, environment))
           .appFont(.caption2)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           // Under the name of the section, past its icon.
           .padding(

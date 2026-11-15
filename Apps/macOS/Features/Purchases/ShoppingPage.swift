@@ -23,7 +23,7 @@ struct ShoppingPage: View {
       VStack(alignment: .leading, spacing: PurchasesMetrics.fieldLabelGap) {
         Text(verbatim: t("purchases.shopping.add"))
           .appFont(PurchasesType.fieldLabel)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         TextField(text: $draft) { Text(verbatim: t("purchases.shopping.add")) }
           .textFieldStyle(.plain)
           .appFont(PurchasesType.field)
@@ -47,7 +47,7 @@ struct ShoppingPage: View {
       if page.shopping.isEmpty {
         Text(verbatim: t("purchases.shopping.empty"))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .sectionCard()
           .accessibilityIdentifier("purchases.shopping.empty")
       } else {
@@ -107,7 +107,7 @@ struct ShoppingPage: View {
         if let note = item.note {
           Text(verbatim: note)
             .appFont(PurchasesType.detail(design))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)

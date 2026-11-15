@@ -86,7 +86,7 @@ struct SwitcherCover: View {
       Rectangle().fill(.background)
       Image(systemName: "lock.fill")
         .font(.system(size: 44))  // font-fixed: the symbol of the cover, not text
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
     }
     .ignoresSafeArea()
@@ -105,7 +105,7 @@ struct LockScreen: View {
       VStack(spacing: 14) {
         Image(systemName: "lock.fill")
           .font(.system(size: 44))  // font-fixed: the symbol of the cover, not text
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: language("privacy.locked.title"))
           .appFont(.title2.weight(.semibold))
@@ -116,7 +116,7 @@ struct LockScreen: View {
             Image(systemName: "exclamationmark.octagon")
           }
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         Button {
           Task {

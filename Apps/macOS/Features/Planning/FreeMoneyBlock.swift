@@ -217,7 +217,7 @@ struct FreeMoneyBlock: View {
         Image(systemName: CushionText.symbol)
       }
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
     case .grey(let grey, let lines):
       Divider()
@@ -236,7 +236,7 @@ struct FreeMoneyBlock: View {
           Image(systemName: "exclamationmark.circle")
         }
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
         Spacer(minLength: 8)
         Button(t("free.overdueReview")) { environment.showsOverdue = true }
@@ -253,7 +253,7 @@ struct FreeMoneyBlock: View {
             "free.perDay", table: "Planning", environment.money.rounded(amount), days)
       )
       .appFont(.callout.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     case .cardsDue(let cards):
       VStack(alignment: .leading, spacing: 2) {
         ForEach(cards) { card in
@@ -291,7 +291,7 @@ struct FreeMoneyBlock: View {
         Image(systemName: "questionmark.circle")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
       .accessibilityIdentifier("free.salaryLate")
     case .stillExpected(let amount):
@@ -359,7 +359,7 @@ struct FreeMoneyBlock: View {
       } icon: {
         Image(systemName: "hourglass")
       }
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       Spacer(minLength: 8)
       reconcileButton
     }
@@ -376,7 +376,7 @@ struct FreeMoneyBlock: View {
           .appFont(.title2.monospacedDigit())
         Text(verbatim: t(spendable ? "free.mainSpendable" : "free.main"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Spacer(minLength: 8)
       DatePicker(
@@ -410,7 +410,7 @@ struct FreeMoneyBlock: View {
       Text(verbatim: environment.money.rounded(max(.zero, grey)))
         .monospacedDigit()
     }
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .accessibilityElement(children: .combine)
   }
 
@@ -455,7 +455,7 @@ struct FreeMoneyBlock: View {
     Divider()
     Text(verbatim: t("free.excludedTitle"))
       .appFont(.caption.weight(.semibold))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     ForEach(groups, id: \.group.id) { apart in
       HStack(alignment: .firstTextBaseline, spacing: 8) {
         Label {
@@ -468,7 +468,7 @@ struct FreeMoneyBlock: View {
           .monospacedDigit()
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityElement(children: .combine)
       if !apart.withoutRate.isEmpty {
         caption(

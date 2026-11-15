@@ -40,7 +40,7 @@ struct QuestionPanel: View {
       Image(systemName: "questionmark.bubble")
     }
     .appFont(.callout)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     if !model.history.items.isEmpty {
       historyList
     }
@@ -51,7 +51,7 @@ struct QuestionPanel: View {
       HStack {
         Text(verbatim: t("questions.history.title"))
           .appFont(.caption.weight(.semibold))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Spacer()
         Button(t("questions.history.clear")) { model.clearHistory() }
           .buttonStyle(.borderless)
@@ -86,7 +86,7 @@ struct QuestionPanel: View {
       ProgressView().controlSize(.small)
       Text(verbatim: environment.language("common.calculating"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .accessibilityIdentifier("question.asking")
   }
@@ -117,7 +117,7 @@ struct QuestionPanel: View {
         Image(systemName: "sparkles")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("question.hint")
     }
   }
@@ -139,7 +139,7 @@ struct QuestionPanel: View {
         Image(systemName: "sparkles")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("question.model.note")
     }
     actions(answered, today: today)
@@ -152,7 +152,7 @@ struct QuestionPanel: View {
     return VStack(alignment: .leading, spacing: 6) {
       Text(verbatim: t("questions.understood"))
         .appFont(.caption.weight(.semibold))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       FlowRow(spacing: 6, lineSpacing: 6) {
         measureMenu(resolved)
         ForEach(Array(resolved.terms.enumerated()), id: \.offset) { index, term in
@@ -255,7 +255,7 @@ struct QuestionPanel: View {
         Image(systemName: "tray")
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("question.none")
     } else {
       switch answered.resolved.intent {
@@ -279,7 +279,7 @@ struct QuestionPanel: View {
             "questions.answer.operations", environment, answer.current.operationCount)
       )
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -303,7 +303,7 @@ struct QuestionPanel: View {
       if answer.comparedLikeForLike {
         Text(verbatim: t("questions.answer.likeForLike"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
   }
@@ -314,7 +314,7 @@ struct QuestionPanel: View {
         .appFont(.title2.bold().monospacedDigit())
       Text(verbatim: QuestionsText.title(of: value.period, environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 
@@ -333,7 +333,7 @@ struct QuestionPanel: View {
     if answer.items.isEmpty {
       Text(verbatim: t(usual ? "questions.answer.nothingGrew" : "questions.answer.none.short"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("question.none")
     } else {
       VStack(alignment: .leading, spacing: 6) {
@@ -341,7 +341,7 @@ struct QuestionPanel: View {
           verbatim: QuestionsText.title(of: answer.current.period, environment)
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         ForEach(Array(answer.items.enumerated()), id: \.offset) { _, item in
           HStack(alignment: .firstTextBaseline) {
             Text(verbatim: AnalyticsText.name(of: item.key, names, environment))
@@ -358,7 +358,7 @@ struct QuestionPanel: View {
                     environment.money.signedRounded(excess))
                 )
                 .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
               }
             }
           }
@@ -369,7 +369,7 @@ struct QuestionPanel: View {
               "questions.answer.usualPeriods", environment, answer.usualPeriods)
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       .accessibilityIdentifier("question.ranked")
@@ -380,7 +380,7 @@ struct QuestionPanel: View {
     HStack(spacing: 4) {
       Text(verbatim: t("questions.otherPeriods"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       ForEach(periods, id: \.self) { period in
         Button(QuestionsText.title(of: period, today: today, environment)) {
           withSnapshot { model.choose(period: period, ledger: $0, today: $1) }

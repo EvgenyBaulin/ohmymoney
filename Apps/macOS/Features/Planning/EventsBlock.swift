@@ -27,7 +27,7 @@ struct EventsBlock: View {
         } else {
           HStack {
             if shown.isEmpty {
-              Text(verbatim: t("events.none")).foregroundStyle(.secondary)
+              Text(verbatim: t("events.none")).secondaryInk()
             }
             Spacer()
             Button(t("events.add")) { form = EventFormItem(event: nil) }
@@ -40,7 +40,7 @@ struct EventsBlock: View {
             HStack(alignment: .firstTextBaseline) {
               Text(verbatim: plan.event.name)
               Text(verbatim: PlanningText.eventWhen(plan, environment))
-                .appFont(.caption).foregroundStyle(.secondary)
+                .appFont(.caption).secondaryInk()
               Spacer(minLength: 6)
               if let budget = plan.budget {
                 Text(
@@ -70,7 +70,7 @@ struct EventsBlock: View {
                 }.joined(separator: " · ")
               )
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             }
             let tied = Self.tiedDues(of: plan.event, snapshot)
             if !tied.isEmpty {
@@ -86,7 +86,7 @@ struct EventsBlock: View {
                   }.joined(separator: "; "))
               )
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
             }
             if !plan.isActive, let last = plan.lastTimeTotal {
@@ -100,7 +100,7 @@ struct EventsBlock: View {
                   } ?? "")
               )
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             }
           }
         }

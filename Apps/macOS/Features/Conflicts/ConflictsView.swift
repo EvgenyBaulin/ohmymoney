@@ -42,7 +42,7 @@ struct ConflictsList: View {
       if coordinator.conflicts.isEmpty {
         Text(verbatim: ConflictText.t("sync.conflicts.empty", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("sync.conflicts.empty")
       }
       ForEach(coordinator.conflicts) { conflict in
@@ -60,7 +60,7 @@ struct ConflictsList: View {
                 "\(ConflictText.t(comparison.tableKey, environment)) · \(ConflictText.t("sync.conflicts.waiting", environment))"
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
         }
         .accessibilityIdentifier("sync.conflicts.row")
@@ -90,11 +90,11 @@ struct ConflictDetailView: View {
             .appFont(.headline)
           Text(verbatim: ConflictText.t("sync.conflict.changedOnTwo", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Text(verbatim: ConflictText.t("sync.conflicts.explain", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         header
         ForEach(comparison.rows) { row in rowView(row) }
         if comparison.mineDeleted || comparison.theirsDeleted { deletedLine }
@@ -124,7 +124,7 @@ struct ConflictDetailView: View {
         .controlSize(.large)
         Text(verbatim: ConflictText.t("sync.conflicts.footnote", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .padding(16)
     }
@@ -143,7 +143,7 @@ struct ConflictDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   private func rowView(_ row: ConflictComparison.Row) -> some View {
@@ -156,7 +156,7 @@ struct ConflictDetailView: View {
         }
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       HStack(spacing: 8) {
         cell(row.mine, differs: row.differs)
         cell(row.theirs, differs: row.differs)

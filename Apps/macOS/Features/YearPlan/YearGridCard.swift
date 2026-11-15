@@ -15,7 +15,7 @@ struct YearCard<Content: View>: View {
       VStack(alignment: .leading, spacing: 2) {
         HStack(spacing: 6) {
           if let symbol {
-            Image(systemName: symbol).foregroundStyle(.secondary).accessibilityHidden(true)
+            Image(systemName: symbol).secondaryInk().accessibilityHidden(true)
           }
           Text(verbatim: title)
             .appFont(.headline)
@@ -24,7 +24,7 @@ struct YearCard<Content: View>: View {
         if let subtitle {
           Text(verbatim: subtitle)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }
@@ -72,11 +72,11 @@ struct YearGridCard: View {
           Image(systemName: "exclamationmark.triangle")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Text(verbatim: YearText.t("year.plan.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -138,7 +138,7 @@ struct YearGridCard: View {
         if cell.isEstimate {
           Text(verbatim: YearText.t("year.estimate", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .frame(width: Self.columnWidth, alignment: .trailing)
@@ -243,7 +243,7 @@ struct YearGridCard: View {
         if cell.isEstimate {
           Text(verbatim: YearText.t("year.estimate", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }

@@ -22,7 +22,7 @@ struct SelfEmploymentBlockView: View {
             if let gap = npd.months.last(where: { $0.fnsGapE4 != nil })?.fnsGapE4 {
               Text(verbatim: SelfEmploymentFigures.gapText(gap, environment))
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
             Spacer()
             Button(AllocationText.t("npd.pay.open", environment)) {
@@ -33,7 +33,7 @@ struct SelfEmploymentBlockView: View {
         } else if let gap = npd.months.last(where: { $0.fnsGapE4 != nil })?.fnsGapE4 {
           Text(verbatim: SelfEmploymentFigures.gapText(gap, environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .accessibilityIdentifier("selfEmployed.block")
@@ -74,7 +74,7 @@ struct SelfEmploymentFigures: View {
                 "selfEmployed.block.due", environment, environment.dates.dayAndMonth(due))
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
         }
       }
@@ -96,7 +96,7 @@ struct SelfEmploymentFigures: View {
           }
           Text(verbatim: money.rounded(block.yearLeftRub)).monospacedDigit()
           Text(verbatim: "· " + money.percent(basisPoints: year.shareBp))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }

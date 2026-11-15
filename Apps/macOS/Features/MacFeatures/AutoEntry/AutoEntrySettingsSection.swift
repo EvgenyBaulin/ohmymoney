@@ -60,7 +60,7 @@ struct AutoEntrySettingsSection: View {
             }
           }
           Text(verbatim: t("autoEntry.settings.footer"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -87,7 +87,7 @@ struct AutoEntrySettingsSection: View {
       Text(verbatim: t("autoEntry.settings.title")).settingsHeaderStyle()
     } footer: {
       Text(verbatim: t("autoEntry.settings.footer"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }

@@ -95,7 +95,7 @@ struct AccountCardsBlock: View {
         .accessibilityIdentifier("account.cards.add")
       }
       if model.live.isEmpty {
-        Text(verbatim: t("card.none")).foregroundStyle(.secondary)
+        Text(verbatim: t("card.none")).secondaryInk()
       }
       ForEach(model.live) { item in
         row(item, mergeable: model.live.count > 1)
@@ -104,9 +104,9 @@ struct AccountCardsBlock: View {
         DisclosureGroup {
           ForEach(model.archived) { item in
             HStack {
-              Image(systemName: "creditcard").foregroundStyle(.secondary)
+              Image(systemName: "creditcard").secondaryInk()
                 .accessibilityHidden(true)
-              Text(verbatim: item.card.name).foregroundStyle(.secondary)
+              Text(verbatim: item.card.name).secondaryInk()
               Spacer()
               Button(t("card.restore")) { run(actions.restore(item.id)) }
             }
@@ -144,7 +144,7 @@ struct AccountCardsBlock: View {
   private func row(_ item: AccountCardsModel.Card, mergeable: Bool) -> some View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
       Image(systemName: "creditcard")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: item.card.name)
@@ -157,13 +157,13 @@ struct AccountCardsBlock: View {
           ].compactMap { $0 }.joined(separator: " · ")
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Spacer()
       if item.card.id == mainCardId {
         Text(verbatim: t("card.main"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("account.cards.main")
       }
       Menu {

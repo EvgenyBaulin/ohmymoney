@@ -117,7 +117,7 @@ struct QuickSheetFrame<Content: View, Buttons: View>: View {
           if let line {
             Text(verbatim: line)
               .appFont(QuickSheetType.line)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
         }
@@ -131,7 +131,7 @@ struct QuickSheetFrame<Content: View, Buttons: View>: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .help(environment.language("action.close"))
         .accessibilityLabel(Text(verbatim: environment.language("action.close")))
         .accessibilityIdentifier("quick.sheet.close")
@@ -193,7 +193,7 @@ struct QuickSheetHint: View {
         .accessibilityHidden(true)
       Text(verbatim: text)
         .appFont(QuickSheetType.line)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
     .padding(12)
@@ -225,7 +225,7 @@ struct BillListSheet: View {
         } icon: {
           Image(systemName: "questionmark.circle")
         }
-        .appFont(QuickSheetType.line).foregroundStyle(.secondary)
+        .appFont(QuickSheetType.line).secondaryInk()
       }
       QuickSheetHint(text: QuickText.t("quick.bills.categoryNote", environment))
     } buttons: {
@@ -262,7 +262,7 @@ struct BillListSheet: View {
             } icon: {
               Image(systemName: "doc.on.doc")
             }
-            .appFont(QuickSheetType.rowDetail).foregroundStyle(.secondary)
+            .appFont(QuickSheetType.rowDetail).secondaryInk()
           }
         }
         Spacer(minLength: 6)
@@ -308,7 +308,7 @@ struct RepeatSheet: View {
         verbatim: QuickText.f(
           "quick.repeat.subtitle", environment, environment.dates.longDay(request.day))
       )
-      .appFont(.callout).foregroundStyle(.secondary)
+      .appFont(.callout).secondaryInk()
       List {
         ForEach($request.proposals) { $proposal in
           Toggle(isOn: $proposal.isSelected) {
@@ -360,14 +360,14 @@ struct DraftsSheet: View {
       if waiting.isEmpty {
         Text(verbatim: QuickText.t("quick.drafts.empty", environment))
           .appFont(QuickSheetType.row)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(maxWidth: .infinity, minHeight: 120)
           .accessibilityIdentifier("quick.drafts.empty")
       } else {
         QuickSheetList(count: waiting.count) { index in row(waiting[index]) }
         Text(verbatim: QuickText.t("quick.drafts.hint", environment))
           .appFont(QuickSheetType.line)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     } buttons: {
@@ -386,7 +386,7 @@ struct DraftsSheet: View {
           .lineLimit(2)
         Text(verbatim: environment.dates.longDay(environment.calendar.day(of: draft.createdAt)))
           .appFont(QuickSheetType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Spacer(minLength: 6)
       Button(QuickText.t("quick.drafts.delete", environment), role: .destructive) {
@@ -417,7 +417,7 @@ struct CardAskSheet: View {
       Text(verbatim: QuickText.f("quick.cardAsk.title", environment, ask.last4))
         .appFont(.headline)
       Text(verbatim: QuickText.t("quick.cardAsk.message", environment))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
       List(cards) { card in
         Button {
           choose(card)
@@ -428,7 +428,7 @@ struct CardAskSheet: View {
             Text(verbatim: card.name)
             Spacer(minLength: 6)
             if let masked = CardDetails(last4: card.last4).masked {
-              Text(verbatim: masked).foregroundStyle(.secondary).monospacedDigit()
+              Text(verbatim: masked).secondaryInk().monospacedDigit()
             }
           }
         }

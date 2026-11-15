@@ -37,7 +37,7 @@ struct LimitsBlock: View {
           if hosted {
             PlanningEmptyHint(block: .limits) { sheet = .budget(nil) }
           } else {
-            Text(verbatim: t("limits.none")).foregroundStyle(.secondary)
+            Text(verbatim: t("limits.none")).secondaryInk()
           }
         }
         ForEach(ranked.shown, id: \.budget.id) { line in
@@ -116,11 +116,11 @@ struct LimitRow: View {
       LimitBar(line: line)
       Text(verbatim: detail)
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       if isEditing, let note = Self.carryNote(line, environment) {
         Text(verbatim: note)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("limits.amount.carryRestart")
       }

@@ -133,9 +133,9 @@ struct DayList<Header: View, MenuItems: View>: View {
     VStack(spacing: 8) {
       Image(systemName: "list.bullet.rectangle")
         .appFont(.title)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Text(verbatim: text)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .multilineTextAlignment(.center)
     }
     .frame(maxWidth: .infinity)
@@ -200,7 +200,7 @@ struct RowTotalsLine: View {
       ForEach(totals.nonEmptyGroups, id: \.self) { group in
         HStack(spacing: 4) {
           Text(verbatim: RowTotalsText.caption(group, language: environment.language))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Text(verbatim: environment.money.rounded(totals[group]))
             .monospacedDigit()
         }
@@ -315,7 +315,7 @@ struct TransactionRow: View {
           }
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Spacer()
       VStack(alignment: .trailing, spacing: 1) {
@@ -329,7 +329,7 @@ struct TransactionRow: View {
         {
           Text(verbatim: approximate)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("operation.approximate")
         }
       }
@@ -377,7 +377,7 @@ struct TransferRow: View {
     let text = TransferRowText(transfer, names: accounts, hiding: hiding)
     HStack(spacing: 12) {
       Image(systemName: TransferSymbol.name)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: text.title(language: environment.language))
         HStack(spacing: 8) {
@@ -388,7 +388,7 @@ struct TransferRow: View {
           }
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Spacer()
       VStack(alignment: .trailing, spacing: 1) {
@@ -401,7 +401,7 @@ struct TransferRow: View {
             transfer.toAmountE4, currency: transfer.toCurrency)
           Text(verbatim: "→ \(received)")
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }

@@ -23,7 +23,7 @@ struct PlanningBirthdaysStrip: View {
       VStack(alignment: .leading, spacing: 4) {
         Text(verbatim: PurchaseHookText.t("planning.birthdays.title", environment))
           .appFont(.subheadline)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         ForEach(days) { day in
           Label {
             Text(verbatim: PurchaseHookText.planningLine(day, environment))

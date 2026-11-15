@@ -331,7 +331,7 @@ struct OverviewGroupHeader: View {
     if screen.isEditing {
       HStack(spacing: 6) {
         Image(systemName: "line.3.horizontal")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: name)
           .appFont(.headline)
@@ -371,7 +371,7 @@ struct OverviewGroupHeader: View {
             .foregroundStyle(Self.nameIsPrimary ? .primary : .secondary)
           Image(systemName: "chevron.down")
             .appFont(.caption.weight(.semibold))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(width: StyleMetrics.groupChevron, height: StyleMetrics.groupChevron)
             .rotationEffect(.degrees(collapsed ? -90 : 0))
             .accessibilityHidden(true)
@@ -403,7 +403,7 @@ private struct OverviewEmptyGroup: View {
   var body: some View {
     Text(verbatim: environment.language("overview.edit.dropHere", table: "Overview"))
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .frame(maxWidth: .infinity, minHeight: 64)
       .background {
         RoundedRectangle(cornerRadius: 12)

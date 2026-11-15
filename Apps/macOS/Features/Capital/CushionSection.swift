@@ -64,14 +64,14 @@ struct CushionSection: View {
         } icon: {
           Image(systemName: CushionText.symbol)
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       } else {
         Text(verbatim: CushionText.lastsLine(status, environment))
           .appFont(.title3.weight(.semibold).monospacedDigit())
         Text(verbatim: CushionText.summaryLine(status, environment))
           .appFont(.callout.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if CushionText.touchesHidden(status, hiding: compute.snapshot?.hiding) {
           PartHiddenNote()
         }
@@ -81,7 +81,7 @@ struct CushionSection: View {
         CushionBar(status: status, settings: settings)
         Text(verbatim: CushionText.goalHint(status.goal, settings: settings, environment))
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         let unanchored = CushionText.unanchored(status.unanchored, hiding: compute.snapshot?.hiding)
         if !unanchored.isEmpty {
@@ -91,7 +91,7 @@ struct CushionSection: View {
             Image(systemName: "hourglass")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
     }
@@ -113,7 +113,7 @@ struct CushionSection: View {
           verbatim: environment.format(
             "cushion.floor", table: CushionText.table, environment.money.rounded(floor))
         )
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .appFont(.caption)
@@ -153,7 +153,7 @@ struct CushionBar: View {
         .accessibilityHidden(true)
       Text(verbatim: CushionText.barLabel(status, environment))
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize()
     }
   }
@@ -181,7 +181,7 @@ struct CushionPlanningRow: View {
               .lineLimit(1)
             Text(verbatim: sub)
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .lineLimit(2)
           }
           Spacer(minLength: 6)

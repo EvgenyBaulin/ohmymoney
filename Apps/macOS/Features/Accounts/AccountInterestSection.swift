@@ -115,7 +115,7 @@ struct AccountInterestSection: View {
             .appFont(.body.monospacedDigit())
             .frame(width: 80)
             .accessibilityIdentifier("account.interest.rate")
-            Text(verbatim: "%").foregroundStyle(.secondary)
+            Text(verbatim: "%").secondaryInk()
           }
         } label: {
           Text(verbatim: t("account.interest.rate"))
@@ -138,7 +138,7 @@ struct AccountInterestSection: View {
             .appFont(.body.monospacedDigit())
             .frame(width: 80)
             .accessibilityIdentifier("account.interest.nextRate")
-            Text(verbatim: "%").foregroundStyle(.secondary)
+            Text(verbatim: "%").secondaryInk()
           }
         } label: {
           Text(verbatim: t("account.interest.nextRate"))
@@ -201,13 +201,13 @@ struct AccountInterestSection: View {
         } icon: {
           Image(systemName: draft.isDeposit ? "lock.square" : "banknote")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     } header: {
       Text(verbatim: t("account.interest.title"))
     } footer: {
       Text(verbatim: t(draft.isOn ? "account.interest.hint" : "account.interest.offHint"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 

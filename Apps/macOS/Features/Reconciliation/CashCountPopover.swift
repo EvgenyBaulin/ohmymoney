@@ -26,7 +26,7 @@ struct CashCountPopover: View {
           Text(verbatim: label(denomination))
             .monospacedDigit()
             .frame(minWidth: 90, alignment: .leading)
-          Text(verbatim: "×").foregroundStyle(.secondary)
+          Text(verbatim: "×").secondaryInk()
           TextField(
             "", text: binding(for: denomination), prompt: Text(verbatim: "0")
           )

@@ -272,7 +272,7 @@ private struct QualitiesCard: View {
           ComparisonLine(change: summary.bad, span: summary.previousSpan)
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityElement(children: .combine)
       }
     }
@@ -313,7 +313,7 @@ private struct ForecastCard: View {
               environment.money.rounded(forecast.p90))
           )
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         if forecast.lowData {
           Label {
@@ -322,7 +322,7 @@ private struct ForecastCard: View {
             Image(systemName: "hourglass")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         Text(
           verbatim: environment.format(
@@ -330,7 +330,7 @@ private struct ForecastCard: View {
             environment.money.rounded(model.planned))
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         Text(verbatim: OverviewText.modelComputed(model.computedAt, environment))
           .appFont(.caption)
           .foregroundStyle(.tertiary)
@@ -389,7 +389,7 @@ struct ComparisonLine: View {
       Text(verbatim: OverviewText.comparison(text, span: span, environment))
     }
     .appFont(.caption.monospacedDigit())
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 }
 
@@ -401,7 +401,7 @@ struct ShareText: View {
   var body: some View {
     Text(verbatim: basisPoints.map { environment.money.percent(basisPoints: $0) } ?? "—")
       .monospacedDigit()
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .frame(minWidth: 56, alignment: .trailing)
   }
 }
@@ -528,7 +528,7 @@ struct GoalsExceedRow: View {
           environment.money.rounded(money))
       )
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
       // «Зачем коплю» of the goals that hold money: the owner's own words, in the hard moment.
       ForEach(GoalWhyMoments.exceeded(compute.snapshot?.planning.goals ?? []), id: \.id) { goal in
@@ -641,7 +641,7 @@ struct AnomaliesCard: View {
               .appFont(.callout)
               Text(verbatim: environment.dates.dayAndMonth(anomaly.day))
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           case .more(let count):
             Text(
@@ -649,10 +649,10 @@ struct AnomaliesCard: View {
                 "overview.anomaliesMore", table: "Overview", counts: count)
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           case .nothingUnusual:
             Text(verbatim: environment.language("overview.anomaliesNone", table: "Overview"))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
         }

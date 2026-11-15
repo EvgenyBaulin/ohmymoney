@@ -106,7 +106,7 @@ struct FirstMonthCard: View {
             + HabitText.f("month.progress", environment, counted.done, counted.total)
         )
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       ForEach(open.prefix(3)) { task in
         VStack(alignment: .leading, spacing: 2) {
@@ -118,7 +118,7 @@ struct FirstMonthCard: View {
           .appFont(.callout)
           Text(verbatim: task.why.text(russian: russian))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           if !task.hints.isEmpty {
             Button(HabitText.t("month.show", environment)) {

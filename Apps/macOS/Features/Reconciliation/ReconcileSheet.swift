@@ -69,13 +69,13 @@ struct ReconcileSheet: View {
         Text(verbatim: t("reconcile.title")).appFont(.title3).bold()
         Text(verbatim: t("reconcile.accountsQuestion"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       Divider()
       if let snapshot {
         if rows.isEmpty {
-          Text(verbatim: t("reconcile.noAccounts")).foregroundStyle(.secondary)
+          Text(verbatim: t("reconcile.noAccounts")).secondaryInk()
         } else {
           ScrollView {
             if LayoutIdiom.current == .phone {
@@ -249,7 +249,7 @@ struct ReconcileSheet: View {
           .frame(minWidth: 150, alignment: .leading)
         Text(verbatim: currency.code)
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         expectedCell(row)
         countField(row, name: name, compared: compared)
           .frame(width: 130)
@@ -272,13 +272,13 @@ struct ReconcileSheet: View {
         accountCell(row, snapshot: snapshot, compared: compared)
         Text(verbatim: currency.code)
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Spacer(minLength: 0)
       }
       HStack(alignment: .firstTextBaseline, spacing: 8) {
         Text(verbatim: t("reconcile.col.expected"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         expectedCell(row)
         Spacer(minLength: 0)
       }
@@ -287,7 +287,7 @@ struct ReconcileSheet: View {
         Spacer(minLength: 8)
         Text(verbatim: t("reconcile.difference"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         differenceCell(row, name: name, compared: compared, counted: counted)
       }
     }
@@ -313,12 +313,12 @@ struct ReconcileSheet: View {
           Image(systemName: "eye.slash")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       if let note = Self.note(for: row, accounts: snapshot.dataset.paymentMethods) {
         Text(verbatim: t(note))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if Self.countsByBill(row, accounts: snapshot.dataset.paymentMethods) {
         Button(t("reconcile.cash.byBill")) { countingByBill = row.key }
@@ -352,7 +352,7 @@ struct ReconcileSheet: View {
     if let expected = row.expected {
       Text(verbatim: environment.money.exact(expected, currency: currency))
         .monospacedDigit()
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .help(t("reconcile.expectedHint"))
     } else {
       Label {
@@ -361,7 +361,7 @@ struct ReconcileSheet: View {
         Image(systemName: "flag")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .help(t("reconcile.first"))
     }
   }
@@ -437,7 +437,7 @@ struct ReconcileSheet: View {
         }
       }
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -467,7 +467,7 @@ struct ReconcileSheet: View {
       Image(systemName: symbol)
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .padding(.horizontal, 12)
     .padding(.vertical, 8)
     .frame(maxWidth: .infinity, alignment: .leading)
@@ -484,7 +484,7 @@ struct ReconcileSheet: View {
       Text(verbatim: t("reconcile.difference")).frame(minWidth: 100, alignment: .trailing)
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   // MARK: The rules of the sheet
@@ -712,16 +712,16 @@ struct ReconcileSheet: View {
     let candidates = snapshot.map { Self.candidates(in: $0, kept: []) } ?? []
     let recordable = snapshot.map(Self.recordable(in:)) ?? []
     return VStack(alignment: .leading, spacing: 4) {
-      if all.isEmpty { Text(verbatim: t("reconcile.historyNone")).foregroundStyle(.secondary) }
+      if all.isEmpty { Text(verbatim: t("reconcile.historyNone")).secondaryInk() }
       ForEach(all, id: \.id) { item in
         HStack(alignment: .firstTextBaseline) {
           Text(verbatim: environment.dates.longDay(item.date))
           Text(verbatim: t(Self.kindKey(item)))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Spacer(minLength: 8)
           Text(verbatim: summary(of: item, snapshot))
             .monospacedDigit()
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .multilineTextAlignment(.trailing)
         }
         .appFont(.caption)
@@ -747,7 +747,7 @@ struct ReconcileSheet: View {
       if let name {
         Text(verbatim: name)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       // Content, not a floating control: a plain small button, never glass.
       Button(t("reconcile.firstCount.fix")) {
@@ -772,7 +772,7 @@ struct ReconcileSheet: View {
       if let name {
         Text(verbatim: name)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       // Content, not a floating control: a plain small button, never glass.
       Button(t("reconcile.recordAgain")) {
@@ -794,7 +794,7 @@ struct ReconcileSheet: View {
       Spacer(minLength: 8)
       Text(verbatim: Self.answerText(wasBefore, environment.language))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Button(t("reconcile.answer.forget")) {
         environment.forgetCountAnswer(reconciliation: reconciliation)
         answers = environment.rememberedCountAnswers()

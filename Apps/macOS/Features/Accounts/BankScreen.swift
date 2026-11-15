@@ -95,7 +95,7 @@ struct BankScreen: View {
 
   private var header: some View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
-      Image(systemName: "building.columns").foregroundStyle(.secondary).accessibilityHidden(true)
+      Image(systemName: "building.columns").secondaryInk().accessibilityHidden(true)
       Text(verbatim: name).appFont(.title.bold()).accessibilityAddTraits(.isHeader)
       Spacer()
     }
@@ -114,7 +114,7 @@ struct BankScreen: View {
         }
         .foregroundStyle(bank.isOver ? AnyShapeStyle(.orange) : AnyShapeStyle(.primary))
         Text(verbatim: words[1]).monospacedDigit()
-        Text(verbatim: words[2]).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: words[2]).appFont(.caption).secondaryInk()
       }
     }
     .accessibilityIdentifier("bank.insurance")
@@ -127,7 +127,7 @@ struct BankScreen: View {
     ) { _ in
       VStack(alignment: .leading, spacing: 6) {
         if lines.isEmpty {
-          Text(verbatim: t("bank.screen.noAccounts")).foregroundStyle(.secondary)
+          Text(verbatim: t("bank.screen.noAccounts")).secondaryInk()
         }
         ForEach(lines, id: \.account.id) { line in
           Button {

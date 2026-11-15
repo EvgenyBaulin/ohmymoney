@@ -188,7 +188,7 @@ struct AnalyticsCardHeader<Accessory: View>: View {
         if let caption {
           Text(verbatim: caption)
             .appFont(AnalyticsCardType.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
             .fixedSize()
         }
@@ -197,7 +197,7 @@ struct AnalyticsCardHeader<Accessory: View>: View {
       if let subtitle {
         Text(verbatim: subtitle)
           .appFont(AnalyticsCardType.subtitle)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }

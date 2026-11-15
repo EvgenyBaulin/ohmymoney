@@ -245,7 +245,7 @@ private struct PlanningNamesakeRow: View {
       }
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .fixedSize(horizontal: false, vertical: true)
     .accessibilityIdentifier("namesake.notice")
     .modifier(

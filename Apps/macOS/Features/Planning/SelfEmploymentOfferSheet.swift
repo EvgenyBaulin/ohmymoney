@@ -20,7 +20,7 @@ struct SelfEmploymentOfferSheet: View {
           .fixedSize(horizontal: false, vertical: true)
         Text(verbatim: t("selfEmployed.offer.later"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         HStack {
           Spacer()

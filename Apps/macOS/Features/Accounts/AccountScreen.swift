@@ -144,7 +144,7 @@ struct AccountHistoryList<Header: View>: View {
       if let history {
         if history.days.isEmpty {
           Text(verbatim: t("account.screen.empty"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(maxWidth: .infinity)
             .padding(.vertical, 24)
             .listRowSeparator(.hidden)
@@ -278,7 +278,7 @@ struct AccountTransferRow: View {
   var body: some View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
       Image(systemName: "arrow.left.arrow.right")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .frame(width: 18)
         .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: 2) {
@@ -287,7 +287,7 @@ struct AccountTransferRow: View {
         if let caption {
           Text(verbatim: caption)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
         }
       }
@@ -375,12 +375,12 @@ struct AccountBalancesCard: View {
     VStack(alignment: .leading, spacing: 8) {
       Text(verbatim: t("account.screen.balances"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityAddTraits(.isHeader)
       ForEach(line.keys, id: \.key) { key in
         HStack(alignment: .firstTextBaseline) {
           Text(verbatim: key.key.currency.code)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(width: 40, alignment: .leading)
           VStack(alignment: .leading, spacing: 2) {
             if let balance = key.balance {
@@ -392,12 +392,12 @@ struct AccountBalancesCard: View {
               } icon: {
                 Image(systemName: "hourglass")
               }
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             }
             if let caption = caption(key) {
               Text(verbatim: caption)
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
         }
@@ -511,7 +511,7 @@ struct AccountScreen: View {
               .accessibilityIdentifier("account.screen.accent")
           }
           Image(systemName: AccountText.kindSymbol(account.kind))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityHidden(true)
           Text(verbatim: account.name)
             .appFont(.title.bold())
@@ -524,7 +524,7 @@ struct AccountScreen: View {
             }
             .labelStyle(.titleAndIcon)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           if account.isBorrowed {
             Label {
@@ -536,7 +536,7 @@ struct AccountScreen: View {
             }
             .labelStyle(.titleAndIcon)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("account.screen.borrowed")
           }
           if account.cushion {
@@ -547,7 +547,7 @@ struct AccountScreen: View {
             }
             .labelStyle(.titleAndIcon)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("account.screen.cushion")
           }
         }
@@ -557,7 +557,7 @@ struct AccountScreen: View {
       if let caption = groupCaption {
         Text(verbatim: caption)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       cards
       Label {
@@ -566,7 +566,7 @@ struct AccountScreen: View {
         Image(systemName: "text.cursor")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
     .padding(.vertical, 8)
   }

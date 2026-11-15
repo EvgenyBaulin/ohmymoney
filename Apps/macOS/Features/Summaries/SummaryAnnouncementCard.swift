@@ -71,7 +71,7 @@ struct SummaryAnnouncementCard: View {
     Button(action: action) {
       Image(systemName: "xmark")
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .buttonStyle(.plain)
     .accessibilityLabel(t("summaries.ready.dismiss"))

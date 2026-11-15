@@ -39,7 +39,7 @@ struct HabitBadgesSection: View {
       if badges.isEmpty {
         Text(verbatim: HabitText.t("badges.none", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       } else {
         ForEach(badges) { badge in
           Label {
@@ -50,7 +50,7 @@ struct HabitBadgesSection: View {
                   "badges.earnedOn", environment, environment.dates.dayAndMonth(badge.earnedOn))
               )
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             }
           } icon: {
             Image(systemName: HabitText.symbol(badge.kind))

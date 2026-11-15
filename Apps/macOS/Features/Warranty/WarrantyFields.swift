@@ -29,7 +29,7 @@ struct WarrantyFields: View {
     ) {
       fields.padding(.top, 6)
     } label: {
-      Text(verbatim: t("warranty.title")).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: t("warranty.title")).appFont(.caption).secondaryInk()
     }
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("entry.warranty")
@@ -58,7 +58,7 @@ struct WarrantyFields: View {
   }
 
   private func label(_ key: String) -> some View {
-    Text(verbatim: t(key)).appFont(.caption).foregroundStyle(.secondary)
+    Text(verbatim: t(key)).appFont(.caption).secondaryInk()
   }
 
   private func termField(

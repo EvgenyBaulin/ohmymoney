@@ -31,7 +31,7 @@ struct SyncBootstrapSection: View {
   private func content(_ state: SyncBootstrapState) -> some View {
     Text(verbatim: ConflictText.t("sync.bootstrap.explain", environment))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     if case .offered(let offer) = state {
       Text(verbatim: ConflictText.offerLine(offer, environment))
         .accessibilityIdentifier("sync.bootstrap.offer")
@@ -60,7 +60,7 @@ struct SyncBootstrapSection: View {
         // The app cannot relaunch itself: the staged copy is put in place at the next launch.
         Text(verbatim: ConflictText.t("sync.bootstrap.reopen", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       #endif
     }
   }

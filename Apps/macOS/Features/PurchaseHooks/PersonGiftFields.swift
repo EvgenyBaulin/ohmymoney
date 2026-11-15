@@ -57,7 +57,7 @@ struct PersonGiftFields: View {
       }
       Text(verbatim: t("person.giftBudget.hint"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 

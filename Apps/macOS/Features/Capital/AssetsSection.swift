@@ -24,7 +24,7 @@ struct AssetsSection: View {
       HStack(alignment: .firstTextBaseline) {
         Text(verbatim: CapitalText.t("capital.assets.title", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityAddTraits(.isHeader)
         Spacer(minLength: 8)
         Button(DepositText.t("dep.open", environment)) { sheet = .showcase }
@@ -39,7 +39,7 @@ struct AssetsSection: View {
       if assets.isEmpty {
         Text(verbatim: CapitalText.t("capital.assets.empty", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       ForEach(live) { asset in row(asset) }
@@ -52,7 +52,7 @@ struct AssetsSection: View {
       if let refusal {
         Text(verbatim: CapitalText.t(refusal, environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .contentCard()
@@ -66,18 +66,18 @@ struct AssetsSection: View {
     .last { $0.day <= environment.today }
     return HStack(alignment: .firstTextBaseline, spacing: 8) {
       Image(systemName: CapitalText.kindSymbol(asset.kind))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityLabel(
           Text(verbatim: CapitalText.t(CapitalText.kindKey(asset.kind), environment)))
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: asset.name)
         Text(verbatim: subtitle(asset, latest))
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if let note = asset.note {
           Text(verbatim: note)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(2)
         }
       }

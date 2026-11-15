@@ -20,7 +20,7 @@ struct CardCountCard: View {
           Image(systemName: status.isNear ? "exclamationmark.triangle" : "creditcard.and.123")
         }
         ForEach(Array(lines.dropFirst().enumerated()), id: \.offset) { _, line in
-          Text(verbatim: line).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: line).appFont(.caption).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         Text(verbatim: BanksRuText.t("banksRu.cardCount.hint", environment))

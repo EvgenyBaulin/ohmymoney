@@ -49,7 +49,7 @@ struct GoalsBlock: View {
             PlanningEmptyHint(block: .goals) { sheet = .goal(nil) }
               .guideTarget(GuideTarget.planningAddGoal)
           } else {
-            Text(verbatim: t("goals.none")).foregroundStyle(.secondary)
+            Text(verbatim: t("goals.none")).secondaryInk()
           }
         }
         ForEach(shown.items) { status in
@@ -119,7 +119,7 @@ struct GoalsBlock: View {
                 .lineLimit(1)
               Text(verbatim: subtitle(status))
                 .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .lineLimit(1)
             }
             Spacer(minLength: 6)
@@ -145,7 +145,7 @@ struct GoalsBlock: View {
           Image(systemName: "hourglass")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       if isOpen { details(status, snapshot: snapshot) }
     }
@@ -192,10 +192,10 @@ struct GoalsBlock: View {
           environment.money.rounded(status.goal.targetE4, currency: status.currency))
       )
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       Text(verbatim: realism(status))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       if let ahead = Self.paidAhead(of: status.goal, snapshot), ahead.raw > 0 {
         Text(
@@ -204,7 +204,7 @@ struct GoalsBlock: View {
             environment.money.rounded(ahead, currency: status.currency))
         )
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       ViewThatFits(in: .horizontal) {
         actionButtons(status, horizontal: true)
@@ -253,10 +253,10 @@ struct GoalsBlock: View {
           VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 6) {
               Image(systemName: "archivebox")
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityLabel(Text(verbatim: s("goals.inArchive")))
               Text(verbatim: goal.name)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .lineLimit(1)
               Spacer(minLength: 6)
               Button(s("goals.restore")) { restore(goal) }
@@ -271,7 +271,7 @@ struct GoalsBlock: View {
             if let note = deletionNotes[goal.id] {
               Text(verbatim: t(note))
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .fixedSize(horizontal: false, vertical: true)
             }
           }

@@ -177,7 +177,7 @@ struct GuideCaptionCard: View {
       if position.total > 1 {
         Text(verbatim: String(format: t("guide.spot.step"), position.number, position.total))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .monospacedDigit()
       }
       Text(verbatim: step.text.text(russian: russian))
@@ -186,7 +186,7 @@ struct GuideCaptionCard: View {
       if let why = step.why {
         Text(verbatim: why.text(russian: russian))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       HStack(spacing: 8) {

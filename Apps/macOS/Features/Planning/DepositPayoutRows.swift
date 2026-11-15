@@ -21,13 +21,13 @@ struct DepositPayoutRows: View {
     ForEach(Self.shown(payouts, today: today)) { payout in
       HStack(alignment: .firstTextBaseline, spacing: 6) {
         Image(systemName: payout.state == .missing ? "questionmark.circle" : "percent")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(
           verbatim: Self.text(payout, names: InterestText.names(accounts), environment)
         )
         .monospacedDigit()
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .lineLimit(2)
         Spacer(minLength: 6)
         if Self.offersRecording(payout, today: today) {

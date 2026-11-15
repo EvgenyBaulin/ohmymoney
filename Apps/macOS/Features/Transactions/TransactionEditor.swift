@@ -670,7 +670,7 @@ struct TransactionEditor: View {
         // «<name> · записано 22 окт, 14:20», as the design heads the sheet.
         Text(verbatim: recordedLine)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(1)
           .truncationMode(.tail)
           .accessibilityIdentifier("editor.recorded")
@@ -706,7 +706,7 @@ struct TransactionEditor: View {
         }
         Text(verbatim: environment.dates.moment(editor.entry.transaction.occurredAt))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if let refundMark { RefundMarkLabel(mark: refundMark) }
       }
     }
@@ -748,7 +748,7 @@ struct RefundMarkLabel: View {
       .accessibilityIdentifier("transactions.refund.purchase")
     } else {
       label(words)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .help(Text(verbatim: words))
     }
   }

@@ -46,7 +46,7 @@ struct ExpectedIncomeBlock: View {
           if hosted {
             PlanningEmptyHint(block: .expectedIncome) { sheet = .expected(nil) }
           } else {
-            Text(verbatim: t("expected.none")).foregroundStyle(.secondary)
+            Text(verbatim: t("expected.none")).secondaryInk()
           }
         }
         ForEach(shown.items) { status in
@@ -56,7 +56,7 @@ struct ExpectedIncomeBlock: View {
               if let kind = status.income.payoutKind {
                 Text(verbatim: DepositText.payoutTag(kind, environment))
                   .appFont(.caption)
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
                   .accessibilityIdentifier("expected.payoutTag")
               }
               if status.isOverdue {
@@ -76,7 +76,7 @@ struct ExpectedIncomeBlock: View {
             }
             Text(verbatim: detail(status))
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             HStack(spacing: 8) {
               Button(t("expected.link")) { sheet = .linkIncome(status) }
               Button(t("expected.edit")) { sheet = .expected(status.income) }
@@ -165,15 +165,15 @@ struct ExpectedIncomeBlock: View {
         ForEach(closed) { income in
           HStack(spacing: 6) {
             Image(systemName: "archivebox")
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityLabel(Text(verbatim: t("expected.closed")))
             Text(verbatim: income.name)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .lineLimit(1)
             Spacer(minLength: 6)
             Text(verbatim: environment.money.rounded(income.totalE4, currency: income.currency))
               .monospacedDigit()
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             Button(t("expected.restore")) {
               if let dependencies { PlanningActions(dependencies).reopen(income) }
             }
@@ -282,7 +282,7 @@ struct AdviceBlock: View {
         Image(systemName: "info.circle")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       ComputedBlock(
         title: hosted ? nil : t("advice.title"), state: compute.states.advice,
         style: hosted ? .plain : .card, asOf: compute.states.asOf(ComputeStep.advice),
@@ -318,7 +318,7 @@ private struct AdviceRow: View {
         ForEach(Array(advice.terms.enumerated()), id: \.offset) { _, term in
           Text(verbatim: AdviceText.line(term, environment, tree: compute.snapshot?.ledger.tree))
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         ForEach(Array(advice.notes.enumerated()), id: \.offset) { _, note in
           Text(verbatim: AdviceText.line(note, environment, tree: compute.snapshot?.ledger.tree))
@@ -340,7 +340,7 @@ private struct AdviceRow: View {
           Image(systemName: "hourglass")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .accessibilityElement(children: .combine)
@@ -361,12 +361,12 @@ struct DebtLoadHistoryView: View {
       if !rows.isEmpty {
         Text(verbatim: t("advice.load.history"))
           .appFont(.caption.weight(.semibold))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Grid(alignment: .leading, horizontalSpacing: 12, verticalSpacing: 2) {
           ForEach(rows, id: \.month) { row in
             GridRow {
               Text(verbatim: environment.dates.shortMonthAndYear(row.month))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
               Text(
                 verbatim: row.loadBp.map { environment.money.percent(basisPoints: $0) } ?? "—"
               )

@@ -76,7 +76,7 @@ struct EntryTagsRow: View {
     VStack(alignment: .leading, spacing: 6) {
       Text(verbatim: t("entryrule.tags"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       FlowRow(spacing: 6, lineSpacing: 6) {
         ForEach(state.lineTags, id: \.self) { name in
           TagChip(name: name, source: .line)
@@ -114,7 +114,7 @@ struct EntryTagsRow: View {
       {
         Label(hint, systemImage: "line.3.horizontal.decrease.circle")
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("entry.rule.hint")
       }

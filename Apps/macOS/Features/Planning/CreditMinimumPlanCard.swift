@@ -64,7 +64,7 @@ struct CreditMinimumPlanCard: View {
           "account.credit.minimum.full", table: "Accounts",
           environment.money.exact(statement.remainingE4, currency: item.currency))
       )
-      .appFont(.caption).foregroundStyle(.secondary).monospacedDigit()
+      .appFont(.caption).secondaryInk().monospacedDigit()
     }
   }
 }

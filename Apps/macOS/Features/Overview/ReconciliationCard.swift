@@ -30,7 +30,7 @@ struct ReconciliationCard: View {
               counts: max(0, last.date.days(to: snapshot.today)))
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           // The data step's snapshot is whole: the counts of a hidden account are left out
           // while they are covered, so the card names no hidden account and no amount of one.
           if let found = Self.found(
@@ -40,12 +40,12 @@ struct ReconciliationCard: View {
           {
             Text(verbatim: found)
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
         } else {
           Text(verbatim: environment.language("overview.reconciliationNone", table: "Overview"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         if let offer = Self.offer(in: snapshot), !hidden.isHidden(offer.candidate.key?.accountId) {
@@ -140,7 +140,7 @@ struct ReconciliationCard: View {
         Image(systemName: "flag")
       }
       .appFont(.caption.monospacedDigit())
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       // Content, not floating controls: plain small buttons, never glass.
       Button(environment.language("reconcile.firstCount.fix", table: "Planning")) {
         guard let dependencies else { return }

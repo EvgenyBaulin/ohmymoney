@@ -18,7 +18,7 @@ struct GoalWhyReminder: View {
         Image(systemName: "heart.text.square")
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("goal.why")
     }
   }
@@ -40,7 +40,7 @@ struct GoalWhyField: View {
       .accessibilityIdentifier("goal.why.field")
       Text(verbatim: HabitText.t("goal.why.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }

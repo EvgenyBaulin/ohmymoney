@@ -113,7 +113,7 @@ private struct NotEnoughData: View {
           .fixedSize(horizontal: false, vertical: true)
       }
     }
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 }
 
@@ -127,7 +127,7 @@ private struct Headline: View {
     HStack(alignment: .firstTextBaseline, spacing: 6) {
       if let symbol {
         Image(systemName: symbol)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
       }
       Text(verbatim: figure)
@@ -140,7 +140,7 @@ private struct Headline: View {
 @MainActor private func secondaryLine(_ text: String) -> some View {
   Text(verbatim: text)
     .appFont(AnalyticsCardType.subtitle.monospacedDigit())
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .fixedSize(horizontal: false, vertical: true)
 }
 
@@ -233,7 +233,7 @@ private struct BasketRow: View {
           Image(systemName: IncomeSavingsText.directionSymbol(line.direction))
         }
         .appFont(AnalyticsCardType.subtitle)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       TargetBar(shareBp: line.shareBp, targetBp: line.targetBp)
       secondaryLine(IncomeSavingsText.basketLine(line, environment))
@@ -423,7 +423,7 @@ private struct SalaryCard: View {
                 Spacer(minLength: 8)
                 Text(verbatim: IncomeSavingsText.salaryHeadline(line, environment))
                   .appFont(.system(size: 13).monospacedDigit())
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
               }
               .accessibilityElement(children: .combine)
             }
@@ -489,7 +489,7 @@ private struct HealthPartRow: View {
         Spacer(minLength: 8)
         Text(verbatim: IncomeSavingsText.partPoints(score, environment))
           .appFont(.system(size: 13).monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if score.isCounted { ShareBar(basisPoints: score.scoreBp) }
     }

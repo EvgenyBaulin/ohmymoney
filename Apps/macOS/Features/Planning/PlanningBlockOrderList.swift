@@ -48,7 +48,7 @@ struct PlanningBlockOrderRows: View {
         Text(verbatim: PlanningBlockText.name(of: block, environment))
       } icon: {
         Image(systemName: PlanningBlockText.symbol(of: block))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Spacer()
       Image(systemName: "line.3.horizontal")
@@ -97,7 +97,7 @@ struct PlanningOrderEditor: View {
     VStack(alignment: .leading, spacing: 8) {
       Text(verbatim: PlanningBlockText.t("layout.edit.hint", environment))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       VStack(alignment: .leading, spacing: 4) {
         PlanningBlockOrderRows(layout: layout)

@@ -89,7 +89,7 @@ struct ExportCopyView: View {
         Text(verbatim: t("privacy.copy.title")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("privacy.copy.passwordHint"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
 
@@ -148,7 +148,7 @@ struct ExportCopyView: View {
             verbatim: environment.format(
               "privacy.copy.leftOut", table: Self.table, counts: model.leftOut)
           )
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
         }
         // Before the copy is made: what goes with the hidden accounts besides their operations.
         if model.plansLeftOut > 0 {
@@ -156,7 +156,7 @@ struct ExportCopyView: View {
             verbatim: environment.format(
               "privacy.copy.plansLeftOut", table: Self.table, counts: model.plansLeftOut)
           )
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .accessibilityIdentifier("privacy.copy.preview.plans")
         }
         Label {
@@ -164,7 +164,7 @@ struct ExportCopyView: View {
         } icon: {
           Image(systemName: "checkmark.shield")
         }
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         if case .failed(let failure) = model.stage {
           Label {
             Text(verbatim: t(failure.key))
@@ -183,7 +183,7 @@ struct ExportCopyView: View {
     HStack {
       if model.stage == .working {
         ProgressView().controlSize(.small)
-        Text(verbatim: t("privacy.copy.working")).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: t("privacy.copy.working")).appFont(.callout).secondaryInk()
       }
       Spacer()
       Button(environment.language("action.cancel")) { dismiss() }
@@ -202,7 +202,7 @@ struct ExportCopyView: View {
     VStack(spacing: 14) {
       Image(systemName: "lock.doc")
         .appFont(.largeTitle)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Text(verbatim: t("privacy.copy.done")).appFont(.title3)
       VStack(alignment: .leading, spacing: 4) {
         Text(
@@ -232,7 +232,7 @@ struct ExportCopyView: View {
       .monospacedDigit()
       .appFont(.callout)
       Text(verbatim: t("privacy.copy.originalStays"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
       Button(environment.language("action.close")) { dismiss() }
         .keyboardShortcut(.defaultAction)
         .accessibilityIdentifier("privacy.copy.close")

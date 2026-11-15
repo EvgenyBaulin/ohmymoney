@@ -66,7 +66,7 @@ struct GroupScreen: View {
           Image(
             systemName: section.group == nil ? "sum" : section.inSummary ? "folder" : "eye.slash"
           )
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
           Text(verbatim: section.group?.name ?? t("sidebar.total"))
             .appFont(.title.bold())
@@ -140,7 +140,7 @@ struct GroupScreen: View {
     VStack(alignment: .leading, spacing: 6) {
       Text(verbatim: t("account.group.accounts"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityAddTraits(.isHeader)
       ForEach(section.accounts, id: \.account.id) { line in
         let figure = SidebarFigure.of(
@@ -164,7 +164,7 @@ struct GroupScreen: View {
               if let caption = figure.caption {
                 Text(verbatim: caption)
                   .appFont(.caption)
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
               }
             }
             Image(systemName: "chevron.right")
@@ -179,7 +179,7 @@ struct GroupScreen: View {
       }
       if section.accounts.isEmpty {
         Text(verbatim: t("group.screen.noAccounts"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)

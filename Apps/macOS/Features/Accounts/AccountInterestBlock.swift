@@ -273,14 +273,14 @@ struct AccountInterestBlock: View {
         Image(systemName: lines.ended ? "calendar.badge.checkmark" : "calendar")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       if let notCounted = lines.notCounted {
         Label {
           Text(verbatim: notCounted)
         } icon: {
           Image(systemName: "hourglass")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       // Estimates: grey, with «≈» in the words — never colour alone.
       ForEach(
@@ -289,16 +289,16 @@ struct AccountInterestBlock: View {
       ) { line in
         Text(verbatim: line)
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       ForEach(lines.asks) { ask in
         HStack(alignment: .firstTextBaseline, spacing: 6) {
           Image(systemName: ask.isMissing ? "questionmark.circle" : "clock")
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityHidden(true)
           Text(verbatim: ask.text)
             .monospacedDigit()
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Spacer(minLength: 6)
           Button(t("account.interest.record")) { recording = ask.prefill }
             .controlSize(.small)
@@ -341,13 +341,13 @@ struct DepositIncomeSheet: View {
         .appFont(.headline)
       Text(verbatim: depositName)
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Form {
         LabeledContent(t("account.interest.recordAmount")) {
           HStack {
             AmountField(amount: $amount, locale: environment.language.locale)
               .accessibilityIdentifier("account.interest.recordAmount")
-            Text(verbatim: prefill.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: prefill.currency.code).secondaryInk()
           }
         }
         DatePicker(t("account.interest.recordDate"), selection: $date)
@@ -358,7 +358,7 @@ struct DepositIncomeSheet: View {
         }
         Text(verbatim: t("account.interest.recordHint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

@@ -32,7 +32,7 @@ struct GuideCardsView: View {
       HStack {
         Text(verbatim: title)
           .appFont(.headline)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Spacer()
         Button(t("guide.skip")) { finish(!isLast) }
           .buttonStyle(.borderless)
@@ -113,7 +113,7 @@ struct GuideCardsView: View {
         .multilineTextAlignment(.center)
       Text(verbatim: card.body.text(russian: russian))
         .appFont(.body)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .multilineTextAlignment(.center)
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: 420)

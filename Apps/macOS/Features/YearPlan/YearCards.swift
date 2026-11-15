@@ -78,7 +78,7 @@ struct YearSeasonCard: View {
         if dear.isEmpty {
           Text(verbatim: YearText.t("year.season.none", environment))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         } else {
           VStack(alignment: .leading, spacing: 4) {
             ForEach(dear, id: \.month) { month in
@@ -101,7 +101,7 @@ struct YearSeasonCard: View {
         } icon: {
           Image(systemName: "hourglass")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
   }
@@ -171,7 +171,7 @@ struct YearForecastCard: View {
       if rows.isEmpty {
         Text(verbatim: YearText.t("year.forecast.none", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       ForEach(Array((showsAll ? rows : Array(rows.prefix(Self.listed))).enumerated()), id: \.offset)
       { _, row in

@@ -63,7 +63,7 @@ struct MacFeaturesSettingsSection: View {
             }
           }
           Text(verbatim: t("mac.settings.footer.\(privacy)"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -125,7 +125,7 @@ struct MacFeaturesSettingsSection: View {
       Text(verbatim: t("mac.settings.title")).settingsHeaderStyle()
     } footer: {
       Text(verbatim: t("mac.settings.footer.\(privacy)"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }

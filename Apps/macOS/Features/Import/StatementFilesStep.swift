@@ -35,7 +35,7 @@ struct StatementFilesStep: View {
         }
         .buttonStyle(.link)
         Text(verbatim: t("import.identity.hint"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .padding(16)
@@ -56,7 +56,7 @@ struct StatementFileCard: View {
     VStack(alignment: .leading, spacing: 10) {
       HStack(spacing: 8) {
         Image(systemName: file.name.lowercased().hasSuffix(".pdf") ? "doc.richtext" : "tablecells")
-          .foregroundStyle(.secondary).accessibilityHidden(true)
+          .secondaryInk().accessibilityHidden(true)
         Text(verbatim: file.name).appFont(.headline).lineLimit(1).truncationMode(.middle)
         Spacer()
         Button {
@@ -91,7 +91,7 @@ struct StatementFileCard: View {
       Label(t(title), systemImage: "exclamationmark.triangle")
         .appFont(.callout.weight(.semibold))
       Text(verbatim: t(body))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -101,14 +101,14 @@ struct StatementFileCard: View {
     let bank = StatementProfiles.profile(id: parsed.profileID)?.bankName ?? parsed.profileID
     HStack(spacing: 8) {
       Text(verbatim: ImportText.format("import.format", environment, bank))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
       if let period = file.preview?.period {
-        Text(verbatim: "·").foregroundStyle(.secondary)
+        Text(verbatim: "·").secondaryInk()
         Text(
           verbatim:
             "\(environment.dates.longDay(period.from)) – \(environment.dates.longDay(period.to))"
         )
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
       }
     }
     Picker(selection: accountBinding) {
@@ -122,7 +122,7 @@ struct StatementFileCard: View {
     .accessibilityIdentifier("import.account")
     if file.accountID == nil {
       Label(t("import.account.needed"), systemImage: "arrow.up")
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
     if let preview = file.preview {
       counts(preview)
@@ -167,7 +167,7 @@ struct StatementFileCard: View {
           .appFont(.callout.weight(.semibold)).foregroundStyle(.orange)
         if check.violations > 0 && check.missingIncome.isZero && check.missingExpense.isZero {
           Text(verbatim: t("import.check.footer.missing"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
         } else {
           Text(
             verbatim: ImportText.format(
@@ -175,7 +175,7 @@ struct StatementFileCard: View {
               environment.money.exact(check.missingIncome),
               environment.money.exact(check.missingExpense))
           )
-          .appFont(.callout).foregroundStyle(.secondary).monospacedDigit()
+          .appFont(.callout).secondaryInk().monospacedDigit()
           .fixedSize(horizontal: false, vertical: true)
         }
       }
@@ -191,11 +191,11 @@ struct StatementFileCard: View {
           "import.note.unparsed", environment, preview.unparsedCount,
           environment.money.exact(preview.unparsedSum)), systemImage: "questionmark.diamond"
       )
-      .appFont(.callout).foregroundStyle(.secondary)
+      .appFont(.callout).secondaryInk()
     }
     if preview.usedLegacyEncoding {
       Label(t("import.note.encoding"), systemImage: "textformat")
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
     if let before = file.loadedBefore {
       Label(
@@ -204,7 +204,7 @@ struct StatementFileCard: View {
           environment.dates.longDay(environment.calendar.day(of: before))),
         systemImage: "clock.arrow.circlepath"
       )
-      .appFont(.callout).foregroundStyle(.secondary)
+      .appFont(.callout).secondaryInk()
       .accessibilityIdentifier("import.note.loadedBefore")
     }
   }

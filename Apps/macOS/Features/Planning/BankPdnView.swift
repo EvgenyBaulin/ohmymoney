@@ -11,7 +11,7 @@ struct BankPdnView: View {
     VStack(alignment: .leading, spacing: 3) {
       Text(verbatim: BanksRuText.t("banksRu.pdn.title", environment))
         .appFont(.caption.weight(.semibold))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       ForEach(Array(BanksRuText.pdnLines(pdn, environment).enumerated()), id: \.offset) {
         _, line in
         Text(verbatim: line)

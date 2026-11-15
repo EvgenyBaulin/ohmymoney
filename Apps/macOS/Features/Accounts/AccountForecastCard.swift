@@ -89,7 +89,7 @@ private struct AccountForecastLines: View {
         if let header = pair.header {
           Text(verbatim: header)
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if let middle = pair.middle {
           VStack(alignment: .leading, spacing: 2) {
@@ -98,7 +98,7 @@ private struct AccountForecastLines: View {
             if let range = pair.range {
               Text(verbatim: range)
                 .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
           .accessibilityElement(children: .ignore)
@@ -133,7 +133,7 @@ private struct AccountForecastLines: View {
         Image(systemName: note.symbol)
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 }

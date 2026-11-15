@@ -21,7 +21,7 @@ struct SplitWizardFields: View {
       }
       Button(t("split.generate")) { model.splitPayments = [] }
       Text(verbatim: t("split.accountingHint"))
-        .appFont(.caption).foregroundStyle(.secondary)
+        .appFont(.caption).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
     Section(t("split.schedule")) {
@@ -30,7 +30,7 @@ struct SplitWizardFields: View {
       }
       if !model.splitIsValid {
         Text(verbatim: t("split.invalid"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }

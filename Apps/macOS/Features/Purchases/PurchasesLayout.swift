@@ -166,7 +166,7 @@ struct PurchasesRow: View {
         if let detail {
           Text(verbatim: detail)
             .appFont(PurchasesType.detail(design))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(design == .phone ? 2 : 1)
         }
       }
@@ -268,7 +268,7 @@ struct PurchasesCardTitle: View {
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: title).appFont(PurchasesType.cardTitle).lineLimit(2)
         if let detail {
-          Text(verbatim: detail).appFont(PurchasesType.cardLine).foregroundStyle(.secondary)
+          Text(verbatim: detail).appFont(PurchasesType.cardLine).secondaryInk()
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)

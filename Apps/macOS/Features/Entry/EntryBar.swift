@@ -1068,7 +1068,7 @@ struct EntryBar<Accessory: View>: View {
         VStack(alignment: .leading, spacing: 8) {
           Text(verbatim: environment.language("entry.quick.willWrite", table: "Entry"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Text(verbatim: QuickEntrySummary.text(of: model, environment: environment))
             .fixedSize(horizontal: false, vertical: true)
             .accessibilityIdentifier("entry.quick.summary")
@@ -1249,7 +1249,7 @@ struct EntryBar<Accessory: View>: View {
         } icon: {
           Image(systemName: message.symbol)
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("entry.caption")
         if let action = message.actionKey {
           Button(environment.language(action, table: "Entry")) { act(on: message) }
@@ -1265,20 +1265,20 @@ struct EntryBar<Accessory: View>: View {
         if let termsHint {
           Label(termsHint, systemImage: "checkmark.shield")
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("entry.terms.hint")
         }
         if let preview {
           // "Результат виден сразу": the amount a formula comes to, before Enter.
           Text(verbatim: preview)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         // «По правилу «Пятёрочка»: Продукты · #еда»: nothing happens silently.
         if let ruleHint {
           Label(ruleHint, systemImage: "line.3.horizontal.decrease.circle")
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("entry.rule.hint")
         }
       }
@@ -1347,7 +1347,7 @@ struct EntryBar<Accessory: View>: View {
     HStack(spacing: 8) {
       Text(verbatim: "Esc")
         .appFont(EntryType.label)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       closeButton
     }

@@ -38,7 +38,7 @@ struct SubscriptionsScreen: View {
         if let page, let snapshot = compute.snapshot {
           content(page, snapshot: snapshot)
         } else {
-          Text(verbatim: t("subs.empty")).foregroundStyle(.secondary)
+          Text(verbatim: t("subs.empty")).secondaryInk()
         }
       }
       .padding(20)
@@ -81,7 +81,7 @@ struct SubscriptionsScreen: View {
     if page.rows.isEmpty && !page.partHidden {
       Text(verbatim: t("subs.empty"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .contentCard()
         .accessibilityIdentifier("subs.empty")
     } else {
@@ -110,7 +110,7 @@ struct SubscriptionsScreen: View {
         Image(systemName: "info.circle")
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .contentCard()
       .accessibilityIdentifier("subs.appStore")
     }
@@ -185,10 +185,10 @@ struct SubscriptionsScreen: View {
               money.exact(line.netRub))
           )
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           Text(verbatim: t(Self.bankKey(line.verdict)))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("subs.bank.line")
@@ -306,7 +306,7 @@ struct SubscriptionsScreen: View {
         .fixedSize(horizontal: false, vertical: true)
       Text(verbatim: SubscriptionsText.charge(row.line, environment))
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       if row.line.yearlyRub == nil {
         flag(
           "questionmark.circle",
@@ -355,7 +355,7 @@ struct SubscriptionsScreen: View {
       Image(systemName: symbol)
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   private func history(_ row: SubscriptionsPage.Row, isOpen: Bool) -> some View {
@@ -382,7 +382,7 @@ struct SubscriptionsScreen: View {
             if let split = step.split {
               Text(verbatim: SubscriptionsText.split(split, environment))
                 .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
         }

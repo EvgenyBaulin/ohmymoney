@@ -66,7 +66,7 @@ struct ScreenCardHeader: View {
       if let caption {
         Text(verbatim: caption)
           .appFont(.callout.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(1)
           .minimumScaleFactor(0.8)
       }

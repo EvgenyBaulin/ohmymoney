@@ -68,7 +68,7 @@ struct CurrencyChartCard: View {
             Image(systemName: arrow)
           }
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         RateLineChart(points: points, calendar: environment.calendar) { point in
           environment.dates.dayAndMonth(point.day) + ": " + rate(point.rateE4)
@@ -77,7 +77,7 @@ struct CurrencyChartCard: View {
       } else {
         Text(verbatim: loading ? t("currencyChart.loading") : t("currencyChart.noRates"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
       }
     }

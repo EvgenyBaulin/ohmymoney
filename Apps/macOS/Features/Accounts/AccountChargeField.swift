@@ -36,7 +36,7 @@ struct AccountChargeField: View {
         .accessibilityIdentifier("entry.accountCharge")
         if let currency = model.draft.accountCurrency {
           Text(verbatim: currency.code)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       if model.chargeIsProvisional {
@@ -46,7 +46,7 @@ struct AccountChargeField: View {
           Image(systemName: "hourglass")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .help(t("entry.accountCharge.provisionalHelp"))
       }
       // Typed for another amount, currency, day or account: kept, and said so in words.
@@ -57,7 +57,7 @@ struct AccountChargeField: View {
           Image(systemName: "exclamationmark.triangle")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("entry.accountCharge.check")
       }
     }

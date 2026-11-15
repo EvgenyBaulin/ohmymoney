@@ -31,11 +31,11 @@ struct CapitalTileCard: View {
               Image(systemName: lines.arrow)
             }
             .appFont(.callout.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           Text(verbatim: lines.haveAndOwe)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           // The figures hold the money of a covered hidden account; the tile names none.
           if let shown = compute.snapshot,

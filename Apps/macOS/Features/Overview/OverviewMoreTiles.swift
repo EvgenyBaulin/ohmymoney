@@ -80,7 +80,7 @@ struct IncomeForecastCard: View {
         }
         Text(verbatim: t(Self.sourceKey(income.source)))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if income.lowData {
           Label {
             Text(verbatim: environment.language("common.noData"))
@@ -88,7 +88,7 @@ struct IncomeForecastCard: View {
             Image(systemName: "hourglass")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
     }
@@ -134,7 +134,7 @@ struct BalanceForecastCard: View {
             environment.dates.dayAndMonth(model.through))
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         if OverviewPartHidden.shows(.balanceForecast, covered: compute.snapshot?.coveredAccounts) {
           PartHiddenNote()
         }
@@ -146,7 +146,7 @@ struct BalanceForecastCard: View {
             Image(systemName: "exclamationmark.circle")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         if model.lowData {
           Label {
@@ -155,7 +155,7 @@ struct BalanceForecastCard: View {
             Image(systemName: "hourglass")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
     }
@@ -204,7 +204,7 @@ struct IOweCard: View {
     ) { snapshot in
       let debts = snapshot.planning.debts
       if debts.iOwe.isEmpty {
-        Text(verbatim: t("overview.iOwe.none")).foregroundStyle(.secondary)
+        Text(verbatim: t("overview.iOwe.none")).secondaryInk()
       } else {
         VStack(alignment: .leading, spacing: 5) {
           Text(verbatim: environment.money.rounded(debts.totalIOweRub))
@@ -230,7 +230,7 @@ struct IOweCard: View {
                   environment.dates.dayAndMonth(next))
               )
               .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             }
           }
           if debts.iOwe.count > Self.shown {
@@ -240,7 +240,7 @@ struct IOweCard: View {
                 counts: debts.iOwe.count - Self.shown)
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
         }
       }
@@ -267,7 +267,7 @@ private struct LastOperationLines: View {
         if let entry = OverviewTileText.lastOperation(in: snapshot.dataset) {
           HStack(alignment: .firstTextBaseline, spacing: 6) {
             Image(systemName: OverviewTileText.symbol(of: entry.transaction.kind))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityHidden(true)
             Text(verbatim: OverviewTileText.title(of: entry, tree: snapshot.ledger.tree))
               .lineLimit(1)
@@ -286,7 +286,7 @@ private struct LastOperationLines: View {
       Text(
         verbatim: environment.language("overview.lastRecord.none", table: OverviewTileText.table)
       )
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 }
@@ -322,7 +322,7 @@ struct LastCountAndRecordCard: View {
         if let last = snapshot.planning.lastReconciliation {
           HStack(alignment: .firstTextBaseline, spacing: 6) {
             Image(systemName: "checkmark.seal")
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityHidden(true)
             Text(verbatim: environment.dates.longDay(last.date))
             Text(
@@ -331,7 +331,7 @@ struct LastCountAndRecordCard: View {
                 counts: max(0, last.date.days(to: snapshot.today)))
             )
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           .appFont(.callout)
           .accessibilityElement(children: .combine)
@@ -339,7 +339,7 @@ struct LastCountAndRecordCard: View {
           Text(
             verbatim: environment.language("overview.lastCount.none", table: OverviewTileText.table)
           )
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         Divider()
         LastOperationLines(snapshot: snapshot)

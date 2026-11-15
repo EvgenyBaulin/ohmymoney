@@ -78,7 +78,7 @@ struct PlanningRibbonView: View {
             ribbon.withoutRate.map(\.code).joined(separator: ", "))
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, alignment: .topLeading)

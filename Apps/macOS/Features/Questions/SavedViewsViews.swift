@@ -102,7 +102,7 @@ struct SaveViewSheet: View {
             .accessibilityIdentifier("saved.period")
           } footer: {
             Text(verbatim: t("questions.saved.period.footer"))
-              .appFont(.callout).foregroundStyle(.secondary)
+              .appFont(.callout).secondaryInk()
           }
         }
         if case .filter(_, let columns) = subject, columns != nil {
@@ -191,7 +191,7 @@ struct SavedViewsSheet: View {
       if book.filters.isEmpty && book.reports.isEmpty {
         Text(verbatim: t("questions.saved.empty"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .multilineTextAlignment(.center)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .padding(24)
@@ -240,7 +240,7 @@ struct SavedViewsSheet: View {
         Divider()
         Text(verbatim: t("questions.saved.undoHint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .padding(10)
       }
     }
@@ -280,7 +280,7 @@ private struct SavedViewRow: View {
         }
         Text(verbatim: summary)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(2)
       }
       Spacer(minLength: 8)

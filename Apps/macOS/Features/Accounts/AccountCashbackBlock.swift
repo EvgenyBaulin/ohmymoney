@@ -133,7 +133,7 @@ struct AccountCashbackBlock: View {
     ) { model in
       VStack(alignment: .leading, spacing: 8) {
         if model.isEmpty {
-          Text(verbatim: t("account.screen.cashbackNone")).foregroundStyle(.secondary)
+          Text(verbatim: t("account.screen.cashbackNone")).secondaryInk()
         } else {
           ForEach(model.lines) { line in
             lineView(line, currency: model.currency)
@@ -190,7 +190,7 @@ struct AccountCashbackBlock: View {
     return VStack(alignment: .leading, spacing: 2) {
       HStack(alignment: .firstTextBaseline, spacing: 6) {
         Image(systemName: line.cardId == nil ? "building.columns" : "creditcard")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: line.cardName ?? t("account.screen.cashbackAccountLine"))
           .fontWeight(.medium)
@@ -201,7 +201,7 @@ struct AccountCashbackBlock: View {
             "account.screen.cashbackExpected", table: CardText.table,
             amounts(line.expected, currency: currency))
         )
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .monospacedDigit()
         Text(
           verbatim: environment.format(
@@ -216,7 +216,7 @@ struct AccountCashbackBlock: View {
             .joined(separator: " · ")
         )
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .accessibilityElement(children: .combine)
@@ -235,7 +235,7 @@ struct AccountCashbackBlock: View {
           environment.money.exact(model.unconfirmedRub))
       )
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("account.cashback.approximate")
     }
   }
@@ -280,7 +280,7 @@ struct AccountCashbackBlock: View {
     } icon: {
       Image(systemName: symbol).foregroundStyle(tint)
     }
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   /// «280.55 ₽», «100 ₸, 18.50 ₽»; nothing — zero in the account's currency, «0.00 ₸».

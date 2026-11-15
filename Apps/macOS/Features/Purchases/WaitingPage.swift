@@ -20,7 +20,7 @@ struct WaitingPage: View {
       if page.waiting.items.isEmpty {
         Text(verbatim: t("purchases.waiting.empty"))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .sectionCard()
           .accessibilityIdentifier("purchases.waiting.empty")
@@ -39,7 +39,7 @@ struct WaitingPage: View {
     PurchasesFactCard(gap: PurchasesMetrics.totalGap) {
       Text(verbatim: t(PurchasesText.Page.waiting.titleKey))
         .appFont(PurchasesType.fieldLabel)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Text(verbatim: environment.money.rounded(page.waiting.totalRubE4))
         .appFont(PurchasesType.totalFigure)
       Text(
@@ -48,7 +48,7 @@ struct WaitingPage: View {
           + t("purchases.waiting.hint")
       )
       .appFont(PurchasesType.fieldLabel)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
     }
     .accessibilityIdentifier("purchases.waiting.total")
@@ -132,7 +132,7 @@ struct WaitingCreditSheet: View {
           displayedComponents: .date)
         Text(verbatim: t("purchases.credit.hint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .formStyle(.grouped)
       FormButtons(title: t("purchases.waiting.credited"), enabled: true) {

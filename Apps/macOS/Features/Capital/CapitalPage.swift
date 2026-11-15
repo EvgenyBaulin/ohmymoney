@@ -198,7 +198,7 @@ struct CapitalSharesCard: View {
       if shares.isEmpty {
         Text(verbatim: CapitalText.t("capital.empty", environment))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       } else {
         HStack(alignment: .center, spacing: CapitalMetrics.donutToLegend) {
@@ -238,7 +238,7 @@ struct CapitalSharesCard: View {
         .appFont(.system(size: 12))
       Text(verbatim: environment.money.percent(basisPoints: share.basisPoints, fractionDigits: 0))
         .appFont(.system(size: 12, weight: .semibold).monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("capital.shares.\(share.kind.rawValue)")
@@ -294,7 +294,7 @@ struct CapitalAssetsCard: View {
       if assets.isEmpty {
         Text(verbatim: CapitalText.t("capital.assets.empty", environment))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         Button(CapitalText.t("capital.assets.add", environment)) { sheet = .newAsset }
           .buttonStyle(.rowAction)
@@ -304,13 +304,13 @@ struct CapitalAssetsCard: View {
       if !gone.isEmpty {
         Text(verbatim: CapitalText.t("capital.assets.disposed", environment))
           .appFont(SectionType.cardCaption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         ForEach(gone) { asset in row(asset) }
       }
       if let refusal {
         Text(verbatim: CapitalText.t(refusal, environment))
           .appFont(SectionType.rowDetail)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .sectionCard()
@@ -479,7 +479,7 @@ struct CapitalMonthsCard: View {
         if index > 0 { Spacer(minLength: 4) }
         Text(verbatim: label(point, in: chart))
           .appFont(.system(size: LayoutIdiom.resolved(idiom) == .mac ? 11 : 10))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(1)
       }
     }
@@ -609,7 +609,7 @@ struct CapitalCushionCard: View {
           Image(systemName: "hourglass")
         }
         .appFont(SectionType.rowDetail)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .sectionCard()

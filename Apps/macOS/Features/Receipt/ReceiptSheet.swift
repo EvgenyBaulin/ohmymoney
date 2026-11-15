@@ -153,7 +153,7 @@ struct ReceiptSheet: View {
   private var header: some View {
     VStack(alignment: .leading, spacing: 2) {
       Text(verbatim: t("receipt.title")).appFont(.headline)
-      Text(verbatim: t("receipt.subtitle")).appFont(.callout).foregroundStyle(.secondary)
+      Text(verbatim: t("receipt.subtitle")).appFont(.callout).secondaryInk()
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(16)
@@ -170,7 +170,7 @@ struct ReceiptSheet: View {
       case .reading:
         HStack(spacing: 8) {
           ProgressView().controlSize(.small)
-          Text(verbatim: t("receipt.reading")).foregroundStyle(.secondary)
+          Text(verbatim: t("receipt.reading")).secondaryInk()
         }
       case .noCode:
         notice("receipt.noCode", symbol: "qrcode.viewfinder")
@@ -203,7 +203,7 @@ struct ReceiptSheet: View {
     } icon: {
       Image(systemName: symbol).accessibilityHidden(true)
     }
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   private func failureKey(_ failure: ReceiptModel.FailureKind) -> String {
@@ -259,8 +259,8 @@ struct ReceiptSheet: View {
         .accessibilityIdentifier("receipt.choose")
       }
       #if os(macOS)
-        Text(verbatim: t("receipt.iphone.hint")).appFont(.caption).foregroundStyle(.secondary)
-        Text(verbatim: t("receipt.drop")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("receipt.iphone.hint")).appFont(.caption).secondaryInk()
+        Text(verbatim: t("receipt.drop")).appFont(.caption).secondaryInk()
       #endif
     }
   }
@@ -286,13 +286,13 @@ struct ReceiptSheet: View {
       } icon: {
         Image(systemName: "eye").accessibilityHidden(true)
       }
-      .foregroundStyle(.secondary).accessibilityIdentifier("receipt.checkNote")
+      .secondaryInk().accessibilityIdentifier("receipt.checkNote")
       if !model.numbersText.isEmpty {
         Text(verbatim: model.numbersText).monospacedDigit().appFont(.callout)
       }
     }
     if model.receipt?.isRefund == true {
-      Text(verbatim: t("receipt.refund")).foregroundStyle(.secondary)
+      Text(verbatim: t("receipt.refund")).secondaryInk()
     }
     if model.isSupplementing, let id = model.chosenId {
       Text(verbatim: model.question(for: id)).appFont(.title3)
@@ -309,7 +309,7 @@ struct ReceiptSheet: View {
         }
         .accessibilityIdentifier("receipt.choices")
       } else {
-        Text(verbatim: model.dayText(of: id)).foregroundStyle(.secondary)
+        Text(verbatim: model.dayText(of: id)).secondaryInk()
       }
     } else {
       Text(verbatim: model.newOperationText).appFont(.title3)
@@ -318,7 +318,7 @@ struct ReceiptSheet: View {
         Text(verbatim: model.merchantText).accessibilityIdentifier("receipt.merchant")
       }
       Text(verbatim: t(model.canCreate ? "receipt.new.category" : "receipt.new.refundHint"))
-        .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        .secondaryInk().fixedSize(horizontal: false, vertical: true)
       if model.receipt?.isRefund != true { ReceiptSplitSection(model: model) }
       if !model.splitParts.isEmpty {
         Label {
@@ -392,7 +392,7 @@ struct ReceiptSheet: View {
       case .created:
         Label(t("receipt.done.created"), systemImage: "checkmark.circle")
       }
-      Text(verbatim: t("receipt.done.undo")).foregroundStyle(.secondary)
+      Text(verbatim: t("receipt.done.undo")).secondaryInk()
       Spacer(minLength: 0)
       HStack {
         Spacer()
@@ -412,7 +412,7 @@ struct ReceiptSheet: View {
       }
       .appFont(.title3)
       .accessibilityIdentifier("receipt.already")
-      Text(verbatim: t("receipt.already.hint")).foregroundStyle(.secondary)
+      Text(verbatim: t("receipt.already.hint")).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Spacer(minLength: 0)
       HStack {

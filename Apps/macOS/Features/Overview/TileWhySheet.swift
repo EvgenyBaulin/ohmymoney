@@ -26,7 +26,7 @@ struct TileWhySheet: View {
           .appFont(.title3.weight(.semibold))
         Text(verbatim: t("why.sheet.subtitle"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .accessibilityElement(children: .combine)
       .accessibilityAddTraits(.isHeader)
@@ -61,7 +61,7 @@ struct TileWhySheet: View {
       TileWhyContent(explanation: explanation, tree: snapshot.ledger.tree)
     } else {
       Text(verbatim: t("why.sheet.noData"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 
@@ -113,10 +113,10 @@ struct TileWhyContent: View {
         } icon: {
           Image(systemName: "hourglass")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       case .empty(let phrase):
         Text(verbatim: TileWhy.text(phrase, tree: tree, environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       case .ready:
         ForEach(Array(explanation.sections.enumerated()), id: \.offset) { _, section in
@@ -132,7 +132,7 @@ struct TileWhyContent: View {
             Image(systemName: "info.circle")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       VStack(alignment: .leading, spacing: 4) {
@@ -189,12 +189,12 @@ private struct TileWhyRowView: View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
       Text(verbatim: TileWhy.sign(of: row, isTotal: isTotal))
         .appFont(.callout.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .frame(width: 12, alignment: .center)
         .accessibilityHidden(true)
       if let mark = row.mark, let symbol = TileWhy.symbol(of: mark) {
         Image(systemName: symbol)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityLabel(Text(verbatim: TileWhy.word(of: mark, environment) ?? ""))
           .accessibilityHidden(TileWhy.word(of: mark, environment) == nil)
       }
@@ -204,7 +204,7 @@ private struct TileWhyRowView: View {
         if let note = row.note {
           Text(verbatim: TileWhy.text(note, tree: tree, environment))
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }
@@ -212,7 +212,7 @@ private struct TileWhyRowView: View {
       if let share = row.share {
         Text(verbatim: environment.money.percent(basisPoints: share))
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if let value = row.value {
         Text(verbatim: TileWhy.value(value, environment))

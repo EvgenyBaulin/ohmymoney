@@ -72,7 +72,7 @@ struct HourHeatmapView: View {
             GridRow {
               Text(verbatim: environment.dates.shortWeekday(weekday))
                 .appFont(.system(size: 11))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .frame(width: HeatmapMetrics.labelWidth, alignment: .leading)
               ForEach(0..<24, id: \.self) { hour in
                 cell(weekday: weekday, hour: hour, maximum: maximum)
@@ -87,7 +87,7 @@ struct HourHeatmapView: View {
           }
         }
         .appFont(.system(size: 11).monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .padding(.leading, HeatmapMetrics.labelWidth + HeatmapMetrics.cellGap)
         .accessibilityHidden(true)
       }
@@ -97,7 +97,7 @@ struct HourHeatmapView: View {
       ForEach(Array(HeatmapReading.busiest(heatmap).enumerated()), id: \.offset) { _, slot in
         Text(verbatim: busiestLine(slot))
           .appFont(.system(size: 11).monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if heatmap.withoutTime > 0 {
         Label {
@@ -108,7 +108,7 @@ struct HourHeatmapView: View {
           Image(systemName: "clock.badge.questionmark")
         }
         .appFont(.system(size: 11))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("spending.heatmap.withoutTime")
       }
     }
@@ -149,7 +149,7 @@ struct HourHeatmapView: View {
       Text(verbatim: SpendingText.t("spending.heat.more", environment))
     }
     .appFont(.system(size: 11))
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .accessibilityHidden(true)
   }
 

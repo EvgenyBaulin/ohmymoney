@@ -46,7 +46,7 @@ struct YearLimitsCard: View {
       if page.limitSeasons.isEmpty {
         Text(verbatim: YearText.t("year.limits.none", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if !page.exceptions.isEmpty {
         Divider()
@@ -63,7 +63,7 @@ struct YearLimitsCard: View {
               Text(verbatim: environment.money.rounded(exception.amountE4))
                 .monospacedDigit()
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
             Spacer(minLength: 8)
             Button(environment.language("action.edit")) {
@@ -149,7 +149,7 @@ struct YearAdviceCard: View {
       if page.yearly.isEmpty, page.propertyTax.isEmpty {
         Text(verbatim: YearText.t("year.advice.none", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
   }
@@ -182,7 +182,7 @@ struct YearBufferCard: View {
             Image(systemName: state.isOverrun ? "exclamationmark.triangle" : "circle.dashed")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           if let free = page.freeToMonthEnd {
             Text(
               verbatim: YearText.f(
@@ -191,7 +191,7 @@ struct YearBufferCard: View {
                 environment.money.rounded(state.left))
             )
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
         }
         if let offer = page.bufferRaise {
@@ -221,7 +221,7 @@ struct YearBufferCard: View {
       } else {
         Text(verbatim: YearText.t("year.buffer.off", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Button(YearText.t("year.buffer.set", environment)) { open(.buffer) }
           .buttonStyle(.bordered)
           .controlSize(.small)
@@ -278,7 +278,7 @@ struct YearEventsCard: View {
               : YearText.f("year.events.items", environment, items.count)
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           HStack(spacing: 8) {
             Button(YearText.t("year.events.edit", environment)) { open(.eventItems(event)) }
               .accessibilityIdentifier("year.events.items")
@@ -296,7 +296,7 @@ struct YearEventsCard: View {
       if page.events.isEmpty {
         Text(verbatim: YearText.t("year.events.none", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Button(YearText.t("year.events.fromTemplate", environment)) { open(.fromTemplate) }
         .buttonStyle(.bordered)

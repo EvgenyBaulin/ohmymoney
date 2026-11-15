@@ -12,7 +12,7 @@ struct CashbackCapField: View {
   var body: some View {
     HStack {
       Text(verbatim: environment.language(labelKey, table: "SyncHistory"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Spacer()
       TextField(text: $text) {
         Text(verbatim: environment.language("cashback.cap.none", table: "SyncHistory"))
@@ -22,7 +22,7 @@ struct CashbackCapField: View {
       .monospacedDigit()
       .frame(width: 100)
       Text(verbatim: environment.language("cashback.cap.perMonth", table: "SyncHistory"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .appFont(.caption)
     .accessibilityIdentifier(labelKey)
