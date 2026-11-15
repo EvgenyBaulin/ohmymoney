@@ -873,3 +873,64 @@ struct CashbackRuleByCodeTests {
     #expect(expected(coded, Book.alpha, Book.september) == money("50"))
   }
 }
+
+/// «Здесь лучше платить …»: the advice for a mark of the owner's on the map.
+@Suite("Advice for a marked place")
+struct PlaceAdviceTests {
+  private let today = DateOnly(iso: "2026-10-20")!
+
+  private func mark(place: UUID? = nil, category: UUID? = nil) -> PlaceMark {
+    PlaceMark(
+      name: "Mark", point: GeoPoint(latitudeE7: 0, longitudeE7: 0)!, placeId: place,
+      categoryId: category)
+  }
+
+  private func history() -> [TransactionEntry] {
+    (0..<3).map {
+      Book.buy(
+        6600 + $0, "10-\(10 + $0)", Book.supermarkets, "2000", on: Book.alpha, place: Book.shop)
+    }
+  }
+
+  @Test func aPlaceWithHistoryAdvisesTheCardThatEarnsMoreForWhatIsBoughtThere() throws {
+    let ledger = Book.ledger(history(), accounts: Book.accounts(betaCap: nil))
+    let advice = try #require(
+      PlaceAdvisor.advice(for: mark(place: Book.shop), ledger: ledger, today: today))
+    #expect(advice.best.holder == .card(Book.betaCard))
+    #expect(advice.bestPercent == CashbackPercent(e4: 50_000))
+    #expect(advice.categoryId == Book.supermarkets)
+    #expect(!advice.isUsualCard)
+  }
+
+  @Test func aMarkWithACategoryAndNoHistoryAdvisesByTheCategory() throws {
+    let ledger = Book.ledger([], accounts: Book.accounts(betaCap: nil))
+    let advice = try #require(
+      PlaceAdvisor.advice(for: mark(category: Book.supermarkets), ledger: ledger, today: today))
+    #expect(advice.best.holder == .card(Book.betaCard))
+    let cafes = try #require(
+      PlaceAdvisor.advice(for: mark(category: Book.cafes), ledger: ledger, today: today))
+    #expect(cafes.best.holder == .account(Book.alpha))
+    #expect(cafes.bestPercent == CashbackPercent(e4: 50_000))
+  }
+
+  @Test func aMarkThatSaysNothingOfWhatIsBoughtGetsNoAdvice() {
+    let ledger = Book.ledger(history(), accounts: Book.accounts(betaCap: nil))
+    #expect(PlaceAdvisor.advice(for: mark(), ledger: ledger, today: today) == nil)
+    // A place the books never saw and no category either.
+    #expect(PlaceAdvisor.advice(for: mark(place: UUID()), ledger: ledger, today: today) == nil)
+  }
+
+  @Test func aHiddenAccountIsNeverAdvised() throws {
+    let ledger = Book.ledger(history(), accounts: Book.accounts(betaCap: nil))
+    let advice = try #require(
+      PlaceAdvisor.advice(
+        for: mark(place: Book.shop), ledger: ledger, today: today, hidden: [Book.beta]))
+    #expect(advice.best.accountId == Book.alpha)
+    #expect(advice.isUsualCard)
+  }
+
+  @Test func withoutAnyRuleThereIsNothingToAdvise() {
+    let ledger = Book.ledger(history(), rules: [])
+    #expect(PlaceAdvisor.advice(for: mark(place: Book.shop), ledger: ledger, today: today) == nil)
+  }
+}

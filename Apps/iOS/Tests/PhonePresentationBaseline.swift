@@ -9,6 +9,7 @@ enum PhonePresentationBaseline {
     "Apps/iOS/App/PadRoot.swift": 1,
     "Apps/iOS/App/PhoneLaunch.swift": 5,
     "Apps/iOS/App/PhoneRoot.swift": 4,
+    "Apps/iOS/App/Places/PlaceMarksScreen.swift": 2,
     "Apps/macOS/App/DatabaseRecovery.swift": 2,
     "Apps/macOS/App/OhMyMoneyApp.swift": 8,
     "Apps/macOS/Features/Accounts/AccountCardsBlock.swift": 2,

@@ -780,7 +780,26 @@ private struct ParseSession {
     return best
   }
 
-  /// «за машу», «угостил машу», «пополам с машей» (see the type's comment).
+  /// The known people named from `start` on, joined by «и» / «and» or nothing: «машей и петей».
+  /// Stops at the first word that is no known person; `nil` when not even one is named.
+  private func evenlyCompany(at start: Int) -> (people: [UUID], end: Int)? {
+    var people: [UUID] = []
+    var at = start
+    while at < words.count, !words[at].claimed, let person = personMatch(at: at) {
+      guard !people.contains(person.id) else { break }
+      people.append(person.id)
+      at = person.range.upperBound
+      if at + 1 < words.count, Lexicon.andWords.contains(words[at].normalized),
+        personMatch(at: at + 1) != nil
+      {
+        at += 1
+      }
+    }
+    return people.isEmpty ? nil : (people, at)
+  }
+
+  /// «за машу», «угостил машу», «пополам с машей», «поровну с машей и петей» (see the type's
+  /// comment).
   mutating func readPayingFor() {
     guard result.transfer == nil, result.kind == .expense,
       panelKind == nil || panelKind == .expense, result.goalId == nil, result.debtId == nil
@@ -789,7 +808,21 @@ private struct ParseSession {
       let word = words[index].normalized
       var way: PayingForReading.Way?
       var nameAt = index + 1
-      if Lexicon.halfWords.contains(word), index + 1 < words.count,
+      if Lexicon.evenlyWords.contains(word), index + 1 < words.count,
+        Lexicon.withWords.contains(words[index + 1].normalized),
+        let company = evenlyCompany(at: index + 2)
+      {
+        // Two or more known people: the whole company. One is «пополам».
+        if company.people.count > 1 {
+          result.payingFor = PayingForReading(
+            way: .evenly, personId: company.people[0], people: company.people)
+        } else {
+          result.payingFor = PayingForReading(way: .half, personId: company.people[0])
+        }
+        let phrase = index..<company.end
+        claim(phrase, as: .person, text: marked(phrase))
+        return
+      } else if Lexicon.halfWords.contains(word), index + 1 < words.count,
         Lexicon.withWords.contains(words[index + 1].normalized)
       {
         way = .half

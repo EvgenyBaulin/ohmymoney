@@ -194,6 +194,19 @@ final class PayingForFlowTests: XCTestCase {
     XCTAssertNil(try owedToMe(alex))
   }
 
+  /// «ужин 6000 поровну с машей и alex»: the line alone lays out «Поровну» for the two of them —
+  /// my share and each of theirs is 2,000 — and saves what the panel would.
+  func testEvenlyWithTwoPeopleFromTheLine() throws {
+    let model = try model("ужин 6000 поровну с машей и alex")
+    XCTAssertEqual(model.shownPayingForWay, .evenly)
+    XCTAssertEqual(model.payingForPeople, [masha.id, alex.id])
+    XCTAssertEqual(model.draft.parts.map(\.amount), Array(repeating: AmountE4(whole: 2000), count: 3))
+    let entry = try save(model)
+    XCTAssertEqual(try owedToMe(masha), AmountE4(whole: 2000))
+    XCTAssertEqual(try owedToMe(alex), AmountE4(whole: 2000))
+    XCTAssertEqual(entry.parts.filter(\.reimbursable).count, 2)
+  }
+
   /// «кофе 300 за машу» — for her, she pays back; «кофе 300 угостил машу» — a treat.
   func testTheCasesOfTheLine() throws {
     let owes = try model("кофе 300 за машу")

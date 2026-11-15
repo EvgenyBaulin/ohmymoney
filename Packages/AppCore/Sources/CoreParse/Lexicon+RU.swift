@@ -161,6 +161,8 @@ extension Lexicon {
   /// «пополам с машей», «угостил машу», «за машу».
   static let russianHalfWords: Set<String> = ["пополам"]
   static let russianWithWords: Set<String> = ["с", "со"]
+  static let russianEvenlyWords: Set<String> = ["поровну"]
+  static let russianAndWords: Set<String> = ["и"]
   static let russianGiftWords: Set<String> = [
     "угостил", "угостила", "угостили", "угощаю", "подарил", "подарила",
   ]

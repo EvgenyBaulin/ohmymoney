@@ -64,6 +64,8 @@ enum Lexicon {
   static let placeMarkers: Set<String> = englishPlaceMarkers.union(russianPlaceMarkers)
   static let halfWords: Set<String> = englishHalfWords.union(russianHalfWords)
   static let withWords: Set<String> = englishWithWords.union(russianWithWords)
+  static let evenlyWords: Set<String> = englishEvenlyWords.union(russianEvenlyWords)
+  static let andWords: Set<String> = englishAndWords.union(russianAndWords)
   static let giftWords: Set<String> = englishGiftWords.union(russianGiftWords)
   static let paidForMarkers: Set<String> = russianPaidForMarkers
   static let transferWords: Set<String> = englishTransferWords.union(russianTransferWords)

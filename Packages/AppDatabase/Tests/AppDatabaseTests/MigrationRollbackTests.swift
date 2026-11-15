@@ -65,6 +65,7 @@ struct MigrationRollbackTests {
           "0028_bank_cashback_merchant_codes",
           "0029_tax_deductions",
           "0030_utility_meters_and_bills",
+          "0031_place_marks",
         ])
   }
 

@@ -141,6 +141,10 @@ extension SyncExchange {
       let queue = try DatabaseQueue(path: copy.path)
       try queue.write { db in
         for table in SyncTables.bookkeeping { try db.execute(sql: "DELETE FROM \(table)") }
+        for table in SyncTables.deviceLocal {
+        guard try db.tableExists(table) else { continue }
+          try db.execute(sql: "DELETE FROM \(table)")
+        }
       }
       let verdict = try queue.read { db in try String.fetchOne(db, sql: "PRAGMA integrity_check") }
       try queue.close()

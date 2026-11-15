@@ -55,6 +55,7 @@ struct ShieldedRoot: View {
     .task {
       await session.start()
       session.deps.environment.theme.applyAppearance()
+      PlaceHintsService.shared.resume(deps: session.deps)
       if lock.isLocked { await tryUnlock() }
     }
     .onChange(of: phase) { _, now in

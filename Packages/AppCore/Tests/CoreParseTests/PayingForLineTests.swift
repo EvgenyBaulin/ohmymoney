@@ -38,6 +38,34 @@ struct PayingForLineTests {
     #expect(parse("пицца 900 пополам с петей").payingFor?.personId == Self.petya)
   }
 
+  /// «поровну с машей и петей»: the bill is shared by me and each named person; the line says the
+  /// whole company at once.
+  @Test func evenlyWithSeveralPeople() {
+    for line in [
+      "ужин 6000 поровну с машей и петей", "ужин поровну с Машей и Петей 6000",
+      "dinner 6000 evenly with маша and петя",
+    ] {
+      let read = parse(line)
+      #expect(read.payingFor?.way == .evenly, "\(line)")
+      #expect(read.payingFor?.people == [Self.masha, Self.petya], "\(line)")
+      #expect(read.amount == 6000, "\(line)")
+      #expect(read.note == "ужин" || read.note == "dinner", "\(line)")
+    }
+  }
+
+  @Test func evenlyWithOnePersonIsHalf() {
+    let read = parse("ужин 900 поровну с машей")
+    #expect(read.payingFor?.way == .half)
+    #expect(read.payingFor?.personId == Self.masha)
+  }
+
+  @Test func evenlyBeforeAnUnknownNameIsNotGuessed() {
+    // Only the known people are read; an unknown second name leaves the line to the panel.
+    let read = parse("ужин 900 поровну с машей и олей")
+    #expect(read.payingFor?.way == .half)
+    #expect(read.payingFor?.personId == Self.masha)
+  }
+
   @Test func aTreatIsAGift() {
     let read = parse("угостил машу кофе 300")
     #expect(read.payingFor == PayingForReading(way: .gift, personId: Self.masha))
