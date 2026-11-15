@@ -44,7 +44,11 @@ struct MonthBarsChart: View {
       .frame(width: proxy.size.width, height: proxy.size.height, alignment: .bottom)
     }
     .frame(height: height)
-    .accessibilityElement(children: .contain)
+    .chartSummary(
+      bars.map {
+        ChartSummary.Point(label: $0.spokenLabel, valueText: "", value: $0.value)
+      }
+    )
   }
 }
 
