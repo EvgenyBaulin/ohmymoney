@@ -441,6 +441,12 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
   /// `.mortgageInterest`: the interest this loan was paid counts towards the deduction for the
   /// interest of a mortgage; `nil` — none.
   public var taxDeduction: TaxDeductionKind?
+  /// The day the loan was taken out, as the contract says, often before the books began; not the
+  /// day it was written into the app and not its first due. `nil` — not said.
+  public var openedOn: DateOnly?
+  /// What was borrowed on `openedOn`, in `currency`. It moves no money: the balance the books
+  /// began with is the first line of the journal. `nil` — not said.
+  public var originalAmountE4: AmountE4?
 
   public init(
     id: UUID = UUID(), direction: DebtDirection, type: DebtType, name: String,
@@ -452,8 +458,11 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
     steps: DebtSteps? = nil, parts: Int? = nil, markupE4: AmountE4? = nil, psk: Decimal? = nil,
     prepayAnyDay: Bool = true, prepayNoticeDays: Int? = nil, plannedPrepay: PlannedPrepay? = nil,
     inLadder: Bool? = nil, pledge: Bool = false, returnBy: DateOnly? = nil,
-    termsReviewed: Bool = false, pause: DebtPause? = nil, taxDeduction: TaxDeductionKind? = nil
+    termsReviewed: Bool = false, pause: DebtPause? = nil, taxDeduction: TaxDeductionKind? = nil,
+    openedOn: DateOnly? = nil, originalAmountE4: AmountE4? = nil
   ) {
+    self.openedOn = openedOn
+    self.originalAmountE4 = originalAmountE4
     self.taxDeduction = taxDeduction
     self.pause = pause
     self.id = id
@@ -490,6 +499,13 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
 
   public var isDeleted: Bool { deletedAt != nil }
 
+  /// «Оформлен: дата и сумма» when both are said and the sum is above zero; `nil` otherwise.
+  /// Either half alone stays on the debt but is no point a balance can be counted back from.
+  public var opening: DebtOpening? {
+    guard let openedOn, let originalAmountE4, originalAmountE4 > .zero else { return nil }
+    return DebtOpening(day: openedOn, amountE4: originalAmountE4, currency: currency)
+  }
+
   /// «Рассрочка»: a purchase on credit paid in a number of parts.
   public var isInstalmentPlan: Bool { origin == .purchase && parts != nil }
 
@@ -502,6 +518,21 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
     guard paymentDay != nil else { return false }
     if let monthly = monthlyPaymentE4, monthly.raw > 0 { return true }
     return grace != nil || repayMonths != nil
+  }
+}
+
+/// When a loan was taken out and for how much, in the currency of the debt: where its balance
+/// starts, which may lie before the books began.
+public struct DebtOpening: Hashable, Sendable {
+  public var day: DateOnly
+  /// Always above zero.
+  public var amountE4: AmountE4
+  public var currency: CurrencyCode
+
+  public init(day: DateOnly, amountE4: AmountE4, currency: CurrencyCode) {
+    self.day = day
+    self.amountE4 = amountE4
+    self.currency = currency
   }
 }
 

@@ -108,16 +108,18 @@ struct ExportTablesDescriptionTests {
         "plan_start_month", "account_id", "transfer_on_contribution", "sort", "why_note",
       ])
     #expect(
-      Array(ExportTables.debts.columns.dropLast(4).suffix(14)) == [
+      Array(ExportTables.debts.columns.dropLast(6).suffix(14)) == [
         "repay_months", "step_days", "first_due_on", "parts", "markup", "psk", "prepay_any_day",
         "prepay_notice_days", "planned_prepay_on", "planned_prepay", "in_ladder", "pledge",
         "return_by", "terms_reviewed",
       ])
     #expect(
-      Array(ExportTables.debts.columns.dropLast(1).suffix(3)) == [
+      Array(ExportTables.debts.columns.dropLast(3).suffix(3)) == [
         "pause_from", "pause_to", "pause_kind",
       ])
-    #expect(ExportTables.debts.columns.last == "tax_deduction")
+    #expect(ExportTables.debts.columns.dropLast(2).last == "tax_deduction")
+    // The day a loan was taken out and what was borrowed go last.
+    #expect(Array(ExportTables.debts.columns.suffix(2)) == ["opened_on", "original_amount"])
     #expect(
       Array(ExportTables.transactionParts.columns.suffix(2)) == [
         "refund_of_part_id", "tax_deduction",
@@ -134,7 +136,8 @@ struct ExportTablesDescriptionTests {
   @Test func theColumnsOfTheCapitalComeLast() {
     #expect(
       ExportTables.assets.columns == [
-        "id", "name", "kind", "currency", "note", "disposed_on", "sort",
+        "id", "name", "kind", "currency", "note", "disposed_on", "sort", "purchased_on",
+        "purchase_price",
       ])
     #expect(
       ExportTables.assetValuations.columns == ["id", "asset_id", "day", "value", "note"])
@@ -656,6 +659,37 @@ struct ExportTablesRowTests {
     #expect(kept["currency"] == "RUB")
     #expect(kept["note"] == "")
     #expect(kept["disposed_on"] == "")
+    #expect(kept["purchased_on"] == "")
+    #expect(kept["purchase_price"] == "")
+  }
+
+  /// The day and the price of a purchase go out as a day and a decimal string with a point.
+  @Test func thePurchaseOfAnAssetRoundTrips() throws {
+    let asset = Asset(
+      name: "Квартира", kind: .realty, purchasedOn: DateOnly(year: 2019, month: 6, day: 14),
+      purchasePriceE4: AmountE4(raw: 65_000_005_000))
+    let read = try roundTrip(ExportTables.assets, row: ExportTables.row(asset))
+    #expect(read["purchased_on"] == "2019-06-14")
+    #expect(read["purchase_price"] == "6500000.5")
+    let dayOnly = Asset(name: "Велосипед", purchasedOn: DateOnly(year: 2020, month: 1, day: 2))
+    let half = try roundTrip(ExportTables.assets, row: ExportTables.row(dayOnly))
+    #expect(half["purchased_on"] == "2020-01-02")
+    #expect(half["purchase_price"] == "")
+  }
+
+  /// The day a loan was taken out and what was borrowed go out last; empty when not said.
+  @Test func theOpeningOfALoanRoundTrips() throws {
+    let loan = Debt(
+      direction: .iOwe, type: .loan, name: "Ипотека",
+      openedOn: DateOnly(year: 2018, month: 3, day: 1),
+      originalAmountE4: AmountE4(whole: 4_200_000))
+    let read = try roundTrip(ExportTables.debts, row: ExportTables.row(loan))
+    #expect(read["opened_on"] == "2018-03-01")
+    #expect(read["original_amount"] == "4200000")
+    let plain = try roundTrip(
+      ExportTables.debts, row: ExportTables.row(Debt(direction: .iOwe, type: .loan, name: "L")))
+    #expect(plain["opened_on"] == "")
+    #expect(plain["original_amount"] == "")
   }
 
   @Test func assetValuationRoundTrips() throws {

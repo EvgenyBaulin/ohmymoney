@@ -363,6 +363,15 @@ struct ExportRoundTripPropertyTests {
       try db.execute(
         sql: "UPDATE debts SET tax_deduction = 'mortgage_interest' WHERE rowid = 1")
       try db.execute(sql: "UPDATE payment_methods SET tax_deduction = 'iis' WHERE rowid = 1")
+      // Schema 32: the day and the price of a purchase, the day and the sum of a loan.
+      try db.execute(
+        sql:
+          "UPDATE assets SET purchased_on = '2019-06-14', purchase_price_e4 = 65000005000 WHERE rowid = 1"
+      )
+      try db.execute(
+        sql:
+          "UPDATE debts SET opened_on = '2018-03-01', original_amount_e4 = 42000000000 WHERE rowid = 1"
+      )
       if let item = try String.fetchOne(db, sql: "SELECT id FROM owned_items LIMIT 1") {
         try db.execute(
           sql: """
@@ -552,6 +561,7 @@ struct ExportRoundTripPropertyTests {
           "0029_tax_deductions",
           "0030_utility_meters_and_bills",
           "0031_place_marks",
+          "0032_asset_purchase_and_loan_opening",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -777,12 +787,19 @@ struct ExportRoundTripPropertyTests {
     "payment_methods.csv:tax_deduction",
   ]
 
+  /// The columns of the capital before the books began
+  /// (`0032_asset_purchase_and_loan_opening`).
+  private static let addedByTheOpenings: Set<String> = [
+    "assets.csv:purchased_on", "assets.csv:purchase_price", "debts.csv:opened_on",
+    "debts.csv:original_amount",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
     .union(addedByTheSplitDates).union(addedByTheCodeAndTheFee)
-    .union(addedByTheSavingsAndPauses).union(addedByTheDeductions)
+    .union(addedByTheSavingsAndPauses).union(addedByTheDeductions).union(addedByTheOpenings)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]

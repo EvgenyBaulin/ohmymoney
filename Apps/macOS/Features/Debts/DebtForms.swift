@@ -88,6 +88,8 @@ struct DebtSheetView: View {
   @State private var question: BeforeTheCountQuestion?
   /// «График» of a new loan or of the loan `.schedule` edits.
   @State private var schedule = DebtSchedule(mainFrom: DateOnly(year: 2000, month: 1, day: 1))
+  /// «Оформлен: дата и сумма» of a new loan or of the loan `.schedule` edits.
+  @State private var opening = DebtOpeningDraft()
 
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
@@ -284,6 +286,9 @@ struct DebtSheetView: View {
       if amount.isNegative {
         Text(verbatim: t("form.balance.negative")).appFont(.caption).foregroundStyle(.secondary)
       }
+      if DebtOpeningDraft.applies(to: debt) {
+        DebtOpeningFields(draft: $opening, currency: debt.currency)
+      }
       Toggle(t("form.moneyMovedToday"), isOn: $moneyMoved)
       accountRows
       paymentFields
@@ -437,6 +442,9 @@ struct DebtSheetView: View {
         Toggle(t("form.close.writeOff"), isOn: $writeOff)
       }
     case .schedule:
+      if DebtOpeningDraft.applies(to: debt) {
+        DebtOpeningFields(draft: $opening, currency: debt.currency)
+      }
       paymentFields
       scheduleSection(principal: balance ?? .zero)
     case .tranche:
@@ -550,9 +558,11 @@ struct DebtSheetView: View {
     let actions = DebtActions(dependencies)
     switch sheet {
     case .create:
-      let made = Self.made(debt, rateText: rateText, schedule: schedule)
+      let made = opening.applied(
+        to: Self.made(debt, rateText: rateText, schedule: schedule), today: environment.today)
       let valid =
         !debt.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !amount.isNegative
+        && opening.isValid
         && schedule.issues(
           rate: made.interestRate, monthly: debt.monthlyPaymentE4, direction: debt.direction
         ).isEmpty
@@ -626,10 +636,12 @@ struct DebtSheetView: View {
         { _ in actions.close(debt, balance: shown(carried), writeOff: writeOff, on: day) }
       )
     case .schedule:
-      let made = Self.made(debt, rateText: rateText, schedule: schedule)
-      let valid = schedule.issues(
-        rate: made.interestRate, monthly: debt.monthlyPaymentE4, direction: debt.direction
-      ).isEmpty
+      let made = opening.applied(
+        to: Self.made(debt, rateText: rateText, schedule: schedule), today: environment.today)
+      let valid =
+        schedule.issues(
+          rate: made.interestRate, monthly: debt.monthlyPaymentE4, direction: debt.direction
+        ).isEmpty && opening.isValid
       return (t("form.save"), valid, { _ in actions.save(made) })
     case .tranche:
       return (t("form.save"), false, { _ in false })
@@ -797,6 +809,7 @@ struct DebtSheetView: View {
       debt = edited
       rateText = edited.interestRate.map { environment.money.number($0) } ?? ""
       schedule = DebtSchedule(debt: edited, today: environment.today)
+      opening = DebtOpeningDraft(debt: edited)
       balance = dependencies.flatMap { DebtActions($0).balance(of: edited) }
     case .repay(let debt, let given, let account):
       amount = given ?? debt.monthlyPaymentE4 ?? .zero
