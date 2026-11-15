@@ -371,31 +371,29 @@ extension TransactionRepository {
     let parts = before.parts.map(\.id.uuidString)
     if !parts.isEmpty {
       let marks = databaseQuestionMarks(count: parts.count)
-      for row in try Row.fetchAll(
+      let linked = try StoredSum.totals(
         db,
         sql: """
-          SELECT l.part_id AS part, SUM(l.amount_e4) AS amount FROM reimbursement_links l
+          SELECT l.part_id AS key, l.amount_e4 AS amount FROM reimbursement_links l
           JOIN transactions t ON t.id = l.reimbursement_tx_id
           WHERE t.deleted_at IS NULL AND l.part_id IN (\(marks))
-          GROUP BY l.part_id
           """,
         arguments: StatementArguments(parts))
-      {
-        guard let part = RowMapping.optionalUUID(row, "part") else { continue }
-        facts.linkedRubByPart[part] = AmountE4(raw: row["amount"] ?? 0)
+      for (key, amount) in linked {
+        guard let part = UUID(uuidString: key) else { continue }
+        facts.linkedRubByPart[part] = amount
       }
-      for row in try Row.fetchAll(
+      let refunded = try StoredSum.totals(
         db,
         sql: """
-          SELECT p.refund_of_part_id AS part, SUM(p.amount_e4) AS amount
+          SELECT p.refund_of_part_id AS key, p.amount_e4 AS amount
           FROM transaction_parts p JOIN transactions t ON t.id = p.transaction_id
           WHERE t.deleted_at IS NULL AND t.kind = ? AND p.refund_of_part_id IN (\(marks))
-          GROUP BY p.refund_of_part_id
           """,
         arguments: [TransactionKind.refund.rawValue] + StatementArguments(parts))
-      {
-        guard let part = RowMapping.optionalUUID(row, "part") else { continue }
-        facts.refundedByPart[part] = AmountE4(raw: row["amount"] ?? 0)
+      for (key, amount) in refunded {
+        guard let part = UUID(uuidString: key) else { continue }
+        facts.refundedByPart[part] = amount
       }
     }
     let targets = Set((before.parts + after.parts).compactMap(\.refundOfPartId))
@@ -410,20 +408,19 @@ extension TransactionRepository {
             """,
           arguments: [target.uuidString, TransactionKind.expense.rawValue])
       else { continue }
-      let others =
-        try Int64.fetchOne(
-          db,
-          sql: """
-            SELECT COALESCE(SUM(p.amount_e4), 0) FROM transaction_parts p
-            JOIN transactions t ON t.id = p.transaction_id
-            WHERE t.deleted_at IS NULL AND t.kind = ? AND p.refund_of_part_id = ?
-              AND t.id <> ?
-            """,
-          arguments: [
-            TransactionKind.refund.rawValue, target.uuidString, before.id.uuidString,
-          ]) ?? 0
+      let others = try StoredSum.total(
+        db,
+        sql: """
+          SELECT p.amount_e4 FROM transaction_parts p
+          JOIN transactions t ON t.id = p.transaction_id
+          WHERE t.deleted_at IS NULL AND t.kind = ? AND p.refund_of_part_id = ?
+            AND t.id <> ?
+          """,
+        arguments: [
+          TransactionKind.refund.rawValue, target.uuidString, before.id.uuidString,
+        ])
       facts.refundOf[target] = RefundableRemainder(
-        remaining: AmountE4(raw: row["amount"] ?? 0) - AmountE4(raw: others),
+        remaining: AmountE4(raw: row["amount"] ?? 0) - others,
         currency: CurrencyCode(row["currency"] ?? CurrencyCode.rub.code))
     }
     return facts

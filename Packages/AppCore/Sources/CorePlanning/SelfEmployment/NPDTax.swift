@@ -409,8 +409,7 @@ public enum NPDTax {
     let year = NPDYear(
       year: today.year, incomeRub: yearIncomeE4, limitRub: limit,
       leftRub: max(.zero, limit - yearIncomeE4),
-      shareBp: limit.raw > 0
-        ? Int(truncatingIfNeeded: yearIncomeE4.raw * 10_000 / limit.raw) : 0,
+      shareBp: Shares.truncatedRatio(yearIncomeE4, of: limit),
       exceeded: yearIncomeE4 > limit)
     return NPDState(
       months: result,

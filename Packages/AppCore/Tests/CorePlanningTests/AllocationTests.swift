@@ -244,6 +244,22 @@ struct AllocationTests {
     #expect(Allocation.until(today: B.day(10, 12), expected: [], links: []) == B.day(10, 31))
   }
 
+  @Test func aRaiseOfAHundredBillionIsFoundNotATrap() {
+    // Comparing with the usual multiplied the stored units by 10,000 and trapped on an income of
+    // a hundred billion, which the entry line accepts.
+    var setup = Setup()
+    setup.book.operation(.income, "100000000000", on: B.day(7, 5), category: setup.salary)
+    setup.book.operation(.income, "100000000000", on: B.day(8, 5), category: setup.salary)
+    setup.book.operation(.income, "100000000000", on: B.day(9, 5), category: setup.salary)
+    let raise = setup.book.operation(
+      .income, "120000000000", on: B.day(10, 5), category: setup.salary)
+    let found = AllocationRaise.detect(
+      income: setup.book.entry(raise), ledger: setup.book.ledger, links: [])
+    #expect(
+      found
+        == AllocationRaise(differenceE4: B.rub("20000000000"), usualE4: B.rub("100000000000")))
+  }
+
   @Test func aRaiseOverTheUsual() {
     var setup = Setup()
     setup.book.operation(.income, "100000", on: B.day(7, 5), category: setup.salary)
