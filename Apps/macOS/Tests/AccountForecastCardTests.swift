@@ -313,6 +313,33 @@ final class AccountForecastCardTests: XCTestCase {
       .joined(separator: " | ")
   }
 
+  /// The salary still to come on the account is in the card's figure and its lines; the usual
+  /// spending is not taken from the account.
+  func testTheExpectedSalaryIsInTheCardOfItsAccount() throws {
+    let today = DateOnly(year: 2026, month: 9, day: 19)
+    let counted = CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 9, day: 10))
+    let reconciliation = Reconciliation(
+      date: DateOnly(year: 2026, month: 9, day: 10), reconciledAt: counted,
+      actualTotalRubE4: .zero, kind: .accounts)
+    let count = ReconciledBalance(
+      reconciliationId: reconciliation.id, accountId: main.id, currency: .rub,
+      actualE4: whole(50_000))
+    let salary = ExpectedIncome(
+      name: "Salary", totalE4: whole(30_000), dueDate: DateOnly(year: 2026, month: 9, day: 25),
+      paymentMethodId: main.id)
+    let dataset = Dataset(
+      paymentMethods: [main, freedom],
+      planning: PlanningBook(
+        expected: [salary], reconciliations: [reconciliation], reconciledBalances: [count]))
+    let snapshot = DataSnapshot.build(
+      dataset: dataset, calendar: .utc, today: today, context: SnapshotContext(),
+      version: DataVersion(load: 1), now: CalendarContext.utc.startOfDay(today))
+    let model = AccountForecastModel(
+      forecast: snapshot.accountPlan.knownBalances(), accountId: main.id)
+    XCTAssertEqual(model.lines.first?.balance, band(80_000, 80_000, 80_000))
+    XCTAssertEqual(model.lines.first?.flows.income, whole(30_000))
+  }
+
   /// The data step builds the plan with the snapshot, and the card finds the account's lines
   /// in it; an account never counted has nothing to forecast from.
   func testTheSnapshotCarriesThePlanOfTheAccounts() throws {

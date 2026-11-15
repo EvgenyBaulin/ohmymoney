@@ -2,9 +2,10 @@ import CoreAnalytics
 import CoreKit
 
 extension AccountMonthPlan {
-  /// Balances after recorded future movements and unpaid scheduled and debt payments.
-  /// Expected income, interest and spending patterns belong to the combined forecast:
-  /// without future transfers they cannot predict where the money will be held.
+  /// Balances after recorded future movements, the income and interest still expected on
+  /// each account, and unpaid scheduled and debt payments. Overdue income stays apart and
+  /// brings no money. The account takes no share of the usual spending: that belongs to the
+  /// combined forecast, which cannot tell which account the spending will come from.
   public func knownBalances() -> AccountForecast {
     var known = self
     known.weights = [:]
@@ -12,12 +13,9 @@ extension AccountMonthPlan {
     known.aheadSpendingRub = .zero
     for section in known.sections.indices {
       for pair in known.sections[section].keys.indices {
-        known.sections[section].keys[pair].income = .zero
-        known.sections[section].keys[pair].interest = .zero
         known.sections[section].keys[pair].reconcileLoss = .zero
         known.sections[section].keys[pair].othersSpending = .zero
         known.sections[section].keys[pair].spendingWeight = .zero
-        known.sections[section].keys[pair].overdueIncome = []
       }
     }
     return known.forecast(
