@@ -210,6 +210,12 @@ public struct AccountRepository: Sendable {
           WHERE payment_method_id = ?
           """,
         arguments: [accountId.uuidString])
+      let cards = try String.fetchAll(
+        db, sql: "SELECT id FROM cards WHERE payment_method_id = ?",
+        arguments: [accountId.uuidString]
+      ).compactMap(UUID.init(uuidString:))
+      _ = try SpendingRulesRepository.releaseRules(.card, deleted: Set(cards), db: db)
+      _ = try SpendingRulesRepository.releaseRules(.account, deleted: [accountId], db: db)
       _ = try PaymentMethod.deleteOne(db, key: accountId.uuidString)
       for id in reconciliations {
         try db.execute(
