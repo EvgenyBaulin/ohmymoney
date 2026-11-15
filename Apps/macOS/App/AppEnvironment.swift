@@ -56,6 +56,8 @@ public final class AppEnvironment {
   /// The badges, the days without spending and the settings of the habits
   /// (`Schema/0020_habits.sql`).
   public private(set) var habits: HabitRepository?
+  /// The challenges the owner took on (one setting of the database).
+  public private(set) var challenges: ChallengeRepository?
   /// The settings of the privacy features (`privacy.*` keys of `settings`) and the hidden-account
   /// switch of an account (`Schema/0019_privacy.sql`).
   public private(set) var privacySettings: PrivacySettingsRepository?
@@ -1052,6 +1054,7 @@ public final class AppEnvironment {
     ownedItems = nil
     purchaseSettings = nil
     habits = nil
+    challenges = nil
     privacySettings = nil
     exportCopies = nil
     savedViews = nil
@@ -1134,6 +1137,7 @@ public final class AppEnvironment {
     self.ownedItems = OwnedItemRepository(writer: stack.writer)
     self.purchaseSettings = PurchaseSettingsRepository(writer: stack.writer)
     self.habits = HabitRepository(writer: stack.writer)
+    self.challenges = ChallengeRepository(writer: stack.writer)
     self.privacySettings = PrivacySettingsRepository(writer: stack.writer)
     // Read-only: the barrier refuses writes of the owner's books at the database, the shield
     // keeps the choice in the settings, and the mode of the last session is taken up here.

@@ -149,6 +149,8 @@ public struct DatasetRepository: Sendable {
     extras.set(bankData, for: Dataset.bankDataKey)
     // The badges, the days without spending and the settings of the habits.
     extras.set(try HabitRepository.data(db), for: Dataset.habitsKey)
+    // The challenges the owner took on.
+    extras.set(try ChallengeRepository.book(db), for: Dataset.challengesKey)
     // The bank's monthly choice of cashback categories: each bank's table and the offers.
     extras.set(try CashbackChoiceRepository.book(db), for: CashbackChoiceBook.extrasKey)
     // The wishes with their prices, the shopping list, the things and the settings of the
