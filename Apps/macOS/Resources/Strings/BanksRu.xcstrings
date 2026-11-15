@@ -4,10 +4,22 @@
     "banksRu.cardCount.after": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütün banklarda bir nəfərin aça biləcəyi %2$@ kartdan %1$@ kartınız var. Limit %3$@ tarixindən qüvvədədir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "У вас %1$@ з %2$@ карт, дазволеных ва ўсіх банках. Ліміт дзейнічае з %3$@."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máte %1$@ z %2$@ karet, které smíte mít ve všech bankách. Limit platí od %3$@."
           }
         },
         "de": {
@@ -34,16 +46,52 @@
             "value": "Vous détenez %1$@ cartes sur les %2$@ autorisées par personne, toutes banques confondues. Ce plafond s’applique depuis le %3$@."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բոլոր բանկերում ունեք թույլատրելի %2$@ քարտից %1$@-ը։ Սահմանաչափը գործում է %3$@-ից։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Hai %1$@ carte su un massimo di %2$@ presso tutte le banche. Il limite è in vigore dal %3$@."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全銀行で保有できるカード%2$@枚のうち、%1$@枚を保有しています。上限は%3$@から適用されています。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყველა ბანკში დასაშვები %2$@ ბარათიდან გაქვთ %1$@. ლიმიტი მოქმედებს %3$@-დან."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Барлық банкте ұстауға болатын %2$@ картаның %1$@ сізде бар. Шектеу %3$@ бастап күшінде."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 은행에서 보유할 수 있는 카드 %2$@개 중 %1$@개를 보유하고 있습니다. 한도는 %3$@부터 적용되었습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бардык банктар боюнча уруксат берилген %2$@ картанын %1$@ сизде бар. Чектөө %3$@ тартып күчүндө."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je hebt %1$@ van de %2$@ kaarten die je bij alle banken samen mag hebben. De limiet geldt sinds %3$@."
           }
         },
         "pl": {
@@ -58,10 +106,22 @@
             "value": "Você tem %1$@ de %2$@ cartões permitidos por pessoa em todos os bancos. O limite está em vigor desde %3$@."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tem %1$@ de %2$@ cartões permitidos por pessoa em todos os bancos. O limite está em vigor desde %3$@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карт во всех банках: %1$@ из %2$@ — столько можно держать на человека. Ограничение действует с %3$@."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шумо %1$@ аз %2$@ корти иҷозатдодашударо дар ҳамаи бонкҳо доред. Маҳдудият аз %3$@ амал мекунад."
           }
         },
         "tr": {
@@ -75,16 +135,52 @@
             "state": "translated",
             "value": "Ви маєте %1$@ із %2$@ карток, дозволених в усіх банках. Обмеження діє з %3$@."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcha banklarda bir kishiga ruxsat etilgan %2$@ ta kartadan sizda %1$@ ta bor. Cheklov %3$@dan amal qiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn có %1$@ trên tổng số %2$@ thẻ được phép có tại tất cả ngân hàng. Giới hạn có hiệu lực từ %3$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您持有 %1$@ 张银行卡，所有银行合计上限为 %2$@ 张。该上限自 %3$@ 起生效。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你持有 %1$@ 張卡，跨銀行持卡上限為 %2$@ 張。此上限自 %3$@ 起生效。"
+          }
         }
       }
     },
     "banksRu.cardCount.before": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütün banklarda bir nəfərin aça biləcəyi %2$@ kartdan %1$@ kartınız var. Limit %3$@ tarixindən qüvvəyə minir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "У вас %1$@ з %2$@ карт, дазволеных ва ўсіх банках. Ліміт пачне дзейнічаць %3$@."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máte %1$@ z %2$@ karet, které smíte mít ve všech bankách. Limit začne platit %3$@."
           }
         },
         "de": {
@@ -111,16 +207,52 @@
             "value": "Vous détenez %1$@ cartes sur les %2$@ autorisées par personne, toutes banques confondues. Ce plafond s’applique à partir du %3$@."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բոլոր բանկերում ունեք թույլատրելի %2$@ քարտից %1$@-ը։ Սահմանաչափը կգործի %3$@-ից։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Hai %1$@ carte su un massimo di %2$@ presso tutte le banche. Il limite entra in vigore il %3$@."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全銀行で保有できるカード%2$@枚のうち、%1$@枚を保有しています。上限は%3$@から適用されます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყველა ბანკში დასაშვები %2$@ ბარათიდან გაქვთ %1$@. ლიმიტი ამოქმედდება %3$@-დან."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Барлық банкте ұстауға болатын %2$@ картаның %1$@ сізде бар. Шектеу %3$@ бастап күшіне енеді."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 은행에서 보유할 수 있는 카드 %2$@개 중 %1$@개를 보유하고 있습니다. 한도는 %3$@부터 적용됩니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бардык банктар боюнча уруксат берилген %2$@ картанын %1$@ сизде бар. Чектөө %3$@ тартып күчүнө кирет."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je hebt %1$@ van de %2$@ kaarten die je bij alle banken samen mag hebben. De limiet gaat in op %3$@."
           }
         },
         "pl": {
@@ -135,10 +267,22 @@
             "value": "Você tem %1$@ de %2$@ cartões permitidos por pessoa em todos os bancos. O limite entra em vigor em %3$@."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tem %1$@ de %2$@ cartões permitidos por pessoa em todos os bancos. O limite entra em vigor em %3$@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карт во всех банках: %1$@ из %2$@ — столько можно держать на человека. Ограничение начнёт действовать %3$@."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шумо %1$@ аз %2$@ корти иҷозатдодашударо дар ҳамаи бонкҳо доред. Маҳдудият аз %3$@ амал мекунад."
           }
         },
         "tr": {
@@ -152,16 +296,52 @@
             "state": "translated",
             "value": "Ви маєте %1$@ із %2$@ карток, дозволених в усіх банках. Обмеження набуде чинності %3$@."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcha banklarda bir kishiga ruxsat etilgan %2$@ ta kartadan sizda %1$@ ta bor. Cheklov %3$@dan kuchga kiradi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn có %1$@ trên tổng số %2$@ thẻ được phép có tại tất cả ngân hàng. Giới hạn có hiệu lực từ %3$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您持有 %1$@ 张银行卡，所有银行合计上限为 %2$@ 张。该上限将于 %3$@ 生效。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你持有 %1$@ 張卡，跨銀行持卡上限為 %2$@ 張。此上限將於 %3$@ 生效。"
+          }
         }
       }
     },
     "banksRu.cardCount.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız tətbiqdə qeyd olunan kartlar sayılır; dəqiq məlumat bankın reyestrindədir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Улічваюцца толькі карты ў праграме; канчатковыя звесткі — у рэестры банка."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Počítají se jen karty zadané v aplikaci. Rozhodující je evidence banky."
           }
         },
         "de": {
@@ -188,16 +368,52 @@
             "value": "Seules les cartes enregistrées dans l’app sont comptées. Le registre de la banque fait foi."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվվում են միայն հավելվածում գրանցված քարտերը։ Վերջնական տվյալները բանկի գրանցամատյանում են։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Vengono contate solo le carte registrate nell’app; fa fede il registro della banca."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリに登録されたカードのみを集計しています。正確な情報は銀行の登録内容をご確認ください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ითვლება მხოლოდ აპში დამატებული ბარათები. საბოლოო მონაცემები ბანკის რეესტრშია."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Тек қолданбаға енгізілген карталар саналады; нақты дерек банк тізілімінде."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱에 기록된 카드만 집계됩니다. 최종 내역은 은행에서 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колдонмого жазылган карталар гана эсептелет; так маалымат банкта."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alleen kaarten in de app worden geteld. Het register van de bank is leidend."
           }
         },
         "pl": {
@@ -212,10 +428,22 @@
             "value": "Só os cartões registrados no app são contados; prevalece o cadastro do banco."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só são contados os cartões registados na app; prevalece o registo do banco."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Считаются только карты, записанные в приложении; последнее слово — за реестром банков."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Танҳо кортҳои дар барнома сабтшуда ҳисоб мешаванд; маълумоти бонк дақиқтар аст."
           }
         },
         "tr": {
@@ -229,16 +457,52 @@
             "state": "translated",
             "value": "Враховано лише картки, записані в застосунку. Остаточні дані — у реєстрі банку."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat ilovaga kiritilgan kartalar hisoblanadi; yakuniy ma’lumot bank reyestrida."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ tính các thẻ đã ghi trong ứng dụng; thông tin của ngân hàng là căn cứ cuối cùng."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅统计 App 中记录的银行卡，具体以银行登记信息为准。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅計算 App 中記錄的卡片；以銀行登記資料為準。"
+          }
         }
       }
     },
     "banksRu.cardCount.line": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartlar: %2$@ kartdan %1$@ · daha %3$@ kart açmaq olar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Карты: %1$@ з %2$@ · можна яшчэ %3$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karty: %1$@ z %2$@ · zbývá %3$@"
           }
         },
         "de": {
@@ -265,16 +529,52 @@
             "value": "Cartes : %1$@ sur %2$@ · encore %3$@ possibles"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Քարտեր՝ %1$@ / %2$@ · կարելի է ունենալ ևս %3$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Carte: %1$@ su %2$@ · puoi averne altre %3$@"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カード：%2$@枚中%1$@枚 · あと%3$@枚"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბარათები: %1$@ / %2$@ · კიდევ შეგიძლიათ %3$@"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Карталар: %2$@ ішінен %1$@ · тағы %3$@ алуға болады"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드: %2$@개 중 %1$@개 · %3$@개 추가 가능"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карталар: %2$@ ичинен %1$@ · дагы %3$@ ачса болот"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaarten: %1$@ van %2$@ · nog %3$@ mogelijk"
           }
         },
         "pl": {
@@ -289,10 +589,22 @@
             "value": "Cartões: %1$@ de %2$@ · cabem mais %3$@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartões: %1$@ de %2$@ · pode ter mais %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карт: %1$@ из %2$@ · ещё можно %3$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кортҳо: %1$@ аз %2$@ · боз %3$@ ҷой ҳаст"
           }
         },
         "tr": {
@@ -306,16 +618,52 @@
             "state": "translated",
             "value": "Картки: %1$@ із %2$@ · можна відкрити ще %3$@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartalar: %1$@ / %2$@ · yana %3$@ ta ochish mumkin"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ: %1$@ trên %2$@ · còn được mở %3$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "银行卡：%1$@ / %2$@ · 还可持有 %3$@ 张"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卡片：%1$@／%2$@ 張 · 還可持有 %3$@ 張"
+          }
         }
       }
     },
     "banksRu.cardCount.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütün banklardakı kartlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Карты ва ўсіх банках"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karty ve všech bankách"
           }
         },
         "de": {
@@ -342,16 +690,52 @@
             "value": "Cartes dans toutes les banques"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Քարտերը բոլոր բանկերում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Carte in tutte le banche"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全銀行のカード"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბარათები ყველა ბანკში"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Барлық банктегі карталар"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 은행의 카드"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бардык банктардагы карталар"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaarten bij alle banken"
           }
         },
         "pl": {
@@ -366,10 +750,22 @@
             "value": "Cartões em todos os bancos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartões em todos os bancos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карты во всех банках"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кортҳо дар ҳамаи бонкҳо"
           }
         },
         "tr": {
@@ -383,16 +779,52 @@
             "state": "translated",
             "value": "Картки в усіх банках"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcha banklardagi kartalar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ tại tất cả ngân hàng"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有银行的银行卡"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有銀行的卡片"
+          }
         }
       }
     },
     "banksRu.cardCount.unused": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ kartla %2$@ gün və ya daha çox müddətdir ödəniş edilməyib: onları bağlayın və ya istifadə edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Картамі (%1$@) не плацілі %2$@ дзён або больш: закрыйце іх або карыстайцеся імі."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ karet nebylo použito k platbě %2$@ dní nebo déle. Zrušte je nebo je použijte."
           }
         },
         "de": {
@@ -419,16 +851,52 @@
             "value": "%1$@ cartes inutilisées depuis au moins %2$@ jours : fermez-les ou utilisez-les."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ քարտով %2$@ օր կամ ավելի վճարում չի արվել․ փակեք կամ օգտագործեք դրանք։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ carte non sono state usate per pagare da almeno %2$@ giorni: chiudile o usale."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@日以上支払いに使われていないカードが%1$@枚あります。解約するか、使用してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ბარათით %2$@ დღე ან მეტია არ გადაგიხდიათ: დახურეთ ან გამოიყენეთ ისინი."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ картамен %2$@ күн немесе одан көп уақыт төлем жасалмаған: жабыңыз немесе пайдаланыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@일 이상 결제에 사용하지 않은 카드가 %1$@개 있습니다. 해지하거나 사용하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ күн же андан көп убакыт төлөм жасалбаган карталар: %1$@. Аларды жабыңыз же колдонуңуз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ kaarten zijn %2$@ dagen of langer niet gebruikt. Hef ze op of gebruik ze."
           }
         },
         "pl": {
@@ -443,10 +911,22 @@
             "value": "%1$@ cartões sem pagamentos há %2$@ dias ou mais: cancele-os ou use-os."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ cartões sem pagamentos há %2$@ dias ou mais: cancele-os ou use-os."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карт, которыми не платили %2$@ дн. и дольше: %1$@ — закройте или пользуйтесь."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бо %1$@ корт дар давоми %2$@ рӯз ё бештар пардохт нашудааст: онҳоро бандед ё истифода баред."
           }
         },
         "tr": {
@@ -460,16 +940,52 @@
             "state": "translated",
             "value": "%1$@ карток без оплат протягом %2$@ днів або більше: закрийте їх або скористайтеся ними."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ta kartadan %2$@ kun yoki undan ko‘p vaqt to‘lov qilinmagan: ularni yoping yoki ishlating."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ thẻ chưa dùng để thanh toán trong ít nhất %2$@ ngày: hãy đóng hoặc sử dụng."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 张银行卡已连续 %2$@ 天或更久未用于支付：请注销或使用。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 張卡已有 %2$@ 天以上未付款：請註銷或使用。"
+          }
         }
       }
     },
     "banksRu.cardCount.unusedNone": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütün kartlar son vaxtlar istifadə edilib."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Усе карты нядаўна выкарыстоўваліся."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny karty byly nedávno použity."
           }
         },
         "de": {
@@ -496,16 +1012,52 @@
             "value": "Toutes les cartes ont été utilisées récemment."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բոլոր քարտերը վերջերս օգտագործվել են։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Tutte le carte sono state usate di recente."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのカードが最近使用されています。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბოლო დროს ყველა ბარათი გამოიყენეთ."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Барлық карта жақында пайдаланылған."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 카드를 최근에 사용했습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бардык карталар жакында колдонулган."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle kaarten zijn onlangs gebruikt."
           }
         },
         "pl": {
@@ -520,10 +1072,22 @@
             "value": "Todos os cartões foram usados recentemente."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos os cartões foram usados recentemente."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Каждой картой недавно платили."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳамаи кортҳо ба наздикӣ истифода шудаанд."
           }
         },
         "tr": {
@@ -537,16 +1101,52 @@
             "state": "translated",
             "value": "Усі картки нещодавно використовувалися."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcha kartalar yaqinda ishlatilgan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tất cả thẻ đều đã được sử dụng gần đây."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有银行卡最近均有使用。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有卡片近期都曾使用。"
+          }
         }
       }
     },
     "banksRu.cashback.note": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu il qeydə alınan keşbek: təxminən %1$@. Adi keşbek vergiyə cəlb olunmur, lakin bankdan alınan və illik %2$@ məbləğini aşan mükafat və hədiyyələr vergiyə cəlb olunur; böyük məbləğli keşbek də gəlir sayıla bilər. Tətbiq vergi hesablamır — vergi xidmətindən dəqiqləşdirin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Кэшбэк за гэты год: каля %1$@. Звычайны кэшбэк не абкладаецца падаткам, але прызы і падарункі ад банка звыш %2$@ за год абкладаюцца; вялікі кэшбэк таксама прызнавалі даходам. Праграма не разлічвае падатак — удакладніце ў падатковай."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letos zaznamenaný cashback: přibližně %1$@. Běžný cashback se nedaní, ale výhry a dary od banky nad %2$@ ročně ano. Za příjem byl považován i vysoký cashback. Aplikace daň nevypočítává. Ověřte si údaje u daňové správy."
           }
         },
         "de": {
@@ -573,16 +1173,52 @@
             "value": "Cashback enregistré cette année : environ %1$@. Le cashback ordinaire n’est pas imposable, mais les prix et cadeaux d’une banque dépassant %2$@ par an le sont. Un cashback important a déjà été considéré comme un revenu. L’app ne calcule aucun impôt : vérifiez auprès du fisc."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս տարի գրանցված քեշբեքը՝ մոտ %1$@։ Սովորական քեշբեքը չի հարկվում, սակայն բանկի մրցանակներն ու նվերները հարկվում են, եթե տարեկան գերազանցում են %2$@-ը։ Խոշոր քեշբեքը կարող է համարվել եկամուտ։ Հավելվածը հարկ չի հաշվարկում․ ճշտեք հարկային ծառայությունից։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cashback registrato quest’anno: circa %1$@. Il cashback ordinario non è tassato, ma premi e regali di una banca oltre %2$@ all’anno sì; anche un cashback elevato è stato considerato reddito. L’app non calcola l’imposta: verifica con l’agenzia delle entrate."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年登録されたキャッシュバック：約%1$@。通常のキャッシュバックは非課税ですが、銀行からの賞品や贈答品は年間%2$@を超えると課税されます。高額なキャッシュバックが所得とみなされた例もあります。アプリでは税額を計算しません。税務当局にご確認ください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წელს აღრიცხული ქეშბექი: დაახლოებით %1$@. ჩვეულებრივი ქეშბექი არ იბეგრება, მაგრამ ბანკის პრიზები და საჩუქრები იბეგრება, თუ წელიწადში %2$@-ს აღემატება. დიდი ქეშბექიც შეიძლება შემოსავლად ჩაითვალოს. აპი გადასახადს არ ითვლის — გადაამოწმეთ საგადასახადო სამსახურში."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Биыл енгізілген кэшбэк: шамамен %1$@. Кәдімгі кэшбэкке салық салынбайды, бірақ банктен алынған жүлделер мен сыйлықтардың жылына %2$@ асатын бөлігіне салық салынады; ірі кэшбэк те табыс деп танылған жағдайлар бар. Қолданба салықты есептемейді — салық қызметінен нақтылаңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "올해 기록된 캐시백: 약 %1$@. 일반 캐시백은 과세되지 않지만, 은행의 경품과 선물은 연간 %2$@ 초과분에 과세되며 큰 금액의 캐시백이 소득으로 인정된 사례도 있습니다. 앱은 세금을 계산하지 않습니다. 세무 당국에 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Быйыл жазылган кэшбэк: болжол менен %1$@. Кадимки кэшбэкке салык салынбайт, бирок банктан алынган байгелер менен белектер жылына %2$@ ашса, салык салынат. Чоң кэшбэк да киреше катары эсептелген учурлар болгон. Колдонмо салыкты эсептебейт — салык кызматынан тактаңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dit jaar geregistreerde cashback: ongeveer %1$@. Gewone cashback is onbelast, maar over prijzen en cadeaus van een bank boven %2$@ per jaar betaal je belasting. Hoge cashback is eerder als inkomen aangemerkt. De app berekent geen belasting. Controleer dit bij de belastingdienst."
           }
         },
         "pl": {
@@ -597,10 +1233,22 @@
             "value": "Cashback registrado neste ano: cerca de %1$@. O cashback comum não é tributado, mas prêmios e presentes de um banco acima de %2$@ por ano são, e um cashback alto já foi considerado renda. O app não calcula impostos — consulte a autoridade fiscal."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback registado este ano: cerca de %1$@. O cashback normal não é tributado, mas os prémios e ofertas de um banco acima de %2$@ por ano são, e valores elevados de cashback já foram considerados rendimentos. A app não calcula impostos — consulte a autoridade tributária."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Кэшбэка за год записано около %1$@. Обычный кэшбэк налогом не облагается, но призы и подарки от банка свыше %2$@ в год — облагаются, а крупный кэшбэк иногда относят к доходу. Налог приложение не считает — сверьтесь с ФНС."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэки имсол сабтшуда: тақрибан %1$@. Кэшбэки одӣ андоз надорад, аммо бурдҳо ва туҳфаҳои бонк аз %2$@ дар як сол зиёд бошанд, андоз доранд. Кэшбэки калон низ метавонад даромад ҳисоб шавад. Барнома андозро ҳисоб намекунад — аз хадамоти андоз пурсед."
           }
         },
         "tr": {
@@ -614,16 +1262,52 @@
             "state": "translated",
             "value": "Кешбек, записаний цього року: близько %1$@. Звичайний кешбек не оподатковується, але призи й подарунки від банку понад %2$@ на рік — так; великий кешбек також визнавали доходом. Застосунок не розраховує податок — уточніть у податковій службі."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu yil qayd etilgan keshbek: taxminan %1$@. Oddiy keshbekka soliq solinmaydi, ammo bankdan olingan yillik %2$@dan ortiq sovrin va sovg‘alarga soliq solinadi. Katta keshbek ham daromad deb hisoblangan holatlar bor. Ilova soliqni hisoblamaydi — soliq xizmatidan tekshiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tiền đã ghi trong năm nay: khoảng %1$@. Hoàn tiền thông thường không chịu thuế, nhưng giải thưởng và quà tặng từ ngân hàng trên %2$@ mỗi năm thì có; khoản hoàn tiền lớn cũng từng được tính là thu nhập. Ứng dụng không tính thuế — hãy kiểm tra với cơ quan thuế."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年记录的返现约为 %1$@。普通返现无需纳税，但银行奖品和礼品每年超过 %2$@ 的部分需要纳税，大额返现也曾被计入收入。App 不计算税额，请向税务部门核实。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年記錄的現金回饋：約 %1$@。一般現金回饋免稅，但銀行獎品和禮品每年超過 %2$@ 的部分須課稅，大額現金回饋也曾被列為收入。App 不計算稅額，請向稅務機關確認。"
+          }
         }
       }
     },
     "banksRu.interest.due": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergi xidməti bildiriş göndərir; %1$@ tarixinədək ödəyin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Падатковая дашле паведамленне; аплаціце да %1$@."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daňová správa zašle oznámení. Zaplaťte do %1$@."
           }
         },
         "de": {
@@ -650,16 +1334,52 @@
             "value": "Le fisc envoie un avis ; payez avant le %1$@."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հարկային ծառայությունը ծանուցում կուղարկի․ վճարեք մինչև %1$@։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L’agenzia delle entrate invia un avviso; paga entro il %1$@."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "税務当局から通知が届きます。%1$@までにお支払いください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საგადასახადო სამსახური გამოგიგზავნით შეტყობინებას; გადაიხადეთ %1$@-მდე."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Салық қызметі хабарлама жібереді; %1$@ дейін төлеңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세무 당국의 고지에 따라 %1$@까지 납부하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Салык кызматы билдирүү жөнөтөт; %1$@ чейин төлөңүз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je ontvangt een aanslag van de belastingdienst. Betaal vóór %1$@."
           }
         },
         "pl": {
@@ -674,10 +1394,22 @@
             "value": "A autoridade fiscal envia uma notificação; pague até %1$@."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A autoridade tributária envia uma notificação; pague até %1$@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "ФНС пришлёт уведомление; платить до %1$@."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хадамоти андоз огоҳинома мефиристад; то %1$@ пардохт кунед."
           }
         },
         "tr": {
@@ -691,16 +1423,52 @@
             "state": "translated",
             "value": "Податкова служба надішле повідомлення; сплатіть до %1$@."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soliq xizmati bildirishnoma yuboradi; %1$@gacha to‘lang."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ quan thuế sẽ gửi thông báo; thanh toán trước %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "税务部门会发送通知，请在 %1$@ 前缴纳。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "稅務機關會發出通知；請於 %1$@ 前繳納。"
+          }
         }
       }
     },
     "banksRu.interest.forecast": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlin sonunadək: ≈ %1$@ · vergi ≈ %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Да канца года: ≈ %1$@ · падатак ≈ %2$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do konce roku: ≈ %1$@ · daň ≈ %2$@"
           }
         },
         "de": {
@@ -727,16 +1495,52 @@
             "value": "D’ici la fin de l’année : ≈ %1$@ · impôt ≈ %2$@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մինչև տարեվերջ՝ ≈ %1$@ · հարկ՝ ≈ %2$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Entro fine anno: ≈ %1$@ · imposta ≈ %2$@"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年末までの見込み：≈ %1$@ · 税額 ≈ %2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წლის ბოლომდე: ≈ %1$@ · გადასახადი ≈ %2$@"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Жыл соңына дейін: ≈ %1$@ · салық ≈ %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연말까지: 약 %1$@ · 세금 약 %2$@"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жыл аягына чейин: ≈ %1$@ · салык ≈ %2$@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tot het einde van het jaar: ≈ %1$@ · belasting ≈ %2$@"
           }
         },
         "pl": {
@@ -751,10 +1555,22 @@
             "value": "Até o fim do ano: ≈ %1$@ · imposto ≈ %2$@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Até ao fim do ano: ≈ %1$@ · imposto ≈ %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "К концу года: ≈ %1$@ · налог ≈ %2$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "То охири сол: ≈ %1$@ · андоз ≈ %2$@"
           }
         },
         "tr": {
@@ -768,16 +1584,52 @@
             "state": "translated",
             "value": "До кінця року: ≈ %1$@ · податок ≈ %2$@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yil oxirigacha: ≈ %1$@ · soliq ≈ %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đến cuối năm: ≈ %1$@ · thuế ≈ %2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "截至年底：≈ %1$@ · 税额 ≈ %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "截至年底：約 %1$@ · 稅額約 %2$@"
+          }
         }
       }
     },
     "banksRu.interest.freeSum": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ üçün %2$@ məbləğinədək faiz gəliri vergidən azaddır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Працэнты за %1$@ не абкладаюцца падаткам да %2$@."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úroky za %1$@ jsou osvobozeny od daně do výše %2$@."
           }
         },
         "de": {
@@ -804,16 +1656,52 @@
             "value": "Les intérêts de %1$@ sont exonérés d’impôt jusqu’à %2$@."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ թ. տոկոսները չեն հարկվում մինչև %2$@։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Gli interessi per il %1$@ sono esenti da imposta fino a %2$@."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の利息は%2$@まで非課税です。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ წლის პროცენტი არ იბეგრება %2$@-მდე."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ үшін пайыздық табыстың %2$@ дейінгі бөлігіне салық салынбайды."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 이자 소득은 %2$@까지 비과세됩니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ үчүн пайыздык кирешенин %2$@ чейинки бөлүгүнө салык салынбайт."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rente over %1$@ is belastingvrij tot %2$@."
           }
         },
         "pl": {
@@ -828,10 +1716,22 @@
             "value": "Juros de %1$@ são isentos de imposto até %2$@."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os juros de %1$@ estão isentos de imposto até %2$@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проценты за %1$@ не облагаются до %2$@."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фоизҳо барои %1$@ то %2$@ аз андоз озоданд."
           }
         },
         "tr": {
@@ -845,16 +1745,52 @@
             "state": "translated",
             "value": "Відсотки за %1$@ не оподатковуються в межах %2$@."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ uchun %2$@gacha foiz daromadiga soliq solinmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lãi năm %1$@ được miễn thuế đến %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 的利息免税额度为 %2$@。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 年的利息免稅額為 %2$@。"
+          }
         }
       }
     },
     "banksRu.interest.freeSumEstimate": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ üçün ≈ %2$@ məbləğinədək faiz gəliri vergidən azaddır (dekabrın əsas dərəcəsi məlum olanadək yekun deyil)."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Працэнты за %1$@ не абкладаюцца падаткам да ≈ %2$@ (сума ўдакладніцца пасля вызначэння ключавой стаўкі за снежань)."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úroky za %1$@ jsou osvobozeny od daně přibližně do výše %2$@ (konečná částka bude známa po stanovení prosincové klíčové sazby)."
           }
         },
         "de": {
@@ -881,16 +1817,52 @@
             "value": "Les intérêts de %1$@ sont exonérés d’impôt jusqu’à ≈ %2$@ (montant provisoire jusqu’à la publication du taux directeur de décembre)."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ թ. տոկոսները չեն հարկվում մինչև ≈ %2$@ (վերջնական կդառնա, երբ հայտնի լինի դեկտեմբերի հիմնական դրույքաչափը)։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Gli interessi per il %1$@ sono esenti da imposta fino a circa %2$@ (l’importo sarà definitivo quando sarà noto il tasso di riferimento di dicembre)."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の利息は約%2$@まで非課税です（12月の政策金利が決まるまで確定しません）。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ წლის პროცენტი არ იბეგრება ≈ %2$@-მდე (საბოლოო თანხა დეკემბრის ძირითადი განაკვეთის დადგენის შემდეგ გახდება ცნობილი)."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ үшін пайыздық табыстың ≈ %2$@ дейінгі бөлігіне салық салынбайды (желтоқсандағы негізгі мөлшерлеме белгілі болғанша нақты емес)."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 이자 소득은 약 %2$@까지 비과세됩니다. 12월 기준금리가 확정되면 금액이 정해집니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ үчүн пайыздык кирешенин ≈ %2$@ чейинки бөлүгүнө салык салынбайт (декабрь айындагы негизги чен белгилүү болгонго чейин так эмес)."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rente over %1$@ is belastingvrij tot ≈ %2$@ (pas definitief als de beleidsrente van december bekend is)."
           }
         },
         "pl": {
@@ -905,10 +1877,22 @@
             "value": "Juros de %1$@ são isentos de imposto até ≈ %2$@ (valor sujeito à taxa básica de dezembro)."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os juros de %1$@ estão isentos de imposto até ≈ %2$@ (valor não definitivo até ser conhecida a taxa de referência de dezembro)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проценты за %1$@ не облагаются до ≈ %2$@ (окончательно — после декабрьского заседания ЦБ)."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фоизҳо барои %1$@ то ≈ %2$@ аз андоз озоданд (то маълум шудани меъёри асосии моҳи декабр маблағ ниҳоӣ нест)."
           }
         },
         "tr": {
@@ -922,16 +1906,52 @@
             "state": "translated",
             "value": "Відсотки за %1$@ не оподатковуються в межах ≈ %2$@ (сума не остаточна, доки невідома ключова ставка за грудень)."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ uchun ≈ %2$@gacha foiz daromadiga soliq solinmaydi (dekabrdagi asosiy stavka ma’lum bo‘lmaguncha aniq emas)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lãi năm %1$@ được miễn thuế đến ≈ %2$@ (chưa chính thức cho đến khi biết lãi suất chủ chốt tháng 12)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 的利息免税额度约为 %2$@（需待 12 月基准利率确定后才能最终确认）。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 年的利息免稅額約為 %2$@（須待 12 月的基準利率確定後才能定案）。"
+          }
         }
       }
     },
     "banksRu.interest.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İllik 2,4 milyon rubladək faiz gəlirinə 13 %%, artıq hissəyə 15 %% vergi tətbiq olunur; bütün banklardan faizlər toplanır. Məbləğləri vergi xidmətindən dəqiqləşdirin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Стаўка — 13 %% для працэнтаў да 2,4 млн рублёў за год і 15 %% для сумы звыш гэтага; працэнты ва ўсіх банках сумуюцца. Удакладніце звесткі ў падатковай."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sazba činí 13 %% z úroků do 2,4 milionu rublů ročně a 15 %% z částky nad tento limit. Úroky ze všech bank se sčítají. Ověřte si údaje u daňové správy."
           }
         },
         "de": {
@@ -958,16 +1978,52 @@
             "value": "Le taux est de 13 %% jusqu’à 2,4 millions de roubles d’intérêts par an, puis de 15 %% au-delà. Les intérêts de toutes les banques sont cumulés. Vérifiez les montants auprès du fisc."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տարեկան մինչև 2,4 միլիոն ռուբլի տոկոսների համար դրույքաչափը 13 %% է, ավել մասի համար՝ 15 %%։ Բոլոր բանկերի տոկոսները գումարվում են։ Տվյալները ճշտեք հարկային ծառայությունից։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L’aliquota è del 13 %% fino a 2,4 milioni di rubli di interessi annui e del 15 %% oltre tale importo; gli interessi di tutte le banche si sommano. Verifica gli importi con l’agenzia delle entrate."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年間利息の240万ルーブル以下の部分には13 %%、超える部分には15 %%の税率が適用されます。利息は全銀行分が合算されます。金額は税務当局にご確認ください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წელიწადში 2,4 მილიონ რუბლამდე პროცენტი იბეგრება 13 %%-ით, მეტზე — 15 %%-ით; ყველა ბანკის პროცენტი ჯამდება. მონაცემები გადაამოწმეთ საგადასახადო სამსახურში."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Жылына 2,4 млн рубльге дейінгі пайыздық табысқа 13 %%, одан асатын бөлігіне 15 %% мөлшерлеме қолданылады; барлық банктегі пайыздар қосылады. Деректерді салық қызметінен нақтылаңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연간 이자 소득 240만 루블까지는 13 %%, 초과분에는 15 %%가 적용됩니다. 모든 은행의 이자를 합산합니다. 세무 당국에 금액을 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жылдык пайыздык кирешенин 2,4 миллион рублга чейинки бөлүгүнө 13 %%, андан ашкан бөлүгүнө 15 %% салык салынат; бардык банктардагы пайыздар кошулат. Сандарды салык кызматынан тактаңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het tarief is 13 %% tot 2,4 miljoen roebel rente per jaar en 15 %% daarboven. Rente van alle banken wordt opgeteld. Controleer de bedragen bij de belastingdienst."
           }
         },
         "pl": {
@@ -982,10 +2038,22 @@
             "value": "A alíquota é de 13 %% até 2,4 milhões de rublos em juros por ano e 15 %% sobre o excedente; os juros de todos os bancos são somados. Confira os valores com a autoridade fiscal."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A taxa é de 13 %% até 2,4 milhões de rublos de juros por ano e de 15 %% acima desse valor; somam-se os juros de todos os bancos. Confirme os valores junto da autoridade tributária."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ставка — 13 %% до 2,4 млн ₽ процентов в год и 15 %% сверху; проценты всех банков складываются. Сверьте цифры с ФНС."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёр барои фоизҳои то 2,4 миллион рубл дар як сол 13 %% ва барои қисми зиёдтар 15 %% аст; фоизҳои ҳамаи бонкҳо ҷамъ мешаванд. Маблағҳоро бо хадамоти андоз санҷед."
           }
         },
         "tr": {
@@ -999,16 +2067,52 @@
             "state": "translated",
             "value": "Ставка — 13 %% для відсотків до 2,4 млн рублів на рік і 15 %% для суми понад цей поріг; відсотки в усіх банках підсумовуються. Перевірте суми в податковій службі."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yillik foiz daromadining 2,4 million rublgacha bo‘lgan qismiga 13 %%, undan oshgan qismiga 15 %% soliq solinadi; barcha banklardagi foiz daromadlari qo‘shiladi. Summalarni soliq xizmatidan tekshiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thuế suất là 13 %% cho phần lãi đến 2,4 triệu rúp mỗi năm và 15 %% cho phần vượt mức; lãi từ tất cả ngân hàng được cộng lại. Hãy kiểm tra số liệu với cơ quan thuế."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每年利息不超过 240 万卢布的部分税率为 13 %%，超出部分为 15 %%；所有银行的利息合并计算。请向税务部门核实金额。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全年利息不超過 240 萬盧布的部分稅率為 13 %%，超過部分為 15 %%；所有銀行的利息合併計算。請向稅務機關確認金額。"
+          }
         }
       }
     },
     "banksRu.interest.noRate": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ üçün faiz gəliri hesablanmayıb: cari dərəcə yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Працэнты за %1$@ не ўлічаны: сённяшняя стаўка невядомая."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úroky za %1$@ nejsou zahrnuty: dnešní sazba není k dispozici."
           }
         },
         "de": {
@@ -1035,16 +2139,52 @@
             "value": "Intérêts de %1$@ exclus : aucun taux disponible aujourd’hui."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ թ. տոկոսները ներառված չեն․ այսօրվա դրույքաչափը հայտնի չէ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Interessi in %1$@ esclusi: tasso odierno non disponibile."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の利息は含まれていません。現在の金利が不明です。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@-ში პროცენტი არ არის გათვალისწინებული: დღევანდელი განაკვეთი უცნობია."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ ішіндегі пайыздық табыс есепке алынбады: бүгінгі мөлшерлеме жоқ."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@의 이자는 제외되었습니다. 현재 금리가 없습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ үчүн пайыздар эсепке алынган жок: учурда чен жок."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rente over %1$@ is niet meegenomen: er is vandaag geen rentepercentage."
           }
         },
         "pl": {
@@ -1059,10 +2199,22 @@
             "value": "Juros em %1$@ não incluídos: taxa indisponível hoje."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juros de %1$@ excluídos: sem taxa hoje."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проценты в %1$@ не учтены: нет курса на сегодня."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фоизҳо бо асъори %1$@ ҳисоб нашудаанд: қурби имрӯза нест."
           }
         },
         "tr": {
@@ -1076,16 +2228,52 @@
             "state": "translated",
             "value": "Відсотки за %1$@ не враховано: наразі немає ставки."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@dagi foiz daromadi hisobga olinmagan: hozircha stavka yo‘q."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa tính lãi năm %1$@: không có lãi suất hôm nay."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 的利息未计入：目前没有利率。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 的利息未計入：目前沒有利率資料。"
+          }
         }
       }
     },
     "banksRu.interest.noTax": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faiz gəliri vergidən azad məbləğdən azdır: ödəniş yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Працэнты меншыя за неабкладаемую суму: плаціць нічога не трэба."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úroky jsou pod hranicí osvobození od daně. Nemusíte nic platit."
           }
         },
         "de": {
@@ -1112,16 +2300,52 @@
             "value": "Les intérêts sont inférieurs au montant exonéré : rien à payer."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տոկոսները հարկից ազատված գումարից պակաս են․ վճարելու բան չկա։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Gli interessi sono inferiori alla soglia esente: nessuna imposta da pagare."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利息が非課税額を下回っているため、納税は不要です。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პროცენტი დასაბეგრ ზღვარზე ნაკლებია: გადასახდელი არაფერია."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Пайыздық табыс салық салынбайтын сомадан төмен: төлем жоқ."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이자 소득이 비과세 한도 이하여서 납부할 세금이 없습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пайыздык киреше салык салынбаган суммадан аз: төлөм жок."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De rente blijft onder de belastingvrije grens. Je hoeft niets te betalen."
           }
         },
         "pl": {
@@ -1136,10 +2360,22 @@
             "value": "Os juros estão abaixo do limite de isenção: nada a pagar."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os juros estão abaixo do valor isento: não há imposto a pagar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проценты ниже необлагаемой суммы: платить нечего."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фоизҳо аз маблағи аз андоз озод камтаранд: пардохт лозим нест."
           }
         },
         "tr": {
@@ -1153,16 +2389,52 @@
             "state": "translated",
             "value": "Відсотки менші за неоподатковувану суму: сплачувати нічого."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foiz daromadi soliq solinmaydigan summadan kam: to‘lov yo‘q."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lãi dưới mức miễn thuế: không cần thanh toán."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利息低于免税额度，无需缴税。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利息低於免稅額，無須繳稅。"
+          }
         }
       }
     },
     "banksRu.interest.note": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ üçün faiz gəlirinə vergi: təxminən %2$@ — vergi xidmətinin bildirişi ilə %3$@ tarixinədək ödəyin. Təxmini hesablamadır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Падатак на працэнты за %1$@: каля %2$@ — аплаціце да %3$@ паводле паведамлення падатковай. Папярэдні разлік."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daň z úroků za %1$@: přibližně %2$@. Zaplaťte do %3$@ podle oznámení daňové správy. Jde o odhad."
           }
         },
         "de": {
@@ -1189,16 +2461,52 @@
             "value": "Impôt sur les intérêts de %1$@ : environ %2$@, à payer avant le %3$@ sur avis du fisc. Estimation."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ թ. տոկոսների հարկը՝ մոտ %2$@։ Վճարեք մինչև %3$@՝ հարկային ծառայության ծանուցմամբ։ Գումարը մոտավոր է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Imposta sugli interessi per il %1$@: circa %2$@ — paga entro il %3$@ in base all’avviso dell’agenzia delle entrate. Importo stimato."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の利息にかかる税額：約%2$@。税務当局からの通知に従い、%3$@までにお支払いください。概算です。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ წლის პროცენტის გადასახადი: დაახლოებით %2$@ — გადაიხადეთ %3$@-მდე, საგადასახადო სამსახურის შეტყობინების საფუძველზე. თანხა სავარაუდოა."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ үшін пайыздық табыс салығы: шамамен %2$@ — салық қызметінің хабарламасы бойынша %3$@ дейін төлеңіз. Болжалды есеп."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 이자 소득세: 약 %2$@. 세무 당국의 고지에 따라 %3$@까지 납부하세요. 추정 금액입니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ үчүн пайыздык кирешеге салык: болжол менен %2$@ — салык кызматынын билдирүүсү боюнча %3$@ чейин төлөңүз. Бул болжолдуу эсеп."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belasting op rente over %1$@: ongeveer %2$@. Betaal vóór %3$@ na ontvangst van de aanslag. Dit is een schatting."
           }
         },
         "pl": {
@@ -1213,10 +2521,22 @@
             "value": "Imposto sobre juros de %1$@: cerca de %2$@ — pague até %3$@ após a notificação da autoridade fiscal. Valor estimado."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposto sobre juros de %1$@: cerca de %2$@ — pague até %3$@ após notificação da autoridade tributária. Valor estimado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Налог с процентов за %1$@: около %2$@ — платить до %3$@ по уведомлению ФНС. Оценка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Андоз аз фоизҳо барои %1$@: тақрибан %2$@ — тибқи огоҳиномаи хадамоти андоз то %3$@ пардохт кунед. Ҳисоби тахминӣ."
           }
         },
         "tr": {
@@ -1230,16 +2550,52 @@
             "state": "translated",
             "value": "Податок на відсотки за %1$@: близько %2$@ — сплатіть до %3$@ за повідомленням податкової служби. Орієнтовна сума."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ uchun foiz daromadi solig‘i: taxminan %2$@ — soliq xizmati bildirishnomasiga ko‘ra %3$@gacha to‘lang. Bu taxminiy hisob."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thuế trên lãi năm %1$@: khoảng %2$@ — thanh toán trước %3$@ theo thông báo của cơ quan thuế. Đây là số ước tính."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 的利息税约为 %2$@，请根据税务部门的通知在 %3$@ 前缴纳。此为估算值。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 年的利息稅額：約 %2$@。請依稅務機關通知於 %3$@ 前繳納。此為估算。"
+          }
         }
       }
     },
     "banksRu.interest.sofar": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu günədək qazanılıb: %1$@ · vergi ≈ %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Налічана на сёння: %1$@ · падатак ≈ %2$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Získáno k dnešnímu dni: %1$@ · daň ≈ %2$@"
           }
         },
         "de": {
@@ -1266,16 +2622,52 @@
             "value": "Perçus à ce jour : %1$@ · impôt correspondant ≈ %2$@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մինչ օրս ստացվել է՝ %1$@ · հարկը՝ ≈ %2$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Maturati a oggi: %1$@ · imposta ≈ %2$@"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日までの利息：%1$@ · 税額 ≈ %2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დღემდე მიღებულია: %1$@ · გადასახადი ≈ %2$@"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бүгінге дейін есептелді: %1$@ · салығы ≈ %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘까지 받은 이자: %1$@ · 세금 약 %2$@"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүгүнкү күнгө чейин алынган: %1$@ · салык ≈ %2$@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tot nu toe ontvangen: %1$@ · belasting hierover ≈ %2$@"
           }
         },
         "pl": {
@@ -1290,10 +2682,22 @@
             "value": "Recebido até hoje: %1$@ · imposto ≈ %2$@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recebido até hoje: %1$@ · imposto estimado ≈ %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Набежало на сегодня: %1$@ · налог с них ≈ %2$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "То имрӯз гирифта шудааст: %1$@ · андоз ≈ %2$@"
           }
         },
         "tr": {
@@ -1307,16 +2711,52 @@
             "state": "translated",
             "value": "Нараховано на сьогодні: %1$@ · податок ≈ %2$@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugungacha olingan: %1$@ · soliq ≈ %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã nhận đến hôm nay: %1$@ · thuế ≈ %2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "截至今日已获利息：%1$@ · 税额 ≈ %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "截至今日已賺取：%1$@ · 稅額約 %2$@"
+          }
         }
       }
     },
     "banksRu.interest.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əmanət faizlərinə vergi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Падатак на працэнты па ўкладах"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daň z úroků z vkladů"
           }
         },
         "de": {
@@ -1343,16 +2783,52 @@
             "value": "Impôt sur les intérêts des dépôts"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավանդի տոկոսների հարկ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Imposta sugli interessi dei depositi"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預金利息への税金"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაბრის პროცენტის გადასახადი"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Салым пайыздарына салынатын салық"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "예금 이자 소득세"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Депозиттин пайызына салык"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belasting op spaarrente"
           }
         },
         "pl": {
@@ -1367,10 +2843,22 @@
             "value": "Imposto sobre juros de depósitos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposto sobre juros de depósitos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Налог с процентов по вкладам"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Андоз аз фоизи пасандозҳо"
           }
         },
         "tr": {
@@ -1384,16 +2872,52 @@
             "state": "translated",
             "value": "Податок на відсотки за вкладами"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omonat foizlari solig‘i"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thuế trên lãi tiền gửi"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款利息税"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款利息稅"
+          }
         }
       }
     },
     "banksRu.pdn.bank": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — kredit və kart ödənişlərinin gəlirə nisbəti (kart üzrə limitin 5 %%-i sayılır)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ — стаўленне плацяжоў па крэдытах і картах да даходу (для карты ўлічваецца 5 %% яе ліміту)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — poměr splátek úvěrů a karet k příjmu (u karty se počítá 5 %% limitu)"
           }
         },
         "de": {
@@ -1420,16 +2944,52 @@
             "value": "%1$@ : rapport entre les remboursements de crédits et de cartes (5 %% du plafond d’une carte) et les revenus"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@՝ վարկերի և քարտերի վճարումների հարաբերակցությունը եկամտին (քարտի համար հաշվվում է սահմանաչափի 5 %%-ը)"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ — rapporto tra pagamenti per prestiti e carte (per ogni carta si conta il 5 %% del limite) e reddito"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — 収入に対するローンとカードの返済額の割合（カードは限度額の5 %%で計算）"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — სესხებისა და ბარათების გადასახდელების შეფარდება შემოსავალთან (ბარათზე ითვლება ლიმიტის 5 %%)"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ — несие мен карталар бойынша төлемдердің табысқа қатынасы (карта үшін лимиттің 5 %% есептеледі)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — 소득 대비 대출 및 카드 상환액 비율. 카드는 한도의 5 %%로 계산"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — кредиттер жана карталар боюнча төлөмдөрдүн кирешеге катышы (карта үчүн лимиттин 5 %% эсептелет)"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — betalingen voor leningen en kaarten (voor een kaart telt 5 %% van de limiet) ten opzichte van inkomen"
           }
         },
         "pl": {
@@ -1444,10 +3004,22 @@
             "value": "%1$@ — pagamentos de créditos e cartões (5 %% do limite de cada cartão) em relação à renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — pagamentos de créditos e cartões (cada cartão conta como 5 %% do limite) face aos rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ — платежи по кредитам и картам (карта — 5 %% лимита) к доходу"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — таносуби пардохтҳои қарзу кортҳо ба даромад (барои корт 5 %% аз лимит ҳисоб мешавад)"
           }
         },
         "tr": {
@@ -1461,16 +3033,52 @@
             "state": "translated",
             "value": "%1$@ — відношення платежів за кредитами й картками до доходу (для картки враховується 5 %% ліміту)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — kredit va kartalar bo‘yicha to‘lovlarning daromadga nisbati (karta uchun limitning 5 %%i hisoblanadi)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — tỷ lệ thanh toán các khoản vay và thẻ trên thu nhập (thẻ được tính bằng 5 %% hạn mức)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — 贷款和信用卡还款额（信用卡按额度的 5 %% 计算）占收入的比例"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — 貸款和卡片還款額占收入的比例（卡片按額度的 5 %% 計算）"
+          }
         }
       }
     },
     "banksRu.pdn.cautious": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank gəlirinizin 90 %%-ni (%2$@) nəzərə alsa: %1$@ — təxmini göstəricidir, qərarı bank verir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ калі банк улічыць 90 %% вашага даходу (%2$@) — даведачна, рашэнне прымае банк"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ při započtení 90 %% vašeho příjmu (%2$@) bankou. Jde o orientační údaj, rozhoduje banka."
           }
         },
         "de": {
@@ -1497,16 +3105,52 @@
             "value": "%1$@ si la banque retient 90 %% de vos revenus (%2$@). À titre indicatif ; la banque décide."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, եթե բանկը հաշվի առնի ձեր եկամտի 90 %%-ը (%2$@)։ Սա կողմնորոշիչ է․ որոշումը բանկինն է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ se la banca considera il 90 %% del tuo reddito (%2$@) — valore indicativo, decide la banca"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行が収入の90 %%（%2$@）を採用した場合は%1$@。参考値です。銀行の判断によります。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, თუ ბანკი თქვენი შემოსავლის 90 %%-ს (%2$@) გაითვალისწინებს — საორიენტაციო მაჩვენებელია, გადაწყვეტილებას ბანკი იღებს"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@, егер банк табысыңыздың 90 %% (%2$@) есепке алса — бұл бағдар ғана, шешімді банк қабылдайды"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "은행이 소득의 90 %%(%2$@)를 인정할 경우 %1$@입니다. 참고용이며 은행이 결정합니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк кирешеңиздин 90 %% эске алса, %1$@ (%2$@) — бул болжол, чечимди банк кабыл алат"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ als de bank 90 %% van je inkomen (%2$@) meerekent. Dit is een richtlijn; de bank beslist."
           }
         },
         "pl": {
@@ -1521,10 +3165,22 @@
             "value": "%1$@ se o banco considerar 90 %% da sua renda (%2$@) — valor de referência; o banco decide"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ se o banco considerar 90 %% dos seus rendimentos (%2$@) — valor de referência; o banco decide"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@, если банк возьмёт 90 %% дохода (%2$@) — ориентир, решает банк"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ агар бонк 90 %% даромади шуморо (%2$@) ба ҳисоб гирад — тахмин аст, бонк қарор мекунад"
           }
         },
         "tr": {
@@ -1538,16 +3194,52 @@
             "state": "translated",
             "value": "%1$@, якщо банк врахує 90 %% вашого доходу (%2$@) — для довідки, рішення за банком"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank daromadingizning 90 %%ini (%2$@) hisobga olsa, %1$@ — bu taxmin, qarorni bank qabul qiladi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ nếu ngân hàng tính 90 %% thu nhập của bạn (%2$@) — chỉ để tham khảo, ngân hàng sẽ quyết định"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "若银行按您收入的 90 %%（%2$@）计算，则为 %1$@。仅供参考，具体由银行决定。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "若銀行採計你收入（%2$@）的 90 %%：%1$@。僅供參考，以銀行決定為準。"
+          }
         }
       }
     },
     "banksRu.pdn.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təxmini göstəricidir; qərarı bank verir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Даведачна, рашэнне прымае банк."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orientační údaj, nikoli rozhodnutí banky."
           }
         },
         "de": {
@@ -1574,16 +3266,52 @@
             "value": "À titre indicatif ; la banque décide."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կողմնորոշիչ տվյալ է․ որոշումը բանկինն է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Un’indicazione, non la valutazione della banca."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "参考値です。銀行の審査結果ではありません。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საორიენტაციო მაჩვენებელია; გადაწყვეტილებას ბანკი იღებს."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бұл бағдар ғана, банк шешімі емес."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "참고용이며 은행의 심사 결과가 아닙니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Болжолдуу эсеп; чечимди банк кабыл алат."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een richtlijn, geen oordeel van de bank."
           }
         },
         "pl": {
@@ -1598,10 +3326,22 @@
             "value": "Uma referência, não a decisão do banco."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor indicativo, sujeito à avaliação do banco."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ориентир, а не решение банка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тахмин аст, на қарори бонк."
           }
         },
         "tr": {
@@ -1615,16 +3355,52 @@
             "state": "translated",
             "value": "Для довідки; банк може розрахувати інакше."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxminiy ko‘rsatkich; qarorni bank qabul qiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ để tham khảo, không phải quyết định của ngân hàng."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅供参考，具体以银行审核结果为准。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅供參考，以銀行評估為準。"
+          }
         }
       }
     },
     "banksRu.pdn.noIncome": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məlumat kifayət deyil: «Qazanc» üzrə hələ gəlir yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Недастаткова звестак: даходаў у катэгорыі «Заробак» пакуль няма."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nedostatek údajů: zatím žádný příjem v kategorii «Earnings»."
           }
         },
         "de": {
@@ -1651,16 +3427,52 @@
             "value": "Données insuffisantes : aucun revenu dans «Earnings» pour le moment."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տվյալները բավարար չեն․ «Earnings» տեսակի եկամուտ դեռ չկա։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Dati insufficienti: nessuna entrata in «Earnings»."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "データが不足しています。「Earnings」の収入がまだありません。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონაცემები საკმარისი არ არის: «Earnings»-ის შემოსავალი ჯერ არ არის."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Дерек жеткіліксіз: «Earnings» санатында әзірше табыс жоқ."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터가 부족합니다. 아직 «Earnings» 소득이 없습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маалымат жетишсиз: «Earnings» кирешеси азырынча жок."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onvoldoende gegevens: nog geen inkomen onder «Earnings»."
           }
         },
         "pl": {
@@ -1675,10 +3487,22 @@
             "value": "Dados insuficientes: ainda não há renda em «Earnings»."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dados insuficientes: ainda não há rendimentos em «Earnings»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Мало данных: пока нет дохода из «Заработка»."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маълумот кофӣ нест: ҳоло даромад дар «Earnings» нест."
           }
         },
         "tr": {
@@ -1692,16 +3516,52 @@
             "state": "translated",
             "value": "Недостатньо даних: доходів у категорії «Earnings» ще немає."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumot yetarli emas: «Earnings» daromadi hali yo‘q."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không đủ dữ liệu: chưa có thu nhập thuộc mục «Earnings»."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据不足：尚无「收入」类别的收入记录。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料不足：尚無「Earnings」收入。"
+          }
         }
       }
     },
     "banksRu.pdn.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankın hesabladığı borc yükü"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Даўгавая нагрузка вачыма банка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dluhová zátěž pohledem banky"
           }
         },
         "de": {
@@ -1728,16 +3588,52 @@
             "value": "Endettement selon la banque"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պարտքային բեռը՝ բանկի հաշվարկով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Indebitamento secondo la banca"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行が見る負債負担率"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საკრედიტო დატვირთვა ბანკის შეფასებით"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Банк есебіндегі борыш жүктемесі"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "은행 기준 부채 부담"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктын эсебиндеги карыз жүгү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuldenlast volgens de bank"
           }
         },
         "pl": {
@@ -1752,10 +3648,22 @@
             "value": "Comprometimento da renda segundo o banco"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de esforço segundo o banco"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Долговая нагрузка, как её видит банк"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бори қарз аз назари бонк"
           }
         },
         "tr": {
@@ -1769,16 +3677,52 @@
             "state": "translated",
             "value": "Боргове навантаження очима банку"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank hisobidagi qarz yuki"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gánh nặng nợ theo cách tính của ngân hàng"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "银行评估的负债率"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行評估的負債比"
+          }
         }
       }
     },
     "banksRu.pdn.withInstalments": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hissəli ödənişlər (Split və s.) daxil olmaqla: %1$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ з улікам растэрміновак (Split і падобных сэрвісаў)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ včetně splátek (Split a podobné služby)"
           }
         },
         "de": {
@@ -1805,16 +3749,52 @@
             "value": "%1$@ avec les paiements en plusieurs fois (Split et similaires)"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@՝ ներառյալ տարաժամկետ վճարումները (Split և նման ծառայություններ)"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ includendo i pagamenti a rate (Split e simili)"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分割払い（Splitなど）を含めると%1$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ განვადებების ჩათვლით (Split და მსგავსი სერვისები)"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@, бөліп төлеулерді (Split және т.б.) қосқанда"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "할부금(Split 등) 포함 시 %1$@"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бөлүп төлөөлөрдү (Split жана башкалар) кошкондо %1$@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ inclusief betalingen in termijnen (Split en vergelijkbare diensten)"
           }
         },
         "pl": {
@@ -1829,10 +3809,22 @@
             "value": "%1$@ com parcelamentos (Split e similares) incluídos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ incluindo pagamentos em prestações (Split e semelhantes)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ с рассрочками и Сплитом"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ бо назардошти пардохтҳои қисм-қисм (Split ва монанди он)"
           }
         },
         "tr": {
@@ -1846,16 +3838,52 @@
             "state": "translated",
             "value": "%1$@ з урахуванням розстрочок (Split тощо)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bo‘lib to‘lashlar (Split va boshqalar) bilan %1$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ khi tính cả các khoản trả góp (Split và tương tự)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@（计入 Split 等分期付款）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@（含 Split 等分期付款）"
+          }
         }
       }
     },
     "banksRu.sbp.fee": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulsuz limiti aşdıqda bank təxminən %1$@ komissiya tuta bilər (hər köçürmənin limiti aşan hissəsinin 0.5 %%-i, hər köçürmə üçün ən çox %2$@). Bankınızın şərtlərini yoxlayın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Звыш бясплатнага ліміту банк можа спагнаць каля %1$@ (0,5 %% ад часткі кожнага пераводу звыш ліміту, не больш за %2$@ за перавод). Праверце ўмовы банка."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Po překročení bezplatného limitu si banka může účtovat přibližně %1$@ (0,5 %% z části každého převodu nad limit, nejvýše %2$@ za převod). Ověřte si podmínky své banky."
           }
         },
         "de": {
@@ -1882,16 +3910,52 @@
             "value": "Au-delà du plafond gratuit, la banque peut prélever environ %1$@ (0,5 %% de la part de chaque virement dépassant le plafond, avec un maximum de %2$@ par virement). Vérifiez les conditions de votre banque."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անվճար սահմանաչափը գերազանցելու դեպքում բանկը կարող է գանձել մոտ %1$@ (յուրաքանչյուր փոխանցման՝ սահմանաչափը գերազանցող մասի 0,5 %%-ը, բայց ոչ ավելի, քան %2$@՝ մեկ փոխանցման համար)։ Ստուգեք ձեր բանկի պայմանները։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Oltre il limite gratuito, la banca potrebbe addebitare circa %1$@ (lo 0,5 %% della parte di ogni bonifico oltre il limite, fino a %2$@ per bonifico). Verifica le condizioni della tua banca."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料上限を超えると、銀行から約%1$@の手数料がかかる場合があります（各送金の上限超過分の0.5 %%、1回あたり最大%2$@）。銀行の条件をご確認ください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უფასო ლიმიტის გადაჭარბებისას ბანკმა შეიძლება ჩამოგაჭრათ დაახლოებით %1$@ (თითოეული გადარიცხვის ლიმიტს გადაცილებული ნაწილის 0.5 %%, მაქსიმუმ %2$@ თითო გადარიცხვაზე). გადაამოწმეთ თქვენი ბანკის პირობები."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Тегін лимиттен асқан кезде банк шамамен %1$@ алуы мүмкін (әр аударымның лимиттен асқан бөлігінің 0.5 %%, бір аударым үшін ең көбі %2$@). Банкіңіздің шарттарын тексеріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무료 한도 초과 시 은행에서 약 %1$@의 수수료를 부과할 수 있습니다. 건별 한도 초과분의 0.5 %%, 이체당 최대 %2$@입니다. 은행의 이용 조건을 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акысыз лимиттен ашканда банк болжол менен %1$@ алышы мүмкүн (ар бир которуунун лимиттен ашкан бөлүгүнүн 0,5 %%, бир которуу үчүн эң көп дегенде %2$@). Банкыңыздын шарттарын текшериңиз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boven de gratis limiet kan de bank ongeveer %1$@ in rekening brengen (0,5 %% van het deel van elke overboeking boven de limiet, maximaal %2$@ per overboeking). Controleer de voorwaarden van je bank."
           }
         },
         "pl": {
@@ -1906,10 +3970,22 @@
             "value": "Acima do limite gratuito, o banco pode cobrar cerca de %1$@ (0,5 %% da parcela de cada transferência que exceder o limite, até %2$@ por transferência). Confira as condições do banco."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acima do limite gratuito, o banco pode cobrar cerca de %1$@ (0,5 %% da parte de cada transferência que excede o limite, até %2$@ por transferência). Consulte as condições do seu banco."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сверх бесплатного лимита банк может взять около %1$@ (0,5 %% от части каждого перевода сверх лимита, не больше %2$@ за перевод). Уточните условия в банке."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баъд аз лимити ройгон бонк метавонад тақрибан %1$@ ситонад (0,5 %% аз қисми ҳар интиқол, ки аз лимит зиёд аст, то %2$@ барои як интиқол). Шартҳои бонкатонро санҷед."
           }
         },
         "tr": {
@@ -1922,6 +3998,30 @@
           "stringUnit": {
             "state": "translated",
             "value": "Понад безкоштовний ліміт банк може взяти близько %1$@ (0,5 %% від частини кожного переказу понад ліміт, не більше %2$@ за переказ). Перевірте умови вашого банку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bepul limitdan oshganda bank taxminan %1$@ olishi mumkin (har bir o‘tkazmaning limitdan oshgan qismidan 0,5 %%, har bir o‘tkazma uchun ko‘pi bilan %2$@). Bank shartlarini tekshiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi vượt hạn mức miễn phí, ngân hàng có thể thu khoảng %1$@ (0,5 %% phần vượt mức của mỗi giao dịch, tối đa %2$@ mỗi giao dịch). Hãy kiểm tra điều kiện của ngân hàng."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "超出免费额度后，银行可能收取约 %1$@ 的手续费（每笔转账超出部分的 0.5 %%，每笔最多 %2$@）。请查看银行的具体条款。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "超過免費額度後，銀行可能收取約 %1$@（每筆轉帳超額部分的 0.5 %%，每筆最多 %2$@）。請確認銀行條款。"
           }
         }
       }

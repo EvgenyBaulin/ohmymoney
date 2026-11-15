@@ -76,6 +76,12 @@
             "value": "%@ бағамы"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@의 환율"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -226,6 +232,12 @@
             "value": "Қолдану"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "적용"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -373,6 +385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Санат…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카테고리…"
           }
         },
         "ky": {
@@ -699,6 +717,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операция жойылсын ба?"
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "거래 %lld건을 삭제할까요?"
                 }
               }
             }
@@ -1213,6 +1243,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "거래 %lld건을 변경할까요?"
+                }
+              }
+            }
+          }
+        },
         "ky": {
           "variations": {
             "plural": {
@@ -1542,6 +1584,12 @@
             "value": "Жою және «%@» қарызын қайта ашу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "삭제하고 부채 «%@» 다시 열기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1689,6 +1737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Төлем қарызды жапқан: %@. Оны жойған соң қайтадан берешек пайда болады, ал қайта ашпасаңыз, қарыз жабық қалады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 결제로 부채가 정산되었습니다: %@. 삭제하면 다시 갚을 금액이 생기지만, 다시 열지 않으면 부채는 정산된 상태로 유지됩니다."
           }
         },
         "ky": {
@@ -1840,6 +1894,12 @@
             "value": "Қарыз төлемдері қарыздарынан да алынады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "부채 상환 내역은 해당 부채에서도 삭제됩니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1987,6 +2047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қайтарылған ақшамен бірге артық не кем сома да алынады, ал жапқан бөліктері қайта қайтаруды күтеді."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "돌려받은 돈을 삭제하면 초과액이나 부족액도 함께 삭제되며, 정산된 항목은 다시 돌려받아야 합니다."
           }
         },
         "ky": {
@@ -2139,6 +2205,12 @@
             "value": "Оқиға"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이벤트"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2287,6 +2359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кімге"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대상"
           }
         },
         "ky": {
@@ -2439,6 +2517,12 @@
             "value": "Жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2588,6 +2672,12 @@
             "value": "Өзгертетін ештеңе жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경할 항목 없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2735,6 +2825,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жоятын ештеңе жоқ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "삭제할 항목 없음"
           }
         },
         "ky": {
@@ -3061,6 +3157,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операцияның кей бөліктері өзгермейді:"
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "거래 %lld건의 일부 항목이 그대로 유지됩니다:"
                 }
               }
             }
@@ -3396,6 +3504,12 @@
             "value": "Шот"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3545,6 +3659,12 @@
             "value": "Адам…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사람…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3692,6 +3812,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Орын…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "장소…"
           }
         },
         "ky": {
@@ -3844,6 +3970,12 @@
             "value": "Сапа"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "만족도"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3991,6 +4123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "бір бөлігіне ақша қайтарылған — алдымен сол қайтаруды жойыңыз"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일부 금액을 돌려받음 — 먼저 해당 정산 내역을 삭제하세요"
           }
         },
         "ky": {
@@ -4142,6 +4280,12 @@
             "value": "несиеге алынған — Қарыздарда өзгертіледі"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "할부 구매 — 부채에서 변경할 수 있습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4289,6 +4433,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бөліп төлеу төлемдері жасалған — алдымен оларды жойыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이미 할부금을 납부함 — 먼저 납부 내역을 삭제하세요."
           }
         },
         "ky": {
@@ -4440,6 +4590,12 @@
             "value": "бұл — қарыз төлемі"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "부채 상환 내역입니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4587,6 +4743,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "кіріс пен қайтарылған ақшада мұндай өріс жоқ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수입과 돌려받은 돈에는 이 항목이 없습니다"
           }
         },
         "ky": {
@@ -4738,6 +4900,12 @@
             "value": "бұл — мақсатқа жарна"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "목표에 적립한 금액입니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4885,6 +5053,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "одан қайтарым арқылы ақша алынған — алдымен қайтарымды жойыңыз"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "환불 내역이 있음 — 먼저 환불 내역을 삭제하세요"
           }
         },
         "ky": {
@@ -5036,6 +5210,12 @@
             "value": "кірістің орны жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수입에는 장소가 없습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5183,6 +5363,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "бұл — адам қайтарған ақша"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 사람에게서 돌려받은 돈입니다"
           }
         },
         "ky": {
@@ -5334,6 +5520,12 @@
             "value": "кіріс пен қайтарылған ақшаның сапасы жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수입과 돌려받은 돈에는 만족도가 없습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5481,6 +5673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "шоттан алынатын соманы есептеуге әлі бағам жоқ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌 출금액을 계산할 환율이 아직 없습니다"
           }
         },
         "ky": {
@@ -5632,6 +5830,12 @@
             "value": "санат басқа түрге жатады"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카테고리 유형이 다릅니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5779,6 +5983,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "басқа адам үшін төленген"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 사람을 위해 결제했습니다"
           }
         },
         "ky": {
@@ -5930,6 +6140,12 @@
             "value": "бұл — салыстыру айырмасы: шоты санаудан алынады, Мақсаттарға не қолданба санатына кірмейді"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잔액 조정 차액입니다. 계좌는 잔액 확인 내역을 따르며, 목표나 앱의 카테고리에 포함되지 않습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -6077,6 +6293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "санат мұрағатталған не жойылған"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카테고리가 보관되었거나 삭제되었습니다"
           }
         },
         "ky": {
@@ -6228,6 +6450,12 @@
             "value": "жүйелік санат"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시스템 카테고리입니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -6376,6 +6604,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Іздеу"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색"
           }
         },
         "ky": {
@@ -6702,6 +6936,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операция өзгермейді:"
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "거래 %lld건이 그대로 유지됩니다:"
                 }
               }
             }
@@ -7216,6 +7462,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "선택한 거래 중 %lld건이 분할되어 있습니다. 변경 사항이 모든 분할 항목에 적용됩니다."
+                }
+              }
+            }
+          }
+        },
         "ky": {
           "variations": {
             "plural": {
@@ -7545,6 +7803,12 @@
             "value": "⌘Z бәрін қайтарады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z를 누르면 모든 변경 사항을 되돌릴 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -7694,6 +7958,12 @@
             "value": "“Болдырмау” бәрін қайтарады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "‘실행 취소’를 누르면 모든 변경 사항을 되돌릴 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -7841,6 +8111,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл — салыстыру айырмасы: санауға дейінгі операцияларды қосқанда не түзеткенде сомасы, түрі, шоты, валютасы мен күні автоматты өзгереді. Оны жойсаңыз, осы санаудың айырмасы енді жазылмайды."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잔액 조정 차액입니다. 잔액 확인 이전의 거래를 추가하거나 수정하면 금액, 유형, 계좌, 통화 및 날짜가 자동으로 변경됩니다. 삭제하면 이 잔액 확인의 차액이 더 이상 기록되지 않습니다."
           }
         },
         "ky": {
@@ -7993,6 +8269,12 @@
             "value": "Барлық уақыт"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 기간"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8143,6 +8425,12 @@
             "value": "Кез келген"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8290,6 +8578,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Өз аралығым"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용자 설정 기간"
           }
         },
         "ky": {
@@ -8442,6 +8736,12 @@
             "value": "Дайын"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "완료"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8589,6 +8889,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл сүзгілерге сәйкес ештеңе жоқ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "필터와 일치하는 항목 없음"
           }
         },
         "ky": {
@@ -8741,6 +9047,12 @@
             "value": "Басталуы"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시작"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8889,6 +9201,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Өткен ай"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지난달"
           }
         },
         "ky": {
@@ -9041,6 +9359,12 @@
             "value": "Ештеңе табылмады"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색 결과 없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -9189,6 +9513,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кезең"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기간"
           }
         },
         "ky": {
@@ -9341,6 +9671,12 @@
             "value": "Адам"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사람"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -9489,6 +9825,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қалпына келтіру"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재설정"
           }
         },
         "ky": {
@@ -9641,6 +9983,12 @@
             "value": "Ақшаны қайтару"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "돌려받은 돈"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -9789,6 +10137,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осы ай"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이번 달"
           }
         },
         "ky": {
@@ -9941,6 +10295,12 @@
             "value": "Осы жыл"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "올해"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -10088,6 +10448,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сүзгілер"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "필터"
           }
         },
         "ky": {
@@ -10240,6 +10606,12 @@
             "value": "Аяқталуы"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "종료"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -10388,6 +10760,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Түрі"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "유형"
           }
         },
         "ky": {
@@ -10539,6 +10917,12 @@
             "value": "Сақтаңыз немесе алып тастаңыз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경 사항을 저장하거나 폐기할 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -10686,6 +11070,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Инспектор сақталмаған өзгерістермен жабылды"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장하지 않은 변경 사항이 있는 상태로 인스펙터가 닫혔습니다"
           }
         },
         "ky": {
@@ -10837,6 +11227,12 @@
             "value": "Сақтамау"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 안 함"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -10984,6 +11380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Өңдеу · "
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "편집 · "
           }
         },
         "ky": {
@@ -11135,6 +11537,12 @@
             "value": "Басқа операция ашылуда. Сақталмаған өзгерістер жоғалады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 거래를 열고 있습니다. 저장하지 않은 변경 사항은 사라집니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -11282,6 +11690,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осы операцияның өзгерістерін сақтау керек пе?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 거래의 변경 사항을 저장할까요?"
           }
         },
         "ky": {
@@ -11434,6 +11848,12 @@
             "value": "Барлығы"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -11582,6 +12002,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Шығындар"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지출"
           }
         },
         "ky": {
@@ -11734,6 +12160,12 @@
             "value": "Кіріс"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수입"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -11884,6 +12316,12 @@
             "value": "Бүгін"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -12031,6 +12469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бағандар…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "열…"
           }
         },
         "ky": {
@@ -12183,6 +12627,12 @@
             "value": "Төмен жылжыту"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아래로 이동"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -12330,6 +12780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Көрсетілетін бағандар, олардың реті мен ені. Жолды сүйреңіз немесе көрсеткілермен жылжытыңыз. Сипаттама мен сома әрдайым көрсетіледі."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "표시할 열과 순서 및 너비를 설정합니다. 행을 드래그하거나 화살표를 사용하여 이동합니다. 설명과 금액은 항상 표시됩니다."
           }
         },
         "ky": {
@@ -12481,6 +12937,12 @@
             "value": "Әдепкіге қайтару"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기본값으로 재설정"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -12630,6 +13092,12 @@
             "value": "Стандартты бағандар, олардың реті мен ені, сүзгілер мен іздеусіз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기본 열, 순서 및 너비로 복원하고 필터와 검색을 지웁니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -12777,6 +13245,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кесте бағандары"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "표의 열"
           }
         },
         "ky": {
@@ -12929,6 +13403,12 @@
             "value": "Жоғары жылжыту"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "위로 이동"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -13076,6 +13556,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ені %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "너비 %@"
           }
         },
         "ky": {
@@ -13227,6 +13713,12 @@
             "value": "Операциялардың ықшам тізімі"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "거래 목록 간략하게 보기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -13376,6 +13868,12 @@
             "value": "Операция сүзгілері…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "거래 필터…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -13523,6 +14021,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Алдыңғы ай"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이전 달"
           }
         },
         "ky": {
@@ -13675,6 +14179,12 @@
             "value": "Келесі ай"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음 달"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -13823,6 +14333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жаңа операция"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 거래"
           }
         },
         "ky": {
@@ -13975,6 +14491,12 @@
             "value": "Аударым"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이체"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -14124,6 +14646,12 @@
             "value": "Операцияларды іздеу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "거래 검색"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -14271,6 +14799,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бүкіл тарихтан іздеу: сөздер, санат, орын, шот, сома"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 내역에서 단어, 카테고리, 장소, 계좌, 금액 검색"
           }
         },
         "ky": {
@@ -14423,6 +14957,12 @@
             "value": "Іздеу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -14570,6 +15110,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ адамға тең бөлінді"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@명이 나눠 냄"
           }
         },
         "ky": {
@@ -14721,6 +15267,12 @@
             "value": "%@ үшін"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에게"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -14870,6 +15422,12 @@
             "value": "сыйлық"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선물"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -15017,6 +15575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ екеуміз жартылай"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@와 반씩"
           }
         },
         "ky": {
@@ -15169,6 +15733,12 @@
             "value": "Өзгерту"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -15316,6 +15886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Таңдауды алып тастау"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선택 해제"
           }
         },
         "ky": {
@@ -15643,6 +16219,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операция"
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "거래 %lld건"
                 }
               }
             }
@@ -15978,6 +16566,12 @@
             "value": "Жою…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "삭제…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -16125,6 +16719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Өзгерістер сақталуда…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경사항 저장 중…"
           }
         },
         "ky": {
@@ -16276,6 +16876,12 @@
             "value": "Өзгеріс сақталмады"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경사항이 저장되지 않았습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -16423,6 +17029,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жою мүмкін болмады"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "삭제할 수 없습니다"
           }
         },
         "ky": {
@@ -16574,6 +17186,12 @@
             "value": "Дерекқор жазуды қабылдамады, ештеңе өзгермеді. Қате журналда (Анықтама → Мәселе туралы есеп жинау…)."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터베이스에 기록하지 못해 변경된 사항이 없습니다. 오류는 저널에 기록되어 있습니다(도움말 → 문제 보고서 수집…)."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -16721,6 +17339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ақша қайда түсетінін таңдаған кезде кейбір операциялар басқа жерде өзгерді, сондықтан аударым оларға енді сәйкес емес. Ештеңе өзгермеді: операцияларды таңдап, өзгерісті қайталаңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "돈을 보낼 곳을 선택하는 동안 일부 거래가 다른 곳에서 변경되어 이체 내역이 더 이상 일치하지 않습니다. 변경된 사항은 없습니다. 거래를 선택하고 다시 변경하십시오."
           }
         },
         "ky": {
@@ -16872,6 +17496,12 @@
             "value": "Болдырмау мүмкін болмады"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "실행 취소할 수 없습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -17019,6 +17649,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дерекқор жазуды қабылдамады. Ештеңе өзгермеді, қадам сақталады: ⌘Z қайта әрекет етеді. Қате журналда (Анықтама → Мәселе туралы есеп жинау…)."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터베이스에 기록하지 못했습니다. 변경된 사항은 없으며 해당 단계는 그대로 유지됩니다. ⌘Z를 눌러 다시 시도하십시오. 오류는 저널에 기록되어 있습니다(도움말 → 문제 보고서 수집…)."
           }
         },
         "ky": {
@@ -17170,6 +17806,12 @@
             "value": "Дерекқор жазуды қабылдамады. Ештеңе өзгермеді, қадам сақталады: “Болдырмау” қайта әрекет етеді. Қате журналда (Баптаулар → Анықтама → Мәселе туралы есеп жинау)."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터베이스에 기록하지 못했습니다. 변경된 사항은 없으며 해당 단계는 그대로 유지됩니다. “실행 취소”를 눌러 다시 시도하십시오. 오류는 저널에 기록되어 있습니다(설정 → 도움말 → 문제 보고서 수집)."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -17319,6 +17961,12 @@
             "value": "Кейін жасалған әрекет осы қадамға тәуелді — мысалы, операция осы қадам жасаған санатқа тіркелген — немесе қадам кейін жойылған нысанға сілтейтін жазбаны қайтарады. Ештеңе өзгермеді, қадам сақталады: тәуелділікті шешіп, қайта болдырмаңыз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이후에 수행한 작업이 이 단계에 의존하거나(예: 이 단계에서 생성한 카테고리에 거래를 분류한 경우), 이 단계를 되돌리면 이후에 삭제된 항목을 참조하는 항목이 복원됩니다. 변경된 사항은 없으며 해당 단계는 그대로 유지됩니다. 문제를 해결한 다음 다시 실행 취소하십시오."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -17466,6 +18114,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Басқаларға"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 사람을 위해"
           }
         },
         "ky": {
@@ -17618,6 +18272,12 @@
             "value": "Кіріс"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수입"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -17766,6 +18426,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қайтарылған ақша"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "돌려받은 돈"
           }
         },
         "ky": {
@@ -17918,6 +18584,12 @@
             "value": "Жұмсалды"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지출"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -18066,6 +18738,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сома"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "금액"
           }
         },
         "ky": {
@@ -18218,6 +18896,12 @@
             "value": "Кешбэк"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "캐시백"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -18366,6 +19050,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Санат"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카테고리"
           }
         },
         "ky": {
@@ -18518,6 +19208,12 @@
             "value": "Сипаттама"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설명"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -18666,6 +19362,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оқиға"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이벤트"
           }
         },
         "ky": {
@@ -18818,6 +19520,12 @@
             "value": "Кімге"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대상"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -18896,7 +19604,19 @@
       "comment": "MCC is the standard abbreviation of the merchant category code, the same in every language.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
         "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC"
@@ -18926,13 +19646,49 @@
             "value": "MCC"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
         "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "nl": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC"
@@ -18950,7 +19706,19 @@
             "value": "MCC"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "tg": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC"
@@ -18963,6 +19731,24 @@
           }
         },
         "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC"
@@ -19044,6 +19830,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пікір"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메모"
           }
         },
         "ky": {
@@ -19196,6 +19988,12 @@
             "value": "Шот"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -19344,6 +20142,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Орын"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "장소"
           }
         },
         "ky": {
@@ -19496,6 +20300,12 @@
             "value": "Сапа"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "품질"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -19644,6 +20454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уақыт"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시간"
           }
         },
         "ky": {
@@ -19795,6 +20611,12 @@
             "value": "Деректер жаңармады — %@ кезіндегі көрініс · қайталау үшін ⌘R"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터를 새로고침하지 못해 %@ 기준으로 표시 중 · ⌘R을 눌러 재시도"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -19942,6 +20764,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Күн қорытындысы"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일일 합계"
           }
         },
         "ky": {
@@ -20093,6 +20921,12 @@
             "value": "Осы операция жойылсын ба?"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 거래를 삭제하시겠습니까?"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -20240,6 +21074,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Әлі операция жоқ. Алғашқысын терезенің төменгі жағындағы қалқымалы енгізу жолына жазыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 거래가 없습니다. 윈도우 하단의 입력란에 첫 거래를 입력하십시오."
           }
         },
         "ky": {
@@ -20391,6 +21231,12 @@
             "value": "Қайтарым сатып алудың қайтаруға қалған сомасынан аспауы керек, оның валютасы мен түрі сақталады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "환불액은 구매 금액 중 환불 가능한 잔액을 초과할 수 없으며, 구매와 동일한 통화와 유형을 사용합니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -20538,6 +21384,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осы бөліктің ақшасы ішінара қайтарылған: сомасы, валютасы, түрі және “басқа адам үшін төленген” белгісі өзгермейді — алдымен қайтарылған ақшаны жойыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 항목의 일부 금액을 이미 돌려받았습니다. 금액, 통화, 유형 및 “다른 사람을 대신해 결제” 설정을 변경하려면 먼저 돌려받은 금액을 삭제하십시오."
           }
         },
         "ky": {
@@ -20689,6 +21541,12 @@
             "value": "Осы сатып алудан қайтарыммен ақша алынған — алдымен қайтарымды жойыңыз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 구매에 대한 환불이 있습니다. 먼저 환불을 삭제하십시오."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -20836,6 +21694,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл сатып алудың қайтаруға қалған сомасынан көп."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "환불 가능한 구매 잔액을 초과합니다."
           }
         },
         "ky": {
@@ -20987,6 +21851,12 @@
             "value": "Қайтарым нөлден үлкен болуы керек."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "환불액은 0보다 커야 합니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -21134,6 +22004,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл сатып алуды қайтаруға болмайды: басқа адам үшін төленген, несиеге алынған, қарыз төлемі не мақсатқа жарна."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 구매는 환불할 수 없습니다. 다른 사람을 대신한 결제, 외상 거래, 부채 상환 또는 목표 저축입니다."
           }
         },
         "ky": {
@@ -21285,6 +22161,12 @@
             "value": "Қайтарым сатып алу валютасында жасалады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "환불은 구매와 동일한 통화로 이루어집니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -21432,6 +22314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осы сатып алудан қайтарыммен ақша алынған: валютасы, түрі, “басқа адам үшін төленген” белгісі мен несиесі өзгермейді — алдымен қайтарымды жойыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 구매에 대한 환불이 있습니다. 통화, 유형, “다른 사람을 대신해 결제” 및 외상 설정을 변경하려면 먼저 환불을 삭제하십시오."
           }
         },
         "ky": {
@@ -21583,6 +22471,12 @@
             "value": "Бөлік бұрынғы қайтарымдар сомасынан аз болмауы керек."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "항목 금액은 이미 환불받은 금액보다 적을 수 없습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -21732,6 +22626,12 @@
             "value": "Осы бөліктен қайтарыммен ақша алынған — алдымен қайтарымды жойыңыз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 항목에 대한 환불이 있습니다. 먼저 환불을 삭제하십시오."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -21879,6 +22779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мұрағатталған шотты нөлде ұстайтын аударымды жазу мүмкін емес: екінші шот қазір мұрағатта не валютаны қолдамайды. Ештеңе сақталмады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관된 계좌의 잔액을 0으로 유지하는 이체를 기록할 수 없습니다. 다른 계좌가 보관되었거나 해당 통화를 보유하지 않습니다. 저장된 사항은 없습니다."
           }
         },
         "ky": {
@@ -22031,6 +22937,12 @@
             "value": "Шығындар"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지출"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -22179,6 +23091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кіріс"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수입"
           }
         },
         "ky": {
@@ -22331,6 +23249,12 @@
             "value": "%@ қайтарды"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에게서"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -22478,6 +23402,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "қайтарылған ақша — кіріс емес"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "돌려받은 돈 — 수입 아님"
           }
         },
         "ky": {
@@ -22630,6 +23560,12 @@
             "value": "Әлі операция жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 거래가 없습니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -22777,6 +23713,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Негізгі терезеде енгізіледі (⌘N)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메인 윈도우에서 입력할 수 있습니다(⌘N)"
           }
         },
         "ky": {
@@ -23103,6 +24045,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Бұрынғы %lld операция әлі көрсетілмеген"
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "이전 거래 %lld건이 아직 표시되지 않음"
                 }
               }
             }
@@ -23437,6 +24391,12 @@
             "value": "%@ үшін төленді"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 대신 결제"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -23586,6 +24546,12 @@
             "value": "%lld-бөлік"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "항목 %lld"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -23733,6 +24699,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“%1$@” қайтарымы, %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” 환불, %2$@"
           }
         },
         "ky": {
@@ -23885,6 +24857,12 @@
             "value": "%@ қайтарылды"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 환불됨"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -24033,6 +25011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Іздеу"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색"
           }
         },
         "ky": {
@@ -24184,6 +25168,12 @@
             "value": "бірнеше"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "여러 항목"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -24331,6 +25321,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тағы 3 айды көрсету"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이전 3개월 더 보기"
           }
         },
         "ky": {
@@ -24483,6 +25479,12 @@
             "value": "Операциялар"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "거래"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -24630,6 +25632,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“%1$@” ішіндегі айырбас: %2$@ → %3$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@”에서 환전: %2$@ → %3$@"
           }
         },
         "ky": {
@@ -24781,6 +25789,12 @@
             "value": "Аударым: %1$@ → %2$@"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이체: %1$@ → %2$@"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -24928,6 +25942,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Аударымдар"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이체"
           }
         },
         "ky": {
@@ -25254,6 +26274,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Және %lld аударым."
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "이체 %lld건도 삭제됩니다."
                 }
               }
             }
@@ -25768,6 +26800,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "이체 %lld건을 삭제하시겠습니까?"
+                }
+              }
+            }
+          }
+        },
         "ky": {
           "variations": {
             "plural": {
@@ -26097,6 +27141,12 @@
             "value": "Олармен бірге %@ комиссиялары да жойылады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "수수료 %@도 함께 삭제됩니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -26421,6 +27471,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld аударым өзгермейді."
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "이체 %lld건은 그대로 유지됩니다."
                 }
               }
             }

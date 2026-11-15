@@ -91273,10 +91273,22 @@
     "planning.free.interestTax": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əmanət faizi vergisi ≈ — sizin pulunuz deyil"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Падатак на працэнты па ўкладзе ≈ — не вашы грошы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daň z úroků z vkladu ≈ — nejsou vaše peníze"
           }
         },
         "de": {
@@ -91303,16 +91315,52 @@
             "value": "Impôt sur les intérêts ≈ — ne vous appartient pas"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավանդի տոկոսների հարկ ≈ — ձեր գումարը չէ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Imposta sugli interessi ≈ — non sono soldi tuoi"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預金利息への税金 ≈ — 自分のお金ではありません"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაბრის პროცენტის გადასახადი ≈ — თქვენი ფული არ არის"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Депозит сыйақысына салық ≈ — сіздің ақшаңыз емес"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "예금 이자 세금 ≈ — 내 돈 아님"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Депозиттин пайызына салык ≈ — сиздин акчаңыз эмес"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belasting op depositorente ≈ — niet jouw geld"
           }
         },
         "pl": {
@@ -91327,10 +91375,22 @@
             "value": "Imposto sobre juros de depósitos ≈ — não é seu dinheiro"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposto sobre juros de depósitos ≈ — não é seu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Налог с процентов по вкладам ≈ — не ваши деньги"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Андоз аз фоизи пасандоз ≈ — пули шумо нест"
           }
         },
         "tr": {
@@ -91343,6 +91403,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Податок на відсотки за депозитом ≈ — не ваші гроші"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omonat foizlari solig‘i ≈ — sizning pulingiz emas"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款利息税 ≈ — 不属于你的钱"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款利息稅額約為 — 非您的資金"
           }
         }
       }
@@ -106257,10 +106335,22 @@
     "reminders.rateChange": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» üzrə faiz dərəcəsi %2$@ tarixində dəyişir: %4$@%% əvəzinə %3$@%%"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Стаўка «%1$@» зменіцца %2$@: %3$@%% замест %4$@%%"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sazba «%1$@» se %2$@ mění: %3$@%% místo %4$@%%"
           }
         },
         "de": {
@@ -106287,16 +106377,52 @@
             "value": "Le taux de «%1$@» change le %2$@ : %3$@%% au lieu de %4$@%%"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»-ի տոկոսադրույքը փոխվում է %2$@-ին՝ %3$@%%՝ %4$@%%-ի փոխարեն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il tasso di «%1$@» cambia il %2$@: %3$@%% invece di %4$@%%"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»の金利が%2$@に%4$@%%から%3$@%%に変更されます"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»-ის განაკვეთი იცვლება %2$@-ს: %4$@%%-ის ნაცვლად %3$@%%"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@» мөлшерлемесі %2$@ күні өзгереді: %4$@%% орнына %3$@%%"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@에 «%1$@»의 금리가 %4$@%%에서 %3$@%%로 변경됨"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» чен өлчөмү %2$@ күнү өзгөрөт: %4$@%% ордуна %3$@%%"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De rente van «%1$@» wijzigt op %2$@: %3$@%% in plaats van %4$@%%"
           }
         },
         "pl": {
@@ -106311,10 +106437,22 @@
             "value": "A taxa de «%1$@» muda em %2$@: %3$@%% em vez de %4$@%%"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A taxa de «%1$@» muda em %2$@: %3$@%% em vez de %4$@%%"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ставка «%1$@» меняется %2$@: %3$@%% вместо %4$@%%"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меъёри «%1$@» аз %2$@ тағйир меёбад: %3$@%% ба ҷойи %4$@%%"
           }
         },
         "tr": {
@@ -106327,6 +106465,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка «%1$@» зміниться %2$@: %3$@%% замість %4$@%%"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» stavkasi %2$@ sanada o‘zgaradi: %4$@%% o‘rniga %3$@%%"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»的利率将于 %2$@ 变更：从 %4$@%% 变为 %3$@%%"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%1$@」的利率將於 %2$@ 變更：由 %4$@%% 調整為 %3$@%%"
           }
         }
       }

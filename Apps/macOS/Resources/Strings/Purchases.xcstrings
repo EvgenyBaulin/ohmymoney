@@ -2957,10 +2957,22 @@
     "purchases.files.failed": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstək və ya əşya saxlanıldı, lakin bəzi faylları əlavə etmək mümkün olmadı. Yenidən cəhd etmək üçün saxlayın və ya bu faylların əlavə edilməsini ləğv edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Жаданне або рэч захаваны, але некаторыя файлы не ўдалося далучыць. Захавайце яшчэ раз або скасуйце даданне гэтых файлаў."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přání nebo věc se uložily, ale některé soubory se nepodařilo připojit. Zkuste uložení zopakovat nebo přidání těchto souborů zrušte."
           }
         },
         "de": {
@@ -2987,16 +2999,52 @@
             "value": "Le souhait ou le bien a été enregistré, mais certains fichiers n’ont pas pu être joints. Enregistrez à nouveau pour réessayer, ou annulez leur ajout."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցանկությունը կամ իրը պահպանվեց, բայց որոշ ֆայլեր չկցվեցին։ Կրկին պահպանեք կամ չեղարկեք այդ ֆայլերի ավելացումը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il desiderio o l'oggetto è stato salvato, ma non è stato possibile allegare alcuni file. Salva di nuovo per riprovare o annulla l'aggiunta dei file."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "欲しいものまたは持ちものは保存されましたが、一部のファイルを添付できませんでした。再度保存してやり直すか、ファイルの追加を取り消してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სურვილი ან ნივთი შენახულია, მაგრამ ზოგი ფაილის მიმაგრება ვერ მოხერხდა. ხელახლა საცდელად ისევ შეინახეთ ან გააუქმეთ ამ ფაილების დამატება."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Тілек немесе зат сақталды, бірақ кейбір файлдар тіркелмеді. Қайталау үшін қайта сақтаңыз немесе сол файлдарды қосудан бас тартыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "위시 또는 물건은 저장되었지만 일부 파일을 첨부하지 못했습니다. 다시 저장하여 재시도하거나 해당 파일 추가를 취소하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тилек же буюм сакталды, бирок айрым файлдар тиркелген жок. Кайталоо үчүн кайра сактаңыз же ал файлдарды кошуудан баш тартыңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De wens of het bezit is bewaard, maar sommige bestanden konden niet worden toegevoegd. Bewaar opnieuw om het nog eens te proberen of annuleer het toevoegen van deze bestanden."
           }
         },
         "pl": {
@@ -3011,10 +3059,22 @@
             "value": "O desejo ou item foi salvo, mas alguns arquivos não puderam ser anexados. Salve novamente para tentar outra vez ou cancele a adição desses arquivos."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O desejo ou bem foi guardado, mas não foi possível anexar alguns ficheiros. Guarde novamente para tentar de novo ou cancele a adição desses ficheiros."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Желание или вещь сохранены, но часть файлов не удалось прикрепить. Повторите сохранение или отмените добавление этих файлов."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хоҳиш ё ашё захира шуд, аммо баъзе файлҳо замима нашуданд. Барои кӯшиши дубора захира кунед ё илова кардани файлҳоро бекор кунед."
           }
         },
         "tr": {
@@ -3028,16 +3088,46 @@
             "state": "translated",
             "value": "Бажання або річ збережено, але деякі файли не вдалося прикріпити. Збережіть ще раз або скасуйте додавання цих файлів."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Istak yoki buyum saqlandi, lekin ayrim fayllarni biriktirib bo‘lmadi. Qayta urinish uchun yana saqlang yoki bu fayllarni qo‘shishni bekor qiling."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "心愿或物品已保存，但部分文件无法附加。请再次保存以重试，或取消添加这些文件。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "願望或物品已儲存，但部分檔案無法附加。請再次儲存以重試，或取消加入這些檔案。"
+          }
         }
       }
     },
     "purchases.link.failure.address": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ünvanı oxumaq mümkün olmadı. Link sahədə qaldı."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Не ўдалося прачытаць адрас. Спасылка засталася ў полі."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adresu se nepodařilo přečíst. Odkaz zůstal v poli."
           }
         },
         "de": {
@@ -3064,16 +3154,52 @@
             "value": "L’adresse n’a pas pu être lue. Le lien reste dans le champ."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չհաջողվեց կարդալ հասցեն։ Հղումը մնացել է դաշտում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile leggere l'indirizzo. Il link rimane nel campo."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アドレスを読み取れませんでした。リンクはフィールドに残っています。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მისამართის წაკითხვა ვერ მოხერხდა. ბმული ველში დარჩა."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Мекенжайды оқу мүмкін болмады. Сілтеме өрісте қалды."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주소를 읽을 수 없습니다. 링크는 입력란에 그대로 남아 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даректи окуу мүмкүн болгон жок. Шилтеме талаада калды."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het adres kon niet worden gelezen. De link blijft in het veld staan."
           }
         },
         "pl": {
@@ -3088,10 +3214,22 @@
             "value": "Não foi possível ler o endereço. O link permanece no campo."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o endereço. A ligação permanece no campo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось прочитать адрес. Ссылка оставлена в поле."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суроға хонда нашуд. Пайванд дар майдон мемонад."
           }
         },
         "tr": {
@@ -3105,16 +3243,46 @@
             "state": "translated",
             "value": "Не вдалося прочитати адресу. Посилання залишилося в полі."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manzilni o‘qib bo‘lmadi. Havola maydonda qoldi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法读取地址。链接仍保留在输入栏中。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法讀取網址。連結仍保留在欄位中。"
+          }
         }
       }
     },
     "purchases.link.failure.markup": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Səhifədə məhsul məlumatı tapılmadı. Məlumatlarınız və link formada qaldı."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "На старонцы не знойдзена звестак пра тавар. Вашы звесткі і спасылка засталіся ў форме."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na stránce se nenašly žádné údaje o produktu. Vaše údaje i odkaz zůstaly ve formuláři."
           }
         },
         "de": {
@@ -3141,16 +3309,52 @@
             "value": "Aucun détail sur le produit n’a été trouvé sur la page. Vos informations et le lien restent dans le formulaire."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Էջում ապրանքի տվյալներ չգտնվեցին։ Ձեր տվյալներն ու հղումը մնացել են ձևում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun dettaglio del prodotto trovato nella pagina. I dettagli e il link rimangono nel modulo."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ページに商品の詳細が見つかりませんでした。入力内容とリンクはフォームに残っています。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გვერდზე პროდუქტის დეტალები ვერ მოიძებნა. თქვენი მონაცემები და ბმული ფორმაში დარჩა."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Беттен тауар туралы мәлімет табылмады. Мәліметтеріңіз бен сілтеме пішінде қалды."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "페이지에서 상품 정보를 찾을 수 없습니다. 입력한 정보와 링크는 그대로 남아 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барактан товар тууралуу маалымат табылган жок. Маалыматыңыз жана шилтеме формада калды."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er zijn geen productgegevens gevonden op de pagina. Je gegevens en link blijven in het formulier staan."
           }
         },
         "pl": {
@@ -3165,10 +3369,22 @@
             "value": "Nenhum detalhe do produto foi encontrado na página. Seus dados e o link permanecem no formulário."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foram encontrados detalhes do produto na página. Os seus dados e a ligação permanecem no formulário."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "На странице не найдены данные товара. Данные и ссылка сохранены в форме."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маълумоти маҳсулот дар саҳифа ёфт нашуд. Маълумот ва пайванд дар шакл мемонанд."
           }
         },
         "tr": {
@@ -3182,16 +3398,46 @@
             "state": "translated",
             "value": "На сторінці не знайдено відомостей про товар. Ваші дані й посилання залишилися у формі."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sahifada mahsulot ma’lumotlari topilmadi. Ma’lumotlaringiz va havola shaklda qoldi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "页面上未找到商品详情。填写的内容和链接仍保留在表单中。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在網頁上找不到商品資訊。您的資料和連結仍保留在表單中。"
+          }
         }
       }
     },
     "purchases.link.failure.network": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Səhifəni yükləmək mümkün olmadı. Məlumatlarınız və link formada qaldı. İstəyi əl ilə saxlaya bilərsiniz."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Не ўдалося загрузіць старонку. Вашы звесткі і спасылка засталіся ў форме. Вы можаце захаваць жаданне ўручную."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stránku se nepodařilo načíst. Vaše údaje i odkaz zůstaly ve formuláři. Přání můžete uložit ručně."
           }
         },
         "de": {
@@ -3218,16 +3464,52 @@
             "value": "La page n’a pas pu être chargée. Vos informations et le lien restent dans le formulaire. Vous pouvez enregistrer le souhait manuellement."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չհաջողվեց բեռնել էջը։ Ձեր տվյալներն ու հղումը մնացել են ձևում։ Կարող եք ցանկությունը պահպանել ձեռքով։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile caricare la pagina. I dettagli e il link rimangono nel modulo. Puoi salvare il desiderio manualmente."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ページを読み込めませんでした。入力内容とリンクはフォームに残っています。欲しいものは手動で保存できます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გვერდის ჩატვირთვა ვერ მოხერხდა. თქვენი მონაცემები და ბმული ფორმაში დარჩა. სურვილის შენახვა ხელით შეგიძლიათ."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бетті жүктеу мүмкін болмады. Мәліметтеріңіз бен сілтеме пішінде қалды. Тілекті қолмен сақтай аласыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "페이지를 불러올 수 없습니다. 입력한 정보와 링크는 그대로 남아 있습니다. 위시를 직접 저장할 수 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баракты жүктөө мүмкүн болгон жок. Маалыматыңыз жана шилтеме формада калды. Тилекти кол менен сактасаңыз болот."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De pagina kon niet worden geladen. Je gegevens en link blijven in het formulier staan. Je kunt de wens handmatig bewaren."
           }
         },
         "pl": {
@@ -3242,10 +3524,22 @@
             "value": "Não foi possível carregar a página. Seus dados e o link permanecem no formulário. Você pode salvar o desejo manualmente."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível carregar a página. Os seus dados e a ligação permanecem no formulário. Pode guardar o desejo manualmente."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось загрузить страницу. Данные и ссылка сохранены в форме. Можно сохранить желание вручную."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Саҳифа бор нашуд. Маълумот ва пайванд дар шакл мемонанд. Шумо метавонед хоҳишро дастӣ захира кунед."
           }
         },
         "tr": {
@@ -3259,16 +3553,46 @@
             "state": "translated",
             "value": "Не вдалося завантажити сторінку. Ваші дані й посилання залишилися у формі. Ви можете зберегти бажання вручну."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sahifani yuklab bo‘lmadi. Ma’lumotlaringiz va havola shaklda qoldi. Istakni qo‘lda saqlashingiz mumkin."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法加载页面。填写的内容和链接仍保留在表单中。你可以手动保存心愿。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法載入網頁。您的資料和連結仍保留在表單中。您可以手動儲存願望。"
+          }
         }
       }
     },
     "purchases.link.failure.response": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Səhifə əlçatan deyil və ya başqa ünvana yönləndirir. Məlumatlarınız və link formada qaldı."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Старонка недаступная або перанакіроўвае на іншы адрас. Вашы звесткі і спасылка засталіся ў форме."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stránka je nedostupná nebo přesměrovává jinam. Vaše údaje i odkaz zůstaly ve formuláři."
           }
         },
         "de": {
@@ -3295,16 +3619,52 @@
             "value": "La page est indisponible ou redirige vers une autre adresse. Vos informations et le lien restent dans le formulaire."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Էջն անհասանելի է կամ վերահղում է այլ էջ։ Ձեր տվյալներն ու հղումը մնացել են ձևում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La pagina non è disponibile o reindirizza altrove. I dettagli e il link rimangono nel modulo."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ページを利用できないか、別のページに転送されます。入力内容とリンクはフォームに残っています。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გვერდი მიუწვდომელია ან სხვაგან გადამისამართებს. თქვენი მონაცემები და ბმული ფორმაში დარჩა."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бет қолжетімсіз немесе басқа жерге бағыттайды. Мәліметтеріңіз бен сілтеме пішінде қалды."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "페이지를 사용할 수 없거나 다른 곳으로 리디렉션됩니다. 입력한 정보와 링크는 그대로 남아 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барак жеткиликсиз же башка жакка багыттайт. Маалыматыңыз жана шилтеме формада калды."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De pagina is niet beschikbaar of verwijst door. Je gegevens en link blijven in het formulier staan."
           }
         },
         "pl": {
@@ -3319,10 +3679,22 @@
             "value": "A página está indisponível ou redireciona para outro endereço. Seus dados e o link permanecem no formulário."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A página não está disponível ou redireciona para outro endereço. Os seus dados e a ligação permanecem no formulário."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Страница недоступна или перенаправляет на другой адрес. Данные и ссылка сохранены в форме."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Саҳифа дастнорас аст ё ба ҷойи дигар равона мекунад. Маълумот ва пайванд дар шакл мемонанд."
           }
         },
         "tr": {
@@ -3336,16 +3708,46 @@
             "state": "translated",
             "value": "Сторінка недоступна або перенаправляє на іншу адресу. Ваші дані й посилання залишилися у формі."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sahifa mavjud emas yoki boshqa manzilga yo‘naltiradi. Ma’lumotlaringiz va havola shaklda qoldi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "页面不可用或重定向到其他位置。填写的内容和链接仍保留在表单中。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網頁無法使用或重新導向至其他位置。您的資料和連結仍保留在表單中。"
+          }
         }
       }
     },
     "purchases.link.image": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Səhifə şəkli — yükləmədən link"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Выява старонкі — спасылка без спампоўвання"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obrázek ze stránky — odkaz bez stahování"
           }
         },
         "de": {
@@ -3372,16 +3774,52 @@
             "value": "Image de la page — lien sans téléchargement"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Էջի նկար՝ հղում առանց ներբեռնման"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Immagine della pagina — link senza download"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ページの画像 — ダウンロードせずにリンク"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გვერდის სურათი — ბმული ჩამოტვირთვის გარეშე"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бет суреті — жүктемей сілтеме жасау"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "페이지 이미지 — 다운로드 없이 링크"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барактын сүрөтү — жүктөбөстөн шилтеме кылуу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afbeelding van pagina — link zonder te downloaden"
           }
         },
         "pl": {
@@ -3396,10 +3834,22 @@
             "value": "Imagem da página — usar link sem baixar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imagem da página — ligação sem descarregar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Картинка со страницы — ссылка без загрузки"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расми саҳифа — пайванд бе боргирӣ"
           }
         },
         "tr": {
@@ -3413,16 +3863,46 @@
             "state": "translated",
             "value": "Зображення сторінки — посилання без завантаження"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sahifa rasmi — yuklab olmasdan havola"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "网页图片 — 链接而不下载"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網頁圖片 — 連結而不下載"
+          }
         }
       }
     },
     "purchases.link.success": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Səhifə məlumatları dolduruldu. Saxlamadan əvvəl yoxlayın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Звесткі са старонкі запоўнены. Праверце іх перад захаваннем."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Údaje ze stránky byly vyplněny. Před uložením je zkontrolujte."
           }
         },
         "de": {
@@ -3449,16 +3929,52 @@
             "value": "Les informations de la page ont été renseignées. Vérifiez-les avant d’enregistrer."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Էջի տվյալները լրացվել են։ Ստուգեք դրանք պահպանելուց առաջ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Dettagli della pagina inseriti. Controllali prima di salvare."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ページの詳細を入力しました。保存する前に確認してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გვერდის დეტალები შევსებულია. შენახვამდე შეამოწმეთ."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бет мәліметтері толтырылды. Сақтау алдында тексеріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "페이지 정보를 입력했습니다. 저장하기 전에 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барактагы маалымат толтурулду. Сактоодон мурун текшериңиз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paginagegevens ingevuld. Controleer ze voordat je bewaart."
           }
         },
         "pl": {
@@ -3473,10 +3989,22 @@
             "value": "Dados da página preenchidos. Confira antes de salvar."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detalhes da página preenchidos. Verifique-os antes de guardar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Данные страницы подставлены. Проверьте их перед сохранением."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маълумоти саҳифа пур шуд. Пеш аз захира санҷед."
           }
         },
         "tr": {
@@ -3490,16 +4018,46 @@
             "state": "translated",
             "value": "Дані зі сторінки заповнено. Перевірте їх перед збереженням."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sahifa ma’lumotlari to‘ldirildi. Saqlashdan oldin tekshiring."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已填入网页详情。请在保存前检查。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已填入網頁資訊。儲存前請先檢查。"
+          }
         }
       }
     },
     "purchases.link.take": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linkdən götür"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Узяць са спасылкі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Načíst z odkazu"
           }
         },
         "de": {
@@ -3526,16 +4084,52 @@
             "value": "Récupérer depuis le lien"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերցնել հղումից"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Importa dal link"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リンクから取得"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბმულიდან შევსება"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Сілтемеден алу"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "링크에서 가져오기"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шилтемеден алуу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overnemen van link"
           }
         },
         "pl": {
@@ -3550,10 +4144,22 @@
             "value": "Obter do link"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obter da ligação"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Взять со ссылки"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гирифтан аз пайванд"
           }
         },
         "tr": {
@@ -3566,6 +4172,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отримати за посиланням"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Havoladan olish"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从链接获取"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從連結取得"
           }
         }
       }
@@ -15846,10 +16470,22 @@
     "purchases.thing.files": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əlavələr…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Далучэнні…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přílohy…"
           }
         },
         "de": {
@@ -15876,16 +16512,52 @@
             "value": "Pièces jointes…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կցորդներ…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Allegati…"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添付ファイル…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დანართები…"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Тіркемелер…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "첨부 파일…"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тиркемелер…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bijlagen…"
           }
         },
         "pl": {
@@ -15900,10 +16572,22 @@
             "value": "Anexos…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anexos…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вложения…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Замимаҳо…"
           }
         },
         "tr": {
@@ -15916,6 +16600,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вкладення…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biriktirmalar…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附件…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附件⋯"
           }
         }
       }
@@ -19292,10 +19994,22 @@
     "purchases.valuation.amount": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dəyər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Кошт"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hodnota"
           }
         },
         "de": {
@@ -19322,16 +20036,52 @@
             "value": "Valeur"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արժեք"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Valore"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "評価額"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ღირებულება"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Құны"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가치"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баасы"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waarde"
           }
         },
         "pl": {
@@ -19346,10 +20096,22 @@
             "value": "Valor"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Стоимость"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Арзиш"
           }
         },
         "tr": {
@@ -19363,16 +20125,46 @@
             "state": "translated",
             "value": "Вартість"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qiymat"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "价值"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "價值"
+          }
         }
       }
     },
     "purchases.valuation.day": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qiymətləndirmə tarixi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Дата ацэнкі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum ocenění"
           }
         },
         "de": {
@@ -19399,16 +20191,52 @@
             "value": "Date d’estimation"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնահատման ամսաթիվ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Data di valutazione"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "評価日"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეფასების თარიღი"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бағалау күні"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "평가일"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бааланган күн"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waarderingsdatum"
           }
         },
         "pl": {
@@ -19423,10 +20251,22 @@
             "value": "Data da avaliação"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data da avaliação"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Дата оценки"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаи арзёбӣ"
           }
         },
         "tr": {
@@ -19440,16 +20280,46 @@
             "state": "translated",
             "value": "Дата оцінки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baholash sanasi"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "估值日期"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "估值日期"
+          }
         }
       }
     },
     "purchases.valuation.empty": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hələ qiymətləndirmə yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Ацэнак пакуль няма."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zatím žádná ocenění."
           }
         },
         "de": {
@@ -19476,16 +20346,52 @@
             "value": "Aucune estimation pour le moment."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ գնահատումներ չկան։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna valutazione."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "評価履歴はまだありません。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეფასებები ჯერ არ არის."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Әзірге бағалау жоқ."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 평가 내역이 없습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Азырынча баалоолор жок."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog geen waarderingen."
           }
         },
         "pl": {
@@ -19500,10 +20406,22 @@
             "value": "Nenhuma avaliação ainda."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há avaliações."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Оценок пока нет."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҳанӯз арзёбӣ нест."
           }
         },
         "tr": {
@@ -19517,16 +20435,46 @@
             "state": "translated",
             "value": "Оцінок ще немає."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hali baholashlar yo‘q."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂无估值。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無估值。"
+          }
         }
       }
     },
     "purchases.valuation.history": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qiymətləndirmə tarixçəsi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Гісторыя ацэнак"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historie ocenění"
           }
         },
         "de": {
@@ -19553,16 +20501,52 @@
             "value": "Historique des estimations"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնահատումների պատմություն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cronologia valutazioni"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "評価履歴"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეფასებების ისტორია"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бағалау тарихы"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "평가 내역"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баалоо тарыхы"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waarderingsgeschiedenis"
           }
         },
         "pl": {
@@ -19577,10 +20561,22 @@
             "value": "Histórico de avaliações"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Histórico de avaliações"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "История оценок"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таърихи арзёбӣ"
           }
         },
         "tr": {
@@ -19594,16 +20590,46 @@
             "state": "translated",
             "value": "Історія оцінок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baholashlar tarixi"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "估值历史"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "估值記錄"
+          }
         }
       }
     },
     "purchases.valuation.update": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dəyəri yenilə…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Абнавіць кошт…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualizovat hodnotu…"
           }
         },
         "de": {
@@ -19630,16 +20656,52 @@
             "value": "Mettre à jour la valeur…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թարմացնել արժեքը…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Aggiorna valore…"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "評価額を更新…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ღირებულების განახლება…"
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Құнын жаңарту…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가치 업데이트…"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баасын жаңыртуу…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werk waarde bij…"
           }
         },
         "pl": {
@@ -19654,10 +20716,22 @@
             "value": "Atualizar valor…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atualizar valor…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Обновить стоимость…"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нав кардани арзиш…"
           }
         },
         "tr": {
@@ -19670,6 +20744,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оновити вартість…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qiymatni yangilash…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新价值…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新價值⋯"
           }
         }
       }

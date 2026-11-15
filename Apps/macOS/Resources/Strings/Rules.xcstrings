@@ -25961,10 +25961,22 @@
     "rules.problem.wontFire": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşə düşməyəcək: qaydada silinmiş və ya arxivləşdirilmiş yer, hesab, kart və ya şəxs göstərilib."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
             "value": "Не спрацуе: у правіле пазначана месца, рахунак, картка або асоба, якія былі выдалены або архіваваны."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nespustí se: pravidlo odkazuje na místo, účet, kartu nebo osobu, které byly smazány nebo archivovány."
           }
         },
         "de": {
@@ -25991,16 +26003,52 @@
             "value": "Ne se déclenchera pas : la règle désigne un lieu, un compte, une carte ou une personne supprimé ou archivé."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չի գործարկվի․ կանոնում նշված վայրը, հաշիվը, քարտը կամ անձը ջնջվել կամ արխիվացվել է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Non verrà eseguita: la regola indica un luogo, conto, carta o persona eliminati o archiviati."
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "実行されません：ルールで指定された場所、口座、カード、または人が削除またはアーカイブされています。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "არ ამოქმედდება: წესი მიუთითებს წაშლილ ან დაარქივებულ ადგილს, ანგარიშს, ბარათს ან პირს."
+          }
+        },
         "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Іске қосылмайды: ережеде жойылған немесе архивтелген орын, шот, карта не адам көрсетілген."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "실행되지 않음: 규칙에 삭제되었거나 보관된 장소, 계좌, 카드 또는 사람이 지정되어 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Иштебейт: эрежедеги жер, эсеп, карта же адам өчүрүлгөн же архивделген."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wordt niet uitgevoerd: de regel verwijst naar een verwijderde of gearchiveerde plaats, rekening, kaart of persoon."
           }
         },
         "pl": {
@@ -26015,10 +26063,22 @@
             "value": "Não será aplicada: a regra menciona um local, conta, cartão ou pessoa que foi apagado ou arquivado."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não será aplicada: a regra indica um local, conta, cartão ou pessoa que foi apagado ou arquivado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не сработает: правило называет удалённое или архивное место, счёт, карту или человека."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Иҷро намешавад: қоида ҷой, ҳисоб, корт ё шахсеро ном мебарад, ки ҳазф ё бойгонӣ шудааст."
           }
         },
         "tr": {
@@ -26031,6 +26091,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не спрацює: правило містить місце, рахунок, картку або особу, які видалено чи архівовано."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ishlamaydi: qoidada o‘chirilgan yoki arxivlangan joy, hisob, karta yoki shaxs ko‘rsatilgan."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不会触发：规则中指定的地点、账户、卡片或联系人已被删除或归档。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不會觸發：規則中指定的地點、帳戶、卡片或人物已刪除或封存。"
           }
         }
       }
@@ -26109,6 +26187,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Өзгеріс сақталмады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경사항이 저장되지 않았습니다."
           }
         },
         "ky": {
@@ -26260,6 +26344,12 @@
             "value": "Егер %1$@, онда %2$@"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@인 경우 %2$@"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -26407,6 +26497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Менің ережелерім"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나의 규칙"
           }
         },
         "ky": {
@@ -26559,6 +26655,12 @@
             "value": "сипаттамасыз"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설명 없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -26706,6 +26808,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тарихтағы ешбір операция бұл ережеге сәйкес келмейді."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 규칙과 일치하는 내역이 없습니다."
           }
         },
         "ky": {
@@ -26857,6 +26965,12 @@
             "value": "Сәйкес: %1$lld / %2$lld операция · өзгертеді: %3$lld"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일치: 전체 %lld건 중 %lld건 · 변경 예정: %lld건"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -27006,6 +27120,12 @@
             "value": "Тарихта сынау"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내역에서 테스트"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -27153,6 +27273,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ереже нешеше операцияға әсер ететінін көру үшін шарт пен әрекет қосыңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "조건과 동작을 추가하면 규칙이 적용될 내역의 수를 확인할 수 있습니다."
           }
         },
         "ky": {
@@ -27305,6 +27431,12 @@
             "value": "Санап жатыр…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계산 중…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -27452,6 +27584,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осы кезеңде белгіленген шығын жоқ."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 기간에 태그가 지정된 지출이 없습니다."
           }
         },
         "ky": {
@@ -27603,6 +27741,12 @@
             "value": "Табылды: %lld"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색 결과: %lld건"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -27750,6 +27894,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Барлығы"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모두"
           }
         },
         "ky": {
@@ -27901,6 +28051,12 @@
             "value": "Кез келгені"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "하나 이상"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -28050,6 +28206,12 @@
             "value": "Белгілер бойынша есеп және операциялар…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그별 보고서 및 내역…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -28197,6 +28359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бірнеше белгісі бар операция әр белгіге жазылады, сондықтан белгілердің қосындысы %1$@ болады, ал олар қамтитыны — %2$@."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그가 여러 개인 내역은 각 태그에 포함되므로 태그별 합계 %@이(가) 실제 금액 %@보다 큽니다."
           }
         },
         "ky": {
@@ -28349,6 +28517,12 @@
             "value": "Барлық уақыт"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 기간"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -28497,6 +28671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ай"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "월"
           }
         },
         "ky": {
@@ -28649,6 +28829,12 @@
             "value": "Жыл"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "년"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -28798,6 +28984,12 @@
             "value": "Операцияларын көру үшін белгілерді белгілеңіз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그를 선택하여 해당 내역을 확인하십시오."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -28945,6 +29137,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белгілер бойынша"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그별"
           }
         },
         "ky": {
@@ -29097,6 +29295,12 @@
             "value": "Мұрағат"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -29245,6 +29449,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "мұрағатта"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관됨"
           }
         },
         "ky": {
@@ -29396,6 +29606,12 @@
             "value": "#%@ белгісін #%@ белгісіне біріктіру"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%@을(를) #%@에 병합"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -29545,6 +29761,12 @@
             "value": "Екі белгі бірдей атқа ие бола алмайды. Оларды біреуіне біріктіруге болады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "두 태그에 같은 이름을 사용할 수 없습니다. 하나로 병합할 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -29692,6 +29914,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл ат басқа белгінікі"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이미 사용 중인 태그 이름"
           }
         },
         "ky": {
@@ -29844,6 +30072,12 @@
             "value": "Жою…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "삭제…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -29991,6 +30225,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белгіні жою"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그 삭제"
           }
         },
         "ky": {
@@ -30142,6 +30382,12 @@
             "value": "Ол операциялардың %lld бөлігінен алынады. Операциялар қалады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내역의 %lld개 항목에서 태그가 제거됩니다. 내역은 유지됩니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -30289,6 +30535,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оны атаған ережелер сол әрекетті жоғалтады (%lld); істейтін ісі қалмаған ережелер жойылады (%lld)."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 태그를 지정한 규칙에서 해당 동작이 제거되고(%lld개), 동작이 남지 않은 규칙은 삭제됩니다(%lld개)."
           }
         },
         "ky": {
@@ -30440,6 +30692,12 @@
             "value": "Белгі жойылсын ба?"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그를 삭제하겠습니까?"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -30587,6 +30845,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белгілер әлі жоқ."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그가 없습니다."
           }
         },
         "ky": {
@@ -30738,6 +31002,12 @@
             "value": "Белгі — еркін сөз: енгізу жолына «#демалыс» деп теріңіз. Ол іс-шара емес: күндері де, бюджеті де жоқ. Операцияда бірнеше белгі болуы мүмкін; есепте әрқайсысына жазылады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그는 자유롭게 지정할 수 있습니다. 입력란에 «#vacation»을 입력하십시오. 태그에는 날짜나 예산이 없습니다. 내역에 태그를 여러 개 지정할 수 있으며, 보고서에서는 각 태그에 포함됩니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -30885,6 +31155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белгі — әріптер, сандар, «-» және «_», кем дегенде бір әріп болуы керек."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그에는 문자, 숫자, «-», «_»를 사용할 수 있으며 문자가 하나 이상 포함되어야 합니다."
           }
         },
         "ky": {
@@ -31036,6 +31312,12 @@
             "value": "#%@ белгісінің әрекеттері"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%@ 태그 동작"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -31183,6 +31465,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Басқасына біріктіру…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 태그에 병합…"
           }
         },
         "ky": {
@@ -31335,6 +31623,12 @@
             "value": "Біріктіру"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "병합"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -31482,6 +31776,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл белгінің операциялары басқасына көшеді, белги жоғалады, ал оны атаған ережелер басқасын атайды."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 태그의 내역이 다른 태그로 이동하고 이 태그는 사라집니다. 이 태그를 지정한 규칙에도 다른 태그가 적용됩니다."
           }
         },
         "ky": {
@@ -31633,6 +31933,12 @@
             "value": "Біріктіру"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "병합할 태그"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -31780,6 +32086,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "#%@ белгісін біріктіру"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%@을(를) 병합할 태그"
           }
         },
         "ky": {
@@ -31932,6 +32244,12 @@
             "value": "Өзгеріс сақталмады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경사항이 저장되지 않았습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -32079,6 +32397,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Атын өзгерту…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이름 변경…"
           }
         },
         "ky": {
@@ -32230,6 +32554,12 @@
             "value": "Жаңа атау"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 이름"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -32377,6 +32707,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белгінің атын өзгерту"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그 이름 변경"
           }
         },
         "ky": {
@@ -32529,6 +32865,12 @@
             "value": "Қайтару"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복원"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -32676,6 +33018,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мұрағатты көрсету"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관함 보기"
           }
         },
         "ky": {
@@ -32828,6 +33176,12 @@
             "value": "Белгілер"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "태그"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -32975,6 +33329,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "әлі ешқайда жоқ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용되지 않음"
           }
         },
         "ky": {
@@ -33302,6 +33662,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операция"
+                }
+              }
+            }
+          }
+        },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "내역 %lld건"
                 }
               }
             }
