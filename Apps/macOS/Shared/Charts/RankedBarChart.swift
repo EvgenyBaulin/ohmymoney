@@ -121,6 +121,9 @@ struct RankedBarChart: View {
         }
       }
     }
+    .chartSummary(
+      bars.map { ChartSummary.Point(label: $0.label, valueText: $0.spokenValue, value: $0.value) }
+    )
     .frame(height: CGFloat(bars.count) * Self.rowHeight + 30)
   }
 

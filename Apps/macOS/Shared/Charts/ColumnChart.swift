@@ -101,6 +101,11 @@ struct ColumnChart: View {
         }
       }
     }
+    .chartSummary(
+      columns.map {
+        ChartSummary.Point(label: $0.spokenLabel, valueText: $0.valueText, value: $0.value)
+      }
+    )
     .frame(height: 220)
   }
 
