@@ -22,7 +22,7 @@ struct CreditCardDebtText: Equatable {
   /// Every key the lines use, so a test finds each in both languages.
   static let keys = [
     "debts.cards.header", "debts.card.title", "debts.card.badge", "debts.card.debt",
-    "debts.card.missed", "debts.card.missedNoDay", "debts.card.estimate", "debts.card.over",
+    "debts.card.missed", "debts.card.missedMinimumPaid", "debts.card.missedNoDay", "debts.card.estimate", "debts.card.over",
     "debts.card.counted", "debts.card.open",
   ]
 
@@ -32,9 +32,11 @@ struct CreditCardDebtText: Equatable {
     title = language.format("debts.card.title", table: Self.table, line.name)
     debt = language.format(
       "debts.card.debt", table: Self.table, money.exact(line.debtE4, currency: line.currency))
+    // A minimum paid by the due day is not an overdue payment: only the grace period is lost.
+    let missedKey = line.missedMinimumPaid ? "debts.card.missedMinimumPaid" : "debts.card.missed"
     missed =
       line.missedDue.map {
-        language.format("debts.card.missed", table: Self.table, environment.dates.longDay($0))
+        language.format(missedKey, table: Self.table, environment.dates.longDay($0))
       } ?? language("debts.card.missedNoDay", table: Self.table)
     estimate = line.estimateE4.map {
       language.format(

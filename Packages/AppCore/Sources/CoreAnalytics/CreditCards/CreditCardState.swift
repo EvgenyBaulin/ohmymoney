@@ -21,6 +21,9 @@ public struct CreditCardState: Hashable, Sendable {
   public var debtE4: AmountE4
   /// The due day of the latest statement that was missed; `nil` unless the phase is `debt`.
   public var missedDue: DateOnly?
+  /// The missed statement had its minimum paid by the due day: the grace period is lost and
+  /// interest will come, but the bank has no overdue payment to name.
+  public var missedMinimumPaid: Bool
   /// The interest the card will likely charge: an estimate, grey and never money.
   public var estimate: CreditInterestEstimate?
   /// How far the card is over its limit today: zero while within it or without a limit.
@@ -28,11 +31,13 @@ public struct CreditCardState: Hashable, Sendable {
 
   public init(
     phase: CreditCardPhase = .clear, debtE4: AmountE4 = .zero, missedDue: DateOnly? = nil,
-    estimate: CreditInterestEstimate? = nil, overLimitE4: AmountE4 = .zero
+    missedMinimumPaid: Bool = false, estimate: CreditInterestEstimate? = nil,
+    overLimitE4: AmountE4 = .zero
   ) {
     self.phase = phase
     self.debtE4 = debtE4
     self.missedDue = missedDue
+    self.missedMinimumPaid = missedMinimumPaid
     self.estimate = estimate
     self.overLimitE4 = overLimitE4
   }
@@ -53,7 +58,9 @@ public enum CreditCardStates {
       state.phase = .grace
     } else {
       state.phase = .debt
-      state.missedDue = statements.last { $0.state == .missed }?.due
+      let missed = statements.last { $0.state == .missed }
+      state.missedDue = missed?.due
+      state.missedMinimumPaid = missed?.minimumMetByDue ?? false
     }
     return state
   }

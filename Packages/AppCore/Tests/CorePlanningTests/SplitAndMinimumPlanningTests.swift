@@ -84,6 +84,45 @@ struct SplitAndMinimumPlanningTests {
     #expect(statement.remainingE4 == money(29000))
   }
 
+  /// Paying the minimum by the due day keeps the bank from calling it overdue, though the grace
+  /// period is lost: the card says so apart from a statement whose minimum was never paid.
+  @Test func minimumPaidInTimeIsToldApartFromOverdue() throws {
+    func state(paid: String?) throws -> (CreditStatement, CreditCardState) {
+      let books = CreditCardTests.books(
+        CreditCardTests.twoPurchases,
+        transfers: paid.map {
+          [
+            CreditCardTests.transfer(
+              31, $0, on: "2026-11-12", from: CreditCardTests.mainId, to: CreditCardTests.cardId)
+          ]
+        } ?? [],
+        today: "2026-11-25")
+      let manual = CreditStatementOverride(
+        accountId: books.account.id, closesOn: day("2026-11-05"), minimumE4: money(3200),
+        due: day("2026-11-20"))
+      let list = CreditStatements.statements(
+        account: books.account, terms: books.account.credit!, movements: books.movements,
+        balances: books.balances, through: books.today, calendar: .utc, overrides: [manual])
+      let now = CreditStatements.now(
+        account: books.account, terms: books.account.credit!, statements: list,
+        movements: books.movements, balances: books.balances, today: books.today,
+        calendar: .utc)
+      return (try #require(list.last), CreditCardStates.state(now: now, statements: list))
+    }
+    let kept = try state(paid: "3200")
+    #expect(kept.0.state == .missed)
+    #expect(kept.0.minimumMetByDue)
+    #expect(kept.1.phase == .debt)
+    #expect(kept.1.missedMinimumPaid)
+    let overdue = try state(paid: "1000")
+    #expect(overdue.0.state == .missed)
+    #expect(!overdue.0.minimumMetByDue)
+    #expect(!overdue.1.missedMinimumPaid)
+    let nothing = try state(paid: nil)
+    #expect(!nothing.0.minimumMetByDue)
+    #expect(!nothing.1.missedMinimumPaid)
+  }
+
   @Test func estimateUsesTermsAndCannotExceedDebt() {
     let books = CreditCardTests.books(CreditCardTests.twoPurchases, today: "2026-11-15")
     #expect(books.statements.last?.minimumIsEstimate == true)

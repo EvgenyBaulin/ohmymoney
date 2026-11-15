@@ -93,6 +93,11 @@ final class CreditCardDebtScenarioTests: AccountsScenarioDatabaseCase {
       XCTAssertTrue(text.title.contains("Т-Банк"), text.title)
       XCTAssertTrue(text.debt.contains("29"), text.debt)
       XCTAssertTrue(text.missed.contains("30"), text.missed)
+      var kept = line
+      kept.missedMinimumPaid = true
+      let keptText = CreditCardDebtText(kept, environment).missed
+      XCTAssertTrue(keptText.contains("30"), keptText)
+      XCTAssertNotEqual(keptText, text.missed, "a paid minimum is told apart from an overdue one")
       XCTAssertTrue(try XCTUnwrap(text.estimate).contains("≈"), "interest is never money")
       XCTAssertTrue(try XCTUnwrap(text.overLimit).contains("1"), "\(choice)")
       var within = line

@@ -6521,6 +6521,23 @@
         }
       }
     },
+    "debts.card.missedMinimumPaid": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимум по выписке внесён в срок (до %@), но льготный период потерян: проценты пойдут, вся задолженность по карте теперь долг"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The minimum of the statement was paid by %@, but the grace period is lost: interest will come and the whole debt of the card is a debt now"
+          }
+        }
+      }
+    },
     "debts.card.missedNoDay": {
       "extractionState": "manual",
       "localizations": {

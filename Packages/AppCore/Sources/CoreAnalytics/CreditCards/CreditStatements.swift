@@ -89,6 +89,12 @@ public struct CreditStatement: Hashable, Sendable {
     return left.raw > 0 ? left : .zero
   }
 
+  /// The bank's minimum was paid by the due day (and is known): a missed statement is then
+  /// only a lost grace period, not an overdue payment.
+  public var minimumMetByDue: Bool {
+    minimumE4.raw > 0 && paidByDueE4 >= minimumE4
+  }
+
   public var minimumRemainingE4: AmountE4 {
     max(.zero, minimumE4 - (paidSinceCloseE4 ?? paidByDueE4))
   }

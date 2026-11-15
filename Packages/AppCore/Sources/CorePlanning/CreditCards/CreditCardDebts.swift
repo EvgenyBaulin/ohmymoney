@@ -17,6 +17,8 @@ public struct CreditCardDebtLine: Hashable, Sendable, Identifiable {
   public var debtRub: AmountE4?
   /// The due day of the statement that was missed.
   public var missedDue: DateOnly?
+  /// The minimum of that statement was paid in time; only the grace period was lost.
+  public var missedMinimumPaid: Bool
   /// The interest the card likely charges: an estimate («≈»), never money.
   public var estimateE4: AmountE4?
   public var overLimitE4: AmountE4
@@ -25,8 +27,8 @@ public struct CreditCardDebtLine: Hashable, Sendable, Identifiable {
 
   public init(
     accountId: UUID, name: String, bankId: UUID? = nil, currency: CurrencyCode, debtE4: AmountE4,
-    debtRub: AmountE4? = nil, missedDue: DateOnly? = nil, estimateE4: AmountE4? = nil,
-    overLimitE4: AmountE4 = .zero
+    debtRub: AmountE4? = nil, missedDue: DateOnly? = nil,
+    missedMinimumPaid: Bool = false, estimateE4: AmountE4? = nil, overLimitE4: AmountE4 = .zero
   ) {
     self.accountId = accountId
     self.name = name
@@ -35,6 +37,7 @@ public struct CreditCardDebtLine: Hashable, Sendable, Identifiable {
     self.debtE4 = debtE4
     self.debtRub = debtRub
     self.missedDue = missedDue
+    self.missedMinimumPaid = missedMinimumPaid
     self.estimateE4 = estimateE4
     self.overLimitE4 = overLimitE4
   }
@@ -63,7 +66,7 @@ public enum CreditCardDebts {
           accountId: accountId, name: line.account.name, bankId: line.account.bankId,
           currency: currency, debtE4: state.debtE4,
           debtRub: rubles(state.debtE4, currency: currency, line: line),
-          missedDue: state.missedDue,
+          missedDue: state.missedDue, missedMinimumPaid: state.missedMinimumPaid,
           estimateE4: state.estimate.map(\.shownE4).flatMap { $0.raw > 0 ? $0 : nil },
           overLimitE4: state.overLimitE4))
     }
