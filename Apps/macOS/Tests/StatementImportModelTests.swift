@@ -379,6 +379,49 @@ final class StatementImportModelTests: XCTestCase {
     XCTAssertEqual(try liveOperations().count, 1)
   }
 
+  /// A line two hand-typed entries could be is, ticked with no pick, added as a new operation:
+  /// a rule of the person files it and nothing asks about it, as for any new line.
+  func testALineTickedWithoutAPickAmongHandTypedCandidatesIsFiledByTheRule() async throws {
+    let account = try makeAccount("Основной")
+    let groceries = try makeCategory("Продукты")
+    XCTAssertTrue(
+      store.addRule(
+        Rule(
+          name: "market", conditions: [.textContains("market")],
+          actions: [.setCategory(groceries.id)])))
+    let day = DateOnly(year: 2026, month: 9, day: 14)
+    for note in ["first", "second"] {
+      var entry = TransactionEntry(
+        transaction: Transaction(
+          kind: .expense,
+          occurredAt: StatementEntryBuilder.occurredAt(
+            StatementMoment(day: day, minuteOfDay: 600), zoneID: TravelDay.moscowId),
+          amountE4: AmountE4(whole: 250), note: note, paymentMethodId: account.id),
+        parts: [])
+      entry.parts = [
+        TransactionPart(transactionId: entry.id, categoryId: nil, amountE4: AmountE4(whole: 250))
+      ]
+      XCTAssertTrue(store.save(entry))
+    }
+    let model = try await model()
+    await model.add(urls: [
+      try file("a.csv", csv([purchase("14.09.2026", "250,0", "SAMPLE MARKET")]))
+    ])
+    model.setAccount(account.id, for: model.files[0].id)
+    guard case .manualAsk? = model.files[0].preview?.rows[0].disposition else {
+      return XCTFail("two equal hand-typed entries make the line a question")
+    }
+    let ref = StatementRowRef(file: model.files[0].id, row: 0)
+    model.setTicked(true, row: 0, file: model.files[0].id)
+    XCTAssertEqual(model.filing(of: ref)?.isUnsorted, false)
+    XCTAssertTrue(model.questions.isEmpty, "a line the rule files is not asked about")
+    XCTAssertTrue(model.apply())
+    XCTAssertEqual(model.outcome?.unsorted, 0)
+    let added = try liveOperations().filter { $0.transaction.dedupKey != nil }
+    XCTAssertEqual(added.count, 1)
+    XCTAssertEqual(added.first?.parts.first?.categoryId, groceries.id)
+  }
+
   // MARK: Questions
 
   func testAnAnswerFilesTheGroupAndRememberingMakesARuleOfTheImportKind() async throws {

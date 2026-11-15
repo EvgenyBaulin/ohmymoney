@@ -173,10 +173,11 @@ struct AccountSetupModel: Equatable {
     self.highestGroupSort = groups.map(\.sort).max() ?? 0
   }
 
-  /// How names are compared: without the spaces around them, the case and the diacritics.
+  /// How names are compared: the way the rest of the app does (`NameKey.fold` — case, «ё» as
+  /// «е», no spaces around). Diacritics are not folded: that would make «й» and «и» one letter,
+  /// and «Йога» and «Иога» one account.
   static func nameKey(_ name: String) -> String {
-    name.trimmingCharacters(in: .whitespacesAndNewlines)
-      .folding(options: [.caseInsensitive, .diacriticInsensitive], locale: nil)
+    NameKey.fold(name.trimmingCharacters(in: .whitespacesAndNewlines))
   }
 
   // MARK: Balances

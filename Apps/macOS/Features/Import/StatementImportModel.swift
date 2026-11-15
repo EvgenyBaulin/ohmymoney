@@ -448,6 +448,17 @@ final class StatementImportModel {
 
   // MARK: Rules and categories
 
+  /// Whether the loading writes the line as a new operation: a new line, and a line that may be
+  /// a hand-typed one when no candidate was picked for it (ticked without a pick, it is added
+  /// as new). Such a line is filed, asked about and filled in like any new one.
+  private func writesAsNew(_ row: StatementPreviewRow, in file: LoadedFile) -> Bool {
+    switch row.disposition {
+    case .new: true
+    case .manualAsk: file.manualPicks[row.index] == nil
+    default: false
+    }
+  }
+
   private func refreshRuleCategories() {
     ruleCategories = [:]
     guard let dataset = dataset() else { return }
@@ -456,7 +467,7 @@ final class StatementImportModel {
     guard !rules.isEmpty else { return }
     for file in files {
       guard let preview = file.preview else { continue }
-      for row in preview.rows where row.disposition == .new {
+      for row in preview.rows where writesAsNew(row, in: file) {
         let verdict = RuleEngine.evaluate(
           subject(of: row.operation, account: file.accountID), rules: rules, tree: tree,
           presorted: true)
@@ -524,7 +535,7 @@ final class StatementImportModel {
     let paired = transferLines
     for file in files {
       guard let preview = file.preview else { continue }
-      for row in preview.rows where row.disposition == .new && file.ticks.contains(row.index) {
+      for row in preview.rows where writesAsNew(row, in: file) && file.ticks.contains(row.index) {
         let ref = StatementRowRef(file: file.id, row: row.index)
         // A line a rule of the person's already files, or half of a transfer, is not asked about.
         // So is a line whose text an operation typed by hand already taught.
@@ -584,7 +595,9 @@ final class StatementImportModel {
   /// Where a new line will be filed, in words, and whether that is the category of the lines no
   /// one has placed yet.
   func filing(of ref: StatementRowRef) -> (text: String, isUnsorted: Bool)? {
-    guard let row = row(ref), row.disposition == .new else { return nil }
+    guard let row = row(ref), let file = file(ref.file), writesAsNew(row, in: file) else {
+      return nil
+    }
     let kind = StatementEntryBuilder.kind(of: row.operation)
     if let id = category(of: ref, kind: kind) { return (categoryName(id), false) }
     return (ImportText.t("import.unsorted", environment), true)
