@@ -31,8 +31,8 @@ extension SpendingRulesRepository {
       })
     {
       var after = rule
-      after.conditions = rule.conditions.compactMap { $0.mappingReferences(follow) }
-      after.actions = rule.actions.compactMap { $0.mappingReferences(follow) }
+      after.conditions = unique(rule.conditions.compactMap { $0.mappingReferences(follow) })
+      after.actions = unique(rule.actions.compactMap { $0.mappingReferences(follow) })
       after.updatedAt = Date()
       try after.update(db)
       changed.append(RewrittenRule(before: rule, after: after))
@@ -63,8 +63,8 @@ extension SpendingRulesRepository {
       || rule.actions.contains(where: { names($0.references) })
     {
       var after = rule
-      after.conditions = rule.conditions.compactMap { $0.mappingReferences(follow) }
-      after.actions = rule.actions.compactMap { $0.mappingReferences(follow) }
+      after.conditions = unique(rule.conditions.compactMap { $0.mappingReferences(follow) })
+      after.actions = unique(rule.actions.compactMap { $0.mappingReferences(follow) })
       if after.conditions.isEmpty || after.actions.isEmpty { after.enabled = false }
       after.updatedAt = Date()
       try after.update(db)
@@ -73,9 +73,16 @@ extension SpendingRulesRepository {
     return changed
   }
 
-  /// Takes the rewrites back; a rule edited since is left as the owner made it.
+  /// Keeps the first occurrence, preserving condition order and action precedence.
+  private static func unique<Element: Hashable>(_ elements: [Element]) -> [Element] {
+    var seen: Set<Element> = []
+    return elements.filter { seen.insert($0).inserted }
+  }
+
+  /// Takes the rewrites back in reverse order: one write may change a rule several times.
+  /// A rule edited since is left as the owner made it.
   static func revertRules(_ rewrites: [RewrittenRule], db: Database) throws {
-    for rewrite in rewrites {
+    for rewrite in rewrites.reversed() {
       guard
         let row = try Row.fetchOne(
           db, sql: "SELECT * FROM rules WHERE id = ?", arguments: [rewrite.after.id.uuidString]),
