@@ -403,6 +403,7 @@ final class LocalizationTests: XCTestCase {
       "common.debugBadge", "settings.language.en",
       // The name of a service is one in both languages, like the name of the app.
       "entry.rateCoingecko", "currencies.source.network",
+      "cloud.drive.dropbox", "cloud.drive.google", "cloud.drive.onedrive", "cloud.drive.supabase",
       // The name of a file format is the same in both languages.
       "summaries.pdf", "mac.markdown.button",
       // MCC is the international abbreviation for a merchant category code.

@@ -27,7 +27,7 @@ final class EntrySaveQuestionsTests: AccountsScenarioDatabaseCase {
     model.draft.kind = .expense
     model.draft.paymentMethodId = account.id
     model.draft.currency = currency
-    model.draft.amount = rub(amount)
+    model.setTotal(rub(amount))
     model.draft.occurredAt = noon
     return model
   }

@@ -489,7 +489,7 @@ struct DetailsPanel: View {
   @ViewBuilder
   private func fieldRow<Control: View>(
     _ key: String?, marked: Bool = false, alone: Bool = false, flows: Bool = false,
-    @ViewBuilder control: () -> Control
+    keepsItsWidth: Bool = false, @ViewBuilder control: () -> Control
   ) -> some View {
     VStack(alignment: .leading, spacing: 4) {
       if let key { fieldLabel(key, marked: marked) }
@@ -499,6 +499,7 @@ struct DetailsPanel: View {
     }
     // A cell without a label takes its own row, unless it says it flows with the others.
     .layoutValue(key: EntryFieldFlow.Alone.self, value: alone || (key == nil && !flows))
+    .layoutValue(key: EntryFieldFlow.KeepsItsWidth.self, value: keepsItsWidth)
   }
 
   /// A control with what goes beside it: one under the other, where a cell is too narrow for
@@ -1043,7 +1044,7 @@ struct DetailsPanel: View {
   }
 
   private var dateRow: some View {
-    fieldRow("entry.date") {
+    fieldRow("entry.date", keepsItsWidth: true) {
       // A new day offers the event covering it instead of the old day's.
       DatePicker(
         selection: Binding(
