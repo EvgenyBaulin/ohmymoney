@@ -504,7 +504,8 @@ struct CapitalMonthsCard: View {
         guard let allPoints, allVersion == snapshot.version else { return .calculating }
         points = allPoints
       }
-      let chart = NetWorthChartModel(points)
+      let chart = NetWorthChartModel(
+        points, events: snapshot.planning.capital.events, hiding: snapshot.hiding)
       return chart.hasLine ? .ready(chart, at: at) : .notEnoughData
     }
   }

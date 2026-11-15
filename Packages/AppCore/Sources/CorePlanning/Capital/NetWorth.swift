@@ -158,15 +158,17 @@ public struct CapitalSnapshot: Hashable, Sendable {
   public var breakdown: CapitalBreakdown
   /// Net worth now less at the end of last month; `nil` without that point.
   public var changeThisMonth: AmountE4?
+  public var events: [CapitalEvent]
 
   public init(
     points: [CapitalPoint], now: CapitalPoint, breakdown: CapitalBreakdown,
-    changeThisMonth: AmountE4?
+    changeThisMonth: AmountE4?, events: [CapitalEvent] = []
   ) {
     self.points = points
     self.now = now
     self.breakdown = breakdown
     self.changeThisMonth = changeThisMonth
+    self.events = events
   }
 
   /// Nothing known: no point but an empty «now».
@@ -237,7 +239,8 @@ public enum NetWorth {
     books.markAccruedDepositInterest(
       in: &breakdown, today: today, rubPerUnit: rubPerUnit)
     return CapitalSnapshot(
-      points: points, now: nowReading.point, breakdown: breakdown, changeThisMonth: change)
+      points: points, now: nowReading.point, breakdown: breakdown, changeThisMonth: change,
+      events: CapitalEvents.build(ledger: ledger, journal: debtsJournal, today: today))
   }
 
   /// Rubles for `amount` of `currency` at `rate`, rounded once; nothing is worth nothing in any
