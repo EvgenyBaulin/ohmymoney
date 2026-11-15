@@ -181,13 +181,19 @@ struct UtilitiesScreen: View {
         Text(verbatim: usageLine(meter, shown, comparison: comparison))
           .appFont(.callout).monospacedDigit()
       }
-      if !UtilityUsage.decreases(of: meter, readings: readings).isEmpty {
+      ForEach(UtilityUsage.flaggedReadings(of: meter, readings: readings)) { reading in
         Label {
-          Text(verbatim: t("utilities.reading.decreased"))
+          Text(
+            verbatim: environment.format(
+              "utilities.reading.checkOne", table: UtilitiesText.table,
+              UtilitiesText.quantity(reading.valueE4, unit: meter.unit, environment),
+              environment.dates.dayMonth(reading.day))
+          )
         } icon: {
           Image(systemName: "exclamationmark.triangle")
         }
         .appFont(.callout).foregroundStyle(.orange)
+        .accessibilityIdentifier("utilities.reading.check.\(reading.id.uuidString)")
       }
     }
     .padding(.vertical, 2)

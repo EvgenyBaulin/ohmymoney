@@ -95,6 +95,23 @@ public enum UtilityUsage {
     return flagged
   }
 
+  /// The readings `decreases` names, as the readings themselves, oldest first.
+  public static func flaggedReadings(
+    of meter: UtilityMeter, readings: [UtilityReading]
+  ) -> [UtilityReading] {
+    let ids = Set(decreases(of: meter, readings: readings))
+    return ordered(readings, of: meter).filter { ids.contains($0.id) }
+  }
+
+  /// Whether a value about to be written is below the last reading without being a replacement:
+  /// the owner is asked once, and the write is never refused.
+  public static func isBelowLast(
+    _ value: AmountE4, restart: Bool, readings: [UtilityReading], of meter: UtilityMeter
+  ) -> Bool {
+    guard !restart, let last = ordered(readings, of: meter).last else { return false }
+    return value < last.valueE4
+  }
+
   public static func compare(
     _ meter: UtilityMeter, readings: [UtilityReading], month: MonthKey
   ) -> Comparison {

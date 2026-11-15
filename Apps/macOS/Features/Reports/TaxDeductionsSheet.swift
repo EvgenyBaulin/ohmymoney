@@ -91,7 +91,7 @@ struct TaxDeductionsSheet: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityIdentifier("deductions.empty")
             } else {
-              ForEach(report.groups) { group in groupView(group) }
+              ForEach(report.groups) { group in groupView(group, in: report) }
               documents(report)
             }
           } else {
@@ -230,7 +230,7 @@ struct TaxDeductionsSheet: View {
 
   // MARK: The groups
 
-  private func groupView(_ group: TaxDeductionGroup) -> some View {
+  private func groupView(_ group: TaxDeductionGroup, in report: TaxDeductionYear) -> some View {
     let people = compute.snapshot?.ledger.dataset.people ?? []
     return VStack(alignment: .leading, spacing: 4) {
       Text(verbatim: DeductionsText.title(of: group.key, people: people, environment))
@@ -272,6 +272,13 @@ struct TaxDeductionsSheet: View {
           .appFont(.caption)
           .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
+        if report.mortgageLimitIgnoresEarlierYears {
+          Text(verbatim: t("deductions.mortgage.priorUnknown"))
+            .appFont(.caption)
+            .secondaryInk()
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("deductions.mortgage.priorUnknown")
+        }
       }
     }
     .accessibilityElement(children: .combine)

@@ -291,3 +291,25 @@ struct ChallengeUnsetLimitTests {
     #expect(progress.remaining == nil)
   }
 }
+
+@Suite("Challenges: setting a missing limit")
+struct ChallengeLimitTests {
+  typealias F = ChallengeFixture
+
+  @Test func aLimitIsSetOnACapChallengeOnlyWithASum() {
+    let cap = Challenge(title: "Cafe", kind: .cap, start: F.day(11, 1), end: F.day(11, 30))
+    #expect(ChallengeRules.settingLimit(.zero, on: cap) == nil)
+    #expect(ChallengeRules.settingLimit(AmountE4(whole: -5), on: cap) == nil)
+    #expect(ChallengeRules.settingLimit(AmountE4(whole: 3000), on: cap)?.limit == AmountE4(whole: 3000))
+    let avoid = Challenge(title: "No cafe", kind: .avoid, start: F.day(11, 1), end: F.day(11, 30))
+    #expect(ChallengeRules.settingLimit(AmountE4(whole: 3000), on: avoid) == nil)
+  }
+
+  @Test func onceTheLimitIsSetTheChallengeIsNoLongerMissingOne() throws {
+    let cap = Challenge(title: "Cafe", kind: .cap, start: F.day(11, 1), end: F.day(11, 30))
+    let set = try #require(ChallengeRules.settingLimit(AmountE4(whole: 3000), on: cap))
+    let progress = F.progress(set, [try F.entry(500, on: F.day(11, 3))], today: F.day(11, 5))
+    #expect(!progress.limitIsMissing)
+    #expect(progress.remaining == AmountE4(whole: 2500))
+  }
+}

@@ -15,7 +15,7 @@ struct ChallengeTileFigure: Equatable {
     let progress = pick.progress
     let table = ChallengeText.table
     var details: [String] = []
-    if progress.elapsedDays > 0 {
+    if progress.elapsedDays > 0 && !progress.limitIsMissing {
       details.append(
         environment.format("challenges.streak", table: table, counts: progress.currentStreak))
     }
@@ -27,8 +27,11 @@ struct ChallengeTileFigure: Equatable {
       details.append(
         environment.format("challenges.saved", table: table, environment.money.rounded(saved)))
     }
+    // A limit that is not set leaves nothing to count a day against: the tile says so instead.
     let caption =
-      pick.isRunning
+      progress.limitIsMissing
+      ? ChallengeText.t("challenges.limit.missing", environment)
+      : pick.isRunning
       ? environment.format("challenges.day", table: table, progress.elapsedDays, progress.dayCount)
       : ChallengeText.t("challenges.state.\(stateKey(progress.state))", environment)
     return Self(

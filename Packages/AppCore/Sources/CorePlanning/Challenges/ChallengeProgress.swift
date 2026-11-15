@@ -91,6 +91,15 @@ public struct ChallengeProgress: Hashable, Sendable {
 /// is paid for others until written off and not a refund as income), so a challenge and a screen of
 /// analytics never disagree.
 public enum ChallengeRules {
+  /// The challenge with its missing limit set; `nil` for a kind without a limit or a sum that is
+  /// not above zero.
+  public static func settingLimit(_ limit: AmountE4, on challenge: Challenge) -> Challenge? {
+    guard challenge.kind == .cap, limit.raw > 0 else { return nil }
+    var made = challenge
+    made.limit = limit
+    return made
+  }
+
   /// The most periods of the same length before a challenge that the median is taken over.
   public static let medianPeriods = 6
   /// The fewest such periods with history in them the median needs; with fewer there is no base.

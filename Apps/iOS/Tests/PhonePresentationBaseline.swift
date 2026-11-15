@@ -37,7 +37,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Capital/CapitalView.swift": 3,
     "Apps/macOS/Features/Capital/CushionSection.swift": 1,
     // The form of a challenge: one sheet over the list.
-    "Apps/macOS/Features/Challenges/ChallengesScreen.swift": 1,
+    "Apps/macOS/Features/Challenges/ChallengesScreen.swift": 2,
     // The form of a cloud drive of the exchange folder: one sheet.
     "Apps/macOS/Features/Conflicts/CloudDrivesSection.swift": 1,
     "Apps/macOS/Features/Debts/DebtCardExtras.swift": 1,
@@ -125,6 +125,8 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Travel/TripSummaryView.swift": 1,
     // Utilities: sheets for a meter, its edit, a reading, a bill and its edit; the screen is in
     // the registry as `PhoneSheet.utilities`.
+    // The reading form asks «replaced or typo» in a dialog when a value is below the last one.
+    "Apps/macOS/Features/Utilities/UtilityForms.swift": 1,
     "Apps/macOS/Features/Utilities/UtilitiesScreen.swift": 5,
     "Apps/macOS/Features/Warranty/WarrantyScreen.swift": 1,
     "Apps/macOS/Features/YearPlan/YearPlanPage.swift": 1,

@@ -800,6 +800,23 @@
         }
       }
     },
+    "deductions.mortgage.priorUnknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The limit is counted without earlier years: if you already took a deduction on interest, it is smaller."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит посчитан без прошлых лет: если вы уже получали вычет по процентам, он меньше."
+          }
+        }
+      }
+    },
     "deductions.noRules": {
       "extractionState": "manual",
       "localizations": {
