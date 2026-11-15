@@ -93,6 +93,22 @@ public final class AppTheme {
       self == .theme ? Color(colors.palette.accentDefault) : color
     }
 
+    /// The circle's colour as bytes, for what must be checked against a surface (the sidebar's
+    /// plate); `nil` for «Как в теме» and «Системный», which have no colour of their own here.
+    var paletteColor: ThemeColor? {
+      switch self {
+      case .theme, .system: nil
+      case .amber: ThemeColor(0xFF95_00FF)
+      case .blue: ThemeColor(0x007A_FFFF)
+      case .teal: ThemeColor(0x30B0_C7FF)
+      case .green: ThemeColor(0x34C7_59FF)
+      case .indigo: ThemeColor(0x5856_D6FF)
+      case .purple: ThemeColor(0xAF52_DEFF)
+      case .pink: ThemeColor(0xFF2D_55FF)
+      case .graphite: ThemeColor(0x8E8E_93FF)
+      }
+    }
+
     /// The same for `.tint(_:)`: `nil` only for «Системный», which leaves the system's alone.
     public func resolvedTint(in colors: AppThemeColors) -> Color? {
       self == .system ? nil : resolved(in: colors)

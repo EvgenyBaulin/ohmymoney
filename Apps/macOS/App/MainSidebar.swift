@@ -95,6 +95,7 @@ enum SidebarItem: Hashable, Sendable {
     @State private var accounts = AccountsSidebarModel()
 
     @Environment(\.appTheme) private var theme
+    @Environment(\.windowTint) private var tint
     @Environment(\.openSettings) private var openSettings
 
     var body: some View {
@@ -163,9 +164,10 @@ enum SidebarItem: Hashable, Sendable {
         SidebarRowLabel(
           title: environment.language(item.titleKey), symbol: item.symbol, chosen: lit.isSelected
         )
-        .foregroundStyle(lit.text(theme))
+        .foregroundStyle(lit.text(theme, tint: tint))
         .beginnerQuiet(BeginnerModeOnMac.section(of: item))
-        .background(lit.plate(theme), in: .rect(cornerRadius: SidebarMetrics.plateRadius))
+        .background(
+          lit.plate(theme, tint: tint), in: .rect(cornerRadius: SidebarMetrics.plateRadius))
         // The list keeps its rows 16 from the column's edges; the design's plate stands 12 from
         // them, so it reaches 4 beyond the row on each side.
         .padding(.horizontal, -SidebarMetrics.listOutset)

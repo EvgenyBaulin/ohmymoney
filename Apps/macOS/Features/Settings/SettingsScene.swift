@@ -127,6 +127,7 @@ struct SettingsSidebar: View {
   /// The words of both languages, read once for the sidebar.
   @State private var words = SettingsSearch.catalogWords()
   @Environment(\.appTheme) private var theme
+  @Environment(\.windowTint) private var tint
   @Environment(\.themeSurfaces) private var surfaces
 
   var body: some View {
@@ -165,7 +166,7 @@ struct SettingsSidebar: View {
           )
           .frame(maxWidth: .infinity, alignment: .leading)
           .background(
-            lit.plate(theme), in: .rect(cornerRadius: SettingsChromeMetrics.plateRadius)
+            lit.plate(theme, tint: tint), in: .rect(cornerRadius: SettingsChromeMetrics.plateRadius)
           )
           .contentShape(.rect)
         }

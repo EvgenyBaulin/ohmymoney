@@ -240,7 +240,8 @@ struct AccountsSidebarSection: View {
       name: line.account.name,
       nameFont: indented
         ? AccountsSidebarMetrics.memberName : AccountsSidebarMetrics.looseName,
-      dot: line.account.accountAccent?.swatch ?? Color.secondary,
+      dot: line.account.accountAccent.map { Color(WindowTint.markColor(for: $0, colors: theme)) }
+        ?? Color.secondary,
       isMain: line.account.isDefault, main: figure.main, caption: figure.caption,
       mainLabel: t("accounts.main")
     )

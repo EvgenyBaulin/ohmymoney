@@ -3,15 +3,15 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// The colour of an account: a palette of twelve that reads on every theme, saved with the
+/// The colour of an account: a palette whose classic twelve reads on every theme, saved with the
 /// account in one step of ⌘Z, and shown as a dot on the rows of its operations.
 @MainActor
 final class AccountAccentPaletteTests: XCTestCase {
-  func testThereAreTwelveKeysFromZeroOneToTwelve() {
+  func testTheClassicTwelveHaveKeysFromZeroOneToTwelve() {
     XCTAssertEqual(
-      AccountAccent.allCases.map(\.key), (1...12).map { String(format: "%02d", $0) })
+      AccountAccent.classic.map(\.key), (1...12).map { String(format: "%02d", $0) })
     XCTAssertNil(AccountAccent(key: nil))
-    XCTAssertNil(AccountAccent(key: "13"))
+    XCTAssertNil(AccountAccent(key: "99"))
     XCTAssertEqual(AccountAccent(key: "07"), .c07)
   }
 
@@ -21,7 +21,7 @@ final class AccountAccentPaletteTests: XCTestCase {
     for theme in ThemeCatalog.all {
       for (scheme, palette) in [("light", theme.light), ("dark", theme.dark)] {
         for surface in [palette.surfaceBackground, palette.surfaceCard, palette.surfaceSidebar] {
-          for accent in AccountAccent.allCases {
+          for accent in AccountAccent.classic {
             XCTAssertGreaterThanOrEqual(
               accent.color.contrast(on: surface), 3, "\(theme.id) \(scheme) \(accent.key)")
           }
@@ -33,7 +33,7 @@ final class AccountAccentPaletteTests: XCTestCase {
   /// The colour of a card is read with white words on it, to the corner the gradient darkens to.
   func testWhiteWordsOnACardOfEveryColourReadAtFourAndAHalf() {
     let white = ThemeColor(0xFFFF_FFFF)
-    for accent in AccountAccent.allCases {
+    for accent in AccountAccent.classic {
       XCTAssertGreaterThanOrEqual(white.contrast(on: accent.color), 4.5, accent.key)
     }
   }

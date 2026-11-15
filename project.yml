@@ -343,6 +343,8 @@ targets:
       - path: Apps/macOS/Tests/CloudKitTransportTests.swift
       - path: Apps/macOS/Tests/SharedItemProviderReaderTests.swift
       - path: Apps/macOS/Tests/NegativeBalanceContentTests.swift
+      # The palette of an account and the tint of its window are pure models shared with the Mac.
+      - path: Apps/macOS/Tests/AccountPaletteTests.swift
       # The comparison of screen pictures with their references is shared; the references too.
       - path: Apps/macOS/Tests/ScreenSnapshots.swift
       - path: Apps/ShareExtension/SharedItemProviderReader.swift

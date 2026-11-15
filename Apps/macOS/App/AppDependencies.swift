@@ -118,11 +118,11 @@ extension View {
   /// language. The roots of the scenes get it from `AppScenes.root`; content that
   /// SwiftUI shows in a host of its own — inspectors, sheets, popovers — gets it where it is
   /// presented.
-  func appDependencies(_ deps: AppDependencies) -> some View {
+  func appDependencies(_ deps: AppDependencies, account: AccountAccent? = nil) -> some View {
     environment(\.dependencies, deps)
       .environment(\.locale, deps.environment.language.locale)
       .environment(\.layoutDirection, deps.environment.language.layoutDirection)
-      .modifier(AppTheming(theme: deps.environment.theme))
+      .modifier(AppTheming(theme: deps.environment.theme, account: account))
   }
 }
 
@@ -137,11 +137,12 @@ extension View {
 /// stayed white on a dark Mac.
 private struct AppTheming: ViewModifier {
   let theme: AppTheme
+  var account: AccountAccent?
 
   func body(content: Content) -> some View {
     content
       // The colours of the chosen theme and the accent over them (`AppThemeModifier`).
-      .modifier(AppThemeModifier(theme: theme))
+      .modifier(AppThemeModifier(theme: theme, account: account))
       // The size of the text chosen in Settings → Appearance, for every window and sheet.
       .modifier(AppFontSizing(size: theme.fontSize))
       // Every number is written by `NumberText`, which no view observes: a new style makes the
