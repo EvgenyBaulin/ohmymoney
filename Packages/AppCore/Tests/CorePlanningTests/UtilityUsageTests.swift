@@ -26,6 +26,15 @@ struct UtilityUsageTests {
       recordedAt: at)
   }
 
+  @Test func aValueBelowTheLastGoodOneIsFlaggedAndTheNextUseCountsFromTheGoodOne() {
+    let typo = Self.reading(2026, 10, 21, 100)
+    let readings = [Self.reading(2026, 9, 22, 1000), typo, Self.reading(2026, 11, 20, 1010)]
+    let months = UtilityUsage.months(of: Self.water, readings: readings)
+    #expect(months[MonthKey(year: 2026, month: 10)]?.quantityE4 == .zero)
+    #expect(months[MonthKey(year: 2026, month: 11)]?.quantityE4 == AmountE4(whole: 10))
+    #expect(UtilityUsage.decreases(of: Self.water, readings: readings) == [typo.id])
+  }
+
   @Test func aMonthUsesTheDifferenceToTheReadingBefore() {
     let months = UtilityUsage.months(
       of: Self.water,

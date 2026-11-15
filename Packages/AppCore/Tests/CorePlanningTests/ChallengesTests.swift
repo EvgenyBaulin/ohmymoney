@@ -274,3 +274,20 @@ struct ChallengeStorageTests {
     #expect(dataset.challenges.items == [one])
   }
 }
+
+@Suite("Challenges: a limit that is not set")
+struct ChallengeUnsetLimitTests {
+  typealias F = ChallengeFixture
+
+  @Test("a limit challenge without a limit is not set, not broken")
+  func unset() throws {
+    let challenge = Challenge(
+      title: "Cafe", kind: .cap, start: F.day(11, 1), end: F.day(11, 30), limit: nil)
+    let progress = F.progress(
+      challenge, [try F.entry(500, on: F.day(11, 3))], today: F.day(11, 5))
+    #expect(progress.limitIsMissing)
+    #expect(progress.state != .failed)
+    #expect(progress.brokenOn == nil)
+    #expect(progress.remaining == nil)
+  }
+}

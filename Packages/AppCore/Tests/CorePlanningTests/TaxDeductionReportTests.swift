@@ -271,6 +271,51 @@ struct TaxDeductionReportTests {
     #expect(books.report().kinds == [.mortgageInterest])
   }
 
+  @Test func theMortgageLimitIsForLifeSoEarlierYearsUseItUp() throws {
+    var books = DeductionBooks()
+    let flat = B.id(80)
+    books.debts = [
+      Debt(
+        id: flat, direction: .iOwe, type: .loan, name: "Flat", interestRate: 12,
+        accruesInterest: true, taxDeduction: .mortgageInterest)
+    ]
+    books.debtEntries = [
+      DebtEntry(
+        id: B.id(81), debtId: flat, date: B.day("2025-01-01"), amountE4: B.money("1000000"),
+        kind: .borrowed),
+      DebtEntry(
+        id: B.id(82), debtId: flat, date: B.day("2025-02-01"), amountE4: B.money("-50000"),
+        kind: .payment),
+      DebtEntry(
+        id: B.id(83), debtId: flat, date: B.day("2026-02-01"), amountE4: B.money("-50000"),
+        kind: .payment),
+    ]
+    let paid2025 = AmountE4.sum(
+      LoanInterestPaid.lines(2025, ledger: books.ledger, rubPerUnit: [:]).map(\.rub))
+    let paid2026 = AmountE4.sum(
+      LoanInterestPaid.lines(2026, ledger: books.ledger, rubPerUnit: [:]).map(\.rub))
+    #expect(paid2025.raw > 0 && paid2026 > B.money("1000"))
+    // A life limit of last year's interest and 1 000 ₽ more.
+    let lifeLimit = paid2025 + B.money("1000")
+    let table = TaxDeductionRules(
+      years: TaxDeductionRules.builtIn.years.map { year in
+        var year = year
+        year.mortgageInterestLimit = lifeLimit
+        return year
+      })
+    let first = TaxDeductionReport.year(
+      2025, ledger: books.ledger, rubPerUnit: [:], income: nil, rules: table)
+    #expect(first.group(.mortgageInterest)?.claimable == paid2025)
+    #expect(first.mortgagePriorYearsKnown == false)
+    let second = TaxDeductionReport.year(
+      2026, ledger: books.ledger, rubPerUnit: [:], income: nil, rules: table)
+    let group = try #require(second.group(.mortgageInterest))
+    #expect(second.mortgageUsedBefore == paid2025)
+    #expect(second.mortgagePriorYearsKnown)
+    #expect(group.limit == B.money("1000"))
+    #expect(group.claimable == B.money("1000"))
+  }
+
   @Test func aYearWithoutMarksIsEmptyAndAYearBeforeTheTableHasNoRules() {
     var books = DeductionBooks()
     #expect(books.report().isEmpty)

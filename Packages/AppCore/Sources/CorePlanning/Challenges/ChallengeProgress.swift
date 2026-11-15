@@ -53,12 +53,14 @@ public struct ChallengeProgress: Hashable, Sendable {
   public var saved: AmountE4?
   /// The subscriptions started after it began.
   public var newSubscriptionIds: [UUID]
+  /// A limit challenge saved without a limit: not set yet, so nothing can break it.
+  public var limitIsMissing: Bool
 
   public init(
     state: ChallengeState, spent: AmountE4, elapsedDays: Int, dayCount: Int, keptDays: Int,
     currentStreak: Int, bestStreak: Int, brokenOn: DateOnly?, remaining: AmountE4?,
     baseline: AmountE4?, baselineSource: ChallengeBaselineSource?, saved: AmountE4?,
-    newSubscriptionIds: [UUID]
+    newSubscriptionIds: [UUID], limitIsMissing: Bool = false
   ) {
     self.state = state
     self.spent = spent
@@ -73,6 +75,7 @@ public struct ChallengeProgress: Hashable, Sendable {
     self.baselineSource = baselineSource
     self.saved = saved
     self.newSubscriptionIds = newSubscriptionIds
+    self.limitIsMissing = limitIsMissing
   }
 
   /// Whether the challenge is over, one way or the other.
@@ -190,7 +193,8 @@ public enum ChallengeRules {
       switch kind {
       case .avoid: dayKept = net <= .zero
       // A limit that was passed stays passed even when a later refund brings the sum down.
-      case .cap: dayKept = brokenOn == nil && running <= (challenge.limit ?? .zero)
+      case .cap:
+        dayKept = brokenOn == nil && challenge.limit.map { running <= $0 } ?? true
       case .noNewSubscriptions: dayKept = newSubscriptions.isEmpty
       }
       if dayKept {
@@ -242,6 +246,7 @@ public enum ChallengeRules {
       state: state, spent: spent, elapsedDays: elapsed, dayCount: dayCount, keptDays: kept,
       currentStreak: streak, bestStreak: best, brokenOn: brokenOn, remaining: remaining,
       baseline: baseline, baselineSource: source, saved: saved,
-      newSubscriptionIds: newSubscriptions)
+      newSubscriptionIds: newSubscriptions,
+      limitIsMissing: kind == .cap && challenge.limit == nil)
   }
 }

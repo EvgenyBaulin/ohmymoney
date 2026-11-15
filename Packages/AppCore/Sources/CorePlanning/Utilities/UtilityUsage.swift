@@ -5,8 +5,9 @@ import Foundation
 /// What a meter used, month by month. The use between two readings is the difference of their
 /// values and belongs to the month of the later one; the first reading only starts the count. A
 /// reading marked `restart` (the meter was replaced or went round) counts nothing since the one
-/// before, and a value lower than the one before without the mark counts nothing too — it is a
-/// typo or an unmarked change, never a use below zero (`decreases` names those readings).
+/// before, and a value lower than the last plausible one without the mark counts nothing too and is
+/// not the base of the next use — it is a typo or an unmarked change, never a use below zero
+/// (`decreases` names those readings).
 ///
 /// The cost of a use is the quantity times the tariff of the later reading, or the meter's when
 /// the reading has none, rounded half away from zero to 1/10000 of the currency. A month with a
@@ -49,12 +50,21 @@ public enum UtilityUsage {
     let sorted = ordered(readings, of: meter)
     var result: [MonthKey: Month] = [:]
     var unpriced = Set<MonthKey>()
-    for (before, reading) in zip(sorted, sorted.dropFirst()) {
+    guard var base = sorted.first else { return result }
+    for reading in sorted.dropFirst() {
       let month = reading.day.monthKey
       var entry = result[month] ?? Month(month: month, quantityE4: .zero, costE4: .zero)
-      let use: AmountE4 =
-        reading.restart || reading.valueE4 < before.valueE4
-        ? .zero : reading.valueE4 - before.valueE4
+      let use: AmountE4
+      if reading.restart {
+        use = .zero
+        base = reading
+      } else if reading.valueE4 < base.valueE4 {
+        // Not a base for the next use: it stays with the last plausible reading.
+        use = .zero
+      } else {
+        use = reading.valueE4 - base.valueE4
+        base = reading
+      }
       entry.quantityE4 += use
       if let tariff = reading.tariffE4 ?? meter.tariffE4 {
         entry.costE4 = entry.costE4.map { $0 + cost(use, tariff) }
@@ -67,12 +77,22 @@ public enum UtilityUsage {
     return result
   }
 
-  /// The readings whose value went down without being marked as a restart.
+  /// The readings whose value went below the last plausible one without being marked as a
+  /// restart: the owner is asked to check them.
   public static func decreases(of meter: UtilityMeter, readings: [UtilityReading]) -> [UUID] {
     let sorted = ordered(readings, of: meter)
-    return zip(sorted, sorted.dropFirst())
-      .filter { before, reading in !reading.restart && reading.valueE4 < before.valueE4 }
-      .map { $0.1.id }
+    guard var base = sorted.first else { return [] }
+    var flagged: [UUID] = []
+    for reading in sorted.dropFirst() {
+      if reading.restart {
+        base = reading
+      } else if reading.valueE4 < base.valueE4 {
+        flagged.append(reading.id)
+      } else {
+        base = reading
+      }
+    }
+    return flagged
   }
 
   public static func compare(

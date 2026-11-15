@@ -51,14 +51,23 @@ public struct TaxDeductionYear: Hashable, Sendable {
   public var groups: [TaxDeductionGroup]
   /// The taxable income of the year the owner gave; `nil` — not given.
   public var income: AmountE4?
+  /// What earlier years of the app's data already took of the mortgage limit (the limit is for
+  /// life, not per year); the mortgage group's limit is what is left after it.
+  public var mortgageUsedBefore: AmountE4
+  /// Whether any earlier year holds mortgage interest. When none does, the mortgage group goes by
+  /// the full limit, and the report says it is without the earlier years.
+  public var mortgagePriorYearsKnown: Bool
 
   public init(
-    year: Int, rules: TaxDeductionRules.Year?, groups: [TaxDeductionGroup], income: AmountE4?
+    year: Int, rules: TaxDeductionRules.Year?, groups: [TaxDeductionGroup], income: AmountE4?,
+    mortgageUsedBefore: AmountE4 = .zero, mortgagePriorYearsKnown: Bool = false
   ) {
     self.year = year
     self.rules = rules
     self.groups = groups
     self.income = income
+    self.mortgageUsedBefore = mortgageUsedBefore
+    self.mortgagePriorYearsKnown = mortgagePriorYearsKnown
   }
 
   public var isEmpty: Bool { groups.allSatisfy { $0.spent.isZero } }
@@ -153,12 +162,26 @@ public enum TaxDeductionReport {
 
     let mortgages = Set(
       dataset.debts.filter { $0.taxDeduction == .mortgageInterest && !$0.isDeleted }.map(\.id))
+    var usedBefore = AmountE4.zero
+    var priorKnown = false
     if !mortgages.isEmpty {
       for (index, line) in LoanInterestPaid.lines(year, ledger: ledger, rubPerUnit: rubPerUnit)
         .enumerated()
       {
         guard let debt = line.debtId, mortgages.contains(debt) else { continue }
         add(.mortgageInterest, .mortgageInterest, line.rub, "i:\(index)")
+      }
+      // The limit is for life: what earlier years took (each up to what was left) is gone.
+      if let first = table.years.first?.year, first < year {
+        for earlier in first..<year {
+          let spent = AmountE4.sum(
+            LoanInterestPaid.lines(earlier, ledger: ledger, rubPerUnit: rubPerUnit)
+              .filter { $0.debtId.map(mortgages.contains) == true }.map(\.rub))
+          guard spent.raw > 0 else { continue }
+          priorKnown = true
+          let limit = table.rules(for: earlier)?.mortgageInterestLimit ?? .zero
+          usedBefore += min(spent, max(.zero, limit - usedBefore))
+        }
       }
     }
 
@@ -169,7 +192,7 @@ public enum TaxDeductionReport {
       case .medicalExpensive: return nil
       case .child: return rules.childEducationLimit
       case .iis: return rules.iisLimit
-      case .mortgageInterest: return rules.mortgageInterestLimit
+      case .mortgageInterest: return max(.zero, rules.mortgageInterestLimit - usedBefore)
       }
     }
     let order: [TaxDeductionGroup.Key] =
@@ -189,7 +212,9 @@ public enum TaxDeductionReport {
         key: key, byKind: tally.byKind, operations: tally.operations.count, limit: cap,
         claimable: claimable)
     }
-    return TaxDeductionYear(year: year, rules: rules, groups: groups, income: income)
+    return TaxDeductionYear(
+      year: year, rules: rules, groups: groups, income: income, mortgageUsedBefore: usedBefore,
+      mortgagePriorYearsKnown: priorKnown)
   }
 
   /// The rubles that came into the account: the ruble side of the transfer, else the incoming
