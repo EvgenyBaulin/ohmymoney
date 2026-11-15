@@ -72,6 +72,14 @@ public struct TaxDeductionYear: Hashable, Sendable {
 
   public var isEmpty: Bool { groups.allSatisfy { $0.spent.isZero } }
 
+  /// Whether the mortgage group holds interest whose limit was counted without earlier years: the
+  /// screen says so, because interest already deducted in a year the app has no data for makes
+  /// the real limit smaller.
+  public var mortgageLimitIgnoresEarlierYears: Bool {
+    !mortgagePriorYearsKnown
+      && groups.contains { $0.key == .mortgageInterest && $0.spent.raw > 0 }
+  }
+
   /// What the deductions take off the taxable income.
   public var claimable: AmountE4 { AmountE4.sum(groups.map(\.claimable)) }
 

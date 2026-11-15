@@ -135,3 +135,45 @@ struct NewChallengeForm: View {
     return true
   }
 }
+
+/// The limit of a challenge that was saved without one: the same sum field, and no way to save
+/// it empty.
+struct ChallengeLimitForm: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.dismiss) private var dismiss
+  let challenge: Challenge
+  let onSaved: () -> Void
+
+  @State private var limit: AmountE4 = .zero
+
+  private func t(_ key: String) -> String { ChallengeText.t(key, environment) }
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 12) {
+      Text(verbatim: t("challenges.limit.title")).appFont(.headline)
+      Form {
+        Section {
+          Text(verbatim: challenge.title)
+          LabeledContent(t("challenges.form.limit")) {
+            AmountField(amount: $limit, locale: environment.language.locale)
+          }
+          Text(verbatim: t("challenges.limit.hint")).appFont(.caption).secondaryInk()
+        }
+      }
+      .formStyle(.grouped)
+      FormButtons(
+        title: environment.language("action.save"),
+        enabled: ChallengeRules.settingLimit(limit, on: challenge) != nil
+      ) {
+        guard let made = ChallengeRules.settingLimit(limit, on: challenge),
+          (try? environment.challenges?.update(made)) != nil
+        else { return false }
+        onSaved()
+        return true
+      }
+    }
+    .padding(20)
+    .sheetFrame(width: 420, height: 300)
+    .accessibilityIdentifier("challenge.limit.form")
+  }
+}

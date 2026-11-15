@@ -170,6 +170,8 @@ struct ChallengeRow: View {
   let onChange: () -> Void
   /// The picture of a finished challenge, made again when «Скрыть суммы» changes.
   @State private var picture: URL?
+  @State private var settingLimit = false
+  @Environment(\.dependencies) private var dependencies
 
   private func t(_ key: String) -> String { ChallengeText.t(key, environment) }
   private func money(_ amount: AmountE4) -> String { environment.money.rounded(amount) }
@@ -194,15 +196,26 @@ struct ChallengeRow: View {
       )
       .appFont(.caption)
       .secondaryInk()
-      ProgressView(value: Double(progress.elapsedDays), total: Double(max(1, progress.dayCount)))
-        .accessibilityHidden(true)
-      if progress.state == .running {
+      if progress.limitIsMissing {
+        // Nothing can break a limit that is not there, so no progress is drawn.
+        Label {
+          Text(verbatim: t("challenges.limit.missing"))
+        } icon: {
+          Image(systemName: "questionmark.circle")
+        }
+        .appFont(.callout)
+        .accessibilityIdentifier("challenge.limitMissing")
+      } else {
+        ProgressView(value: Double(progress.elapsedDays), total: Double(max(1, progress.dayCount)))
+          .accessibilityHidden(true)
+      }
+      if progress.state == .running && !progress.limitIsMissing {
         line(
           environment.format(
             "challenges.day", table: ChallengeText.table, progress.elapsedDays,
             progress.dayCount))
       }
-      if progress.elapsedDays > 0 {
+      if progress.elapsedDays > 0 && !progress.limitIsMissing {
         line(
           environment.format(
             "challenges.streak", table: ChallengeText.table, counts: progress.currentStreak))
@@ -234,6 +247,9 @@ struct ChallengeRow: View {
       actions
     }
     .padding(.vertical, 4)
+    .sheet(isPresented: $settingLimit) {
+      ChallengeLimitForm(challenge: challenge, onSaved: onChange).handingOver(dependencies)
+    }
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("challenge.\(challenge.id.uuidString)")
   }
@@ -293,6 +309,10 @@ struct ChallengeRow: View {
         }
         .accessibilityIdentifier("challenge.share")
       } else {
+        if progress.limitIsMissing {
+          Button(t("challenges.limit.set")) { settingLimit = true }
+            .accessibilityIdentifier("challenge.limit.set")
+        }
         Button(t("challenges.stop")) {
           _ = try? environment.challenges?.stop(challenge.id, on: environment.today)
           onChange()

@@ -354,3 +354,26 @@ struct TaxDeductionIncomeTests {
     #expect(TaxDeductionIncome.income(from: nil) == nil)
   }
 }
+
+@Suite("Tax deductions: the mortgage limit counted without earlier years")
+struct MortgageNoteTests {
+  @Test func theNoteIsDueOnlyWhenThereIsMortgageInterestAndNoKnownEarlierYear() {
+    func group(_ spent: Int64) -> TaxDeductionGroup {
+      TaxDeductionGroup(
+        key: .mortgageInterest, byKind: [.mortgageInterest: AmountE4(whole: spent)],
+        operations: 1, limit: AmountE4(whole: 100), claimable: AmountE4(whole: min(spent, 100)))
+    }
+    let unknown = TaxDeductionYear(
+      year: 2026, rules: nil, groups: [group(50)], income: nil, mortgagePriorYearsKnown: false)
+    #expect(unknown.mortgageLimitIgnoresEarlierYears)
+    let known = TaxDeductionYear(
+      year: 2026, rules: nil, groups: [group(50)], income: nil, mortgagePriorYearsKnown: true)
+    #expect(!known.mortgageLimitIgnoresEarlierYears)
+    let none = TaxDeductionYear(
+      year: 2026, rules: nil, groups: [], income: nil, mortgagePriorYearsKnown: false)
+    #expect(!none.mortgageLimitIgnoresEarlierYears)
+    let zero = TaxDeductionYear(
+      year: 2026, rules: nil, groups: [group(0)], income: nil, mortgagePriorYearsKnown: false)
+    #expect(!zero.mortgageLimitIgnoresEarlierYears)
+  }
+}

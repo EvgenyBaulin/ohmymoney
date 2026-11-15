@@ -143,11 +143,41 @@ struct UtilityReadingForm: View {
   @State private var restart = false
   @State private var submitted = false
   @State private var loaded = false
+  @State private var asking = false
+  @State private var failed: String?
+  @Environment(\.dismiss) private var dismiss
+  @Environment(\.hasUnreadableAmount) private var hasUnreadableAmount
 
   private func t(_ key: String) -> String { UtilitiesText.t(key, environment) }
 
+  private var readings: [UtilityReading] { compute.snapshot?.dataset.utilities.readings ?? [] }
+
   private var last: UtilityReading? {
     UtilityUsage.ordered(compute.snapshot?.dataset.utilities.readings ?? [], of: meter).last
+  }
+
+  private func attemptSave() {
+    if UtilityUsage.isBelowLast(value, restart: restart, readings: readings, of: meter) {
+      asking = true
+    } else {
+      write(restart: restart)
+    }
+  }
+
+  private func write(restart: Bool) {
+    guard let dependencies else { return }
+    let now = environment.now()
+    let reading = UtilityReading(
+      meterId: meter.id, day: environment.calendar.day(of: day), valueE4: value,
+      restart: restart, tariffE4: meter.tariffE4, submittedAt: submitted ? now : nil,
+      recordedAt: now)
+    if dependencies.store.apply(
+      PlanningChange(upsert: PlanningRows(utilityReadings: [reading]), at: now))
+    {
+      dismiss()
+    } else {
+      failed = WriteRefusalWords.failureText(reason: "", environment)
+    }
   }
 
   /// A value below the last one is a typo unless the meter was replaced.
@@ -193,16 +223,39 @@ struct UtilityReadingForm: View {
         }
       }
       .formStyle(.grouped)
-      FormButtons(title: environment.language("action.save"), enabled: !value.isNegative) {
-        guard let dependencies else { return false }
-        let now = environment.now()
-        let reading = UtilityReading(
-          meterId: meter.id, day: environment.calendar.day(of: day), valueE4: value,
-          restart: restart, tariffE4: meter.tariffE4, submittedAt: submitted ? now : nil,
-          recordedAt: now)
-        return dependencies.store.apply(
-          PlanningChange(upsert: PlanningRows(utilityReadings: [reading]), at: now))
+      if hasUnreadableAmount {
+        Text(verbatim: environment.language("amount.unreadable.form"))
+          .appFont(.caption)
+          .foregroundStyle(.red)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("form.amountUnreadable")
       }
+      if let failed {
+        Text(verbatim: failed).appFont(.caption).foregroundStyle(.red)
+      }
+      HStack {
+        Spacer()
+        Button(environment.language("action.cancel")) { dismiss() }
+          .keyboardShortcut(.cancelAction)
+        Button(environment.language("action.save")) { attemptSave() }
+          .keyboardShortcut(.defaultAction)
+          .buttonStyle(.borderedProminent)
+          .disabled(
+            !UnreadableAmountRule.isEnabled(
+              formAllows: !value.isNegative, hasUnreadableAmount: hasUnreadableAmount)
+          )
+          .accessibilityIdentifier("utilities.reading.save")
+      }
+    }
+    // A lower value is asked about once and never refused: either answer saves the reading.
+    .confirmationDialog(
+      t("utilities.reading.ask.title"), isPresented: $asking, titleVisibility: .visible
+    ) {
+      Button(t("utilities.reading.ask.replaced")) { write(restart: true) }
+      Button(t("utilities.reading.ask.fix")) { write(restart: restart) }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: {
+      Text(verbatim: t("utilities.reading.ask.message"))
     }
     .padding(20)
     .sheetFrame(width: 440, height: 420)

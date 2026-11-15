@@ -186,3 +186,26 @@ struct UtilityUsageTests {
     #expect(UtilityBills.providers(bills) == ["Power Co", "Water Co"])
   }
 }
+
+@Suite("Utilities: a reading below the last one")
+struct UtilityReadingCheckTests {
+  typealias S = UtilityUsageTests
+
+  @Test func aValueBelowTheLastUnmarkedReadingNeedsAnAnswer() {
+    let readings = [S.reading(2026, 9, 21, 1000)]
+    #expect(UtilityUsage.isBelowLast(AmountE4(whole: 100), restart: false, readings: readings, of: S.water))
+    #expect(!UtilityUsage.isBelowLast(AmountE4(whole: 100), restart: true, readings: readings, of: S.water))
+    #expect(!UtilityUsage.isBelowLast(AmountE4(whole: 1010), restart: false, readings: readings, of: S.water))
+    #expect(!UtilityUsage.isBelowLast(AmountE4(whole: 5), restart: false, readings: [], of: S.water))
+  }
+
+  @Test func theFlaggedReadingsComeBackWithTheirValueAndDay() {
+    let readings = [S.reading(2026, 9, 21, 1000), S.reading(2026, 10, 21, 100)]
+    let flagged = UtilityUsage.flaggedReadings(of: S.water, readings: readings)
+    #expect(flagged.map(\.valueE4) == [AmountE4(whole: 100)])
+    // Marking it as a replacement clears the flag.
+    var fixed = readings
+    fixed[1].restart = true
+    #expect(UtilityUsage.flaggedReadings(of: S.water, readings: fixed).isEmpty)
+  }
+}

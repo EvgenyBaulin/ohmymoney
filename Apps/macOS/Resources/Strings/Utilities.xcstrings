@@ -1346,6 +1346,91 @@
         }
       }
     },
+    "utilities.reading.ask.fix": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I will fix it"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исправлю"
+          }
+        }
+      }
+    },
+    "utilities.reading.ask.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was the meter replaced, or is it a typo? Either way the reading is saved."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счётчик заменили или это опечатка? В обоих случаях показание сохранится."
+          }
+        }
+      }
+    },
+    "utilities.reading.ask.replaced": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meter replaced"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Замена счётчика"
+          }
+        }
+      }
+    },
+    "utilities.reading.ask.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The reading is lower than the last one"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показание меньше прошлого"
+          }
+        }
+      }
+    },
+    "utilities.reading.checkOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the reading %1$@ (%2$@): lower than the last one"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверьте показание %1$@ (%2$@): меньше прошлого"
+          }
+        }
+      }
+    },
     "utilities.reading.day": {
       "extractionState": "manual",
       "localizations": {
