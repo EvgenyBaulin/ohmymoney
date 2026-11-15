@@ -38,7 +38,7 @@ extension MacNotifications {
     case .allowed:
       break
     case .undetermined:
-      if !defaults.bool(forKey: Self.explainedKey) { explaining = true }
+      explaining = true
       return
     case .denied:
       return
