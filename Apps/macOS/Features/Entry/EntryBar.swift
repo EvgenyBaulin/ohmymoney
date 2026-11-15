@@ -19,6 +19,12 @@ enum EntryBarMetrics {
   static let sideMargin: CGFloat = 16
   /// Distance between the capsule and the bottom edge of the window.
   static let bottomInset: CGFloat = 18
+  /// The phone's line stands 8 pt above the keyboard it brought up, as its frame draws it.
+  static let phoneBottomInset: CGFloat = 8
+
+  static func bottomInset(idiom: LayoutIdiom) -> CGFloat {
+    idiom == .phone ? phoneBottomInset : bottomInset
+  }
   /// Space between the elements stacked in the bar: the panel, the chips, the caption and
   /// the capsule.
   static let spacing: CGFloat = 10
@@ -940,7 +946,7 @@ struct EntryBar<Accessory: View>: View {
     // above the bottom of the window. Together with the bar itself they are the whole of the
     // safe area it asks for.
     .padding(.top, EntryBarMetrics.contentGap)
-    .padding(.bottom, EntryBarMetrics.bottomInset)
+    .padding(.bottom, EntryBarMetrics.bottomInset(idiom: idiom))
   }
 
   private var dictationButton: some View {
