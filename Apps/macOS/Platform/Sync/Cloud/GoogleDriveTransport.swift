@@ -1,20 +1,27 @@
 import AppCore
 import AppDatabase
-import CryptoKit
 import Foundation
 
 /// The app keys of Google Drive. They stay empty until the owner registers the app; without a
 /// client id the drive cannot be connected and the settings say why.
 enum GoogleDriveConfig {
-  static let clientID = ""
+  static let clientID = CloudDriveKeys.google
   static var isConfigured: Bool { !clientID.isEmpty }
+  /// The sign-in of Google as the shared OAuth model: an installed-app client, the reversed
+  /// client id as the redirect scheme, a refresh token asked for with every consent.
+  static func oauth(clientID: String = GoogleDriveConfig.clientID) -> CloudOAuthConfig {
+    CloudOAuthConfig(
+      providerId: "google", clientId: clientID, authorizeURL: URL(string: authorizeURL)!,
+      tokenURL: URL(string: tokenURL)!,
+      redirectURI: redirectScheme(clientID: clientID) + ":/oauth2redirect", scopes: [scope],
+      extraAuthorizeParameters: ["access_type": "offline", "prompt": "consent"])
+  }
   /// Files in the hidden per-app folder only: the app cannot see anything else in the Drive.
   static let scope = "https://www.googleapis.com/auth/drive.appdata"
   static let authorizeURL = "https://accounts.google.com/o/oauth2/v2/auth"
   static let tokenURL = "https://oauth2.googleapis.com/token"
   static let api = "https://www.googleapis.com/drive/v3"
   static let upload = "https://www.googleapis.com/upload/drive/v3"
-  static let refreshAccount = "google.refresh"
 
   /// The redirect of an installed-app client: the reversed client id as a URL scheme.
   static func redirectScheme(clientID: String) -> String {
@@ -24,150 +31,14 @@ enum GoogleDriveConfig {
   }
 }
 
-/// PKCE (RFC 7636): the verifier never leaves the device; only its hash goes to the browser.
-struct PKCEPair: Equatable {
-  var verifier: String
-  var challenge: String
-
-  static func make(verifier: String = random()) -> PKCEPair {
-    let hash = SHA256.hash(data: Data(verifier.utf8))
-    return PKCEPair(verifier: verifier, challenge: base64URL(Data(hash)))
-  }
-
-  static func random() -> String {
-    var bytes = [UInt8](repeating: 0, count: 48)
-    guard SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) == errSecSuccess else {
-      return base64URL(Data(UUID().uuidString.utf8) + Data(UUID().uuidString.utf8))
-    }
-    return base64URL(Data(bytes))
-  }
-
-  static func base64URL(_ data: Data) -> String {
-    data.base64EncodedString()
-      .replacingOccurrences(of: "+", with: "-")
-      .replacingOccurrences(of: "/", with: "_")
-      .replacingOccurrences(of: "=", with: "")
-  }
-}
-
-/// Holds the access token in memory and the refresh token in the keychain; refreshes on demand.
-final class GoogleDriveSession: @unchecked Sendable {
-  private let clientID: String
-  private let store: any CloudCredentialStoring
-  private let http: CloudHTTPB
-  private let now: @Sendable () -> Date
-  private let lock = NSLock()
-  private var accessToken: String?
-  private var expiry = Date.distantPast
-
-  init(
-    clientID: String, store: any CloudCredentialStoring, session: URLSession = .shared,
-    now: @escaping @Sendable () -> Date = { Date() }
-  ) {
-    self.clientID = clientID
-    self.store = store
-    self.http = CloudHTTPB(session: session)
-    self.now = now
-  }
-
-  var isConnected: Bool { store.load(account: GoogleDriveConfig.refreshAccount) != nil }
-
-  func authorizationURL(pkce: PKCEPair, state: String) -> URL? {
-    var parts = URLComponents(string: GoogleDriveConfig.authorizeURL)
-    parts?.queryItems = [
-      URLQueryItem(name: "client_id", value: clientID),
-      URLQueryItem(
-        name: "redirect_uri",
-        value: GoogleDriveConfig.redirectScheme(clientID: clientID) + ":/oauth2redirect"),
-      URLQueryItem(name: "response_type", value: "code"),
-      URLQueryItem(name: "scope", value: GoogleDriveConfig.scope),
-      URLQueryItem(name: "code_challenge", value: pkce.challenge),
-      URLQueryItem(name: "code_challenge_method", value: "S256"),
-      URLQueryItem(name: "access_type", value: "offline"),
-      URLQueryItem(name: "prompt", value: "consent"),
-      URLQueryItem(name: "state", value: state),
-    ]
-    return parts?.url
-  }
-
-  /// Trades the code of the browser sign-in for tokens (run off the main thread).
-  func completeSignIn(code: String, pkce: PKCEPair) throws {
-    let redirect = GoogleDriveConfig.redirectScheme(clientID: clientID) + ":/oauth2redirect"
-    try tokenRequest([
-      "grant_type": "authorization_code", "code": code, "code_verifier": pkce.verifier,
-      "client_id": clientID, "redirect_uri": redirect,
-    ])
-  }
-
-  func signOut() {
-    store.remove(account: GoogleDriveConfig.refreshAccount)
-    lock.withLock { accessToken = nil }
-  }
-
-  /// A valid access token, refreshed a minute before it lapses.
-  func token() throws -> String {
-    if let cached = lock.withLock({ now() < expiry ? accessToken : nil }) { return cached }
-    try refresh()
-    guard let fresh = lock.withLock({ accessToken }) else { throw ExchangeTransportError.unavailable }
-    return fresh
-  }
-
-  func refresh() throws {
-    guard let refreshToken = store.load(account: GoogleDriveConfig.refreshAccount) else {
-      throw ExchangeTransportError.unavailable
-    }
-    try tokenRequest([
-      "grant_type": "refresh_token", "refresh_token": refreshToken, "client_id": clientID,
-    ])
-  }
-
-  private func tokenRequest(_ form: [String: String]) throws {
-    guard let url = URL(string: GoogleDriveConfig.tokenURL) else {
-      throw ExchangeTransportError.unavailable
-    }
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    let body = form.sorted { $0.key < $1.key }.map {
-      "\($0.key)=\(Self.formEscape($0.value))"
-    }.joined(separator: "&")
-    let response = try http.send(request, body: Data(body.utf8))
-    guard response.status == 200,
-      let json = try? JSONSerialization.jsonObject(with: response.data) as? [String: Any],
-      let access = json["access_token"] as? String
-    else { throw ExchangeTransportError.unavailable }
-    let lifetime = (json["expires_in"] as? Double) ?? 3600
-    if let refresh = json["refresh_token"] as? String {
-      do { try store.save(refresh, account: GoogleDriveConfig.refreshAccount) } catch {
-        throw ExchangeTransportError.unavailable
-      }
-    }
-    lock.withLock {
-      accessToken = access
-      expiry = now().addingTimeInterval(max(lifetime - 60, 0))
-    }
-  }
-
-  private static func formEscape(_ value: String) -> String {
-    var allowed = CharacterSet.alphanumerics
-    allowed.insert(charactersIn: "-._~")
-    return value.addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
-  }
-}
-
 /// Exchange files in the hidden app-data folder of Google Drive (Drive API v3).
 final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
-  private let http: CloudHTTPB
+  private let http: CloudHTTPClient
   private let pageSize: Int
 
-  init(session: GoogleDriveSession, urlSession: URLSession = .shared, pageSize: Int = 100) {
+  init(client: CloudHTTPClient, pageSize: Int = 100) {
     self.pageSize = pageSize
-    self.http = CloudHTTPB(
-      session: urlSession,
-      authorize: { request in
-        request.setValue("Bearer \(try session.token())", forHTTPHeaderField: "Authorization")
-      },
-      refresh: { try session.refresh() })
+    self.http = client
   }
 
   func files() throws -> [ExchangeFileInfo] {
@@ -186,7 +57,7 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
       guard let url = parts?.url else { throw ExchangeTransportError.malformed }
       let response = try http.send(URLRequest(url: url))
       guard response.status == 200,
-        let json = try? JSONSerialization.jsonObject(with: response.data) as? [String: Any],
+        let json = try? JSONSerialization.jsonObject(with: response.body) as? [String: Any],
         let entries = json["files"] as? [[String: Any]]
       else { throw ExchangeTransportError.unavailable }
       for entry in entries {
@@ -255,7 +126,7 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
     guard let url = parts?.url else { throw ExchangeTransportError.malformed }
     let response = try http.send(URLRequest(url: url))
     guard response.status == 200,
-      let json = try? JSONSerialization.jsonObject(with: response.data) as? [String: Any],
+      let json = try? JSONSerialization.jsonObject(with: response.body) as? [String: Any],
       let entries = json["files"] as? [[String: Any]]
     else { throw ExchangeTransportError.unavailable }
     return entries.first?["id"] as? String
@@ -266,7 +137,7 @@ final class GoogleDriveTransport: ExchangeFileTransport, @unchecked Sendable {
     else { throw ExchangeTransportError.malformed }
     let response = try http.send(URLRequest(url: url))
     switch response.status {
-    case 200: return response.data
+    case 200: return response.body
     case 404: throw ExchangeTransportError.missing
     default: throw ExchangeTransportError.unavailable
     }

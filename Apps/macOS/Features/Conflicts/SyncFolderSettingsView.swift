@@ -14,15 +14,22 @@ struct SyncFolderSettingsView: View {
 
   var body: some View {
     folderSection
+    CloudDrivesSection(coordinator: coordinator)
     SyncBootstrapSection(coordinator: coordinator)
     SyncKeySection()
+  }
+
+  /// The name of the cloud drive the exchange goes through, while one does.
+  private var driveName: String? {
+    guard coordinator.usesDrive, let drive = CloudDriveSelection.selected() else { return nil }
+    return environment.language(drive.nameKey, table: CloudDrive.table)
   }
 
   private var folderSection: some View {
     Section {
       LabeledContent {
         Text(
-          verbatim: coordinator.folderName.flatMap { $0.isEmpty ? nil : $0 }
+          verbatim: driveName ?? coordinator.folderName.flatMap { $0.isEmpty ? nil : $0 }
             ?? ConflictText.t("sync.folder.none", environment)
         )
         .secondaryInk()

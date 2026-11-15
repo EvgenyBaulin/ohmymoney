@@ -37,17 +37,23 @@ struct MailRuCloudConfig: Equatable, Sendable {
 
 /// Exchange files in one folder of Mail.ru Cloud (WebDAV: PROPFIND, GET, PUT, MKCOL).
 final class MailRuCloudTransport: ExchangeFileTransport, @unchecked Sendable {
-  private let http: CloudHTTPB
+  private let http: CloudHTTPClient
   private let base: String
 
-  init(config: MailRuCloudConfig, urlSession: URLSession = .shared, base: String = MailRuCloudConfig.host) {
+  init(client: CloudHTTPClient, base: String = MailRuCloudConfig.host) {
     self.base = base
-    let credential = Data("\(config.login):\(config.appPassword)".utf8).base64EncodedString()
-    self.http = CloudHTTPB(
-      session: urlSession,
-      authorize: { request in
-        request.setValue("Basic \(credential)", forHTTPHeaderField: "Authorization")
-      })
+    self.http = client
+  }
+
+  /// The client of this drive: the app password as a Basic login, no renewal.
+  static func client(
+    config: MailRuCloudConfig, http: any CloudHTTPTransporting = URLSessionCloudHTTP(),
+    retry: CloudRetryPolicy = CloudRetryPolicy()
+  ) -> CloudHTTPClient {
+    CloudHTTPClient(
+      http: http,
+      authorizer: StaticCloudAuthorizer.basic(login: config.login, password: config.appPassword),
+      retry: retry)
   }
 
   private func url(_ name: String?) throws -> URL {
@@ -67,7 +73,7 @@ final class MailRuCloudTransport: ExchangeFileTransport, @unchecked Sendable {
     let response = try http.send(request, body: body)
     switch response.status {
     case 207, 200:
-      guard let list = MultistatusParser.parse(response.data) else {
+      guard let list = MultistatusParser.parse(response.body) else {
         throw ExchangeTransportError.malformed
       }
       return list
@@ -82,7 +88,7 @@ final class MailRuCloudTransport: ExchangeFileTransport, @unchecked Sendable {
     try CloudFileName.validate(name)
     let response = try http.send(URLRequest(url: try url(name)))
     switch response.status {
-    case 200: return response.data
+    case 200: return response.body
     case 404: throw ExchangeTransportError.missing
     default: throw ExchangeTransportError.unavailable
     }
