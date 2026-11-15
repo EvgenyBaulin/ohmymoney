@@ -32,7 +32,10 @@ final class SyncCoordinator {
   private let notifier: any SyncNotifying
   private let defaults: UserDefaults
   private let snapshotCodec: any PayloadCodec
-  private let remoteFolder: TransportExchangeFolder?
+  private var remoteFolder: TransportExchangeFolder?
+  private let wiredRemoteFolder: TransportExchangeFolder?
+  /// A chosen cloud drive, as opposed to the CloudKit folder the wiring made.
+  private(set) var usesDrive = false
   private var isRunning = false
   private var isStopped = false
   private var debounce: Task<Void, Never>?
@@ -57,6 +60,7 @@ final class SyncCoordinator {
     self.defaults = defaults
     self.snapshotCodec = snapshotCodec
     self.remoteFolder = remoteFolder
+    self.wiredRemoteFolder = remoteFolder
     self.status = .notConfigured
     refreshFolderName()
   }
@@ -103,10 +107,31 @@ final class SyncCoordinator {
     return .accepted
   }
 
+  /// Exchanges through a cloud drive instead of a folder; `nil` goes back to what the wiring
+  /// made (the CloudKit folder, if any) or to the chosen folder. Nothing already sent or
+  /// waiting is lost.
+  func useDrive(_ drive: CloudDrive?, folder: TransportExchangeFolder? = nil, thenSync: Bool = true) {
+    CloudDriveSelection.select(folder == nil ? nil : drive, in: defaults)
+    if let folder {
+      remoteFolder = folder
+      usesDrive = true
+      folderName = ""
+      exchange.map { try? $0.setRecording(true) }
+      if thenSync { Task { await syncNow() } }
+    } else {
+      remoteFolder = wiredRemoteFolder
+      usesDrive = false
+      folderName = nil
+      refreshFolderName()
+      if !hasFolder { status = .notConfigured }
+    }
+  }
+
   /// «Не обмениваться»: the folder is forgotten. Nothing in it is deleted, and nothing that
   /// waits to go out is lost: it goes when a folder is chosen again.
   func forgetFolder() {
     bookmarks.clear()
+    if usesDrive { useDrive(nil) }
     folderName = nil
     status = .notConfigured
   }

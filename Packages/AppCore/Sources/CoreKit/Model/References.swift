@@ -200,6 +200,9 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
   public var digitalRuble: Bool
   /// An account the owner puts money aside to — a piggy bank, round-ups — with interest or not.
   public var piggy: Bool
+  /// `.iis`: an individual investment account, the money moved into it a contribution towards
+  /// the deduction; `nil` — none.
+  public var taxDeduction: TaxDeductionKind?
 
   public init(
     id: UUID = UUID(), name: String, kind: PaymentMethodKind = .card,
@@ -211,8 +214,9 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
     credit: CreditCardTerms? = nil, mainCardId: UUID? = nil, accent: String? = nil,
     hidden: Bool = false, cashbackMonthlyCapE4: AmountE4? = nil, cashbackChoiceDay: Int? = nil,
     borrowed: BorrowedCardTerms? = nil, pointsBurn: PointsBurn? = nil, digitalRuble: Bool = false,
-    piggy: Bool = false
+    piggy: Bool = false, taxDeduction: TaxDeductionKind? = nil
   ) {
+    self.taxDeduction = taxDeduction
     self.pointsBurn = pointsBurn
     self.digitalRuble = digitalRuble
     self.piggy = piggy
@@ -434,6 +438,9 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
   /// A credit holiday or a restructuring: no due falls inside it and the later ones move on;
   /// `nil` — none.
   public var pause: DebtPause?
+  /// `.mortgageInterest`: the interest this loan was paid counts towards the deduction for the
+  /// interest of a mortgage; `nil` — none.
+  public var taxDeduction: TaxDeductionKind?
 
   public init(
     id: UUID = UUID(), direction: DebtDirection, type: DebtType, name: String,
@@ -445,8 +452,9 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
     steps: DebtSteps? = nil, parts: Int? = nil, markupE4: AmountE4? = nil, psk: Decimal? = nil,
     prepayAnyDay: Bool = true, prepayNoticeDays: Int? = nil, plannedPrepay: PlannedPrepay? = nil,
     inLadder: Bool? = nil, pledge: Bool = false, returnBy: DateOnly? = nil,
-    termsReviewed: Bool = false, pause: DebtPause? = nil
+    termsReviewed: Bool = false, pause: DebtPause? = nil, taxDeduction: TaxDeductionKind? = nil
   ) {
+    self.taxDeduction = taxDeduction
     self.pause = pause
     self.id = id
     self.direction = direction

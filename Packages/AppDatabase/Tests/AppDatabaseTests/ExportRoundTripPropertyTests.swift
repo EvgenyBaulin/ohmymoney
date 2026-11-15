@@ -358,6 +358,11 @@ struct ExportRoundTripPropertyTests {
       try db.execute(
         sql: "UPDATE wishes SET image_url = 'https://shop.example/a,b.jpg' WHERE rowid = 1")
       try db.execute(sql: "UPDATE bank_conditions SET no_card_fee_e4 = 1500000")
+      // Schema 29: the kinds of tax deduction of a part, a loan and an account.
+      try db.execute(sql: "UPDATE transaction_parts SET tax_deduction = 'medical' WHERE rowid = 1")
+      try db.execute(
+        sql: "UPDATE debts SET tax_deduction = 'mortgage_interest' WHERE rowid = 1")
+      try db.execute(sql: "UPDATE payment_methods SET tax_deduction = 'iis' WHERE rowid = 1")
       if let item = try String.fetchOne(db, sql: "SELECT id FROM owned_items LIMIT 1") {
         try db.execute(
           sql: """
@@ -544,6 +549,7 @@ struct ExportRoundTripPropertyTests {
           "0026_mcc_fee_valuations_wish_image",
           "0027_savings_points_digital_pause",
           "0028_bank_cashback_merchant_codes",
+          "0029_tax_deductions",
           "0030_utility_meters_and_bills",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
@@ -763,12 +769,18 @@ struct ExportRoundTripPropertyTests {
     "subscription_terms.csv:bank_cashback_share",
   ]
 
+  /// The columns the tax deductions added (`0029_tax_deductions`).
+  private static let addedByTheDeductions: Set<String> = [
+    "transaction_parts.csv:tax_deduction", "debts.csv:tax_deduction",
+    "payment_methods.csv:tax_deduction",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
     .union(addedByTheSplitDates).union(addedByTheCodeAndTheFee)
-    .union(addedByTheSavingsAndPauses)
+    .union(addedByTheSavingsAndPauses).union(addedByTheDeductions)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]

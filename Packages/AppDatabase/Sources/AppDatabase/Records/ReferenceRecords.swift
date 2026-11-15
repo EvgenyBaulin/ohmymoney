@@ -176,7 +176,8 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       cashbackChoiceDay: Self.cashbackChoiceDay(row),
       borrowed: Self.borrowed(row), pointsBurn: Self.pointsBurn(row),
       digitalRuble: (try? RowMapping.flag(row, "digital_ruble", fallback: false)) ?? false,
-      piggy: (try? RowMapping.flag(row, "piggy", fallback: false)) ?? false)
+      piggy: (try? RowMapping.flag(row, "piggy", fallback: false)) ?? false,
+      taxDeduction: TaxDeductionKind.account(RowMapping.text(row, "tax_deduction")))
   }
 
   /// The points that burn: a day, and how many if said. A day that does not read reads as none;
@@ -373,6 +374,7 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     container["points_burn_e4"] = pointsBurn?.amountE4?.raw
     container["digital_ruble"] = digitalRuble
     container["piggy"] = piggy
+    container["tax_deduction"] = taxDeduction?.rawValue
   }
 }
 

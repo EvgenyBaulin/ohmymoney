@@ -106,6 +106,12 @@ enum SyncWiring {
       notifier: notifier ?? SystemSyncNotifier(), defaults: defaults,
       snapshotCodec: RecoveryPayloadCodec(store: keyStore, purpose: .snapshot),
       remoteFolder: CloudKitSync.makeFolder(defaults: defaults))
+    // A drive the owner connected earlier is taken up again; its files are read lazily.
+    if let drive = CloudDriveSelection.selected(in: defaults),
+      let folder = CloudDriveConnection().makeFolder(drive)
+    {
+      coordinator.useDrive(drive, folder: folder, thenSync: false)
+    }
     coordinator.language = language
     return coordinator
   }

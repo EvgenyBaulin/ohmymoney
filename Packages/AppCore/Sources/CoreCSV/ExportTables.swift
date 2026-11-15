@@ -56,14 +56,16 @@ public enum ExportTables {
     ])
 
   /// `refund_of_part_id` came with `Schema/0004_accounts.sql`: the purchase part a refund
-  /// takes money back from.
+  /// takes money back from. `tax_deduction` came with `Schema/0029_tax_deductions.sql` and goes
+  /// last: the kind of tax deduction the part counts towards (`medical`, `education`, …), empty
+  /// for none.
   public static let transactionParts = ExportTable(
     fileName: "transaction_parts.csv",
     columns: [
       "id", "transaction_id", "category_id", "category_source", "quality", "quality_source",
       "amount", "amount_rub", "for_whom", "for_person_id", "reimbursable",
       "debtor_person_id", "reimbursement_status", "event_id", "goal_id", "note",
-      "refund_of_part_id",
+      "refund_of_part_id", "tax_deduction",
     ])
 
   public static let reimbursementLinks = ExportTable(
@@ -94,7 +96,9 @@ public enum ExportTables {
   /// `Schema/0027_savings_points_digital_pause.sql` follow: what the interest is counted on
   /// (`min_balance`; empty — the balance of each day), the rate the bank announced and the day
   /// it holds from, the day the points on the account burn and how many (empty — all), `true` for
-  /// a wallet of the digital ruble and for a piggy bank.
+  /// a wallet of the digital ruble and for a piggy bank. `tax_deduction` came with
+  /// `Schema/0029_tax_deductions.sql` and goes last: `iis` for an individual investment account,
+  /// empty for none.
   public static let paymentMethods = ExportTable(
     fileName: "payment_methods.csv",
     columns: [
@@ -108,7 +112,7 @@ public enum ExportTables {
       "credit_cash_no_grace", "main_card_id", "accent", "hidden", "cashback_monthly_cap",
       "cashback_choice_day", "borrowed", "borrowed_person_id", "borrowed_income_category_id",
       "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",
-      "points_burn", "digital_ruble", "piggy",
+      "points_burn", "digital_ruble", "piggy", "tax_deduction",
     ])
 
   public static let places = ExportTable(
@@ -209,6 +213,9 @@ public enum ExportTables {
   /// the owner has seen these terms. `pause_from`, `pause_to` and `pause_kind` came with
   /// `Schema/0027_savings_points_digital_pause.sql` and go last: the days of a credit holiday or a
   /// restructuring and which of the two it is (`holiday` or `restructuring`), empty for none.
+  /// `tax_deduction` came with `Schema/0029_tax_deductions.sql` and goes last:
+  /// `mortgage_interest` for a mortgage whose interest counts towards the deduction, empty for
+  /// none.
   public static let debts = ExportTable(
     fileName: "debts.csv",
     columns: [
@@ -218,7 +225,7 @@ public enum ExportTables {
       "main_from", "grace_kind", "grace_payment", "repay_months", "step_days", "first_due_on",
       "parts", "markup", "psk", "prepay_any_day", "prepay_notice_days", "planned_prepay_on",
       "planned_prepay", "in_ladder", "pledge", "return_by", "terms_reviewed", "pause_from",
-      "pause_to", "pause_kind",
+      "pause_to", "pause_kind", "tax_deduction",
     ])
 
   /// `payment_method_id`, `occurred_at`, `account_currency` and `account_amount` came with
@@ -663,6 +670,7 @@ extension ExportTables {
       CSVValue.string(part.goalId),
       CSVValue.string(part.note),
       CSVValue.string(part.refundOfPartId),
+      CSVValue.string(part.taxDeduction?.rawValue),
     ]
   }
 
@@ -741,6 +749,7 @@ extension ExportTables {
       CSVValue.string(amount: method.pointsBurn?.amountE4),
       CSVValue.string(bool: method.digitalRuble),
       CSVValue.string(bool: method.piggy),
+      CSVValue.string(method.taxDeduction?.rawValue),
     ]
   }
 
@@ -875,6 +884,7 @@ extension ExportTables {
       CSVValue.string(day: debt.pause?.from),
       CSVValue.string(day: debt.pause?.to),
       CSVValue.string(debt.pause?.kind.rawValue),
+      CSVValue.string(debt.taxDeduction?.rawValue),
     ]
   }
 

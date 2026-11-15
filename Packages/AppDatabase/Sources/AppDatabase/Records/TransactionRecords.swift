@@ -156,7 +156,8 @@ extension TransactionPart: @retroactive FetchableRecord, @retroactive Persistabl
       eventId: RowMapping.optionalUUID(row, "event_id"),
       goalId: RowMapping.optionalUUID(row, "goal_id"),
       note: row["note"],
-      refundOfPartId: RowMapping.optionalUUID(row, "refund_of_part_id"))
+      refundOfPartId: RowMapping.optionalUUID(row, "refund_of_part_id"),
+      taxDeduction: TaxDeductionKind.part(RowMapping.text(row, "tax_deduction")))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -177,6 +178,7 @@ extension TransactionPart: @retroactive FetchableRecord, @retroactive Persistabl
     container["goal_id"] = goalId?.uuidString
     container["note"] = note
     container["refund_of_part_id"] = refundOfPartId?.uuidString
+    container["tax_deduction"] = taxDeduction?.rawValue
   }
 }
 
@@ -235,7 +237,8 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
       pledge: (try? RowMapping.flag(row, "pledge", fallback: false)) ?? false,
       returnBy: RowMapping.day(row, "return_by"),
       termsReviewed: (try? RowMapping.flag(row, "terms_reviewed", fallback: false)) ?? false,
-      pause: Self.pause(row))
+      pause: Self.pause(row),
+      taxDeduction: TaxDeductionKind.debt(RowMapping.text(row, "tax_deduction")))
   }
 
   /// A pause: both days and an order that holds; the kind defaults to a holiday when it does not
@@ -320,6 +323,7 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["pause_from"] = pause?.from.iso
     container["pause_to"] = pause?.to.iso
     container["pause_kind"] = pause?.kind.rawValue
+    container["tax_deduction"] = taxDeduction?.rawValue
   }
 }
 

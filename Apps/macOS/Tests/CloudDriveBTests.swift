@@ -93,66 +93,7 @@ private func offMain<T: Sendable>(_ work: @escaping @Sendable () throws -> T) th
   return try result!.get()
 }
 
-final class CloudHTTPBTests: XCTestCase {
-  func testRateLimitIsRetriedThenSucceeds() throws {
-    let count = Counter()
-    StubProtocol.reset { _ in
-      count.increment() < 3 ? (429, ["Retry-After": "0"], Data()) : (200, [:], Data("ok".utf8))
-    }
-    let http = CloudHTTPB(session: StubProtocol.session(), pause: { _ in })
-    let response = try offMain { try http.send(URLRequest(url: URL(string: "https://x.test/a")!)) }
-    XCTAssertEqual(response.status, 200)
-    XCTAssertEqual(StubProtocol.requests.count, 3)
-  }
-
-  func testServerErrorsEndAsUnavailable() {
-    StubProtocol.reset { _ in (503, [:], Data()) }
-    let http = CloudHTTPB(session: StubProtocol.session(), maxAttempts: 3, pause: { _ in })
-    XCTAssertThrowsError(
-      try offMain { try http.send(URLRequest(url: URL(string: "https://x.test/a")!)) }
-    ) { XCTAssertEqual($0 as? ExchangeTransportError, .unavailable) }
-    XCTAssertEqual(StubProtocol.requests.count, 3)
-  }
-
-  func testUnauthorizedRefreshesOnceAndRetries() throws {
-    let token = Counter()
-    StubProtocol.reset { seen in
-      seen.headers["Authorization"] == "Bearer t1" ? (200, [:], Data()) : (401, [:], Data())
-    }
-    let http = CloudHTTPB(
-      session: StubProtocol.session(), pause: { _ in },
-      authorize: { $0.setValue("Bearer t\(max(token.value, 0))", forHTTPHeaderField: "Authorization") },
-      refresh: { _ = token.increment() })
-    let response = try offMain { try http.send(URLRequest(url: URL(string: "https://x.test/a")!)) }
-    XCTAssertEqual(response.status, 200)
-    XCTAssertEqual(StubProtocol.requests.count, 2)
-  }
-
-  func testUnauthorizedTwiceGivesUp() {
-    StubProtocol.reset { _ in (401, [:], Data()) }
-    let http = CloudHTTPB(
-      session: StubProtocol.session(), pause: { _ in }, authorize: { _ in }, refresh: {})
-    XCTAssertThrowsError(
-      try offMain { try http.send(URLRequest(url: URL(string: "https://x.test/a")!)) }
-    ) { XCTAssertEqual($0 as? ExchangeTransportError, .unavailable) }
-    XCTAssertEqual(StubProtocol.requests.count, 2)
-  }
-
-  func testDroppedConnectionIsNotACommit() {
-    StubProtocol.reset { _ in throw URLError(.networkConnectionLost) }
-    let http = CloudHTTPB(session: StubProtocol.session(), maxAttempts: 2, pause: { _ in })
-    XCTAssertThrowsError(
-      try offMain { try http.send(URLRequest(url: URL(string: "https://x.test/a")!)) }
-    ) { XCTAssertEqual($0 as? ExchangeTransportError, .unavailable) }
-  }
-
-  func testMainThreadIsRefused() {
-    let http = CloudHTTPB(session: StubProtocol.session())
-    XCTAssertThrowsError(try http.send(URLRequest(url: URL(string: "https://x.test/a")!))) {
-      XCTAssertEqual($0 as? ExchangeTransportError, .mainThread)
-    }
-  }
-
+final class CloudFileNameTests: XCTestCase {
   func testOnlyExchangeFileNamesReachAPath() {
     XCTAssertNoThrow(try CloudFileName.validate(journal))
     XCTAssertNoThrow(try CloudFileName.validate(snapshot))
@@ -161,11 +102,16 @@ final class CloudHTTPBTests: XCTestCase {
   }
 
   func testBackoffHonoursRetryAfterWithACap() {
-    XCTAssertEqual(CloudHTTPB.backoff(attempt: 1, retryAfter: "2"), 2)
-    XCTAssertEqual(CloudHTTPB.backoff(attempt: 1, retryAfter: "999"), 30)
-    XCTAssertGreaterThan(CloudHTTPB.backoff(attempt: 3, retryAfter: nil), CloudHTTPB.backoff(attempt: 1, retryAfter: nil))
+    let policy = CloudRetryPolicy()
+    XCTAssertEqual(policy.delay(afterAttempt: 1, retryAfter: "2"), 2)
+    XCTAssertEqual(policy.delay(afterAttempt: 1, retryAfter: "999"), 60)
+    XCTAssertGreaterThan(
+      policy.delay(afterAttempt: 3, retryAfter: nil), policy.delay(afterAttempt: 1, retryAfter: nil))
   }
 }
+
+/// No real pauses in tests.
+private let quickRetry = CloudRetryPolicy(sleep: { _ in })
 
 private final class Counter: @unchecked Sendable {
   private let lock = NSLock()
@@ -176,30 +122,27 @@ private final class Counter: @unchecked Sendable {
 }
 
 final class GoogleDriveTransportTests: XCTestCase {
-  private func makeTransport(
-    store: MemoryCloudCredentialStore = MemoryCloudCredentialStore(), pageSize: Int = 2
-  ) -> GoogleDriveTransport {
-    try? store.save("refresh-1", account: GoogleDriveConfig.refreshAccount)
-    let urlSession = StubProtocol.session()
-    let session = GoogleDriveSession(clientID: "cid.apps.googleusercontent.com", store: store, session: urlSession)
-    return GoogleDriveTransport(session: session, urlSession: urlSession, pageSize: pageSize)
-  }
-
-  func testPKCEMatchesTheRFCVector() {
-    let pair = PKCEPair.make(verifier: "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk")
-    XCTAssertEqual(pair.challenge, "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM")
-    XCTAssertGreaterThanOrEqual(PKCEPair.random().count, 43)
+  private func makeTransport(pageSize: Int = 2) -> GoogleDriveTransport {
+    let http = URLSessionCloudHTTP(session: StubProtocol.session())
+    let store = InMemoryCloudTokenStore(
+      CloudTokens(accessToken: "", refreshToken: "refresh-1", expiresAt: .distantPast))
+    let authorizer = CloudAuthorizer(
+      config: GoogleDriveConfig.oauth(clientID: "cid.apps.googleusercontent.com"), store: store,
+      http: http, retry: quickRetry)
+    return GoogleDriveTransport(
+      client: CloudHTTPClient(http: http, authorizer: authorizer, retry: quickRetry),
+      pageSize: pageSize)
   }
 
   func testAuthorizationURLCarriesPKCEAndTheNarrowScope() throws {
-    let session = GoogleDriveSession(
-      clientID: "abc.apps.googleusercontent.com", store: MemoryCloudCredentialStore())
-    let url = try XCTUnwrap(session.authorizationURL(pkce: PKCEPair.make(verifier: "v"), state: "s"))
+    let config = GoogleDriveConfig.oauth(clientID: "abc.apps.googleusercontent.com")
+    let url = try XCTUnwrap(CloudOAuthFlow.authorizationURL(config: config, challenge: "c", state: "s"))
     let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
     func value(_ name: String) -> String? { items.first { $0.name == name }?.value }
     XCTAssertEqual(value("code_challenge_method"), "S256")
     XCTAssertEqual(value("scope"), GoogleDriveConfig.scope)
     XCTAssertEqual(value("redirect_uri"), "com.googleusercontent.apps.abc:/oauth2redirect")
+    XCTAssertEqual(value("access_type"), "offline")
   }
 
   func testListingFollowsEveryPageAndSkipsStrangers() throws {
@@ -314,25 +257,29 @@ final class GoogleDriveTransportTests: XCTestCase {
   }
 
   func testRefreshTokenStaysInTheStoreAndSignOutRemovesIt() throws {
-    let store = MemoryCloudCredentialStore()
-    StubProtocol.reset { seen in
+    let store = InMemoryCloudTokenStore()
+    StubProtocol.reset { _ in
       (200, [:], json(["access_token": "a", "refresh_token": "r-new", "expires_in": 3600]))
     }
-    let session = GoogleDriveSession(clientID: "c", store: store, session: StubProtocol.session())
-    try offMain { try session.completeSignIn(code: "code", pkce: PKCEPair.make(verifier: "v")) }
-    XCTAssertEqual(store.load(account: GoogleDriveConfig.refreshAccount), "r-new")
+    let authorizer = CloudAuthorizer(
+      config: GoogleDriveConfig.oauth(clientID: "c"), store: store,
+      http: URLSessionCloudHTTP(session: StubProtocol.session()), retry: quickRetry)
+    try offMain { try authorizer.exchange(code: "code", verifier: "v") }
+    XCTAssertEqual(try store.load()?.refreshToken, "r-new")
     let sent = String(decoding: StubProtocol.requests[0].body, as: UTF8.self)
     XCTAssertTrue(sent.contains("code_verifier=v"))
-    XCTAssertTrue(session.isConnected)
-    session.signOut()
-    XCTAssertFalse(session.isConnected)
+    XCTAssertTrue(authorizer.isSignedIn)
+    authorizer.disconnect()
+    XCTAssertFalse(authorizer.isSignedIn)
   }
 }
 
 final class SupabaseStorageTransportTests: XCTestCase {
   private func makeTransport(pageSize: Int = 2) throws -> SupabaseStorageTransport {
     let config = try XCTUnwrap(SupabaseConfig(url: "https://proj.supabase.test/", key: "KEY"))
-    return SupabaseStorageTransport(config: config, urlSession: StubProtocol.session(), pageSize: pageSize)
+    let client = SupabaseStorageTransport.client(
+      config: config, http: URLSessionCloudHTTP(session: StubProtocol.session()), retry: quickRetry)
+    return SupabaseStorageTransport(config: config, client: client, pageSize: pageSize)
   }
 
   func testConfigNeedsHTTPSAndAKey() {
@@ -436,7 +383,9 @@ private func multistatus(_ entries: [(String, String?)]) -> Data {
 final class MailRuCloudTransportTests: XCTestCase {
   private func makeTransport() throws -> MailRuCloudTransport {
     let config = try XCTUnwrap(MailRuCloudConfig(login: "me@mail.test", appPassword: "pw"))
-    return MailRuCloudTransport(config: config, urlSession: StubProtocol.session(), base: "https://dav.test")
+    let client = MailRuCloudTransport.client(
+      config: config, http: URLSessionCloudHTTP(session: StubProtocol.session()), retry: quickRetry)
+    return MailRuCloudTransport(client: client, base: "https://dav.test")
   }
 
   func testConfigNeedsALoginAndAnAppPassword() {
@@ -506,21 +455,87 @@ final class MailRuCloudTransportTests: XCTestCase {
   }
 }
 
-final class CloudDriveRegistryBTests: XCTestCase {
-  func testGoogleCannotConnectWithoutAnAppKey() {
-    XCTAssertFalse(GoogleDriveConfig.isConfigured)
-    XCTAssertFalse(CloudDriveKindB.googleDrive.isConnectable)
-    XCTAssertEqual(CloudDriveKindB.googleDrive.unavailableReasonKey, "cloud.keyMissing")
+final class CloudDriveRegistryTests: XCTestCase {
+  func testDrivesWithoutAKeyAreListedButCannotConnect() {
+    XCTAssertEqual(CloudDrive.allCases.count, 6)
+    for drive in [CloudDrive.yandexDisk, .dropbox, .oneDrive, .googleDrive] {
+      XCTAssertFalse(drive.isConnectable, "\(drive) has no application key until the owner sets it")
+      XCTAssertEqual(drive.unavailableReasonKey, CloudDrive.unavailableKey)
+    }
   }
 
-  func testTheOwnersOwnKeyDrivesNeedNoAppKey() {
-    XCTAssertNil(CloudDriveKindB.supabase.unavailableReasonKey)
-    XCTAssertNil(CloudDriveKindB.mailRuCloud.unavailableReasonKey)
-    XCTAssertEqual(CloudDriveKindB.allCases.count, 3)
+  func testTheOwnersOwnKeyDrivesNeedNoAppKeyAndAskForTheirFields() {
+    for drive in [CloudDrive.mailRuCloud, .supabase] {
+      XCTAssertNil(drive.unavailableReasonKey)
+      XCTAssertNil(drive.oauth)
+      XCTAssertEqual(drive.fields.count, 2)
+      XCTAssertEqual(drive.fields.filter(\.isSecret).count, 1)
+    }
+    for drive in [CloudDrive.yandexDisk, .dropbox, .oneDrive, .googleDrive] {
+      XCTAssertNotNil(drive.oauth)
+      XCTAssertTrue(drive.fields.isEmpty)
+    }
   }
 
-  func testEveryDriveShowsTheOpenFilesWarning() {
-    for kind in CloudDriveKindB.allCases { XCTAssertEqual(kind.openFilesWarningKey, "cloud.openFilesWarning") }
+  func testEveryNameAndFieldKeyIsInTheCatalogInBothLanguages() throws {
+    let url = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+      .deletingLastPathComponent().appendingPathComponent("Resources/Strings/CloudDrives.xcstrings")
+    let catalog = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any]
+    let strings = try XCTUnwrap(catalog?["strings"] as? [String: [String: Any]])
+    var keys = ["cloud.connect.action", "cloud.disconnect.action", CloudDrive.unavailableKey,
+      "cloud.section.title", "cloud.input.invalid", "cloud.signIn.failed", "cloud.encrypted.note",
+      "cloud.status.connected", "cloud.status.notConnected"]
+    for drive in CloudDrive.allCases { keys += [drive.nameKey] + drive.fields.map(\.labelKey) }
+    for key in keys {
+      let localizations = strings[key]?["localizations"] as? [String: Any]
+      XCTAssertNotNil(localizations?["en"], key)
+      XCTAssertNotNil(localizations?["ru"], key)
+    }
+  }
+
+  func testFormDrivesConnectOnlyWithValidInputAndDisconnectForgetsThem() throws {
+    let credentials = MemoryCloudCredentialStore()
+    let connection = CloudDriveConnection(credentials: credentials)
+    XCTAssertThrowsError(try connection.connect(.supabase, values: ["url": "http://x", "key": "k"])) {
+      XCTAssertEqual($0 as? CloudConnectError, .invalidInput)
+    }
+    XCTAssertFalse(connection.isConnected(.supabase))
+    try connection.connect(.supabase, values: ["url": "https://p.supabase.test", "key": "k"])
+    try connection.connect(.mailRuCloud, values: ["login": "me@mail.test", "password": "pw"])
+    XCTAssertTrue(connection.isConnected(.supabase))
+    XCTAssertTrue(connection.isConnected(.mailRuCloud))
+    XCTAssertNotNil(connection.makeTransport(.supabase))
+    XCTAssertNotNil(connection.makeFolder(.mailRuCloud))
+    connection.disconnect(.supabase)
+    connection.disconnect(.mailRuCloud)
+    XCTAssertFalse(connection.isConnected(.supabase))
+    XCTAssertNil(connection.makeTransport(.mailRuCloud))
+  }
+
+  func testSignInDrivesAreConnectedByTheirTokensAndMakeNoTransportWithoutThem() throws {
+    let store = InMemoryCloudTokenStore()
+    let connection = CloudDriveConnection(
+      credentials: MemoryCloudCredentialStore(), tokens: { _ in store })
+    for drive in [CloudDrive.yandexDisk, .dropbox, .oneDrive, .googleDrive] {
+      XCTAssertFalse(connection.isConnected(drive))
+      XCTAssertNil(connection.makeTransport(drive))
+    }
+    try store.save(CloudTokens(accessToken: "a", refreshToken: "r", expiresAt: nil))
+    for drive in [CloudDrive.yandexDisk, .dropbox, .oneDrive, .googleDrive] {
+      XCTAssertTrue(connection.isConnected(drive))
+      XCTAssertNotNil(connection.makeTransport(drive))
+    }
+    connection.disconnect(.dropbox)
+    XCTAssertFalse(connection.isConnected(.dropbox))
+  }
+
+  func testTheSelectedDriveIsKeptInTheSettingsOfTheDevice() throws {
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: "cloud-selection-\(UUID().uuidString)"))
+    XCTAssertNil(CloudDriveSelection.selected(in: defaults))
+    CloudDriveSelection.select(.oneDrive, in: defaults)
+    XCTAssertEqual(CloudDriveSelection.selected(in: defaults), .oneDrive)
+    CloudDriveSelection.select(nil, in: defaults)
+    XCTAssertNil(CloudDriveSelection.selected(in: defaults))
   }
 
   func testCredentialStoreForgetsOnRemove() {
@@ -529,5 +544,28 @@ final class CloudDriveRegistryBTests: XCTestCase {
     XCTAssertEqual(store.load(account: "a"), "v")
     store.remove(account: "a")
     XCTAssertNil(store.load(account: "a"))
+  }
+
+  func testStaticCredentialsAreSentAndAFinal401IsNotRetried() async throws {
+    let seen = Counter()
+    StubProtocol.reset { request in
+      _ = seen.increment()
+      return (401, [:], Data())
+    }
+    let config = try XCTUnwrap(MailRuCloudConfig(login: "me@mail.test", appPassword: "pw"))
+    let transport = MailRuCloudTransport(
+      client: MailRuCloudTransport.client(
+        config: config, http: URLSessionCloudHTTP(session: StubProtocol.session()), retry: quickRetry),
+      base: "https://dav.test")
+    do {
+      _ = try await Task.detached { try transport.files() }.value
+      XCTFail("a rejected login must fail")
+    } catch {
+      XCTAssertEqual(error as? ExchangeTransportError, .unavailable)
+    }
+    XCTAssertEqual(seen.value, 1)
+    XCTAssertEqual(
+      StubProtocol.requests[0].headers["Authorization"],
+      "Basic " + Data("me@mail.test:pw".utf8).base64EncodedString())
   }
 }

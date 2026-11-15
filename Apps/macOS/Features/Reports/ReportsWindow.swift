@@ -46,6 +46,8 @@ struct ReportsWindow: View {
   @State private var summaries: PeriodsBoardStore
   /// «Сохранить отчёт…» from the menu of the table.
   @State private var saving = false
+  /// «Вычеты за год» on a sheet over the reports.
+  @State private var deductionsOpen = false
 
   private var idiom: LayoutIdiom { LayoutIdiom.resolved(chosenIdiom) }
   private var metrics: ReportsMetrics { .of(idiom) }
@@ -70,6 +72,7 @@ struct ReportsWindow: View {
       .focusedSceneValue(\.printableTable, printable)
     #endif
     .themedWindowBackground()
+    .sheet(isPresented: $deductionsOpen) { TaxDeductionsSheet().handingOver(deps) }
     .sheet(isPresented: $saving) {
       SaveViewSheet(
         subject: .report(kind: selection.kind, grouping: selection.grouping, period: period)
@@ -198,8 +201,18 @@ struct ReportsWindow: View {
       } else {
         periodButton
       }
+      deductionsButton
       exportButton
     }
+  }
+
+  /// «Вычеты…»: the yearly report of tax deductions, quiet beside the one orange button.
+  private var deductionsButton: some View {
+    Button(DeductionsText.t("deductions.open", environment)) { deductionsOpen = true }
+      .buttonStyle(.quietAction)
+      .fixedSize()
+      .help(DeductionsText.t("deductions.open.help", environment))
+      .accessibilityIdentifier("reports.deductions")
   }
 
   /// The phone: the period with its chevron at the left, «Выгрузить CSV…» in the accent at the
@@ -220,6 +233,11 @@ struct ReportsWindow: View {
       .accessibilityIdentifier("period.choose.compact")
       .popover(isPresented: $choosingPeriod) { periodPopover }
       Spacer(minLength: 8)
+      Button(DeductionsText.t("deductions.open", environment)) { deductionsOpen = true }
+        .buttonStyle(.plain)
+        .appFont(AppFont.system(size: 12))
+        .foregroundStyle(theme.contentPrimary)
+        .accessibilityIdentifier("reports.deductions")
       Button(t("reports.export")) { export() }
         .buttonStyle(.plain)
         .appFont(AppFont.system(size: 12, weight: .medium))

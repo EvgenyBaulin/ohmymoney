@@ -41,18 +41,25 @@ struct SupabaseConfig: Equatable, Sendable {
 /// Exchange files in a private Supabase Storage bucket (Storage REST API).
 final class SupabaseStorageTransport: ExchangeFileTransport, @unchecked Sendable {
   private let config: SupabaseConfig
-  private let http: CloudHTTPB
+  private let http: CloudHTTPClient
   private let pageSize: Int
 
-  init(config: SupabaseConfig, urlSession: URLSession = .shared, pageSize: Int = 100) {
+  init(config: SupabaseConfig, client: CloudHTTPClient, pageSize: Int = 100) {
     self.config = config
     self.pageSize = pageSize
-    self.http = CloudHTTPB(
-      session: urlSession,
-      authorize: { [key = config.key] request in
-        request.setValue(key, forHTTPHeaderField: "apikey")
-        request.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
-      })
+    self.http = client
+  }
+
+  /// The client of this drive: the project key as `apikey` and as the bearer, no renewal.
+  static func client(
+    config: SupabaseConfig, http: any CloudHTTPTransporting = URLSessionCloudHTTP(),
+    retry: CloudRetryPolicy = CloudRetryPolicy()
+  ) -> CloudHTTPClient {
+    CloudHTTPClient(
+      http: http,
+      authorizer: StaticCloudAuthorizer(headers: [
+        "apikey": config.key, "Authorization": "Bearer \(config.key)",
+      ]), retry: retry)
   }
 
   private func url(_ path: String) throws -> URL {
@@ -75,7 +82,7 @@ final class SupabaseStorageTransport: ExchangeFileTransport, @unchecked Sendable
       ])
       let response = try http.send(request, body: body)
       guard response.status == 200,
-        let entries = try? JSONSerialization.jsonObject(with: response.data) as? [[String: Any]]
+        let entries = try? JSONSerialization.jsonObject(with: response.body) as? [[String: Any]]
       else { throw ExchangeTransportError.unavailable }
       for entry in entries {
         guard let name = entry["name"] as? String, CloudFileName.isExchangeFile(name) else {
@@ -97,7 +104,7 @@ final class SupabaseStorageTransport: ExchangeFileTransport, @unchecked Sendable
     request.httpMethod = "GET"
     let response = try http.send(request)
     switch response.status {
-    case 200: return response.data
+    case 200: return response.body
     case 400, 404: throw ExchangeTransportError.missing
     default: throw ExchangeTransportError.unavailable
     }

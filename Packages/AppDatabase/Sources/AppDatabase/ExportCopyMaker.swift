@@ -122,15 +122,22 @@ public struct ExportCopyMaker: Sendable {
           WHERE valued_on IS NULL OR valued_on < ? OR valued_on > ?
           """,
         arguments: [range.start.iso, range.end.iso])
-      // The readings of meters by their day, the bills by their month; the lines of a bill go
-      // with it.
+      // The readings of meters by their day. A bill is a month's: it stays only when its whole
+      // month lies inside the span — a bill of a month the span only touches tells about days
+      // the copy leaves out. Its month, not `pay_by` or `recorded_at`, is what the bill is for;
+      // the lines of a bill go with it.
       if try db.tableExists("utility_readings") {
         try db.execute(
           sql: "DELETE FROM utility_readings WHERE read_on IS NULL OR read_on < ? OR read_on > ?",
           arguments: [range.start.iso, range.end.iso])
+        let firstWhole =
+          range.start.day == 1 ? range.start.monthKey : range.start.monthKey.next
+        let lastWhole =
+          range.end.adding(days: 1).monthKey != range.end.monthKey
+          ? range.end.monthKey : range.end.monthKey.previous
         try db.execute(
           sql: "DELETE FROM utility_bills WHERE period IS NULL OR period < ? OR period > ?",
-          arguments: [range.start.monthKey.iso, range.end.monthKey.iso])
+          arguments: [firstWhole.iso, lastWhole.iso])
         try db.execute(
           sql: "DELETE FROM utility_charges WHERE bill_id NOT IN (SELECT id FROM utility_bills)")
       }
@@ -157,6 +164,22 @@ public struct ExportCopyMaker: Sendable {
     let marks = databaseQuestionMarks(count: hidden.count)
     let arguments = StatementArguments(hidden)
     let twice = StatementArguments(hidden + hidden)
+    // A bill paid by an operation of a hidden account, or tied to a payment planned on one, would
+    // still tell what the account pays for: it goes, with its lines, before the operations and
+    // payments do (their deletion would only clear the link and keep the bill).
+    if try db.tableExists("utility_bills") {
+      try db.execute(
+        sql: """
+          DELETE FROM utility_bills
+          WHERE transaction_id IN (
+              SELECT id FROM transactions WHERE payment_method_id IN (\(marks))
+                OR card_id IN (SELECT id FROM cards WHERE payment_method_id IN (\(marks))))
+            OR scheduled_payment_id IN (
+              SELECT id FROM scheduled_payments WHERE payment_method_id IN (\(marks)))
+          """, arguments: StatementArguments(hidden + hidden + hidden))
+      try db.execute(
+        sql: "DELETE FROM utility_charges WHERE bill_id NOT IN (SELECT id FROM utility_bills)")
+    }
     try db.execute(
       sql: """
         DELETE FROM transactions WHERE payment_method_id IN (\(marks))

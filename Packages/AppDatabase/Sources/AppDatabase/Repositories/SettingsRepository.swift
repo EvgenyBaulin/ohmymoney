@@ -21,6 +21,13 @@ public struct SettingsRepository: Sendable {
     try writer.write { db in try Self.set(key, to: value, in: db) }
   }
 
+  /// Takes the key away: the setting goes back to having no value.
+  public func remove(_ key: String) throws {
+    try writer.write { db in
+      try db.execute(sql: "DELETE FROM settings WHERE key = ?", arguments: [key])
+    }
+  }
+
   /// The same inside a write already open — a history batch sets what it points at with it.
   static func set(_ key: String, to value: String, in db: Database) throws {
     try db.execute(
