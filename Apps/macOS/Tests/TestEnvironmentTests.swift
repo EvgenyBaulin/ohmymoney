@@ -7,6 +7,21 @@ import XCTest
 /// cannot run there says so instead of failing.
 @MainActor
 final class TestEnvironmentTests: XCTestCase {
+  /// The test host draws overlay scroll bars whatever is connected to the Mac: the scheme passes
+  /// `-AppleShowScrollBars WhenScrolling`. With a mouse plugged in and «Automatic» in System
+  /// Settings the legacy bars took 17 points of every scroll view, and every width test of the
+  /// Figma frames failed by exactly that much.
+  func testScrollBarsAreOverlayWhateverIsConnected() {
+    XCTAssertEqual(
+      UserDefaults.standard.string(forKey: "AppleShowScrollBars"), "WhenScrolling",
+      "the scheme no longer passes -AppleShowScrollBars WhenScrolling to the test host")
+    XCTAssertEqual(NSScroller.preferredScrollerStyle, .overlay)
+    let scroll = NSScrollView(frame: NSRect(x: 0, y: 0, width: 300, height: 200))
+    scroll.hasVerticalScroller = true
+    XCTAssertEqual(scroll.scrollerStyle, .overlay)
+    XCTAssertEqual(scroll.contentSize.width, 300, "a scroll bar takes width from the content")
+  }
+
   func testALayoutWiderThanAnyScreenSkips() {
     XCTAssertThrowsError(try TestEnvironment.requireScreen(width: 100_000)) { error in
       XCTAssertTrue(error is XCTSkip, "\(error)")

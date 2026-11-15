@@ -422,6 +422,11 @@ schemes:
     test:
       config: Debug
       targets: [OhMyMoneyTests, OhMyMoneyUITests]
+      # Overlay scroll bars whatever is connected: with a mouse and «Automatic» in System Settings
+      # the legacy bars take ~17 pt of every scroll view and the window tests measure the wrong
+      # widths (15.11: every Figma width test 17 pt narrower with a Bluetooth mouse on).
+      commandLineArguments:
+        "-AppleShowScrollBars WhenScrolling": true
     profile:
       config: Release
     analyze:
