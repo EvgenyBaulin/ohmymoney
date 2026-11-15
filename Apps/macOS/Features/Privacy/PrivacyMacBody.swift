@@ -54,6 +54,17 @@
                   last: false,
                   disabled: environment.exportCopies == nil
                 ) { showsExport = true }
+                Button {
+                  showsSharedReport = true
+                } label: {
+                  SettingsCardRow(
+                    symbol: "doc.text", title: environment.language(
+                      "sharedReport.menu", table: "Utilities"), showsDivider: true
+                  ) { chevron }
+                  .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("settings.privacy.sharedReport")
                 doorRow(
                   "play.rectangle", "privacy.settings.demo", id: "demo", last: true,
                   disabled: DemoDataMode.isOn()

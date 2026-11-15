@@ -186,7 +186,7 @@ struct Migration0025Tests {
   }
 
   @Test func theNewTableAndColumnGoLastInTheCSVAndTheFilesAreFiftyFour() throws {
-    #expect(ExportTables.all.count == 55)
+    #expect(ExportTables.all.count == 59)
     #expect(ExportTables.all.last(where: { $0 == ExportTables.creditStatements }) != nil)
     #expect(ExportTables.all.firstIndex(of: ExportTables.creditStatements) == 53)
     #expect(Array(ExportTables.debtInstalments.columns.suffix(1)) == ["due_on"])

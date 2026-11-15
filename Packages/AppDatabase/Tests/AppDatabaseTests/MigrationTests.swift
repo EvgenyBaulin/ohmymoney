@@ -39,7 +39,8 @@ struct MigrationTests {
       "subscription_prices", "subscription_terms", "subscription_usage", "subscription_users",
       "sync_deferred", "sync_heads", "sync_history", "sync_meta", "sync_outbox",
       "sync_resolutions", "sync_state", "tags", "templates", "thing_valuations",
-      "transaction_parts", "transactions", "transfers", "week_answers", "wish_prices", "wishes",
+      "transaction_parts", "transactions", "transfers", "utility_bills", "utility_charges",
+      "utility_meters", "utility_readings", "week_answers", "wish_prices", "wishes",
     ]
     let tables = try stack.writer.read { db in
       try String.fetchAll(

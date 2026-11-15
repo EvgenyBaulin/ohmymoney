@@ -15,6 +15,7 @@ struct PrivacySettingsView: View {
   @State var showsJournal = false
   @State var showsStorage = false
   @State var showsExport = false
+  @State var showsSharedReport = false
   @State var confirmsDemo = false
 
   private static let table = "PrivacyExport"
@@ -36,6 +37,14 @@ struct PrivacySettingsView: View {
     }
     .sheet(isPresented: environment.lock.presenting($showsExport)) {
       handed { ExportCopyView(model: PrivacyScreens.exportModel(environment)) }
+    }
+    .sheet(isPresented: environment.lock.presenting($showsSharedReport)) {
+      handed {
+        SharedReportView(
+          model: SharedReportScreens.model(
+            dataset: dependencies?.compute.snapshot?.dataset ?? Dataset(),
+            environment: environment))
+      }
     }
     .confirmationDialog(
       t("privacy.demo.confirm.title"), isPresented: $confirmsDemo, titleVisibility: .visible
@@ -87,6 +96,10 @@ struct PrivacySettingsView: View {
         Button(t("privacy.settings.exportCopy")) { showsExport = true }
           .disabled(environment.exportCopies == nil)
           .accessibilityIdentifier("settings.privacy.exportCopy")
+        Button(environment.language("sharedReport.menu", table: "Utilities")) {
+          showsSharedReport = true
+        }
+        .accessibilityIdentifier("settings.privacy.sharedReport")
         #if os(macOS)
           Button(t("privacy.settings.demo")) { confirmsDemo = true }
             .disabled(DemoDataMode.isOn())

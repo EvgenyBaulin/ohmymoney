@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 55 files of Export, always in the same order.
+/// The 59 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -532,7 +532,39 @@ public enum ExportTables {
       "id", "owner_kind", "owner_id", "valued_on", "value", "currency", "note", "recorded_at",
     ])
 
-  /// All 55 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// Columns match `Schema/0030_utility_meters_and_bills.sql`: the meters of the home. `kind` is
+  /// `cold_water`, `hot_water`, `electricity`, `gas`, `heat` or `other`; `tariff` the price of one
+  /// unit in `currency`; `submit_from` and `submit_to` the days of the month readings are taken on.
+  public static let utilityMeters = ExportTable(
+    fileName: "utility_meters.csv",
+    columns: [
+      "id", "name", "kind", "unit", "tariff", "currency", "submit_from", "submit_to", "provider",
+      "scheduled_payment_id", "archived", "sort", "note",
+    ])
+
+  /// What a meter showed on a day: `value` is a decimal string in the meter's unit, `restart`
+  /// says the count starts again here, `submitted_at` and `recorded_at` are instants (UTC).
+  public static let utilityReadings = ExportTable(
+    fileName: "utility_readings.csv",
+    columns: [
+      "id", "meter_id", "read_on", "value", "restart", "tariff", "submitted_at", "recorded_at",
+    ])
+
+  /// A bill of a provider for a month (`period` is `YYYY-MM`), `total` in `currency`.
+  public static let utilityBills = ExportTable(
+    fileName: "utility_bills.csv",
+    columns: [
+      "id", "provider", "period", "total", "currency", "pay_by", "transaction_id",
+      "scheduled_payment_id", "note", "recorded_at",
+    ])
+
+  /// A line of a bill: the service, its `amount` in the bill's currency, the `quantity` and the
+  /// `tariff` when the bill names them, and the meter it is for.
+  public static let utilityCharges = ExportTable(
+    fileName: "utility_charges.csv",
+    columns: ["id", "bill_id", "service", "amount", "quantity", "tariff", "meter_id", "sort"])
+
+  /// All 59 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
@@ -540,7 +572,8 @@ public enum ExportTables {
   /// the conditions of bank products and the deposits of the owner, then the attachments, then the
   /// wishes, their prices, the shopping list and the things outside the capital, then the badges
   /// and the days without spending, then the banks' tables of cashback categories and the offers
-  /// of the months, then the statements of credit cards, then the valuations of things.
+  /// of the months, then the statements of credit cards, then the valuations of things, then the
+  /// meters of the home, their readings, the bills of the providers and the lines of the bills.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -550,7 +583,8 @@ public enum ExportTables {
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
     attachments, wishes, wishPrices, shoppingItems, ownedItems, habitBadges, noSpendDays,
-    bankCashbackCategories, cashbackOffers, creditStatements, thingValuations,
+    bankCashbackCategories, cashbackOffers, creditStatements, thingValuations, utilityMeters,
+    utilityReadings, utilityBills, utilityCharges,
   ]
 }
 
@@ -1126,6 +1160,44 @@ extension ExportTables {
       String(step.fromIndex),
       CSVValue.string(amount: step.amountE4),
       CSVValue.string(day: step.dueOn),
+    ]
+  }
+
+  public static func row(_ meter: UtilityMeter) -> [String] {
+    [
+      meter.id.uuidString, meter.name, meter.kindKey, meter.unit,
+      CSVValue.string(amount: meter.tariffE4), meter.currency.code,
+      meter.submitFrom.map(String.init) ?? CSVValue.empty,
+      meter.submitTo.map(String.init) ?? CSVValue.empty, CSVValue.string(meter.provider),
+      CSVValue.string(meter.scheduledPaymentId), CSVValue.string(bool: meter.archived),
+      String(meter.sort), CSVValue.string(meter.note),
+    ]
+  }
+
+  public static func row(_ reading: UtilityReading) -> [String] {
+    [
+      reading.id.uuidString, reading.meterId.uuidString, reading.day.iso,
+      CSVValue.string(amount: reading.valueE4), CSVValue.string(bool: reading.restart),
+      CSVValue.string(amount: reading.tariffE4), CSVValue.string(instant: reading.submittedAt),
+      CSVValue.string(instant: reading.recordedAt),
+    ]
+  }
+
+  public static func row(_ bill: UtilityBill) -> [String] {
+    [
+      bill.id.uuidString, bill.provider, bill.period.iso, CSVValue.string(amount: bill.totalE4),
+      bill.currency.code, CSVValue.string(day: bill.payBy), CSVValue.string(bill.transactionId),
+      CSVValue.string(bill.scheduledPaymentId), CSVValue.string(bill.note),
+      CSVValue.string(instant: bill.recordedAt),
+    ]
+  }
+
+  public static func row(_ charge: UtilityCharge) -> [String] {
+    [
+      charge.id.uuidString, charge.billId.uuidString, charge.service,
+      CSVValue.string(amount: charge.amountE4), CSVValue.string(amount: charge.quantityE4),
+      CSVValue.string(amount: charge.tariffE4), CSVValue.string(charge.meterId),
+      String(charge.sort),
     ]
   }
 

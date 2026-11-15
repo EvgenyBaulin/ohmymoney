@@ -31,6 +31,8 @@ public enum SyncTables {
     "wishes": "id", "wish_prices": "id", "shopping_items": "id", "owned_items": "id",
     "habit_badges": "key", "no_spend_days": "day",
     "bank_cashback_categories": "id", "cashback_offers": "id", "credit_statements": "id",
+    "utility_meters": "id", "utility_readings": "id", "utility_bills": "id",
+    "utility_charges": "id",
     "thing_valuations": "id",
   ]
 

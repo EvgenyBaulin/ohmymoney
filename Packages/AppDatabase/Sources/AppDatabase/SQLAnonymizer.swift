@@ -30,13 +30,16 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     public var importSource: String
     public var attachment: String
     public var scenario: String
+    public var meter: String = "Счётчик"
+    public var provider: String = "Поставщик"
 
     public static let russian = ExtraLabels(
       template: "Шаблон ввода", identityItem: "Данные", importFile: "Файл",
       importSource: "Категория выписки", attachment: "Вложение", scenario: "Сценарий")
     public static let english = ExtraLabels(
       template: "Entry template", identityItem: "Data", importFile: "File",
-      importSource: "Statement category", attachment: "Attachment", scenario: "Scenario")
+      importSource: "Statement category", attachment: "Attachment", scenario: "Scenario",
+      meter: "Meter", provider: "Provider")
   }
 
   public init(labels: AnonymizerLabels = .russian, extra: ExtraLabels = .russian) {
@@ -153,6 +156,44 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     try db.execute(sql: "UPDATE wishes SET url = NULL, note = NULL")
     try rename(db, table: "shopping_items", labels.shoppingItem)
     try db.execute(sql: "UPDATE shopping_items SET note = NULL")
+    try utilities(db)
+  }
+
+  // MARK: - Utilities
+
+  /// The meters are numbered and the providers too — one provider is one word in the meters and
+  /// the bills alike —; notes go. The kinds, units, readings, tariffs, amounts, periods and the
+  /// services of the lines of bills stay: they are numbers and the words of a bill, no name.
+  private func utilities(_ db: Database) throws {
+    guard try db.tableExists("utility_meters") else { return }
+    try rename(db, table: "utility_meters", extra.meter)
+    try db.execute(sql: "UPDATE utility_meters SET note = NULL")
+    try db.execute(sql: "UPDATE utility_bills SET note = NULL")
+    var providers: [String: String] = [:]
+    func word(_ provider: String) -> String {
+      let key = provider.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+      if let known = providers[key] { return known }
+      let made = Self.name(extra.provider, providers.count)
+      providers[key] = made
+      return made
+    }
+    for row in try Row.fetchAll(
+      db, sql: "SELECT id, provider FROM utility_bills ORDER BY rowid")
+    {
+      let id: String = row["id"]
+      let provider: String = row["provider"] ?? ""
+      try db.execute(
+        sql: "UPDATE utility_bills SET provider = ? WHERE id = ?", arguments: [word(provider), id])
+    }
+    for row in try Row.fetchAll(
+      db, sql: "SELECT id, provider FROM utility_meters WHERE provider IS NOT NULL ORDER BY rowid")
+    {
+      let id: String = row["id"]
+      let provider: String = row["provider"] ?? ""
+      try db.execute(
+        sql: "UPDATE utility_meters SET provider = ? WHERE id = ?",
+        arguments: [word(provider), id])
+    }
   }
 
   // MARK: - Rules, notes

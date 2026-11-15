@@ -32,6 +32,10 @@ struct FileCommands: Commands {
         PrivacyRequests.shared.askCopy()
       }
       .disabled(environment.exportCopies == nil)
+      // Only the chosen accounts and categories of a span, as a PDF or a table.
+      Button(environment.language("sharedReport.menu", table: "Utilities")) {
+        PrivacyRequests.shared.sharedReport = true
+      }
       Button(environment.language("privacy.menu.storage", table: "PrivacyExport")) {
         PrivacyRequests.shared.storage = true
       }

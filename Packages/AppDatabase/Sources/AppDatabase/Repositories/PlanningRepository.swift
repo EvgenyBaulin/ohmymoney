@@ -31,6 +31,11 @@ public struct PlanningRows: Sendable, Hashable {
   public var assetValuations: [AssetValuation]
   /// The market valuations of things; the history of a thing is kept with it.
   public var thingValuations: [ThingValuation]
+  /// The meters of the home, their readings, the bills of the providers and their lines.
+  public var utilityMeters: [UtilityMeter]
+  public var utilityReadings: [UtilityReading]
+  public var utilityBills: [UtilityBill]
+  public var utilityCharges: [UtilityCharge]
   /// The sums of dues typed from a bank's app.
   public var debtInstalments: [DebtInstalmentStep]
   /// What else a loan costs.
@@ -58,9 +63,15 @@ public struct PlanningRows: Sendable, Hashable {
     debtInstalments: [DebtInstalmentStep] = [], debtCosts: [DebtCost] = [],
     allocationRules: [AllocationRule] = [], customCurrencies: [CustomCurrency] = [],
     rates: [Rate] = [], scenarios: [Scenario] = [],
-    creditStatements: [CreditStatementOverride] = [], thingValuations: [ThingValuation] = []
+    creditStatements: [CreditStatementOverride] = [], thingValuations: [ThingValuation] = [],
+    utilityMeters: [UtilityMeter] = [], utilityReadings: [UtilityReading] = [],
+    utilityBills: [UtilityBill] = [], utilityCharges: [UtilityCharge] = []
   ) {
     self.thingValuations = thingValuations
+    self.utilityMeters = utilityMeters
+    self.utilityReadings = utilityReadings
+    self.utilityBills = utilityBills
+    self.utilityCharges = utilityCharges
     self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
@@ -116,6 +127,10 @@ public struct PlanningRowIDs: Sendable, Hashable {
   public var assets: [UUID]
   public var assetValuations: [UUID]
   public var thingValuations: [UUID]
+  public var utilityMeters: [UUID]
+  public var utilityReadings: [UUID]
+  public var utilityBills: [UUID]
+  public var utilityCharges: [UUID]
   public var debtInstalments: [UUID]
   public var debtCosts: [UUID]
   public var creditStatements: [UUID]
@@ -134,9 +149,15 @@ public struct PlanningRowIDs: Sendable, Hashable {
     cashbackRules: [UUID] = [], banks: [UUID] = [], assets: [UUID] = [],
     assetValuations: [UUID] = [], debtInstalments: [UUID] = [], debtCosts: [UUID] = [],
     allocationRules: [UUID] = [], customCurrencies: [CurrencyCode] = [], rates: [RateKey] = [],
-    scenarios: [UUID] = [], creditStatements: [UUID] = [], thingValuations: [UUID] = []
+    scenarios: [UUID] = [], creditStatements: [UUID] = [], thingValuations: [UUID] = [],
+    utilityMeters: [UUID] = [], utilityReadings: [UUID] = [], utilityBills: [UUID] = [],
+    utilityCharges: [UUID] = []
   ) {
     self.thingValuations = thingValuations
+    self.utilityMeters = utilityMeters
+    self.utilityReadings = utilityReadings
+    self.utilityBills = utilityBills
+    self.utilityCharges = utilityCharges
     self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
@@ -563,6 +584,16 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.assetValuations, db: db)
     try journal.delete(ThingValuation.self, ids: change.delete.thingValuations, db: db)
     try journal.upsert(rows.thingValuations, db: db)
+    // A meter before its readings, a bill before its lines; the lines and readings deleted go
+    // first, the bills and meters after the new rows are written.
+    try journal.delete(UtilityCharge.self, ids: change.delete.utilityCharges, db: db)
+    try journal.delete(UtilityReading.self, ids: change.delete.utilityReadings, db: db)
+    try journal.upsert(rows.utilityMeters, db: db)
+    try journal.upsert(rows.utilityReadings, db: db)
+    try journal.upsert(rows.utilityBills, db: db)
+    try journal.upsert(rows.utilityCharges, db: db)
+    try journal.delete(UtilityBill.self, ids: change.delete.utilityBills, db: db)
+    try journal.delete(UtilityMeter.self, ids: change.delete.utilityMeters, db: db)
     // New operations are written the way `TransactionRepository.insert` writes them: as new
     // rows, so an id or an `external_id` that is already there fails the change. Each is given
     // an account like any other (`TransactionRepository.assigningAccount`), and a refund is
@@ -996,6 +1027,10 @@ public struct PlanningRepository: Sendable {
     }
     try Self.deleteAll(CashbackRule.self, ids: added.cashbackRules, db: db)
     try Self.deleteAll(ThingValuation.self, ids: added.thingValuations, db: db)
+    try Self.deleteAll(UtilityCharge.self, ids: added.utilityCharges, db: db)
+    try Self.deleteAll(UtilityReading.self, ids: added.utilityReadings, db: db)
+    try Self.deleteAll(UtilityBill.self, ids: added.utilityBills, db: db)
+    try Self.deleteAll(UtilityMeter.self, ids: added.utilityMeters, db: db)
     try Self.deleteAll(AssetValuation.self, ids: added.assetValuations, db: db)
     try Self.deleteAll(Asset.self, ids: added.assets, db: db)
     try Self.deleteAll(Budget.self, ids: added.budgets, db: db)
@@ -1033,6 +1068,10 @@ public struct PlanningRepository: Sendable {
     for row in before.assets { try row.save(db) }
     for row in before.assetValuations { try row.save(db) }
     for row in before.thingValuations { try row.save(db) }
+    for row in before.utilityMeters { try row.save(db) }
+    for row in before.utilityReadings { try row.save(db) }
+    for row in before.utilityBills { try row.save(db) }
+    for row in before.utilityCharges { try row.save(db) }
     for row in before.debtEntries { try row.save(db) }
     for row in before.debtCosts { try row.save(db) }
     for row in before.expectedLinks { try row.save(db) }
@@ -1078,6 +1117,10 @@ public struct PlanningRepository: Sendable {
     try Self.restoreRowIDs(before.assets, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.assetValuations, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.thingValuations, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.utilityMeters, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.utilityReadings, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.utilityBills, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.utilityCharges, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtEntries, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtCosts, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtInstalments, undo.rowIDs, db: db)
@@ -1535,9 +1578,12 @@ extension ScheduledPayment: PlanningRow {
   static var rows: WritableKeyPath<PlanningRows, [Self]> { \.scheduled }
   static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.scheduled }
 
-  /// Its price history goes with it.
+  /// Its price history goes with it; the meters and bills that name it lose the link, kept
+  /// whole so ⌘Z gives it back.
   static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
     try journal.keepRows(SubscriptionPrice.self, where: "payment_id", is: id, db: db)
+    try journal.keepRows(UtilityMeter.self, where: "scheduled_payment_id", is: id, db: db)
+    try journal.keepRows(UtilityBill.self, where: "scheduled_payment_id", is: id, db: db)
   }
 }
 
@@ -1690,6 +1736,38 @@ extension Asset: PlanningRow {
 extension ThingValuation: PlanningRow {
   static var rows: WritableKeyPath<PlanningRows, [Self]> { \.thingValuations }
   static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.thingValuations }
+}
+
+extension UtilityMeter: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.utilityMeters }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.utilityMeters }
+
+  /// Its readings go with it (`ON DELETE CASCADE`) and the lines of bills lose it: both kept
+  /// whole, so ⌘Z brings back its history.
+  static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
+    try journal.keepRows(UtilityReading.self, where: "meter_id", is: id, db: db)
+    try journal.keepRows(UtilityCharge.self, where: "meter_id", is: id, db: db)
+  }
+}
+
+extension UtilityReading: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.utilityReadings }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.utilityReadings }
+}
+
+extension UtilityBill: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.utilityBills }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.utilityBills }
+
+  /// Its lines go with it (`ON DELETE CASCADE`), kept whole for ⌘Z.
+  static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
+    try journal.keepRows(UtilityCharge.self, where: "bill_id", is: id, db: db)
+  }
+}
+
+extension UtilityCharge: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.utilityCharges }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.utilityCharges }
 }
 
 extension AssetValuation: PlanningRow {

@@ -178,8 +178,8 @@ struct Migration0026Tests {
   }
 
   @Test func theNewColumnsAndTheTableGoLastInTheCSVAndTheFilesAreFiftyFive() throws {
-    #expect(ExportTables.all.count == 55)
-    #expect(ExportTables.all.last == ExportTables.thingValuations)
+    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.dropLast(4).last == ExportTables.thingValuations)
     let stack = try TestSupport.makeStack()
     try stack.writer.write { db in
       try db.execute(sql: Self.seed)

@@ -132,6 +132,7 @@ public struct DatasetRepository: Sendable {
     let savedViews = try SavedViewsRepository.book(db)
     var extras = DatasetExtras()
     extras.set(try ThingValuationRepository.all(db), for: Dataset.thingValuationsKey)
+    extras.set(try UtilityRepository.book(db), for: Dataset.utilitiesKey)
     extras.set(try SubscriptionRepository.book(db), for: Dataset.subscriptionsKey)
     extras.set(try YearPlanRepository.data(db), for: Dataset.yearPlanKey)
     extras.set(

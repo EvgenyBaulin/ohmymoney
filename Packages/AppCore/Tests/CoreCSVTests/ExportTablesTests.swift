@@ -28,16 +28,17 @@ private let specifiedFileNames = [
   "wish_prices.csv", "shopping_items.csv", "owned_items.csv", "habit_badges.csv",
   "no_spend_days.csv",
   "bank_cashback_categories.csv", "cashback_offers.csv", "credit_statements.csv",
-  "thing_valuations.csv",
+  "thing_valuations.csv", "utility_meters.csv", "utility_readings.csv", "utility_bills.csv",
+  "utility_charges.csv",
 ]
 
-@Suite("ExportTables describes the 55 files of the export")
+@Suite("ExportTables describes the 59 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 55)
+    #expect(ExportTables.all.count == 59)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.dropLast(4).suffix(30) == [
+      ExportTables.all.dropLast(8).suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -1364,5 +1365,45 @@ struct CustomCurrenciesCSVTests {
     #expect(rows.map(CustomCurrenciesCSVTests.back) == currencies)
     #expect(rows.first?["archived"] == "false")
     #expect(rows.last?["symbol"] == "")
+  }
+}
+
+/// The utilities of schema 30 go last, as four files, and their rows have the shape of their
+/// headers: a meter of a kind this build does not know keeps its word.
+@Suite("Utilities in the export")
+struct UtilityExportTests {
+  @Test func theFourFilesComeLastAndRowsMatchTheirHeaders() {
+    #expect(
+      ExportTables.all.suffix(4) == [
+        ExportTables.utilityMeters, ExportTables.utilityReadings, ExportTables.utilityBills,
+        ExportTables.utilityCharges,
+      ])
+    var meter = UtilityMeter(
+      name: "Свет, день", kind: .electricity, tariffE4: AmountE4(raw: 6_4300), submitFrom: 20,
+      submitTo: 25, provider: "Энергосбыт")
+    meter.kindKey = "solar"
+    let at = Date(timeIntervalSince1970: 1_790_000_000)
+    let reading = UtilityReading(
+      meterId: meter.id, day: DateOnly(year: 2026, month: 11, day: 21),
+      valueE4: AmountE4(raw: 1234_5600), restart: true, recordedAt: at)
+    let bill = UtilityBill(
+      provider: "УК", period: MonthKey(year: 2026, month: 11), totalE4: AmountE4(whole: 4_400),
+      payBy: DateOnly(year: 2026, month: 12, day: 10), recordedAt: at)
+    let charge = UtilityCharge(
+      billId: bill.id, service: "ХВС", amountE4: AmountE4(whole: -120),
+      quantityE4: AmountE4(raw: 3_5000), meterId: meter.id)
+    let meterRow = ExportTables.row(meter)
+    #expect(meterRow.count == ExportTables.utilityMeters.columns.count)
+    #expect(meterRow[2] == "solar" && meterRow[4] == "6.43" && meterRow[6] == "20")
+    #expect(meterRow[10] == "false")
+    let readingRow = ExportTables.row(reading)
+    #expect(readingRow.count == ExportTables.utilityReadings.columns.count)
+    #expect(readingRow[3] == "1234.56" && readingRow[4] == "true" && readingRow[6] == "")
+    let billRow = ExportTables.row(bill)
+    #expect(billRow.count == ExportTables.utilityBills.columns.count)
+    #expect(billRow[2] == "2026-11" && billRow[3] == "4400" && billRow[5] == "2026-12-10")
+    let chargeRow = ExportTables.row(charge)
+    #expect(chargeRow.count == ExportTables.utilityCharges.columns.count)
+    #expect(chargeRow[3] == "-120" && chargeRow[4] == "3.5" && chargeRow[5] == "")
   }
 }

@@ -89,6 +89,31 @@ struct ExportPandasTests {
           currency: .eur, note: "рынок, \"б/у\"",
           recordedAt: Date(timeIntervalSince1970: 1_790_000_000)))
     ]
+    // A meter with a reading after a replacement, and a bill with a recalculation in its lines.
+    let meter = UtilityMeter(
+      id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000005")!, name: "Вода, «кухня»",
+      kind: .coldWater, tariffE4: AmountE4(raw: 51_2345), submitFrom: 25, submitTo: 5,
+      provider: "Водоканал")
+    let bill = UtilityBill(
+      id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000006")!, provider: "УК \"Дом\"",
+      period: MonthKey(year: 2026, month: 9), totalE4: AmountE4(whole: 4_400),
+      recordedAt: Date(timeIntervalSince1970: 1_790_000_000))
+    rows[ExportTables.utilityMeters] = [ExportTables.row(meter)]
+    rows[ExportTables.utilityReadings] = [
+      ExportTables.row(
+        UtilityReading(
+          id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000007")!, meterId: meter.id,
+          day: DateOnly(year: 2026, month: 9, day: 27), valueE4: AmountE4(raw: 123_4567),
+          restart: true, recordedAt: Date(timeIntervalSince1970: 1_790_000_000)))
+    ]
+    rows[ExportTables.utilityBills] = [ExportTables.row(bill)]
+    rows[ExportTables.utilityCharges] = [
+      ExportTables.row(
+        UtilityCharge(
+          id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000008")!, billId: bill.id,
+          service: "ХВС, перерасчёт", amountE4: AmountE4(whole: -120),
+          quantityE4: AmountE4(raw: 3_5000), meterId: meter.id))
+    ]
     rows[ExportTables.depositOffers] = [
       ExportTables.row(
         DepositOffer(
@@ -170,7 +195,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 55)
+    #expect(ExportTables.all.count == 59)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,

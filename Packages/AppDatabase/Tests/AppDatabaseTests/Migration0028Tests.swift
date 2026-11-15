@@ -190,7 +190,7 @@ struct Migration0028Tests {
   }
 
   @Test func theListsGoLastInTheCSVAndTheNumberOfFilesIsUnchanged() throws {
-    #expect(ExportTables.all.count == 55)
+    #expect(ExportTables.all.count == 59)
     #expect(
       ExportTables.bankCashbackCategories.columns == [
         "id", "bank_id", "label", "category_id", "include_mcc", "exclude_mcc",

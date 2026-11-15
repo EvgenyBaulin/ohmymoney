@@ -369,6 +369,64 @@ public struct ExportRepository: Sendable {
               + Self.amount(row, "value_e4") + Self.text(row, ["currency", "note", "recorded_at"]))
         }
       }
+    case ExportTables.utilityMeters.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM utility_meters ORDER BY sort, name, id") {
+        // A row this build can not read still goes out, in the text of the database.
+        if let meter = try? UtilityMeter(row: row) {
+          csv.append(ExportTables.row(meter))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "name", "kind", "unit"]) + Self.amount(row, "tariff_e4")
+              + Self.text(row, ["currency"]) + Self.integer(row, "submit_from")
+              + Self.integer(row, "submit_to")
+              + Self.text(row, ["provider", "scheduled_payment_id"])
+              + [Self.flag(row, "archived", false)] + Self.integer(row, "sort")
+              + Self.text(row, ["note"]))
+        }
+      }
+    case ExportTables.utilityReadings.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM utility_readings ORDER BY meter_id, read_on, recorded_at, id")
+      {
+        if let reading = try? UtilityReading(row: row) {
+          csv.append(ExportTables.row(reading))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "meter_id", "read_on"]) + Self.amount(row, "value_e4")
+              + [Self.flag(row, "restart", false)] + Self.amount(row, "tariff_e4")
+              + Self.text(row, ["submitted_at", "recorded_at"]))
+        }
+      }
+    case ExportTables.utilityBills.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM utility_bills ORDER BY period, provider, recorded_at, id")
+      {
+        if let bill = try? UtilityBill(row: row) {
+          csv.append(ExportTables.row(bill))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "provider", "period"]) + Self.amount(row, "total_e4")
+              + Self.text(
+                row,
+                [
+                  "currency", "pay_by", "transaction_id", "scheduled_payment_id", "note",
+                  "recorded_at",
+                ]))
+        }
+      }
+    case ExportTables.utilityCharges.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM utility_charges ORDER BY bill_id, sort, id")
+      {
+        if let charge = try? UtilityCharge(row: row) {
+          csv.append(ExportTables.row(charge))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "bill_id", "service"]) + Self.amount(row, "amount_e4")
+              + Self.amount(row, "quantity_e4") + Self.amount(row, "tariff_e4")
+              + Self.text(row, ["meter_id"]) + Self.integer(row, "sort"))
+        }
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break
@@ -384,6 +442,11 @@ public struct ExportRepository: Sendable {
   /// An amount column (`*_e4`) as a decimal string; NULL is an empty cell.
   private static func amount(_ row: Row, _ column: String) -> [String] {
     [CSVValue.string(amount: (row[column] as Int64?).map { AmountE4(raw: $0) })]
+  }
+
+  /// A whole-number column as its digits; NULL is an empty cell.
+  private static func integer(_ row: Row, _ column: String) -> [String] {
+    [(row[column] as Int64?).map(String.init) ?? CSVValue.empty]
   }
 
   private static func flag(_ row: Row, _ column: String, _ fallback: Bool) -> String {

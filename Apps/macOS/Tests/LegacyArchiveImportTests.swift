@@ -277,6 +277,7 @@ final class LegacyArchiveImportTests: XCTestCase {
         "0026_mcc_fee_valuations_wish_image",
         "0027_savings_points_digital_pause",
         "0028_bank_cashback_merchant_codes",
+        "0030_utility_meters_and_bills",
       ],
       "the copy is not the database as the older version left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)
@@ -387,6 +388,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0026_mcc_fee_valuations_wish_image",
         "0027_savings_points_digital_pause",
         "0028_bank_cashback_merchant_codes",
+        "0030_utility_meters_and_bills",
       ])
     // The copy, then what the update did — counts, never a value.
     var lines: [String] = []
@@ -447,6 +449,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0026_mcc_fee_valuations_wish_image",
         "0027_savings_points_digital_pause",
         "0028_bank_cashback_merchant_codes",
+        "0030_utility_meters_and_bills",
       ],
       "the database was updated without a copy")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: AppPaths.databaseURL), counts)
@@ -507,6 +510,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0026_mcc_fee_valuations_wish_image",
         "0027_savings_points_digital_pause",
         "0028_bank_cashback_merchant_codes",
+        "0030_utility_meters_and_bills",
       ],
       "a damaged database was updated")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: AppPaths.databaseURL), counts)

@@ -62,8 +62,8 @@ struct MerchantCodeAndFeeExportTests {
   }
 
   @Test func theValuationsAreTheLastOfFiftyFiveFiles() {
-    #expect(ExportTables.all.count == 55)
-    #expect(ExportTables.all.last == ExportTables.thingValuations)
+    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.dropLast(4).last == ExportTables.thingValuations)
     #expect(
       ExportTables.thingValuations.columns == [
         "id", "owner_kind", "owner_id", "valued_on", "value", "currency", "note", "recorded_at",

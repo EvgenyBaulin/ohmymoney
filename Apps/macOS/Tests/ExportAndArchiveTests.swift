@@ -53,7 +53,7 @@ final class ExportAndArchiveTests: XCTestCase {
     let target = directory.appendingPathComponent("export")
     let written = try service.export(to: target)
 
-    XCTAssertEqual(written.count, 55)
+    XCTAssertEqual(written.count, 59)
     XCTAssertEqual(
       Array(written.map(\.lastPathComponent).dropLast(4).suffix(28).prefix(12)),
       [
@@ -156,7 +156,7 @@ final class ExportAndArchiveTests: XCTestCase {
   func testAnExportThatFinishesSaysHowManyFilesItWrote() throws {
     let service = CSVExportService(repository: ExportRepository(writer: stack.writer))
     let target = directory.appendingPathComponent("export")
-    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 55))
+    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 59))
     let names = try FileManager.default.contentsOfDirectory(atPath: target.path)
     XCTAssertEqual(names.count, 55, "\(names)")
     XCTAssertTrue(names.allSatisfy { $0.hasSuffix(".csv") }, "\(names)")

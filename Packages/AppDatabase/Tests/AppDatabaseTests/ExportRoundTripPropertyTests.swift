@@ -26,12 +26,12 @@ struct ExportRoundTripPropertyTests {
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
     "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever", "done",
-    "hidden", "chosen", "borrowed", "digital_ruble", "piggy",
+    "hidden", "chosen", "borrowed", "digital_ruble", "piggy", "restart",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
     "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
-    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at", "recorded_at",
+    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at", "recorded_at", "submitted_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [
@@ -366,6 +366,23 @@ struct ExportRoundTripPropertyTests {
             VALUES (?, 'owned_item', ?, '2026-09-01', 8000000, 'EUR', 'рынок, «б/у»', '2026-09-01 10:00:00.000')
             """, arguments: [UUID().uuidString, item])
       }
+      // Schema 30: a meter with a reading, a bill with a line, texts with commas and quotes.
+      let meter = UUID().uuidString
+      let bill = UUID().uuidString
+      try db.execute(
+        sql: """
+          INSERT INTO utility_meters (id, name, kind, unit, tariff_e4, submit_from, submit_to, provider, note)
+            VALUES (?, 'Вода, «кухня»', 'cold_water', 'm3', 512345, 20, 25, 'Водоканал', 'за мойкой');
+          INSERT INTO utility_readings (id, meter_id, read_on, value_e4, restart, tariff_e4, submitted_at, recorded_at)
+            VALUES (?, ?, '2026-09-21', 1234567, 1, 512345, '2026-09-21 11:00:00.000', '2026-09-21 10:00:00.000');
+          INSERT INTO utility_bills (id, provider, period, total_e4, pay_by, note, recorded_at)
+            VALUES (?, 'УК "Дом"', '2026-09', 44000000, '2026-10-10', 'л/с 1, 2', '2026-09-22 10:00:00.000');
+          INSERT INTO utility_charges (id, bill_id, service, amount_e4, quantity_e4, tariff_e4, meter_id, sort)
+            VALUES (?, ?, 'ХВС, нормативы', -1200000, 35000, 512345, ?, 1);
+          """,
+        arguments: [
+          meter, UUID().uuidString, meter, bill, UUID().uuidString, bill, meter,
+        ])
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -527,6 +544,7 @@ struct ExportRoundTripPropertyTests {
           "0026_mcc_fee_valuations_wish_image",
           "0027_savings_points_digital_pause",
           "0028_bank_cashback_merchant_codes",
+          "0030_utility_meters_and_bills",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }

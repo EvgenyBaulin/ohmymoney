@@ -216,6 +216,7 @@ struct PlanningHeader: View {
   @Environment(\.windowWidth) private var windowWidth
   @State private var asksAfford = false
   @State private var showsWarranty = false
+  @State private var showsUtilities = false
   @Binding var editing: Bool
   let add: (PlanningAddition) -> Void
 
@@ -255,6 +256,7 @@ struct PlanningHeader: View {
     }
     .sheet(isPresented: $asksAfford) { AffordSheet().handingOver(dependencies) }
     .sheet(isPresented: $showsWarranty) { WarrantyScreen().handingOver(dependencies) }
+    .sheet(isPresented: $showsUtilities) { UtilitiesScreen().handingOver(dependencies) }
   }
 
   /// The title as the design sets it: 22 bold on the Mac, the large title on touch devices.
@@ -290,6 +292,8 @@ struct PlanningHeader: View {
       .accessibilityIdentifier("planning.whatIf")
     Button(WarrantyText.t("warranty.button", environment)) { showsWarranty = true }
       .accessibilityIdentifier("planning.warranty")
+    Button(UtilitiesText.t("utilities.title", environment)) { showsUtilities = true }
+      .accessibilityIdentifier("planning.utilities")
     Button(PlanningBlockText.t(editing ? "layout.done" : "layout.edit", environment)) {
       editing.toggle()
     }

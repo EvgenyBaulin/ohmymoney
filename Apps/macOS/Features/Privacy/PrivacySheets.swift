@@ -18,6 +18,8 @@ final class PrivacyRequests {
 
   var copy: CopyAsk?
   var storage = false
+  /// «Отчёт для другого человека…» asked for.
+  var sharedReport = false
 
   func askCopy(format: ExportCopyRequest.Format = .archive) {
     copy = CopyAsk(format: format)
@@ -39,6 +41,10 @@ private struct PrivacySheets: ViewModifier {
       }
       .sheet(isPresented: deps.environment.lock.presenting($requests.storage)) {
         StorageReportView().appDependencies(deps)
+      }
+      .sheet(isPresented: deps.environment.lock.presenting($requests.sharedReport)) {
+        SharedReportView(model: SharedReportScreens.model(deps))
+          .appDependencies(deps)
       }
   }
 }

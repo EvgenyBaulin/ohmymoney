@@ -122,6 +122,18 @@ public struct ExportCopyMaker: Sendable {
           WHERE valued_on IS NULL OR valued_on < ? OR valued_on > ?
           """,
         arguments: [range.start.iso, range.end.iso])
+      // The readings of meters by their day, the bills by their month; the lines of a bill go
+      // with it.
+      if try db.tableExists("utility_readings") {
+        try db.execute(
+          sql: "DELETE FROM utility_readings WHERE read_on IS NULL OR read_on < ? OR read_on > ?",
+          arguments: [range.start.iso, range.end.iso])
+        try db.execute(
+          sql: "DELETE FROM utility_bills WHERE period IS NULL OR period < ? OR period > ?",
+          arguments: [range.start.monthKey.iso, range.end.monthKey.iso])
+        try db.execute(
+          sql: "DELETE FROM utility_charges WHERE bill_id NOT IN (SELECT id FROM utility_bills)")
+      }
       // The day an operation is shown on, in the zone it was recorded in; a transfer has no zone
       // and is read in Moscow, as everywhere else.
       let outside = try CoreKit.Transaction.fetchAll(db)
