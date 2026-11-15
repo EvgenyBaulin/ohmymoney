@@ -356,14 +356,14 @@ final class ExportAndArchiveTests: XCTestCase {
   /// build opens an archive of schema 8 — and of the ones before it — and a build that knows only
   /// 7 refuses it.
   func testAnArchiveOfSchemaEightOpensWhereEightIsSupported() throws {
-    XCTAssertEqual(stack.applied.onDisk, 28)
+    XCTAssertEqual(stack.applied.onDisk, 29)
     let service = ArchiveService(stack: stack, appVersion: "1.6.0")
     let url = directory.appendingPathComponent("eight.ohmymoneyarchive")
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 28)
-    XCTAssertEqual(opened.manifest.schemaVersion, 28)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 29)
+    XCTAssertEqual(opened.manifest.schemaVersion, 29)
     XCTAssertEqual(opened.csvTables.count, 55)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))

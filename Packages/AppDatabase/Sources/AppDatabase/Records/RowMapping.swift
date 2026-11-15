@@ -101,6 +101,15 @@ enum RowMapping {
   /// number, and the whole history is read on every load.
   private static let posix = Locale(identifier: "en_US_POSIX")
 
+  /// The text of a column, or `nil` for NULL and for any value that is not text (a number or
+  /// bytes a hand edit left): such a value reads as none rather than stopping the read.
+  static func text(_ row: Row, _ column: String) -> String? {
+    guard let value = row[column] as DatabaseValue?, case .string(let text) = value.storage else {
+      return nil
+    }
+    return text
+  }
+
   static func day(_ row: Row, _ column: String) -> DateOnly? {
     guard let text: String = row[column] else { return nil }
     return DateOnly(iso: text)

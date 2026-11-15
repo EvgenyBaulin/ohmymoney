@@ -241,7 +241,7 @@ struct Migration0006OddBooksPropertyTests {
     where ![
       "banks", "cashback_rules", "payment_methods", "debt_entries", "debts", "categories",
       "goals", "transfers", "transactions", "events", "cards", "import_batches",
-      "expected_income", "custom_currencies", "people",
+      "expected_income", "custom_currencies", "people", "transaction_parts",
     ].contains(table) {
       #expect(afterUpdate[table] == contents, "seed \(seed): \(table) changed")
     }
@@ -258,6 +258,7 @@ struct Migration0006OddBooksPropertyTests {
           "transactions": before["transactions"]?.columns ?? [],
           "events": before["events"]?.columns ?? [],
           "cards": before["cards"]?.columns ?? [],
+          "transaction_parts": before["transaction_parts"]?.columns ?? [],
         ])
     }
     #expect(oldColumns["payment_methods"] == before["payment_methods"], "seed \(seed)")
@@ -269,5 +270,6 @@ struct Migration0006OddBooksPropertyTests {
     #expect(oldColumns["transactions"] == before["transactions"], "seed \(seed)")
     #expect(oldColumns["events"] == before["events"], "seed \(seed)")
     #expect(oldColumns["cards"] == before["cards"], "seed \(seed)")
+    #expect(oldColumns["transaction_parts"] == before["transaction_parts"], "seed \(seed)")
   }
 }

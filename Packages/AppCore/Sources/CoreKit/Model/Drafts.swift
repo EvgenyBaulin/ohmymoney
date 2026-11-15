@@ -335,6 +335,8 @@ public struct PartDraft: Hashable, Sendable, Identifiable {
   public var note: String?
   /// A refund part: the part of a purchase it takes money back from.
   public var refundOfPartId: UUID?
+  /// The tax deduction the money of the part counts towards; `nil` — none.
+  public var taxDeduction: TaxDeductionKind?
 
   public init(
     id: UUID = UUID(),
@@ -352,8 +354,10 @@ public struct PartDraft: Hashable, Sendable, Identifiable {
     eventId: UUID? = nil,
     goalId: UUID? = nil,
     note: String? = nil,
-    refundOfPartId: UUID? = nil
+    refundOfPartId: UUID? = nil,
+    taxDeduction: TaxDeductionKind? = nil
   ) {
+    self.taxDeduction = taxDeduction
     self.id = id
     self.categoryId = categoryId
     self.categorySource = categorySource
@@ -388,7 +392,8 @@ public struct PartDraft: Hashable, Sendable, Identifiable {
       eventId: part.eventId,
       goalId: part.goalId,
       note: part.note,
-      refundOfPartId: part.refundOfPartId)
+      refundOfPartId: part.refundOfPartId,
+      taxDeduction: part.taxDeduction)
   }
 
   public func materialize(transactionId: UUID, amountRub: AmountE4) -> TransactionPart {
@@ -409,6 +414,7 @@ public struct PartDraft: Hashable, Sendable, Identifiable {
       eventId: eventId,
       goalId: goalId,
       note: note,
-      refundOfPartId: refundOfPartId)
+      refundOfPartId: refundOfPartId,
+      taxDeduction: taxDeduction)
   }
 }

@@ -77,7 +77,7 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(ExportTables.settings.columns == ["key", "value"])
     #expect(
-      Array(ExportTables.paymentMethods.columns.dropLast(12).suffix(16)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(13).suffix(16)) == [
         "cushion", "credit_limit", "credit_grace", "credit_statement_day", "credit_pay_days",
         "credit_grace_days", "credit_purchase_rate", "credit_cash_rate", "credit_min_percent",
         "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
@@ -86,14 +86,15 @@ struct ExportTablesDescriptionTests {
     // The ceilings of cashback and the day of the bank's choice came after them, then the
     // three fields of someone else's card.
     #expect(
-      Array(ExportTables.paymentMethods.columns.dropLast(7).suffix(5)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(8).suffix(5)) == [
         "cashback_monthly_cap", "cashback_choice_day", "borrowed", "borrowed_person_id",
         "borrowed_income_category_id",
       ])
     // The base and the next rate of the interest, the points that burn, the digital ruble and
-    // the piggy bank go last.
+    // the piggy bank came next; the kind of tax deduction goes last.
+    #expect(ExportTables.paymentMethods.columns.last == "tax_deduction")
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(7)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(1).suffix(7)) == [
         "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",
         "points_burn", "digital_ruble", "piggy",
       ])
@@ -106,13 +107,20 @@ struct ExportTablesDescriptionTests {
         "plan_start_month", "account_id", "transfer_on_contribution", "sort", "why_note",
       ])
     #expect(
-      Array(ExportTables.debts.columns.dropLast(3).suffix(14)) == [
+      Array(ExportTables.debts.columns.dropLast(4).suffix(14)) == [
         "repay_months", "step_days", "first_due_on", "parts", "markup", "psk", "prepay_any_day",
         "prepay_notice_days", "planned_prepay_on", "planned_prepay", "in_ladder", "pledge",
         "return_by", "terms_reviewed",
       ])
     #expect(
-      Array(ExportTables.debts.columns.suffix(3)) == ["pause_from", "pause_to", "pause_kind"])
+      Array(ExportTables.debts.columns.dropLast(1).suffix(3)) == [
+        "pause_from", "pause_to", "pause_kind",
+      ])
+    #expect(ExportTables.debts.columns.last == "tax_deduction")
+    #expect(
+      Array(ExportTables.transactionParts.columns.suffix(2)) == [
+        "refund_of_part_id", "tax_deduction",
+      ])
     #expect(Array(ExportTables.debtEntries.columns.suffix(2)) == ["tranche", "prepay"])
     #expect(
       Array(ExportTables.transfers.columns.suffix(3)) == [
@@ -236,8 +244,8 @@ struct ExportTablesDescriptionTests {
       #expect(Array(older.suffix(columns.count)) == columns, "\(table.fileName)")
     }
     #expect(ExportTables.transactions.columns.count == 47)
-    #expect(ExportTables.transactionParts.columns.count == 17)
-    #expect(ExportTables.paymentMethods.columns.count == 50)
+    #expect(ExportTables.transactionParts.columns.count == 18)
+    #expect(ExportTables.paymentMethods.columns.count == 51)
     #expect(ExportTables.templates.columns.count == 8)
     #expect(ExportTables.goals.columns.count == 13)
     #expect(ExportTables.debtEntries.columns.count == 18)

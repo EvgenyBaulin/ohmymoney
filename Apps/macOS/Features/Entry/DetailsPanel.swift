@@ -534,6 +534,7 @@ struct DetailsPanel: View {
       warrantyRow
       purchaseRow
       merchantCodeRow
+      taxDeductionRow
     case .date: dateRow
     case .incomeMonth: incomeMonthRows
     case .currency: currencyRows
@@ -958,6 +959,33 @@ struct DetailsPanel: View {
               .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
               .accessibilityIdentifier("entry.oneOff.splitHint")
+          }
+        }
+      }
+    }
+  }
+
+  /// «Налоговый вычет» of a purchase: the kind of deduction its money counts towards, for every
+  /// part of it (a split one names the parts it covers in the split itself; here they all take
+  /// it). «Не для вычета» takes the mark away.
+  @ViewBuilder
+  private var taxDeductionRow: some View {
+    if model.draft.kind == .expense {
+      fieldRow("entry.taxDeduction") {
+        VStack(alignment: .leading, spacing: 2) {
+          Picker(selection: TaxDeductionMark.binding(model)) {
+            ForEach([nil] + TaxDeductionKind.partKinds, id: \.self) { kind in
+              Text(verbatim: DeductionsText.kind(kind, environment)).tag(kind)
+            }
+          } label: {
+            Text(verbatim: DeductionsText.t("deductions.field", environment))
+          }
+          .labelsHidden()
+          .accessibilityIdentifier("entry.taxDeduction")
+          if model.isSplit {
+            Text(verbatim: DeductionsText.t("deductions.field.split", environment))
+              .appFont(.caption)
+              .secondaryInk()
           }
         }
       }
@@ -2071,7 +2099,9 @@ struct AmountField: View {
       }
     }
     .preference(key: UnreadableAmountKey.self, value: unreadable)
-    .accessibilityValue(unreadable ? Text(verbatim: environment.language("amount.unreadable")) : Text(verbatim: ""))
+    .accessibilityValue(
+      unreadable ? Text(verbatim: environment.language("amount.unreadable")) : Text(verbatim: "")
+    )
     .onAppear { show(amount) }
     .onChange(of: amount) { _, newValue in
       guard newValue != lastShown else { return }

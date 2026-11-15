@@ -44,6 +44,8 @@ struct AccountDraft: Equatable {
   var borrowedIncomeCategoryId: UUID?
   /// «Копилка»: an account the owner puts money aside to, with interest or not.
   var piggy = false
+  /// «ИИС»: an individual investment account — the transfers into it count towards the deduction.
+  var iis = false
   /// «Цифровой рубль»: a wallet of the digital ruble — rubles only, no interest, no cashback.
   var digitalRuble = false
   /// «Баллы сгорают»: the day the nearest points burn and how many, as typed (empty — all).
@@ -70,6 +72,7 @@ struct AccountDraft: Equatable {
     borrowedPersonId = account.borrowed?.personId
     borrowedIncomeCategoryId = account.borrowed?.incomeCategoryId
     piggy = account.piggy
+    iis = account.taxDeduction == .iis
     digitalRuble = account.digitalRuble
     pointsBurnOn = account.pointsBurn?.on
     pointsBurnText =
@@ -109,6 +112,7 @@ struct AccountDraft: Equatable {
     account.accent = accent
     account.hidden = isHidden
     account.piggy = piggy
+    account.taxDeduction = iis ? .iis : nil
     account.pointsBurn = pointsBurn
     account.borrowed =
       isBorrowed
@@ -121,6 +125,7 @@ struct AccountDraft: Equatable {
       account.groupId = nil
       account.cushion = false
       account.piggy = false
+      account.taxDeduction = nil
     }
     // A wallet of the digital ruble: rubles alone, no interest, no cashback.
     account.digitalRuble = false
@@ -316,6 +321,10 @@ struct AccountEditor: View {
               Text(verbatim: t("account.editor.piggy"))
             }
             .accessibilityIdentifier("account.editor.piggy")
+            Toggle(isOn: $draft.iis) {
+              Text(verbatim: DeductionsText.t("deductions.account.field", environment))
+            }
+            .accessibilityIdentifier("account.editor.iis")
             Toggle(isOn: digitalRuble) {
               Text(verbatim: t("account.editor.digitalRuble"))
             }

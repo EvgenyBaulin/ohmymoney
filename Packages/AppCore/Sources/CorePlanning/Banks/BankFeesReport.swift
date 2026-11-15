@@ -38,15 +38,12 @@ public struct BankFeesYear: Hashable, Sendable {
 }
 
 public enum BankFeesReport {
-  /// The prefixes of the operations the app writes for interest it was told of.
-  static let interestPrefixes = ["ccinterest:", "debtinterest:", "debtmarkup:"]
-
   /// The year `year` month by month.
   ///
   /// Fees are the expense parts filed under «Комиссии» (the category the transfer fees go to) or
-  /// its subcategories, net of refunds. Interest is the operations the app wrote for interest
-  /// (`ccinterest:`, `debtinterest:`, `debtmarkup:`) plus the interest the payments of a loan that
-  /// accrues it paid, those the app did not write down on their own counted once.
+  /// its subcategories, net of refunds. Interest is what `LoanInterestPaid` gives: the operations
+  /// the app wrote for interest plus the interest the payments of a loan that accrues it paid,
+  /// those the app did not write down on their own counted once.
   public static func year(
     _ year: Int, ledger: Ledger, rubPerUnit: [CurrencyCode: Decimal]
   ) -> BankFeesYear {
@@ -66,42 +63,8 @@ public enum BankFeesReport {
       guard let id = row.categoryId, feeIds.contains(id) else { continue }
       fees[row.month, default: .zero] += row.contribution
     }
-    var written = Set<String>()
-    for entry in dataset.entries {
-      let transaction = entry.transaction
-      guard !transaction.isDeleted, transaction.kind == .expense,
-        let external = transaction.externalId,
-        interestPrefixes.contains(where: { external.hasPrefix($0) })
-      else { continue }
-      let month = ledger.calendar.day(
-        of: transaction.occurredAt, recordedIn: transaction.timeZoneId
-      )
-      .monthKey
-      guard month.year == year else { continue }
-      interest[month, default: .zero] += transaction.amountRubE4
-      let fields = external.split(separator: ":")
-      if fields.count >= 2, fields[0] == "debtinterest" { written.insert(String(fields[1])) }
-    }
-    let journal = dataset.planning.debtEntries
-    for debt in dataset.debts
-    where debt.direction == .iOwe && debt.accruesInterest && !debt.isDeleted {
-      let mine = journal.filter { $0.debtId == debt.id }
-      let paid = DebtInterest.interestPaid(
-        debt: debt, journal: mine, through: DateOnly(year: year, month: 12, day: 31),
-        calendar: ledger.calendar)
-      let rate = debt.currency == .rub ? Decimal(1) : (rubPerUnit[debt.currency] ?? 0)
-      for entry in mine where entry.kind == .payment {
-        guard let day = entry.date, day.year == year,
-          let amount = paid[entry.id], amount.raw > 0
-        else { continue }
-        if let transactionId = entry.transactionId,
-          written.contains(transactionId.uuidString.lowercased())
-        {
-          continue
-        }
-        let rub = debt.currency == .rub ? amount : InterestMath.cents(amount.decimal * rate)
-        interest[day.monthKey, default: .zero] += rub
-      }
+    for line in LoanInterestPaid.lines(year, ledger: ledger, rubPerUnit: rubPerUnit) {
+      interest[line.day.monthKey, default: .zero] += line.rub
     }
     let months = (1...12).map { MonthKey(year: year, month: $0) }.map {
       BankFeesMonth(
