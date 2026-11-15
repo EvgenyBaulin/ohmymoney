@@ -210,7 +210,7 @@ struct SharedReportPage: View {
     .font(.system(size: 9, weight: .semibold))  // font-fixed: a paper page has its own sizes
     .foregroundStyle(Color.gray)
     .frame(height: SharedReportPDF.rowHeight)
-    .overlay(alignment: .bottom) { Rectangle().fill(Color.gray.opacity(0.4)).frame(height: 0.5) }
+    .overlay(alignment: .bottom) { Rectangle().fill(.tertiary).frame(height: 0.5) }
   }
 
   private var detailTitle: String {
