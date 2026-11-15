@@ -32,7 +32,7 @@ struct MigrationTests {
       "event_templates", "events", "expected_income", "expected_income_links",
       "goals", "habit_badges", "identity_items", "import_batches", "import_mappings",
       "ml_models", "no_spend_days", "owned_items", "part_tags", "payment_methods", "people",
-      "places", "rates", "reconciliation_balances", "reconciliations",
+      "place_marks", "places", "rates", "reconciliation_balances", "reconciliations",
       "reimbursement_links", "rules", "saved_views", "scenarios",
       "scheduled_payments", "settings", "shopping_items", "statement_profiles",
       "subscription_keep_groups",

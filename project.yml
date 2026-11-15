@@ -311,6 +311,8 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_NSFaceIDUsageDescription: Unlock OhMyMoney with Face ID.
         INFOPLIST_KEY_NSCameraUsageDescription: OhMyMoney reads the QR code of a cash receipt and photographs receipts and warranty cards with the camera.
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: OhMyMoney reads where you are once, to mark a place you choose. The marks and your position stay on this phone.
+        INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: OhMyMoney notices when you come near a place you marked, to suggest the best card to pay with. Your position is checked on the phone and never leaves it.
         INFOPLIST_KEY_NSMicrophoneUsageDescription: OhMyMoney uses the microphone to dictate entries on this device.
         INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: OhMyMoney converts your speech into entry text on this device, without sending audio for cloud recognition.
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait

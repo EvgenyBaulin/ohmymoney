@@ -551,6 +551,7 @@ struct ExportRoundTripPropertyTests {
           "0028_bank_cashback_merchant_codes",
           "0029_tax_deductions",
           "0030_utility_meters_and_bills",
+          "0031_place_marks",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -638,7 +639,8 @@ struct ExportRoundTripPropertyTests {
     #expect(
       tables.subtracting(exported) == [
         "anomaly_dismissals", "category_feedback", "currencies", "expected_income_links",
-        "identity_items", "import_batches", "import_mappings", "ml_models", "saved_views",
+        "identity_items", "import_batches", "import_mappings", "ml_models", "place_marks",
+        "saved_views",
         "scenarios", "statement_profiles", "sync_deferred", "sync_heads", "sync_history",
         "sync_meta", "sync_outbox", "sync_resolutions", "sync_state", "week_answers",
       ])

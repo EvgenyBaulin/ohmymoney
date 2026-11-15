@@ -876,6 +876,7 @@ public final class EntryDraftModel {
       case .forSomebody: choosePayingFor(.somebody(person, paysBack: true))
       case .gift: choosePayingFor(.somebody(person, paysBack: false))
       case .half: choosePayingFor(.half(person))
+      case .evenly: choosePayingFor(.evenly(paying.people))
       }
     } else {
       relayPayingFor()

@@ -118,23 +118,31 @@ public struct TransferReading: Hashable, Sendable {
 }
 
 /// Whom the line says an expense was paid for: «за машу» — for her, to be given back;
-/// «угостил машу» — a gift; «пополам с машей» — half each. A name the dictionary does not know
+/// «угостил машу» — a gift; «пополам с машей» — half each; «поровну с машей и петей» — equal
+/// shares for all. A name the dictionary does not know
 /// is `unknownName`; the app offers to add the person.
 public struct PayingForReading: Hashable, Sendable {
   public enum Way: Hashable, Sendable {
     case forSomebody
     case gift
     case half
+    /// «поровну с машей и петей»: the bill shared by me and every named person.
+    case evenly
   }
 
   public var way: Way
   public var personId: UUID?
   public var unknownName: String?
+  /// Everybody named after «поровну с», in the order said; only for `.evenly`.
+  public var people: [UUID]
 
-  public init(way: Way, personId: UUID? = nil, unknownName: String? = nil) {
+  public init(
+    way: Way, personId: UUID? = nil, unknownName: String? = nil, people: [UUID] = []
+  ) {
     self.way = way
     self.personId = personId
     self.unknownName = unknownName
+    self.people = people
   }
 }
 

@@ -113,6 +113,8 @@ extension Lexicon {
   static let englishTimeMarkers: Set<String> = ["at"]
   static let englishHalfWords: Set<String> = ["split", "halves"]
   static let englishWithWords: Set<String> = ["with"]
+  static let englishEvenlyWords: Set<String> = ["evenly", "equally"]
+  static let englishAndWords: Set<String> = ["and"]
   static let englishGiftWords: Set<String> = ["treated"]
   static let englishTransferWords: Set<String> = ["transfer", "transferred", "moved"]
   static let englishTransferFromMarkers: Set<String> = ["from"]

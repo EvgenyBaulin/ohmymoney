@@ -36,6 +36,12 @@ public enum SyncTables {
     "thing_valuations": "id",
   ]
 
+  /// Tables that hold something of this device only — where the owner stands, not what he spent:
+  /// never followed, never in the CSV, and emptied in the starting set a new device is given and
+  /// in every copy made for another person. (A backup and the transfer archive carry the whole
+  /// file, so a restore of one's own data brings them back.)
+  public static let deviceLocal: [String] = ["place_marks"]
+
   /// The bookkeeping tables of the exchange: not part of the books, left out of every copy of
   /// them (the export, the transfer archive, the readable copy).
   public static let bookkeeping: [String] = [

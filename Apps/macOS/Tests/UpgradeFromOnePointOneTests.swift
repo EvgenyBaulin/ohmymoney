@@ -171,7 +171,7 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
     XCTAssertEqual(try stack.appliedMigrations().count, 29)
-    XCTAssertEqual(stack.applied.applied, 25)
+    XCTAssertEqual(stack.applied.applied, 26)
     XCTAssertEqual(stack.applied.dataSteps["cardsCreated"], 1)
     XCTAssertEqual(stack.applied.dataSteps["cardsSkipped"], 0)
     XCTAssertEqual(stack.applied.dataSteps["countsRecorded"], 1)
@@ -207,6 +207,7 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
         "0028_bank_cashback_merchant_codes",
         "0029_tax_deductions",
         "0030_utility_meters_and_bills",
+        "0031_place_marks",
       ],
       "the copy is not the database as the version before left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)

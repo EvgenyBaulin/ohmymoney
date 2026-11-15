@@ -279,6 +279,7 @@ struct MoreExtrasSections: View {
         }
         .accessibilityIdentifier("more.receipt")
       }
+      placesSection
       LessonsSection(environment: environment)
       dataSection
       // A real profile with no records of its own can take the data another device left in
@@ -298,6 +299,21 @@ struct MoreExtrasSections: View {
         Binding(get: { starterSet.isUp }, set: { if !$0 { starterSet.isUp = false } }))
     ) {
       StarterSetSheet().appDependencies(deps)
+    }
+  }
+
+  // MARK: Places
+
+  private var placesSection: some View {
+    Section {
+      NavigationLink {
+        PlaceMarksScreen(deps: deps).appDependencies(deps)
+      } label: {
+        Label(
+          environment.language("places.title", table: PlaceHintText.table),
+          systemImage: "mappin.and.ellipse")
+      }
+      .accessibilityIdentifier("more.places")
     }
   }
 

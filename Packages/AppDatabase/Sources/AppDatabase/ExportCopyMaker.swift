@@ -89,6 +89,11 @@ public struct ExportCopyMaker: Sendable {
       for table in SyncTables.bookkeeping where table != "sync_meta" {
         if try db.tableExists(table) { try db.execute(sql: "DELETE FROM \(table)") }
       }
+      // Where the owner stands is for this device alone, whatever the copy is for.
+      for table in SyncTables.deviceLocal {
+        guard try db.tableExists(table) else { continue }
+        try db.execute(sql: "DELETE FROM \(table)")
+      }
       try Self.cut(request, db: db)
     }
     if request.anonymize, let anonymizer {

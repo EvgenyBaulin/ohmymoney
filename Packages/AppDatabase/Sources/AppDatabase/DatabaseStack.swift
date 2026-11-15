@@ -302,7 +302,7 @@ public final class DatabaseStack: Sendable {
       "templates", "currencies", "scenarios", "import_batches", "identity_items",
       "statement_profiles", "attachments", "week_answers", "wishes", "wish_prices",
       "shopping_items", "owned_items", "bank_cashback_categories", "cashback_offers",
-      "credit_statements",
+      "credit_statements", "place_marks",
     ]
 
   /// One element after every committed transaction that changed one of `dataTables`, whoever
