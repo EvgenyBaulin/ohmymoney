@@ -1050,12 +1050,11 @@ struct AccountsSettingsView: View {
   static func cashbackKey(
     of account: PaymentMethod, cards: [PaymentCard], rules: [CashbackRule]
   ) -> String {
-    if account.cashbackChoiceDay != nil { return "panel.cashback.monthly" }
-    let own = Set(cards.filter { $0.accountId == account.id }.map(\.id))
-    let ruled = rules.contains { rule in
-      rule.accountId == account.id || rule.cardId.map(own.contains) == true
+    switch CashbackAccountMode.of(account, cards: cards, rules: rules) {
+    case .monthly: return "panel.cashback.monthly"
+    case .constant: return "panel.cashback.constant"
+    case .none: return "panel.cashback.none"
     }
-    return ruled ? "panel.cashback.constant" : "panel.cashback.none"
   }
 
   private func label(_ key: String) -> some View {

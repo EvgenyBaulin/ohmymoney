@@ -613,8 +613,15 @@ struct AccountScreen: View {
   }
 
   /// A wallet of the digital ruble pays no cashback: its screen has no block of it.
+  /// An account with no cashback («Нет») has no block either; its settings bring it back.
   private var earnsCashback: Bool {
-    account.map(DigitalRuble.allowsInterestAndCashback) ?? true
+    guard let account else { return true }
+    guard DigitalRuble.allowsInterestAndCashback(account) else { return false }
+    let dataset = compute.snapshot?.dataset
+    // Until the data is there the block stays, so it does not blink out and back.
+    guard let dataset else { return true }
+    return CashbackAccountMode.of(account, cards: dataset.cards, rules: dataset.cashbackRules)
+      .showsBlock
   }
 
   /// The hero with the balance — a credit card has no hero: its block says «Доступно» and
