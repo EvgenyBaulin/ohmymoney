@@ -1,10 +1,8 @@
 import CoreKit
 import Foundation
 
-/// What the accounts of the summary come to at the end of the month, currency by currency: the
-/// middle of each counted balance's forecast (`AccountForecast`), added up within its currency —
-/// never across currencies. The figure of the Overview tile «Прогноз остатка до конца месяца»
-/// and the lines of its breakdown, in one pass.
+/// One combined forecast in rubles at today's rates. The spending allocation is only an
+/// intermediate step in the total, never a prediction of an individual account's balance.
 public struct BalanceForecastModel: Hashable, Sendable {
   public struct Total: Hashable, Sendable {
     public var currency: CurrencyCode
@@ -39,22 +37,28 @@ public struct BalanceForecastModel: Hashable, Sendable {
     }
   }
 
-  /// The currencies in the order they were first met, the accounts in their order.
+  /// One total in rubles, or none while every included balance is unknown.
   public var totals: [Total]
-  /// Every balance in the totals, in the order of the accounts.
+  /// Intermediate allocations; individual account presentations use `knownBalances()`.
   public var lines: [Line]
+  public var moneyNow: AmountE4
+  public var knownChanges: AmountE4
+  public var estimatedChanges: AmountE4
   /// Some balance of the summary was never counted or has no rate: it is not in the totals.
   public var leftOut: Bool
   public var lowData: Bool
   public var through: DateOnly
 
   public init(forecast: AccountForecast, accountIds: [UUID]) {
-    var totals: [Total] = []
+    var middle = AmountE4.zero
+    var counted = 0
+    var moneyNow = AmountE4.zero
+    var knownEnd = AmountE4.zero
     var lines: [Line] = []
     var leftOut = false
     for id in accountIds {
       for line in forecast.lines(of: id) {
-        guard line.status == .ready, let balance = line.balance else {
+        guard line.status == .ready, let balance = line.balance, let rub = line.balanceRub else {
           if line.flows.isHeld { leftOut = true }
           continue
         }
@@ -63,16 +67,17 @@ public struct BalanceForecastModel: Hashable, Sendable {
           Line(
             accountId: id, name: line.flows.account.name, currency: currency,
             now: line.flows.now ?? .zero, middle: balance.middle))
-        if let index = totals.firstIndex(where: { $0.currency == currency }) {
-          totals[index].middle += balance.middle
-          totals[index].accounts += 1
-        } else {
-          totals.append(Total(currency: currency, middle: balance.middle, accounts: 1))
-        }
+        middle += rub.middle - line.internalTransfersAheadRub
+        moneyNow += line.nowRub ?? .zero
+        knownEnd += (line.knownEndRub ?? .zero) - line.internalTransfersAheadRub
+        counted += 1
       }
     }
-    self.totals = totals
+    self.totals = counted > 0 ? [Total(currency: .rub, middle: middle, accounts: counted)] : []
     self.lines = lines
+    self.moneyNow = moneyNow
+    self.knownChanges = knownEnd - moneyNow
+    self.estimatedChanges = middle - knownEnd
     self.leftOut = leftOut
     self.lowData = forecast.lowData
     self.through = forecast.through

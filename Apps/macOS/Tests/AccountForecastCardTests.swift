@@ -331,14 +331,17 @@ final class AccountForecastCardTests: XCTestCase {
       dataset: dataset, calendar: .utc, today: today, context: SnapshotContext(),
       version: DataVersion(load: 1), now: CalendarContext.utc.startOfDay(today))
     XCTAssertEqual(snapshot.accountPlan.through, DateOnly(year: 2026, month: 9, day: 30))
-    let remainder = MonthForecast.Remainder(
-      p10: whole(1_000), middle: whole(2_000), p90: whole(3_000), lowData: true,
-      computedFor: today, daysLeft: 11, windowDays: 0)
-    let forecast = snapshot.accountPlan.forecast(remainder: remainder)
+    let forecast = snapshot.accountPlan.knownBalances()
     let model = AccountForecastModel(forecast: forecast, accountId: main.id)
     XCTAssertTrue(model.hasForecast)
-    XCTAssertTrue(model.lowData)
-    XCTAssertEqual(model.lines.first?.balance, band(47_000, 48_000, 49_000))
+    XCTAssertFalse(model.lowData)
+    XCTAssertEqual(model.lines.first?.balance, band(50_000, 50_000, 50_000))
+    for choice in [AppLanguage.Choice.russian, .english] {
+      let words = AccountForecastText.pairs(model.lines, environment(choice))
+      XCTAssertNil(words.first?.range)
+      XCTAssertEqual(words.first?.breakdown.count, 1)
+      XCTAssertTrue(words.first?.notes.isEmpty == true)
+    }
     XCTAssertFalse(AccountForecastModel(forecast: forecast, accountId: freedom.id).hasForecast)
   }
 }

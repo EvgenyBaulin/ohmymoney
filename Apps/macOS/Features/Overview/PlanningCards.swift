@@ -19,7 +19,8 @@ struct CanSaveCard: View {
       emptyReason: t("advice.reason.noIncome"), asOf: compute.states.asOf(ComputeStep.forecast),
       retry: { compute.retry(ComputeStep.forecast) }
     ) { canSave in
-      let tile = CanSaveTile.make(canSave, environment) { id in
+      let freeNow = compute.wholeSnapshot.flatMap { OverviewHeadline.configured($0).free.grey }
+      let tile = CanSaveTile.make(canSave, environment, freeNow: freeNow) { id in
         guard let tree = compute.snapshot?.ledger.tree else { return nil }
         return PlanningText.categoryPath(id, tree: tree)
       }
@@ -54,6 +55,13 @@ struct CanSaveTileBody: View {
         .appFont(StyleType.tileFigure)
         .foregroundStyle(surfaces.primary)
         .fixedSize(horizontal: false, vertical: true)
+      if let previousMoney = tile.previousMoney {
+        Text(verbatim: previousMoney)
+          .appFont(StyleType.tileRow)
+          .foregroundStyle(surfaces.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("overview.canSave.previousMoney")
+      }
       if let shortfall = tile.shortfall {
         Text(verbatim: shortfall)
           .appFont(StyleType.tileRow.monospacedDigit())

@@ -255,9 +255,8 @@ enum TileWhy {
   }
 
   /// «Почему так» of «Прогноз остатка» counted over the whole snapshot, as the tile counts it, so
-  /// the total is the tile's figure. While the hidden accounts are covered (`shown`), their lines
-  /// go and one line «часть скрыта» without an amount stands in their place: the total less the
-  /// lines shown would be the hidden amount, so the line never carries one.
+  /// the total is the tile's figure. The breakdown contains combined amounts only; covered
+  /// accounts add a note without exposing individual balances or spending allocations.
   static func balanceForecast(
     whole: DataSnapshot, shown: DataSnapshot, remainder: MonthForecast.Remainder?,
     locale: Locale
@@ -265,30 +264,11 @@ enum TileWhy {
     let ids = BalanceForecastCard.summaryAccountIds(of: whole, locale: locale)
     let explanation = TileExplanations.balanceForecast(
       whole.accountPlan, remainder: remainder, accountIds: ids)
-    guard !shown.hiding.isEmpty, let remainder, explanation.state == .ready else {
+    guard !shown.hiding.isEmpty, explanation.state == .ready else {
       return explanation
     }
-    let model = BalanceForecastModel(
-      forecast: whole.accountPlan.forecast(remainder: remainder), accountIds: ids)
     var copy = explanation
-    copy.sections = explanation.sections.enumerated().map { index, section in
-      guard model.totals.indices.contains(index) else { return section }
-      let currency = model.totals[index].currency
-      let lines = model.lines.filter { $0.currency == currency }
-      var kept: [TileRow]
-      if lines.count == section.rows.count {
-        kept = zip(section.rows, lines).filter { !shown.hiding.isHidden($0.1.accountId) }
-          .map(\.0)
-      } else {
-        // The rows cannot be told apart: none is named rather than a hidden one.
-        kept = lines.contains { shown.hiding.isHidden($0.accountId) } ? [] : section.rows
-      }
-      guard kept.count != section.rows.count else { return section }
-      kept.append(TileRow(TilePhrase("privacy.partHidden", table: "PrivacyScreens")))
-      var covered = section
-      covered.rows = kept
-      return covered
-    }
+    copy.notes.append(TilePhrase("privacy.partHidden", table: "PrivacyScreens"))
     return copy
   }
 

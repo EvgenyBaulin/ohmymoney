@@ -60,6 +60,33 @@ public struct CanSaveInputs: Hashable, Sendable {
 /// brings. Without an income estimate there is no advice, only «not enough data»; a thin
 /// history on either side keeps the numbers and raises `lowData`.
 public struct CanSave: Hashable, Sendable {
+  public enum Message: Hashable, Sendable {
+    case forecast
+    case incomeDeficit(month: MonthKey, amount: AmountE4, previousMoney: AmountE4?)
+    case projectedDeficit(month: MonthKey, amount: AmountE4, previousMoney: AmountE4?)
+    case risk(AmountE4)
+  }
+
+  public var month: MonthKey
+  public var receivedIncome: AmountE4
+  public var spentWithoutGoals: AmountE4
+
+  /// A monthly deficit describes income and expenses, not a shortage of account balances.
+  /// Positive free money came from outside this month's income; zero has no such money.
+  public func message(freeNow: AmountE4?) -> Message {
+    guard let freeNow, freeNow >= .zero else { return .forecast }
+    let previousMoney = freeNow > .zero ? freeNow : nil
+    if cannotSave {
+      let recordedDeficit = spentWithoutGoals - receivedIncome
+      if recordedDeficit > .zero {
+        return .incomeDeficit(month: month, amount: recordedDeficit, previousMoney: previousMoney)
+      }
+      return .projectedDeficit(month: month, amount: -(p50 ?? .zero), previousMoney: previousMoney)
+    }
+    if let shortfall { return .risk(shortfall.high) }
+    return .forecast
+  }
+
   public struct Shortfall: Hashable, Sendable {
     public var low: AmountE4
     public var high: AmountE4
@@ -127,6 +154,9 @@ public struct CanSave: Hashable, Sendable {
   public var lowData: Bool
 
   public init(_ inputs: CanSaveInputs) {
+    month = inputs.income.month
+    receivedIncome = inputs.income.received
+    spentWithoutGoals = inputs.spentWithoutGoals
     alreadySaved = inputs.alreadySaved
     lowData = inputs.income.lowData || inputs.remainder.lowData
     guard let income = inputs.income.value else {
