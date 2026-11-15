@@ -215,6 +215,11 @@ struct PhoneCalendarDayChips: View {
   @Dependency(\.environment) private var environment
   @Environment(\.themeSurfaces) private var surfaces
 
+  /// A chip is a 44 pt square rounded 12; only the chosen day is filled, the others stand bare.
+  static let side: CGFloat = 44
+  static let radius: CGFloat = 12
+  static func fillsChip(selected: Bool) -> Bool { selected }
+
   var body: some View {
     ScrollView(.horizontal) {
       HStack(spacing: 4) {
@@ -222,18 +227,19 @@ struct PhoneCalendarDayChips: View {
           Button {
             choose(day.day)
           } label: {
+            let selected = chosen == day.day
             VStack(spacing: 2) {
               Text(
                 verbatim: environment.dates.shortWeekday(
                   environment.calendar.weekdayIndex(day.day)))
               Text(verbatim: "\(day.day.day)")
+                .fontWeight(selected ? .semibold : .regular)
             }
-            .appFont(.callout)
-            .frame(minWidth: 44, minHeight: 44)
-            .foregroundStyle(chosen == day.day ? surfaces.onAccent : surfaces.primary)
-            .background(
-              chosen == day.day ? surfaces.accent : surfaces.card,
-              in: .rect(cornerRadius: 12))
+            .appFont(.caption)
+            .frame(minWidth: Self.side, minHeight: Self.side)
+            .foregroundStyle(selected ? surfaces.onAccent : surfaces.primary)
+            .background(Self.fillsChip(selected: selected) ? surfaces.accent : .clear,
+              in: .rect(cornerRadius: Self.radius))
           }
           .buttonStyle(.plain)
           .accessibilityLabel(environment.dates.longDay(day.day))

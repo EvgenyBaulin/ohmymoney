@@ -82,6 +82,34 @@ final class PhoneCalendarTests: XCTestCase {
     }
   }
 
+  func testTheDayChipsAreBareSquaresAndOnlyTheChosenDayIsFilled() {
+    XCTAssertEqual(PhoneCalendarDayChips.side, 44)
+    XCTAssertEqual(PhoneCalendarDayChips.radius, 12)
+    XCTAssertTrue(PhoneCalendarDayChips.fillsChip(selected: true))
+    XCTAssertFalse(PhoneCalendarDayChips.fillsChip(selected: false))
+  }
+
+  func testThePhoneEntryLineIsTheFramesCapsuleStandingEightPointsAboveTheKeyboard() {
+    let line = EntryLineMetrics.of(.phone)
+    XCTAssertEqual(line.height, 48)
+    XCTAssertEqual(line.send, 34)
+    XCTAssertEqual(line.side, 16)
+    XCTAssertEqual(line.leading, 16)
+    XCTAssertEqual(line.trailing, 8)
+    XCTAssertEqual(EntryBarMetrics.columnWidth(windowWidth: 440, detailWidth: 440, idiom: .phone), 408)
+    XCTAssertEqual(EntryBarMetrics.bottomInset(idiom: .phone), 8)
+    XCTAssertEqual(EntryBarMetrics.bottomInset(idiom: .mac), 18)
+    XCTAssertEqual(EntryBarMetrics.bottomInset(idiom: .pad), 18)
+  }
+
+  func testThePlusSitsTenPointsAboveTheBarAndAScreenMarginFromTheEdge() {
+    XCTAssertEqual(PhoneEntryButton.diameter, 56)
+    XCTAssertEqual(PhoneEntryButton.sideMargin, PhoneMetrics.screenMargin)
+    XCTAssertEqual(PhoneEntryButton.gapAboveBar, 10)
+    XCTAssertEqual(
+      PhoneEntryButton.bottomPadding(placement: .bottom, barHeight: 66 + 6), 72 + 10 - 6)
+  }
+
   private func draw(
     _ view: some View, deps: AppDependencies, width: CGFloat, name: String
   ) throws {
