@@ -55,7 +55,8 @@ public struct AllocationRaise: Hashable, Sendable {
     let usual = last[1]
     let difference = transaction.amountE4 - usual
     guard difference.raw > 0,
-      transaction.amountE4.raw * 10_000 > usual.raw * Int64(10_000 + thresholdBp)
+      Decimal(transaction.amountE4.raw) * Decimal(Shares.whole)
+        > Decimal(usual.raw) * Decimal(Shares.whole + thresholdBp)
     else { return nil }
     let rubles =
       transaction.currency == .rub

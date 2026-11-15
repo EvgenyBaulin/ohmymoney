@@ -213,17 +213,18 @@ public struct TransactionRepository: Sendable {
       guard purchase.transaction.currency == entry.transaction.currency else {
         throw RefundError.otherCurrency
       }
-      let others = AmountE4(
-        raw: try Int64.fetchOne(
-          db,
-          sql: """
-            SELECT COALESCE(SUM(p.amount_e4), 0) FROM transaction_parts p
-            JOIN transactions t ON t.id = p.transaction_id
-            WHERE t.deleted_at IS NULL AND t.kind = ? AND p.refund_of_part_id = ? AND t.id <> ?
-            """,
-          arguments: [TransactionKind.refund.rawValue, target.uuidString, entry.id.uuidString])
-          ?? 0)
-      guard others + amount <= part.amountE4 else { throw RefundError.exceedsRemaining }
+      let others = try StoredSum.total(
+        db,
+        sql: """
+          SELECT p.amount_e4 FROM transaction_parts p
+          JOIN transactions t ON t.id = p.transaction_id
+          WHERE t.deleted_at IS NULL AND t.kind = ? AND p.refund_of_part_id = ? AND t.id <> ?
+          """,
+        arguments: [TransactionKind.refund.rawValue, target.uuidString, entry.id.uuidString])
+      // Exactly: a sum that leaves `Int64` is more than any part holds, not «up to the edge».
+      guard let together = others.adding(amount), together <= part.amountE4 else {
+        throw RefundError.exceedsRemaining
+      }
     }
   }
 

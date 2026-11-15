@@ -66,7 +66,8 @@ public struct BankLimitLine: Hashable, Sendable, Identifiable {
   /// Used from `BankLimits.nearShareBp` basis points of the limit and not past it yet.
   public var isNear: Bool {
     !exceeded && limitE4.raw > 0
-      && usedE4.raw * 10_000 >= limitE4.raw * Int64(BankLimits.nearShareBp)
+      && Decimal(usedE4.raw) * Decimal(Shares.whole)
+        >= Decimal(limitE4.raw) * Decimal(BankLimits.nearShareBp)
   }
   /// Used up exactly: nothing is free any more.
   public var isUsedUp: Bool { leftE4.raw == 0 && limitE4.raw > 0 }

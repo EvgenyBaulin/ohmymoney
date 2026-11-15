@@ -127,6 +127,19 @@ struct BankLimitTests {
     return books
   }
 
+  @Test func aLimitOfAHundredBillionIsNearAt90BillionNotATrap() throws {
+    var books = BankBooks()
+    books.conditions = [
+      BankConditions(accountId: B.current, freeCashE4: B.money("100000000000"))
+    ]
+    books.transfers = [
+      B.transfer(1, "2026-10-05", "90000000000", from: B.current, to: B.cash)
+    ]
+    let line = try #require(books.report.limits(of: B.current).first { $0.kind == .cash })
+    #expect(!line.exceeded)
+    #expect(line.isNear)
+  }
+
   @Test func cashTakenOutIsCountedAgainstTheCashLimit() throws {
     var books = books()
     books.transfers = [B.transfer(1, "2026-10-05", "30000", from: B.current, to: B.cash)]

@@ -53,6 +53,18 @@ public enum Shares {
     return shares
   }
 
+  /// `part / base` in basis points, cut off rather than rounded — 99.996 % reads 9 999, not
+  /// 10 000 —; zero when the base is not positive. Worked out in `Decimal`: the stored units
+  /// times 10 000 leave `Int64` for an amount of ninety-odd billion, which the entry line takes.
+  public static func truncatedRatio(_ part: AmountE4, of base: AmountE4) -> Int {
+    guard base.raw > 0 else { return 0 }
+    let value = Decimal(part.raw) * Decimal(whole) / Decimal(base.raw)
+    let cut = DecimalMath.round(value.magnitude, scale: 0, mode: .down)
+    guard cut <= Decimal(Int32.max) else { return value < 0 ? -Int(Int32.max) : Int(Int32.max) }
+    let units = (cut as NSDecimalNumber).intValue
+    return value < 0 ? -units : units
+  }
+
   /// `part / base` in basis points, rounded half away from zero; `nil` when the base is
   /// not positive. For ratios that are not shares of a whole: the cashback of a card
   /// against its turnover, a change against last month.

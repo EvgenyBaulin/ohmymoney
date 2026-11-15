@@ -359,15 +359,14 @@ extension TransactionRepository {
 
   /// What live money back gave back for a part, in rubles.
   static func returnedRub(ofPart partId: UUID, db: Database) throws -> AmountE4 {
-    AmountE4(
-      raw: try Int64.fetchOne(
-        db,
-        sql: """
-          SELECT COALESCE(SUM(l.amount_e4), 0) FROM reimbursement_links l
-          JOIN transactions t ON t.id = l.reimbursement_tx_id
-          WHERE l.part_id = ? AND t.deleted_at IS NULL
-          """,
-        arguments: [partId.uuidString]) ?? 0)
+    try StoredSum.total(
+      db,
+      sql: """
+        SELECT l.amount_e4 FROM reimbursement_links l
+        JOIN transactions t ON t.id = l.reimbursement_tx_id
+        WHERE l.part_id = ? AND t.deleted_at IS NULL
+        """,
+      arguments: [partId.uuidString])
   }
 
   /// What is left of a part: its rubles less what live money back gave back for it.

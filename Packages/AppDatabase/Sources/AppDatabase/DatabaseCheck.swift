@@ -163,13 +163,18 @@ public enum DatabaseCheck {
           ids: rowids.prefix(idsShown).map { String($0) }))
     }
 
+    // The parts are added in two columns — millions and the rest — because `SUM` of the amounts
+    // themselves raises «integer overflow» on parts that add up beyond `Int64`; the plain
+    // arithmetic of SQLite goes to a real number there, which is never the operation's amount.
     let sums = try Row.fetchAll(
       db,
       sql: """
         SELECT t.id AS id FROM transactions t
-        LEFT JOIN (SELECT transaction_id, SUM(amount_e4) AS total, COUNT(*) AS parts
+        LEFT JOIN (SELECT transaction_id, SUM(amount_e4 / 1000000) AS whole,
+                          SUM(amount_e4 % 1000000) AS rest, COUNT(*) AS parts
                    FROM transaction_parts GROUP BY transaction_id) p ON p.transaction_id = t.id
-        WHERE t.deleted_at IS NULL AND (p.parts IS NULL OR p.total <> t.amount_e4)
+        WHERE t.deleted_at IS NULL
+          AND (p.parts IS NULL OR p.whole * 1000000 + p.rest <> t.amount_e4)
         ORDER BY t.id
         """)
     if !sums.isEmpty {

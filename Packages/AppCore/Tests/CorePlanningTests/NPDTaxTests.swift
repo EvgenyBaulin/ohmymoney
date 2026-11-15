@@ -142,6 +142,17 @@ struct NPDTaxTests {
     #expect(state.months.first?.state == .overdue)
   }
 
+  @Test func aTypoOfAHundredBillionIsAnIncomeNotACrash() {
+    // The share of the limit multiplied the stored units by 10,000 and trapped on an amount that
+    // the entry line accepts (up to a trillion).
+    var setup = Setup()
+    setup.book.operation(.income, "100000000000", on: B.day(3, 5), category: setup.organizations)
+    let state = setup.state(today: B.day(10, 1))
+    #expect(state.year.exceeded)
+    #expect(state.year.leftRub == .zero)
+    #expect(state.year.shareBp > 10_000)
+  }
+
   @Test func theYearAgainstItsLimit() {
     var setup = Setup()
     setup.book.operation(.income, "2150000", on: B.day(3, 5), category: setup.organizations)

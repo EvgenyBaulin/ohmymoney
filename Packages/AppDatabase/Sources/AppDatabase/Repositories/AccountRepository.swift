@@ -661,8 +661,8 @@ public struct AccountRepository: Sendable {
 
   /// Deletes the cashback rules and the conditions of `source`'s own — on the account, not on a card — whose month
   /// and category a rule of `target`'s own already has: one rule per holder, month and
-  /// category (`idx_cashback_rules_key`) would refuse moving them. The target's rule stays. A
-  /// merge is no step of ⌘Z, so they are not kept.
+  /// category (`idx_cashback_rules_key`) would refuse moving them. The target's rule stays. The
+  /// merge records the rows it removes (`AccountMergeUndo.removed`), so ⌘Z brings them back.
   static func dropCollidingRules(of source: UUID, into target: UUID, db: Database) throws {
     try db.execute(
       sql: """
