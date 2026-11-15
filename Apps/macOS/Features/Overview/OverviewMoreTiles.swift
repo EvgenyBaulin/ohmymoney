@@ -78,6 +78,11 @@ struct IncomeForecastCard: View {
           PlanningFigure(
             label: t("overview.incomeForecast.expected"), amount: income.expectedRemaining)
         }
+        if income.notArrived.raw > 0 {
+          PlanningFigure(
+            label: environment.language("overview.notArrived", table: "Planning"),
+            amount: income.notArrived)
+        }
         Text(verbatim: t(Self.sourceKey(income.source)))
           .appFont(.caption)
           .secondaryInk()

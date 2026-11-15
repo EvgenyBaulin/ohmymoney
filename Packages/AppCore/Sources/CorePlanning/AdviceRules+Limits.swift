@@ -125,6 +125,8 @@ extension AdviceRules {
   /// My spending of each month under each top-level category — what a limit on that
   /// category counts (`LimitRules.counts`): my spending, refunds taken off, goal
   /// contributions and system categories left out — by date.
+  /// A purchase the owner marked one-off is left out: a limit suggested from a median must not
+  /// remember the one big buy.
   static func spendingByCategory(
     _ ledger: Ledger, months: [MonthKey]
   ) -> [UUID: [MonthKey: AmountE4]] {
@@ -133,7 +135,7 @@ extension AdviceRules {
     var probes: [UUID: Budget] = [:]
     var table: [UUID: [MonthKey: AmountE4]] = [:]
     for row in ledger.rows(in: DayRange(first.firstDay, last.lastDay))
-    where !row.contribution.isZero {
+    where !row.contribution.isZero && !row.isOneOff {
       guard let root = row.rootCategoryId, wanted.contains(row.day.monthKey) else { continue }
       let probe =
         probes[root]

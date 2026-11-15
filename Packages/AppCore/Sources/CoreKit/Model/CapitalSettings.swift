@@ -13,9 +13,16 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
   /// How many full months the obligatory spending is taken over, 3…12; default 6.
   public static let historyMonthsKey = "cushion.historyMonths"
 
+  /// The rough sum on all accounts the owner named for the chart of the capital before the
+  /// books began, in rubles as a decimal string; absent — not said.
+  public static let pastCashKey = "capital.pastCash"
+  /// The day (`YYYY-MM-DD`) `pastCashKey` was asked about; the sum means nothing without it.
+  public static let pastCashDayKey = "capital.pastCash.on"
+
   /// Every key these settings live under, and write.
   public static let storageKeys = [
-    targetMonthsKey, targetMonthKey, outOfFreeMoneyKey, historyMonthsKey,
+    targetMonthsKey, targetMonthKey, outOfFreeMoneyKey, historyMonthsKey, pastCashKey,
+    pastCashDayKey,
   ]
 
   /// The months a cushion goal can ask for.
@@ -31,11 +38,14 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
   public var targetMonth: MonthKey?
   public var outOfFreeMoney: Bool
   public var historyMonths: Int
+  /// `nil`: the owner has not said what was on the accounts before the books began.
+  public var pastCash: PastCash?
 
   public init(
     targetMonths: Int? = nil, targetMonth: MonthKey? = nil, outOfFreeMoney: Bool = true,
-    historyMonths: Int = CapitalSettings.defaultHistoryMonths
+    historyMonths: Int = CapitalSettings.defaultHistoryMonths, pastCash: PastCash? = nil
   ) {
+    self.pastCash = pastCash
     self.targetMonths = targetMonths
     self.targetMonth = targetMonth
     self.outOfFreeMoney = outOfFreeMoney
@@ -54,7 +64,9 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
       outOfFreeMoney: values[Self.outOfFreeMoneyKey].flatMap(Self.switchValue) ?? true,
       historyMonths: values[Self.historyMonthsKey].flatMap(Self.number)
         .flatMap { Self.historyMonthsRange.contains($0) ? $0 : nil }
-        ?? Self.defaultHistoryMonths)
+        ?? Self.defaultHistoryMonths,
+      pastCash: PastCash(
+        dayText: values[Self.pastCashDayKey], amountText: values[Self.pastCashKey]))
   }
 
   /// The rows to write. A setting at nothing deletes its key (`nil`): the table keeps no empty
@@ -65,6 +77,8 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
       Self.targetMonthKey: targetMonth?.iso,
       Self.outOfFreeMoneyKey: outOfFreeMoney ? "1" : "0",
       Self.historyMonthsKey: String(historyMonths),
+      Self.pastCashKey: pastCash.map { "\($0.amountE4.decimal)" },
+      Self.pastCashDayKey: pastCash?.day.iso,
     ]
   }
 
@@ -87,5 +101,28 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
     case "0", "false": false
     default: nil
     }
+  }
+}
+
+/// What the owner said was on all his accounts, together, on one day before the books began —
+/// a rough sum in rubles that only the chart of the capital reads. It is never a balance.
+public struct PastCash: Hashable, Sendable, Codable {
+  public var day: DateOnly
+  /// Never below zero.
+  public var amountE4: AmountE4
+
+  public init(day: DateOnly, amountE4: AmountE4) {
+    self.day = day
+    self.amountE4 = amountE4
+  }
+
+  /// Both texts must read, and the sum must not be below zero; anything else is «not said».
+  init?(dayText: String?, amountText: String?) {
+    guard let dayText, let amountText,
+      let day = DateOnly(iso: dayText.trimmingCharacters(in: .whitespaces)),
+      let decimal = DecimalMath.parse(amountText.trimmingCharacters(in: .whitespaces)),
+      let amount = try? AmountE4(decimal: decimal), !amount.isNegative
+    else { return nil }
+    self.init(day: day, amountE4: amount)
   }
 }

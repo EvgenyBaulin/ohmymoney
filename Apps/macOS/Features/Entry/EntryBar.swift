@@ -1238,8 +1238,41 @@ struct EntryBar<Accessory: View>: View {
   /// margin.
   private var captionInset: CGFloat { style == .form ? 0 : 14 }
 
+  /// The caption, and under it — in the small hours, with the record still dated today — the
+  /// offer «Записать за вчера?» with the button that sets the day.
   @ViewBuilder
   private var caption: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      captionLines
+      // Before the first keystroke there is no draft yet: it will be dated now, so the offer
+      // stands as soon as the clock is in the small hours.
+      if model.map({ $0.offersYesterday(now: environment.now()) })
+        ?? AfterMidnight.isSmallHours(environment.now(), calendar: environment.calendar)
+      {
+        HStack(spacing: 8) {
+          Label {
+            Text(verbatim: environment.language("entry.yesterday.offer", table: "Entry"))
+          } icon: {
+            Image(systemName: "moon.stars")
+          }
+          .secondaryInk()
+          Button(environment.language("entry.yesterday.action", table: "Entry")) {
+            prepareModel()
+            model?.useYesterday(now: environment.now(), today: environment.today)
+          }
+          .buttonStyle(.link)
+          .accessibilityIdentifier("entry.yesterday.action")
+        }
+        .appFont(.caption)
+        .padding(.horizontal, captionInset)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("entry.yesterday")
+      }
+    }
+  }
+
+  @ViewBuilder
+  private var captionLines: some View {
     if let message, message.isError {
       Text(verbatim: message.text(environment))
         .appFont(.caption)

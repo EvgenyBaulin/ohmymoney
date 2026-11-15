@@ -134,6 +134,9 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
     guard let inputs else { return }
     let enabled = HabitNotesOnMac.eveningEnabled(defaults)
     let hour = HabitNotesOnMac.eveningHour(defaults)
+    // A held reminder has the id of its day, whatever its hour: when the hour moved they are
+    // all asked for again, and the system replaces each request of the same id.
+    let hourMoved = applied.map { $0.hour != hour } ?? false
     applied = (enabled, hour)
     let wanted = EveningReminders.upcoming(
       entryDays: inputs.entryDays, today: inputs.today, hour: hour, enabled: enabled,
@@ -150,8 +153,9 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
       status = await center.permission()
     }
     permission = status
-    let change = EveningReminders.change(
-      wanted: status == .allowed ? wanted : [], held: Set(await center.pendingIds()))
+    let shown = status == .allowed ? wanted : []
+    var change = EveningReminders.change(wanted: shown, held: Set(await center.pendingIds()))
+    if hourMoved { change.add = shown }
     if !change.remove.isEmpty { center.removePending(Array(change.remove)) }
     guard !change.add.isEmpty else { return }
     center.setCategory(Self.makeCategory(language))

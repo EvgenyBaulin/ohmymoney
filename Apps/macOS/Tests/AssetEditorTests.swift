@@ -95,6 +95,52 @@ final class AssetEditorTests: CapitalStoreTestCase {
     XCTAssertFalse(store.canUndo, "a step of ⌘Z was left for nothing written")
   }
 
+  /// «Куплено: дата и цена» is saved with the asset in the same step, an edit can clear it, and
+  /// a price below zero writes nothing. A price of zero is not said; the day alone stays.
+  func testThePurchaseIsSavedWithTheAssetAndAnEditClearsIt() async throws {
+    let bought = DateOnly(year: 2019, month: 6, day: 14)
+    let flat = AssetActions.purchased(
+      Asset(name: "Квартира", kind: .realty), known: true, on: bought,
+      price: AmountE4(whole: 6_500_000))
+    XCTAssertEqual(
+      AssetEditor.save(
+        flat, isNew: true, value: AmountE4(whole: 9_000_000), on: day(1), with: actions),
+      .done)
+    var written = try await stored()
+    XCTAssertEqual(written.assets.first?.purchasedOn, bought)
+    XCTAssertEqual(written.assets.first?.purchasePriceE4, AmountE4(whole: 6_500_000))
+    XCTAssertEqual(
+      written.valuations.map(\.valueE4), [AmountE4(whole: 9_000_000)],
+      "the price of purchase became a valuation")
+
+    let dayOnly = AssetActions.purchased(
+      try XCTUnwrap(written.assets.first), known: true, on: bought, price: .zero)
+    XCTAssertEqual(
+      AssetEditor.save(dayOnly, isNew: false, value: .zero, on: day(2), with: actions), .done)
+    written = try await stored()
+    XCTAssertEqual(written.assets.first?.purchasedOn, bought)
+    XCTAssertNil(written.assets.first?.purchasePriceE4, "a price of zero was kept as said")
+
+    let cleared = AssetActions.purchased(
+      try XCTUnwrap(written.assets.first), known: false, on: bought,
+      price: AmountE4(whole: 6_500_000))
+    XCTAssertEqual(
+      AssetEditor.save(cleared, isNew: false, value: .zero, on: day(3), with: actions), .done)
+    written = try await stored()
+    XCTAssertNil(written.assets.first?.purchasedOn, "the switch off left the day")
+    XCTAssertNil(written.assets.first?.purchasePriceE4)
+
+    store.undo()
+    let undone = try await stored()
+    XCTAssertEqual(undone.assets.first?.purchasedOn, bought, "⌘Z left the edit")
+
+    var below = try XCTUnwrap(written.assets.first)
+    below.purchasedOn = bought
+    below.purchasePriceE4 = AmountE4(whole: -1)
+    XCTAssertEqual(AssetActions.refusal(saving: below), .negativeValue)
+    XCTAssertEqual(actions.save(below), .refused(.negativeValue))
+  }
+
   func testAnEditKeepsTheValuations() async throws {
     var flat = Asset(name: "Квартира", kind: .realty)
     XCTAssertEqual(actions.create(flat, value: AmountE4(whole: 9_000_000), on: day(1)), .done)

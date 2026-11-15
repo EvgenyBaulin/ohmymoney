@@ -2432,4 +2432,58 @@ extension EntryDraftModelTests {
     let fresh = makeModel()
     XCTAssertEqual(fresh.debtChoices.map(\.id), [live.id])
   }
+
+  // MARK: After midnight
+
+  /// 00:30 on 18 September (UTC): the record is dated today, so «Записать за вчера?» is
+  /// offered, and one press dates it the evening before — the record is never blocked, and the
+  /// day does not move until the press.
+  func testTheSmallHoursOfferYesterdayAndOnePressSetsIt() {
+    let model = makeModel()
+    let now = CalendarContext.utc.startOfDay(today).addingTimeInterval(30 * 60)
+    model.draft.occurredAt = now
+    XCTAssertTrue(model.offersYesterday(now: now))
+    XCTAssertEqual(CalendarContext.utc.day(of: model.draft.occurredAt), today)
+
+    model.useYesterday(now: now, today: today)
+    let yesterday = DateOnly(year: 2026, month: 9, day: 17)
+    XCTAssertEqual(CalendarContext.utc.day(of: model.draft.occurredAt), yesterday)
+    XCTAssertFalse(model.offersYesterday(now: now))
+  }
+
+  /// At noon nothing is offered, and pressing does nothing.
+  func testInTheDaytimeThereIsNoOffer() {
+    let model = makeModel()
+    let noon = CalendarContext.utc.noon(of: today)
+    model.draft.occurredAt = noon
+    XCTAssertFalse(model.offersYesterday(now: noon))
+    model.useYesterday(now: noon, today: today)
+    XCTAssertEqual(model.draft.occurredAt, noon)
+  }
+
+  /// After four in the morning the offer is gone, and a record dated another day is not offered.
+  func testTheOfferIsOnlyBeforeFourAndForTodaysRecord() {
+    let model = makeModel()
+    let four = CalendarContext.utc.startOfDay(today).addingTimeInterval(4 * 3600)
+    model.draft.occurredAt = four
+    XCTAssertFalse(model.offersYesterday(now: four))
+    let small = CalendarContext.utc.startOfDay(today).addingTimeInterval(3 * 3600 + 59 * 60)
+    model.draft.occurredAt = CalendarContext.utc.noon(of: DateOnly(year: 2026, month: 9, day: 10))
+    XCTAssertFalse(model.offersYesterday(now: small))
+    model.draft.occurredAt = small
+    XCTAssertTrue(model.offersYesterday(now: small))
+  }
+
+  /// Saving after «Вчера» keeps the evening before: the moment of saving is not laid over it.
+  func testSavingKeepsTheDayYesterdayWasSetTo() {
+    let model = makeModel()
+    let now = CalendarContext.utc.startOfDay(today).addingTimeInterval(30 * 60)
+    model.draft.occurredAt = now
+    model.useYesterday(now: now, today: today)
+    let chosen = model.draft.occurredAt
+    model.takeTheMomentOfSaving(now: now.addingTimeInterval(60))
+    XCTAssertEqual(model.draft.occurredAt, chosen)
+    XCTAssertEqual(
+      CalendarContext.utc.day(of: model.draft.occurredAt), DateOnly(year: 2026, month: 9, day: 17))
+  }
 }

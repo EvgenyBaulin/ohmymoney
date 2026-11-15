@@ -11,7 +11,7 @@ struct CapitalSettingsTests {
     #expect(
       CapitalSettings.storageKeys == [
         "cushion.targetMonths", "cushion.targetMonth", "cushion.outOfFreeMoney",
-        "cushion.historyMonths",
+        "cushion.historyMonths", "capital.pastCash", "capital.pastCash.on",
       ])
   }
 
@@ -32,6 +32,27 @@ struct CapitalSettingsTests {
     #expect(rows[CapitalSettings.targetMonthKey] == "2027-03")
     #expect(rows[CapitalSettings.outOfFreeMoneyKey] == "1")
     #expect(CapitalSettings(storedValues: rows) == settings)
+  }
+
+  @Test func theRoughCashBeforeTheBooksReadsBackAndADamagedOneIsNotSaid() {
+    let said = PastCash(day: DateOnly(year: 2024, month: 5, day: 1), amountE4: AmountE4(whole: 150_000))
+    let settings = CapitalSettings(pastCash: said)
+    let rows = settings.storedValues.compactMapValues { $0 }
+    #expect(rows[CapitalSettings.pastCashDayKey] == "2024-05-01")
+    #expect(CapitalSettings(storedValues: rows).pastCash == said)
+    #expect(CapitalSettings(storedValues: [:]).pastCash == nil)
+    // Half an answer, a sum below zero and a day that is not one are «not said».
+    #expect(CapitalSettings(storedValues: [CapitalSettings.pastCashKey: "1000"]).pastCash == nil)
+    #expect(
+      CapitalSettings(storedValues: [
+        CapitalSettings.pastCashKey: "-5", CapitalSettings.pastCashDayKey: "2024-05-01",
+      ]).pastCash == nil)
+    #expect(
+      CapitalSettings(storedValues: [
+        CapitalSettings.pastCashKey: "5", CapitalSettings.pastCashDayKey: "later",
+      ]).pastCash == nil)
+    // No answer writes no keys at all.
+    #expect(CapitalSettings.standard.storedValues[CapitalSettings.pastCashKey] == .some(nil))
   }
 
   @Test func anExplicitCushionChoiceIsPreserved() {

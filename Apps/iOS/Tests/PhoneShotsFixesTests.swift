@@ -139,49 +139,82 @@ final class PhoneShotsFixesTests: XCTestCase {
     XCTAssertGreaterThanOrEqual(NavBarButton.labelPointSize, 9)
   }
 
-  func testEveryNameFitsItsTabAtTheOneSizeAndOnlyTheLongestMayShrinkSlightly() {
+  /// The names of the bar fit their tab in two lines at the four text sizes: none is cut or
+  /// shrunk. A name that fits a line stays on one; «Планирование» takes two.
+  func testEveryNameFitsItsTabInTwoLinesAtEveryTextSize() {
     let environment = AppEnvironment()
     let before = environment.language.choice
     defer { environment.language.choice = before }
-    let font = UIFont.systemFont(ofSize: NavBarButton.labelPointSize, weight: .medium)
     for language in [AppLanguage.Choice.russian, .english] {
       environment.language.choice = language
       let titles =
         NavItem.defaultPhoneTabs.map {
           environment.language($0.phoneBarKey.key, table: $0.phoneBarKey.table)
         } + [environment.language("phone.tab.more", table: "Phone")]
-      for width in [CGFloat(375), 402, 440] {
-        let tab = (width - 2 * PhoneMetrics.screenMargin - 2 * PhoneTabBar.innerPadding) / 5
-        let room = tab - 2 * NavBarButton.horizontalPadding(isActive: false, labelsOnAll: true)
-        for title in titles {
-          let needed = (title as NSString).size(withAttributes: [.font: font]).width
-          XCTAssertLessThanOrEqual(
-            needed * NavBarButton.labelMinimumScale, room,
-            "«\(title)» \(language.rawValue) at \(Int(width)): \(needed) > \(room)")
-          // The short «Планы» means no name shrinks.
-          XCTAssertLessThanOrEqual(
-            needed, room + 0.5, "«\(title)» \(language.rawValue) at \(Int(width)) shrinks")
+      for size in [AppFontSize.small, .regular, .large, .xlarge] {
+        let font = UIFont.systemFont(
+          ofSize: size.points(fromRegular: NavBarButton.labelPointSize), weight: .medium)
+        for width in [CGFloat(375), 402, 440] {
+          let tab = (width - 2 * PhoneMetrics.screenMargin - 2 * PhoneTabBar.innerPadding) / 5
+          let room = tab - 2 * NavBarButton.horizontalPadding(isActive: false, labelsOnAll: true)
+          for title in titles {
+            let needed = (title as NSString).size(withAttributes: [.font: font]).width
+            // A letter's width of slack for the break between the two lines.
+            XCTAssertLessThanOrEqual(
+              needed, CGFloat(NavBarButton.labelLines) * room - font.pointSize,
+              "«\(title)» \(language.rawValue) \(size) at \(Int(width)): \(needed) > 2 × \(room)")
+          }
         }
       }
     }
   }
 
-  /// On the phone the Planning tab is called «Планы» / «Plans»; the full word stays on the Mac
-  /// and in the sidebar of the iPad, and no other tab is renamed.
-  func testThePlanningTabHasAShortNameOnThePhoneOnly() {
+  /// The Planning tab says the whole word on the phone, as on the Mac and the iPad; the long
+  /// name wraps, so no tab is renamed.
+  func testThePlanningTabKeepsItsFullNameOnThePhone() {
     let environment = AppEnvironment()
     let before = environment.language.choice
     defer { environment.language.choice = before }
     environment.language.choice = .russian
-    let short = NavItem.planning.phoneBarKey
-    XCTAssertEqual(environment.language(short.key, table: short.table), "Планы")
-    XCTAssertEqual(
-      environment.language(NavItem.planning.titleKey, table: "Common"), "Планирование")
-    environment.language.choice = .english
-    XCTAssertEqual(environment.language(short.key, table: short.table), "Plans")
-    for item in NavItem.allCases where item != .planning {
+    let name = NavItem.planning.phoneBarKey
+    XCTAssertEqual(environment.language(name.key, table: name.table), "Планирование")
+    for item in NavItem.allCases {
       XCTAssertEqual(item.phoneBarKey.key, item.titleKey)
     }
+  }
+
+  /// At 375 pt a tab is about 63 pt wide: «Планирование» needs two lines there, at «Обычный» and
+  /// at «Очень крупный», and never a third — the label allows two, so a third would be cut.
+  /// Measured without any line limit, at the width the tab leaves the name.
+  func testThePlanningNameNeedsNoMoreThanTwoLinesAtTheNarrowestPhone() {
+    let tab = (CGFloat(375) - 2 * PhoneMetrics.screenMargin - 2 * PhoneTabBar.innerPadding) / 5
+    let room = tab - 2 * NavBarButton.horizontalPadding(isActive: false, labelsOnAll: true)
+    for size in [AppFontSize.regular, .xlarge] {
+      let font = UIFont.systemFont(
+        ofSize: size.points(fromRegular: NavBarButton.labelPointSize), weight: .medium)
+      func lines(_ title: String) -> Int {
+        let box = (title as NSString).boundingRect(
+          with: CGSize(width: room, height: .greatestFiniteMagnitude),
+          options: [.usesLineFragmentOrigin], attributes: [.font: font], context: nil)
+        return Int((box.height / font.lineHeight).rounded())
+      }
+      XCTAssertLessThanOrEqual(lines("Планирование"), NavBarButton.labelLines, "\(size)")
+      XCTAssertLessThanOrEqual(lines("Planning"), NavBarButton.labelLines, "\(size)")
+      XCTAssertEqual(lines("Обзор"), 1, "a short name stays on one line at \(size)")
+    }
+    // The drawn tab is as tall as its lines need and never shorter than the tab height.
+    let colors = NavBarColors(theme: .fallback, colorScheme: .light, contrast: .standard)
+    func height(_ title: String) -> CGFloat {
+      UIHostingController(
+        rootView: NavBarButton(
+          title: title, symbol: "calendar", isActive: false, colors: colors, labelsOnAll: true,
+          action: {}
+        )
+        .frame(width: tab)
+      ).sizeThatFits(in: CGSize(width: tab, height: 500)).height
+    }
+    XCTAssertGreaterThanOrEqual(height("Планирование"), NavBarButton.tabHeight)
+    XCTAssertGreaterThanOrEqual(height("Планирование"), height("Обзор"))
   }
 
   // MARK: One grouping of thousands in the card «Можно отложить»

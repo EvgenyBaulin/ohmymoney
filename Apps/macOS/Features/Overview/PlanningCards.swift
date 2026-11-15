@@ -196,6 +196,12 @@ struct ExpectedIncomeCard: View {
           PlanningFigure(
             label: t("overview.expectedThisMonth"),
             amount: snapshot.planning.income.expectedRemaining)
+          // The due dates that passed without their money: in no figure of the month, here
+          // only so the owner sees what did not come.
+          if snapshot.planning.income.notArrived.raw > 0 {
+            PlanningFigure(
+              label: t("overview.notArrived"), amount: snapshot.planning.income.notArrived)
+          }
           if open.count != snapshot.planning.expected.filter({ !$0.isFulfilled }).count {
             PartHiddenNote()
           }

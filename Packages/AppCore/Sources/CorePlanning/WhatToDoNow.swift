@@ -4,13 +4,16 @@ import Foundation
 /// «Что сделать сейчас»: the few things on the Overview that have a button to press. Only an
 /// item with an action is here — a tip with nothing to press stays in the full «Стоит
 /// посмотреть» list. The order is fixed: payments overdue and due today first (the oldest
-/// first), then things to sort out («Разобрать»), then statements to load («Загрузить»); at most
+/// first), then expected incomes that did not come, then things to sort out («Разобрать»), then statements to load («Загрузить»); at most
 /// three are shown, and with nothing to do the list is empty and the block is not drawn.
 public struct DoNowItem: Hashable, Sendable, Identifiable {
   /// What the button does.
   public enum Action: String, Hashable, Sendable {
     /// «Провести»: record the payment of a due date.
     case post
+    /// «Не пришёл?»: an expected income whose day has passed without the money — enter the
+    /// day it came, close it or move it.
+    case income
     /// «Разобрать»: sort out what waits for a decision.
     case review
     /// «Загрузить»: load a bank statement.
@@ -25,6 +28,8 @@ public struct DoNowItem: Hashable, Sendable, Identifiable {
   public var day: DateOnly?
   /// How many things wait behind a «Разобрать» item.
   public var count: Int
+  /// The expected income of a «Не пришёл?» item; `day` is its due date.
+  public var incomeId: UUID?
   /// The account a «Загрузить» item is about.
   public var accountId: UUID?
   /// How many days ago the last statement of that account was loaded.
@@ -32,8 +37,9 @@ public struct DoNowItem: Hashable, Sendable, Identifiable {
 
   public init(
     id: String, action: Action, paymentId: UUID? = nil, day: DateOnly? = nil, count: Int = 1,
-    accountId: UUID? = nil, daysAgo: Int = 0
+    accountId: UUID? = nil, daysAgo: Int = 0, incomeId: UUID? = nil
   ) {
+    self.incomeId = incomeId
     self.id = id
     self.action = action
     self.paymentId = paymentId
@@ -79,8 +85,8 @@ public enum WhatToDoNow {
   public static let limit = 3
 
   public static func list(
-    payments: [ScheduledPayment], reviews: [DoNowSource] = [], statements: [DoNowSource] = [],
-    today: DateOnly
+    payments: [ScheduledPayment], overdueIncomes: [OverdueIncomeItem] = [],
+    reviews: [DoNowSource] = [], statements: [DoNowSource] = [], today: DateOnly
   ) -> DoNowList {
     let due = payments.compactMap { payment -> DoNowItem? in
       guard payment.active, let day = payment.nextDate, day <= today else { return nil }
@@ -97,7 +103,18 @@ public enum WhatToDoNow {
           accountId: $0.accountId, daysAgo: $0.daysAgo)
       }
     }
-    let all = due + items(reviews, .review) + items(statements, .load)
+    // One item per expectation — its oldest due date. A recurring one is not closed or moved
+    // as a whole, so only a one-off expectation asks.
+    var asked = Set<UUID>()
+    let incomes = overdueIncomes.filter { $0.isOneOff && $0.due < today }
+      .sorted { ($0.due, $0.incomeId.uuidString) < ($1.due, $1.incomeId.uuidString) }
+      .compactMap { item -> DoNowItem? in
+        guard asked.insert(item.incomeId).inserted else { return nil }
+        return DoNowItem(
+          id: "income:\(item.incomeId.uuidString):\(item.due.iso)", action: .income,
+          day: item.due, incomeId: item.incomeId)
+      }
+    let all = due + incomes + items(reviews, .review) + items(statements, .load)
     return DoNowList(items: Array(all.prefix(limit)), more: max(0, all.count - limit))
   }
 }

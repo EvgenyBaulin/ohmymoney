@@ -41622,6 +41622,57 @@
         }
       }
     },
+    "opening.amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount borrowed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма кредита"
+          }
+        }
+      }
+    },
+    "opening.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken out on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оформлен"
+          }
+        }
+      }
+    },
+    "opening.known": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken out: day and amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оформлен: дата и сумма"
+          }
+        }
+      }
+    },
     "parts.how.once": {
       "extractionState": "manual",
       "localizations": {

@@ -1,10 +1,10 @@
 import AppCore
 import SwiftUI
 
-/// A thing valued by hand: its name, kind, currency and note, and — for a new one — «Стоимость»
-/// «на дату», today unless changed. «Сохранить» writes the asset and its first valuation as one
-/// `PlanningChange`, one step of ⌘Z; an edit leaves the valuations alone (they have «Новая
-/// оценка…» and «История оценок»).
+/// A thing valued by hand: its name, kind, currency and note, «Куплено: дата и цена» when the
+/// owner knows them, and — for a new one — «Стоимость» «на дату», today unless changed.
+/// «Сохранить» writes the asset and its first valuation as one `PlanningChange`, one step of ⌘Z;
+/// an edit leaves the valuations alone (they have «Новая оценка…» and «История оценок»).
 struct AssetEditor: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
@@ -18,11 +18,19 @@ struct AssetEditor: View {
   @State private var day: DateOnly?
   @State private var refusal: AssetRefusal?
   @State private var loaded = false
+  /// «Куплено: дата и цена»: on when either was said before.
+  @State private var purchaseKnown: Bool
+  @State private var purchaseDay: DateOnly?
+  @State private var purchasePrice: AmountE4
 
   init(original: Asset?) {
     self.original = original
     let seed = original ?? Asset(name: "")
     _asset = State(initialValue: seed)
+    _purchaseKnown = State(
+      initialValue: seed.purchasedOn != nil || seed.purchasePriceE4 != nil)
+    _purchaseDay = State(initialValue: seed.purchasedOn)
+    _purchasePrice = State(initialValue: seed.purchasePriceE4 ?? .zero)
     _files = State(
       initialValue: AttachmentsModel(owner: .asset, ownerId: seed.id, deferred: original == nil))
   }
@@ -57,6 +65,7 @@ struct AssetEditor: View {
             label: CapitalText.t("capital.editor.currency", environment),
             selection: $asset.currency)
         }
+        purchaseRows
         if original == nil {
           LabeledContent(CapitalText.t("capital.editor.value", environment)) {
             HStack {
@@ -90,12 +99,12 @@ struct AssetEditor: View {
       .formStyle(.grouped)
       FormButtons(
         title: environment.language("action.save"),
-        enabled: AssetActions.refusal(saving: asset, value: value) == nil,
+        enabled: AssetActions.refusal(saving: edited, value: value) == nil,
         failure: { failureText }
       ) {
         guard let dependencies else { return false }
         let outcome = Self.save(
-          asset, isNew: original == nil, value: value, on: day ?? environment.today,
+          edited, isNew: original == nil, value: value, on: day ?? environment.today,
           with: AssetActions(dependencies))
         if case .refused(let why) = outcome { refusal = why }
         if outcome == .done {
@@ -108,12 +117,43 @@ struct AssetEditor: View {
       }
     }
     .padding(20)
-    .sheetFrame(width: 460, height: original == nil ? 560 : 500)
+    .sheetFrame(width: 460, height: original == nil ? 640 : 580)
     .onAppear {
       // A new thing is valued in the default currency unless the owner picks another.
       guard !loaded else { return }
       loaded = true
       if original == nil { asset.currency = environment.defaultCurrency }
+    }
+  }
+
+  /// The asset as «Сохранить» writes it: what was typed with «Куплено: дата и цена».
+  private var edited: Asset {
+    AssetActions.purchased(
+      asset, known: purchaseKnown, on: purchaseDay ?? environment.today, price: purchasePrice)
+  }
+
+  /// «Куплено: дата и цена»: a switch, then the day and the price in the currency of the asset.
+  /// Both may lie long before the books began.
+  @ViewBuilder
+  private var purchaseRows: some View {
+    Toggle(isOn: $purchaseKnown) {
+      Text(verbatim: CapitalText.t("capital.editor.purchase", environment))
+    }
+    .accessibilityIdentifier("capital.editor.purchase")
+    if purchaseKnown {
+      DatePicker(
+        CapitalText.t("capital.editor.purchase.day", environment),
+        selection: Binding(
+          get: { environment.calendar.startOfDay(purchaseDay ?? environment.today) },
+          set: { purchaseDay = environment.calendar.day(of: $0) }),
+        displayedComponents: .date)
+      LabeledContent(CapitalText.t("capital.editor.purchase.price", environment)) {
+        HStack {
+          AmountField(amount: $purchasePrice, locale: environment.language.locale)
+          Text(verbatim: environment.money.symbol(for: asset.currency))
+            .foregroundStyle(.secondary)
+        }
+      }
     }
   }
 

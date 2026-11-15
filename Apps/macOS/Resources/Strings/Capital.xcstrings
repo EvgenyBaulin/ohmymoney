@@ -4193,6 +4193,108 @@
         }
       }
     },
+    "capital.chart.cash.amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        }
+      }
+    },
+    "capital.chart.cash.ask": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How much was on your accounts then?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько примерно было на счетах?"
+          }
+        }
+      }
+    },
+    "capital.chart.cash.edit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the rough sum on accounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить сумму на счетах"
+          }
+        }
+      }
+    },
+    "capital.chart.cash.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A rough sum in rubles, for this chart only. Between this day and the first count the line is dashed. Without an answer the early months show only assets and debts."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Примерная сумма в рублях, нужна только этому графику. От этого дня до первой сверки линия идёт пунктиром. Без ответа ранние месяцы показывают только имущество и долги."
+          }
+        }
+      }
+    },
+    "capital.chart.cash.remove": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove the answer"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Убрать ответ"
+          }
+        }
+      }
+    },
+    "capital.chart.cash.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About how much was on all your accounts on %@?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько примерно было на всех счетах на %@?"
+          }
+        }
+      }
+    },
     "capital.chart.have": {
       "extractionState": "manual",
       "localizations": {
@@ -4672,6 +4774,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "圖表需要至少一個完整月份的月底資料。"
+          }
+        }
+      }
+    },
+    "capital.chart.note.cashEstimated": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cash on accounts: your rough sum"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "деньги на счетах: ваша примерная сумма"
+          }
+        }
+      }
+    },
+    "capital.chart.note.restored": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "restored from the loan schedule"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "восстановлено по графику платежей"
+          }
+        }
+      }
+    },
+    "capital.chart.note.straightLine": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "straight-line estimate"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оценка по прямой"
+          }
+        }
+      }
+    },
+    "capital.chart.note.withoutCash": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "without cash on accounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "без денег на счетах"
           }
         }
       }
@@ -8224,6 +8394,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "備註"
+          }
+        }
+      }
+    },
+    "capital.editor.purchase": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bought: day and price"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куплено: дата и цена"
+          }
+        }
+      }
+    },
+    "capital.editor.purchase.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bought on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куплено"
+          }
+        }
+      }
+    },
+    "capital.editor.purchase.price": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchase price"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цена покупки"
           }
         }
       }

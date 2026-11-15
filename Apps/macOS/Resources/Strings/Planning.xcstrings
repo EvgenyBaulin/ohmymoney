@@ -55069,6 +55069,23 @@
         }
       }
     },
+    "goals.overdue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the date has passed, %@ left"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "срок прошёл, осталось %@"
+          }
+        }
+      }
+    },
     "goals.projected": {
       "extractionState": "manual",
       "localizations": {
@@ -59897,6 +59914,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "截至 %@"
+          }
+        }
+      }
+    },
+    "goals.shiftDeadline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move the date"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сдвинуть срок"
           }
         }
       }
@@ -91451,6 +91485,23 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "overview.notArrived": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not arrived"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не пришло"
           }
         }
       }

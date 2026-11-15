@@ -252,7 +252,7 @@ struct Migration0027Tests {
         "points_burn", "digital_ruble", "piggy",
       ])
     #expect(
-      Array(ExportTables.debts.columns.dropLast(1).suffix(3)) == [
+      Array(ExportTables.debts.columns.dropLast(3).suffix(3)) == [
         "pause_from", "pause_to", "pause_kind",
       ])
     #expect(

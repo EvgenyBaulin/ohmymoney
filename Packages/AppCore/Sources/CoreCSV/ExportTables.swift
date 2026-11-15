@@ -215,7 +215,9 @@ public enum ExportTables {
   /// restructuring and which of the two it is (`holiday` or `restructuring`), empty for none.
   /// `tax_deduction` came with `Schema/0029_tax_deductions.sql` and goes last:
   /// `mortgage_interest` for a mortgage whose interest counts towards the deduction, empty for
-  /// none.
+  /// none. `opened_on` and `original_amount` came with
+  /// `Schema/0032_asset_purchase_and_loan_opening.sql` and go last: the day the loan was taken out
+  /// and what was borrowed then, in the debt's currency, empty when not said.
   public static let debts = ExportTable(
     fileName: "debts.csv",
     columns: [
@@ -225,7 +227,7 @@ public enum ExportTables {
       "main_from", "grace_kind", "grace_payment", "repay_months", "step_days", "first_due_on",
       "parts", "markup", "psk", "prepay_any_day", "prepay_notice_days", "planned_prepay_on",
       "planned_prepay", "in_ladder", "pledge", "return_by", "terms_reviewed", "pause_from",
-      "pause_to", "pause_kind", "tax_deduction",
+      "pause_to", "pause_kind", "tax_deduction", "opened_on", "original_amount",
     ])
 
   /// `payment_method_id`, `occurred_at`, `account_currency` and `account_amount` came with
@@ -318,10 +320,15 @@ public enum ExportTables {
     columns: ["id", "name", "sort", "archived"])
 
   /// Columns match `Schema/0008_capital.sql`: the things valued by hand. `disposed_on` is the
-  /// day it was sold or written off, empty while it is kept.
+  /// day it was sold or written off, empty while it is kept. `purchased_on` and `purchase_price`
+  /// came with `Schema/0032_asset_purchase_and_loan_opening.sql` and go last: the day it was
+  /// bought and what it cost, in the asset's currency, empty when not said.
   public static let assets = ExportTable(
     fileName: "assets.csv",
-    columns: ["id", "name", "kind", "currency", "note", "disposed_on", "sort"])
+    columns: [
+      "id", "name", "kind", "currency", "note", "disposed_on", "sort", "purchased_on",
+      "purchase_price",
+    ])
 
   /// Columns match `Schema/0008_capital.sql`: what an asset was worth on a day, in its
   /// currency.
@@ -885,6 +892,8 @@ extension ExportTables {
       CSVValue.string(day: debt.pause?.to),
       CSVValue.string(debt.pause?.kind.rawValue),
       CSVValue.string(debt.taxDeduction?.rawValue),
+      CSVValue.string(day: debt.openedOn),
+      CSVValue.string(amount: debt.originalAmountE4),
     ]
   }
 
@@ -1150,6 +1159,8 @@ extension ExportTables {
       CSVValue.string(asset.note),
       CSVValue.string(day: asset.disposedOn),
       String(asset.sort),
+      CSVValue.string(day: asset.purchasedOn),
+      CSVValue.string(amount: asset.purchasePriceE4),
     ]
   }
 

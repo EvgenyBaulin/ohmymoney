@@ -223,6 +223,12 @@ struct GoalsBlock: View {
       Button(t("goals.withdraw")) { sheet = .moveGoal(status, withdraw: true) }
         .buttonStyle(.bordered)
         .disabled(status.saved.raw <= 0)
+      // A goal whose date has passed: moving the date is the way on, never a silent change.
+      if status.realism == .overdue {
+        Button(t("goals.shiftDeadline")) { sheet = .goal(status.goal) }
+          .buttonStyle(.bordered)
+          .accessibilityIdentifier("goal.shiftDeadline")
+      }
       // A goal that has gathered what it was for can become the trip it was saved for.
       if TripGoal.readyBudget(target: status.goal.targetE4, saved: status.saved) != nil {
         Button(TravelText.t("travel.goal.make", environment)) { tripGoal = status }
@@ -353,6 +359,12 @@ struct GoalsBlock: View {
   /// «Нужно 18 300 ₽ в месяц · успеваете по плану», «при плане — к марту 2027».
   private func realism(_ status: GoalStatus) -> String {
     var pieces: [String] = []
+    // A date that has passed asks no monthly sum: «срок прошёл, осталось …» says what is left.
+    if status.realism == .overdue {
+      return environment.format(
+        "goals.overdue", table: "Planning",
+        environment.money.rounded(status.remaining, currency: status.currency))
+    }
     if let needed = status.neededMonthly {
       pieces.append(
         environment.format(

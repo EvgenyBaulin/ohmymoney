@@ -46,8 +46,8 @@ struct StillExpectedPropertyTests {
     return result
   }
 
-  /// Nothing came yet: every due date from the 1st of this month through D is waited for in
-  /// full, dollars at today's rate; euros, which have no rate, are listed instead.
+  /// Nothing came yet: every due date from today through D is waited for in full — one that
+  /// passed unpaid is overdue, not waited for — dollars at today's rate; euros, which have no rate, are listed instead.
   @Test(arguments: seeds)
   func everyDueDateThroughDIsWaitedFor(_ seed: UInt64) {
     var random = SeededRandom(seed: seed)
@@ -89,7 +89,7 @@ struct StillExpectedPropertyTests {
       }
       fx.expected.append(income)
       let waited = Self.dues(of: income, through: until).filter {
-        $0 >= Fx.today.monthKey.firstDay
+        $0 >= Fx.today
       }
       guard !waited.isEmpty else { continue }
       switch income.currency {
@@ -152,8 +152,9 @@ struct StillExpectedPropertyTests {
     #expect(common.info.first?.amount == Fx.money("50000"))
   }
 
-  /// What came for this month's salary is not waited for, the rest is; a payment already
-  /// written for a later day has not come yet and is waited for until its day, within D.
+  /// What came for this month's salary is not waited for, nor is the rest — its day passed, it is
+  /// overdue; a payment already written for a later day has not come yet and is waited for
+  /// until its day, within D.
   @Test func whatCameIsNotWaitedForAndWhatIsWrittenAheadIs() {
     var fx = Fx()
     fx.count([(Fx.main, .rub, "1000")], at: Fx.at("2026-09-01", 9))
@@ -169,14 +170,14 @@ struct StillExpectedPropertyTests {
       ExpectedIncomeLink(expectedIncomeId: salary.id, transactionId: ahead),
     ]
     let snapshot = fx.snapshot()
-    #expect(snapshot.freeMoney.info.first?.amount == Fx.money("40000"))
+    #expect(snapshot.freeMoney.info.first?.amount == .zero)
     let october = snapshot.freeMoney(until: Fx.day("2026-10-31"), ledger: fx.ledger)
-    #expect(october.info.first?.amount == Fx.money("140000"))
+    #expect(october.info.first?.amount == Fx.money("100000"))
     let beforeItsDay = snapshot.freeMoney(until: Fx.day("2026-10-08"), ledger: fx.ledger)
-    #expect(beforeItsDay.info.first?.amount == Fx.money("40000"))
+    #expect(beforeItsDay.info.first?.amount == .zero)
   }
 
-  /// A salary of August never paid is not waited for any more — it is overdue, not money
+  /// A salary or project never paid is not waited for any more — it is overdue, not money
   /// coming — and a closed expectation waits for nothing.
   @Test func anOldUnpaidDueAndAClosedExpectationAreNotWaitedFor() {
     var fx = Fx()
@@ -193,8 +194,8 @@ struct StillExpectedPropertyTests {
         dueDate: Fx.day("2026-09-25"), closed: true),
     ]
     let free = fx.snapshot().freeMoney
-    // September's salary only: August's and the old project are overdue, the closed one
-    // waits for nothing.
-    #expect(free.info.first?.amount == Fx.money("100000"))
+    // Every due date has passed or is closed: nothing is waited for, September's salary of the
+    // 5th included — it is overdue.
+    #expect(free.info.first?.amount == .zero)
   }
 }
