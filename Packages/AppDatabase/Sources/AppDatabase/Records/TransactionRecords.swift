@@ -238,7 +238,9 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
       returnBy: RowMapping.day(row, "return_by"),
       termsReviewed: (try? RowMapping.flag(row, "terms_reviewed", fallback: false)) ?? false,
       pause: Self.pause(row),
-      taxDeduction: TaxDeductionKind.debt(RowMapping.text(row, "tax_deduction")))
+      taxDeduction: TaxDeductionKind.debt(RowMapping.text(row, "tax_deduction")),
+      openedOn: RowMapping.text(row, "opened_on").flatMap(DateOnly.init(iso:)),
+      originalAmountE4: (try? RowMapping.optionalAmount(row, "original_amount_e4")) ?? nil)
   }
 
   /// A pause: both days and an order that holds; the kind defaults to a holiday when it does not
@@ -324,6 +326,8 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["pause_to"] = pause?.to.iso
     container["pause_kind"] = pause?.kind.rawValue
     container["tax_deduction"] = taxDeduction?.rawValue
+    container["opened_on"] = openedOn?.iso
+    container["original_amount_e4"] = originalAmountE4?.raw
   }
 }
 

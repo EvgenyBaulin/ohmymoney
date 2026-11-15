@@ -91,6 +91,11 @@ final class DebtWizardLayoutTests: XCTestCase {
             model.amount = AmountE4(whole: 120_000)
             model.rateText = "12"
             model.monthly = AmountE4(whole: 10_000)
+            // «Оформлен: дата и сумма» switched on, so its day and sum are laid out too.
+            if kind.isLoan {
+              model.opening.known = true
+              model.opening.amount = AmountE4(whole: 4_200_000)
+            }
             model.step = step
             let window = NSWindow(
               contentRect: CGRect(x: 0, y: 0, width: width, height: 900), styleMask: [.titled],

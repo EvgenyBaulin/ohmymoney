@@ -5,8 +5,9 @@ import GRDB
 // The things valued by hand and their valuations (`Schema/0008_capital.sql`), mapped by hand
 // like every other record (`RowMapping`).
 
-/// A kind this build does not know reads as `other`, a currency left empty as rubles: one odd
-/// cell must not stop the history from being read.
+/// A kind this build does not know reads as `other`, a currency left empty as rubles, a day of
+/// purchase that does not read or a price that is not a whole number as not said: one odd cell
+/// must not stop the history from being read.
 extension Asset: @retroactive FetchableRecord, @retroactive PersistableRecord {
   public static let databaseTableName = "assets"
 
@@ -18,7 +19,9 @@ extension Asset: @retroactive FetchableRecord, @retroactive PersistableRecord {
       currency: RowMapping.currency(row, "currency") ?? .rub,
       note: row["note"],
       disposedOn: RowMapping.day(row, "disposed_on"),
-      sort: try RowMapping.optionalInteger(row, "sort") ?? 0)
+      sort: try RowMapping.optionalInteger(row, "sort") ?? 0,
+      purchasedOn: RowMapping.text(row, "purchased_on").flatMap(DateOnly.init(iso:)),
+      purchasePriceE4: (try? RowMapping.optionalAmount(row, "purchase_price_e4")) ?? nil)
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -29,6 +32,8 @@ extension Asset: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["note"] = note
     container["disposed_on"] = disposedOn?.iso
     container["sort"] = sort
+    container["purchased_on"] = purchasedOn?.iso
+    container["purchase_price_e4"] = purchasePriceE4?.raw
   }
 }
 

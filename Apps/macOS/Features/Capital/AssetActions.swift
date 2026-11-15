@@ -6,7 +6,7 @@ import Foundation
 enum AssetRefusal: Error, Hashable, Sendable {
   /// The name is empty once the spaces around it are gone.
   case emptyName
-  /// A value below zero: a thing is worth nothing at worst.
+  /// A value or a price of purchase below zero: a thing is worth nothing at worst.
   case negativeValue
   /// The asset or the valuation is no longer there.
   case notFound
@@ -53,7 +53,20 @@ struct AssetActions {
   static func refusal(saving asset: Asset, value: AmountE4? = nil) -> AssetRefusal? {
     if cleaned(asset).name.isEmpty { return .emptyName }
     if let value, value.isNegative { return .negativeValue }
+    if asset.purchasePriceE4?.isNegative == true { return .negativeValue }
     return nil
+  }
+
+  /// «Куплено: дата и цена» as the editor sets it: when `known`, the day — today unless changed
+  /// — and the price, a price of zero as not said; otherwise neither. The valuations are not
+  /// touched: the price of purchase is no valuation.
+  static func purchased(
+    _ asset: Asset, known: Bool, on day: DateOnly, price: AmountE4
+  ) -> Asset {
+    var asset = asset
+    asset.purchasedOn = known ? day : nil
+    asset.purchasePriceE4 = known && !price.isZero ? price : nil
+    return asset
   }
 
   /// A new asset with its first valuation — `value` on `day` —, one change.

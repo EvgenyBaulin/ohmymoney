@@ -84,8 +84,13 @@ struct DebtWizardModel {
   var splitPayments: [SplitPayment] = []
   // A pledge.
   var returnBy: DateOnly
+  /// «Оформлен: дата и сумма» of a loan taken out before the books began.
+  var opening = DebtOpeningDraft()
+  /// The day the wizard was opened: the day of an opening switched on and left as it is.
+  var today: DateOnly
 
   init(today: DateOnly, currency: CurrencyCode) {
+    self.today = today
     day = today
     splitFirstDue = today
     self.currency = currency
@@ -129,6 +134,7 @@ struct DebtWizardModel {
       debt.psk = psk
       debt.prepayAnyDay = prepayAnyDay
       debt.prepayNoticeDays = noticeDays == DebtReminders.defaultNoticeDays ? nil : noticeDays
+      debt = opening.applied(to: debt, today: today)
     case .personIOwe, .owedToMe:
       if monthly.raw > 0 {
         debt.monthlyPaymentE4 = monthly
@@ -195,6 +201,7 @@ struct DebtWizardModel {
     case .amount:
       guard kind != .creditCard else { return true }
       return !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && amount.raw > 0
+        && (!kind.isLoan || opening.isValid)
     case .payments:
       switch kind {
       case .loan, .mortgage, .education:
@@ -575,6 +582,9 @@ struct DebtWizard: View {
         }
       }
       DatePicker(t("wizard.day"), selection: dayBinding, displayedComponents: .date)
+      if model.kind.isLoan {
+        DebtOpeningFields(draft: $model.opening, currency: model.currency)
+      }
       if !model.kind.isPurchase {
         Toggle(t("form.moneyMovedToday"), isOn: $model.moneyMoved)
       }
