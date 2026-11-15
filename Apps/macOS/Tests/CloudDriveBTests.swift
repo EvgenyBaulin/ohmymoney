@@ -13,7 +13,8 @@ private final class StubProtocol: URLProtocol, @unchecked Sendable {
     var body: Data
   }
 
-  nonisolated(unsafe) static var handler: (@Sendable (Seen) throws -> (Int, [String: String], Data))?
+  nonisolated(unsafe) static var handler:
+    (@Sendable (Seen) throws -> (Int, [String: String], Data))?
   nonisolated(unsafe) static var seen: [Seen] = []
   private static let lock = NSLock()
 
@@ -81,16 +82,19 @@ private func tokenAnswer(_ seen: StubProtocol.Seen) -> (Int, [String: String], D
     ? (200, [:], json(["access_token": "acc", "expires_in": 3600])) : nil
 }
 
+/// The semaphore of `offMain` orders the write on the global queue before the read.
+private final class OffMainBox<T>: @unchecked Sendable { var result: Result<T, Error>? }
+
 /// Runs off the main thread, as the exchange does: the transports refuse the main thread.
 private func offMain<T: Sendable>(_ work: @escaping @Sendable () throws -> T) throws -> T {
-  var result: Result<T, Error>?
+  let box = OffMainBox<T>()
   let done = DispatchSemaphore(value: 0)
   DispatchQueue.global().async {
-    result = Result { try work() }
+    box.result = Result { try work() }
     done.signal()
   }
   done.wait()
-  return try result!.get()
+  return try XCTUnwrap(box.result).get()
 }
 
 final class CloudFileNameTests: XCTestCase {
@@ -106,7 +110,8 @@ final class CloudFileNameTests: XCTestCase {
     XCTAssertEqual(policy.delay(afterAttempt: 1, retryAfter: "2"), 2)
     XCTAssertEqual(policy.delay(afterAttempt: 1, retryAfter: "999"), 60)
     XCTAssertGreaterThan(
-      policy.delay(afterAttempt: 3, retryAfter: nil), policy.delay(afterAttempt: 1, retryAfter: nil))
+      policy.delay(afterAttempt: 3, retryAfter: nil), policy.delay(afterAttempt: 1, retryAfter: nil)
+    )
   }
 }
 
@@ -117,7 +122,11 @@ private final class Counter: @unchecked Sendable {
   private let lock = NSLock()
   private var count = 0
   /// Increments and returns the new value.
-  func increment() -> Int { lock.withLock { count += 1; return count } }
+  func increment() -> Int {
+    lock.withLock {
+      count += 1; return count
+    }
+  }
   var value: Int { lock.withLock { count } }
 }
 
@@ -136,7 +145,8 @@ final class GoogleDriveTransportTests: XCTestCase {
 
   func testAuthorizationURLCarriesPKCEAndTheNarrowScope() throws {
     let config = GoogleDriveConfig.oauth(clientID: "abc.apps.googleusercontent.com")
-    let url = try XCTUnwrap(CloudOAuthFlow.authorizationURL(config: config, challenge: "c", state: "s"))
+    let url = try XCTUnwrap(
+      CloudOAuthFlow.authorizationURL(config: config, challenge: "c", state: "s"))
     let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
     func value(_ name: String) -> String? { items.first { $0.name == name }?.value }
     XCTAssertEqual(value("code_challenge_method"), "S256")
@@ -152,10 +162,16 @@ final class GoogleDriveTransportTests: XCTestCase {
         .queryItems?.first { $0.name == "pageToken" }?.value
       let time = "2026-11-01T10:00:00.000Z"
       if token == nil {
-        return (200, [:], json([
-          "nextPageToken": "p2",
-          "files": [["name": journal, "modifiedTime": time], ["name": "stranger.txt", "modifiedTime": time]],
-        ]))
+        return (
+          200, [:],
+          json([
+            "nextPageToken": "p2",
+            "files": [
+              ["name": journal, "modifiedTime": time],
+              ["name": "stranger.txt", "modifiedTime": time],
+            ],
+          ])
+        )
       }
       return (200, [:], json(["files": [["name": snapshot, "modifiedTime": time]]]))
     }
@@ -195,7 +211,8 @@ final class GoogleDriveTransportTests: XCTestCase {
     }
     let transport = makeTransport()
     try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }
-    let upload = try XCTUnwrap(StubProtocol.requests.first { $0.method == "POST" && $0.url.host == "www.googleapis.com" })
+    let upload = try XCTUnwrap(
+      StubProtocol.requests.first { $0.method == "POST" && $0.url.host == "www.googleapis.com" })
     let text = String(decoding: upload.body, as: UTF8.self)
     XCTAssertTrue(text.contains("appDataFolder"))
     XCTAssertTrue(text.contains(journal))
@@ -212,9 +229,12 @@ final class GoogleDriveTransportTests: XCTestCase {
       return (200, [:], json(["files": [["id": "F1"]]]))
     }
     let transport = makeTransport()
-    XCTAssertNoThrow(try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) })
+    XCTAssertNoThrow(
+      try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) })
     _ = stored.increment()
-    XCTAssertThrowsError(try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }) {
+    XCTAssertThrowsError(
+      try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }
+    ) {
       XCTAssertEqual($0 as? ExchangeTransportError, .fileChanged)
     }
   }
@@ -239,7 +259,8 @@ final class GoogleDriveTransportTests: XCTestCase {
       return (200, [:], json(["files": []]))
     }
     let transport = makeTransport()
-    XCTAssertThrowsError(try offMain { try transport.writeFile(named: journal2, data: payload, replacing: false) })
+    XCTAssertThrowsError(
+      try offMain { try transport.writeFile(named: journal2, data: payload, replacing: false) })
   }
 
   func testRejectedTokenIsRefreshedAndTheCallRepeated() throws {
@@ -302,7 +323,11 @@ final class SupabaseStorageTransportTests: XCTestCase {
       let offset = body?["offset"] as? Int ?? -1
       let stamp = "2026-11-01T10:00:00.5+00:00"
       switch offset {
-      case 0: return (200, [:], json([["name": journal, "updated_at": stamp], ["name": "x.txt", "updated_at": stamp]]))
+      case 0:
+        return (
+          200, [:],
+          json([["name": journal, "updated_at": stamp], ["name": "x.txt", "updated_at": stamp]])
+        )
       case 2: return (200, [:], json([["name": snapshot, "updated_at": stamp]]))
       default: return (200, [:], json([[String: String]]()))
       }
@@ -335,7 +360,9 @@ final class SupabaseStorageTransportTests: XCTestCase {
   func testDifferentExistingBytesAreRefused() throws {
     StubProtocol.reset { _ in (200, [:], Data([7, 7])) }
     let transport = try makeTransport()
-    XCTAssertThrowsError(try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }) {
+    XCTAssertThrowsError(
+      try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }
+    ) {
       XCTAssertEqual($0 as? ExchangeTransportError, .fileChanged)
     }
   }
@@ -347,7 +374,8 @@ final class SupabaseStorageTransportTests: XCTestCase {
       return reads.increment() == 1 ? (404, [:], Data()) : (200, [:], payload)
     }
     let transport = try makeTransport()
-    XCTAssertNoThrow(try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) })
+    XCTAssertNoThrow(
+      try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) })
   }
 
   func testSnapshotReplacementUsesUpsert() throws {
@@ -360,7 +388,8 @@ final class SupabaseStorageTransportTests: XCTestCase {
   func testServerFailureIsNotACommit() throws {
     StubProtocol.reset { seen in seen.method == "GET" ? (404, [:], Data()) : (500, [:], Data()) }
     let http = try makeTransport()
-    XCTAssertThrowsError(try offMain { try http.writeFile(named: journal, data: payload, replacing: false) })
+    XCTAssertThrowsError(
+      try offMain { try http.writeFile(named: journal, data: payload, replacing: false) })
   }
 }
 
@@ -397,10 +426,13 @@ final class MailRuCloudTransportTests: XCTestCase {
   func testListingKeepsExchangeFilesOnly() throws {
     let date = "Sun, 01 Nov 2026 10:00:00 GMT"
     StubProtocol.reset { _ in
-      (207, [:], multistatus([
-        ("/OhMyMoney/", date), ("/OhMyMoney/\(journal)", date), ("/OhMyMoney/\(snapshot)", date),
-        ("/OhMyMoney/other.txt", date), ("/OhMyMoney/\(journal2)", nil),
-      ]))
+      (
+        207, [:],
+        multistatus([
+          ("/OhMyMoney/", date), ("/OhMyMoney/\(journal)", date), ("/OhMyMoney/\(snapshot)", date),
+          ("/OhMyMoney/other.txt", date), ("/OhMyMoney/\(journal2)", nil),
+        ])
+      )
     }
     let transport = try makeTransport()
     let files = try offMain { try transport.files() }
@@ -413,7 +445,8 @@ final class MailRuCloudTransportTests: XCTestCase {
   }
 
   func testMissingFolderIsCreatedAndListsEmpty() throws {
-    StubProtocol.reset { seen in seen.method == "PROPFIND" ? (404, [:], Data()) : (201, [:], Data()) }
+    StubProtocol.reset { seen in seen.method == "PROPFIND" ? (404, [:], Data()) : (201, [:], Data())
+    }
     let transport = try makeTransport()
     XCTAssertEqual(try offMain { try transport.files() }.count, 0)
     XCTAssertEqual(StubProtocol.requests.map(\.method), ["PROPFIND", "MKCOL"])
@@ -435,7 +468,9 @@ final class MailRuCloudTransportTests: XCTestCase {
   }
 
   func testReadAndMissing() throws {
-    StubProtocol.reset { seen in seen.url.path.hasSuffix(journal) ? (200, [:], payload) : (404, [:], Data()) }
+    StubProtocol.reset { seen in
+      seen.url.path.hasSuffix(journal) ? (200, [:], payload) : (404, [:], Data())
+    }
     let transport = try makeTransport()
     XCTAssertEqual(try offMain { try transport.readFile(named: journal) }, payload)
     XCTAssertThrowsError(try offMain { try transport.readFile(named: journal2) }) {
@@ -446,10 +481,14 @@ final class MailRuCloudTransportTests: XCTestCase {
   func testDifferentExistingBytesAreRefusedAndFailedPutIsNotACommit() throws {
     StubProtocol.reset { seen in seen.method == "GET" ? (200, [:], Data([5])) : (500, [:], Data()) }
     let transport = try makeTransport()
-    XCTAssertThrowsError(try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }) {
+    XCTAssertThrowsError(
+      try offMain { try transport.writeFile(named: journal, data: payload, replacing: false) }
+    ) {
       XCTAssertEqual($0 as? ExchangeTransportError, .fileChanged)
     }
-    XCTAssertThrowsError(try offMain { try transport.writeFile(named: snapshot, data: payload, replacing: true) }) {
+    XCTAssertThrowsError(
+      try offMain { try transport.writeFile(named: snapshot, data: payload, replacing: true) }
+    ) {
       XCTAssertEqual($0 as? ExchangeTransportError, .unavailable)
     }
   }
@@ -482,9 +521,11 @@ final class CloudDriveRegistryTests: XCTestCase {
       .deletingLastPathComponent().appendingPathComponent("Resources/Strings/CloudDrives.xcstrings")
     let catalog = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any]
     let strings = try XCTUnwrap(catalog?["strings"] as? [String: [String: Any]])
-    var keys = ["cloud.connect.action", "cloud.disconnect.action", CloudDrive.unavailableKey,
+    var keys = [
+      "cloud.connect.action", "cloud.disconnect.action", CloudDrive.unavailableKey,
       "cloud.section.title", "cloud.input.invalid", "cloud.signIn.failed", "cloud.encrypted.note",
-      "cloud.status.connected", "cloud.status.notConnected"]
+      "cloud.status.connected", "cloud.status.notConnected",
+    ]
     for drive in CloudDrive.allCases { keys += [drive.nameKey] + drive.fields.map(\.labelKey) }
     for key in keys {
       let localizations = strings[key]?["localizations"] as? [String: Any]
@@ -496,7 +537,9 @@ final class CloudDriveRegistryTests: XCTestCase {
   func testFormDrivesConnectOnlyWithValidInputAndDisconnectForgetsThem() throws {
     let credentials = MemoryCloudCredentialStore()
     let connection = CloudDriveConnection(credentials: credentials)
-    XCTAssertThrowsError(try connection.connect(.supabase, values: ["url": "http://x", "key": "k"])) {
+    XCTAssertThrowsError(
+      try connection.connect(.supabase, values: ["url": "http://x", "key": "k"])
+    ) {
       XCTAssertEqual($0 as? CloudConnectError, .invalidInput)
     }
     XCTAssertFalse(connection.isConnected(.supabase))
@@ -555,7 +598,8 @@ final class CloudDriveRegistryTests: XCTestCase {
     let config = try XCTUnwrap(MailRuCloudConfig(login: "me@mail.test", appPassword: "pw"))
     let transport = MailRuCloudTransport(
       client: MailRuCloudTransport.client(
-        config: config, http: URLSessionCloudHTTP(session: StubProtocol.session()), retry: quickRetry),
+        config: config, http: URLSessionCloudHTTP(session: StubProtocol.session()),
+        retry: quickRetry),
       base: "https://dav.test")
     do {
       _ = try await Task.detached { try transport.files() }.value

@@ -13,7 +13,9 @@ final class CloudInfraFixTests: XCTestCase {
     func perform(_ request: URLRequest) throws -> CloudHTTPResponse { try reply(request) }
   }
 
-  private func client(_ reply: @escaping @Sendable (URLRequest) throws -> CloudHTTPResponse)
+  private func client(
+    _ reply: @escaping @Sendable (URLRequest) throws -> CloudHTTPResponse
+  )
     -> CloudHTTPClient
   {
     CloudHTTPClient(
@@ -223,7 +225,8 @@ final class CloudInfraFixTests: XCTestCase {
     let items = files.map {
       #"{"id":"\#($0.id)","name":"\#(name)","createdTime":"\#($0.created)","modifiedTime":"\#($0.modified)"}"#
     }
-    return CloudHTTPResponse(status: 200, body: Data(#"{"files":[\#(items.joined(separator: ","))]}"#.utf8))
+    return CloudHTTPResponse(
+      status: 200, body: Data(#"{"files":[\#(items.joined(separator: ","))]}"#.utf8))
   }
 
   func testGoogleTwoFilesOfOneNameAreReadAsTheEarliestCreatedInAnyOrder() throws {
@@ -265,14 +268,17 @@ private final class Slept: @unchecked Sendable {
   var count: Int { lock.withLock { seen } }
 }
 
+/// The semaphore of `offMain` orders the write on the global queue before the read.
+private final class OffMainBox<T>: @unchecked Sendable { var result: Result<T, Error>? }
+
 /// Runs off the main thread, as the exchange does: the transports refuse the main thread.
 private func offMain<T: Sendable>(_ work: @escaping @Sendable () throws -> T) throws -> T {
-  var result: Result<T, Error>?
+  let box = OffMainBox<T>()
   let done = DispatchSemaphore(value: 0)
   DispatchQueue.global().async {
-    result = Result { try work() }
+    box.result = Result { try work() }
     done.signal()
   }
   done.wait()
-  return try result!.get()
+  return try XCTUnwrap(box.result).get()
 }
