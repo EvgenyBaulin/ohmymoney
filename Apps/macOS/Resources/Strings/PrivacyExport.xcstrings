@@ -142,6 +142,12 @@
             "value": "Anonimlashtirish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Анонимизировать"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -295,6 +301,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxadan tavsiflar, izohlar, joylar va nomlar o‘chiriladi. Summalar, sanalar va toifalar qoladi. Asl nusxa o‘zgarmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описания, комментарии, места и имена в копии удаляются. Суммы, даты и категории сохраняются. Оригинал не меняется."
           }
         },
         "zh-Hans": {
@@ -452,6 +464,12 @@
             "value": "Biriktirmalarni qo‘shish (%@)"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить вложения (%@)"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -605,6 +623,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxa tayyor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия готова"
           }
         },
         "zh-Hans": {
@@ -762,6 +786,12 @@
             "value": "Biriktirmalar: %lld"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вложения: %lld"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -915,6 +945,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parolingiz bilan qulflangan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Защищено вашим паролем."
           }
         },
         "zh-Hans": {
@@ -1421,6 +1457,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Nusxada %lld ta amal"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операций в копии"
                 }
               }
             }
@@ -1947,6 +1995,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переводов в копии"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -2114,6 +2174,12 @@
             "value": "Bu versiyada anonimlashtirish mavjud emas, shuning uchun nusxa yaratilmadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Анонимизация недоступна в этой сборке, поэтому копия не создана."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2267,6 +2333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yashirin hisobdan nusxada saqlanadigan ma’lumotlar foydalanmoqda, shuning uchun uni chiqarib bo‘lmaydi. Yashirin hisoblarni qo‘shing yoki hisobni qayta ko‘rsating."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрытый счёт всё ещё используется в данных, которые сохраняются в копии, поэтому его нельзя исключить. Включите скрытые счета или снова покажите этот счёт."
           }
         },
         "zh-Hans": {
@@ -2424,6 +2496,12 @@
             "value": "Nusxa yaratilmadi. Hech narsa o‘zgartirilmadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия не создана. Ничего не изменено."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2577,6 +2655,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parol kiriting: parolsiz nusxa yaratilmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите пароль: копия без пароля не создаётся."
           }
         },
         "zh-Hans": {
@@ -2734,6 +2818,12 @@
             "value": "Davr bo‘sh: tugash sanasi boshlanishdan oldin."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период пуст: конец раньше начала."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2887,6 +2977,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Format"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат"
           }
         },
         "zh-Hans": {
@@ -3044,6 +3140,12 @@
             "value": "Ko‘chirish arxivi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архив переноса"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3197,6 +3299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Faqat CSV"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только CSV"
           }
         },
         "zh-Hans": {
@@ -3355,6 +3463,12 @@
             "value": "Dan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3508,6 +3622,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yashirin hisoblarni qo‘shish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить скрытые счета"
           }
         },
         "zh-Hans": {
@@ -3665,6 +3785,12 @@
             "value": "Bu o‘chirilsa, nusxaga yashirin hisoblar, ularning amallari va o‘tkazmalari qo‘shilmaydi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без них в копии не будет скрытых счетов и их операций, переводов, плановых платежей, ожидаемых доходов, платежей по долгам и целей."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3818,6 +3944,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxaga yashirin hisoblar qo‘shiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия будет включать скрытые счета."
           }
         },
         "zh-Hans": {
@@ -3975,6 +4107,12 @@
             "value": "Qo‘shilmadi: %lld"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исключено: %lld"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4128,6 +4266,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu nusxa — asli sizda qoladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия — оригинал остаётся у вас."
           }
         },
         "zh-Hans": {
@@ -4286,6 +4430,12 @@
             "value": "Parol"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4440,6 +4590,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parolni takrorlang"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторите пароль"
           }
         },
         "zh-Hans": {
@@ -4597,6 +4753,12 @@
             "value": "Nusxa shu parol bilan qulflanadi. Usiz uni hech kim ocha olmaydi va parolni tiklab bo‘lmaydi. Asl nusxa sizda o‘zgarmay qoladi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия защищена этим паролем. Открыть её без него нельзя, и восстановить его невозможно. Оригинал остаётся у вас без изменений."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4751,6 +4913,24 @@
             "state": "translated",
             "value": "Yashirilgan hisoblardagi rejalar, qarz to‘lovlari va maqsadlar hisobga olinmagan: %lld"
           }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Планы, платежи по долгам и цели скрытых счетов исключены: %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已排除隐藏账户的计划、债务还款和目标：%lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱藏帳戶的計劃、債務還款與目標已略過：%lld"
+          }
         }
       }
     },
@@ -4893,6 +5073,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "biriktirmalar: %lld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "вложения: %lld"
           }
         },
         "zh-Hans": {
@@ -5051,6 +5237,12 @@
             "value": "Hisoblanmoqda…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подсчёт…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5204,6 +5396,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qo‘shiladi:"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будет включено:"
           }
         },
         "zh-Hans": {
@@ -5711,6 +5909,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta amal"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операций"
                 }
               }
             }
@@ -6237,6 +6447,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переводов"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -6404,6 +6626,12 @@
             "value": "Parol kiriting: parolsiz nusxa yaratilmaydi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите пароль: копия без пароля не создаётся."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6557,6 +6785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parollar mos kelmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароли не совпадают."
           }
         },
         "zh-Hans": {
@@ -6714,6 +6948,12 @@
             "value": "Davr bo‘sh: tugash sanasi boshlanishdan oldin."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период пуст: конец раньше начала."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6867,6 +7107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxani saqlash…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить копию…"
           }
         },
         "zh-Hans": {
@@ -7024,6 +7270,12 @@
             "value": "Tarixning bir qismi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часть истории"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7177,6 +7429,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Davr uchun"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За период"
           }
         },
         "zh-Hans": {
@@ -7334,6 +7592,12 @@
             "value": "Butun ma’lumotlar bazasi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вся база данных"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7489,6 +7753,12 @@
             "value": "Parolni ko‘rsatish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать пароль"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7642,6 +7912,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxani eksport qilish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспорт копии"
           }
         },
         "zh-Hans": {
@@ -7800,6 +8076,12 @@
             "value": "Gacha"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7953,6 +8235,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxa yaratilmoqda…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создание копии…"
           }
         },
         "zh-Hans": {
@@ -8110,6 +8398,12 @@
             "value": "Ma’lumotlarimga qaytish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад к моим данным"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8265,6 +8559,12 @@
             "value": "O‘quv ma’lumotlari"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Учебные данные"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8418,6 +8718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu raqamlar to‘qib chiqarilgan. Shaxsiy ma’lumotlar bazangiz ochilmagan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эти цифры вымышленные. Ваша база данных не открыта."
           }
         },
         "zh-Hans": {
@@ -8576,6 +8882,12 @@
             "value": "Ko‘rsatish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8729,6 +9041,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ilova to‘qib chiqarilgan ma’lumotlar bilan qayta ishga tushadi. Shaxsiy ma’lumotlar bazangizga tegilmaydi, bir tugma bilan ortga qaytishingiz mumkin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложение перезапустится на вымышленных данных. Ваша база данных не затрагивается, а одна кнопка вернёт вас назад."
           }
         },
         "zh-Hans": {
@@ -8886,6 +9204,12 @@
             "value": "Ilovani o‘quv ma’lumotlari bilan ko‘rsatilsinmi?"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать приложение на учебных данных?"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9041,6 +9365,12 @@
             "value": "Shifrlash (OhMyMoney’da ochiladi)"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашифровать (открывается в OhMyMoney)"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9194,6 +9524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jurnalni tozalash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистить журнал"
           }
         },
         "zh-Hans": {
@@ -9352,6 +9688,12 @@
             "value": "Tozalash"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистить"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9505,6 +9847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ochish jurnalidagi barcha yozuvlar o‘chiriladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все записи в журнале открытий будут удалены."
           }
         },
         "zh-Hans": {
@@ -9662,6 +10010,12 @@
             "value": "Jurnal tozalansinmi?"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистить журнал?"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9815,6 +10169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hozircha yozuvlar yo‘q."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записей пока нет."
           }
         },
         "zh-Hans": {
@@ -9972,6 +10332,12 @@
             "value": "Nusxa eksport qilindi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия экспортирована"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10125,6 +10491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yashirin hisoblar ko‘rsatildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрытые счета показаны"
           }
         },
         "zh-Hans": {
@@ -10282,6 +10654,12 @@
             "value": "Qulflandi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблокировано"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10435,6 +10813,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ilova ochildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложение открыто"
           }
         },
         "zh-Hans": {
@@ -10592,6 +10976,12 @@
             "value": "Faqat ko‘rish rejimi o‘chirildi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим только просмотра выключен"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10745,6 +11135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Faqat ko‘rish rejimi yoqildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим только просмотра включён"
           }
         },
         "zh-Hans": {
@@ -10902,6 +11298,12 @@
             "value": "Parol bilan qulfdan chiqarildi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã mở khóa bằng mật khẩu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11055,6 +11457,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Touch ID bilan qulfdan chiqarildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã mở khóa bằng Touch ID"
           }
         },
         "zh-Hans": {
@@ -11212,6 +11620,12 @@
             "value": "Jurnal faqat shu Mac’da saqlanadi. Unda hodisalar vaqti va turlari saqlanadi — summalar, ism va nomlar saqlanmaydi. Jurnal nusxa yoki arxivga qo‘shilmaydi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhật ký chỉ lưu trên máy Mac này. Nhật ký chỉ ghi thời điểm và loại sự kiện — không có số tiền, tên hay tiêu đề — và không được đưa vào bản sao hay bản lưu trữ."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11365,6 +11779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saqlash muddati"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ trong"
           }
         },
         "zh-Hans": {
@@ -11876,6 +12296,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ngày"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -12043,6 +12475,12 @@
             "value": "Ochish jurnali"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhật ký lượt mở"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12196,6 +12634,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Faylni ochish uchun ushbu parol kerak. Uni tiklab bo‘lmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ai mở tệp này cần mật khẩu này. Mật khẩu không thể khôi phục."
           }
         },
         "zh-Hans": {
@@ -12353,6 +12797,12 @@
             "value": "Faylni parol bilan qulflash"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khóa tệp bằng mật khẩu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12506,6 +12956,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxani eksport qilish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xuất bản sao…"
           }
         },
         "zh-Hans": {
@@ -12663,6 +13119,12 @@
             "value": "Ilova nimalarni biladi…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng biết gì…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12816,6 +13278,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ekran yozib olinayotganda summalarni yashirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ẩn số tiền khi màn hình đang được ghi"
           }
         },
         "zh-Hans": {
@@ -12973,6 +13441,12 @@
             "value": "Ekran takrorlanayotganda yoki qo‘ng‘iroqda ulashilganda ham."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cũng áp dụng khi màn hình đang được phản chiếu hoặc chia sẻ trong cuộc gọi."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13126,6 +13600,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘quv ma’lumotlari bilan ko‘rsatish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiển thị trên dữ liệu huấn luyện…"
           }
         },
         "zh-Hans": {
@@ -13283,6 +13763,12 @@
             "value": "Nusxani eksport qilish…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xuất một bản sao…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13436,6 +13922,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ulashish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bàn giao"
           }
         },
         "zh-Hans": {
@@ -13593,6 +14085,12 @@
             "value": "Nusxa parol bilan qulflanadi; asli o‘zgarmaydi. O‘quv ma’lumotlari to‘qib chiqarilgan, shaxsiy ma’lumotlar bazangiz ochilmaydi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bản sao được khóa bằng mật khẩu; bản gốc giữ nguyên. Dữ liệu huấn luyện là số giả, và cơ sở dữ liệu của bạn không được mở."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13746,6 +14244,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ochish jurnali…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhật ký lượt mở…"
           }
         },
         "zh-Hans": {
@@ -13903,6 +14407,12 @@
             "value": "Ilova nimalarni biladi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng biết gì"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14056,6 +14566,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jurnal va sonlar faqat shu yerda ko‘rsatiladi; ular hech qayerga yuborilmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhật ký và các số đếm chỉ được hiển thị tại đây; không được gửi đi đâu."
           }
         },
         "zh-Hans": {
@@ -14213,6 +14729,12 @@
             "value": "Qulf va parol…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khóa và mật khẩu…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14368,6 +14890,12 @@
             "value": "Faqat ko‘rish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ xem"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14521,6 +15049,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ilova hammasini ko‘rsatadi va hech narsani o‘zgartirmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng hiển thị mọi thứ và không thay đổi gì."
           }
         },
         "zh-Hans": {
@@ -14679,6 +15213,12 @@
             "value": "Ekran"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14832,6 +15372,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nimalar saqlanadi…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thông tin được lưu…"
           }
         },
         "zh-Hans": {
@@ -14990,6 +15536,12 @@
             "value": "Biriktirmalar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tệp đính kèm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15143,6 +15695,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nusxalar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bản sao"
           }
         },
         "zh-Hans": {
@@ -15650,6 +16208,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta nusxa"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld bản sao"
                 }
               }
             }
@@ -16176,6 +16746,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld tệp"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -16692,6 +17274,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta satr"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dòng"
                 }
               }
             }
@@ -17218,6 +17812,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld bản ghi"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -17385,6 +17991,12 @@
             "value": "Ma’lumotlar bazasi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ sở dữ liệu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17538,6 +18150,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu yerda faqat son va hajmlar ko‘rsatiladi. Hech narsa yuborilmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ hiển thị số đếm và dung lượng. Không gửi dữ liệu đi đâu."
           }
         },
         "zh-Hans": {
@@ -17695,6 +18313,12 @@
             "value": "Ochilishlar jurnali"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhật ký lượt mở"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17848,6 +18472,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yozuvlar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bản ghi"
           }
         },
         "zh-Hans": {
@@ -18005,6 +18635,12 @@
             "value": "Jadvallar bo‘yicha"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo bảng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18158,6 +18794,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ilova nimalarni biladi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng biết gì"
           }
         },
         "zh-Hans": {
@@ -18315,6 +18957,12 @@
             "value": "Diskdagi jami"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tổng dung lượng trên đĩa"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18465,6 +19113,12 @@
           }
         },
         "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
+        "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "B"
@@ -18625,6 +19279,12 @@
             "value": "GB"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18775,6 +19435,12 @@
           }
         },
         "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
+        "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "KB"
@@ -18935,6 +19601,12 @@
             "value": "MB"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19088,6 +19760,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qayerda saqlanadi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vị trí lưu"
           }
         },
         "zh-Hans": {
@@ -19245,6 +19923,12 @@
             "value": "Nusxalar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bản sao"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19398,6 +20082,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ma’lumotlar jildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thư mục dữ liệu"
           }
         },
         "zh-Hans": {
@@ -19555,6 +20245,12 @@
             "value": "Yo‘llar faqat ko‘rsatiladi: ular ma’lumotlar bazasi va arxivda saqlanmaydi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đường dẫn chỉ được hiển thị: cơ sở dữ liệu và kho lưu trữ không chứa chúng."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19708,6 +20404,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aks nusxalar jildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thư mục bản sao đồng bộ"
           }
         },
         "zh-Hans": {

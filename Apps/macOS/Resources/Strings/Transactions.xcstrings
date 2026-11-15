@@ -142,6 +142,12 @@
             "value": "%@ kursi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tỷ giá của %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -298,6 +304,12 @@
             "value": "Qo‘llash"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Áp dụng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -451,6 +463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Turkum…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danh mục…"
           }
         },
         "zh-Hans": {
@@ -957,6 +975,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta amal o‘chirilsinmi?"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Xóa %lld giao dịch?"
                 }
               }
             }
@@ -1483,6 +1513,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Thay đổi %lld giao dịch?"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -1650,6 +1692,12 @@
             "value": "O‘chirish va «%@» qarzini qayta ochish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa và mở lại khoản nợ «%@»"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1803,6 +1851,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu to‘lov qarzni yopgan: %@. To‘lov o‘chirilsa, qarz yana mavjud bo‘ladi, ammo qayta ochilmaguncha yopiq qoladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoản thanh toán này đã tất toán một khoản nợ: %@. Sau khi xóa, khoản nợ sẽ lại có số tiền phải trả và vẫn đóng cho đến khi bạn mở lại."
           }
         },
         "zh-Hans": {
@@ -1960,6 +2014,12 @@
             "value": "Qarz to‘lovlari tegishli qarzlardan ham ayiriladi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các khoản thanh toán nợ cũng sẽ được gỡ khỏi các khoản nợ tương ứng."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2113,6 +2173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qaytarilgan pul bilan uning ortiqcha yoki kam summasi ham o‘chiriladi, u qoplagan qismlar esa yana qaytarilishini kutadi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoản hoàn tiền sẽ kéo theo phần thừa hoặc thiếu của nó, và các phần đã được đóng sẽ chờ được hoàn trả lại."
           }
         },
         "zh-Hans": {
@@ -2271,6 +2337,12 @@
             "value": "Voqea"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sự kiện"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2425,6 +2497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kim uchun"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho ai"
           }
         },
         "zh-Hans": {
@@ -2583,6 +2661,12 @@
             "value": "Yo‘q"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2738,6 +2822,12 @@
             "value": "O‘zgartirish uchun hech narsa yo‘q"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có gì để thay đổi"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2891,6 +2981,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘chirish uchun hech narsa yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có gì để xóa"
           }
         },
         "zh-Hans": {
@@ -3402,6 +3498,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Trong %lld giao dịch, một số phần sẽ giữ nguyên:"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -3570,6 +3678,12 @@
             "value": "Hisob"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tài khoản"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3725,6 +3839,12 @@
             "value": "Shaxs…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Người…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3878,6 +3998,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Joy…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Địa điểm…"
           }
         },
         "zh-Hans": {
@@ -4036,6 +4162,12 @@
             "value": "Sifat"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chất lượng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4189,6 +4321,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "bir qismi uchun pul qaytarilgan — avval pul qaytarilishini o‘chiring"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đã hoàn tiền cho một phần của nó — hãy xóa khoản hoàn tiền đó trước"
           }
         },
         "zh-Hans": {
@@ -4346,6 +4484,12 @@
             "value": "kreditga olingan — Qarzlar bo‘limida o‘zgartiriladi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mua trả góp — được thay đổi trong Nợ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4499,6 +4643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bo‘lib to‘lash to‘lovlari allaqachon amalga oshirilgan — avval ularni o‘chiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã thanh toán các kỳ trả góp — hãy xóa chúng trước."
           }
         },
         "zh-Hans": {
@@ -4656,6 +4806,12 @@
             "value": "bu qarz to‘lovi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đây là khoản thanh toán nợ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4809,6 +4965,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "daromad va qaytarilgan pulda bunday maydon yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thu nhập và tiền hoàn lại không có trường này"
           }
         },
         "zh-Hans": {
@@ -4966,6 +5128,12 @@
             "value": "bu maqsadga qo‘shilgan mablag‘"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đây là khoản góp vào mục tiêu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5119,6 +5287,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "bu amaldan pul qaytarilgan — avval pul qaytarilishini o‘chiring"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "có khoản hoàn tiền trừ lại từ giao dịch này — hãy xóa khoản hoàn tiền trước"
           }
         },
         "zh-Hans": {
@@ -5276,6 +5450,12 @@
             "value": "daromadda joy ko‘rsatilmaydi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thu nhập không có địa điểm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5429,6 +5609,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "bu shaxs qaytargan pul"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đây là tiền được người khác hoàn lại"
           }
         },
         "zh-Hans": {
@@ -5586,6 +5772,12 @@
             "value": "daromad va qaytarilgan pulda sifat ko‘rsatilmaydi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thu nhập và tiền hoàn lại không có chất lượng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5739,6 +5931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "hisobdan yechiladigan summani hisoblash uchun kurs hali yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chưa có tỷ giá để tính số tiền tài khoản bị trừ"
           }
         },
         "zh-Hans": {
@@ -5896,6 +6094,12 @@
             "value": "turkum boshqa turga tegishli"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "danh mục thuộc loại khác"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6049,6 +6253,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "boshqa kishi uchun to‘langan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đã trả thay cho người khác"
           }
         },
         "zh-Hans": {
@@ -6206,6 +6416,12 @@
             "value": "bu hisobni tekshirish farqi: hisobi tekshiruvdan olinadi va u maqsad yoki ilova turkumiga kiritilmaydi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đây là chênh lệch đối soát: tài khoản của nó lấy từ đợt kiểm đếm, và nó không bao giờ chuyển vào Mục tiêu hay danh mục nào của ứng dụng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6359,6 +6575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "turkum arxivlangan yoki o‘chirilgan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "danh mục đã được lưu trữ hoặc xóa"
           }
         },
         "zh-Hans": {
@@ -6516,6 +6738,12 @@
             "value": "tizim turkumi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "danh mục hệ thống"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6670,6 +6898,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qidirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm kiếm"
           }
         },
         "zh-Hans": {
@@ -7176,6 +7410,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta amal o‘zgarmaydi:"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld giao dịch sẽ giữ nguyên:"
                 }
               }
             }
@@ -7702,6 +7948,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Trong số đã chọn, %lld giao dịch được tách — thay đổi sẽ áp dụng cho tất cả các phần của chúng."
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -7869,6 +8127,12 @@
             "value": "⌘Z hammasini qaytaradi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z khôi phục tất cả."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8024,6 +8288,12 @@
             "value": "“Bekor qilish” hammasini qaytaradi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Hoàn tác” khôi phục tất cả."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8177,6 +8447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu hisobni tekshirish farqi: tekshiruvdan oldingi amallarni qo‘shsangiz yoki tuzatsangiz, uning summasi, turi, hisobi, valyutasi va sanasi avtomatik yangilanadi. Uni o‘chirsangiz, bu tekshiruv farqi qayd etilmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đây là chênh lệch đối soát: số tiền, loại, tài khoản, tiền tệ và ngày của nó tự động theo khi bạn thêm hoặc sửa giao dịch trước đợt kiểm đếm. Nếu xóa nó, chênh lệch của đợt kiểm đếm này sẽ không còn được ghi nhận."
           }
         },
         "zh-Hans": {
@@ -8335,6 +8611,12 @@
             "value": "Barcha vaqt"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toàn bộ thời gian"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8491,6 +8773,12 @@
             "value": "Istalgan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tất cả"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8644,6 +8932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Boshqa oraliq"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoảng tùy chọn"
           }
         },
         "zh-Hans": {
@@ -8802,6 +9096,12 @@
             "value": "Tayyor"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xong"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8955,6 +9255,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu filtrlarga mos natija yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có gì khớp với bộ lọc này"
           }
         },
         "zh-Hans": {
@@ -9113,6 +9419,12 @@
             "value": "Dan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Từ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9267,6 +9579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘tgan oy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng trước"
           }
         },
         "zh-Hans": {
@@ -9425,6 +9743,12 @@
             "value": "Hech narsa topilmadi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không tìm thấy"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9579,6 +9903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Davr"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoảng thời gian"
           }
         },
         "zh-Hans": {
@@ -9737,6 +10067,12 @@
             "value": "Shaxs"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Người"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9891,6 +10227,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tiklash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt lại"
           }
         },
         "zh-Hans": {
@@ -10049,6 +10391,12 @@
             "value": "Pul qaytarilishi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tiền"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10203,6 +10551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shu oy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng này"
           }
         },
         "zh-Hans": {
@@ -10361,6 +10715,12 @@
             "value": "Shu yil"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Năm nay"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10514,6 +10874,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Filtrlar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bộ lọc"
           }
         },
         "zh-Hans": {
@@ -10672,6 +11038,12 @@
             "value": "Gacha"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đến"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10826,6 +11198,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tur"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loại"
           }
         },
         "zh-Hans": {
@@ -10983,6 +11361,12 @@
             "value": "O‘zgarishlarni saqlang yoki bekor qiling."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lưu lại, hoặc bỏ đi."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11136,6 +11520,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inspektor saqlanmagan o‘zgarishlar bilan yopildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảng thông tin đã đóng khi còn thay đổi chưa lưu"
           }
         },
         "zh-Hans": {
@@ -11293,6 +11683,12 @@
             "value": "Saqlamaslik"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không lưu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11446,6 +11842,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tahrirlash · "
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉnh sửa · "
           }
         },
         "zh-Hans": {
@@ -11603,6 +12005,12 @@
             "value": "Boshqa amal ochilmoqda. Saqlanmagan o‘zgarishlar yo‘qoladi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang mở một thao tác khác. Các thay đổi chưa lưu sẽ bị mất."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11756,6 +12164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu amaldagi o‘zgarishlar saqlansinmi?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lưu thay đổi của thao tác này?"
           }
         },
         "zh-Hans": {
@@ -11914,6 +12328,12 @@
             "value": "Barchasi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tất cả"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12068,6 +12488,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarajatlar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chi tiêu"
           }
         },
         "zh-Hans": {
@@ -12226,6 +12652,12 @@
             "value": "Daromad"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thu nhập"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12382,6 +12814,12 @@
             "value": "Bugun"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12535,6 +12973,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ustunlar…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cột…"
           }
         },
         "zh-Hans": {
@@ -12693,6 +13137,12 @@
             "value": "Pastga surish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di chuyển xuống"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12846,6 +13296,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ko‘rsatiladigan ustunlar, ularning tartibi va kengligi. Qatorni torting yoki surish uchun strelkalardan foydalaning. Tavsif va summa doim ko‘rsatiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiển thị những cột nào, theo thứ tự nào và rộng bao nhiêu. Kéo một hàng hoặc dùng mũi tên để di chuyển. Mô tả và số tiền luôn được hiển thị."
           }
         },
         "zh-Hans": {
@@ -13003,6 +13459,12 @@
             "value": "Asliga qaytarish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt lại mặc định"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13158,6 +13620,12 @@
             "value": "Standart ustunlar, ularning tartibi va kengligi tiklanadi, filtrlar va qidiruv tozalanadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các cột tiêu chuẩn, thứ tự và độ rộng của chúng, không có bộ lọc hay tìm kiếm."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13311,6 +13779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jadval ustunlari"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cột của bảng"
           }
         },
         "zh-Hans": {
@@ -13469,6 +13943,12 @@
             "value": "Yuqoriga surish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di chuyển lên"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13622,6 +14102,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kenglik: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ rộng %@"
           }
         },
         "zh-Hans": {
@@ -13779,6 +14265,12 @@
             "value": "Ixcham amallar ro‘yxati"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danh sách thao tác gọn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13934,6 +14426,12 @@
             "value": "Amallar filtrlari…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bộ lọc thao tác…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14087,6 +14585,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oldingi oy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng trước"
           }
         },
         "zh-Hans": {
@@ -14245,6 +14749,12 @@
             "value": "Keyingi oy"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng sau"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14399,6 +14909,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yangi operatsiya"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thao tác mới"
           }
         },
         "zh-Hans": {
@@ -14557,6 +15073,12 @@
             "value": "O‘tkazma"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển khoản"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14712,6 +15234,12 @@
             "value": "Operatsiyalarni qidirish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm thao tác"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14865,6 +15393,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Butun tarixdan qidirish: so‘z, kategoriya, joy, hisob, summa"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm trong toàn bộ lịch sử: từ khóa, danh mục, địa điểm, tài khoản, số tiền"
           }
         },
         "zh-Hans": {
@@ -15023,6 +15557,12 @@
             "value": "Qidirish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm kiếm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15176,6 +15716,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ kishiga teng bo‘lingan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chia %@ phần"
           }
         },
         "zh-Hans": {
@@ -15333,6 +15879,12 @@
             "value": "%@ uchun"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cho %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15488,6 +16040,12 @@
             "value": "sovg‘a"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "một món quà"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15641,6 +16199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ bilan teng bo‘lingan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chia đôi với %@"
           }
         },
         "zh-Hans": {
@@ -15799,6 +16363,12 @@
             "value": "O‘zgartirish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay đổi"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15952,6 +16522,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tanlovni tozalash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ chọn"
           }
         },
         "zh-Hans": {
@@ -16464,6 +17040,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld thao tác"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -16632,6 +17220,12 @@
             "value": "O‘chirish…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -16785,6 +17379,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘zgarishlar saqlanmoqda…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang lưu thay đổi…"
           }
         },
         "zh-Hans": {
@@ -16942,6 +17542,12 @@
             "value": "O‘zgarish saqlanmadi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay đổi chưa được lưu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17095,6 +17701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘chirib bo‘lmadi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không thể xóa"
           }
         },
         "zh-Hans": {
@@ -17252,6 +17864,12 @@
             "value": "Ma’lumotlar bazasiga yozib bo‘lmadi, hech narsa o‘zgarmadi. Xato jurnalda (Yordam → Muammo hisobotini yig‘ish…)."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ sở dữ liệu không chấp nhận ghi, và không có gì thay đổi. Lỗi được ghi trong nhật ký (Trợ giúp → Gửi báo cáo sự cố…)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17405,6 +18023,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pul qayerga yo‘naltirilishini tanlayotganingizda ayrim operatsiyalar boshqa joyda o‘zgartirilgan, shuning uchun o‘tkazma endi ularga mos kelmaydi. Hech narsa o‘zgarmadi: operatsiyalarni tanlab, qayta o‘zgartiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một số thao tác này đã bị thay đổi ở nơi khác trong lúc bạn chọn nơi để tiền đi, nên việc chuyển khoản không còn khớp với chúng. Không có gì thay đổi: hãy chọn lại các thao tác và thực hiện thay đổi một lần nữa."
           }
         },
         "zh-Hans": {
@@ -17562,6 +18186,12 @@
             "value": "Bekor qilib bo‘lmadi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không thể hoàn tác"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17715,6 +18345,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ma’lumotlar bazasiga yozib bo‘lmadi. Hech narsa o‘zgarmadi, amal bekor qilinmadi: ⌘Z bilan qayta urinib ko‘ring. Xato jurnalda (Yordam → Muammo hisobotini yig‘ish…)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ sở dữ liệu không chấp nhận ghi. Không có gì thay đổi, và bước này vẫn còn: ⌘Z sẽ thử lại. Lỗi được ghi trong nhật ký (Trợ giúp → Gửi báo cáo sự cố…)."
           }
         },
         "zh-Hans": {
@@ -17872,6 +18508,12 @@
             "value": "Ma’lumotlar bazasiga yozib bo‘lmadi. Hech narsa o‘zgarmadi, amal bekor qilinmadi: “Bekor qilish” bilan qayta urinib ko‘ring. Xato jurnalda (Sozlamalar → Yordam → Muammo hisobotini yig‘ish)."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ sở dữ liệu không chấp nhận ghi. Không có gì thay đổi, và bước này vẫn còn: “Hoàn tác” sẽ thử lại. Lỗi được ghi trong nhật ký (Cài đặt → Trợ giúp → Gửi báo cáo sự cố)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18027,6 +18669,12 @@
             "value": "Keyingi amallardan biri shu amalga bog‘liq — masalan, operatsiya shu amal yaratgan kategoriyaga kiritilgan — yoki bu amal keyinroq o‘chirilgan narsaga havola qiluvchi ma’lumotni tiklaydi. Hech narsa o‘zgarmadi, amal bekor qilinmadi: avval buni hal qiling, so‘ng qayta urinib ko‘ring."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có thao tác đã thực hiện sau đó phụ thuộc vào bước này — ví dụ, một thao tác được xếp vào danh mục do nó vừa tạo — hoặc bước này khôi phục thứ đang trỏ đến một mục đã bị xóa sau đó. Không có gì thay đổi, và bước này vẫn còn: hãy xử lý việc đó, rồi hoàn tác lại."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18180,6 +18828,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Boshqalar uchun"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho người khác"
           }
         },
         "zh-Hans": {
@@ -18338,6 +18992,12 @@
             "value": "Daromad"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thu nhập"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18492,6 +19152,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qaytgan pul"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiền hoàn lại"
           }
         },
         "zh-Hans": {
@@ -18650,6 +19316,12 @@
             "value": "Sarflangan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã chi"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18804,6 +19476,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Summa"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số tiền"
           }
         },
         "zh-Hans": {
@@ -18962,6 +19640,12 @@
             "value": "Keshbek"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tiền"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19116,6 +19800,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kategoriya"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danh mục"
           }
         },
         "zh-Hans": {
@@ -19274,6 +19964,12 @@
             "value": "Tavsif"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mô tả"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19428,6 +20124,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tadbir"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sự kiện"
           }
         },
         "zh-Hans": {
@@ -19586,6 +20288,12 @@
             "value": "Kim uchun"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho ai"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19737,6 +20445,12 @@
           }
         },
         "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MCC"
+          }
+        },
+        "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "MCC"
@@ -19898,6 +20612,12 @@
             "value": "Izoh"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20052,6 +20772,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hisob"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tài khoản"
           }
         },
         "zh-Hans": {
@@ -20210,6 +20936,12 @@
             "value": "Joy"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Địa điểm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20364,6 +21096,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sifat"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chất lượng"
           }
         },
         "zh-Hans": {
@@ -20522,6 +21260,12 @@
             "value": "Vaqt"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thời gian"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20675,6 +21419,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ma’lumotlar yangilanmadi — %@ holatiga ko‘rsatilmoqda · qayta urinish uchun ⌘R"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu chưa được làm mới — đang hiển thị theo thời điểm %@ · ⌘R để thử lại"
           }
         },
         "zh-Hans": {
@@ -20832,6 +21582,12 @@
             "value": "Kun jami"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tổng trong ngày"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20985,6 +21741,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu operatsiya o‘chirilsinmi?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить эту операцию?"
           }
         },
         "zh-Hans": {
@@ -21142,6 +21904,12 @@
             "value": "Hali operatsiyalar yo‘q. Birinchisini oyna pastidagi kiritish maydoniga yozing."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операций пока нет. Введите первую в строке быстрого ввода внизу окна."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21295,6 +22063,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qaytariladigan summa xaridning qaytarilmagan qismidan oshmasligi va xaridning valyutasi hamda turiga mos bo‘lishi kerak."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат не может превышать остаток покупки к возврату и сохраняет валюту и тип покупки."
           }
         },
         "zh-Hans": {
@@ -21452,6 +22226,12 @@
             "value": "Bu qism uchun pulning bir qismi allaqachon qaytarilgan: uning summasi, valyutasi, turi va “boshqa kishi uchun to‘langan” belgisi o‘zgarmaydi — avval qaytgan pulni o‘chiring."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часть денег по этой части уже возвращена: её сумма, валюта, тип и «оплачено за другого» остаются прежними — сначала удалите возврат."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21605,6 +22385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu xarid uchun pul qaytarilgan — avval qaytarishni o‘chiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат забирает деньги у этой покупки — сначала удалите возврат."
           }
         },
         "zh-Hans": {
@@ -21762,6 +22548,12 @@
             "value": "Bu summa xaridning qaytarilmagan qismidan oshadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это больше остатка покупки к возврату."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21915,6 +22707,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qaytariladigan summa noldan katta bo‘lishi kerak."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат должен быть больше нуля."
           }
         },
         "zh-Hans": {
@@ -22072,6 +22870,12 @@
             "value": "Bu xarid uchun pulni qaytarib bo‘lmaydi: u boshqa kishi uchun yoki kreditga to‘langan, qarz to‘lovi yoki maqsadga badal."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эту покупку нельзя вернуть: она оплачена за другого, в кредит, является погашением долга или взносом в цель."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -22225,6 +23029,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pul xarid valyutasida qaytariladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат производится в валюте покупки."
           }
         },
         "zh-Hans": {
@@ -22382,6 +23192,12 @@
             "value": "Bu xarid uchun pul qaytarilgan: uning valyutasi, turi, “boshqa kishi uchun to‘langan” belgisi va krediti o‘zgarmaydi — avval qaytarishni o‘chiring."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат забирает деньги у этой покупки: её валюта, тип, «оплачено за другого» и кредит остаются прежними — сначала удалите возврат."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -22535,6 +23351,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qism summasi allaqachon qaytarilgan summadan kam bo‘lishi mumkin emas."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часть не может быть меньше того, что уже забрали её возвраты."
           }
         },
         "zh-Hans": {
@@ -22692,6 +23514,12 @@
             "value": "Bu qism uchun pul qaytarilgan — avval qaytarishni o‘chiring."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат забирает деньги у этой части — сначала удалите возврат."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -22845,6 +23673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arxivlangan hisobni nolda ushlab turuvchi o‘tkazmani saqlab bo‘lmadi: boshqa hisob hozir arxivda yoki unda bu valyuta yo‘q. Hech narsa saqlanmadi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод, который держит архивный счёт на нуле, не может быть записан: другой счёт сейчас в архиве или не содержит нужную валюту. Ничего не сохранено."
           }
         },
         "zh-Hans": {
@@ -23003,6 +23837,12 @@
             "value": "Xarajatlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -23157,6 +23997,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Daromad"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходы"
           }
         },
         "zh-Hans": {
@@ -23315,6 +24161,12 @@
             "value": "%@dan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "из %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -23468,6 +24320,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "qaytgan pul — daromad emas"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "возврат денег — не доход"
           }
         },
         "zh-Hans": {
@@ -23626,6 +24484,12 @@
             "value": "Hali operatsiyalar yo‘q"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операций пока нет"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -23779,6 +24643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ular asosiy oynada kiritiladi (⌘N)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Их вводят в главном окне (⌘N)"
           }
         },
         "zh-Hans": {
@@ -24290,6 +25160,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld более ранних операций пока не показано"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -24457,6 +25339,12 @@
             "value": "%@ uchun to‘langan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оплачено за %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -24612,6 +25500,12 @@
             "value": "%lld-qism"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "часть %lld"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -24765,6 +25659,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“%1$@” uchun qaytarilgan, %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "возврат «%1$@», %2$@"
           }
         },
         "zh-Hans": {
@@ -24923,6 +25823,12 @@
             "value": "%@ qaytarildi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ возвращено"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25077,6 +25983,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qidirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск"
           }
         },
         "zh-Hans": {
@@ -25234,6 +26146,12 @@
             "value": "bir nechta"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "несколько"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25387,6 +26305,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yana 3 oyni ko‘rsatish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать ещё 3 месяца"
           }
         },
         "zh-Hans": {
@@ -25545,6 +26469,12 @@
             "value": "Operatsiyalar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25698,6 +26628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“%1$@” hisobida ayirboshlash: %2$@ → %3$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обмен в «%1$@»: %2$@ → %3$@"
           }
         },
         "zh-Hans": {
@@ -25855,6 +26791,12 @@
             "value": "O‘tkazma: %1$@ → %2$@"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод: %1$@ → %2$@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -26008,6 +26950,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘tkazmalar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переводы"
           }
         },
         "zh-Hans": {
@@ -26514,6 +27462,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Yana %lld ta o‘tkazma."
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "И ещё %lld перевод(ов)."
                 }
               }
             }
@@ -27040,6 +28000,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Удалить %lld перевод(ов)?"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -27205,6 +28177,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ularning %@ miqdoridagi komissiyasi ham o‘chiriladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Их комиссии, %@, удаляются вместе с ними."
           }
         },
         "zh-Hans": {
@@ -27711,6 +28689,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta o‘tkazma o‘zgarishsiz qoladi."
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевод(ов) остаются без изменений."
                 }
               }
             }

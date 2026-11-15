@@ -496,6 +496,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Хватит через %lld мес."
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -663,6 +675,12 @@
             "value": "Hozircha jamg‘arishga pul yo‘q — sanani aytib bo‘lmaydi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нечего откладывать — дату не определить"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -816,6 +834,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu valyuta kursi yo‘q — sana hisoblanmadi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет курса для этой валюты — дата не рассчитана"
           }
         },
         "zh-Hans": {
@@ -973,6 +997,12 @@
             "value": "Hozir xarid qilishingiz mumkin"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно позволить себе прямо сейчас"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1128,6 +1158,12 @@
             "value": "oyiga %@ jamg‘arilsa"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "откладываете %@ в месяц"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1281,6 +1317,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pul kutiladigan sana: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаемые деньги: %@"
           }
         },
         "zh-Hans": {
@@ -1792,6 +1834,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Куплено: %lld"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -1959,6 +2013,12 @@
             "value": "Oxirgi ikki oydagi o‘xshash summali operatsiyalardan birini tanlang. Istak narxi — %@."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите операцию из тех, что близки по сумме, за последние два месяца. Цена желания — %@."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2112,6 +2172,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Istakka bog‘lash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привязать к желанию"
           }
         },
         "zh-Hans": {
@@ -2269,6 +2335,12 @@
             "value": "Tavsif yo‘q"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без описания"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2422,6 +2494,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarid operatsiyalar orasida yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупки нет среди операций"
           }
         },
         "zh-Hans": {
@@ -2579,6 +2657,12 @@
             "value": "Oxirgi 60 kunda mos operatsiyalar yo‘q. Xaridni qayd etib, qaytib keling."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет подходящих операций за последние 60 дней. Запишите покупку и вернитесь."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2732,6 +2816,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarid qilindi: “%@”"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куплено: «%@»"
           }
         },
         "zh-Hans": {
@@ -2889,6 +2979,12 @@
             "value": "Buyumlarni sotish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продажа вещей"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3043,6 +3139,24 @@
             "state": "translated",
             "value": "Hisobga tushgan sana"
           }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зачислено"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入账日期"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入帳日期"
+          }
         }
       }
     },
@@ -3185,6 +3299,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qaytarilgan mablag‘ shu sana bilan qayd etiladi: hisob qoldig‘i bankdagiga mos keladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат датируется этим днём: баланс счёта следует за банком."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款按此日期记账：账户余额以银行为准。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款以當天為日期：帳戶餘額依銀行處理。"
           }
         }
       }
@@ -3329,6 +3461,24 @@
             "state": "translated",
             "value": "Pul qachon tushdi?"
           }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда пришли деньги?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "款项何时到账？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "款項何時到帳？"
+          }
         }
       }
     },
@@ -3471,6 +3621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Istak yoki buyum saqlandi, lekin ayrim fayllarni biriktirib bo‘lmadi. Qayta urinish uchun yana saqlang yoki bu fayllarni qo‘shishni bekor qiling."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Желание или вещь сохранены, но некоторые файлы не удалось прикрепить. Сохраните ещё раз, чтобы повторить, или отмените добавление этих файлов."
           }
         },
         "zh-Hans": {
@@ -3628,6 +3784,12 @@
             "value": "Manzilni o‘qib bo‘lmadi. Havola maydonda qoldi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать адрес. Ссылка осталась в поле."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3781,6 +3943,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sahifada mahsulot ma’lumotlari topilmadi. Ma’lumotlaringiz va havola shaklda qoldi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На странице не найдено сведений о товаре. Ваши данные и ссылка остались в форме."
           }
         },
         "zh-Hans": {
@@ -3938,6 +4106,12 @@
             "value": "Sahifani yuklab bo‘lmadi. Ma’lumotlaringiz va havola shaklda qoldi. Istakni qo‘lda saqlashingiz mumkin."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось загрузить страницу. Ваши данные и ссылка остались в форме. Желание можно сохранить вручную."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4091,6 +4265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sahifa mavjud emas yoki boshqa manzilga yo‘naltiradi. Ma’lumotlaringiz va havola shaklda qoldi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Страница недоступна или перенаправляет на другой адрес. Ваши данные и ссылка остались в форме."
           }
         },
         "zh-Hans": {
@@ -4248,6 +4428,12 @@
             "value": "Sahifa rasmi — yuklab olmasdan havola"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картинка со страницы — ссылка без загрузки"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4401,6 +4587,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sahifa ma’lumotlari to‘ldirildi. Saqlashdan oldin tekshiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сведения со страницы заполнены. Проверьте их перед сохранением."
           }
         },
         "zh-Hans": {
@@ -4558,6 +4750,12 @@
             "value": "Havoladan olish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взять из ссылки"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4711,6 +4909,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ kutilgan edi — %@ bo‘ldi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидали %@ — вышло %@"
           }
         },
         "zh-Hans": {
@@ -4868,6 +5072,12 @@
             "value": "Chegirmalar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скидки"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5021,6 +5231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xaridlar ro‘yxati"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Список покупок"
           }
         },
         "zh-Hans": {
@@ -5178,6 +5394,12 @@
             "value": "Buyumlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вещи"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5331,6 +5553,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pul kutilmoqda"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаем зачисления"
           }
         },
         "zh-Hans": {
@@ -5488,6 +5716,12 @@
             "value": "Xarid istaklari"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хочу купить"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5641,6 +5875,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kutiladigan sana"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаем до"
           }
         },
         "zh-Hans": {
@@ -5798,6 +6038,12 @@
             "value": "Pul qachon kutilmoqda"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда ожидать деньги"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5951,6 +6197,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oldingi qaydga nisbatan: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Относительно прошлой заметки: %@"
           }
         },
         "zh-Hans": {
@@ -6109,6 +6361,12 @@
             "value": "Sana"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6262,6 +6520,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eng yuqori: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Максимум %@"
           }
         },
         "zh-Hans": {
@@ -6419,6 +6683,12 @@
             "value": "Qayd etilgan narxlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записанные цены"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6572,6 +6842,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eng past: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимум %@"
           }
         },
         "zh-Hans": {
@@ -6729,6 +7005,12 @@
             "value": "Hali narxlar qayd etilmagan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цены пока не записаны"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6882,6 +7164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Narxni qayd etish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать цену"
           }
         },
         "zh-Hans": {
@@ -7039,6 +7327,12 @@
             "value": "Hozirgi narx"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цена сейчас"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7192,6 +7486,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qaydni olib tashlash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить запись"
           }
         },
         "zh-Hans": {
@@ -7349,6 +7649,12 @@
             "value": "“%@” narxi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цена «%@»"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7502,6 +7808,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "нет"
           }
         },
         "zh-Hans": {
@@ -7659,6 +7971,12 @@
             "value": "Saqlab bo‘lmadi. Jurnalni tekshiring."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось записать. См. журнал."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7812,6 +8130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Havolani o‘qib bo‘lmadi. Manzilni tekshiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ссылка не читается. Проверьте адрес."
           }
         },
         "zh-Hans": {
@@ -7969,6 +8293,12 @@
             "value": "Nom kiriting."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укажите название."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8124,6 +8454,12 @@
             "value": "Qayd topilmadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запись не найдена."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8277,6 +8613,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Narx noldan katta bo‘lishi kerak."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цена должна быть больше нуля."
           }
         },
         "zh-Hans": {
@@ -8435,6 +8777,12 @@
             "value": "Hisobga"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На счёт"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8588,6 +8936,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sotuvni qayd etish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать продажу"
           }
         },
         "zh-Hans": {
@@ -8746,6 +9100,12 @@
             "value": "Valyuta"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8901,6 +9261,12 @@
             "value": "Sotilgan sana"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата продажи"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9054,6 +9420,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sotuv “Buyumlarni sotish” turkumida daromad sifatida qayd etiladi va buyum sotilganlar ro‘yxatiga o‘tadi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продажа записывается как доход в категорию «Продажа вещей», а вещь переходит к проданным."
           }
         },
         "zh-Hans": {
@@ -9212,6 +9584,12 @@
             "value": "Asosiy hisob"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основной счёт"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9365,6 +9743,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sotilgan narx"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продано за"
           }
         },
         "zh-Hans": {
@@ -9522,6 +9906,12 @@
             "value": "Sotildi: “%@”"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продано: «%@»"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9676,6 +10066,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oylar bo‘yicha"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По месяцам"
           }
         },
         "zh-Hans": {
@@ -10187,6 +10583,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld покупок со скидкой"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -10354,6 +10762,12 @@
             "value": "Hali chegirmalar yo‘q. Xaridni qayd etishda chegirmani kiriting — bu yerda qancha tejaganingizni ko‘rasiz."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скидок пока нет. Отмечайте скидку при записи покупки — здесь увидите, сколько сэкономили."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10508,6 +10922,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shu oy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng này"
           }
         },
         "zh-Hans": {
@@ -10665,6 +11085,12 @@
             "value": "Chegirmasiz narxning %@ qismi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ so với giá chưa giảm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10819,6 +11245,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shu yil"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Năm nay"
           }
         },
         "zh-Hans": {
@@ -11330,6 +11762,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hỏi sau %lld ngày"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -11497,6 +11941,12 @@
             "value": "Yoqilg‘i quyishda yurilgan masofani so‘rash"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi số km khi đổ xăng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11650,6 +12100,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yurilgan masofa yoqilg‘i sarfi va bir kilometr narxini hisoblashga yordam beradi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số km giúp ứng dụng tính mức tiêu thụ nhiên liệu và chi phí một ki-lô-mét"
           }
         },
         "zh-Hans": {
@@ -11807,6 +12263,12 @@
             "value": "Yirik xariddan oldin tanaffus"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tạm dừng trước khi mua lớn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11960,6 +12422,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mezon oydagi bo‘sh mablag‘ning ulushi sifatida belgilanadi. U qaysi xarid haqida “Afsuslanmadingizmi?” deb so‘ralishini ham belgilaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngưỡng là tỷ lệ so với số tiền còn trống của tháng. Ngưỡng cũng quyết định khoản mua nào sẽ được hỏi “Không hối tiếc?”."
           }
         },
         "zh-Hans": {
@@ -12117,6 +12585,12 @@
             "value": "Yirik xariddan oldin bir kecha kutish taklif etiladi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoản mua lớn được đề nghị chờ qua một đêm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12270,6 +12744,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bo‘sh mablag‘ning %@ qismidan oshgan xarid yirik hisoblanadi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoản mua được coi là lớn khi vượt %@ số tiền còn trống"
           }
         },
         "zh-Hans": {
@@ -12427,6 +12907,12 @@
             "value": "“Afsuslanmadingizmi?”"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Không hối tiếc?”"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12580,6 +13066,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yirik xariddan bir necha kun o‘tib, uni yana xarid qilarmidingiz, deb so‘rash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vài ngày sau khoản mua lớn, hỏi xem bạn có mua lại không"
           }
         },
         "zh-Hans": {
@@ -12738,6 +13230,12 @@
             "value": "Xaridlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mua sắm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -12891,6 +13389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nima xarid qilish kerak"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cần mua gì"
           }
         },
         "zh-Hans": {
@@ -13047,6 +13551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qo‘shish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm"
           }
         },
         "zh-Hans": {
@@ -13558,6 +14068,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Xóa đã mua (%lld)"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -13725,6 +14247,12 @@
             "value": "Ro‘yxat bo‘sh. Do‘konga keyingi safar borganda nima olish kerakligini yozing."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danh sách trống. Nhập những thứ cần mua trong lần đi chợ hoặc cửa hàng tới."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -13879,6 +14407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ro‘yxatdan olib tashlash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa khỏi danh sách"
           }
         },
         "zh-Hans": {
@@ -14036,6 +14570,12 @@
             "value": "Bajarildi deb belgilash"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đánh dấu đã mua"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14189,6 +14729,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Belgini olib tashlash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ đánh dấu"
           }
         },
         "zh-Hans": {
@@ -14346,6 +14892,12 @@
             "value": "Xarid istaklaringiz, buyumlaringiz va ularga ketadigan xarajatlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những thứ bạn muốn mua, những thứ bạn có và chi phí sở hữu chúng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14499,6 +15051,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ sanasida xarid qilingan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mua %@"
           }
         },
         "zh-Hans": {
@@ -14656,6 +15214,12 @@
             "value": "Oyiga %@ · jami %@ · %@"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ mỗi tháng · %@ tổng cộng · %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -14809,6 +15373,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Buyum ro‘yxatdan olib tashlanadi; operatsiyalar saqlanadi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Món đồ sẽ rời khỏi danh sách; các giao dịch vẫn được giữ lại."
           }
         },
         "zh-Hans": {
@@ -14967,6 +15537,12 @@
             "value": "“%@” o‘chirilsinmi?"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa “%@”?"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15121,6 +15697,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tahrirlash…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sửa…"
           }
         },
         "zh-Hans": {
@@ -15279,6 +15861,12 @@
             "value": "Valyuta"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiền tệ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15432,6 +16020,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarid sanasi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày mua"
           }
         },
         "zh-Hans": {
@@ -15589,6 +16183,12 @@
             "value": "Buyum"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Món đồ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -15742,6 +16342,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarid sanasini bilaman"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tôi biết ngày mua"
           }
         },
         "zh-Hans": {
@@ -15900,6 +16506,12 @@
             "value": "Nom"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -16055,6 +16667,12 @@
             "value": "Yangi buyum"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Món đồ mới"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -16208,6 +16826,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Teg yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có nhãn"
           }
         },
         "zh-Hans": {
@@ -16366,6 +16990,12 @@
             "value": "Izoh"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -16519,6 +17149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarid narxi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giá mua"
           }
         },
         "zh-Hans": {
@@ -16676,6 +17312,12 @@
             "value": "Teg"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhãn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -16829,6 +17471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Teg buyumga oid amallarni jamlaydi: ta’mir, sug‘urta, yoqilg‘i."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhãn gom các giao dịch liên quan đến món đồ: sửa chữa, bảo hiểm, nhiên liệu."
           }
         },
         "zh-Hans": {
@@ -16986,6 +17634,12 @@
             "value": "Biriktirmalar…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tệp đính kèm…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17139,6 +17793,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kapitaldan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Từ vốn"
           }
         },
         "zh-Hans": {
@@ -17650,6 +18310,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "hơn %lld tháng"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -17817,6 +18489,12 @@
             "value": "Xarid narxi yo‘q — faqat unga sarflangan mablag‘ hisoblanadi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có giá mua — chỉ tính những khoản đã chi cho nó"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -17970,6 +18648,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Teg yo‘q — buyumga sarflangan mablag‘ hisoblanmaydi. Amallarga buyum nomi yozilgan teg qo‘ying."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có nhãn — chi tiêu cho món đồ sẽ không được tính. Hãy gắn nhãn mang tên món đồ vào các giao dịch."
           }
         },
         "zh-Hans": {
@@ -18127,6 +18811,12 @@
             "value": "Alohida qayd etilgan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú riêng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18282,6 +18972,12 @@
             "value": "Sotildi…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã bán…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18435,6 +19131,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ ga sotildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã bán với giá %@"
           }
         },
         "zh-Hans": {
@@ -18593,6 +19295,12 @@
             "value": "Kafolat %@ gacha"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảo hành đến %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -18746,6 +19454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kafolat muddati tugagan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã hết hạn bảo hành"
           }
         },
         "zh-Hans": {
@@ -18903,6 +19617,12 @@
             "value": "Buyum qo‘shish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm món đồ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19058,6 +19778,12 @@
             "value": "Bu yerda kapitaldagi buyumlar (investitsiyalardan tashqari) va alohida qayd etilgan buyumlar, ularning oylik xarajati bilan ko‘rsatiladi. Buyumga sarflangan mablag‘ni hisoblash uchun amallarga uning nomi yozilgan teg qo‘ying."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đây là các món đồ thuộc vốn (trừ khoản đầu tư) và những món bạn ghi chú riêng, kèm chi phí sở hữu mỗi tháng. Để tính số tiền đã chi cho một món đồ, hãy gắn nhãn mang tên món đồ đó vào các giao dịch."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -19211,6 +19937,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Buyumlar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Món đồ"
           }
         },
         "zh-Hans": {
@@ -19722,6 +20454,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Món đồ đã bán: %lld"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -19889,6 +20633,12 @@
             "value": "Xarid qilish vaqti"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đến lúc mua"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20044,6 +20794,12 @@
             "value": "narx kutilganidan oshmagan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "giá không cao hơn mức bạn dự kiến"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20197,6 +20953,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "narx eng yuqori qiymatidan %@ ga tushdi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "giá đã giảm %@ so với mức cao nhất"
           }
         },
         "zh-Hans": {
@@ -20355,6 +21117,12 @@
             "value": "Xaridlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mua sắm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20508,6 +21276,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qiymat"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giá trị"
           }
         },
         "zh-Hans": {
@@ -20665,6 +21439,12 @@
             "value": "Baholash sanasi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày định giá"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -20818,6 +21598,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hali baholashlar yo‘q."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có định giá nào."
           }
         },
         "zh-Hans": {
@@ -20975,6 +21761,12 @@
             "value": "Baholashlar tarixi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch sử định giá"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21130,6 +21922,12 @@
             "value": "Qiymatni yangilash…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cập nhật giá trị…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21280,6 +22078,12 @@
           }
         },
         "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ L/100 km"
+          }
+        },
+        "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ L/100 km"
@@ -21440,6 +22244,12 @@
             "value": "Yoqilg‘i %@"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhiên liệu %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21593,6 +22403,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Har km uchun %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ mỗi km"
           }
         },
         "zh-Hans": {
@@ -21750,6 +22566,12 @@
             "value": "Hisobga tushdi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã ghi có"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -21905,6 +22727,12 @@
             "value": "Kutilayotgan qaytimlar yo‘q. Hisobga hali tushmagan qaytim xarajat va qoldiqlarni o‘zgartirmay shu yerda kutadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có khoản hoàn tiền nào đang chờ. Khoản hoàn tiền chưa về tài khoản sẽ hiển thị tại đây mà không làm thay đổi chi tiêu hay số dư."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -22058,6 +22886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pul kelguncha qaytim xarajatlarni kamaytirmaydi va qoldiqlarni o‘zgartirmaydi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho đến khi tiền về, khoản hoàn tiền không làm giảm chi tiêu và không thay đổi số dư."
           }
         },
         "zh-Hans": {
@@ -22569,6 +23403,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Trễ %lld ngày"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -22737,6 +23583,12 @@
             "value": "Qaytim"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tiền"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -22892,6 +23744,12 @@
             "value": "%@ gacha kutilgan — muddati o‘tgan"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dự kiến trước %@ — quá hạn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -23045,6 +23903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sanani o‘zgartirish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dời ngày…"
           }
         },
         "zh-Hans": {
@@ -23556,6 +24420,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Khoản hoàn tiền đang chờ: %lld"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -23723,6 +24599,12 @@
             "value": "%@ gacha kutilmoqda"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dự kiến trước %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -23877,6 +24759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ro‘yxatdan olib tashlash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa khỏi danh sách"
           }
         },
         "zh-Hans": {
@@ -24034,6 +24922,12 @@
             "value": "Xarid qilindi…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã mua…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -24187,6 +25081,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "sana yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chưa có ngày"
           }
         },
         "zh-Hans": {
@@ -24344,6 +25244,12 @@
             "value": "xarid qilish mumkin"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "có thể mua"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -24497,6 +25403,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "xarid vaqti"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đến lúc mua"
           }
         },
         "zh-Hans": {
@@ -24654,6 +25566,12 @@
             "value": "kutish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chờ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -24807,6 +25725,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Narxlar tarixi ham o‘chiriladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch sử giá của nó cũng sẽ bị xóa."
           }
         },
         "zh-Hans": {
@@ -24965,6 +25889,12 @@
             "value": "“%@” o‘chirilsinmi?"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa “%@”?"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25119,6 +26049,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tahrirlash…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉnh sửa…"
           }
         },
         "zh-Hans": {
@@ -25277,6 +26213,12 @@
             "value": "Valyuta"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiền tệ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25432,6 +26374,12 @@
             "value": "Istak"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mong muốn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25585,6 +26533,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Havola"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liên kết"
           }
         },
         "zh-Hans": {
@@ -25743,6 +26697,12 @@
             "value": "Nom"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -25896,6 +26856,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yangi istak"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mong muốn mới"
           }
         },
         "zh-Hans": {
@@ -26054,6 +27020,12 @@
             "value": "Izoh"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -26208,6 +27180,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Narx"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giá"
           }
         },
         "zh-Hans": {
@@ -26365,6 +27343,12 @@
             "value": "Ustuvorlik: %@ (1 — eng istalgani)"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mức ưu tiên: %@ (1 là muốn nhất)"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -26518,6 +27502,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Havolani ochish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở liên kết"
           }
         },
         "zh-Hans": {
@@ -26676,6 +27666,12 @@
             "value": "Yana"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -26829,6 +27825,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "narx yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chưa có giá"
           }
         },
         "zh-Hans": {
@@ -26986,6 +27988,12 @@
             "value": "Narx…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giá…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -27139,6 +28147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ustuvorlik %lld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ưu tiên %lld"
           }
         },
         "zh-Hans": {
@@ -27296,6 +28310,12 @@
             "value": "Istak qo‘shish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm mong muốn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -27451,6 +28471,12 @@
             "value": "Hozircha hech narsa yo‘q. Xarid qilmoqchi bo‘lgan narsangizni qo‘shing — ilova unga necha oyda pul yig‘ishingizni va narx qachon qulay bo‘lishini ko‘rsatadi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có gì. Thêm thứ bạn muốn mua — ứng dụng sẽ cho biết cần bao nhiêu tháng để tiết kiệm và khi nào giá phù hợp."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -27604,6 +28630,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xarid qilmoqchiman"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muốn mua"
           }
         },
         "zh-Hans": {
