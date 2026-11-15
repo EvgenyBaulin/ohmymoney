@@ -235,7 +235,7 @@ struct OverviewDoNowCard: View {
 /// reaches 44 × 44 pt with its picture and the room it takes unchanged: a button's accessibility
 /// frame is its own layout, so the control a finger finds is a clear 44 pt button laid over the
 /// drawn one, which stands behind it for the eye only.
-private struct TouchButton<Drawn: View>: View {
+struct TouchButton<Drawn: View>: View {
   let title: String
   let identifier: String
   let idiom: LayoutIdiom

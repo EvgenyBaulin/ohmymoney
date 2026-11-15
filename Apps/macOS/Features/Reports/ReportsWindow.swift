@@ -194,16 +194,30 @@ struct ReportsWindow: View {
   /// «Отчёты», and at the right edge the period and «Выгрузить CSV…», the one orange button; on
   /// «По периодам» the period of the summary and «Поделиться…» before it.
   private var titleRow: some View {
-    ScreenTitleRow(title: t("reports.window.title")) {
-      if tab == .byPeriods {
-        SummaryPeriodMenu(store: summaries)
-        SummaryShareMenu(store: summaries)
-      } else {
-        periodButton
+    // On a narrow tablet window the buttons would be wider than the room beside the title: they
+    // drop under it, right-aligned, instead of pushing the page out of the window.
+    ViewThatFits(in: .horizontal) {
+      ScreenTitleRow(title: t("reports.window.title")) { headerButtons }
+        .fixedSize(horizontal: true, vertical: false)
+      VStack(alignment: .leading, spacing: StyleMetrics.headerButtonGap) {
+        ScreenTitleRow(title: t("reports.window.title")) { EmptyView() }
+        HStack(spacing: StyleMetrics.headerButtonGap) {
+          Spacer(minLength: 0)
+          headerButtons
+        }
       }
-      deductionsButton
-      exportButton
     }
+  }
+
+  @ViewBuilder private var headerButtons: some View {
+    if tab == .byPeriods {
+      SummaryPeriodMenu(store: summaries)
+      SummaryShareMenu(store: summaries)
+    } else {
+      periodButton
+    }
+    deductionsButton
+    exportButton
   }
 
   /// «Вычеты…»: the yearly report of tax deductions, quiet beside the one orange button.
@@ -233,11 +247,16 @@ struct ReportsWindow: View {
       .accessibilityIdentifier("period.choose.compact")
       .popover(isPresented: $choosingPeriod) { periodPopover }
       Spacer(minLength: 8)
-      Button(DeductionsText.t("deductions.open", environment)) { deductionsOpen = true }
-        .buttonStyle(.plain)
-        .appFont(AppFont.system(size: 12))
-        .foregroundStyle(theme.contentPrimary)
-        .accessibilityIdentifier("reports.deductions")
+      // A 12 pt word: the finger gets a 44 pt zone laid over it, the look stays.
+      TouchButton(
+        title: DeductionsText.t("deductions.open", environment),
+        identifier: "reports.deductions", idiom: idiom, alignment: .center,
+        action: { deductionsOpen = true }
+      ) { _ in
+        Text(verbatim: DeductionsText.t("deductions.open", environment))
+          .appFont(AppFont.system(size: 12))
+          .foregroundStyle(theme.contentPrimary)
+      }
       Button(t("reports.export")) { export() }
         .buttonStyle(.plain)
         .appFont(AppFont.system(size: 12, weight: .medium))

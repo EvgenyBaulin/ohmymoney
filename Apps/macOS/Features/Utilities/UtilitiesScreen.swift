@@ -41,6 +41,7 @@ struct UtilitiesScreen: View {
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.layoutIdiom) private var idiom
   @State private var editingMeter: UtilityMeter?
   @State private var addsMeter = false
   @State private var readingFor: UtilityMeter?
@@ -57,8 +58,15 @@ struct UtilitiesScreen: View {
       HStack {
         Text(verbatim: t("utilities.title")).appFont(.title2.weight(.semibold))
         Spacer()
-        Button(environment.language("action.close")) { dismiss() }
-          .keyboardShortcut(.cancelAction)
+        Button {
+          dismiss()
+        } label: {
+          Text(verbatim: environment.language("action.close"))
+            // A finger needs 44 pt; the Mac keeps the button as it was.
+            .frame(minHeight: LayoutIdiom.resolved(idiom) == .mac ? 0 : 44)
+            .contentShape(.rect)
+        }
+        .keyboardShortcut(.cancelAction)
       }
       .padding(16)
       Form {

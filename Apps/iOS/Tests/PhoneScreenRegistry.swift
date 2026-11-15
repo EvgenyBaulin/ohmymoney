@@ -10,6 +10,9 @@ import XCTest
 /// sheet anywhere in the sources fail a test until it is looked at and listed here or there.
 enum PhoneSheet: String, CaseIterable, Hashable {
   case reconciliation, trip, problemReport, tabsEditor
+  /// Two full pages opened from a row or a sheet, shown on their own: the utilities of
+  /// «Планирование», its challenges, and the places of the settings of the data.
+  case utilities, places, challenges
 }
 
 /// Every screen of the iPhone, built from the enumerations the navigation itself is made of:
@@ -241,6 +244,24 @@ enum PhoneScreenRegistry {
         let (window, _) = harness.host(
           PhoneTabsEditor(deps: harness.deps, tabs: .constant(NavItem.defaultPhoneTabs)),
           size: size, dark: dark)
+        harness.settleStable(window)
+        return PhoneScreenShown(window: window, content: window, hasShell: false)
+      case .utilities:
+        let (window, _) = harness.host(
+          NavigationStack { UtilitiesScreen() }.handingOver(harness.deps), size: size,
+          dark: dark, idiom: idiom == .pad ? .pad : nil)
+        harness.settleStable(window)
+        return PhoneScreenShown(window: window, content: window, hasShell: false)
+      case .challenges:
+        let (window, _) = harness.host(
+          NavigationStack { ChallengesScreen() }.handingOver(harness.deps), size: size,
+          dark: dark, idiom: idiom == .pad ? .pad : nil)
+        harness.settleStable(window)
+        return PhoneScreenShown(window: window, content: window, hasShell: false)
+      case .places:
+        let (window, _) = harness.host(
+          NavigationStack { PlaceMarksScreen(deps: harness.deps) }, size: size, dark: dark,
+          idiom: idiom == .pad ? .pad : nil)
         harness.settleStable(window)
         return PhoneScreenShown(window: window, content: window, hasShell: false)
       case .reconciliation, .trip, .problemReport:

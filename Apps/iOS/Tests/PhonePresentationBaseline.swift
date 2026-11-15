@@ -36,6 +36,10 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Capital/CapitalPage.swift": 1,
     "Apps/macOS/Features/Capital/CapitalView.swift": 3,
     "Apps/macOS/Features/Capital/CushionSection.swift": 1,
+    // The form of a challenge: one sheet over the list.
+    "Apps/macOS/Features/Challenges/ChallengesScreen.swift": 1,
+    // The form of a cloud drive of the exchange folder: one sheet.
+    "Apps/macOS/Features/Conflicts/CloudDrivesSection.swift": 1,
     "Apps/macOS/Features/Debts/DebtCardExtras.swift": 1,
     "Apps/macOS/Features/Debts/DebtWizard.swift": 1,
     "Apps/macOS/Features/Debts/DebtsView.swift": 8,
@@ -71,14 +75,16 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Planning/PlanningBlocks.swift": 1,
     // The namesake notice opens a native rename alert with a name field, Save and Cancel.
     "Apps/macOS/Features/Planning/PlanningNamesakeNotice.swift": 1,
-    "Apps/macOS/Features/Planning/PlanningPage.swift": 2,
+    // Two sheets more: the meters and bills of the utilities and the challenges.
+    "Apps/macOS/Features/Planning/PlanningPage.swift": 4,
     "Apps/macOS/Features/Planning/PlanningView.swift": 9,
     "Apps/macOS/Features/Planning/RemindersPresentation.swift": 1,
     "Apps/macOS/Features/Planning/RemindersSheet.swift": 1,
     "Apps/macOS/Features/Planning/ScheduledBlock.swift": 4,
     "Apps/macOS/Features/Privacy/PrivacyJournalView.swift": 1,
-    "Apps/macOS/Features/Privacy/PrivacySettingsView.swift": 4,
-    "Apps/macOS/Features/Privacy/PrivacySheets.swift": 2,
+    // The sheet of the shared report joins the journal, storage and export sheets.
+    "Apps/macOS/Features/Privacy/PrivacySettingsView.swift": 5,
+    "Apps/macOS/Features/Privacy/PrivacySheets.swift": 3,
     "Apps/macOS/Features/PurchaseHooks/PurchaseQuestionDialogs.swift": 2,
     "Apps/macOS/Features/Purchases/PurchasesScreen.swift": 1,
     "Apps/macOS/Features/Purchases/ThingsPage.swift": 1,
@@ -87,7 +93,8 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Receipt/ReceiptSheet.swift": 4,
     "Apps/macOS/Features/Reconciliation/ReconcileSheet.swift": 1,
     "Apps/macOS/Features/Reports/ReportsStore.swift": 1,
-    "Apps/macOS/Features/Reports/ReportsWindow.swift": 4,
+    // The yearly sheet of tax deductions.
+    "Apps/macOS/Features/Reports/ReportsWindow.swift": 5,
     "Apps/macOS/Features/Rules/RulesSettingsView.swift": 4,
     "Apps/macOS/Features/Rules/TagsPane.swift": 5,
     "Apps/macOS/Features/SelfEmployment/SelfEmploymentBlockView.swift": 1,
@@ -116,6 +123,9 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Travel/TripBanner.swift": 1,
     "Apps/macOS/Features/Travel/TripStartSheet.swift": 1,
     "Apps/macOS/Features/Travel/TripSummaryView.swift": 1,
+    // Utilities: sheets for a meter, its edit, a reading, a bill and its edit; the screen is in
+    // the registry as `PhoneSheet.utilities`.
+    "Apps/macOS/Features/Utilities/UtilitiesScreen.swift": 5,
     "Apps/macOS/Features/Warranty/WarrantyScreen.swift": 1,
     "Apps/macOS/Features/YearPlan/YearPlanPage.swift": 1,
     "Apps/macOS/Platform/Privacy/PrivacySettingsSection.swift": 1,
