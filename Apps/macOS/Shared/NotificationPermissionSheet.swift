@@ -43,8 +43,20 @@ struct NotificationPermissionSheet: View {
         answer(true)
       }
       .buttonStyle(.borderedProminent)
-      Button(t("notify.permission.later"), role: .cancel) { answer(false) }
+      Button(role: .cancel) {
+        answer(false)
+      } label: {
+        #if os(iOS)
+          Text(verbatim: t("notify.permission.later")).frame(minHeight: 44)
+        #else
+          Text(verbatim: t("notify.permission.later"))
+        #endif
+      }
     }
+    #if os(iOS)
+      // A finger needs 44 pt; the regular size of the prominent button is 34.
+      .controlSize(.large)
+    #endif
     .appFont(.body)
     .padding(24)
     .frame(idealWidth: 420)
