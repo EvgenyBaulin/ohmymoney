@@ -38,7 +38,7 @@ struct OtherNamesEditor: View {
           } label: {
             Image(systemName: "xmark.circle.fill")
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityLabel(
                 Text(verbatim: environment.format("names.other.remove", table: "Settings", name)))
           }
@@ -62,7 +62,7 @@ struct OtherNamesEditor: View {
           Image(systemName: "exclamationmark.circle")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     } header: {
       Text(verbatim: t("names.other.title"))
@@ -70,7 +70,7 @@ struct OtherNamesEditor: View {
     } footer: {
       Text(verbatim: t("names.other.hint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .onChange(of: typed) { _, _ in refusal = nil }
   }
@@ -90,13 +90,13 @@ struct OtherNamesEditor: View {
                 HStack(spacing: 10) {
                   Text(verbatim: "→ \(ownName)")
                     .appFont(AppFont.system(size: 13, weight: .semibold))
-                    .foregroundStyle(.secondary)
+                    .secondaryInk()
                   Button {
                     names.remove(at: index)
                   } label: {
                     Image(systemName: "xmark.circle.fill")
                       .appFont(.callout)
-                      .foregroundStyle(.secondary)
+                      .secondaryInk()
                       .accessibilityLabel(
                         Text(
                           verbatim: environment.format(
@@ -129,11 +129,11 @@ struct OtherNamesEditor: View {
               Image(systemName: "exclamationmark.circle")
             }
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           Text(verbatim: t("names.other.hint"))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         .padding(.vertical, 8)
       }

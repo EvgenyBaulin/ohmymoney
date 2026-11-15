@@ -107,7 +107,7 @@ struct IntegritySettingsSection: View {
   private func content(_ service: IntegrityCheckService) -> some View {
     Text(verbatim: IntegrityText.status(service.record, in: environment))
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("integrity.status")
     if let report = service.record?.report, !report.isHealthy {
       ForEach(Array(report.findings.enumerated()), id: \.offset) { _, finding in

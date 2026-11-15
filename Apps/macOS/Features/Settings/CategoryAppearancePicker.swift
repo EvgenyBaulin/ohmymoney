@@ -76,7 +76,7 @@ struct CategoryAppearancePicker: View {
 
       Text(verbatim: environment.language("categories.appearance.hint", table: "Settings"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
     .padding(16)

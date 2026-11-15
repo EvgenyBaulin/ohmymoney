@@ -96,7 +96,7 @@ struct CalendarView: View {
         if let giftMessage {
           Label(giftMessage, systemImage: "gift")
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("calendar.birthday.message")
         }
         if wide {
@@ -286,17 +286,17 @@ struct CalendarView: View {
         if !day.plans.isEmpty {
           Text(verbatim: t("calendar.planned"))
             .appFont(.subheadline)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           ForEach(day.plans) { plan in
             HStack(spacing: 6) {
               Image(systemName: CalendarText.symbol(of: plan.kind))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .accessibilityLabel(
                   Text(verbatim: t(CalendarMark.wordKey(plan.source))))
               VStack(alignment: .leading, spacing: 2) {
                 Text(verbatim: CalendarText.title(of: plan, environment)).lineLimit(1)
                 if let full = CalendarText.fullAmount(of: plan, environment) {
-                  Text(verbatim: full).appFont(.caption).foregroundStyle(.secondary)
+                  Text(verbatim: full).appFont(.caption).secondaryInk()
                 }
               }
               Spacer(minLength: 6)
@@ -320,7 +320,7 @@ struct CalendarView: View {
   private func birthdayRow(_ gift: GiftDay, events: [Event]) -> some View {
     HStack(spacing: 6) {
       Image(systemName: "gift")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       Text(verbatim: PurchaseHookText.calendarLine(gift, environment))
         .lineLimit(2)

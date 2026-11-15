@@ -172,6 +172,22 @@ final class ThemeCatalogTests: XCTestCase {
     }
   }
 
+  /// The secondary ink of the screens reads on the page, the card and the sidebar plate in
+  /// every theme and scheme, and a theme whose own secondary already reads keeps it.
+  func testSecondaryInkIsReadableOnEverySurfaceInEveryTheme() {
+    for (id, scheme, p) in palettes {
+      let plate = p.surfaceSidebar.composited(over: p.surfaceBackground)
+      for surface in [p.surfaceBackground, p.surfaceCard, plate] {
+        XCTAssertGreaterThanOrEqual(
+          p.secondaryText.contrast(on: surface), 4.5, "\(id) \(scheme) secondary ink")
+      }
+      let own = [p.surfaceBackground, p.surfaceCard, plate].map { p.contentSecondary.contrast(on: $0) }
+      if (own.min() ?? 0) >= 4.5 {
+        XCTAssertEqual(p.secondaryText, p.contentSecondary, "\(id) \(scheme) keeps its ink")
+      }
+    }
+  }
+
   /// Text on the hero gradient reaches WCAG AA (4.5 : 1) at both stops, in every theme and
   /// scheme, with the theme's own ink: the colours of the theme carry the contrast (0632), no
   /// theme is excused and nothing is adjusted at run time.

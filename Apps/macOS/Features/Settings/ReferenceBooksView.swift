@@ -182,7 +182,7 @@ struct ReferenceBooksView: View {
           Image(systemName: "info.circle")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
 
       HStack {
@@ -313,7 +313,7 @@ struct ReferenceBooksView: View {
     HStack(spacing: 6) {
       if row.archived {
         Image(systemName: "archivebox")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityLabel(Text(verbatim: t("references.inArchive")))
       }
       VStack(alignment: .leading, spacing: 1) {
@@ -323,7 +323,7 @@ struct ReferenceBooksView: View {
         if let days = row.days {
           Text(verbatim: days)
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
         }
       }
@@ -439,7 +439,7 @@ struct ReferenceBooksView: View {
     } else {
       Text(verbatim: t("references.pick"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top, 40)
     }
@@ -588,13 +588,13 @@ struct ReferenceBooksView: View {
       }
       Text(verbatim: usageText(row.id))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       if !row.archived {
         HStack(alignment: .firstTextBaseline) {
           Text(verbatim: t(Self.archiveHintKey(book)))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
           Spacer(minLength: 8)
           Button(t("references.archive")) { archive(row.id) }
@@ -650,7 +650,7 @@ struct ReferenceBooksView: View {
           Image(systemName: "info.circle")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Button(
         environment.format("references.deleteUnused", table: "Settings", counts: unused.count),
@@ -685,7 +685,7 @@ struct ReferenceBooksView: View {
           Image(systemName: "exclamationmark.circle")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Spacer()
       Button(environment.language("action.save")) {
@@ -1051,7 +1051,7 @@ enum ReferenceNames {
               Image(systemName: "info.circle")
             }
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           }
           HStack {
             TextField(text: $newName) {
@@ -1075,7 +1075,7 @@ enum ReferenceNames {
         if shown.isEmpty {
           Text(verbatim: t("references.pick"))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .padding(.vertical, SettingsCardMetrics.compactVertical)
         }
         ForEach(shown) { row in
@@ -1109,7 +1109,7 @@ enum ReferenceNames {
           }
           Image(systemName: "chevron.right")
             .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron in a 14 pt slot
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityHidden(true)
         }
       }

@@ -59,7 +59,7 @@ struct LockCover: View {
       VStack(spacing: 14) {
         Image(systemName: "lock.fill")
           .font(.system(size: 44))  // font-fixed: the symbol of the curtain, not text
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         Text(verbatim: language("privacy.locked.title"))
           .appFont(.title2.weight(.semibold))
@@ -69,7 +69,7 @@ struct LockCover: View {
           passwordEntry
         } else {
           Text(verbatim: language("privacy.locked.hint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           touchIDButton(prominent: true)
         }
         if let refusal = lock.lastRefusal, let key = Self.refusalKey(refusal) {
@@ -94,7 +94,7 @@ struct LockCover: View {
   private var passwordEntry: some View {
     VStack(spacing: 12) {
       Text(verbatim: language("privacy.locked.passwordHint"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       TimelineView(.periodic(from: .now, by: 1)) { _ in
         let left = lock.secondsOfPauseLeft(at: lock.currentDate)
         VStack(spacing: 10) {
@@ -123,7 +123,7 @@ struct LockCover: View {
             } icon: {
               Image(systemName: "hourglass")
             }
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .appFont(.callout)
             .accessibilityIdentifier("privacy.password.pause")
           } else if let key = PrivacyCurtain.problemKey(lock.passwordProblem) {
@@ -154,7 +154,7 @@ struct LockCover: View {
   private var newPassword: some View {
     VStack(spacing: 12) {
       Text(verbatim: language("privacy.password.chooseNew"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       LockPasswordFields(
         language: language, problem: lock.passwordProblem, isBusy: lock.isCheckingPassword,
         saveTitleKey: "privacy.password.saveAndUnlock"
@@ -372,7 +372,7 @@ enum PrivacySheetCovers {
       VStack(spacing: 8) {
         Image(systemName: "lock.fill")
           .font(.system(size: 18))  // font-fixed: the symbol of the curtain, not text
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
         if lock.hasPassword, !lock.isChoosingNewPassword {
           passwordEntry

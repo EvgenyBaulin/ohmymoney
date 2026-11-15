@@ -70,11 +70,11 @@
         }
         Text(verbatim: environment.language("settings.appearance.textHint", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if contrast == .increased {
           Text(verbatim: environment.language("appearance.contrast.note", table: "Appearance"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -105,7 +105,7 @@
         }
         Text(verbatim: title).appFont(AppFont.body.weight(.semibold))
         if let hint {
-          Text(verbatim: hint).appFont(.callout).foregroundStyle(.secondary)
+          Text(verbatim: hint).appFont(.callout).secondaryInk()
         }
       }
     }

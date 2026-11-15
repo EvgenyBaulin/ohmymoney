@@ -46,6 +46,7 @@ struct BudgetChart: View {
         }
         .accessibilityLabel(Text(verbatim: bar.label))
         .accessibilityValue(Text(verbatim: bar.text))
+        .accessibilityIdentifier("chart.native.budget.\(bar.id)")
       }
       if let budget {
         RuleMark(x: .value("Budget", budget.value))
@@ -61,6 +62,7 @@ struct BudgetChart: View {
               .fixedSize()
           }
           .accessibilityLabel(Text(verbatim: budget.label))
+          .accessibilityIdentifier("chart.native.budgetLine")
       }
     }
     .chartXScale(domain: 0...max(1, top + top / 3))

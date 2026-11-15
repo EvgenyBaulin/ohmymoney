@@ -186,7 +186,7 @@ struct SettingsSidebar: View {
           } label: {
             Text(verbatim: environment.language(caption.key, table: caption.table))
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .lineLimit(2)
               .padding(
                 .leading,
@@ -203,7 +203,7 @@ struct SettingsSidebar: View {
       if found.isEmpty {
         Text(verbatim: environment.language("settings.search.nothing", table: "Settings"))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .listStyle(.sidebar)

@@ -256,7 +256,7 @@ struct CalendarGridCard: View {
           ForEach(calendar.weekdays, id: \.self) { weekday in
             Text(verbatim: environment.dates.shortWeekday(weekday))
               .appFont(CalendarType.weekday)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .frame(width: side, height: CalendarMetrics.weekdayHeight)
           }
         }
@@ -310,7 +310,7 @@ struct CalendarGridCard: View {
       }
     }
     .appFont(CalendarType.legend)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .padding(.top, CalendarMetrics.legendTop - SectionMetrics.cardGap)
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("calendar.legend")
@@ -340,7 +340,7 @@ struct CalendarGridCard: View {
       }
     }
     .appFont(CalendarType.legend.monospacedDigit())
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .fixedSize(horizontal: false, vertical: true)
   }
 }
@@ -402,7 +402,7 @@ struct CalendarUpcomingCard: View {
         if plans.isEmpty {
           Text(verbatim: CalendarText.t("calendar.upcoming.none", environment))
             .appFont(SectionType.rowDetail)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("calendar.upcoming.none")
         }
         ForEach(plans) { plan in
@@ -428,7 +428,7 @@ struct CalendarUpcomingCard: View {
                   ?? CalendarText.t(CalendarMark.wordKey(plan.source), environment)
               )
               .appFont(SectionType.rowDetail)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Text(

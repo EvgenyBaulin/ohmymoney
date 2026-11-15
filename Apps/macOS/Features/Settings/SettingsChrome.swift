@@ -160,7 +160,7 @@ struct SettingsHeaderStyle: ViewModifier {
     content
       .appFont(.caption)
       .textCase(.uppercase)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }
 

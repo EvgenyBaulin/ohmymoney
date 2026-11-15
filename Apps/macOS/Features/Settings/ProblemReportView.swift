@@ -35,7 +35,7 @@ struct ProblemReportView: View {
           Image(systemName: "exclamationmark.triangle")
         }
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
 
       if let report {
@@ -70,13 +70,13 @@ struct ProblemReportView: View {
       }
 
       if let failure {
-        Text(verbatim: failure).foregroundStyle(.secondary)
+        Text(verbatim: failure).secondaryInk()
       }
     } header: {
       Text(verbatim: t("report.section"))
         .settingsHeaderStyle()
     } footer: {
-      Text(verbatim: t("report.hint")).foregroundStyle(.secondary)
+      Text(verbatim: t("report.hint")).secondaryInk()
     }
     .fileImporter(isPresented: $picksCrashReport, allowedContentTypes: [.data]) { result in
       guard case .success(let url) = result else { return }
@@ -109,7 +109,7 @@ struct ProblemReportView: View {
       if contents.crashReport { Text(verbatim: t("report.contents.crash")) }
     }
     .appFont(.callout)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   private func gather() {

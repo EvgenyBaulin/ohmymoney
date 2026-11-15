@@ -73,7 +73,7 @@ struct AppearancePreviewSheet: View {
       screens
       Text(verbatim: environment.language("appearance.preview.noWrites", table: "Appearance"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       footer
     }
     .accessibilityIdentifier("appearance.preview")
@@ -152,7 +152,7 @@ struct AppearancePreviewSheet: View {
       Image(systemName: symbol)
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   /// What the pipeline says about the data the screens are made of: counting, nothing to show

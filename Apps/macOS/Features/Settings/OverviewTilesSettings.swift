@@ -43,7 +43,7 @@ struct OverviewTilesSection: View {
           .disabled(layout == AppEnvironment.defaultOverviewLayout)
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 

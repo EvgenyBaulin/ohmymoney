@@ -136,7 +136,7 @@ struct OtherTaxSheet: View {
             ? "settings.selfEmployed.refusal.percent" : "categories.tax.otherHint")
       )
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
       if failed {
         Text(verbatim: t("settings.write.refused"))

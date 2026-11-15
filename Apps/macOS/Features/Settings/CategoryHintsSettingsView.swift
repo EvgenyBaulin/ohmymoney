@@ -54,7 +54,7 @@ struct CategoryHintsSettingsView: View {
         if categories.months.isEmpty {
           Text(verbatim: t("settings.categoryHints.noMonths"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(maxWidth: .infinity, minHeight: 122, alignment: .center)
         } else {
           ModelAccuracyChart(months: categories.months)
@@ -77,7 +77,7 @@ struct CategoryHintsSettingsView: View {
         if quality.forecast.isEmpty {
           Text(verbatim: AnalyticsText.t("analytics.reason.noBacktest", environment))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         } else {
           ForecastQualityTable(backtest: quality.forecast)
         }
@@ -111,7 +111,7 @@ struct CategoryHintsSettingsView: View {
   private func caption(_ key: String) -> some View {
     Text(verbatim: t(key))
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
   }
 }
@@ -163,7 +163,7 @@ struct CategoryHintsSummary: View {
           VStack(alignment: .leading, spacing: 2) {
             Text(verbatim: environment.language(card.key, table: "Settings"))
               .appFont(.callout)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
             Text(verbatim: card.value)
               .appFont(AppFont.system(size: 24, weight: .bold).monospacedDigit())

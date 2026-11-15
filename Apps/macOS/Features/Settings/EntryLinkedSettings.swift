@@ -33,7 +33,7 @@ struct EntryLinkedSettings: View {
       .accessibilityIdentifier("settings.entry.firstPurchase")
       Text(verbatim: t("settings.entry.firstPurchaseHint"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -71,7 +71,7 @@ struct EntryLinkedSettings: View {
         .foregroundStyle(.tint)
       Image(systemName: "chevron.right")
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
     }
     .contentShape(.rect)

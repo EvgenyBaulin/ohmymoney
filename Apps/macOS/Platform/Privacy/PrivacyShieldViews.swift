@@ -41,7 +41,7 @@ struct ReadOnlyStrip: View {
   var body: some View {
     HStack(spacing: 12) {
       Image(systemName: "lock.doc")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       Text(verbatim: environment.language("privacy.readOnly.banner", table: "PrivacyScreens"))
         .appFont(.callout)
       Spacer(minLength: 8)

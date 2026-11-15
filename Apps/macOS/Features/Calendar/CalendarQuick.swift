@@ -226,7 +226,7 @@ struct DayNoteRow: View {
   var body: some View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
       Image(systemName: "note.text")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       if let note {
         Text(verbatim: note.text)
@@ -275,7 +275,7 @@ struct DayNoteSheet: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: QuickText.t("quick.note.title", environment)).appFont(.headline)
       Text(verbatim: environment.dates.longDay(day))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
       TextField(
         text: $text, axis: .vertical
       ) {

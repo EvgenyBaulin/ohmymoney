@@ -7,6 +7,11 @@ import XCTest
 final class AccessibilityAuditUITests: E2EMacTestCase {
   // XCUIAccessibilityAuditTypes.h exposes these on macOS. Dynamic Type, clipped text and
   // traits are mobile-only audit types; `.all` would obscure that platform distinction.
+  /// The height of the toolbar under the top edge and of the floating entry bar above the
+  /// bottom edge, as the window lays them out.
+  private static let toolbarBand: CGFloat = 120
+  private static let entryBarBand: CGFloat = 100
+
   private let auditTypes: XCUIAccessibilityAuditType = [
     .contrast, .elementDetection, .hitRegion, .sufficientElementDescription, .action, .parentChild,
   ]
@@ -298,10 +303,11 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             // finding on our explicitly identified native marks; labels, actions, contrast,
             // parent/child issues and unmarked framework containers must still fail.
             let nativeMark =
-              node.identifier == "chart.native.average"
+              node.identifier == "chart.native.average" || node.identifier == "chart.native.budgetLine"
               || [
                 "chart.native.column.", "chart.native.pair.", "chart.native.share.",
-                "chart.native.netWorth.",
+                "chart.native.netWorth.", "chart.native.ranked.", "chart.native.stack.",
+                "chart.native.stackRow.", "chart.native.period.", "chart.native.budget.",
               ].contains {
                 node.identifier.hasPrefix($0)
               }
@@ -341,6 +347,18 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
               systemException =
                 "Contrast outside this viewport; checked by the scroll sweep when visible"
             }
+            // Scrolled content passes under the toolbar and the floating entry bar, both
+            // translucent chrome: the pixels measured there are the chrome's blur over the text,
+            // not the text. The sweep scrolls every line through the clear middle of the window
+            // (and the page keeps room below its last line for the bar), where it is audited.
+            // Only text that lies inside those bands is excused, and the top band only once
+            // the page has scrolled (the first viewport shows the unscrolled page header).
+            if issue.auditType == .contrast, node.elementType == .staticText, name.hasPrefix("main-"),
+              node.frame.maxY > windowFrame.maxY - Self.entryBarBand
+                || (viewport > 1 && node.frame.minY < windowFrame.minY + Self.toolbarBand)
+            {
+              systemException = "Contrast of scrolled text under the toolbar or the entry bar"
+            }
             // The screen-wide contrast audit also reaches the main window's pixels behind the
             // Settings window. Text that the audited window's own tree does not contain belongs
             // to the other window and is checked by that window's own test.
@@ -350,6 +368,12 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
               !self.tree(screenTree, contains: shownText)
             {
               systemException = "Contrast of text that belongs to another window"
+            }
+            // A lone separator such as «·» carries no words; its few pixels cannot be sampled.
+            if issue.auditType == .contrast, node.elementType == .staticText,
+              !shownText.isEmpty, shownText.allSatisfy({ $0.isPunctuation || $0.isSymbol })
+            {
+              systemException = "Contrast of a separator glyph"
             }
             // The window title and subtitle are drawn by the system toolbar over its own
             // material; their colour is not ours to set.
@@ -373,6 +397,11 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             {
               systemException = "Native host group spanning the window"
             }
+            // A tooltip (help tag) that appeared under the pointer after a click belongs to the
+            // system and has no text of its own to describe.
+            if issue.auditType == .sufficientElementDescription, node.elementType == .helpTag {
+              systemException = "System tooltip under the pointer"
+            }
             // A pop-up button exports AXShowMenu rather than AXPress, which the action audit
             // does not accept as its click equivalent. Only pop-ups that have a title or value
             // are exempt; an untitled one still fails the description audit.
@@ -382,6 +411,23 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
                 || !(((node.value as? String) ?? "").isEmpty)
             {
               systemException = "Pop-up button exposes a show-menu action"
+            }
+            // The same holds for a SwiftUI Menu with the borderless style, which AppKit exports as
+            // a menu button. It must still be named, and never by the picture of its chevron.
+            if issue.auditType == .action, issue.compactDescription == "Action is missing",
+              node.elementType == .menuButton, !node.label.isEmpty, node.label != "go down",
+              !node.identifier.isEmpty
+            {
+              systemException = "Menu button exposes a show-menu action"
+            }
+            // A SwiftUI switch is an NSSwitch inside a hosting wrapper that carries our label,
+            // identifier and 0/1 value; the press action sits on the inner control. A switch
+            // without a name or identifier still fails.
+            if issue.auditType == .action, issue.compactDescription == "Action is missing",
+              node.elementType == .checkBox, !node.label.isEmpty, !node.identifier.isEmpty,
+              ["0", "1"].contains(String(describing: node.value ?? ""))
+            {
+              systemException = "SwiftUI switch exposes its action on the inner control"
             }
             if issue.auditType == .sufficientElementDescription,
               issue.compactDescription == "Element has no description", node.identifier.isEmpty,

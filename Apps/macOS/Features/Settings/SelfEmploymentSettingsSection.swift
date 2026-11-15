@@ -292,7 +292,7 @@ struct SelfEmploymentSettingsSection: View {
         })
       Text(verbatim: deductionCaption)
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -375,7 +375,7 @@ struct SelfEmploymentSettingsSection: View {
         .accessibilityIdentifier("settings.selfEmployed.referenceReset")
       }
       .appFont(.callout)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -450,7 +450,7 @@ struct SettingValueField: View {
         if refused {
           Text(verbatim: refusal)
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }
