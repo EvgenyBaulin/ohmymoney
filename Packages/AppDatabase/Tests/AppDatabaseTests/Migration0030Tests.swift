@@ -155,6 +155,43 @@ struct Migration0030Tests {
     #expect(back.meters == [meter] && back.readings == [reading])
   }
 
+  @Test func editingTheLinesOfABillIsOneStepOfUndoAndTheTotalFollowsThem() throws {
+    let stack = try TestSupport.makeStack()
+    let planning = PlanningRepository(writer: stack.writer)
+    let utilities = UtilityRepository(writer: stack.writer)
+    let bill = UtilityBill(
+      provider: "Provider", period: MonthKey(year: 2026, month: 11),
+      totalE4: AmountE4(whole: 100), recordedAt: Self.at)
+    let first = UtilityBillLines.edit(
+      bill: bill,
+      drafts: [
+        .init(service: "Water", amountE4: AmountE4(whole: 300)),
+        .init(service: "Heat", amountE4: AmountE4(whole: 1_200)),
+      ], stored: [])
+    _ = try planning.apply(PlanningChange(billEdit: first, at: Self.at))
+    var book = try utilities.book()
+    #expect(book.bills.first?.totalE4 == AmountE4(whole: 1_500))
+    #expect(book.charges.map(\.service).sorted() == ["Heat", "Water"])
+
+    // Change one line, drop the other, add a third: one write.
+    var drafts = UtilityBillLines.lines(of: book.bills[0], in: book.charges)
+    drafts[0].amountE4 = AmountE4(whole: 350)
+    drafts.removeLast()
+    drafts.append(.init(service: "Gas", amountE4: AmountE4(whole: 80)))
+    let second = UtilityBillLines.edit(
+      bill: book.bills[0], drafts: drafts, stored: book.charges)
+    let undo = try planning.apply(PlanningChange(billEdit: second, at: Self.at))
+    book = try utilities.book()
+    #expect(book.bills.first?.totalE4 == AmountE4(whole: 430))
+    #expect(book.charges.map(\.service).sorted() == ["Gas", "Water"])
+
+    try planning.revert(undo)
+    book = try utilities.book()
+    #expect(book.bills.first?.totalE4 == AmountE4(whole: 1_500))
+    #expect(book.charges.map(\.service).sorted() == ["Heat", "Water"])
+    #expect(book.charges.first { $0.service == "Water" }?.amountE4 == AmountE4(whole: 300))
+  }
+
   @Test func theFourTablesGoLastInTheCSV() throws {
     #expect(ExportTables.all.count == 59)
     let stack = try TestSupport.makeStack()

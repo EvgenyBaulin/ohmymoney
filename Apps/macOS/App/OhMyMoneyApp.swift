@@ -920,9 +920,7 @@ struct MainWindow: View {
 
   /// The colour of the account on screen, if it has one: the window tints itself with it.
   private var selectedAccountAccent: AccountAccent? {
-    guard case .account(let id) = selection else { return nil }
-    return compute.snapshot?.planning.accounts.sections.flatMap(\.accounts)
-      .first { $0.account.id == id }?.account.accountAccent
+    WindowTint.accent(of: selection, in: compute.snapshot?.planning.accounts)
   }
 
   /// Back to Overview when the account or the group on screen is no longer among the live ones
