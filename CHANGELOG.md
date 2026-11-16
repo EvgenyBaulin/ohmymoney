@@ -7,6 +7,127 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.20.0] — 2026-11-16
+
+Tax deductions, utility meters and bills, six cloud drives for the exchange between devices, a capital
+chart that reaches back before your first record, and a forecast of each account that stops showing
+a minus you never meet. The database schema grows from 27 to 32; opening the app upgrades the
+database after a verified copy, and older data reads as before.
+
+### Added
+
+- **Tax deductions.** Mark a part of an operation as medical care, costly care, your own or a child's
+  schooling, sport or an investment account; let a mortgage give its interest to the deduction and
+  mark an account as an investment account. A table of limits by year counts what can come back;
+  without a known income it says up to how much at 13 %. The mortgage interest limit is counted for
+  life, and the screen says when earlier years are not taken into account.
+- **Utility meters and bills.** Keep meters, their readings and bills with their lines; usage and cost
+  of a month are compared with the month and the year before, and a reading is reminded in its
+  window. A reading lower than the last one is marked and asks whether the meter was replaced,
+  without holding the save; a bill's lines can be edited.
+- **A report for another person.** Choose accounts and categories and a period, and send the result
+  as a PDF with a password or as a sealed CSV, prepared inside OhMyMoney. A PDF takes a Latin
+  password only, and the form says so under the field.
+- **Capital before the first record.** An asset starts at its purchase price, a loan is rebuilt from
+  its schedule back to the day it was taken, and the money on accounts comes from one optional
+  estimate; without the estimate the early part is grey and says so. Assets and debts keep
+  the day and price of a purchase and the day and original amount of a loan; the fields are optional.
+- **Events on the capital chart.** A loan taken, a thing bought and a loan closed stand on the chart
+  where they happened, grouped by day.
+- **Cloud drives.** Yandex Disk, Dropbox, OneDrive, Google Drive, Mail.ru Cloud and Supabase Storage
+  work as places for the exchange between devices, and all six connect in one place.
+- **Challenges.** A week without delivery, a month without new subscriptions, a cafe limit, or your
+  own: progress, a streak of days, the day it broke and what was saved against a base by my
+  expenses. They are made from **Planning**, a tile on the **Overview** is hidden by default, and the
+  result can be shared as a picture without sums when sums are hidden.
+- **Official inflation.** The monthly consumer price indices of Rosstat from January 2020 to
+  September 2026 ship with the app: a month, a year on year and a sum over months. A month past the
+  last known one has no figure rather than zero.
+- **Key rate.** The key rate of the Bank of Russia is carried by the day it came into force; a loan
+  above the current rate gets a worth-a-look line, and a deposit that ends while rates fall says so.
+  With the deposit benchmark switched on, the table is topped up once a day.
+- **Receipts.** A receipt link from a message or a letter gives its numbers without the network;
+  several files or QR codes go through a queue (clear ones are written, doubtful ones wait, and
+  the result counts them); each nearby operation says why it is near; a receipt can be split into
+  categories by hand before it becomes an operation.
+- **Evening reminder on iPhone.** A local notification each evening asks you to write the day's
+  spending, with «no spending today» as its action, at the hour of your habits.
+- **Notifications explained.** The system prompt comes only after you tap **Allow** on a short
+  explanation of what the notifications are for; **Not now** asks nothing, and a denial points to
+  **Settings**.
+- **Yesterday after midnight.** Between midnight and four in the morning the entry offers to write
+  the record for yesterday.
+- **Even split from the line.** «dinner 6000 evenly with Masha and Petya» splits the bill equally.
+- **Account forecast.** An account's forecast takes back the expected income and interest and the
+  usual reconciliation losses, and takes off spending for others; the saving card names where a
+  month's overspend comes from.
+- **Merchant codes in cashback.** A bank's cashback label can take purchases by merchant code, with
+  include and exclude lists; a row without lists works by category as before. An account without
+  cashback shows no cashback block.
+- **Account colours.** Ten bank-like colours and four soft shades join the palette, and the window
+  takes the colour of the open account; the twelve old colours stay as they were.
+- **Credit card minimum.** A minimum paid in time without paying the statement in full says that the
+  grace period is lost and interest will run, instead of saying the statement was missed.
+- **Place marks (off).** Marks of places on this device only: near a marked place the phone suggests
+  the better card, and a map shows where money went. Both are off by default; the marks do not
+  travel between devices and are not in the exports.
+
+### Changed
+
+- Income that was expected but whose day has passed no longer counts as coming and asks whether it
+  arrived; a goal past its date leaves the monthly total; spending marked as one-off stays out of
+  the averages and forecasts.
+- An account no longer takes a share of the usual spending, so the card that pays for everything
+  stops showing a minus you never meet; the month forecast stays one, over all accounts.
+- Every chart has a spoken summary of its values, menus are real buttons for VoiceOver, every
+  control of **Settings** and the fold buttons of the account tree are named, and secondary text is
+  readable on every theme.
+- Every language of the app is checked on screen: no string is missing, format specifiers match
+  English, and the five phone tabs fit on a narrow phone; Arabic and Hebrew mirror the layout.
+- The layout fits on iPhone and iPad across sizes, languages and text sizes: **Planning** on a
+  narrow phone, the operations table in a narrow window, the reports header on a narrow tablet, the
+  entry line on every window, a day screen matching the design, and a 44-point touch for the
+  buttons of «what to do now». Undo and redo float over the phone's tab bar.
+- Spending rules follow the merge or deletion of people, places, accounts and cards: a rule that
+  named one no longer silently stops matching.
+- «Load a statement» counts from the day of the last load and keeps older unsorted operations;
+  a statement row written as new follows your rules.
+- The day of an operation is read in the zone it was written in across the ledger rules.
+
+### Fixed
+
+- Huge stored sums no longer crash the database check or the shares of a limit.
+- The cashback trap counts my expenses, and the pay-here hint takes back the refunded part of a
+  receipt and the ceilings of your usual card.
+- Four money and archive edge cases from a second audit of the logic: missed cashback is read in
+  the zone of its day, the planned size of an attachment counts its whole name, and the preview of
+  an archive reads many attachments.
+- Account sums under a long name in the sidebar, the repeat check, the import of a proposed account
+  and a refused receipt split.
+- The numeric axis of a series chart starts at zero, so its spoken steps stay inside it.
+
+- Cloud writes are whole: a broken upload leaves no half file, a refused replace on Dropbox and
+  OneDrive is not taken as written, a Yandex operation is awaited, listings stop after a bounded
+  number of pages, a file id from the server is checked before it goes into a path, and new tokens
+  stay on this device only while unlocked.
+- The open PDF or CSV of a shared report is removed from the temporary folder after it is moved.
+- The copy for the other devices no longer holds the names and coordinates of place marks in its
+  free pages, and the archive copy no longer carries the exchange bookkeeping of the device.
+
+### Upgrading
+
+The database schema goes from 27 to 32. The update is one way: before it the app makes a checked
+copy with the suffix `-before-migration`, which rotation never removes, also in your backup folder.
+Going back to 2.14.0 means restoring that copy. The migrations only add columns and tables that
+start empty, so no existing row changes. The export grows to 59 tables; the transfer-archive format
+is unchanged.
+
+### Known limitations
+
+- Place hints and the map are off by default.
+- On an iPad in a narrow Split View column with the largest text in German, the Reports page and
+  one toolbar button still reach past the edge of the window.
+
 ## [2.14.0] — 2026-11-13
 
 A redesigned operation editor and main window, Russian bank rules, your own bank-message formats,
