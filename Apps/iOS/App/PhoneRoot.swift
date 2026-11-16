@@ -689,6 +689,14 @@ struct PadOverviewTitleActions: View {
 struct PhoneToolbar: ViewModifier {
   let deps: AppDependencies
   let router: PhoneRouter
+  @Environment(\.horizontalSizeClass) private var sizeClass
+  @Environment(\.layoutIdiom) private var idiom
+
+  /// A tablet window as narrow as a phone (Split View, Slide Over): the eye and «recompute»
+  /// stand in the menu, or the toolbar overflows and its last button ends past the window.
+  private var foldsIntoMenu: Bool {
+    (idiom ?? .current) == .pad && sizeClass == .compact
+  }
 
   func body(content: Content) -> some View {
     let environment = deps.environment
@@ -708,25 +716,47 @@ struct PhoneToolbar: ViewModifier {
       ToolbarItemGroup(placement: .topBarTrailing) {
         // No palette of commands here: it is the list of keyboard shortcuts, and a phone has
         // no keyboard to press them on.
-        Button {
-          environment.amounts.toggle()
-        } label: {
-          Label {
-            Text(verbatim: PrivacyCommands.amountsTitle(environment))
-          } icon: {
-            Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
+        if !foldsIntoMenu {
+          Button {
+            environment.amounts.toggle()
+          } label: {
+            Label {
+              Text(verbatim: PrivacyCommands.amountsTitle(environment))
+            } icon: {
+              Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
+            }
           }
-        }
-        Button {
-          deps.compute.run()
-        } label: {
-          Label {
-            Text(verbatim: environment.language("action.recompute"))
-          } icon: {
-            Image(systemName: "arrow.clockwise")
+          Button {
+            deps.compute.run()
+          } label: {
+            Label {
+              Text(verbatim: environment.language("action.recompute"))
+            } icon: {
+              Image(systemName: "arrow.clockwise")
+            }
           }
         }
         Menu {
+          if foldsIntoMenu {
+          Button {
+            environment.amounts.toggle()
+          } label: {
+            Label {
+              Text(verbatim: PrivacyCommands.amountsTitle(environment))
+            } icon: {
+              Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
+            }
+          }
+          Button {
+            deps.compute.run()
+          } label: {
+            Label {
+              Text(verbatim: environment.language("action.recompute"))
+            } icon: {
+              Image(systemName: "arrow.clockwise")
+            }
+          }
+          }
           Button {
             environment.showsReconciliation = true
           } label: {
