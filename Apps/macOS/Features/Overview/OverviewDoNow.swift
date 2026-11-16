@@ -31,9 +31,20 @@ enum OverviewDoNow {
       guard let account = $0.income.paymentMethodId else { return true }
       return !hidden.isHidden(account)
     }
+    let visiblePaymentIds = Set(payments.map(\.id))
+    let partQuestions = snapshot.planning.scheduled.compactMap { status -> DoNowItem? in
+      guard visiblePaymentIds.contains(status.payment.id),
+        status.partDues[status.nextUnpaid]?.needsCloseDecision == true
+      else { return nil }
+      let due = status.nextUnpaid
+      return DoNowItem(
+        id: "close-remainder:\(status.payment.id.uuidString):\(due.iso)",
+        action: .closeRemainder, paymentId: status.payment.id, day: due)
+    }
     return WhatToDoNow.list(
       payments: payments,
       overdueIncomes: IncomeEstimate.overdue(statuses: expected, today: environment.today),
+      partQuestions: partQuestions,
       reviews: DoNowSources.reviews(
         entries: entries, today: environment.today, calendar: environment.calendar),
       statements: DoNowSources.statements(
@@ -49,6 +60,13 @@ enum OverviewDoNow {
   ) -> DoNowRowText {
     let money = environment.money
     switch item.action {
+    case .closeRemainder:
+      let payment = snapshot.dataset.planning.scheduled.first { $0.id == item.paymentId }
+      return DoNowRowText(
+        title: payment?.name ?? "",
+        detail: environment.language("scheduled.closeRemainder.question", table: "Planning"),
+        button: environment.language("scheduled.closeRemainder.close", table: "Planning"),
+        urgent: true)
     case .post:
       let payment = snapshot.dataset.planning.scheduled.first { $0.id == item.paymentId }
       let due = item.day ?? environment.today
@@ -207,6 +225,8 @@ struct OverviewDoNowCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         if item.action == .income {
           incomeMenu(item, text: text, snapshot: snapshot)
+        } else if item.action == .closeRemainder {
+          remainderButtons(item, text: text, snapshot: snapshot)
         } else {
           TouchButton(
             title: text.button, identifier: "overview.doNow.\(item.action.rawValue)",
@@ -292,13 +312,50 @@ struct OverviewDoNowCard: View {
 
   private func perform(_ item: DoNowItem, snapshot: DataSnapshot) {
     switch item.action {
-    case .income: break
+    case .income, .closeRemainder: break
     case .post: post(item, snapshot: snapshot)
     case .review:
       TileWhyNavigation.go(.section(.operations), environment: environment, openWindow: openWindow)
     case .load:
       environment.statementImportRequest = StatementImportRequest(urls: [])
     }
+  }
+
+  private func remainderButtons(
+    _ item: DoNowItem, text: DoNowRowText, snapshot: DataSnapshot
+  ) -> some View {
+    HStack(spacing: 4) {
+      TouchButton(
+        title: text.button, identifier: "overview.doNow.closeRemainder.close",
+        idiom: LayoutIdiom.resolved(idiom), alignment: .center
+      ) {
+        answerRemainder(item, .close, snapshot: snapshot)
+      } drawn: { tap in
+        Button(text.button, action: tap).buttonStyle(.rowAction)
+      }
+      TouchButton(
+        title: environment.language("scheduled.closeRemainder.keep", table: "Planning"),
+        identifier: "overview.doNow.closeRemainder.keep",
+        idiom: LayoutIdiom.resolved(idiom), alignment: .center
+      ) {
+        answerRemainder(item, .keep, snapshot: snapshot)
+      } drawn: { tap in
+        Button(
+          environment.language("scheduled.closeRemainder.keep", table: "Planning"),
+          action: tap).buttonStyle(.rowAction)
+      }
+    }
+  }
+
+  private func answerRemainder(
+    _ item: DoNowItem, _ answer: ScheduledPartAnswer, snapshot: DataSnapshot
+  ) {
+    guard let dependencies, let due = item.day,
+      let payment = snapshot.dataset.planning.scheduled.first(where: { $0.id == item.paymentId })
+    else { return }
+    failure[item.id] =
+      PlanningActions(dependencies).answerRemainder(answer, for: payment, due: due)
+      ? nil : environment.language("form.notSaved", table: "Planning")
   }
 
   /// «Провести» without a form, as a row of the reminders does it: on the payment's own account.

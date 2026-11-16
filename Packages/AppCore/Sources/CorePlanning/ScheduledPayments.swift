@@ -249,10 +249,11 @@ public struct ScheduledStatus: Hashable, Sendable, Identifiable {
   /// paid in full —, with its parts: each part listed with «Это другое».
   public var partDues: [DateOnly: DueParts]
 
-  /// The due dates parts paid while falling short of the price by no more than one operation
-  /// may, latest first: each says «оплачено 58 000 из 60 000» in grey.
+  /// The due dates the owner chose to close while parts fell short of the price, latest first:
+  /// each says «оплачено X из Y» in grey.
   public var shortPaidDues: [DateOnly] {
-    partDues.filter { $0.value.isComplete && $0.value.remainingE4.raw > 0 }.keys.sorted(by: >)
+    partDues.filter { $0.value.answer == .close && $0.value.remainingE4.raw > 0 }
+      .keys.sorted(by: >)
   }
   /// What is still to pay of `nextUnpaid`: `amountNext` less `paidNext`, never below zero.
   public var remainingNext: AmountE4 { max(.zero, amountNext - paidNext) }

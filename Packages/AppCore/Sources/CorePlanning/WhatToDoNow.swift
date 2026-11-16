@@ -3,14 +3,16 @@ import Foundation
 
 /// «Что сделать сейчас»: the few things on the Overview that have a button to press. Only an
 /// item with an action is here — a tip with nothing to press stays in the full «Стоит
-/// посмотреть» list. The order is fixed: payments overdue and due today first (the oldest
-/// first), then expected incomes that did not come, then things to sort out («Разобрать»), then statements to load («Загрузить»); at most
-/// three are shown, and with nothing to do the list is empty and the block is not drawn.
+/// посмотреть» list. The order is fixed: questions about closing partly paid payments, payments
+/// overdue and due today (the oldest first), expected incomes that did not come, then things to
+/// sort out («Разобрать») and statements to load («Загрузить»); at most three are shown.
 public struct DoNowItem: Hashable, Sendable, Identifiable {
   /// What the button does.
   public enum Action: String, Hashable, Sendable {
     /// «Провести»: record the payment of a due date.
     case post
+    /// Ask whether to close a due date whose parts are within 10 % of its price.
+    case closeRemainder
     /// «Не пришёл?»: an expected income whose day has passed without the money — enter the
     /// day it came, close it or move it.
     case income
@@ -86,8 +88,11 @@ public enum WhatToDoNow {
 
   public static func list(
     payments: [ScheduledPayment], overdueIncomes: [OverdueIncomeItem] = [],
-    reviews: [DoNowSource] = [], statements: [DoNowSource] = [], today: DateOnly
+    partQuestions: [DoNowItem] = [], reviews: [DoNowSource] = [],
+    statements: [DoNowSource] = [], today: DateOnly
   ) -> DoNowList {
+    let questions = partQuestions.filter { $0.action == .closeRemainder }
+      .sorted { ($0.day ?? today, $0.id) < ($1.day ?? today, $1.id) }
     let due = payments.compactMap { payment -> DoNowItem? in
       guard payment.active, let day = payment.nextDate, day <= today else { return nil }
       return DoNowItem(
@@ -114,7 +119,7 @@ public enum WhatToDoNow {
           id: "income:\(item.incomeId.uuidString):\(item.due.iso)", action: .income,
           day: item.due, incomeId: item.incomeId)
       }
-    let all = due + incomes + items(reviews, .review) + items(statements, .load)
+    let all = questions + due + incomes + items(reviews, .review) + items(statements, .load)
     return DoNowList(items: Array(all.prefix(limit)), more: max(0, all.count - limit))
   }
 }

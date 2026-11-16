@@ -51,12 +51,11 @@ struct ScheduledPartsTests {
     #expect((found.parts(Self.rent.id, Self.due)?.operations == [id]) == counts, "\(day)")
   }
 
-  /// Two parts that add up to the price exactly pay the due date; so do two that add up to
-  /// more, and two within 10 % of it, as one operation would. More than 10 % short leaves the
-  /// rest to pay.
+  /// Parts adding up to the price pay the due date; those short by at most 10 % wait for an
+  /// answer, and those further short leave the full remainder to pay.
   @Test(arguments: [
     ("30000", "30000", true, "0"), ("40000", "35000", true, "0"),
-    ("29000", "29000", true, "0"), ("30000", "24000", true, "0"),
+    ("29000", "29000", false, "2000"), ("30000", "24000", false, "6000"),
     ("30000", "23999", false, "6001"),
   ])
   func partsUpToThePricePayTheDue(
@@ -98,24 +97,94 @@ struct ScheduledPartsTests {
     #expect(!found.operationIds.contains(late))
   }
 
-  /// Parts within 10 % of the price close the due date, and what they fell short by stays
-  /// visible: «оплачено 58 000 из 60 000».
-  @Test func partsShortByLessThanTenPercentCloseTheDue() {
+  /// Parts within 10 % of the price ask whether to close the due date; until answered, the
+  /// remainder is still due.
+  @Test func partsShortByLessThanTenPercentLeaveTheDueOpen() {
     var fx = Fx()
     fx.scheduled = [Self.rent]
     fx.add(.expense, "29000", at: Fx.at("2026-09-12", 9), category: Fx.housing)
     fx.add(.expense, "29000", at: Fx.at("2026-09-16", 9), category: Fx.housing)
     let found = matches(fx)
     let parts = found.parts(Self.rent.id, Self.due)
-    #expect(found.isPaid(Self.rent.id, Self.due))
-    #expect(parts?.isComplete == true)
+    #expect(!found.isPaid(Self.rent.id, Self.due))
+    #expect(parts?.isComplete == false)
     #expect(parts?.paidE4 == Fx.money("58000"))
     #expect(parts?.remainingE4 == Fx.money("2000"))
-    #expect(found.unpaid(Self.rent.id, Self.due, price: Fx.money("60000")) == .zero)
+    #expect(found.unpaid(Self.rent.id, Self.due, price: Fx.money("60000")) == Fx.money("2000"))
     let status = fx.snapshot().scheduled.first { $0.payment.id == Self.rent.id }
-    #expect(status?.nextUnpaid == Fx.day("2026-10-15"))
+    #expect(status?.nextUnpaid == Self.due)
+    #expect(status?.remainingNext == Fx.money("2000"))
     #expect(status?.partDues[Self.due]?.paidE4 == Fx.money("58000"))
-    #expect(status?.shortPaidDues == [Self.due])
+    #expect(status?.shortPaidDues.isEmpty == true)
+  }
+
+  @Test(arguments: [
+    (ScheduledPartAnswer.close, true, true),
+    (ScheduledPartAnswer.keep, false, false),
+  ])
+  func savedAnswerClosesOrKeepsTheDue(
+    _ answer: ScheduledPartAnswer, _ paid: Bool, _ showsShortfall: Bool
+  ) {
+    var fx = Fx()
+    fx.scheduled = [Self.rent]
+    fx.add(.expense, "29000", at: Fx.at("2026-09-12", 9), category: Fx.housing)
+    fx.add(.expense, "29000", at: Fx.at("2026-09-16", 9), category: Fx.housing)
+    let stored = ScheduledMatching.partAnswers(
+      adding: answer, payment: Self.rent.id, due: Self.due, to: [],
+      today: Fx.today)
+    #expect(
+      stored == [ScheduledMatching.partAnswerKey(answer, payment: Self.rent.id, due: Self.due)])
+    let found = matches(fx, rejections: stored)
+    let parts = found.parts(Self.rent.id, Self.due)
+    #expect(ScheduledMatching.partAnswer(payment: Self.rent.id, due: Self.due, in: stored) == answer)
+    #expect(found.isPaid(Self.rent.id, Self.due) == paid)
+    #expect(parts?.answer == answer)
+    #expect(parts?.needsCloseDecision == false)
+    #expect(parts?.remainingE4 == Fx.money("2000"))
+    fx.settings.scheduledMatchRejections = stored
+    let status = fx.snapshot().scheduled.first { $0.payment.id == Self.rent.id }
+    #expect(status?.shortPaidDues.contains(Self.due) == showsShortfall)
+  }
+
+  @Test func aKeptRemainderCanBePaidByLaterParts() {
+    var fx = Fx()
+    fx.scheduled = [Self.rent]
+    fx.add(.expense, "29000", at: Fx.at("2026-09-12", 9), category: Fx.housing)
+    fx.add(.expense, "29000", at: Fx.at("2026-09-16", 9), category: Fx.housing)
+    fx.add(.expense, "2000", at: Fx.at("2026-09-17", 9), category: Fx.housing)
+    let stored = ScheduledMatching.partAnswers(
+      adding: .keep, payment: Self.rent.id, due: Self.due, to: [], today: Fx.today)
+    let found = matches(fx, rejections: stored)
+    let parts = found.parts(Self.rent.id, Self.due)
+    #expect(found.isPaid(Self.rent.id, Self.due))
+    #expect(parts?.operations.count == 3)
+    #expect(parts?.paidE4 == Fx.money("60000"))
+    #expect(parts?.needsCloseDecision == false)
+  }
+
+  @Test func closingARemainderStopsFurtherParts() {
+    var fx = Fx()
+    fx.scheduled = [Self.rent]
+    let first = fx.add(.expense, "29000", at: Fx.at("2026-09-12", 9), category: Fx.housing)
+    let second = fx.add(.expense, "29000", at: Fx.at("2026-09-16", 9), category: Fx.housing)
+    let later = fx.add(.expense, "2000", at: Fx.at("2026-09-17", 9), category: Fx.housing)
+    let stored = ScheduledMatching.partAnswers(
+      adding: .close, payment: Self.rent.id, due: Self.due, to: [], today: Fx.today)
+    let found = matches(fx, rejections: stored)
+    #expect(found.isPaid(Self.rent.id, Self.due))
+    #expect(found.parts(Self.rent.id, Self.due)?.operations == [first, second])
+    #expect(!found.operationIds.contains(later))
+  }
+
+  @Test func anExactSumOfPartsPaysTheDueAutomatically() {
+    var fx = Fx()
+    fx.scheduled = [Self.rent]
+    fx.add(.expense, "30000", at: Fx.at("2026-09-12", 9), category: Fx.housing)
+    fx.add(.expense, "30000", at: Fx.at("2026-09-16", 9), category: Fx.housing)
+    let found = matches(fx)
+    #expect(found.isPaid(Self.rent.id, Self.due))
+    #expect(found.parts(Self.rent.id, Self.due)?.needsCloseDecision == false)
+    #expect(found.unpaid(Self.rent.id, Self.due, price: Fx.money("60000")) == .zero)
   }
 
   /// Once the parts paid the price, a third operation is not taken: it stays ordinary spending.
@@ -138,7 +207,23 @@ struct ScheduledPartsTests {
     let whole = fx.add(.expense, "57000", at: Fx.at("2026-09-15", 9), category: Fx.housing)
     let found = matches(fx)
     #expect(found.operation(for: Self.rent.id, Self.due) == whole)
+    #expect(found.isPaid(Self.rent.id, Self.due))
     #expect(found.parts(Self.rent.id, Self.due) == nil)
+  }
+
+  @Test func savingAnotherAnswerReplacesThePreviousOneAndRejectionsKeepIt() {
+    let close = ScheduledMatching.partAnswers(
+      adding: .close, payment: Self.rent.id, due: Self.due, to: [], today: Fx.today)
+    let keep = ScheduledMatching.partAnswers(
+      adding: .keep, payment: Self.rent.id, due: Self.due, to: close, today: Fx.today)
+    #expect(keep == [ScheduledMatching.partAnswerKey(.keep, payment: Self.rent.id, due: Self.due)])
+    let operation = Fx.id(9_999)
+    let rejected = ScheduledMatching.rejections(
+      adding: ScheduledMatching.rejectionKey(
+        operation: operation, payment: Self.rent.id, due: Self.due),
+      to: keep, today: Fx.today)
+    #expect(rejected.isSuperset(of: keep))
+    #expect(ScheduledMatching.partAnswer(payment: Self.rent.id, due: Self.due, in: rejected) == .keep)
   }
 
   /// Two payments of one category: the internet of 5 000 is paid whole by 4 800; 3 000 is a

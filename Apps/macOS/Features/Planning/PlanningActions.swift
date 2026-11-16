@@ -243,6 +243,20 @@ struct PlanningActions {
     return apply(PlanningChange(settings: [key: kept.sorted().joined(separator: "\n")]))
   }
 
+  /// Save whether the owner chose to close or leave a due date whose parts are within 10 % of
+  /// its price. It shares the existing planning setting and the same 400-day retention.
+  @discardableResult
+  func answerRemainder(
+    _ answer: ScheduledPartAnswer, for payment: ScheduledPayment, due: DateOnly
+  ) -> Bool {
+    let key = PlanningSettings.scheduledMatchRejectionsKey
+    let text = (try? environment.settings?.string(key)) ?? nil
+    let stored = Set((text ?? "").split(whereSeparator: \.isNewline).map(String.init))
+    let answered = ScheduledMatching.partAnswers(
+      adding: answer, payment: payment.id, due: due, to: stored, today: environment.today)
+    return apply(PlanningChange(settings: [key: answered.sorted().joined(separator: "\n")]))
+  }
+
   /// A new or edited payment. One whose price changed today gets rows of its price history,
   /// so the history shows when it changed and the past keeps its price
   /// (`SubscriptionMath.priceEdit`).
