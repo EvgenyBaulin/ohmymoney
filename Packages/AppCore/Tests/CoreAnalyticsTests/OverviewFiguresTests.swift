@@ -205,6 +205,49 @@ struct OverviewFiguresTests {
     #expect(savings.leftOutForeign == 1)
   }
 
+  @Test func transfersBetweenSavingAccountsDoNotIncreaseSavings() throws {
+    let cushion = PaymentMethod(name: "Cushion", cushion: true)
+    let deposit = PaymentMethod(
+      name: "Deposit", interest: DepositTerms(rate: 10, period: .monthly))
+    let transfer = Transfer(
+      occurredAt: at(9, 10), fromAccountId: cushion.id, fromCurrency: .rub,
+      fromAmountE4: AmountE4(whole: 800_000), toAccountId: deposit.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 800_000))
+    let savings = try figures(transfers: [transfer], accounts: [cushion, deposit]).savings
+    #expect(savings.saved == .zero)
+    #expect(savings.basisPoints == 0)
+    #expect(!savings.isAbove100Percent)
+  }
+
+  @Test func earlierSavingsKeepTheFullRateAndHaveAnAbove100Flag() throws {
+    let card = PaymentMethod(name: "Card")
+    let cushion = PaymentMethod(name: "Cushion", cushion: true)
+    let transfer = Transfer(
+      occurredAt: at(9, 10), fromAccountId: card.id, fromCurrency: .rub,
+      fromAmountE4: AmountE4(whole: 800_000), toAccountId: cushion.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 800_000))
+    let income = try earn(9, 5, 100_000, salary)
+    func savings(entries: [TransactionEntry]) -> OverviewFigures.SavingsRate {
+      OverviewFigures(
+        ledger: Ledger(
+          dataset: Dataset(
+            entries: entries, categories: [salary], paymentMethods: [card, cushion],
+            transfers: [transfer]), calendar: .utc), today: today
+      ).savings
+    }
+    let rate = savings(entries: [income])
+    #expect(rate.saved == AmountE4(whole: 800_000))
+    #expect(rate.basisPoints == 80_000)
+    #expect(rate.isAbove100Percent)
+    let noIncome = savings(entries: [])
+    #expect(noIncome.basisPoints == nil)
+    #expect(!noIncome.isAbove100Percent)
+    var boundary = rate
+    boundary.income = boundary.saved
+    #expect(boundary.basisPoints == 10_000)
+    #expect(!boundary.isAbove100Percent)
+  }
+
   @Test func noIncomeLeavesNoRate() throws {
     let empty = OverviewFigures(
       ledger: Ledger(dataset: Dataset(), calendar: .utc), today: today)

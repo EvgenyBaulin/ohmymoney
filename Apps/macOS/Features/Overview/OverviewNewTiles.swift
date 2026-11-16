@@ -436,7 +436,7 @@ struct OverviewNewCardView: View {
     case .categoryGrew: CategoryMoveCard(grew: true)
     case .categoryShrank: CategoryMoveCard(grew: false)
     case .weekendPrice, .usualDay: SpendingFigureTileCard(tile: tile, compact: compact)
-    case .savingsRate: SavingsNormTileCard(compact: compact)
+    case .savingsRate: FigureTileCard(tile: tile, compact: compact)
     case .financialHealth: FinancialHealthTileCard(compact: compact)
     case .subscriptions: SubscriptionsTileCard(compact: compact)
     case .challenges: ChallengesTileCard(compact: compact)
