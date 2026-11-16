@@ -165,7 +165,7 @@ extension TransactionRepository {
           fresh.transaction.kind == .expense
         else { throw ReimbursementError.partNoLongerOwed(purchaseId) }
         var repriced = try PurchaseRate.repriced(
-          fresh, rate: rate, day: calendar.day(of: fresh.transaction.occurredAt))
+          fresh, rate: rate, day: calendar.day(of: fresh.transaction))
         guard repriced != fresh else { continue }
         repriced.transaction.updatedAt = instant
         try Self.write(repriced, over: fresh, db: db)

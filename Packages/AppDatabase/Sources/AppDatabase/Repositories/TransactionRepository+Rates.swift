@@ -14,14 +14,14 @@ extension TransactionRepository {
   /// A refund taken back from a purchase is not among them: it keeps the rate of its purchase,
   /// and follows that purchase when it is refined, never the rate of its own day.
   ///
-  /// `day` of each usage is the day of the operation in `calendar` — the calendar the entry
-  /// panel resolved the rate with.
+  /// `day` of each usage is the day of the operation in the zone it was recorded in, read by
+  /// `calendar` — the day the entry panel resolved the rate for and the ledger shows it on.
   public func provisionalUsages(calendar: CalendarContext) throws -> [RateTable.RateUsage] {
     try writer.read { db in
       try Row.fetchAll(
         db,
         sql: """
-          SELECT id, currency, occurred_at, rate_source, rate_date FROM transactions
+          SELECT id, currency, occurred_at, time_zone, rate_source, rate_date FROM transactions
           WHERE deleted_at IS NULL AND rate_provisional = 1 AND currency <> ?
             AND (rate_source IS NULL OR rate_source NOT IN (\(Self.protectedMarks)))
             AND id NOT IN (
@@ -36,7 +36,7 @@ extension TransactionRepository {
         return RateTable.RateUsage(
           id: id,
           currency: CurrencyCode(row["currency"] ?? CurrencyCode.rub.code),
-          day: calendar.day(of: moment),
+          day: calendar.day(of: moment, recordedIn: row["time_zone"] as String?),
           source: (row["rate_source"] as String?).flatMap(RateSource.init(rawValue:)),
           isProvisional: true,
           appliedRateDate: RowMapping.day(row, "rate_date"))
@@ -99,7 +99,7 @@ extension TransactionRepository {
         guard let usage = usageById[refinement.usageId],
           refinement.rate.currency == usage.currency,
           let fresh = try Self.entry(id: usage.id, db: db),
-          calendar.day(of: fresh.transaction.occurredAt) == usage.day,
+          calendar.day(of: fresh.transaction) == usage.day,
           let rubles = try? refinement.rate.toRubles(fresh.transaction.amountE4)
         else { continue }
 

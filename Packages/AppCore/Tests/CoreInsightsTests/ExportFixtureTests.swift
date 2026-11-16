@@ -83,12 +83,18 @@ struct ExportFixtureTests {
   /// (`LedgerTraining`), day and weekday included. The export writes every moment in UTC; the
   /// day is the owner's. A coffee at 00:30 in Moscow on Friday 18 September is 21:30 UTC on
   /// the 17th — and still Friday's coffee to the tool. And 119 886.59 is 119 887 whole rubles,
-  /// rounded as the application rounds them, not cut to 119 886.
+  /// rounded as the application rounds them, not cut to 119 886. A coffee recorded at 01:30 on
+  /// the 18th in Makassar (20:30 on the 17th in Moscow) is the 18th's, in the zone it was
+  /// recorded in, as the ledger reads it.
   @Test func theExportAsksTheQuestionsTheApplicationAsks() throws {
     var dataset = dataset()
     let category = try #require(
       dataset.entries.lazy.flatMap(\.parts).first { $0.categoryId != nil }?.categoryId)
-    for (number, moment) in [1_789_680_600, 1_789_766_700, 1_789_724_400].enumerated() {
+    let coffees: [(Int, String?)] = [
+      (1_789_680_600, nil), (1_789_766_700, nil), (1_789_724_400, nil),
+      (1_789_666_200, "Asia/Makassar"),
+    ]
+    for (number, (moment, zone)) in coffees.enumerated() {
       let when = Date(timeIntervalSince1970: TimeInterval(moment))
       let id = UUID(uuidString: String(format: "0000AAAA-0000-0000-0000-%012d", number))!
       dataset.entries.append(
@@ -96,7 +102,7 @@ struct ExportFixtureTests {
           transaction: Transaction(
             id: id, kind: .expense, occurredAt: when, amountE4: AmountE4(whole: 250),
             amountRubE4: AmountE4(whole: 250), note: "late coffee", createdAt: when,
-            updatedAt: when),
+            updatedAt: when, timeZoneId: zone),
           parts: [
             TransactionPart(
               id: UUID(uuidString: String(format: "0000BBBB-0000-0000-0000-%012d", number))!,

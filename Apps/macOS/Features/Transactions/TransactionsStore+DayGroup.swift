@@ -96,7 +96,7 @@ extension TransactionsStore {
   )
     -> [DayGroup]
   {
-    let byDay = Dictionary(grouping: entries) { calendar.day(of: $0.transaction.occurredAt) }
+    let byDay = Dictionary(grouping: entries) { calendar.day(of: $0.transaction) }
     let transfersByDay = Dictionary(grouping: transfers) { calendar.day(of: $0.occurredAt) }
     let days = Set(byDay.keys).union(transfersByDay.keys)
     return days.sorted(by: >).map { day in

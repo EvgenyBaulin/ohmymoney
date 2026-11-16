@@ -8,8 +8,9 @@ import Foundation
 /// that a system category can be told from an ordinary one. It reads and never writes.
 ///
 /// It asks the questions the application asks (`LedgerTraining` in `CoreInsights`): the day
-/// of an operation in the owner's calendar — the export writes every moment in UTC, and a
-/// coffee at half past midnight in Moscow is the day before there — and the amount in whole
+/// of an operation in the zone it was recorded in (`time_zone`; none — the owner's calendar's
+/// zone for unrecorded operations) — the export writes every moment in UTC, and a coffee at
+/// half past midnight in Moscow is the day before there — and the amount in whole
 /// rubles rounded half away from zero, as `wholeRubles` rounds it.
 public struct CSVExportReader: Sendable {
   private let transactions: [[String: String]]
@@ -54,7 +55,7 @@ public struct CSVExportReader: Sendable {
       let categoryId = part["category_id"] ?? ""
       let role = systemRole[categoryId] ?? parentOf[categoryId].flatMap { systemRole[$0] }
       guard let moment = CSVValue.instant(transaction["occurred_at"] ?? "") else { return nil }
-      let day = calendar.day(of: moment)
+      let day = calendar.day(of: moment, recordedIn: nonEmpty(transaction["time_zone"]))
       return CategoryTraining.Row(
         partId: partId, categoryId: uuid(categoryId), systemRole: role,
         categorySource: CategorySource(rawValue: part["category_source"] ?? "") ?? .manual,

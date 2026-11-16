@@ -27,7 +27,7 @@ public enum DoNowSources {
     var older = 0
     for entry in entries where entry.transaction.deletedAt == nil {
       guard entry.parts.contains(where: { $0.categoryId == nil }) else { continue }
-      let day = calendar.day(of: entry.transaction.occurredAt)
+      let day = calendar.day(of: entry.transaction)
       if day > today { continue }
       if day >= from { recent += 1 } else { older += 1 }
     }

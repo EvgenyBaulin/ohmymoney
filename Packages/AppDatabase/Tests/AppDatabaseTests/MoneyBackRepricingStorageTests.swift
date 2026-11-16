@@ -23,8 +23,10 @@ struct MoneyBackRepricingStorageTests {
     var purchase: TransactionEntry
   }
 
-  /// «Подписка» 20 $ paid for a friend from the ruble card at 90: 1,800 ₽ charged.
-  func book() throws -> Book {
+  /// «Подписка» 20 $ paid for a friend from the ruble card at 90: 1,800 ₽ charged — at
+  /// `moment`, recorded in `zone` when one is given.
+  func book(boughtAt moment: Date? = nil, zone: String? = nil) throws -> Book {
+    let bought = moment ?? self.bought
     let stack = try TestSupport.makeStack()
     let references = ReferenceRepository(writer: stack.writer)
     let card = PaymentMethod(name: "Card", kind: .card, currency: .rub, isDefault: true)
@@ -48,6 +50,7 @@ struct MoneyBackRepricingStorageTests {
     var purchase = try draft.materialize(rublesConverter: { _ in AmountE4(whole: 1_800) })
     purchase.transaction.amountRubE4 = AmountE4(whole: 1_800)
     purchase.parts[0].amountRubE4 = AmountE4(whole: 1_800)
+    if let zone { purchase.transaction.timeZoneId = zone }
     try repository.save(purchase)
     return Book(
       stack: stack, repository: repository, card: card, raif: raif, surcharges: surcharges.id,
@@ -107,6 +110,22 @@ struct MoneyBackRepricingStorageTests {
     let surplus = try #require(try book.repository.entry(id: extra[0].id))
     #expect(surplus.transaction.paymentMethodId == book.raif.id)
     #expect(surplus.transaction.amountE4 == AmountE4(whole: 240))
+  }
+
+  /// Bought at 01:30 on 11 September in Makassar — still the 10th in UTC: the rate typed for
+  /// it is dated the day of the purchase in the zone it was recorded in, the day the ledger
+  /// shows it on.
+  @Test func aRepricedNightPurchaseAbroadIsDatedTheDayOfItsZone() throws {
+    // 2026-09-10T17:30Z.
+    let book = try book(
+      boughtAt: Date(timeIntervalSince1970: 1_789_061_400), zone: "Asia/Makassar")
+    let (outcome, back, extra) = try record(book)
+    try book.repository.apply(
+      outcome, reimbursement: back, extra: extra, repricing: [book.purchase.id: 88],
+      calendar: .utc, at: instant)
+    let purchase = try #require(try book.repository.entry(id: book.purchase.id))
+    #expect(purchase.transaction.rate == 88)
+    #expect(purchase.transaction.rateDate == DateOnly(year: 2026, month: 9, day: 11))
   }
 
   /// The purchase deleted while the sheet was open: nothing of the money back is written.

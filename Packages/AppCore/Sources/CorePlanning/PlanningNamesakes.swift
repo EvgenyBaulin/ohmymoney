@@ -11,7 +11,7 @@ extension Namesakes {
   ) -> [NamesakeRecord] {
     let days = Dictionary(
       entries.filter { !$0.transaction.isDeleted && $0.transaction.kind == .income }
-        .map { ($0.id, calendar.day(of: $0.transaction.occurredAt).monthKey) },
+        .map { ($0.id, calendar.day(of: $0.transaction).monthKey) },
       uniquingKeysWith: { first, _ in first })
     var history: [UUID: [MonthKey]] = [:]
     for link in links {
@@ -35,12 +35,12 @@ extension Namesakes {
     var history: [UUID: [MonthKey]] = [:]
     for entry in entries where !entry.transaction.isDeleted {
       if case .scheduled(let id, _) = OperationLink(externalId: entry.transaction.externalId) {
-        history[id, default: []].append(calendar.day(of: entry.transaction.occurredAt).monthKey)
+        history[id, default: []].append(calendar.day(of: entry.transaction).monthKey)
       }
     }
     let months = Dictionary(
       entries.filter { !$0.transaction.isDeleted }.map {
-        ($0.id, calendar.day(of: $0.transaction.occurredAt).monthKey)
+        ($0.id, calendar.day(of: $0.transaction).monthKey)
       }, uniquingKeysWith: { first, _ in first })
     return payments.map {
       let matched = (matchedOperations[$0.id] ?? []).compactMap { months[$0] }

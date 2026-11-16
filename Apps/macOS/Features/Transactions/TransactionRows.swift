@@ -626,7 +626,7 @@ struct TransactionListing: Sendable {
 
     for id in ids {
       guard let entry = ledger.entry(id), visible.insert(id).inserted else { continue }
-      let entryDay = calendar.day(of: entry.transaction.occurredAt)
+      let entryDay = calendar.day(of: entry.transaction)
       if entryDay != day {
         closeDay()
         transferDays(after: entryDay)

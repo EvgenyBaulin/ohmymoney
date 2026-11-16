@@ -107,6 +107,25 @@ struct RateRefinementTests {
     #expect(try repository.provisionalUsages(calendar: calendar).isEmpty)
   }
 
+  /// A dinner at 01:30 on the 17th in Makassar — still the 16th in UTC — is the 17th's in the
+  /// ledger, and takes the 17th's rate: the usage is dated in the zone the dinner was recorded
+  /// in, and the write recognizes it by that day.
+  @Test func aNightDinnerAbroadIsRefinedWithTheRateOfItsOwnDay() throws {
+    let repository = try makeRepository()
+    var entry = try dinner()
+    // 2026-09-16T17:30Z.
+    entry.transaction.occurredAt = Date(timeIntervalSince1970: 1_789_579_800)
+    entry.transaction.timeZoneId = "Asia/Makassar"
+    try repository.save(entry)
+
+    let usages = try repository.provisionalUsages(calendar: calendar)
+    #expect(usages.first?.day == day(17))
+    #expect(try refine(repository, through: 17) == 1)
+    let stored = try #require(try repository.entry(id: entry.id))
+    #expect(stored.transaction.rateDate == day(17))
+    #expect(!stored.transaction.rateProvisional)
+  }
+
   /// A day the bank never publishes. A dinner on Sunday the 20th, entered while the cache
   /// ended on Saturday, takes Saturday's rate — already the right one — but nothing says so
   /// yet, and the flag goes up. Tuesday's rate says nothing about Sunday either. The rate

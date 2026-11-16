@@ -237,7 +237,7 @@ public enum DepositPayouts {
         let accountId = transaction.paymentMethodId ?? mainId
       else { continue }
       incomes[accountId, default: []].append(
-        (ledger.calendar.day(of: transaction.occurredAt), transaction.occurredAt, transaction.id))
+        (ledger.calendar.day(of: transaction), transaction.occurredAt, transaction.id))
     }
     for (account, list) in incomes {
       incomes[account] = list.sorted { ($0.at, $0.id.uuidString) < ($1.at, $1.id.uuidString) }

@@ -10,7 +10,7 @@ extension Namesakes {
   ) -> [UUID: [MonthKey]] {
     var history: [UUID: [MonthKey]] = [:]
     for entry in entries where !entry.transaction.isDeleted {
-      let month = calendar.day(of: entry.transaction.occurredAt).monthKey
+      let month = calendar.day(of: entry.transaction).monthKey
       for key in Set(keys(entry)) { history[key, default: []].append(month) }
     }
     return history
