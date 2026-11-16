@@ -129,6 +129,7 @@ extension AppearanceSettingsView {
       OverviewTilesSection()
     }
     .formStyle(.grouped)
+    .accessibilityElement(children: .contain)
     .accessibilityIdentifier("settings.appearance")
     // A sheet is a host of its own: the dependencies are handed over.
     .sheet(item: $previewing) { id in

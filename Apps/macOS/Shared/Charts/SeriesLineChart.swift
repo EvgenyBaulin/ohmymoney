@@ -64,6 +64,7 @@ struct SeriesLineChart: View {
             .symbolSize(dense ? 0 : 28)
             .accessibilityLabel(Text(verbatim: "\(line.label), \(point.spokenLabel)"))
             .accessibilityValue(Text(verbatim: point.valueText))
+            .accessibilityIdentifier("chart.native.line.\(line.id).\(point.x)")
           }
           if let last = line.points.last {
             PointMark(x: .value("Position", last.x - low), y: .value("Amount", last.value))
