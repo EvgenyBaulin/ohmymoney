@@ -162,7 +162,8 @@ struct AccountPaymentsBlock: View {
       }
       Spacer()
       Text(
-        verbatim: environment.money.exact(status.amountNext, currency: status.payment.currency)
+        verbatim: environment.money.exact(
+          status.remainingNext, currency: status.payment.currency)
       )
       .monospacedDigit()
     }

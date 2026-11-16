@@ -13,6 +13,8 @@ public struct ScheduledMatches: Hashable, Sendable {
   private var linked: [UUID: Set<DateOnly>]
   /// Due dates paid by a matching ordinary operation, by payment, with that operation.
   private var matched: [UUID: [DateOnly: UUID]]
+  /// Due dates paid in parts by smaller operations of the payment's category, by payment.
+  private var partial: [UUID: [DateOnly: DueParts]]
 
   /// The operations that pay a due date by matching — not the linked ones: the forecast
   /// leaves them out of its daily average, as it leaves out the linked ones by their key.
@@ -23,18 +25,66 @@ public struct ScheduledMatches: Hashable, Sendable {
 
   public static let empty = ScheduledMatches(linked: [:], matched: [:])
 
-  /// `earlier` are the operations that matched due dates before `next_date`.
+  /// `earlier` are the operations that matched due dates before `next_date`, whole or in
+  /// parts; `partial` are the due dates from `next_date` on paid in parts.
   public init(
-    linked: [UUID: Set<DateOnly>], matched: [UUID: [DateOnly: UUID]], earlier: Set<UUID> = []
+    linked: [UUID: Set<DateOnly>], matched: [UUID: [DateOnly: UUID]],
+    partial: [UUID: [DateOnly: DueParts]] = [:], earlier: Set<UUID> = []
   ) {
     self.linked = linked
     self.matched = matched
-    self.operationIds = Set(matched.values.flatMap(\.values)).union(earlier)
+    self.partial = partial
+    self.operationIds = Set(matched.values.flatMap(\.values))
+      .union(partial.values.flatMap { $0.values.flatMap(\.operations) })
+      .union(earlier)
   }
 
-  /// The due date is paid: by a link or by a matching operation.
+  /// The due date is paid in full: by a link, by a matching operation, or by parts that add up
+  /// to its price.
   public func isPaid(_ paymentId: UUID, _ due: DateOnly) -> Bool {
     isLinked(paymentId, due) || matched[paymentId]?[due] != nil
+      || partial[paymentId]?[due]?.isComplete == true
+  }
+
+  /// The parts that pay the due date — paid in full or not yet —; `nil` when no part does.
+  public func parts(_ paymentId: UUID, _ due: DateOnly) -> DueParts? {
+    guard !isLinked(paymentId, due) else { return nil }
+    return partial[paymentId]?[due]
+  }
+
+  /// The due dates of a payment paid in parts, with those parts.
+  public func partDues(of paymentId: UUID) -> [DateOnly: DueParts] {
+    partial[paymentId] ?? [:]
+  }
+
+  /// The ordinary operations to key when the payment moves past `due` — «Провести» or
+  /// «Пропустить» —, oldest due date first: those that pay a due date from `from` (its
+  /// `next_date`) on and before `due` whole, and the parts of every due date from `from`
+  /// through `due` itself. Once `next_date` is past them nothing matches them any more:
+  /// unkeyed, what they paid would drop out of the month's funding and back into the daily
+  /// spending the forecast reads.
+  public func toKey(
+    _ paymentId: UUID, from: DateOnly, through due: DateOnly
+  ) -> [(due: DateOnly, operation: UUID)] {
+    var result: [(due: DateOnly, operation: UUID)] = []
+    for (paid, operation) in matchedDues(of: paymentId) where paid >= from && paid < due {
+      result.append((paid, operation))
+    }
+    for (paid, parts) in partDues(of: paymentId) where paid >= from && paid <= due {
+      for operation in parts.operations { result.append((paid, operation)) }
+    }
+    return result.sorted { left, right in
+      left.due != right.due
+        ? left.due < right.due : left.operation.uuidString < right.operation.uuidString
+    }
+  }
+
+  /// What is still to pay of the due date whose price is `price`: nothing when it is paid, the
+  /// price less its parts when some are paid, else the price. In the payment's currency.
+  public func unpaid(_ paymentId: UUID, _ due: DateOnly, price: AmountE4) -> AmountE4 {
+    guard !isPaid(paymentId, due) else { return .zero }
+    guard let parts = parts(paymentId, due) else { return price }
+    return max(.zero, price - parts.paidE4)
   }
 
   /// The due date is paid by an operation that carries its key (`sched:<payment>:<due>`).
@@ -53,6 +103,37 @@ public struct ScheduledMatches: Hashable, Sendable {
   public func matchedDues(of paymentId: UUID) -> [DateOnly: UUID] {
     matched[paymentId] ?? [:]
   }
+}
+
+/// The smaller operations that pay one due date of a scheduled payment in parts: rent of
+/// 60 000 paid 30 000 two days before its day and 30 000 three days after it.
+public struct DueParts: Hashable, Sendable {
+  /// The operations, oldest first.
+  public var operations: [UUID]
+  /// What they paid together, in the payment's currency.
+  public var paidE4: AmountE4
+  /// The price of the due date, in the payment's currency.
+  public var priceE4: AmountE4
+  /// How far short of the price the parts may fall and still pay it: the allowance one
+  /// operation gets (`ScheduledMatching.tolerance(of:)`).
+  public var toleranceE4: AmountE4
+
+  public init(
+    operations: [UUID], paidE4: AmountE4, priceE4: AmountE4, toleranceE4: AmountE4 = .zero
+  ) {
+    self.operations = operations
+    self.paidE4 = paidE4
+    self.priceE4 = priceE4
+    self.toleranceE4 = toleranceE4
+  }
+
+  /// The parts pay the due date: they add up to its price, or fall short of it by no more than
+  /// one operation may — 58 000 of 60 000 pays it, as one operation of 58 000 would.
+  public var isComplete: Bool { paidE4 >= priceE4 - toleranceE4 }
+
+  /// The price less what the parts paid: what is left to pay while the due date is open, what
+  /// they fell short by once it is paid («оплачено 58 000 из 60 000»).
+  public var remainingE4: AmountE4 { max(.zero, priceE4 - paidE4) }
 }
 
 /// The rule that tells an ordinary expense paid a due date of a scheduled payment.
@@ -83,10 +164,21 @@ public struct ScheduledMatches: Hashable, Sendable {
 /// last week's unpaid due and this week's pays last week's — and the passes repeat until
 /// nothing more is taken.
 ///
+/// A payment may be paid in parts. Of the operations left over, those that would pay a due date
+/// of a payment with a category but for their amount — less than its price, in its own
+/// currency — pay part of the due date that has no link and no single operation paying it.
+/// A part may come late: up to 5 days before the due date, and after it on any day before the
+/// next due date of the payment — the rest of the rent paid ten days late is still the rent; a
+/// one-off payment, with no next due date, keeps 5 days after its day. Each part pays one due
+/// date: the payment of its nearest pair, as above, and within that payment its oldest due
+/// date still short of its price, the parts taken by moment. A due date is paid once its parts
+/// add up to its price less the allowance of one operation (`DueParts.isComplete`); until then
+/// it waits for the rest (`ScheduledMatches.unpaid`). «Это другое» lets a part go just as it lets a whole payment go.
+///
 /// The due dates before `next_date` of the history the forecast reads are matched the same way
-/// afterwards, with the operations left: they are paid or skipped already, so the operations
-/// found there pay nothing, but they are planned payments and stay out of the forecast's
-/// daily average (`ScheduledMatches.operationIds`).
+/// afterwards, whole and in parts, with the operations left: they are paid or skipped already,
+/// so the operations found there pay nothing, but they are planned payments and stay out of
+/// the forecast's daily average (`ScheduledMatches.operationIds`).
 public enum ScheduledMatching {
   /// How many days an operation may be from the due date it pays.
   public static let dayWindow = 5
@@ -95,6 +187,13 @@ public enum ScheduledMatching {
   /// Due dates of one payment looked at, at most: a weekly payment left alone for years must
   /// not cost a pass per week.
   static let duesPerPayment = 400
+
+  /// How far from `price` one operation may be and still pay it: max(1 unit, 10 %).
+  public static func tolerance(of price: AmountE4) -> AmountE4 {
+    max(
+      AmountE4(whole: 1),
+      SubscriptionMath.rounded(price.decimal * Decimal(tolerancePercent) / 100))
+  }
 
   /// The text of one «Это другое»: the operation, the payment and the due date.
   public static func rejectionKey(operation: UUID, payment: UUID, due: DateOnly) -> String {
@@ -310,7 +409,110 @@ public enum ScheduledMatching {
       earlierDues.insert(key)
       earlier.insert(pair.candidate.id)
     }
-    return ScheduledMatches(linked: linked, matched: matched, earlier: earlier)
+
+    // Every pair of an unpaid due date and an operation in the payment's currency smaller
+    // than its price that could pay part of it.
+    // `open`: the due dates from `next_date` on, which wait for their rest after their day; one
+    // before it is paid or skipped already and keeps 5 days either side.
+    func partPairs(of payment: ScheduledPayment, dues: [DateOnly], open: Bool) -> [Pair] {
+      var result: [Pair] = []
+      let rule = RecurrenceRule(payment: payment)
+      for due in dues where linked[payment.id]?.contains(due) != true {
+        let price = SubscriptionMath.price(of: payment, on: due, prices: book.prices)
+        // After the due date, up to the day before the next one; a one-off keeps 5 days.
+        let following = Recurrence.next(after: due, rule: rule)
+        let hasNext = payment.endDate.map { following <= $0 } ?? true
+        let after =
+          open && hasNext ? max(dayWindow, due.days(to: following) - 1) : dayWindow
+        for offset in -dayWindow...after {
+          for candidate in candidates[due.dayNumber + offset] ?? [] {
+            guard !used.contains(candidate.id), candidate.currency == payment.currency,
+              candidate.amount < price, belongs(candidate, to: payment, tree: tree),
+              !rejected.contains(pairKey(operation: candidate.id, payment: payment.id))
+            else { continue }
+            result.append(
+              Pair(
+                paymentId: payment.id, due: due, candidate: candidate, distance: abs(offset),
+                price: price))
+          }
+        }
+      }
+      return result
+    }
+
+    // Parts: the operations left, smaller than the price, on the due dates nothing paid whole.
+    var partial: [UUID: [DateOnly: DueParts]] = [:]
+    var partsAhead: [Pair] = []
+    var partsBefore: [Pair] = []
+    for payment in payments {
+      guard let next = payment.nextDate, payment.categoryId != nil else { continue }
+      let rule = RecurrenceRule(payment: payment)
+      let open = Recurrence.occurrences(
+        from: next, through: through.adding(days: dayWindow), rule: rule, end: payment.endDate,
+        limit: duesPerPayment
+      ).filter { matched[payment.id]?[$0] == nil }
+      partsAhead += partPairs(of: payment, dues: open, open: true)
+      guard payment.endDate != next else { continue }
+      partsBefore += partPairs(
+        of: payment,
+        dues: dues(before: next, from: earliest, rule: rule).filter {
+          !earlierDues.contains(PaymentDue(paymentId: payment.id, due: $0))
+        }, open: false)
+    }
+    for (pair, price) in parted(partsAhead, used: &used) {
+      var parts =
+        partial[pair.paymentId]?[pair.due]
+        ?? DueParts(
+          operations: [], paidE4: .zero, priceE4: price, toleranceE4: tolerance(of: price))
+      parts.operations.append(pair.candidate.id)
+      parts.paidE4 += pair.candidate.amount
+      partial[pair.paymentId, default: [:]][pair.due] = parts
+    }
+    for (pair, _) in parted(partsBefore, used: &used) { earlier.insert(pair.candidate.id) }
+    return ScheduledMatches(linked: linked, matched: matched, partial: partial, earlier: earlier)
+  }
+
+  /// Which part pays which due date, in the order the parts were taken: each operation goes to
+  /// the payment of its nearest pair, and within that payment to its oldest due date still
+  /// open, the operations of one due date taken by moment.
+  private static func parted(
+    _ pairs: [Pair], used: inout Set<UUID>
+  ) -> [(pair: Pair, price: AmountE4)] {
+    var owner: [UUID: UUID] = [:]
+    for pair in pairs.sorted(by: Pair.precedes) where owner[pair.candidate.id] == nil {
+      owner[pair.candidate.id] = pair.paymentId
+    }
+    let owned = pairs.filter { owner[$0.candidate.id] == $0.paymentId }
+    var byDue: [PaymentDue: [Pair]] = [:]
+    for pair in owned {
+      byDue[PaymentDue(paymentId: pair.paymentId, due: pair.due), default: []].append(pair)
+    }
+    let order = byDue.keys.sorted { left, right in
+      if left.paymentId != right.paymentId {
+        return left.paymentId.uuidString < right.paymentId.uuidString
+      }
+      return left.due < right.due
+    }
+    var result: [(pair: Pair, price: AmountE4)] = []
+    for key in order {
+      var paid = AmountE4.zero
+      let sorted = (byDue[key] ?? []).sorted { left, right in
+        if left.candidate.occurredAt != right.candidate.occurredAt {
+          return left.candidate.occurredAt < right.candidate.occurredAt
+        }
+        return left.candidate.id.uuidString < right.candidate.id.uuidString
+      }
+      // A due date takes parts while it is open: once they pay it, a later operation of the
+      // category is ordinary spending, not a part of a paid due date.
+      for pair in sorted {
+        guard paid < pair.price - tolerance(of: pair.price), !used.contains(pair.candidate.id)
+        else { continue }
+        used.insert(pair.candidate.id)
+        paid += pair.candidate.amount
+        result.append((pair, pair.price))
+      }
+    }
+    return result
   }
 
   /// The due dates of a schedule from `first` on and before `next`, `next` being one of them:
@@ -429,6 +631,8 @@ public enum ScheduledMatching {
     var due: DateOnly
     var candidate: Candidate
     var distance: Int
+    /// The price of the due date; only parts read it.
+    var price: AmountE4 = .zero
 
     /// Nearer by day, then the earlier due date, the payment by id, the earlier moment and the
     /// operation by id.

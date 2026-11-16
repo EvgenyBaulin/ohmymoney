@@ -113,7 +113,16 @@ public enum Funding {
           paidDues[payment.id, default: []].insert(date)
           continue
         }
-        let price = SubscriptionMath.price(of: payment, on: date, prices: book.prices)
+        // Parts paid what they paid; the rest of the due date is still due.
+        let parts = matches.parts(payment.id, date)
+        for operation in parts?.operations ?? [] { settle(operation) }
+        guard parts?.isComplete != true else {
+          paidDues[payment.id, default: []].insert(date)
+          continue
+        }
+        let price = matches.unpaid(
+          payment.id, date,
+          price: SubscriptionMath.price(of: payment, on: date, prices: book.prices))
         // A payment on an archived account is paid from the main one.
         let own = payment.paymentMethodId.flatMap { accountsById[$0] }
         let method = own?.archived == true ? mainId : (payment.paymentMethodId ?? mainId)

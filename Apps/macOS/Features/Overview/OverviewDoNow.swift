@@ -55,7 +55,9 @@ enum OverviewDoNow {
       let amount =
         payment.map {
           money.rounded(
-            SubscriptionMath.price(of: $0, on: due, prices: snapshot.dataset.planning.prices),
+            ScheduledRules.amountToPay(
+              $0, due: due, prices: snapshot.dataset.planning.prices,
+              matches: snapshot.planning.matches),
             currency: $0.currency)
         } ?? ""
       let when: String
@@ -308,8 +310,9 @@ struct OverviewDoNowCard: View {
     let actions = PlanningActions(dependencies)
     let moment = PlanningActions.paidAt(
       due: due, today: environment.today, calendar: environment.calendar)
-    let price = SubscriptionMath.price(
-      of: payment, on: due, prices: snapshot.dataset.planning.prices)
+    let price = ScheduledRules.amountToPay(
+      payment, due: due, prices: snapshot.dataset.planning.prices,
+      matches: snapshot.planning.matches)
     if actions.markAsPaid(
       payment, due: due, amount: price, on: moment, account: payment.paymentMethodId,
       charged: nil, updatePrice: false)

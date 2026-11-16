@@ -189,25 +189,21 @@ struct PlanningActions {
   }
 
   /// The ordinary operations that pay the due dates of `payment` from its `next_date` up to
-  /// `due` by matching them, each keyed to its due date — as «Привязать» would — in the write
-  /// that moves the payment past `due`. Once `next_date` is past them nothing matches them any
-  /// more: unkeyed, what they paid would drop out of the month's funding, «проведено».
+  /// `due` by matching them — whole before `due`, in parts through `due` itself —, each keyed
+  /// to its due date — as «Привязать» would — in the write that moves the payment past `due`
+  /// (`ScheduledMatches.toKey`). Once `next_date` is past them nothing matches them any more:
+  /// unkeyed, what they paid would drop out of the month's funding, «проведено».
   func matchedOperations(
     of payment: ScheduledPayment, before due: DateOnly
   )
     -> [TransactionEntry]
   {
     guard let snapshot, let next = payment.nextDate else { return [] }
-    let matches = snapshot.planning.matches
-    return matches.matchedDues(of: payment.id).keys
-      .filter { $0 >= next && $0 < due }
-      .sorted()
-      .compactMap { earlier in
-        guard let operationId = matches.operation(for: payment.id, earlier),
-          let entry = snapshot.ledger.entry(operationId)
-        else { return nil }
+    return snapshot.planning.matches.toKey(payment.id, from: next, through: due)
+      .compactMap { paid in
+        guard let entry = snapshot.ledger.entry(paid.operation) else { return nil }
         return ScheduledMatching.bind(
-          entry, to: payment, due: earlier, eventId: event(of: payment, due: earlier)
+          entry, to: payment, due: paid.due, eventId: event(of: payment, due: paid.due)
         ).operation
       }
   }

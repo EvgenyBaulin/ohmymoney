@@ -171,7 +171,7 @@ struct GroupPlanBlock: View {
           name: payment.status.payment.name,
           account: showsAccount ? names[payment.accountId] : nil,
           amount: environment.money.exact(
-            payment.status.amountNext, currency: payment.status.payment.currency),
+            payment.status.remainingNext, currency: payment.status.payment.currency),
           edit: { sheet = .payment(payment.status.payment) })
       }
       Divider()

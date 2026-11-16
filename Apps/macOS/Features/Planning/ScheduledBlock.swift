@@ -248,7 +248,8 @@ struct ScheduledRow: View {
         if expanded && Self.showsDetails(status, prices: prices) { details }
       }
       Spacer(minLength: 6)
-      Text(verbatim: environment.money.exact(status.amountNext, currency: payment.currency))
+      // Paid in part, the row asks for the rest; the line under the name says of what.
+      Text(verbatim: environment.money.exact(status.remainingNext, currency: payment.currency))
         .appFont(.body.weight(.semibold).monospacedDigit())
         .lineLimit(1)
         .minimumScaleFactor(0.8)
@@ -288,6 +289,20 @@ struct ScheduledRow: View {
   /// is paid already — a one-off payment paid by an ordinary expense — the row shows the last
   /// one, paid: paying it again would count the money twice, so the row offers only
   /// «Привязать» under it.
+  /// «Осталось 30 000 ₽ к 15 сент. · внесено 30 000 ₽ из 60 000 ₽» for a due date paid in
+  /// part; `nil` when no part paid it.
+  static func partlyPaidText(
+    _ status: ScheduledStatus, money: MoneyFormatter, language: AppLanguage, day: String
+  ) -> String? {
+    guard status.paidNext.raw > 0 else { return nil }
+    let currency = status.payment.currency
+    return language.format(
+      "scheduled.partlyPaid", table: "Planning",
+      money.exact(status.remainingNext, currency: currency), day,
+      money.exact(status.paidNext, currency: currency),
+      money.exact(status.amountNext, currency: currency))
+  }
+
   static func canPay(_ status: ScheduledStatus, matches: ScheduledMatches) -> Bool {
     !matches.isPaid(status.payment.id, status.nextUnpaid)
   }
@@ -398,6 +413,18 @@ struct ScheduledRow: View {
       Text(verbatim: pieces.joined(separator: " · "))
         .appFont(.caption)
         .secondaryInk()
+    }
+    // Paid in part: what is left by the due date, and what the parts paid of the price.
+    if let partly = Self.partlyPaidText(
+      status, money: environment.money, language: environment.language, day: dueText)
+    {
+      Label {
+        Text(verbatim: partly)
+      } icon: {
+        Image(systemName: "circle.lefthalf.filled")
+      }
+      .appFont(.caption)
+      .secondaryInk()
     }
     // Its card is in the archive: «Провести» pays from the account alone.
     if paidWith.cardArchived {
@@ -529,17 +556,36 @@ private struct MatchedDues: View {
 
   var body: some View {
     let dues = Self.dues(status, shown: compute.snapshot)
-    if !dues.isEmpty {
+    let parts = Self.parts(status, shown: compute.snapshot)
+    let short = status.shortPaidDues
+    if !dues.isEmpty || !parts.isEmpty || !short.isEmpty {
       VStack(alignment: .leading, spacing: 2) {
         ForEach(dues.prefix(Self.shown), id: \.self) { due in
           if let operationId = status.matchedDues[due] {
             line(due: due, operationId: operationId)
           }
         }
-        if dues.count > Self.shown {
+        ForEach(parts.prefix(Self.shown), id: \.operation) { part in
+          partLine(due: part.due, operationId: part.operation)
+        }
+        // Parts that paid a due date a little short of its price: closed, the shortfall said.
+        ForEach(short.prefix(Self.shown), id: \.self) { due in
+          if let paid = status.partDues[due] {
+            Text(
+              verbatim: environment.format(
+                "scheduled.paidOfPrice", table: "Planning", environment.dates.dayAndMonth(due),
+                environment.money.exact(paid.paidE4, currency: status.payment.currency),
+                environment.money.exact(paid.priceE4, currency: status.payment.currency))
+            )
+            .appFont(.caption)
+            .secondaryInk()
+          }
+        }
+        if dues.count > Self.shown || parts.count > Self.shown {
           Text(
             verbatim: environment.language.format(
-              "scheduled.matchedMore", table: "Planning", dues.count - Self.shown)
+              "scheduled.matchedMore", table: "Planning",
+              max(0, dues.count - Self.shown) + max(0, parts.count - Self.shown))
           )
           .appFont(.caption)
           .foregroundStyle(.tertiary)
@@ -555,6 +601,50 @@ private struct MatchedDues: View {
     let hidden = HiddenOperations(snapshot: shown)
     return status.matchedDues.filter { !hidden.hides(operation: $0.value, in: shown.ledger) }
       .keys.sorted(by: >)
+  }
+
+  /// The parts that pay a due date of the payment, the latest due date first and its parts by
+  /// moment; not those an operation of a hidden account paid.
+  static func parts(
+    _ status: ScheduledStatus, shown: DataSnapshot?
+  ) -> [(due: DateOnly, operation: UUID)] {
+    let hidden = shown.map { HiddenOperations(snapshot: $0) }
+    return status.partDues.keys.sorted(by: >).flatMap { due in
+      (status.partDues[due]?.operations ?? []).compactMap { operation in
+        if let hidden, let shown, hidden.hides(operation: operation, in: shown.ledger) {
+          return nil
+        }
+        return (due, operation)
+      }
+    }
+  }
+
+  /// A part says what it paid and offers only «Это другое»: keyed alone, it would mark the due
+  /// date paid in full.
+  private func partLine(due: DateOnly, operationId: UUID) -> some View {
+    let entry = compute.snapshot?.ledger.entry(operationId)
+    let context = "\(status.payment.name), \(environment.dates.dayAndMonth(due))"
+    return HStack(alignment: .firstTextBaseline, spacing: 6) {
+      Label {
+        Text(
+          verbatim: environment.format(
+            "scheduled.paidByPart", table: "Planning", environment.dates.dayAndMonth(due),
+            what(entry)))
+      } icon: {
+        Image(systemName: "circle.lefthalf.filled")
+      }
+      .secondaryInk()
+      Spacer(minLength: 6)
+      Button(t("scheduled.notThis")) {
+        if let dependencies {
+          PlanningActions(dependencies).reject(operationId, for: status.payment, due: due)
+        }
+      }
+      .help(t("scheduled.notThisPartHint"))
+      .accessibilityLabel(Text(verbatim: "\(t("scheduled.notThis")): \(context)"))
+    }
+    .buttonStyle(.link)
+    .appFont(.caption)
   }
 
   private func line(due: DateOnly, operationId: UUID) -> some View {
@@ -589,18 +679,22 @@ private struct MatchedDues: View {
   }
 
   private func text(due: DateOnly, entry: TransactionEntry?) -> String {
-    let what =
-      entry.map { entry in
-        let note = entry.transaction.note.flatMap { $0.isEmpty ? nil : "«\($0)» " } ?? ""
-        return note
-          + environment.money.exact(
-            entry.transaction.amountE4, currency: entry.transaction.currency)
-          + " · "
-          + environment.dates.dayAndMonth(
-            environment.calendar.day(of: entry.transaction.occurredAt))
-      } ?? "—"
-    return environment.format(
-      "scheduled.paidByOperation", table: "Planning", environment.dates.dayAndMonth(due), what)
+    environment.format(
+      "scheduled.paidByOperation", table: "Planning", environment.dates.dayAndMonth(due),
+      what(entry))
+  }
+
+  /// «Аренда» 30 000 ₽ · 13 сент.: the note, the sum and the day of an operation.
+  private func what(_ entry: TransactionEntry?) -> String {
+    entry.map { entry in
+      let note = entry.transaction.note.flatMap { $0.isEmpty ? nil : "«\($0)» " } ?? ""
+      return note
+        + environment.money.exact(
+          entry.transaction.amountE4, currency: entry.transaction.currency)
+        + " · "
+        + environment.dates.dayAndMonth(
+          environment.calendar.day(of: entry.transaction.occurredAt))
+    } ?? "—"
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Planning") }
