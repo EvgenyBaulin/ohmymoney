@@ -79,6 +79,9 @@ final class MacNotifications: NSObject {
 
   @ObservationIgnored let posting: any NotificationPosting
   @ObservationIgnored var defaults: UserDefaults = .standard
+  @ObservationIgnored private let notificationCenter: NotificationCenter
+  @ObservationIgnored private let currentTimeZone: @MainActor () -> TimeZone
+  @ObservationIgnored private let currentDate: @MainActor () -> Date
   @ObservationIgnored private(set) var dependencies: AppDependencies?
   @ObservationIgnored private var working = false
   /// What the system said about permission at the last look; `nil` before the first.
@@ -86,9 +89,20 @@ final class MacNotifications: NSObject {
   /// The reminder of the evening last handed in (`HabitNudgeDelivering`), asked again when the
   /// permission changes.
   @ObservationIgnored private var lastNudge: HabitNudge?
+  @ObservationIgnored private var lastNudgeHour: Int?
+  @ObservationIgnored private var lastNudgeMinute: Int?
+  @ObservationIgnored private var lastNudgeTimeZone: TimeZone?
+  @ObservationIgnored private var systemObservers: [NSObjectProtocol] = []
 
-  init(posting: any NotificationPosting) {
+  init(
+    posting: any NotificationPosting, notificationCenter: NotificationCenter = .default,
+    currentTimeZone: @escaping @MainActor () -> TimeZone = { .current },
+    currentDate: @escaping @MainActor () -> Date = { Date() }
+  ) {
     self.posting = posting
+    self.notificationCenter = notificationCenter
+    self.currentTimeZone = currentTimeZone
+    self.currentDate = currentDate
   }
 
   /// Once, when the app has finished launching: the button of a payment, and the answer to a
@@ -98,6 +112,7 @@ final class MacNotifications: NSObject {
     center.delegate = self
     // The reminder of the evening of the habits is a notification from now on.
     HabitNudgeRoute.deliverer = self
+    observeSystemChanges()
     // So is the reminder of the drafts of «Запишу потом».
     NotificationCenter.default.addObserver(
       forName: .draftsChanged, object: nil, queue: .main
@@ -113,6 +128,44 @@ final class MacNotifications: NSObject {
         identifier: Self.paymentCategory, actions: [record], intentIdentifiers: [], options: []),
       Self.autoEntryCategory(),
     ])
+  }
+
+  func observeSystemChanges() {
+    guard systemObservers.isEmpty else { return }
+    let names: [Notification.Name] = [
+      .NSSystemTimeZoneDidChange,
+      NSApplication.didBecomeActiveNotification,
+    ]
+    systemObservers = names.map { name in
+      notificationCenter.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+        Task { @MainActor in self?.systemStateMayHaveChanged() }
+      }
+    }
+  }
+
+  func systemStateMayHaveChanged() {
+    guard let nudge = lastNudge,
+      let hour = lastNudgeHour,
+      let minute = lastNudgeMinute,
+      let oldTimeZone = lastNudgeTimeZone,
+      oldTimeZone != currentTimeZone(),
+      posted.contains(nudge.id),
+      permissionNow == .allowed,
+      kinds().contains(.evening)
+    else { return }
+    let now = dependencies?.environment.now() ?? currentDate()
+    let calendar = CalendarContext(timeZone: currentTimeZone())
+    guard calendar.moment(nudge.day, hour: hour, minute: minute) > now else {
+      takeBack([nudge.id])
+      return
+    }
+    let content = EveningWords(
+      language: dependencies?.environment.language ?? AppLanguage()).content(of: nudge)
+    posting.post(
+      UNNotificationRequest(
+        identifier: nudge.id, content: content, trigger: Self.eveningTrigger(
+          for: nudge.day, hour: hour, minute: minute)))
+    lastNudgeTimeZone = calendar.timeZone
   }
 
   func kinds() -> Set<NotificationPlan.Kind> {
@@ -293,6 +346,11 @@ extension MacNotifications: HabitNudgeDelivering {
     }
     // Another day's reminder, not shown yet, goes.
     takeBack(scheduled.subtracting([nudge.id]))
+    let timeZone = dependencies?.environment.calendar.timeZone ?? currentTimeZone()
+    let time = CalendarContext(timeZone: timeZone).timeOfDay(nudge.at)
+    lastNudgeHour = time.hour
+    lastNudgeMinute = time.minute
+    lastNudgeTimeZone = timeZone
     switch permissionNow {
     case .allowed:
       break
@@ -308,16 +366,27 @@ extension MacNotifications: HabitNudgeDelivering {
     guard !posted.contains(nudge.id) else { return true }
     let content = EveningWords(language: dependencies?.environment.language ?? AppLanguage())
       .content(of: nudge)
-    let now = dependencies?.environment.now() ?? Date()
+    let now = dependencies?.environment.now() ?? currentDate()
     let trigger: UNNotificationTrigger? =
       nudge.at > now
-      ? UNTimeIntervalNotificationTrigger(
-        timeInterval: nudge.at.timeIntervalSince(now), repeats: false)
+      ? Self.eveningTrigger(for: nudge.day, hour: time.hour, minute: time.minute)
       : nil
     posting.post(UNNotificationRequest(identifier: nudge.id, content: content, trigger: trigger))
     posted = posted.union([nudge.id])
     AppLog.info("notify.evening", .ui, "the reminder of the evening was scheduled")
     return true
+  }
+
+  private static func eveningTrigger(
+    for day: DateOnly, hour: Int, minute: Int
+  ) -> UNCalendarNotificationTrigger {
+    var components = DateComponents()
+    components.year = day.year
+    components.month = day.month
+    components.day = day.day
+    components.hour = hour
+    components.minute = minute
+    return UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
   }
 
   private func takeBack(_ ids: Set<String>) {

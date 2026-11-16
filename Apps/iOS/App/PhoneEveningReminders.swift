@@ -72,14 +72,27 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
   var permissionPrompt: (@MainActor () async -> Bool)?
   let center: any EveningCenter
   var defaults: UserDefaults = .standard
+  private let notificationCenter: NotificationCenter
+  private let currentTimeZone: @MainActor () -> TimeZone
+  private let currentDate: @MainActor () -> Date
   private(set) var permission: NotificationPlan.Permission?
   /// What the last recount said; set by `refresh`.
   var inputs: Inputs?
   private var language = AppLanguage()
   private(set) var dependencies: AppDependencies?
   private var waitingDay: DateOnly?
+  private var systemObservers: [NSObjectProtocol] = []
 
-  init(center: any EveningCenter) { self.center = center }
+  init(
+    center: any EveningCenter, notificationCenter: NotificationCenter = .default,
+    currentTimeZone: @escaping @MainActor () -> TimeZone = { .current },
+    currentDate: @escaping @MainActor () -> Date = { Date() }
+  ) {
+    self.center = center
+    self.notificationCenter = notificationCenter
+    self.currentTimeZone = currentTimeZone
+    self.currentDate = currentDate
+  }
 
   /// Once, when the app starts: the answer to the notification and the reminder as the route's
   /// deliverer. Nothing in the host of the unit tests.
@@ -87,10 +100,25 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
     guard !AppEnvironment.isTestHost else { return }
     UNUserNotificationCenter.current().delegate = shared
     HabitNudgeRoute.deliverer = shared
+    shared.observeSystemChanges()
     NotificationCenter.default.addObserver(
       forName: UserDefaults.didChangeNotification, object: nil, queue: .main
     ) { _ in
       Task { @MainActor in await PhoneEveningReminders.shared.settingsMayHaveChanged() }
+    }
+  }
+
+  func observeSystemChanges() {
+    guard systemObservers.isEmpty else { return }
+    let names: [Notification.Name] = [
+      .NSSystemTimeZoneDidChange,
+      UIApplication.significantTimeChangeNotification,
+      UIApplication.didBecomeActiveNotification,
+    ]
+    systemObservers = names.map { name in
+      notificationCenter.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+        Task { @MainActor in await self?.systemStateMayHaveChanged() }
+      }
     }
   }
 
@@ -123,14 +151,38 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
 
   /// The evening switched on or off, or its hour moved, in the settings.
   func settingsMayHaveChanged() async {
+    if let inputs, inputs.calendar.timeZone != currentTimeZone() {
+      await systemStateMayHaveChanged()
+      return
+    }
     let now = (HabitNotesOnMac.eveningEnabled(defaults), HabitNotesOnMac.eveningHour(defaults))
     guard inputs != nil else { return }
     if let applied, applied == now { return }
     await apply(now: dependencies?.environment.now() ?? Date())
   }
 
+  func systemStateMayHaveChanged() async {
+    guard var inputs else { return }
+    let now = dependencies?.environment.now() ?? currentDate()
+    let timeZone = currentTimeZone()
+    let timeZoneChanged = inputs.calendar.timeZone != timeZone
+    if timeZoneChanged {
+      inputs.calendar = CalendarContext(
+        timeZone: timeZone, unrecordedZone: inputs.calendar.unrecordedZone)
+    }
+    let today = inputs.calendar.day(of: now)
+    let dayChanged = inputs.today != today
+    guard timeZoneChanged || dayChanged else {
+      await settingsMayHaveChanged()
+      return
+    }
+    inputs.today = today
+    self.inputs = inputs
+    await apply(now: now, rescheduleAll: true)
+  }
+
   /// Makes the system hold exactly the reminders wanted now; permission is asked once.
-  func apply(now: Date) async {
+  func apply(now: Date, rescheduleAll: Bool = false) async {
     guard let inputs else { return }
     let enabled = HabitNotesOnMac.eveningEnabled(defaults)
     let hour = HabitNotesOnMac.eveningHour(defaults)
@@ -155,20 +207,29 @@ final class PhoneEveningReminders: NSObject, HabitNudgeDelivering {
     permission = status
     let shown = status == .allowed ? wanted : []
     var change = EveningReminders.change(wanted: shown, held: Set(await center.pendingIds()))
-    if hourMoved { change.add = shown }
+    if hourMoved || rescheduleAll { change.add = shown }
     if !change.remove.isEmpty { center.removePending(Array(change.remove)) }
     guard !change.add.isEmpty else { return }
     center.setCategory(Self.makeCategory(language))
     for nudge in change.add {
-      let interval = max(1, nudge.at.timeIntervalSince(now))
       center.add(
         UNNotificationRequest(
           identifier: nudge.id, content: Self.content(of: nudge, language: language),
-          trigger: UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)))
+          trigger: Self.trigger(for: nudge, hour: hour)))
     }
     AppLog.info(
       "notify.evening", .ui, "the reminders of the evenings were scheduled",
       [LogPair("count", .count(change.add.count))])
+  }
+
+  static func trigger(for nudge: HabitNudge, hour: Int) -> UNCalendarNotificationTrigger {
+    var components = DateComponents()
+    components.year = nudge.day.year
+    components.month = nudge.day.month
+    components.day = nudge.day.day
+    components.hour = min(max(hour, 0), 23)
+    components.minute = 0
+    return UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
   }
 
   // MARK: Words

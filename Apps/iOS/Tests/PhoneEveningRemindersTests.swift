@@ -25,6 +25,7 @@ final class PhoneEveningRemindersTests: XCTestCase {
     private(set) var added: [UNNotificationRequest] = []
     private(set) var removed: [String] = []
     private(set) var category: UNNotificationCategory?
+    var onAdd: (() -> Void)?
 
     init(status: NotificationPlan.Permission, grants: Bool = true) {
       self.status = status
@@ -45,6 +46,7 @@ final class PhoneEveningRemindersTests: XCTestCase {
     func add(_ request: UNNotificationRequest) {
       added.append(request)
       pending.insert(request.identifier)
+      onAdd?()
     }
     func setCategory(_ category: UNNotificationCategory) { self.category = category }
   }
@@ -142,9 +144,10 @@ final class PhoneEveningRemindersTests: XCTestCase {
     let value = reminders(center)
     suite.set(22, forKey: HabitNotesOnMac.eveningHourKey)
     await value.apply(now: morning)
-    let trigger = center.added.first?.trigger as? UNTimeIntervalNotificationTrigger
-    XCTAssertEqual(
-      trigger?.timeInterval, calendar.moment(today, hour: 22, minute: 0).timeIntervalSince(morning))
+    let trigger = center.added.first?.trigger as? UNCalendarNotificationTrigger
+    XCTAssertEqual(trigger?.dateComponents.hour, 22)
+    XCTAssertEqual(trigger?.dateComponents.minute, 0)
+    XCTAssertNil(trigger?.dateComponents.timeZone)
   }
 
   func testNothingTypedEverMeansNoReminder() async {

@@ -22,7 +22,7 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
     entryDays: Set<DateOnly>? = nil
   ) throws -> (PhoneEveningReminders, CalendarContext) {
     let calendar = CalendarContext(timeZone: try XCTUnwrap(TimeZone(identifier: zone)))
-    let value = PhoneEveningReminders(center: center)
+    let value = PhoneEveningReminders(center: center, currentTimeZone: { calendar.timeZone })
     value.defaults = suite
     value.inputs = .init(
       entryDays: entryDays ?? [today.adding(days: -1)], today: today, calendar: calendar)
@@ -35,10 +35,10 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
       let (value, calendar) = try reminders(center, zone: zone)
       let now = calendar.moment(today, hour: 8, minute: 15)
       await value.apply(now: now)
-      let trigger = center.added.first?.trigger as? UNTimeIntervalNotificationTrigger
+      let trigger = center.added.first?.trigger as? UNCalendarNotificationTrigger
       let evening = calendar.moment(today, hour: HabitNotes.defaultEveningHour, minute: 0)
-      XCTAssertEqual(
-        trigger?.timeInterval ?? -1, evening.timeIntervalSince(now), accuracy: 0.5, zone)
+      XCTAssertEqual(trigger?.dateComponents.hour, calendar.timeOfDay(evening).hour, zone)
+      XCTAssertNil(trigger?.dateComponents.timeZone, zone)
       XCTAssertEqual(center.added.count, EveningReminders.horizon, zone)
     }
   }
@@ -50,9 +50,9 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
       let (value, calendar) = try reminders(center)
       let now = calendar.moment(today.adding(days: -1), hour: 12, minute: 0)
       await value.apply(now: now)
-      let trigger = center.added.first?.trigger as? UNTimeIntervalNotificationTrigger
-      let wanted = calendar.moment(today, hour: expected, minute: 0).timeIntervalSince(now)
-      XCTAssertEqual(trigger?.timeInterval ?? -1, wanted, accuracy: 0.5, "stored \(stored)")
+      let trigger = center.added.first?.trigger as? UNCalendarNotificationTrigger
+      XCTAssertEqual(trigger?.dateComponents.hour, expected, "stored \(stored)")
+      XCTAssertNil(trigger?.dateComponents.timeZone, "stored \(stored)")
     }
   }
 
@@ -62,10 +62,6 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
     await value.apply(now: calendar.moment(today, hour: 23, minute: 30))
     XCTAssertEqual(center.added.count, EveningReminders.horizon - 1)
     XCTAssertFalse(center.added.contains { $0.identifier == "habits.nudge:\(today.iso)" })
-    for request in center.added {
-      let trigger = request.trigger as? UNTimeIntervalNotificationTrigger
-      XCTAssertGreaterThanOrEqual(trigger?.timeInterval ?? 0, 1, "never a trigger in the past")
-    }
   }
 
   func testADayWithAnEntryHasNoReminderButTheNextOnesDo() async throws {
@@ -114,33 +110,42 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
       let id = "habits.nudge:\(day.iso)"
       // The system keeps the last request of an id: that one has to be at the new hour.
       let last =
-        center.added.last { $0.identifier == id }?.trigger
-        as? UNTimeIntervalNotificationTrigger
-      let wanted = calendar.moment(day, hour: 7, minute: 0).timeIntervalSince(now)
-      XCTAssertEqual(last?.timeInterval ?? -1, wanted, accuracy: 0.5, "\(day.iso)")
+        center.added.last { $0.identifier == id }?.trigger as? UNCalendarNotificationTrigger
+      XCTAssertEqual(last?.dateComponents.hour, 7, day.iso)
+      XCTAssertEqual(last?.dateComponents.day, day.day, day.iso)
+      XCTAssertNil(last?.dateComponents.timeZone, day.iso)
     }
   }
 
-  /// Known gap: a reminder of a day keeps the id of its day, so a phone that crossed into another
-  /// zone keeps the evenings it scheduled on the clock of the old one. The expectation turns
-  /// into a failure the day this is fixed, and the marker is then taken out.
   func testAZoneChangedWhileEveningsAreHeldMovesThemToTheNewClock() async throws {
     let center = PhoneEveningRemindersTests.FakeCenter(status: .allowed)
-    let (value, moscow) = try reminders(center)
-    let now = moscow.moment(today.adding(days: -1), hour: 12, minute: 0)
-    await value.apply(now: now)
-    let baku = CalendarContext(timeZone: try XCTUnwrap(TimeZone(identifier: "Asia/Baku")))
+    let moscow = CalendarContext(timeZone: try XCTUnwrap(TimeZone(identifier: "Europe/Moscow")))
+    // Noon of the same day the reminders were counted for: only the zone moves, not the day.
+    let now = moscow.moment(today, hour: 12, minute: 0)
+    let notificationCenter = NotificationCenter()
+    var timeZone = moscow.timeZone
+    let value = PhoneEveningReminders(
+      center: center, notificationCenter: notificationCenter,
+      currentTimeZone: { timeZone }, currentDate: { now })
+    value.defaults = suite
     value.inputs = .init(
-      entryDays: [today.adding(days: -1)], today: today, calendar: baku)
+      entryDays: [today.adding(days: -1)], today: today, calendar: moscow)
+    value.observeSystemChanges()
     await value.apply(now: now)
+    let rescheduled = expectation(description: "all held evenings are scheduled again")
+    center.onAdd = {
+      if center.added.count == EveningReminders.horizon * 2 { rescheduled.fulfill() }
+    }
+    timeZone = try XCTUnwrap(TimeZone(identifier: "Asia/Baku"))
+    notificationCenter.post(name: .NSSystemTimeZoneDidChange, object: nil)
+    await fulfillment(of: [rescheduled], timeout: 1)
     let id = "habits.nudge:\(today.iso)"
     let last =
-      center.added.last { $0.identifier == id }?.trigger as? UNTimeIntervalNotificationTrigger
-    let wanted = baku.moment(today, hour: HabitNotes.defaultEveningHour, minute: 0)
-      .timeIntervalSince(now)
-    XCTExpectFailure("a held evening keeps the old zone's clock") {
-      XCTAssertEqual(last?.timeInterval ?? -1, wanted, accuracy: 0.5)
-    }
+      center.added.last { $0.identifier == id }?.trigger as? UNCalendarNotificationTrigger
+    XCTAssertEqual(last?.dateComponents.hour, HabitNotes.defaultEveningHour)
+    XCTAssertEqual(last?.dateComponents.day, today.day)
+    XCTAssertNil(last?.dateComponents.timeZone)
+    XCTAssertEqual(center.added.count, EveningReminders.horizon * 2)
   }
 
   func testTheStreakWordsHoldAnyCountAndNoCountMeansThePlainWords() {
