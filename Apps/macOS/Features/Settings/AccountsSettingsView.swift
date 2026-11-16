@@ -54,6 +54,10 @@ struct AccountsSettingsView: View {
   /// What the last action on a card was refused for, said under the tree.
   @State private var cardRefusal: CardRefusal?
   @State private var sheet: Sheet?
+  /// A card just made a credit card: both accounts are offered a count.
+  @State private var toCount: CreditCardConversionPlan?
+  /// The account the entry line pointed at before the count borrowed its focus.
+  @State private var focusBefore: UUID?
   /// What the last action was refused for, said under the tree.
   @State private var refusal: AccountRefusal?
   @State private var deleting: Deletion?
@@ -86,6 +90,12 @@ struct AccountsSettingsView: View {
     case mergeCard(PaymentCard)
     /// «Объединить с…» of a bank: into another live bank.
     case mergeBank(Bank)
+    /// «Сделать кредиткой» of a card of a debit account.
+    case toCredit(PaymentCard)
+    /// «Сверить оба счёта» after the card became a credit card.
+    case count
+    /// «+ → Кредитная карта» of a bank: its terms, asked before the account is made.
+    case newCreditCard(Bank)
 
     /// What the main account is leaving for: the archive, or a deletion of these accounts —
     /// the main one and any others picked with it.
@@ -108,6 +118,9 @@ struct AccountsSettingsView: View {
       case .cashback(let accountId, let holder): "cashback.\(accountId.uuidString).\(holder)"
       case .mergeCard(let card): "mergeCard.\(card.id.uuidString)"
       case .mergeBank(let bank): "mergeBank.\(bank.id.uuidString)"
+      case .toCredit(let card): "toCredit.\(card.id.uuidString)"
+      case .count: "count"
+      case .newCreditCard(let bank): "newCreditCard.\(bank.id.uuidString)"
       }
     }
   }
@@ -247,6 +260,25 @@ struct AccountsSettingsView: View {
       Text(verbatim: t("accounts.deleteGroup.message"))
     }
     .refusedWriteAlert($failed, environment)
+    .alert(
+      t("card.toCredit.count.title"),
+      isPresented: Binding(get: { toCount != nil }, set: { if !$0 { toCount = nil } }),
+      presenting: toCount
+    ) { plan in
+      Button(t("card.toCredit.count.confirm")) {
+        // The former account comes first in the count, the credit card right after it.
+        focusBefore = environment.focusedAccountId
+        environment.focusedAccountId = plan.former.id
+        toCount = nil
+        sheet = .count
+      }
+      Button(t("card.toCredit.count.later"), role: .cancel) { toCount = nil }
+    } message: { plan in
+      Text(
+        verbatim: environment.format(
+          "card.toCredit.count.message", table: AccountText.table, plan.former.name,
+          plan.account.name))
+    }
   }
 
   // MARK: The search
@@ -352,6 +384,7 @@ struct AccountsSettingsView: View {
       },
       toggleMark: { toggleMark(node) },
       plus: { plus(node) },
+      plusChoices: plusChoices(of: node),
       menuSlot: {
         // The menu of the row, named for VoiceOver; on the screen only under the pointer.
         rowMenuButton(node, shown: hovered == node.id || isChosen)
@@ -561,6 +594,20 @@ struct AccountsSettingsView: View {
     }
   }
 
+  /// «+» of a bank asks which card is added: the debit one opens the form of an account, the
+  /// credit one is made at once and its terms are set in the panel.
+  private func plusChoices(of node: AccountsTree.Node) -> [AccountsTreePlusChoice] {
+    guard case .bank(let bank, _) = node.kind else { return [] }
+    return BankPlusChoice.allCases.map { choice in
+      .init(id: choice.identifier, title: w(choice.key)) {
+        switch choice {
+        case .debitCard: sheet = .accountInBank(bank.id)
+        case .creditCard: sheet = .newCreditCard(bank)
+        }
+      }
+    }
+  }
+
   private func plus(_ node: AccountsTree.Node) {
     switch node.kind {
     case .bank(let bank, _): sheet = .accountInBank(bank.id)
@@ -672,6 +719,10 @@ struct AccountsSettingsView: View {
     Button(environment.language("card.cashback", table: CardText.table)) {
       sheet = .cashback(accountId: card.accountId, .card(card.id))
     }
+    if CreditCardConversion.offered(for: card, accounts: accounts) {
+      Button(t("card.toCredit.menu")) { sheet = .toCredit(card) }
+        .accessibilityIdentifier("accounts.card.toCredit")
+    }
     if liveCards(of: card.accountId).count > 1 {
       Button(environment.language("card.merge", table: CardText.table)) {
         sheet = .mergeCard(card)
@@ -696,6 +747,7 @@ struct AccountsSettingsView: View {
   private func bankMenuItems(_ bank: Bank) -> some View {
     Button(t("accounts.edit")) { sheet = .bank(bank) }
     Button(t("bank.addAccount")) { sheet = .accountInBank(bank.id) }
+    Button(w(BankPlusChoice.creditCard.key)) { sheet = .newCreditCard(bank) }
     if BankMerge.offered(for: bank, banks: banks) {
       Button(t("accounts.mergeWith")) { sheet = .mergeBank(bank) }
     }
@@ -840,8 +892,12 @@ struct AccountsSettingsView: View {
     let group = account.groupId.flatMap { id in groups.first { $0.id == id } }
     heading(
       account.name,
-      caption: [t(AccountText.kindKey(account.kind)).lowercased(), bank?.name]
-        .compactMap { $0 }.joined(separator: " · "))
+      caption: [
+        t(AccountText.kindKey(account.kind)).lowercased(), bank?.name,
+        // «доступно X из Y» of a credit card, as in its row of the tree.
+        account.credit == nil ? nil : chosenNode.flatMap(caption(of:)),
+      ]
+      .compactMap { $0 }.joined(separator: " · "))
     pickerRow("panel.bank", value: bank?.name ?? "—") {
       ForEach(BankRules.ordered(banks, locale: environment.language.locale), id: \.id) { choice in
         Button(choice.name) { saveAccount(account) { $0.bankId = choice.id } }
@@ -898,6 +954,10 @@ struct AccountsSettingsView: View {
         sheet = .cashback(accountId: account.id, .account(account.id))
       }
     }
+    if account.credit != nil, !account.archived {
+      AccountCreditPanelRows(account: account) { terms in saveCredit(account, terms) }
+        .id(account.credit)
+    }
     let accountCards = liveCards(of: account.id)
     if !accountCards.isEmpty {
       let main = CardRules.validMainCard(of: account, cards: cards)
@@ -910,6 +970,11 @@ struct AccountsSettingsView: View {
         Divider()
         Button(w("panel.none")) { saveAccount(account) { $0.mainCardId = nil } }
       }
+    }
+    if let main = toCreditCandidate(of: account) {
+      Button(t("card.toCredit.menu")) { sheet = .toCredit(main) }
+        .buttonStyle(.rowAction)
+        .accessibilityIdentifier("accounts.panel.toCredit")
     }
     switchRow(
       "panel.inSummary",
@@ -985,6 +1050,9 @@ struct AccountsSettingsView: View {
         .buttonStyle(.rowAction)
       Button(t("bank.addAccount")) { sheet = .accountInBank(bank.id) }
         .buttonStyle(.rowAction)
+      Button(w(BankPlusChoice.creditCard.key)) { sheet = .newCreditCard(bank) }
+        .buttonStyle(.rowAction)
+        .accessibilityIdentifier(BankPlusChoice.creditCard.identifier)
     }
     Spacer(minLength: 12)
     dangerButton("panel.deleteBank") { askToDelete(bank) }
@@ -1021,6 +1089,11 @@ struct AccountsSettingsView: View {
         sheet = .cashback(accountId: card.accountId, .card(card.id))
       }
       .buttonStyle(.rowAction)
+    }
+    if CreditCardConversion.offered(for: card, accounts: accounts) {
+      Button(t("card.toCredit.menu")) { sheet = .toCredit(card) }
+        .buttonStyle(.rowAction)
+        .accessibilityIdentifier("accounts.panel.toCredit")
     }
     Spacer(minLength: 12)
     dangerButton("panel.deleteCard") { deletingCard = card }
@@ -1152,6 +1225,27 @@ struct AccountsSettingsView: View {
     saveAccount(account) { $0.name = name }
   }
 
+  /// The card «Сделать кредиткой» of a debit account is offered for: its main card, or its only
+  /// live one.
+  private func toCreditCandidate(of account: PaymentMethod) -> PaymentCard? {
+    let live = liveCards(of: account.id)
+    let main = CardRules.validMainCard(of: account, cards: cards)
+    let card = live.first { $0.id == main } ?? (live.count == 1 ? live.first : nil)
+    return card.flatMap { CreditCardConversion.offered(for: $0, accounts: accounts) ? $0 : nil }
+  }
+
+  /// The terms typed in the panel of a credit card, saved as one step of ⌘Z; terms the books
+  /// cannot keep are said under the tree and nothing is written.
+  private func saveCredit(_ account: PaymentMethod, _ draft: CreditDraft) {
+    switch draft.terms() {
+    case .success(let terms?):
+      refusal = nil
+      saveAccount(account) { $0.credit = terms }
+    case .success(nil): break
+    case .failure(let issue): refusal = .credit(issue)
+    }
+  }
+
   /// One change of the panel, written with the books of this moment: one step of ⌘Z.
   private func saveAccount(_ account: PaymentMethod, _ change: (inout PaymentMethod) -> Void) {
     var changed = account
@@ -1267,6 +1361,29 @@ struct AccountsSettingsView: View {
         if merged { refusal = nil }
         reload()
       }
+    case .toCredit(let card):
+      CardToCreditCardSheet(card: card) { plan in
+        self.sheet = nil
+        reload()
+        if let plan {
+          refusal = nil
+          cardRefusal = nil
+          chosen = "a:\(plan.account.id.uuidString)"
+          toCount = plan
+        }
+      }
+    case .newCreditCard(let bank):
+      NewCreditCardSheet(bank: bank) { id in
+        self.sheet = nil
+        reload()
+        if let id {
+          refusal = nil
+          chosen = "a:\(id.uuidString)"
+        }
+      }
+    case .count:
+      ReconcileSheet().handingOver(dependencies)
+        .onDisappear { environment.focusedAccountId = focusBefore }
     }
   }
 

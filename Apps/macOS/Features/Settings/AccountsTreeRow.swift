@@ -39,9 +39,17 @@ enum AccountsTreeMetrics {
   static let switchSize = CGSize(width: 44, height: 26)
 }
 
+/// One entry of the menu of «+» of a row.
+struct AccountsTreePlusChoice: Identifiable {
+  let id: String
+  let title: String
+  let action: () -> Void
+}
+
 /// One row of the tree: the mark that picks it, the handle, the indent of its depth, the chevron
 /// that folds it, its symbol, its name with what tells it apart, its money and «+».
 struct AccountsTreeRow<MenuSlot: View>: View {
+
   let row: AccountsTree.Row
   let title: String
   /// Words after the name: «в сводке», «··4821 · основная», «2 счёта».
@@ -64,6 +72,9 @@ struct AccountsTreeRow<MenuSlot: View>: View {
   var toggleFold: () -> Void = {}
   var toggleMark: () -> Void = {}
   var plus: () -> Void = {}
+  /// When «+» offers a choice (a bank: a debit or a credit card), the choices: «+» is then a
+  /// menu and `plus` is not called.
+  var plusChoices: [AccountsTreePlusChoice] = []
   /// The «…» of the row, in its own slot after «+».
   @ViewBuilder var menuSlot: () -> MenuSlot
   @Environment(\.appTheme) private var theme
@@ -98,16 +109,26 @@ struct AccountsTreeRow<MenuSlot: View>: View {
           .fixedSize()
       }
       if let plusHelp {
-        Button(action: plus) {
-          Image(systemName: "plus")
-            .font(.system(size: AccountsTreeMetrics.plus, weight: .medium))  // font-fixed: 12 pt «+»
-            .foregroundStyle(theme.accentDefault)
-            .frame(width: AccountsTreeMetrics.plus, height: AccountsTreeMetrics.plus)
-            .contentShape(.rect)
+        if plusChoices.isEmpty {
+          Button(action: plus) { plusGlyph }
+            .buttonStyle(.plain)
+            .help(plusHelp)
+            .accessibilityLabel(Text(verbatim: plusHelp))
+        } else {
+          Menu {
+            ForEach(plusChoices) { choice in
+              Button(choice.title, action: choice.action)
+                .accessibilityIdentifier(choice.id)
+            }
+          } label: {
+            plusGlyph
+          }
+          .menuStyle(.borderlessButton)
+          .menuIndicator(.hidden)
+          .fixedSize()
+          .help(plusHelp)
+          .accessibilityLabel(Text(verbatim: plusHelp))
         }
-        .buttonStyle(.plain)
-        .help(plusHelp)
-        .accessibilityLabel(Text(verbatim: plusHelp))
       }
       menuSlot()
         .frame(width: AccountsTreeMetrics.menuSlot, height: AccountsTreeMetrics.menuSlot)
@@ -117,6 +138,14 @@ struct AccountsTreeRow<MenuSlot: View>: View {
     .background(
       isChosen ? theme.accentTint : Color.clear,
       in: .rect(cornerRadius: AccountsTreeMetrics.rowRadius))
+  }
+
+  private var plusGlyph: some View {
+    Image(systemName: "plus")
+      .font(.system(size: AccountsTreeMetrics.plus, weight: .medium))  // font-fixed: 12 pt «+»
+      .foregroundStyle(theme.accentDefault)
+      .frame(width: AccountsTreeMetrics.plus, height: AccountsTreeMetrics.plus)
+      .contentShape(.rect)
   }
 
   private var markBox: some View {

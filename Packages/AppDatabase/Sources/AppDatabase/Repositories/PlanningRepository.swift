@@ -252,6 +252,12 @@ public struct PlanningChange: Sendable, Hashable {
   /// them, and ⌘Z puts all of it back (`PlanningUndo.accountMerge`). Only two accounts of one
   /// bank merge (`AccountWriteError.otherBank`).
   public var mergingAccounts: AccountMergePlan?
+  /// A card turned into a credit card of its own (`PlanningChange.cardConversion(_:at:)`): the
+  /// operations it paid move to the credit card as the plan chose, those that stay name the
+  /// archived card left on the former account, and its scheduled payments, rules, bank
+  /// conditions and offers go with it (`PlanningRepository.convertCard`). ⌘Z puts all of it
+  /// back (`PlanningUndo.cardConversion`).
+  public var convertingCard: CreditCardConversionPlan?
   /// For a category deleted by `delete`: the category that took its operations. The spending
   /// rules that named it follow there; a category not listed just leaves its rules (they lose
   /// the reference, and one left with no condition or action is switched off).
@@ -332,6 +338,8 @@ public struct PlanningUndo: Sendable, Hashable {
   public var movedCards: [MovedCardReference]
   /// What an account merge of the change did, for ⌘Z.
   public var accountMerge: AccountMergeUndo?
+  /// What turning a card into a credit card of its own did, for ⌘Z.
+  public var cardConversion: CardConversionUndo?
   public var referenceBook: ReferenceBookUndo?
   /// Spending rules that followed a merge of cards.
   var cardRules: [RewrittenRule] = []
@@ -627,6 +635,11 @@ public struct PlanningRepository: Sendable {
     let merged = try change.mergingAccounts.map {
       try AccountRepository.merge($0, calendar: context.calendar, db: db)
     }
+    let converted = try change.convertingCard.map {
+      try Self.convertCard(
+        $0, at: change.at, calendar: context.calendar, journal: &journal, db: db)
+    }
+    written += converted?.moved.map(\.after) ?? []
     let referenceBook = try change.changingReferences.map {
       try ReferenceRepository.apply($0, db: db)
     }
@@ -712,6 +725,7 @@ public struct PlanningRepository: Sendable {
     }
     entries += deleting.map { ($0, nil) }
     entries += unlinked.map { before in (before, unlinkedAfter.first { $0.id == before.id }) }
+    entries += converted?.moved.map { ($0.before, $0.after) } ?? []
     var touch = try LiveCountsWriter.touch(
       entries: entries, transfers: journal.before.transfers + rows.transfers,
       lines: journal.before.debtEntries + rows.debtEntries,
@@ -735,6 +749,7 @@ public struct PlanningRepository: Sendable {
       referenceBook: referenceBook)
     undo.cardRules = cardRules
     undo.releasedRules = releasedRules
+    undo.cardConversion = converted?.undo
     return undo
   }
 
@@ -1098,6 +1113,11 @@ public struct PlanningRepository: Sendable {
       try db.execute(
         sql: "UPDATE transactions SET card_id = ? WHERE id = ? AND card_id = ?",
         arguments: [moved.from.uuidString, moved.rowId.uuidString, moved.into.uuidString])
+    }
+    // The card is on its former account again: what it paid goes back there before the
+    // credit card and the left card go.
+    if let conversion = undo.cardConversion {
+      try Self.revertCardConversion(conversion, db: db)
     }
     // Nothing written back points at a card, an account or a group the change added, while
     // rows it moved onto them did until now: they go here, still under the refusal of `apply`,

@@ -10464,6 +10464,23 @@
         }
       }
     },
+    "account.credit.payDays.short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days to pay"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дней на оплату"
+          }
+        }
+      }
+    },
     "account.credit.purchaseDays": {
       "extractionState": "manual",
       "localizations": {
@@ -10621,6 +10638,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "消費後 %@ 天內免息"
+          }
+        }
+      }
+    },
+    "account.credit.purchaseDays.short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days from a purchase"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дней с покупки"
           }
         }
       }
@@ -14167,6 +14201,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "這是信用卡"
+          }
+        }
+      }
+    },
+    "account.creditCard.defaultName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитная карта"
           }
         }
       }
@@ -85068,6 +85119,57 @@
         }
       }
     },
+    "card.new.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать"
+          }
+        }
+      }
+    },
+    "card.new.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название"
+          }
+        }
+      }
+    },
+    "card.new.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New credit card of “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая кредитная карта банка «%@»"
+          }
+        }
+      }
+    },
     "card.none": {
       "extractionState": "manual",
       "localizations": {
@@ -86675,6 +86777,380 @@
           "stringUnit": {
             "state": "translated",
             "value": "卡片"
+          }
+        }
+      }
+    },
+    "card.toCredit.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make a credit card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сделать кредиткой"
+          }
+        }
+      }
+    },
+    "card.toCredit.count.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count both"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверить оба счёта"
+          }
+        }
+      }
+    },
+    "card.toCredit.count.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Later"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позже"
+          }
+        }
+      }
+    },
+    "card.toCredit.count.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money that moved by transfers stayed on “%1$@”: count it and “%2$@” to confirm both balances."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньги, ушедшие переводами, остались на «%1$@»: сверьте его и «%2$@», чтобы подтвердить оба остатка."
+          }
+        }
+      }
+    },
+    "card.toCredit.count.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count both accounts?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверить оба счёта?"
+          }
+        }
+      }
+    },
+    "card.toCredit.fromDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С даты"
+          }
+        }
+      }
+    },
+    "card.toCredit.menu": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make a credit card…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сделать кредиткой…"
+          }
+        }
+      }
+    },
+    "card.toCredit.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card becomes a credit card of its bank, with its own limit and debt, next to its debit account. ⌘Z takes it all back in one step."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карта станет кредиткой своего банка со своим лимитом и долгом, рядом с дебетовым счётом. ⌘Z отменяет всё одним шагом."
+          }
+        }
+      }
+    },
+    "card.toCredit.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name of the credit card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название кредитки"
+          }
+        }
+      }
+    },
+    "card.toCredit.nameHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card's own name is taken by an account: give the credit card another one."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название карты занято счётом: дайте кредитке другое."
+          }
+        }
+      }
+    },
+    "card.toCredit.past": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Past operations of the card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прошлые операции карты"
+          }
+        }
+      }
+    },
+    "card.toCredit.past.all": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move all"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести все"
+          }
+        }
+      }
+    },
+    "card.toCredit.past.fromDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only from a date"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только с даты"
+          }
+        }
+      }
+    },
+    "card.toCredit.past.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do not move"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не переносить"
+          }
+        }
+      }
+    },
+    "card.toCredit.pastHeader": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Past operations of the card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прошлые операции карты"
+          }
+        }
+      }
+    },
+    "card.toCredit.pastHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What the card paid goes to the credit card; transfers stay on the debit account, so count both accounts afterwards."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что оплачено картой, уйдёт на кредитку; переводы остаются на дебетовом счёте, поэтому потом сверьте оба счёта."
+          }
+        }
+      }
+    },
+    "card.toCredit.refusal.already": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This card is a credit card already."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта карта уже кредитная."
+          }
+        }
+      }
+    },
+    "card.toCredit.refusal.archived": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card or its account is in the archive."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карта или её счёт в архиве."
+          }
+        }
+      }
+    },
+    "card.toCredit.refusal.borrowed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Someone else's card cannot be a credit card of yours."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужая карта не может быть вашей кредиткой."
+          }
+        }
+      }
+    },
+    "card.toCredit.refusal.noBank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The account is under no bank: put it under one first."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт не привязан к банку: сначала привяжите его к банку."
+          }
+        }
+      }
+    },
+    "card.toCredit.refusal.notFound": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card is not there any more."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карты уже нет."
+          }
+        }
+      }
+    },
+    "card.toCredit.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make “%@” a credit card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сделать «%@» кредиткой"
           }
         }
       }
