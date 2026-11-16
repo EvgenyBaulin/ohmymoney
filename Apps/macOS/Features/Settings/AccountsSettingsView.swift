@@ -94,6 +94,8 @@ struct AccountsSettingsView: View {
     case toCredit(PaymentCard)
     /// «Сверить оба счёта» after the card became a credit card.
     case count
+    /// «+ → Кредитная карта» of a bank: its terms, asked before the account is made.
+    case newCreditCard(Bank)
 
     /// What the main account is leaving for: the archive, or a deletion of these accounts —
     /// the main one and any others picked with it.
@@ -118,6 +120,7 @@ struct AccountsSettingsView: View {
       case .mergeBank(let bank): "mergeBank.\(bank.id.uuidString)"
       case .toCredit(let card): "toCredit.\(card.id.uuidString)"
       case .count: "count"
+      case .newCreditCard(let bank): "newCreditCard.\(bank.id.uuidString)"
       }
     }
   }
@@ -599,7 +602,7 @@ struct AccountsSettingsView: View {
       .init(id: choice.identifier, title: w(choice.key)) {
         switch choice {
         case .debitCard: sheet = .accountInBank(bank.id)
-        case .creditCard: addCreditCard(to: bank)
+        case .creditCard: sheet = .newCreditCard(bank)
         }
       }
     }
@@ -744,7 +747,7 @@ struct AccountsSettingsView: View {
   private func bankMenuItems(_ bank: Bank) -> some View {
     Button(t("accounts.edit")) { sheet = .bank(bank) }
     Button(t("bank.addAccount")) { sheet = .accountInBank(bank.id) }
-    Button(w(BankPlusChoice.creditCard.key)) { addCreditCard(to: bank) }
+    Button(w(BankPlusChoice.creditCard.key)) { sheet = .newCreditCard(bank) }
     if BankMerge.offered(for: bank, banks: banks) {
       Button(t("accounts.mergeWith")) { sheet = .mergeBank(bank) }
     }
@@ -1047,7 +1050,7 @@ struct AccountsSettingsView: View {
         .buttonStyle(.rowAction)
       Button(t("bank.addAccount")) { sheet = .accountInBank(bank.id) }
         .buttonStyle(.rowAction)
-      Button(w(BankPlusChoice.creditCard.key)) { addCreditCard(to: bank) }
+      Button(w(BankPlusChoice.creditCard.key)) { sheet = .newCreditCard(bank) }
         .buttonStyle(.rowAction)
         .accessibilityIdentifier(BankPlusChoice.creditCard.identifier)
     }
@@ -1369,6 +1372,15 @@ struct AccountsSettingsView: View {
           toCount = plan
         }
       }
+    case .newCreditCard(let bank):
+      NewCreditCardSheet(bank: bank) { id in
+        self.sheet = nil
+        reload()
+        if let id {
+          refusal = nil
+          chosen = "a:\(id.uuidString)"
+        }
+      }
     case .count:
       ReconcileSheet().handingOver(dependencies)
         .onDisappear { environment.focusedAccountId = focusBefore }
@@ -1376,19 +1388,6 @@ struct AccountsSettingsView: View {
   }
 
   // MARK: Actions
-
-  /// «+» → «Кредитная карта»: the account is made under the bank at once and chosen, so its
-  /// terms are set in the panel.
-  private func addCreditCard(to bank: Bank) {
-    Task {
-      guard let books = await actions.books() else {
-        failed = true
-        return
-      }
-      let made = actions.addCreditCard(to: bank, books: books)
-      if perform(made.outcome) { chosen = "a:\(made.id.uuidString)" }
-    }
-  }
 
   /// Into the archive; the main account first asks which one takes over. Money still on the
   /// account is asked about — where each currency goes — and moved with the archive in one

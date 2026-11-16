@@ -87,27 +87,28 @@ extension AccountActions {
   }
 
   /// A new credit card of `bank`: an account of its kind card under the bank and the group the
-  /// bank's other accounts are in, in the main currency, with its first card and terms the
-  /// owner then sets in the panel — a limit to begin with, since the books hold none without
-  /// one. The name is «Кредитная карта», numbered when it is taken.
+  /// bank's other accounts are in, in the main currency, with its first card and the terms the
+  /// owner typed. Named as typed, or «Кредитная карта», numbered when it is taken.
   func addCreditCard(
-    to bank: Bank, books: AccountBooks, accountId: UUID = UUID(), cardId: UUID = UUID()
+    to bank: Bank, terms: CreditCardTerms, named typed: String = "", books: AccountBooks,
+    accountId: UUID = UUID(), cardId: UUID = UUID()
   ) -> (id: UUID, outcome: AccountActionOutcome) {
+    guard CreditCardConversion.termsFit(terms) else { return (accountId, .refused(.credit(.limit))) }
     let accounts = all
-    let name = Self.freeName(
-      environment.language("account.creditCard.defaultName", table: AccountText.table),
-      accounts: accounts, cards: cards)
+    let given = typed.trimmingCharacters(in: .whitespacesAndNewlines)
+    let name =
+      given.isEmpty
+      ? Self.freeName(
+        environment.language("account.creditCard.defaultName", table: AccountText.table),
+        accounts: accounts, cards: cards)
+      : given
     let sibling = ordered(accounts).first { $0.bankId == bank.id && !$0.archived }
     let account = PaymentMethod(
       id: accountId, name: name, kind: .card, currency: environment.defaultCurrency,
-      groupId: sibling?.groupId, bankId: bank.id,
-      credit: CreditCardTerms(limitE4: Self.starterLimit))
+      groupId: sibling?.groupId, bankId: bank.id, credit: terms)
     let outcome = save(account, previous: nil, books: books, firstCardId: cardId)
     return (accountId, outcome)
   }
-
-  /// What a credit card made from the «+» of a bank starts with, to be set in the panel at once.
-  static let starterLimit = AmountE4(raw: 100_000 * 10_000)
 
   /// `base`, then «base 2», «base 3»… until no live account or card is called so.
   static func freeName(_ base: String, accounts: [PaymentMethod], cards: [PaymentCard]) -> String {
@@ -120,6 +121,34 @@ extension AccountActions {
       candidate = "\(base) \(number)"
     }
     return candidate
+  }
+}
+
+/// «+ → Кредитная карта»: the terms and the name as typed. Nothing is made until a limit reads.
+struct NewCreditCardDraft: Equatable {
+  var credit: CreditDraft
+  var name = ""
+
+  init() {
+    var credit = CreditDraft(nil)
+    credit.isOn = true
+    self.credit = credit
+  }
+
+  /// The terms, or why they cannot be kept; an empty limit is `.limit`.
+  func terms() -> Result<CreditCardTerms, CreditTermsIssue> {
+    switch credit.terms() {
+    case .success(let terms?):
+      return CreditCardConversion.termsFit(terms) ? .success(terms) : .failure(.limit)
+    case .success(nil): return .failure(.limit)
+    case .failure(let issue): return .failure(issue)
+    }
+  }
+
+  /// «Создать» is enabled once the terms read.
+  var canCreate: Bool {
+    if case .success = terms() { return true }
+    return false
   }
 }
 

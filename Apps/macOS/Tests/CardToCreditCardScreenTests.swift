@@ -229,15 +229,16 @@ final class CardToCreditCardScreenTests: XCTestCase {
     try XCTUnwrap(environment.references).save(sibling)
     let loaded = await actions.books()
     let books = try XCTUnwrap(loaded)
-    let first = actions.addCreditCard(to: made.bank, books: books)
+    let terms = CreditCardTerms(limitE4: AmountE4(whole: 80_000))
+    let first = actions.addCreditCard(to: made.bank, terms: terms, books: books)
     XCTAssertEqual(first.outcome, .done)
     let credit = try XCTUnwrap(actions.all.first { $0.id == first.id })
     XCTAssertEqual(credit.bankId, made.bank.id)
     XCTAssertEqual(credit.groupId, group.id)
     XCTAssertEqual(credit.kind, .card)
-    XCTAssertEqual(credit.credit?.limitE4, AccountActions.starterLimit)
+    XCTAssertEqual(credit.credit, terms, "the account carries the terms typed")
     XCTAssertEqual(actions.cards.filter { $0.accountId == credit.id }.count, 1)
-    let again = actions.addCreditCard(to: made.bank, books: books)
+    let again = actions.addCreditCard(to: made.bank, terms: terms, books: books)
     XCTAssertEqual(again.outcome, .done)
     let names = actions.all.filter { $0.credit != nil }.map(\.name).sorted()
     XCTAssertEqual(names.count, 2)
@@ -247,6 +248,38 @@ final class CardToCreditCardScreenTests: XCTestCase {
     store.undo()
     XCTAssertTrue(actions.all.filter { $0.credit != nil }.isEmpty, "each is one step")
     XCTAssertTrue(actions.cards.allSatisfy { $0.accountId == made.account.id })
+  }
+
+  /// Without a limit nothing can be created; with one the draft yields the terms typed, and a
+  /// terms the books cannot keep make no account.
+  func testNoLimitMeansNoCreditCard() async throws {
+    var draft = NewCreditCardDraft()
+    XCTAssertFalse(draft.canCreate)
+    XCTAssertEqual(draft.terms(), .failure(.limit))
+    draft.credit.limitText = "0"
+    XCTAssertFalse(draft.canCreate)
+    draft.credit.limitText = "120 000"
+    draft.credit.limitText = "120000"
+    draft.credit.statementDay = 7
+    draft.name = "Платинум"
+    XCTAssertTrue(draft.canCreate)
+    let terms = try draft.terms().get()
+    XCTAssertEqual(terms.limitE4, AmountE4(whole: 120_000))
+    XCTAssertEqual(terms.grace, .statement(day: 7, payDays: 25))
+    let made = try debit()
+    let loaded = await actions.books()
+    let books = try XCTUnwrap(loaded)
+    let before = actions.all.count
+    let bad = CreditCardTerms(limitE4: .zero)
+    XCTAssertEqual(
+      actions.addCreditCard(to: made.bank, terms: bad, books: books).outcome,
+      .refused(.credit(.limit)))
+    XCTAssertEqual(actions.all.count, before, "no limit, no account")
+    let ok = actions.addCreditCard(to: made.bank, terms: terms, named: draft.name, books: books)
+    XCTAssertEqual(ok.outcome, .done)
+    let credit = try XCTUnwrap(actions.all.first { $0.id == ok.id })
+    XCTAssertEqual(credit.name, "Платинум")
+    XCTAssertEqual(credit.credit, terms)
   }
 
   func testTheTermsOfThePanelReadAndRefuseLikeTheEditor() throws {
