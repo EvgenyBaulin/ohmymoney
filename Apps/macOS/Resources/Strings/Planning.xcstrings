@@ -55072,16 +55072,160 @@
     "goals.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muddət keçib, %@ qalıb"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тэрмін мінуў, засталося %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "termín vypršel, zbývá %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Datum ist verstrichen, %@ verbleiben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "the date has passed, %@ left"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la fecha ya pasó, quedan %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la date est dépassée, %@ restant"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ժամկետը անցել է, մնաց %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la data è passata, mancano %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期限を過ぎました。残り%@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დედლაინი გავიდა, დარჩა %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мерзімі өтті, %@ қалды"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기한이 지났어요, %@ 남음"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мөөнөт өттү, %@ калды"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de datum is verstreken, %@ over"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок прошёл, осталось %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a data passou, faltam %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A data já passou, faltam %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "срок прошёл, осталось %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муҳлат гузашт, %@ боқӣ монд"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarih geçti, %@ kaldı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "термін минув, залишилось %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muddati o‘tdi, %@ qoldi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã qua hạn, còn %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日期已过，剩余 %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日期已過，剩餘 %@"
           }
         }
       }
@@ -59921,16 +60065,160 @@
     "goals.shiftDeadline": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarixi köçür"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перанесці дату"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posunout termín"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum verschieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Move the date"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover la fecha"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déplacer la date"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տեղափոխել ամսաթիվը"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sposta la data"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期限を変更"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღის გადატანა"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мерзімін ауыстыру"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "날짜 옮기기"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Датаны жылдыруу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum verschuiven"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести срок"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a data"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mudar a data"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сдвинуть срок"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаро кӯчонидан"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarihi kaydır"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змінити дату"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sanani o‘zgartirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dời ngày"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移动日期"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調整日期"
           }
         }
       }
@@ -88327,10 +88615,76 @@
     "overview.canSave.incomeDeficit": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gəlirindən qənaət etmək mümkün deyil: xərclər gəliri %@ qədər üstələyir"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы не можаце нешта адкласці з даходу %@: выдаткі перавышаюць даход на %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Z příjmu %@ nelze spořit: výdaje převyšují příjem o %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus dem Einkommen von %@ lässt sich nichts sparen: Die Ausgaben übersteigen das Einkommen um %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "You cannot save from %@ income: spending exceeds income by %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No puedes ahorrar con los ingresos de %@: los gastos superan los ingresos en %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous ne pouvez pas épargner avec des revenus de %@ : les dépenses dépassent les revenus de %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Եկամուտից %@ չես կարող խնայել․ ծախսերը գերազանցում են եկամուտը %@-ով"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non puoi risparmiare con un reddito di %@: le spese superano il reddito di %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@の収入からは貯蓄できません。支出が収入を%@上回っています"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ შემოსავლიდან დაზოგვა შეუძლებელია: ხარჯები შემოსავალს %@-ით აღემატება"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ табысынан жинақ жасау мүмкін емес: шығыс табыстан %@ асып түседі"
           }
         },
         "ko": {
@@ -88339,10 +88693,64 @@
             "value": "%@ 수입으로는 저축할 수 없습니다: 지출이 수입을 %@ 초과합니다"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ кирешеңizden үнөмдөй албайсыз: чыгым кирешеден %@ ашат"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je kunt niet sparen van %@ inkomen: uitgaven overschrijden het inkomen met %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Накопить из дохода %@ не получится: расходы превышают доход на %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você não consegue poupar com a renda de %@: os gastos superam a renda em %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não é possível poupar com o rendimento de %@: as despesas superam o rendimento em %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Из дохода %@ отложить не получится: траты больше дохода на %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз даромади %@ пасандоз кардан имконнопазир аст: харҷ аз даромад %@ зиёд аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gelirinden tasarruf edemezsiniz: harcamalar geliri %@ aşıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкладати з доходу %@ не можна: витрати перевищують доходи на %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ daromaddan jamg‘arish mumkin emas: xarajatlar daromaddan %@ ga oshib ketgan"
           }
         },
         "vi": {
@@ -88368,10 +88776,76 @@
     "overview.canSave.incomeRisk": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yüksək xərclərlə aylıq xərclər gəliri %@ qədər üstələyəcək"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пры высокіх выдатках расходы перавысяць месячны даход на %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Při vysokých výdajích překročí měsíční výdaje příjem o %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bei hohen Ausgaben übersteigen die Kosten das monatliche Einkommen um %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "With high spending, expenses will exceed monthly income by %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con gastos altos, los gastos superarán los ingresos mensuales en %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avec des dépenses élevées, les dépenses dépasseront les revenus mensuels de %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բարձր ծախսերի դեպքում ամսական ծախսերը կգերազանցեն եկամուտը %@-ով"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con spese elevate, le uscite supereranno il reddito mensile di %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支出が多いと、月の支出が月収を%@上回ります"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მაღალი ხარჯების პირობებში, თვიური ხარჯები შემოსავალს %@-ით გადააჭარბებს"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоғары шығыс кезінде шығыс айлық табысты %@ асып түседі"
           }
         },
         "ko": {
@@ -88380,10 +88854,64 @@
             "value": "지출이 많으면 월 지출이 월 수입을 %@ 초과하게 됩니다"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жогорку чыгымда, айлык кирешеден чыгым %@ ашып кетет"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bij hoge uitgaven overschrijden de kosten het maandinkomen met %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При высоких расходах траты превысят месячный доход на %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com gastos altos, as despesas vão superar a renda mensal em %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com despesas elevadas, o gasto mensal ultrapassará o rendimento em %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "При высоких тратах расходы превысят доход месяца на %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бо харҷи зиёд, хароҷот дар як моҳ аз даромад %@ зиёд мешавад"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yüksek harcamalarla, giderler aylık geliri %@ aşacak"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За високих витрат видатки перевищать місячний дохід на %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yuqori xarajatlar bilan xarajatlar oylik daromaddan %@ ga oshib ketadi"
           }
         },
         "vi": {
@@ -88409,10 +88937,76 @@
     "overview.canSave.previousMoney": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesablarınızda %@ sərbəstdir — bu, əvvəlki aylardan qalan puldur"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На вашых рахунках вольна %@ — гэта грошы з папярэдніх месяцаў"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ je na vašich účtech volných — jde o peníze z předchozích měsíců"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf deinen Konten sind %@ frei verfügbar – das ist Geld aus früheren Monaten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ is free on your accounts — this is money from earlier months"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ está libre en tus cuentas — es dinero de meses anteriores"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sont disponibles sur vos comptes — il s'agit d'argent des mois précédents"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշիվներում ազատ է %@ — սա նախորդ ամիսների գումար է"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sono disponibili sui tuoi conti — si tratta di denaro dei mesi precedenti"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "口座の%@は自由に使えます。これは前の月からの残高です"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თქვენს ანგარიშებზე თავისუფალია %@ — ეს წინა თვეების ფული"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шоттарыңызда %@ бос тұр — бұл өткен айлардағы ақша"
           }
         },
         "ko": {
@@ -88421,10 +89015,64 @@
             "value": "계좌에 있는 %@은(는) 여유 자금입니다 — 이전 달에서 남은 돈입니다"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эсептеринизде %@ бош турат — бул мурунку айлардан калган акча"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is vrij op je rekeningen — dit is geld uit eerdere maanden"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На счетах свободно %@ — это деньги за прошлые месяцы"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ está livre nas suas contas — é dinheiro de meses anteriores"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ livres nas suas contas — é dinheiro de meses anteriores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "на счетах свободно %@ — это прошлые деньги"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дар ҳисобҳоятон %@ озод аст — ин пулҳои моҳҳои гузашта мебошанд"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaplarınızda %@ boşta — bu önceki aylardan kalan para"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ вільні на рахунках — це гроші з попередніх місяців"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisoblaringizda %@ bo‘sh turibdi — bu oldingi oylardan qolgan pul"
           }
         },
         "vi": {
@@ -88450,10 +89098,76 @@
     "overview.canSave.projectedDeficit": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gəlirindən qənaət gözlənilmir: proqnozlaşdırılan xərclər gəliri %@ qədər üstələyir"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкладаць з даходу %@ не атрымаецца: прагназуемыя выдаткі перавышаюць даход на %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Z příjmu %@ se neočekává spoření: předpokládané výdaje převyšují příjem o %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus dem Einkommen von %@ ist kein Sparen zu erwarten: Die prognostizierten Ausgaben übersteigen das Einkommen um %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "You are not expected to save from %@ income: projected spending exceeds income by %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se espera que ahorres con los ingresos de %@: los gastos previstos superan los ingresos en %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous ne devriez pas pouvoir épargner avec des revenus de %@ : les dépenses prévues dépassent les revenus de %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվում չէ, որ %@ եկամուտից կխնայես․ նախատեսված ծախսերը գերազանցում են եկամուտը %@-ով"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non si prevede che tu possa risparmiare con un reddito di %@: le spese previste superano il reddito di %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@の収入からは貯蓄できない見込みです。予測される支出が収入を%@上回っています"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ შემოსავლიდან დაზოგვა არ არის მოსალოდნელი: პროგნოზირებული ხარჯები შემოსავალს %@-ით აღემატება"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ табысынан жинақ жасау күтілмейді: болжанған шығыс табысты %@ асып түседі"
           }
         },
         "ko": {
@@ -88462,10 +89176,64 @@
             "value": "%@ 수입으로는 저축이 어려울 것으로 예상됩니다: 예상 지출이 수입을 %@ 초과합니다"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ кирешеден үнөмдөө күтүлбөйт: болжолдуу чыгым кирешеден %@ ашат"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Van %@ inkomen kun je naar verwachting niet sparen: de geprognosticeerde uitgaven overschrijden het inkomen met %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Накопить из дохода %@ не получится: прогнозируемые расходы превышают доход на %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não se espera que você consiga poupar com a renda de %@: os gastos previstos superam a renda em %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não se prevê poupança com o rendimento de %@: as despesas previstas superam o rendimento em %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Из дохода %@ отложить, вероятно, не получится: ожидаемые траты больше дохода на %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аз даромади %@ пасандоз кардан интизор нест: харҷи пешбинишуда аз даромад %@ зиёд аст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gelirinizden tasarruf etmeniz beklenmiyor: öngörülen harcamalar geliri %@ aşıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заощаджувати з доходу %@ не вийде: прогнозовані витрати перевищують доходи на %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ daromaddan jamg‘arish kutilmayapti: prognoz qilingan xarajatlar daromaddan %@ ga oshib ketadi"
           }
         },
         "vi": {
@@ -91492,16 +92260,160 @@
     "overview.notArrived": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daxil olmayıb"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не паступіла"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nepřišlo"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht eingegangen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not arrived"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No llegó"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non reçu"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չի եկել"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non arrivato"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未入金"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "არ შემოსულა"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келген жоқ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "도착 안 함"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келген эмес"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog niet ontvangen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не поступило"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não recebido"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não chegou"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пришло"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расид нашудааст"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelmedi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не надійшло"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kelmagan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa về"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未到账"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚未到帳"
           }
         }
       }
