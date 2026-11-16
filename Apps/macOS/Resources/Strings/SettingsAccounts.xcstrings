@@ -6161,16 +6161,160 @@
       "comment": "Label for an account or group amount in the settings tree.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ: %@"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Částka: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Amount: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant : %@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումար՝ %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "금액: %@"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма: %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedrag: %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kwota: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor: %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montante: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сумма: %@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағ: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума: %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summa: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số tiền: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金额：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額：%@"
           }
         }
       }
@@ -9838,10 +9982,112 @@
     "tree.plus.creditCard": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kredit kartı"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Крэдытная картка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kreditní karta"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kreditkarte"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Credit card"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta de crédito"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carte de crédit"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վարկային քարտ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carta di credito"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "クレジットカード"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საკრედიტო ბარათი"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредиттік карта"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "신용카드"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредиттик карта"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creditcard"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karta kredytowa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão de crédito"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão de crédito"
           }
         },
         "ru": {
@@ -9849,22 +10095,208 @@
             "state": "translated",
             "value": "Кредитная карта"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Корти кредитӣ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kredi kartı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитна картка"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kredit karta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ tín dụng"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "信用卡"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "信用卡"
+          }
         }
       }
     },
     "tree.plus.debitCard": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debet kartı"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дэбетавая картка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debetní karta"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debitkarte"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Debit card"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta de débito"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carte de débit"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեբետային քարտ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carta di debito"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デビットカード"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სადებეტო ბარათი"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дебеттік карта"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체크카드"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дебеттик карта"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debetkaart"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karta debetowa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão de débito"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão de débito"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Дебетовая карта"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Корти дебетӣ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka kartı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дебетова картка"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debet karta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ ghi nợ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "借记卡"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扣帳卡"
           }
         }
       }

@@ -116086,16 +116086,160 @@
     "scheduled.notThisPartHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu əməliyyat bu ödənişin hissəsi deyil: məbləği yenidən ödənilməlidir"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэтая аперацыя не ўваходзіць у гэты плацёж: яе сума зноў да аплаты"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tato operace není součástí této platby: její částka je splatná znovu"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Vorgang ist nicht Teil dieser Zahlung: Der Betrag ist erneut fällig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "This operation is not part of this payment: its amount is due again"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta operación no forma parte de este pago: su importe vuelve a estar pendiente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cette opération ne fait pas partie de ce paiement : son montant est à nouveau dû"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս գործողությունը այս վճարման մաս չէ. դրա գումարը կրկին պետք է վճարվի"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa operazione non fa parte di questo pagamento: il suo importo è di nuovo dovuto"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この支払いの一部ではない項目：金額は再度支払期限になります"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ეს ოპერაცია არ არის ამ გადახდის ნაწილი: მისი თანხა კვლავ გადასახდელია"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл операция төлемнің бөлігі емес: оның сомасы қайта төленеді"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 작업은 이 결제의 일부가 아닙니다: 금액을 다시 내야 합니다"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта операция не входит в этот платёж: её сумма снова к оплате"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deze bewerking maakt geen deel uit van deze betaling: het bedrag is opnieuw verschuldigd"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта операция не входит в этот платёж: её сумма снова к оплате"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta operação não faz parte deste pagamento: o valor volta a vencer"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta operação não faz parte deste pagamento: o montante volta a ficar em dívida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Эта операция — не часть этого платежа: её сумма снова ждёт оплаты"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ин амалиёт ба ин пардохт тааллуқ надорад: маблағи он бори дигар пардохта мешавад"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu işlem bu ödemenin parçası değil: tutarı yeniden ödenmelidir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ця операція не входить до цього платежу: її суму знову потрібно сплатити"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu amal ushbu to'lovning qismi emas: uning summasi yana to'lanishi kerak"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thao tác này không thuộc khoản thanh toán này: số tiền sẽ được thu lại"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此操作不属于本次付款：其金额需再次支付"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此操作不屬於本次付款：其金額將再次到期"
           }
         }
       }
@@ -116748,10 +116892,112 @@
     "scheduled.paidByPart": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ödənişinin hissəsi: %2$@"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка плацяжу «%1$@»: %2$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Část platby %1$@: %2$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teil der Zahlung %1$@: %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Part of the %1$@ payment: %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del pago de %1$@: %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partie du paiement %1$@ : %2$@"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ վճարման մաս. %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del pagamento %1$@: %2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@の支払いの一部：%2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@-ის გადახდის ნაწილი: %2$@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ төлемінің бөлігі: %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 결제의 일부: %2$@"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часть платежа %1$@: %2$@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deel van de betaling %1$@: %2$@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часть платежа %1$@: %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte do pagamento de %1$@: %2$@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte do pagamento de %1$@: %2$@"
           }
         },
         "ru": {
@@ -116759,16 +117005,160 @@
             "state": "translated",
             "value": "Часть платежа за %1$@: %2$@"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қисми пардохти %1$@: %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ödemesinin bir parçası: %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частина платежу %1$@: %2$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ to'lovining qismi: %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một phần của khoản thanh toán %1$@: %2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 付款的一部分：%2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 付款的一部分：%2$@"
+          }
         }
       }
     },
     "scheduled.paidOfPrice": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %3$@-dan %2$@ ödənilib"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: аплачана %2$@ з %3$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: zaplaceno %2$@ z %3$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ von %3$@ bezahlt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@ of %3$@ paid"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ de %3$@ pagados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@ sur %3$@ payés"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. վճարված է %2$@ %3$@-ից"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ di %3$@ pagati"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：%3$@のうち%2$@が支払い済み"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ %3$@-დან გადახდილია"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %3$@ ішінен %2$@ төленді"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %3$@ 중 %2$@ 결제됨"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: оплачено %2$@ из %3$@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ van %3$@ betaald"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: оплачено %2$@ из %3$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ de %3$@ pagos"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ de %3$@ pagos"
           }
         },
         "ru": {
@@ -116776,22 +117166,208 @@
             "state": "translated",
             "value": "%1$@: оплачено %2$@ из %3$@"
           }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ аз %3$@ пардохта шуд"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %3$@ tutarından %2$@ ödendi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: сплачено %2$@ з %3$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %3$@ dan %2$@ to'langan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: đã thanh toán %2$@ trên %3$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：已付 %2$@，共 %3$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：已付 %2$@，共 %3$@"
+          }
         }
       }
     },
     "scheduled.partlyPaid": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ ilə %1$@ qalıb · %4$@-dan %3$@ ödənilib"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Засталося %1$@ з %2$@ · аплачана %3$@ з %4$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zbývá %1$@ z %2$@ · zaplaceno %3$@ z %4$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ offen durch %2$@ · %3$@ von %4$@ bezahlt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ left by %2$@ · %3$@ of %4$@ paid"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quedan %1$@ por %2$@ · %3$@ de %4$@ pagados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reste %1$@ sur %2$@ · %3$@ sur %4$@ payés"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ մնացել է %2$@-ով · վճարված է %3$@ %4$@-ից"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ rimanenti con %2$@ · %3$@ di %4$@ pagati"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@で%1$@残り · %4$@のうち%3$@が支払い済み"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ დარჩა %2$@-ით · %3$@ %4$@-დან გადახდილია"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ арқылы %1$@ қалды · %4$@ ішінен %3$@ төленді"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 남음 · %2$@ 기준 · %3$@ / %4$@ 지불됨"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось %1$@ из %2$@ · оплачено %3$@ из %4$@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ resterend na %2$@ · %3$@ van %4$@ betaald"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось %1$@ из %2$@ · оплачено %3$@ из %4$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faltam %1$@ de %2$@ · %3$@ de %4$@ pagos"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faltam %1$@ de %2$@ · %3$@ de %4$@ pagos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Осталось %1$@ к %2$@ · внесено %3$@ из %4$@"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ монд аз %2$@ · %3$@ аз %4$@ пардохта шуд"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ ile kalan %1$@ · %4$@ tutarından %3$@ ödendi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок %1$@ після %2$@ · сплачено %3$@ з %4$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ bilan %1$@ qoldi · %4$@ dan %3$@ to'langan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Còn lại %1$@ sau %2$@ · đã thanh toán %3$@ trên %4$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "剩余 %1$@（由 %2$@ 支付）· 已付 %3$@，共 %4$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ 剩餘 %2$@ · 已付 %4$@ 中的 %3$@"
           }
         }
       }
