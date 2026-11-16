@@ -22169,6 +22169,23 @@
         }
       }
     },
+    "overview.comparisonNegligibleBase": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · no comparable amount for the previous period"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · нет сопоставимой суммы за прошлый период"
+          }
+        }
+      }
+    },
     "overview.comparisonNoBase": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -26668,6 +26685,23 @@
         }
       }
     },
+    "overview.doNow.reviewOlder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sort out older: %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разобрать старые: %lld"
+          }
+        }
+      }
+    },
     "overview.doNow.reviewOlderDetail": {
       "extractionState": "manual",
       "localizations": {
@@ -26825,6 +26859,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "超過一週，尚未分類"
+          }
+        }
+      }
+    },
+    "overview.doNow.skipButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропустить"
           }
         }
       }

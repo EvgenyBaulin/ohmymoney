@@ -103,6 +103,54 @@ struct DoNowSourcesTests {
     #expect(sources.map(\.accountId) == [open])
   }
 
+  @Test func aSkippedAccountIsQuietForFourteenDaysThenAsksAgain() throws {
+    let bank = UUID()
+    let entries = [
+      try entry(
+        daysAgo: 60, categorized: true, source: "statement", account: bank, loadedDaysAgo: 60)
+    ]
+    let skips = StatementSkips().skipping(bank, on: today.adding(days: -13))
+    #expect(
+      DoNowSources.statements(entries: entries, today: today, calendar: calendar, skips: skips)
+        .isEmpty)
+    let later = StatementSkips().skipping(bank, on: today.adding(days: -14))
+    #expect(
+      DoNowSources.statements(entries: entries, today: today, calendar: calendar, skips: later)
+        .map(\.accountId) == [bank])
+  }
+
+  @Test func aSkipOfOneAccountLeavesTheOtherAsking() throws {
+    let skipped = UUID()
+    let other = UUID()
+    let entries = [
+      try entry(
+        daysAgo: 60, categorized: true, source: "statement", account: skipped, loadedDaysAgo: 60),
+      try entry(
+        daysAgo: 60, categorized: true, source: "statement", account: other, loadedDaysAgo: 60),
+    ]
+    let skips = StatementSkips().skipping(skipped, on: today)
+    let sources = DoNowSources.statements(
+      entries: entries, today: today, calendar: calendar, skips: skips)
+    #expect(sources.map(\.accountId) == [other])
+  }
+
+  @Test func skipsSurviveTheRoundTripThroughTheirString() {
+    let first = UUID()
+    let second = UUID()
+    let skips = StatementSkips().skipping(first, on: today).skipping(second, on: today.adding(days: -3))
+    #expect(StatementSkips(encoded: skips.encoded) == skips)
+    #expect(StatementSkips(encoded: "garbage,=,x=y").days.isEmpty)
+    #expect(StatementSkips(encoded: nil).days.isEmpty)
+  }
+
+  @Test func prunedSkipsDropTheExpiredOnes() {
+    let old = UUID()
+    let fresh = UUID()
+    let skips = StatementSkips().skipping(old, on: today.adding(days: -20))
+      .skipping(fresh, on: today.adding(days: -2))
+    #expect(skips.pruned(today: today).days.keys.sorted { $0.uuidString < $1.uuidString } == [fresh])
+  }
+
   /// Operations without a category older than the week do not vanish: they form their own,
   /// lower source next to the recent one.
   @Test func olderUncategorizedOperationsAreTheirOwnSource() throws {

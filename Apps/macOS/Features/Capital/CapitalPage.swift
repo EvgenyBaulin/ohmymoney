@@ -107,6 +107,8 @@ enum CapitalFigures {
   static func changeBasisPoints(change: AmountE4, net: AmountE4) -> Int? {
     let before = net.decimal - change.decimal
     guard before > 0 else { return nil }
+    // A start that is a crumb of today's figure gives a nonsense percent: rubles only.
+    guard Change(current: net, previous: net - change).base == .comparable else { return nil }
     let share = DecimalMath.round(change.decimal * 10_000 / before, scale: 0)
     return NSDecimalNumber(decimal: share).intValue
   }
@@ -129,8 +131,11 @@ struct CapitalHeroCard: View {
     let shape = RoundedRectangle(cornerRadius: SectionMetrics.cardRadius)
     VStack(alignment: .leading, spacing: CapitalMetrics.heroGap) {
       // Small captions keep the theme's ink opaque; fading it loses contrast on the gradient.
-      Text(verbatim: CapitalText.t("capital.title", environment))
-        .appFont(.system(size: 12, weight: .medium))
+      Text(
+        verbatim: CapitalText.t(
+          model?.hasOwedToMe == true ? "capital.title.withOwed" : "capital.title", environment)
+      )
+      .appFont(.system(size: 12, weight: .medium))
       Text(verbatim: model.map { environment.money.rounded($0.net) } ?? "—")
         .appFont(.system(size: CapitalMetrics.heroFigure(design), weight: .bold).monospacedDigit())
         .shrinksToFit(0.6)
@@ -140,6 +145,21 @@ struct CapitalHeroCard: View {
         Text(verbatim: change)
           .appFont(.system(size: 12).monospacedDigit())
           .accessibilityIdentifier("capital.hero.change")
+      }
+      if let model, model.hasOwedToMe {
+        Text(
+          verbatim: CapitalText.format(
+            "capital.hero.withoutOwed", environment,
+            environment.money.rounded(model.netWithoutOwed))
+        )
+        .appFont(.system(size: 12).monospacedDigit())
+        .accessibilityIdentifier("capital.hero.withoutOwed")
+        Text(
+          verbatim: CapitalText.format(
+            "capital.hero.owedToMe", environment, environment.money.rounded(model.owedToMe))
+        )
+        .appFont(.system(size: 11).monospacedDigit())
+        .accessibilityIdentifier("capital.hero.owedToMe")
       }
       if let model {
         Text(

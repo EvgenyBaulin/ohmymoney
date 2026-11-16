@@ -10,13 +10,33 @@ struct DoNowRowText: Equatable {
   var urgent: Bool
 }
 
+/// «Пропустить» on «Загрузить выписку»: what this Mac remembers of it, a habit like the hint
+/// about burnout — never in the database or the archive. Gone after `statementDays` days.
+enum StatementSkipMarks {
+  static let key = "doNow.statementSkips"
+
+  static func read(_ defaults: UserDefaults = .standard) -> StatementSkips {
+    StatementSkips(encoded: defaults.string(forKey: key))
+  }
+
+  static func skip(
+    _ account: UUID, today: DateOnly, _ defaults: UserDefaults = .standard
+  ) {
+    let marks = read(defaults).pruned(today: today).skipping(account, on: today)
+    defaults.set(marks.encoded, forKey: key)
+  }
+}
+
 enum OverviewDoNow {
   static let table = "Overview"
 
   /// The list the block shows, from the snapshot: due payments, operations to sort out and
   /// banks whose statement is old. Accounts hidden by «Только просмотр» stay out of the lists.
   @MainActor
-  static func list(snapshot: DataSnapshot, environment: AppEnvironment) -> DoNowList {
+  static func list(
+    snapshot: DataSnapshot, environment: AppEnvironment, skipTick: Int = 0,
+    skips: StatementSkips = StatementSkipMarks.read()
+  ) -> DoNowList {
     let hidden = snapshot.hiding
     let entries = snapshot.dataset.entries.filter {
       guard let account = $0.transaction.paymentMethodId else { return true }
@@ -39,7 +59,8 @@ enum OverviewDoNow {
       statements: DoNowSources.statements(
         entries: entries, today: environment.today, calendar: environment.calendar,
         archivedAccounts: Set(
-          snapshot.dataset.paymentMethods.filter(\.archived).map(\.id))),
+          snapshot.dataset.paymentMethods.filter(\.archived).map(\.id)),
+        skips: skips),
       today: environment.today)
   }
 
@@ -87,11 +108,14 @@ enum OverviewDoNow {
         detail: detail,
         button: environment.language("overview.doNow.incomeButton", table: table), urgent: true)
     case .review:
+      let isOlder = item.id == "review:\(DoNowSources.olderReviewId)"
       return DoNowRowText(
-        title: environment.format("overview.doNow.review", table: table, counts: item.count),
+        title: environment.format(
+          isOlder ? "overview.doNow.reviewOlder" : "overview.doNow.review", table: table,
+          counts: item.count),
         detail: environment.language(
-          item.id == "review:\(DoNowSources.olderReviewId)"
-            ? "overview.doNow.reviewOlderDetail" : "overview.doNow.reviewDetail", table: table),
+          isOlder ? "overview.doNow.reviewOlderDetail" : "overview.doNow.reviewDetail",
+          table: table),
         button: environment.language("overview.doNow.reviewButton", table: table), urgent: true)
     case .load:
       let name = snapshot.dataset.paymentMethods.first { $0.id == item.accountId }?.name ?? ""
@@ -119,6 +143,8 @@ struct OverviewDoNowCard: View {
   /// In a row of tiles the card takes the height of the row.
   var fillsHeight = false
   @State private var failure: [String: String] = [:]
+  /// Bumped by «Пропустить» so the list is read again: the skips live in the defaults.
+  @State private var skipTick = 0
   /// The income whose day of coming is being chosen, and the day chosen so far.
   @State private var datingIncome: UUID?
   @State private var pickedDay = Date()
@@ -137,7 +163,8 @@ struct OverviewDoNowCard: View {
 
   var body: some View {
     if let snapshot = compute.snapshot {
-      let list = OverviewDoNow.list(snapshot: snapshot, environment: environment)
+      let list = OverviewDoNow.list(
+        snapshot: snapshot, environment: environment, skipTick: skipTick)
       if !list.isEmpty {
         let shape = RoundedRectangle(cornerRadius: ContentCard.cornerRadius)
         VStack(alignment: .leading, spacing: StyleMetrics.doNowGap) {
@@ -205,6 +232,17 @@ struct OverviewDoNowCard: View {
             .foregroundStyle(surfaces.secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        if item.action == .load, let account = item.accountId {
+          TouchButton(
+            title: t("overview.doNow.skipButton"), identifier: "overview.doNow.skip",
+            idiom: LayoutIdiom.resolved(idiom), alignment: .center
+          ) {
+            StatementSkipMarks.skip(account, today: environment.today)
+            skipTick += 1
+          } drawn: { tap in
+            Button(t("overview.doNow.skipButton"), action: tap).buttonStyle(.rowAction)
+          }
+        }
         if item.action == .income {
           incomeMenu(item, text: text, snapshot: snapshot)
         } else {

@@ -126,7 +126,10 @@ enum OverviewFigureText {
           String(
             format: t("overview.comparison"), locale: environment.language.locale, text.delta, $0,
             environment.dates.span(week.previous))
-        } ?? environment.format("overview.comparisonNoBase", table: table, text.delta)
+        } ?? environment.format(
+          text.base == .negligible
+            ? "overview.comparisonNegligibleBase" : "overview.comparisonNoBase",
+          table: table, text.delta)
       return .figure(
         .init(
           value: money.rounded(week.change.current), caption: against,

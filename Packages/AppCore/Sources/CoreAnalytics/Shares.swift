@@ -88,12 +88,34 @@ public struct Change: Hashable, Sendable {
 
   public var delta: AmountE4 { current - previous }
 
-  /// The change in basis points of the previous figure. `nil` when the previous figure is
-  /// zero: there is nothing to compare with, and the screen says «no data last month» and
-  /// shows the difference in rubles only. A negative base (refunds outweighed spending) is
-  /// measured against its size.
+  /// A previous figure below this (100 ₽) is as good as no figure at all.
+  public static let smallestComparableBase = AmountE4(whole: 100)
+
+  /// What the earlier figure allows to be said about the change.
+  public enum Base: Hashable, Sendable {
+    /// Nothing last time: «no data last period».
+    case none
+    /// Something, but too little to measure against — under 1 % of the current figure or
+    /// under 100 ₽ — so the percent would be a nonsense like +299 900 %.
+    case negligible
+    case comparable
+  }
+
+  public var base: Base {
+    if previous.isZero { return .none }
+    let size = previous.magnitude
+    if size < Self.smallestComparableBase { return .negligible }
+    // size < 1 % of current  <=>  size × 100 < current.
+    if Decimal(size.raw) * 100 < Decimal(current.magnitude.raw) { return .negligible }
+    return .comparable
+  }
+
+  /// The change in basis points of the previous figure. `nil` when there is nothing
+  /// comparable to measure against (`base` is not `.comparable`): the screen then shows the
+  /// difference in rubles only. A negative base (refunds outweighed spending) is measured
+  /// against its size.
   public var basisPoints: Int? {
-    guard !previous.isZero else { return nil }
+    guard base == .comparable else { return nil }
     return Shares.ratio(delta, of: previous.magnitude)
   }
 }

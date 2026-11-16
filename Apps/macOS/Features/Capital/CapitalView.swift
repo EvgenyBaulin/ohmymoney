@@ -254,6 +254,10 @@ struct CapitalViewModel: Hashable {
   }
 
   var net: AmountE4
+  /// Net worth without the debts owed to me; `net` counts them in full.
+  var netWithoutOwed: AmountE4
+  /// The debts owed to me.
+  var owedToMe: AmountE4
   var have: AmountE4
   var owe: AmountE4
   /// Net worth now less at the end of last month.
@@ -272,6 +276,9 @@ struct CapitalViewModel: Hashable {
   /// скрыта».
   var partHidden = false
 
+  /// Some debt is owed to me: net worth is told as two figures.
+  var hasOwedToMe: Bool { !owedToMe.isZero }
+
   /// Nothing counted at all: no account, no asset, no debt.
   var isEmpty: Bool { haveGroups.isEmpty && oweGroups.isEmpty }
 
@@ -288,6 +295,8 @@ struct CapitalViewModel: Hashable {
   ) {
     let now = capital.now
     net = now.netRub
+    netWithoutOwed = now.netWithoutOwedToMeRub
+    owedToMe = now.owedToMeRub
     have = now.haveRub
     owe = now.iOweRub
     change = capital.changeThisMonth

@@ -41,10 +41,11 @@ public enum DoNowSources {
   /// newest statement was loaded `statementDays` ago or earlier. The day of loading is when the
   /// operations were created, not the day of the newest operation in the file: a quiet card
   /// whose last operation is old is not asked. An account with no statement operation at all
-  /// never asks (the owner may not use statements for it), nor does an archived one.
+  /// never asks (the owner may not use statements for it), nor does an archived one, nor one the
+  /// owner skipped fewer than `statementDays` days ago.
   public static func statements(
     entries: [TransactionEntry], today: DateOnly, calendar: CalendarContext,
-    archivedAccounts: Set<UUID> = []
+    archivedAccounts: Set<UUID> = [], skips: StatementSkips = StatementSkips()
   ) -> [DoNowSource] {
     var latest: [UUID: DateOnly] = [:]
     for entry in entries where entry.transaction.deletedAt == nil {
@@ -57,7 +58,7 @@ public enum DoNowSources {
     }
     let limit = today.adding(days: -statementDays)
     return latest.compactMap { account, day in
-      guard day <= limit else { return nil }
+      guard day <= limit, !skips.isQuiet(account, today: today) else { return nil }
       let ago = day.days(to: today)
       return DoNowSource(id: account.uuidString, count: 1, accountId: account, daysAgo: ago)
     }
