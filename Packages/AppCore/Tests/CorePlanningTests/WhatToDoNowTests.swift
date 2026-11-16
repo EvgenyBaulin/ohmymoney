@@ -36,6 +36,20 @@ struct WhatToDoNowTests {
     #expect(list.more == 1)
   }
 
+  @Test func aPartQuestionComesBeforeTheDuePayment() {
+    let payment = payment("Rent", due: today)
+    let due = today.adding(days: -2)
+    let question = DoNowItem(
+      id: "close:\(payment.id.uuidString):\(due.iso)", action: .closeRemainder,
+      paymentId: payment.id, day: due)
+    let list = WhatToDoNow.list(
+      payments: [payment], partQuestions: [question],
+      reviews: [DoNowSource(id: "inbox", count: 1)], today: today)
+    #expect(list.items.map(\.action) == [.closeRemainder, .post, .review])
+    #expect(list.items.first?.paymentId == payment.id)
+    #expect(list.items.first?.day == due)
+  }
+
   @Test func reviewComesBeforeStatementsAndAfterPayments() {
     let list = WhatToDoNow.list(
       payments: [payment("p", due: today)],

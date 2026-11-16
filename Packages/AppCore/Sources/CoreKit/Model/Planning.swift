@@ -398,8 +398,9 @@ public struct PlanningSettings: Hashable, Sendable, Codable {
   public var dismissedReminders: Set<String>
   /// How many limits the lists of limits running out show (default 5); `nil` — all of them.
   public var limitsTopN: Int?
-  /// Pairs of an ordinary operation and a due date of a scheduled payment the owner said are
-  /// not the same thing, one `<operation>:<payment>:<YYYY-MM-DD>` each.
+  /// Ordinary operations rejected as matches and saved answers about closing a part-paid due
+  /// date, kept as `<operation>:<payment>:<YYYY-MM-DD>` and
+  /// `part-answer:<payment>:<YYYY-MM-DD>:<answer>` lines.
   public var scheduledMatchRejections: Set<String>
   /// How the money put into a goal in another currency is valued (default today's rate).
   public var goalSavingsValuation: GoalSavingsValuation

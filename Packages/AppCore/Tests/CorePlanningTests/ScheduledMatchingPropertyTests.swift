@@ -166,10 +166,8 @@ struct ScheduledMatchingPropertyTests {
           paid += entry.transaction.amountE4
         }
         #expect(parts.paidE4 == paid)
-        // Paid when the parts come within the allowance of one operation of the price.
-        let tolerance = max(
-          AmountE4(whole: 1), SubscriptionMath.rounded(payment.amountE4.decimal / 10))
-        #expect(found.isPaid(payment.id, due) == (paid >= payment.amountE4 - tolerance))
+        // Parts close the due only after they reach its full price.
+        #expect(found.isPaid(payment.id, due) == (paid >= payment.amountE4))
       }
     }
     #expect(Set(payers).count == payers.count, "seed \(seed): an operation paid twice")

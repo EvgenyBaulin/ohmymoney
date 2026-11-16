@@ -193,6 +193,7 @@ struct ScheduledRow: View {
   @Binding var sheet: PlanningSheet?
   @State private var expanded = false
   @State private var confirmsDeletion = false
+  @State private var remainderAnswerFailed = false
 
   @Environment(\.themeSurfaces) private var surfaces
 
@@ -224,7 +225,25 @@ struct ScheduledRow: View {
           }
         }
         subtitle
-        if Self.canPay(status, matches: matches) {
+        if matches.parts(payment.id, status.nextUnpaid)?.needsCloseDecision == true {
+          FlowRow(spacing: 14, lineSpacing: 4) {
+            Text(t("scheduled.closeRemainder.question"))
+              .oneLineUnlessLargeText()
+            Button(t("scheduled.closeRemainder.close")) {
+              answerRemainder(.close)
+            }
+            .oneLineUnlessLargeText()
+            Button(t("scheduled.closeRemainder.keep")) {
+              answerRemainder(.keep)
+            }
+            .oneLineUnlessLargeText()
+          }
+          .buttonStyle(.borderless)
+          .appFont(.callout)
+          if remainderAnswerFailed {
+            Text(t("form.notSaved")).appFont(.caption).foregroundStyle(surfaces.negative)
+          }
+        } else if Self.canPay(status, matches: matches) {
           // The two buttons stand side by side while they fit and wrap under each other where
           // the row is narrow; a word of a button is never broken over lines («Про-/пустить» in
           // three lines was what a narrow row made of it), and the row never claims more width
@@ -272,6 +291,12 @@ struct ScheduledRow: View {
   private var tileSymbol: String {
     if status.isOverdue { return "exclamationmark.circle" }
     return status.payment.kind == .subscription ? "arrow.triangle.2.circlepath" : "calendar"
+  }
+
+  private func answerRemainder(_ answer: ScheduledPartAnswer) {
+    guard let dependencies else { return }
+    remainderAnswerFailed = !PlanningActions(dependencies).answerRemainder(
+      answer, for: status.payment, due: status.nextUnpaid)
   }
 
   /// The day the first due date nothing paid falls on. An ordinary operation that matches a due

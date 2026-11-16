@@ -4,10 +4,8 @@ import CoreKit
 import Foundation
 
 /// Which due dates of the scheduled payments are paid, and by what: an operation «Mark as
-/// paid» wrote (`sched:<payment>:<due>`), or an ordinary expense that is plainly the same
-/// payment — the rent typed in the entry line instead of pressed «Провести». Worked out at
-/// read time and never written: the owner makes a match real with «Привязать» or dismisses it
-/// with «Это другое».
+/// paid» wrote (`sched:<payment>:<due>`), an ordinary expense plainly matching the payment, or
+/// parts that reach the price or have an answer to close the rest.
 public struct ScheduledMatches: Hashable, Sendable {
   /// Due dates paid by a written link, by payment.
   private var linked: [UUID: Set<DateOnly>]
@@ -39,8 +37,8 @@ public struct ScheduledMatches: Hashable, Sendable {
       .union(earlier)
   }
 
-  /// The due date is paid in full: by a link, by a matching operation, or by parts that add up
-  /// to its price.
+  /// The due date is closed: by a link, a matching operation, enough parts, or the saved answer
+  /// to close their shortfall.
   public func isPaid(_ paymentId: UUID, _ due: DateOnly) -> Bool {
     isLinked(paymentId, due) || matched[paymentId]?[due] != nil
       || partial[paymentId]?[due]?.isComplete == true
@@ -114,26 +112,41 @@ public struct DueParts: Hashable, Sendable {
   public var paidE4: AmountE4
   /// The price of the due date, in the payment's currency.
   public var priceE4: AmountE4
-  /// How far short of the price the parts may fall and still pay it: the allowance one
-  /// operation gets (`ScheduledMatching.tolerance(of:)`).
+  /// The allowance one operation gets (`ScheduledMatching.tolerance(of:)`); a sum within it
+  /// prompts whether to close the rest.
   public var toleranceE4: AmountE4
+  /// The answer about closing the shortfall, if one was saved for this due date.
+  public var answer: ScheduledPartAnswer?
 
   public init(
-    operations: [UUID], paidE4: AmountE4, priceE4: AmountE4, toleranceE4: AmountE4 = .zero
+    operations: [UUID], paidE4: AmountE4, priceE4: AmountE4, toleranceE4: AmountE4 = .zero,
+    answer: ScheduledPartAnswer? = nil
   ) {
     self.operations = operations
     self.paidE4 = paidE4
     self.priceE4 = priceE4
     self.toleranceE4 = toleranceE4
+    self.answer = answer
   }
 
-  /// The parts pay the due date: they add up to its price, or fall short of it by no more than
-  /// one operation may — 58 000 of 60 000 pays it, as one operation of 58 000 would.
-  public var isComplete: Bool { paidE4 >= priceE4 - toleranceE4 }
+  /// The parts pay the due date when they reach its price or the owner chose to close the rest.
+  public var isComplete: Bool { paidE4 >= priceE4 || answer == .close }
+
+  /// The parts fall within one operation's tolerance but have not yet reached the price, and
+  /// the owner has not answered whether to close the rest.
+  public var needsCloseDecision: Bool {
+    answer == nil && paidE4 < priceE4 && paidE4 >= priceE4 - toleranceE4
+  }
 
   /// The price less what the parts paid: what is left to pay while the due date is open, what
   /// they fell short by once it is paid («оплачено 58 000 из 60 000»).
   public var remainingE4: AmountE4 { max(.zero, priceE4 - paidE4) }
+}
+
+/// The answer to whether a due date should close before its parts reach the full price.
+public enum ScheduledPartAnswer: String, Hashable, Sendable, CaseIterable {
+  case close
+  case keep
 }
 
 /// The rule that tells an ordinary expense paid a due date of a scheduled payment.
@@ -171,9 +184,10 @@ public struct DueParts: Hashable, Sendable {
 /// next due date of the payment — the rest of the rent paid ten days late is still the rent; a
 /// one-off payment, with no next due date, keeps 5 days after its day. Each part pays one due
 /// date: the payment of its nearest pair, as above, and within that payment its oldest due
-/// date still short of its price, the parts taken by moment. A due date is paid once its parts
-/// add up to its price less the allowance of one operation (`DueParts.isComplete`); until then
-/// it waits for the rest (`ScheduledMatches.unpaid`). «Это другое» lets a part go just as it lets a whole payment go.
+/// date still short of its price, the parts taken by moment. A due date paid in parts closes
+/// once their sum reaches its price. Between 90 % and the price, it waits for an answer about
+/// closing the rest; «Оставить» keeps it open without asking again. «Это другое» lets a part go
+/// just as it lets a whole payment go.
 ///
 /// The due dates before `next_date` of the history the forecast reads are matched the same way
 /// afterwards, whole and in parts, with the operations left: they are paid or skipped already,
@@ -198,6 +212,36 @@ public enum ScheduledMatching {
   /// The text of one «Это другое»: the operation, the payment and the due date.
   public static func rejectionKey(operation: UUID, payment: UUID, due: DateOnly) -> String {
     "\(operation.uuidString.lowercased()):\(payment.uuidString.lowercased()):\(due.iso)"
+  }
+
+  /// A saved answer about whether parts close their due date.
+  public static func partAnswerKey(
+    _ answer: ScheduledPartAnswer, payment: UUID, due: DateOnly
+  ) -> String {
+    "part-answer:\(payment.uuidString.lowercased()):\(due.iso):\(answer.rawValue)"
+  }
+
+  /// The answer saved for this due date, if any.
+  public static func partAnswer(
+    payment: UUID, due: DateOnly, in stored: Set<String>
+  ) -> ScheduledPartAnswer? {
+    ScheduledPartAnswer.allCases.first {
+      stored.contains(partAnswerKey($0, payment: payment, due: due))
+    }
+  }
+
+  /// Replace the answer for this due date and discard saved answers and rejections older than
+  /// `keepDays`, so one-off due dates do not grow the setting indefinitely.
+  public static func partAnswers(
+    adding answer: ScheduledPartAnswer, payment: UUID, due: DateOnly, to stored: Set<String>,
+    today: DateOnly, keepDays: Int = 400
+  ) -> Set<String> {
+    let oldest = today.adding(days: -keepDays)
+    let answerPrefix = "part-answer:\(payment.uuidString.lowercased()):\(due.iso):"
+    return stored.filter { key in
+      guard let day = storedDay(key), day >= oldest else { return false }
+      return !key.hasPrefix(answerPrefix)
+    }.union([partAnswerKey(answer, payment: payment, due: due)])
   }
 
   /// Whether the owner said «Это другое» about `operation` and `payment`: a stored key of this
@@ -236,7 +280,17 @@ public enum ScheduledMatching {
     adding key: String, to stored: Set<String>, today: DateOnly, keepDays: Int = 400
   ) -> Set<String> {
     let oldest = today.adding(days: -keepDays)
-    return stored.filter { rejectionDay($0).map { $0 >= oldest } ?? false }.union([key])
+    return stored.filter { storedDay($0).map { $0 >= oldest } ?? false }.union([key])
+  }
+
+  private static func storedDay(_ key: String) -> DateOnly? {
+    if let due = rejectionDay(key) { return due }
+    let fields = key.split(separator: ":", omittingEmptySubsequences: false)
+    guard fields.count == 4, fields[0] == "part-answer",
+      UUID(uuidString: String(fields[1])) != nil,
+      ScheduledPartAnswer(rawValue: String(fields[3])) != nil
+    else { return nil }
+    return DateOnly(iso: String(fields[2]))
   }
 
   /// «Привязать»: the operation keyed to the due date (`sched:<payment>:<due>`), as «Mark as
@@ -463,16 +517,20 @@ public enum ScheduledMatching {
           !earlierDues.contains(PaymentDue(paymentId: payment.id, due: $0))
         }, open: false)
     }
-    for (pair, price) in parted(partsAhead, used: &used) {
+    for (pair, price) in parted(partsAhead, used: &used, answers: rejections) {
+      let answer = partAnswer(payment: pair.paymentId, due: pair.due, in: rejections)
       var parts =
         partial[pair.paymentId]?[pair.due]
         ?? DueParts(
-          operations: [], paidE4: .zero, priceE4: price, toleranceE4: tolerance(of: price))
+          operations: [], paidE4: .zero, priceE4: price, toleranceE4: tolerance(of: price),
+          answer: answer)
       parts.operations.append(pair.candidate.id)
       parts.paidE4 += pair.candidate.amount
       partial[pair.paymentId, default: [:]][pair.due] = parts
     }
-    for (pair, _) in parted(partsBefore, used: &used) { earlier.insert(pair.candidate.id) }
+    for (pair, _) in parted(partsBefore, used: &used, answers: rejections) {
+      earlier.insert(pair.candidate.id)
+    }
     return ScheduledMatches(linked: linked, matched: matched, partial: partial, earlier: earlier)
   }
 
@@ -480,7 +538,7 @@ public enum ScheduledMatching {
   /// the payment of its nearest pair, and within that payment to its oldest due date still
   /// open, the operations of one due date taken by moment.
   private static func parted(
-    _ pairs: [Pair], used: inout Set<UUID>
+    _ pairs: [Pair], used: inout Set<UUID>, answers: Set<String>
   ) -> [(pair: Pair, price: AmountE4)] {
     var owner: [UUID: UUID] = [:]
     for pair in pairs.sorted(by: Pair.precedes) where owner[pair.candidate.id] == nil {
@@ -506,10 +564,14 @@ public enum ScheduledMatching {
         }
         return left.candidate.id.uuidString < right.candidate.id.uuidString
       }
-      // A due date takes parts while it is open: once they pay it, a later operation of the
-      // category is ordinary spending, not a part of a paid due date.
+      let answer = partAnswer(payment: key.paymentId, due: key.due, in: answers)
+      let target =
+        answer == .close
+        ? max(.zero, sorted[0].price - tolerance(of: sorted[0].price)) : sorted[0].price
+      // Stop at the full price, or at the existing tolerance when the owner chose to close the
+      // shortfall. Further operations are ordinary spending, not parts of a closed due date.
       for pair in sorted {
-        guard paid < pair.price - tolerance(of: pair.price), !used.contains(pair.candidate.id)
+        guard paid < target, !used.contains(pair.candidate.id)
         else { continue }
         used.insert(pair.candidate.id)
         paid += pair.candidate.amount

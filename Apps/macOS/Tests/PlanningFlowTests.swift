@@ -550,6 +550,23 @@ final class PlanningFlowTests: XCTestCase {
     return (payment, part, try showStored())
   }
 
+  /// Rent of 60 000 paid in parts for 58 000: the due needs an answer about its shortfall.
+  private func rentPaidNearPrice() throws -> (
+    payment: ScheduledPayment, parts: [TransactionEntry], snapshot: DataSnapshot
+  ) {
+    let (payment, first, _) = try rentPaidInPart()
+    let categoryId = try XCTUnwrap(payment.categoryId)
+    let moment = CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 9, day: 16))
+      .addingTimeInterval(10 * 3600)
+    var draft = TransactionDraft(
+      occurredAt: moment, amount: AmountE4(whole: 28_000), note: "rent",
+      paymentMethodId: payment.paymentMethodId)
+    draft.parts = [PartDraft(categoryId: categoryId, amount: AmountE4(whole: 28_000))]
+    let second = try draft.materialize()
+    try transactions.save(second)
+    return (payment, [first, second], try showStored())
+  }
+
   /// A due date paid in part: the row asks for the rest and says what was paid of the price.
   func testARowPaidInPartShowsTheRestAndTheDueDate() throws {
     let (_, part, snapshot) = try rentPaidInPart()
@@ -610,6 +627,60 @@ final class PlanningFlowTests: XCTestCase {
     let status = try XCTUnwrap(shown.planning.scheduled.first)
     XCTAssertEqual(status.partsNext, [])
     XCTAssertEqual(status.remainingNext, AmountE4(whole: 60_000))
+  }
+
+  /// Closing a shortfall stores the answer, advances the displayed due, and keeps the grey paid
+  /// line; one undo restores the unanswered question.
+  func testClosingAPartPaidRemainderIsPersistedAndUndoable() throws {
+    let (payment, parts, snapshot) = try rentPaidNearPrice()
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    XCTAssertEqual(snapshot.planning.scheduled.first?.partDues[due]?.paidE4, AmountE4(whole: 58_000))
+    let question = OverviewDoNow.list(snapshot: snapshot, environment: deps.environment).items.first
+    XCTAssertEqual(question?.action, .closeRemainder)
+    XCTAssertEqual(question?.paymentId, payment.id)
+
+    XCTAssertTrue(PlanningActions(deps).answerRemainder(.close, for: payment, due: due))
+    let key = ScheduledMatching.partAnswerKey(.close, payment: payment.id, due: due)
+    XCTAssertTrue(try planning.book().settings.scheduledMatchRejections.contains(key))
+    let shown = try showStored(version: 2)
+    let status = try XCTUnwrap(shown.planning.scheduled.first)
+    XCTAssertEqual(status.nextUnpaid, DateOnly(year: 2026, month: 10, day: 15))
+    XCTAssertEqual(status.partDues[due]?.operations, parts.map(\.id))
+    XCTAssertEqual(status.partDues[due]?.answer, .close)
+    XCTAssertEqual(status.shortPaidDues, [due])
+    XCTAssertFalse(
+      OverviewDoNow.list(snapshot: shown, environment: deps.environment).items.contains {
+        $0.action == .closeRemainder
+      })
+
+    store.undo()
+    XCTAssertFalse(try planning.book().settings.scheduledMatchRejections.contains(key))
+    XCTAssertEqual(try showStored(version: 3).planning.scheduled.first?.nextUnpaid, due)
+  }
+
+  /// Keeping a shortfall leaves it due and records the answer so the same question disappears.
+  func testKeepingAPartPaidRemainderIsPersistedAndUndoable() throws {
+    let (payment, _, snapshot) = try rentPaidNearPrice()
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    XCTAssertTrue(PlanningActions(deps).answerRemainder(.keep, for: payment, due: due))
+    let key = ScheduledMatching.partAnswerKey(.keep, payment: payment.id, due: due)
+    XCTAssertTrue(try planning.book().settings.scheduledMatchRejections.contains(key))
+    let shown = try showStored(version: 2)
+    let status = try XCTUnwrap(shown.planning.scheduled.first)
+    XCTAssertEqual(status.nextUnpaid, due)
+    XCTAssertEqual(status.remainingNext, AmountE4(whole: 2_000))
+    XCTAssertEqual(status.partDues[due]?.answer, .keep)
+    XCTAssertFalse(status.partDues[due]?.needsCloseDecision ?? true)
+    XCTAssertFalse(
+      OverviewDoNow.list(snapshot: shown, environment: deps.environment).items.contains {
+        $0.action == .closeRemainder
+      })
+
+    store.undo()
+    XCTAssertFalse(try planning.book().settings.scheduledMatchRejections.contains(key))
+    XCTAssertTrue(
+      try showStored(version: 3).planning.scheduled.first?.partDues[due]?.needsCloseDecision
+        ?? false)
   }
 
   /// What the database holds now, shown as the pipeline would show it.
@@ -877,7 +948,8 @@ final class EventBudgetFlowTests: XCTestCase {
       "planning.dueBeforeCount.message",
       "scheduled.paidByOperation", "scheduled.bind", "scheduled.notThis", "funding.withoutRate",
       "scheduled.partlyPaid", "scheduled.paidByPart", "scheduled.notThisPartHint",
-      "scheduled.paidOfPrice",
+      "scheduled.paidOfPrice", "scheduled.closeRemainder.question",
+      "scheduled.closeRemainder.close", "scheduled.closeRemainder.keep",
     ]
     for choice in [AppLanguage.Choice.english, .russian] {
       environment.language.choice = choice
