@@ -332,7 +332,9 @@ public enum AccountReconciliation {
   /// inside it; «Нет» — after the count, whatever time the day carried.
   ///
   /// Given the owner's `calendar`, the answer never moves the operation to another day: the
-  /// day is the one the owner typed, and it decides the month the operation is spent in. A
+  /// day is the one the owner typed — the day of `occurredAt` —, and it decides the month the
+  /// operation is spent in; a count made in another zone may be on that day by its own clock
+  /// while its moment is not, and the typed day still wins. A
   /// count in the first second of its day answered «Да» stamps the start of the day — a
   /// movement at the count's own moment is inside it; one in the last second answered «Нет»
   /// stamps the last millisecond of the day, still after the count.
@@ -342,7 +344,7 @@ public enum AccountReconciliation {
     let stamp =
       wasBefore ? count.addingTimeInterval(-1) : max(occurredAt, count.addingTimeInterval(1))
     guard let calendar else { return stamp }
-    let day = calendar.day(of: count)
+    let day = calendar.day(of: occurredAt)
     let dayStart = calendar.startOfDay(day)
     if wasBefore { return max(stamp, dayStart) }
     let lastMoment = calendar.startOfDay(day.adding(days: 1)).addingTimeInterval(-0.001)

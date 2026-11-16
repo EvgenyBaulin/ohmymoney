@@ -483,7 +483,7 @@ extension ReconciliationPropertyTests {
     let moscow = CalendarContext.moscow
     let countAt = moscow.startOfDay(Fx.day("2026-09-19")).addingTimeInterval(30 * 60)
     var fx = Fx()
-    fx.count([(Fx.main, .rub, "1000")], at: countAt)
+    fx.count([(Fx.main, .rub, "1000")], at: countAt, dated: moscow)
     let dataset = fx.ledger.dataset
     let balances = AccountBalances.build(
       entries: [], transfers: [], debtEntries: [], debts: [:],

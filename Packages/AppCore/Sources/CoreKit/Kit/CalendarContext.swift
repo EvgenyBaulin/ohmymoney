@@ -62,11 +62,16 @@ public struct CalendarContext: Sendable {
     day(of: transfer.occurredAt, recordedIn: transfer.timeZoneId)
   }
 
-  /// The day a count anchors the balances on: the day of its moment in the zone it was made in;
-  /// a count with no moment — a total, which anchors nothing — is on the day it was dated.
+  /// The day a count anchors the balances on: the day of its moment in the zone it was made in.
+  /// A count without a zone it can read — made before the zone was kept, or in Moscow, or
+  /// with a name no system knows — is on the day it was dated (`date`): that is the day of the
+  /// device that made it, so an old count made at night on a trip stays on its day. So is a
+  /// count with no moment, a total, which anchors nothing.
   public func day(of reconciliation: Reconciliation) -> DateOnly {
-    guard let at = reconciliation.reconciledAt else { return reconciliation.date }
-    return day(of: at, recordedIn: reconciliation.timeZoneId)
+    guard let at = reconciliation.reconciledAt, let zoneId = reconciliation.timeZoneId,
+      TimeZone(identifier: zoneId) != nil
+    else { return reconciliation.date }
+    return day(of: at, recordedIn: zoneId)
   }
 
   /// The time on the clock of the zone an operation was recorded in.

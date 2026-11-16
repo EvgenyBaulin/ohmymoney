@@ -118,6 +118,9 @@ struct Migration0033Tests {
         CalendarContext.system.day(of: transfer) == DateOnly(year: 2026, month: 11, day: 30))
       let reconciliation = try #require(try Reconciliation.fetchOne(db, key: Self.count))
       #expect(reconciliation.timeZoneId == nil)
+      // An old count made at night on a trip stays on the day it was dated there.
+      #expect(
+        CalendarContext.system.day(of: reconciliation) == DateOnly(year: 2026, month: 12, day: 1))
     }
     #expect(try DatabaseCheck.run(stack.writer).isHealthy)
   }
@@ -153,8 +156,8 @@ struct Migration0033Tests {
       #expect(
         try String.fetchOne(db, sql: "SELECT time_zone FROM reconciliations") == Self.zone)
     }
-    // A blank zone a hand edit left reads as none, a name no system knows as Moscow: the row
-    // stays and its day does not move.
+    // A blank zone a hand edit left reads as none, and a name no system knows too: the row
+    // stays, and the count is on the day it was dated.
     try stack.writer.write { db in
       try db.execute(sql: "UPDATE transfers SET time_zone = '  ' WHERE id = '\(Self.moved)'")
       try db.execute(
@@ -163,7 +166,7 @@ struct Migration0033Tests {
     try stack.writer.read { (db: Database) throws in
       #expect(try Transfer.fetchOne(db, key: Self.moved)?.timeZoneId == nil)
       let odd = try #require(try Reconciliation.fetchOne(db, key: Self.count))
-      #expect(CalendarContext.system.day(of: odd) == DateOnly(year: 2026, month: 11, day: 30))
+      #expect(CalendarContext.system.day(of: odd) == DateOnly(year: 2026, month: 12, day: 1))
     }
     #expect(try DatabaseCheck.run(stack.writer).isHealthy)
   }

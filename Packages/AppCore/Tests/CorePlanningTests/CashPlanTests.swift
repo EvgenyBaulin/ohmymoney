@@ -80,11 +80,12 @@ struct CashFx {
   /// One reconciliation counting the given balances at `moment`.
   mutating func count(
     _ balances: [(UUID, CurrencyCode, String)], at moment: Date,
-    kind: ReconciliationKind = .accounts
+    kind: ReconciliationKind = .accounts, dated calendar: CalendarContext = .utc
   ) {
     next += 1
+    // A count is dated by the device that made it, in its calendar.
     let reconciliation = Reconciliation(
-      id: Self.id(next), date: CalendarContext.utc.day(of: moment), reconciledAt: moment,
+      id: Self.id(next), date: calendar.day(of: moment), reconciledAt: moment,
       actualTotalRubE4: .zero, kind: kind)
     reconciliations.append(reconciliation)
     for (account, currency, amount) in balances {

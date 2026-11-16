@@ -50,9 +50,14 @@ struct BeforeCountAnswersTests {
       BeforeCountAnswers.pruned(
         answers, balances: ReconciliationPropertyTests.Scenario.balances(fx, now: Fx.now))
         == answers)
+    // The same counts made by an owner in Moscow, who dates them in his calendar.
+    var home = Fx()
+    home.count([(Fx.main, .rub, "1000")], at: Fx.at("2026-09-15", 9), kind: .opening, dated: .moscow)
+    home.count([(Fx.main, .rub, "700")], at: Fx.at("2026-09-15", 21, 30), dated: .moscow)
+    #expect(home.reconciliations.map(\.id) == [morning, evening])
     #expect(
       BeforeCountAnswers.pruned(
-        answers, balances: Self.balances(fx, calendar: .moscow)) == [evening: false],
+        answers, balances: Self.balances(home, calendar: .moscow)) == [evening: false],
       "21:30 UTC is already the 16th in Moscow")
 
     fx.count([(Fx.main, .rub, "650")], at: Fx.at("2026-09-16", 10))

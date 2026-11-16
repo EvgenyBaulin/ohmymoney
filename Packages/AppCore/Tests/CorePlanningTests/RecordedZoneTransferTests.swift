@@ -68,9 +68,8 @@ struct RecordedZoneTransferTests {
     #expect(
       Self.moscow.day(of: Self.transfer(zone: nil)) == DateOnly(year: 2026, month: 11, day: 30))
     #expect(Self.moscow.day(of: Self.count(Self.main, 1).0) == Self.firstOfDecember)
-    #expect(
-      Self.moscow.day(of: Self.count(Self.main, 1, zone: nil).0)
-        == DateOnly(year: 2026, month: 11, day: 30))
+    // A count without a zone is on the day it was dated (see the test of an old count below).
+    #expect(Self.moscow.day(of: Self.count(Self.main, 1, zone: nil).0) == Self.firstOfDecember)
     // A total has no moment: it is on the day it was dated.
     let total = Reconciliation(
       date: DateOnly(year: 2026, month: 5, day: 4), actualTotalRubE4: .zero,
@@ -263,5 +262,66 @@ struct RecordedZoneTransferTests {
     }
     #expect(entry.transaction.timeZoneId == Self.zone)
     #expect(Self.moscow.day(of: entry.transaction) == Self.firstOfDecember)
+  }
+
+  // MARK: - An old count, made before the zone was kept
+
+  /// A count made at 01:40 on 1 December in Makassar by a version that kept no zone: its moment
+  /// in Moscow is 30 November, but the day it was dated with on the trip — `date` — is
+  /// 1 December, and that is the day it anchors on.
+  @Test func anOldCountMadeOnATripAtNightIsOnTheDayItWasDated() {
+    let old = Self.count(Self.main, 100, zone: nil)
+    #expect(old.0.date == Self.firstOfDecember)
+    #expect(Self.moscow.day(of: old.0) == Self.firstOfDecember)
+    #expect(CalendarContext.system.day(of: old.0) == Self.firstOfDecember)
+    // A name no system knows reads as none: the dated day too.
+    var odd = old.0
+    odd.timeZoneId = "Mars/Olympus"
+    #expect(Self.moscow.day(of: odd) == Self.firstOfDecember)
+    let balances = Self.balances(counts: [old], accounts: [Self.main])
+    let key = BalanceKey(accountId: Self.main.id, currency: .rub)
+    #expect(balances[key]?.anchorDay == Self.firstOfDecember)
+    let typed = Self.moscow.noon(of: Self.firstOfDecember)
+    let counts = AccountReconciliation.countsOfTheDay(
+      occurredAt: typed, savedAt: Self.night.addingTimeInterval(86_400), keys: [key],
+      balances: balances, calendar: Self.moscow)
+    #expect(counts.map(\.reconciliation) == [old.0.id])
+  }
+
+  // MARK: - The answer about a count
+
+  /// Typed back home for 1 December about a count made at 01:40 on 1 December in Makassar
+  /// (still 30 November in Moscow): «Да» and «Нет» both keep the movement on the day the owner
+  /// typed, as on any other count.
+  @Test func theAnswerAboutACountMadeAbroadKeepsTheTypedDay() {
+    let count = Self.night.addingTimeInterval(600)
+    let typed = Self.moscow.noon(of: Self.firstOfDecember)
+    for wasBefore in [true, false] {
+      let stamp = AccountReconciliation.stamped(
+        occurredAt: typed, count: count, wasBefore: wasBefore, calendar: Self.moscow)
+      #expect(Self.moscow.day(of: stamp) == Self.firstOfDecember, "wasBefore: \(wasBefore)")
+    }
+  }
+
+  // MARK: - The days missed
+
+  /// The wizard of the days missed lays money out from the day of the latest count, read in the
+  /// zone it was made in: a count made at 01:40 on 1 December in Makassar leaves 30 November out.
+  @Test func theDaysMissedStartOnTheDayOfTheCountsZone() throws {
+    let count = Self.count(Self.main, 100)
+    let dataset = Dataset(
+      paymentMethods: [Self.main],
+      planning: PlanningBook(reconciliations: [count.0], reconciledBalances: [count.1]))
+    let snapshot = AccountsSnapshot.build(
+      dataset: dataset, now: Self.night.addingTimeInterval(86_400 * 2), calendar: Self.moscow,
+      rubPerUnit: [:], localeIdentifier: "en")
+    let balance = try #require(MissedDaysWizard.balances(snapshot).first)
+    let gap = MissedDays(
+      lastActive: DateOnly(year: 2026, month: 11, day: 28),
+      today: DateOnly(year: 2026, month: 12, day: 2))
+    #expect(
+      balance.days(of: gap, calendar: Self.moscow) == [
+        Self.firstOfDecember, DateOnly(year: 2026, month: 12, day: 2),
+      ])
   }
 }
