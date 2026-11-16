@@ -73,9 +73,15 @@ public enum KnowYouFacts {
     var day: DateOnly
     var amount: Decimal
     var placeId: UUID?
-    var categoryId: UUID?
     var note: String?
     var bucket: TimeBucket?
+  }
+
+  /// Category and quality belong to each part, even when several parts share one check.
+  struct SpendingPart {
+    var day: DateOnly
+    var amount: Decimal
+    var categoryId: UUID?
     var quality: Quality?
   }
 
@@ -83,6 +89,7 @@ public enum KnowYouFacts {
     let end: DateOnly
     let windowStart: DateOnly
     let purchases: [Purchase]
+    let spendingParts: [SpendingPart]
     let spendByDay: [DateOnly: Decimal]
     let incomeDays: Set<DateOnly>
     let ledger: Ledger
@@ -101,6 +108,7 @@ public enum KnowYouFacts {
       self.end = end
       windowStart = max(first, end.adding(days: -(windowDays - 1)))
       var purchases: [Purchase] = []
+      var spendingParts: [SpendingPart] = []
       var spend: [DateOnly: Decimal] = [:]
       var income: Set<DateOnly> = []
       let range = DayRange(windowStart, end)
@@ -112,6 +120,9 @@ public enum KnowYouFacts {
         else { continue }
         let amount = row.contribution.decimal
         spend[row.day, default: 0] += amount
+        spendingParts.append(
+          SpendingPart(
+            day: row.day, amount: amount, categoryId: row.rootCategoryId, quality: row.quality))
         if let index = byTransaction[row.transactionId] {
           purchases[index].amount += amount
           continue
@@ -128,11 +139,11 @@ public enum KnowYouFacts {
         byTransaction[row.transactionId] = purchases.count
         purchases.append(
           Purchase(
-            day: row.day, amount: amount, placeId: row.placeId, categoryId: row.rootCategoryId,
-            note: note, bucket: bucket, quality: row.quality))
+            day: row.day, amount: amount, placeId: row.placeId, note: note, bucket: bucket))
       }
       guard purchases.count >= minimumPurchases else { return nil }
       self.purchases = purchases
+      self.spendingParts = spendingParts
       spendByDay = spend
       incomeDays = income
     }
@@ -165,6 +176,10 @@ public enum KnowYouFacts {
     }
 
     func inRange(_ range: DayRange) -> [Purchase] { purchases.filter { range.contains($0.day) } }
+
+    func parts(in range: DayRange) -> [SpendingPart] {
+      spendingParts.filter { range.contains($0.day) }
+    }
 
     /// The difference of `value` below `base`, in basis points of `base`.
     func below(_ value: Decimal, _ base: Decimal) -> Int? {
@@ -301,15 +316,15 @@ public enum KnowYouFacts {
     }
 
     private func categoryMove(_ id: FactID) -> KnowFact? {
-      func sums(_ items: [Purchase]) -> [UUID: Decimal] {
+      func sums(_ items: [SpendingPart]) -> [UUID: Decimal] {
         var result: [UUID: Decimal] = [:]
         for item in items {
           if let category = item.categoryId { result[category, default: 0] += item.amount }
         }
         return result
       }
-      let now = sums(inRange(recent))
-      let before = sums(inRange(prior))
+      let now = sums(parts(in: recent))
+      let before = sums(parts(in: prior))
       let priorTotal = before.values.reduce(0, +)
       guard priorTotal > 0 else { return nil }
       var best: (category: UUID, delta: Decimal, difference: Int)?
@@ -363,12 +378,12 @@ public enum KnowYouFacts {
 
     private func qualityShare(_ id: FactID) -> KnowFact? {
       let wanted: Quality = id == .goodShareGrew ? .good : .bad
-      func share(_ items: [Purchase]) -> Decimal? {
-        let all = total(items)
+      func share(_ items: [SpendingPart]) -> Decimal? {
+        let all = items.reduce(Decimal(0)) { $0 + $1.amount }
         guard all > 0 else { return nil }
-        return total(items.filter { $0.quality == wanted }) / all
+        return items.filter { $0.quality == wanted }.reduce(Decimal(0)) { $0 + $1.amount } / all
       }
-      guard let now = share(inRange(recent)), let before = share(inRange(prior)), before > 0
+      guard let now = share(parts(in: recent)), let before = share(parts(in: prior)), before > 0
       else { return nil }
       let difference = above(now, before)
       return fact(
