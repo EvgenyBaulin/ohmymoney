@@ -114,6 +114,12 @@ final class SharedReportModel {
       && !categories.isEmpty && lock.answer != nil
   }
 
+  /// The preview needs only something to show: no password, it is not saved anywhere.
+  var canPreview: Bool {
+    format == .pdf && stage != .working && !periodIsEmpty && !request.accountIds.isEmpty
+      && !categories.isEmpty
+  }
+
   func toggle(account id: UUID) {
     if accounts.contains(id) { accounts.remove(id) } else { accounts.insert(id) }
   }
@@ -151,6 +157,27 @@ final class SharedReportModel {
         schemaVersion: schemaVersion, iterations: iterations)
     } catch {
       // Nothing half-made stays in the temporary folder.
+      try? FileManager.default.removeItem(at: folder)
+      throw error
+    }
+  }
+
+  /// Writes the selected PDF to a temporary file for Quick Look. The preview is the owner's own
+  /// look before saving, so it is not locked and the typed password is kept for «Сохранить»,
+  /// which still writes the locked report; the file goes away with the preview.
+  func writePreview(
+    words: SharedReportWords, appVersion: String, schemaVersion: Int
+  ) throws -> URL {
+    guard format == .pdf else { throw SharedReportFailure.previewRequiresPDF }
+    let report = report
+    let folder = FileManager.default.temporaryDirectory
+      .appendingPathComponent("\(Self.folderPrefix)\(UUID().uuidString)", isDirectory: true)
+    try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+    do {
+      return try writeFile(
+        in: folder, answer: .plain, report: report, words: words, appVersion: appVersion,
+        schemaVersion: schemaVersion, iterations: EncryptionHeader.recommendedIterations)
+    } catch {
       try? FileManager.default.removeItem(at: folder)
       throw error
     }
@@ -201,6 +228,8 @@ final class SharedReportModel {
 enum SharedReportFailure: Error, Equatable {
   /// The system did not draw the pages.
   case notDrawn
+  /// A table export cannot be opened in Quick Look as a report PDF.
+  case previewRequiresPDF
 }
 
 /// Where the form takes its data: the snapshot every screen reads, the day and the calendar of

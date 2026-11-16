@@ -151,4 +151,65 @@ final class SharedReportExportTests: XCTestCase {
     XCTAssertEqual(report.lines.count, 1)
     XCTAssertEqual(rows.count, 1 + report.lines.count + report.totals.count)
   }
+
+  func testThePreviewWritesATemporaryPDFAndDiscardsIt() throws {
+    let model = SharedReportModel(dataset: try dataset(lines: 4), today: today, calendar: calendar)
+    model.lock.encrypt = false
+    XCTAssertTrue(model.canPreview)
+
+    let report = model.report
+    let url = try model.writePreview(
+      words: words(report), appVersion: "2.16.0", schemaVersion: 30)
+    defer { SharedReportModel.discard(url) }
+
+    XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
+    XCTAssertEqual(url.pathExtension, "pdf")
+    let data = try Data(contentsOf: url)
+    XCTAssertEqual(String(decoding: data.prefix(4), as: UTF8.self), "%PDF")
+    let provider = try XCTUnwrap(CGDataProvider(data: data as CFData))
+    XCTAssertNotNil(CGPDFDocument(provider))
+    XCTAssertFalse(model.lock.encrypt)
+    XCTAssertTrue(url.deletingLastPathComponent().lastPathComponent
+      .hasPrefix(SharedReportModel.folderPrefix))
+
+    SharedReportModel.discard(url)
+    XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
+  }
+
+  func testThePreviewIsNotLockedAndTheLockStaysOnForSaving() throws {
+    let model = SharedReportModel(dataset: try dataset(lines: 3), today: today, calendar: calendar)
+    model.lock.encrypt = true
+    let url = try model.writePreview(
+      words: words(model.report), appVersion: "2.16.0", schemaVersion: 30)
+    defer { SharedReportModel.discard(url) }
+    let data = try Data(contentsOf: url)
+    let document = try XCTUnwrap(CGDataProvider(data: data as CFData).flatMap(CGPDFDocument.init))
+    XCTAssertFalse(document.isEncrypted)
+    XCTAssertTrue(model.lock.encrypt)
+    XCTAssertTrue(model.canPreview)
+  }
+
+  func testOnlyAPDFCanBePreviewed() throws {
+    let model = SharedReportModel(dataset: try dataset(lines: 2), today: today, calendar: calendar)
+    model.lock.encrypt = false
+    model.format = .csv
+    XCTAssertFalse(model.canPreview)
+    XCTAssertThrowsError(
+      try model.writePreview(
+        words: words(model.report), appVersion: "2.16.0", schemaVersion: 30)
+    ) { error in
+      XCTAssertEqual(error as? SharedReportFailure, .previewRequiresPDF)
+    }
+  }
+
+  func testPreviewButtonIsAccessibleAndHasWordsInRussianAndEnglish() throws {
+    XCTAssertEqual(SharedReportView.previewButtonIdentifier, "sharedReport.preview.button")
+    let key = "sharedReport.preview.action"
+    for (code, expected) in [("ru", "Посмотреть"), ("en", "Preview")] {
+      let bundle = try XCTUnwrap(
+        Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:)))
+      XCTAssertEqual(
+        bundle.localizedString(forKey: key, value: nil, table: "Utilities"), expected, code)
+    }
+  }
 }
