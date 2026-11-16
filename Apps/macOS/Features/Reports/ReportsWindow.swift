@@ -205,6 +205,14 @@ struct ReportsWindow: View {
           headerButtons
         }
       }
+      // Even under the title the buttons may be wider than the window (the largest text in a
+      // long language): they scroll sideways there, and the page keeps the window's width.
+      VStack(alignment: .leading, spacing: StyleMetrics.headerButtonGap) {
+        ScreenTitleRow(title: t("reports.window.title")) { EmptyView() }
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack(spacing: StyleMetrics.headerButtonGap) { headerButtons }
+        }
+      }
     }
   }
 

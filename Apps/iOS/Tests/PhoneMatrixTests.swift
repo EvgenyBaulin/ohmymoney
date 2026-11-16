@@ -96,13 +96,7 @@ final class PhoneConditionsMatrixTests: XCTestCase {
 
   func testPadSplitViewThirdLargestTextGerman() async throws {
     try await walk(
-      language: .german, size: PadSize.splitThird, fontSize: .xlarge, dark: false, idiom: .pad,
-      // Found by this walk, not fixed: the toolbar's «Beträge ausblenden» ends 2 pt past the
-      // window (396 … 440 of 438) and the Reports page starts left of it («Berichte» at -55,
-      // the untranslated «Deductions…» at -47).
-      knownFindings: [
-        "tab.operations", "tab.planning", "tab.accounts", "tab.more", "more.reports",
-      ])
+      language: .german, size: PadSize.splitThird, fontSize: .xlarge, dark: false, idiom: .pad)
   }
 
   func testEmptyBookNarrowPhoneLargestTextGerman() async throws {
