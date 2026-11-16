@@ -152,7 +152,8 @@ public enum AccountReconciliation {
   ///   and its one part take the ids derived from the count (`ReconcileDifferenceIds`). The
   ///   balance points at its operation. A foreign difference without a rate is not written and
   ///   is listed. From then on the difference follows the books (`LiveCounts`).
-  /// * The reconciliation of `kind`, dated the day of `t0`: its ruble columns are for display
+  /// * The reconciliation of `kind`, dated the day of `t0` and recording the zone of `calendar`
+  ///   (`TravelDay.recordedId`), so it keeps that day wherever the Mac goes: its ruble columns are for display
   ///   only — the counts at today's rates, and the expected ones the same way when there are
   ///   any. A currency without a rate today is left out of both and listed
   ///   (`totalsWithoutRate`).
@@ -164,6 +165,7 @@ public enum AccountReconciliation {
   ) -> AccountReconciliationRecord {
     let reconciliationId = makeId()
     let day = calendar.day(of: t0)
+    let zoneId = TravelDay.recordedId(in: calendar.timeZone)
     func expected(_ row: ReconcileRow) -> AmountE4? {
       startingPoints.contains(row.key) ? nil : row.expected
     }
@@ -206,7 +208,7 @@ public enum AccountReconciliation {
             categories: ReconcileCategories(expense: categories.expense, income: categories.income),
             countId: balance.id,
             link: .reconciledBalance(reconciliation: reconciliationId, balance: balance.id),
-            now: t0)
+            now: t0, zoneId: zoneId)
           balance.transactionId = entry.id
           differences.append(entry)
         } else {
@@ -218,7 +220,8 @@ public enum AccountReconciliation {
 
     let reconciliation = Reconciliation(
       id: reconciliationId, date: day, reconciledAt: t0, actualTotalRubE4: actualRub,
-      expectedTotalRubE4: anyExpected ? expectedRub : nil, kind: kind)
+      expectedTotalRubE4: anyExpected ? expectedRub : nil, kind: kind,
+      timeZoneId: zoneId)
     return AccountReconciliationRecord(
       reconciliation: reconciliation, balances: balances, differences: differences,
       withoutRate: withoutRate,
@@ -241,7 +244,8 @@ public enum AccountReconciliation {
     let day = calendar.day(of: occurredAt)
     var earliest: Date?
     for key in Set(keys) {
-      guard let anchor = balances.latestAnchor(key), calendar.day(of: anchor.at) == day,
+      guard let anchor = balances.latestAnchor(key),
+        balances.countDay(anchor.balance, at: anchor.at) == day,
         savedAt > anchor.at
       else { continue }
       earliest = min(earliest ?? anchor.at, anchor.at)
@@ -267,7 +271,7 @@ public enum AccountReconciliation {
     var seen: Set<BalanceKey> = []
     for key in keys where seen.insert(key).inserted {
       for anchor in balances.anchors(key) where savedAt > anchor.at && found[anchor.at] == nil {
-        guard calendar.day(of: anchor.at) == day else { continue }
+        guard balances.countDay(anchor.balance, at: anchor.at) == day else { continue }
         found[anchor.at] = anchor.balance.reconciliationId
       }
     }
@@ -299,9 +303,11 @@ public enum AccountReconciliation {
     let day = calendar.day(of: occurredAt)
     var countedAgain: Set<UUID> = []
     for key in Set(keys) {
-      guard let latest = balances.latestAnchor(key), calendar.day(of: latest.at) != day
+      guard let latest = balances.latestAnchor(key),
+        balances.countDay(latest.balance, at: latest.at) != day
       else { continue }
-      for anchor in balances.anchors(key) where calendar.day(of: anchor.at) == day {
+      for anchor in balances.anchors(key)
+      where balances.countDay(anchor.balance, at: anchor.at) == day {
         countedAgain.insert(anchor.balance.reconciliationId)
       }
     }

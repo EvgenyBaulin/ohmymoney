@@ -89,7 +89,7 @@ public enum PeriodScope {
     d.feedback = dataset.feedback.filter { $0.partId.map(keptParts.contains) ?? true }
 
     d.transfers = dataset.transfers.filter {
-      range.contains(TravelDay.day(of: $0.occurredAt, zoneId: nil))
+      range.contains(TravelDay.day(of: $0.occurredAt, zoneId: $0.timeZoneId))
     }
     d.dayNotes = dataset.dayNotes.filter { range.contains($0.day) }
     var habits = dataset.habits

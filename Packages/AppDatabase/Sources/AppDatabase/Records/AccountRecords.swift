@@ -46,7 +46,8 @@ extension AccountGroup: @retroactive FetchableRecord, @retroactive PersistableRe
 }
 
 /// `occurred_at`, `created_at` and `updated_at` are instants, written the way those of an
-/// operation are (`StoredInstant`).
+/// operation are (`StoredInstant`); `time_zone` is the zone it was recorded in, blank read as
+/// none.
 extension Transfer: @retroactive FetchableRecord, @retroactive PersistableRecord {
   public static let databaseTableName = "transfers"
 
@@ -64,7 +65,8 @@ extension Transfer: @retroactive FetchableRecord, @retroactive PersistableRecord
       createdAt: try RowMapping.instant(row, "created_at"),
       updatedAt: try RowMapping.instant(row, "updated_at"),
       externalId: row["external_id"],
-      arrivedAt: try RowMapping.optionalInstant(row, "arrived_at"))
+      arrivedAt: try RowMapping.optionalInstant(row, "arrived_at"),
+      timeZoneId: RowMapping.zone(row))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -81,6 +83,7 @@ extension Transfer: @retroactive FetchableRecord, @retroactive PersistableRecord
     container["updated_at"] = StoredInstant.databaseValue(updatedAt)
     container["external_id"] = externalId
     container["arrived_at"] = StoredInstant.databaseValue(arrivedAt)
+    container["time_zone"] = timeZoneId
   }
 }
 

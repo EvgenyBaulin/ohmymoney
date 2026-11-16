@@ -31,18 +31,22 @@ public struct AccountsSnapshot: Hashable, Sendable {
     public var rub: AmountE4?
     /// The moment of the latest count the balance starts from.
     public var anchorAt: Date?
+    /// The day of that count, in the zone it was made in.
+    public var anchorDay: DateOnly?
     /// The account holds the currency. A currency it does not hold only appears when money
     /// moved in it anyway — an operation made before the currencies of the account were
     /// listed — and is shown as «вне списка валют».
     public var isHeld: Bool
 
     public init(
-      key: BalanceKey, balance: AmountE4?, rub: AmountE4?, anchorAt: Date?, isHeld: Bool
+      key: BalanceKey, balance: AmountE4?, rub: AmountE4?, anchorAt: Date?, isHeld: Bool,
+      anchorDay: DateOnly? = nil
     ) {
       self.key = key
       self.balance = balance
       self.rub = rub
       self.anchorAt = anchorAt
+      self.anchorDay = anchorDay
       self.isHeld = isHeld
     }
   }
@@ -253,7 +257,8 @@ public struct AccountsSnapshot: Hashable, Sendable {
           }
           keyLines.append(
             KeyLine(
-              key: key, balance: amount, rub: rub, anchorAt: balance?.anchorAt, isHeld: isHeld))
+              key: key, balance: amount, rub: rub, anchorAt: balance?.anchorAt, isHeld: isHeld,
+              anchorDay: balance?.anchorDay))
         }
         let lineMissing = byCode(lineWithoutRate)
         lines.append(

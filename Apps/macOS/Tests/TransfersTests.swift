@@ -191,6 +191,11 @@ final class TransfersTests: XCTestCase {
     XCTAssertEqual(fee.transaction.paymentMethodId, sber.id)
     XCTAssertEqual(fee.transaction.amountE4, AmountE4(whole: 50))
     XCTAssertEqual(fee.transaction.occurredAt, transfer.occurredAt)
+    XCTAssertEqual(
+      fee.transaction.timeZoneId, transfer.timeZoneId, "the fee is on the transfer's day")
+    XCTAssertEqual(
+      transfer.timeZoneId, TravelDay.recordedId(in: environment.calendar.timeZone),
+      "a new transfer records the zone of the Mac")
     let categoryId = try XCTUnwrap(fee.parts.first?.categoryId)
     let category = try XCTUnwrap(books.dataset.categories.first { $0.id == categoryId })
     XCTAssertTrue(
@@ -732,6 +737,40 @@ final class TransfersTests: XCTestCase {
   }
 
   // MARK: The form
+
+  /// A transfer written on a Mac in Makassar records that zone; an edit back home that keeps
+  /// its moment keeps it, one that moves the moment is a new date of this Mac (Moscow: none).
+  func testATransferRecordsTheZoneOfTheMacAndAnEditKeepsIt() throws {
+    let main = PaymentMethod(name: "Сбер", currency: .rub, isDefault: true)
+    let piggy = PaymentMethod(name: "Копилка", currency: .rub, piggy: true)
+    let calendar = CalendarContext.moscow
+    var form = TransferForm(
+      from: main, accounts: [main, piggy], day: DateOnly(year: 2026, month: 12, day: 1))
+    form.chooseTo(piggy)
+    form.sent = AmountE4(whole: 10_000)
+    // 01:30 on 1 December in Makassar.
+    let night = Date(timeIntervalSince1970: 1_796_059_800)
+    let makassar = try XCTUnwrap(TimeZone(identifier: "Asia/Makassar"))
+    let written = try XCTUnwrap(
+      form.transfer(id: UUID(), occurredAt: night, now: night, zone: makassar))
+    XCTAssertEqual(written.timeZoneId, "Asia/Makassar")
+    XCTAssertEqual(calendar.day(of: written), DateOnly(year: 2026, month: 12, day: 1))
+
+    var edit = TransferForm(editing: written, fee: nil, calendar: calendar)
+    XCTAssertEqual(edit.day, DateOnly(year: 2026, month: 12, day: 1), "opened on its own day")
+    XCTAssertEqual(
+      edit.occurredAt(now: night.addingTimeInterval(86_400), calendar: calendar), night,
+      "an edit that keeps the day keeps the moment")
+    edit.note = "в копилку"
+    let kept = try XCTUnwrap(
+      edit.transfer(id: written.id, occurredAt: night, now: night, zone: TravelDay.moscowZone))
+    XCTAssertEqual(kept.timeZoneId, "Asia/Makassar", "the moment kept: the zone kept")
+    let moved = try XCTUnwrap(
+      edit.transfer(
+        id: written.id, occurredAt: night.addingTimeInterval(3_600), now: night,
+        zone: TravelDay.moscowZone))
+    XCTAssertNil(moved.timeZoneId, "the moment moved at home: Moscow, written as none")
+  }
 
   /// A new transfer from an account goes to the main account in the same currency when it
   /// holds it; choosing another account follows the currency the money leaves in.

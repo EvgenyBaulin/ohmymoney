@@ -162,7 +162,7 @@ public enum TaxDeductionReport {
       dataset.paymentMethods.filter { $0.taxDeduction == .iis }.map(\.id))
     for transfer in dataset.transfers where investment.contains(transfer.toAccountId) {
       guard !investment.contains(transfer.fromAccountId),
-        ledger.calendar.day(of: transfer.occurredAt).year == year,
+        ledger.calendar.day(of: transfer).year == year,
         let rub = rubles(of: transfer, rubPerUnit: rubPerUnit)
       else { continue }
       add(.iis, .iis, rub, "x:" + transfer.id.uuidString)

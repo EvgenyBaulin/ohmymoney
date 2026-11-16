@@ -152,7 +152,7 @@ struct TransferForm: Hashable, Sendable {
     sent = transfer.fromAmountE4
     received = transfer.toAmountE4
     self.fee = fee ?? .zero
-    day = calendar.day(of: transfer.occurredAt)
+    day = calendar.day(of: transfer)
     note = transfer.note ?? ""
   }
 
@@ -194,8 +194,12 @@ struct TransferForm: Hashable, Sendable {
     return account.mainCurrency
   }
 
-  /// The transfer to write, at `occurredAt`; `nil` while a side is not chosen.
-  func transfer(id: UUID, occurredAt: Date, now: Date) -> Transfer? {
+  /// The transfer to write, at `occurredAt`, on a Mac in `zone`; `nil` while a side is not
+  /// chosen. A new one records `zone`; an edit keeps the zone it was recorded in unless its
+  /// moment moved (`Transfer.recorded`).
+  func transfer(
+    id: UUID, occurredAt: Date, now: Date, zone: TimeZone = .current
+  ) -> Transfer? {
     guard let fromAccountId, let fromCurrency, let toAccountId, let toCurrency else {
       return nil
     }
@@ -204,7 +208,8 @@ struct TransferForm: Hashable, Sendable {
       id: id, occurredAt: occurredAt, fromAccountId: fromAccountId, fromCurrency: fromCurrency,
       fromAmountE4: sent, toAccountId: toAccountId, toCurrency: toCurrency,
       toAmountE4: receivedAmount, note: trimmed.isEmpty ? nil : trimmed,
-      createdAt: previous?.createdAt ?? now, updatedAt: now)
+      createdAt: previous?.createdAt ?? now, updatedAt: now
+    ).recorded(in: zone, replacing: previous)
   }
 
   /// The one field of date and time gives back the moment `picked`, where `shown` is the moment
@@ -223,7 +228,7 @@ struct TransferForm: Hashable, Sendable {
   /// had.
   func occurredAt(now: Date, calendar: CalendarContext) -> Date {
     if let time { return calendar.moment(day, hour: time.hour, minute: time.minute) }
-    if let previous, calendar.day(of: previous.occurredAt) == day { return previous.occurredAt }
+    if let previous, calendar.day(of: previous) == day { return previous.occurredAt }
     return calendar.day(of: now) == day ? now : calendar.noon(of: day)
   }
 
@@ -233,7 +238,7 @@ struct TransferForm: Hashable, Sendable {
   func asksAboutTheCount(_ transfer: Transfer, calendar: CalendarContext) -> Bool {
     guard time == nil else { return false }
     guard let previous else { return true }
-    return calendar.day(of: previous.occurredAt) != calendar.day(of: transfer.occurredAt)
+    return calendar.day(of: previous) != calendar.day(of: transfer)
       || previous.from != transfer.from || previous.to != transfer.to
   }
 }
@@ -327,7 +332,8 @@ struct TransferActions {
     let calendar = environment.calendar
     guard
       let transfer = form.transfer(
-        id: form.previous?.id ?? UUID(), occurredAt: occurredAt, now: now),
+        id: form.previous?.id ?? UUID(), occurredAt: occurredAt, now: now,
+        zone: calendar.timeZone),
       form.asksAboutTheCount(transfer, calendar: calendar)
     else { return .none }
     return AccountReconciliation.countToAsk(
@@ -642,7 +648,8 @@ struct TransferActions {
     }
     guard
       let transfer = form.transfer(
-        id: form.previous?.id ?? UUID(), occurredAt: occurredAt, now: now)
+        id: form.previous?.id ?? UUID(), occurredAt: occurredAt, now: now,
+        zone: environment.calendar.timeZone)
     else { return .failure(.noFrom) }
     let archived = Set(dataset.paymentMethods.filter(\.archived).map(\.id))
     let kept = Set([form.previous?.fromAccountId, form.previous?.toAccountId].compactMap { $0 })
@@ -741,6 +748,8 @@ struct TransferActions {
     do {
       var entry = try draft.materialize(now: now, rublesConverter: convert)
       entry.transaction.externalId = TransferRules.feeKey(of: transfer.id)
+      // The fee is on the transfer's day: it is recorded in the transfer's zone.
+      entry.transaction.timeZoneId = transfer.timeZoneId
       change.created = [entry]
     } catch {
       return .failure(.rateMissing(draft.currency))
@@ -907,12 +916,14 @@ struct TransferActions {
     environment.applyRate(to: &draft)
     let convert = environment.rublesConverter(for: draft)
     let now = environment.now()
-    let rewritten: TransactionEntry
+    var rewritten: TransactionEntry
     do {
       rewritten = try draft.materialize(updating: old, now: now, rublesConverter: convert)
     } catch {
       return .failure(.rateMissing(draft.currency))
     }
+    // The fee follows the transfer's moment and zone.
+    rewritten.transaction.timeZoneId = transfer.timeZoneId
     if let refusal = Self.feeRefusal(
       old, becoming: rewritten, refunds: refunds, moneyBack: moneyBack)
     {

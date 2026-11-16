@@ -117,6 +117,7 @@ struct Migration0014Tests {
           "0030_utility_meters_and_bills",
           "0031_place_marks",
           "0032_asset_purchase_and_loan_opening",
+          "0033_transfer_and_reconciliation_time_zone",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -696,7 +697,7 @@ struct Migration0014Tests {
       Array(ExportTables.transactions.columns.dropLast(14).suffix(4)) == [
         "source", "bank_status", "posted_on", "dedup_key",
       ])
-    #expect(ExportTables.transfers.columns.last == "arrived_at")
+    #expect(ExportTables.transfers.columns.dropLast(1).last == "arrived_at")
     for name in ["saved_views", "identity_items", "statement_profiles", "import_batches"] {
       #expect(!names.contains(name + ".csv"), "\(name) is not exported")
     }

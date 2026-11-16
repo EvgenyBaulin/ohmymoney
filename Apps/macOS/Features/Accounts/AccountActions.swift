@@ -305,7 +305,8 @@ struct AccountActions {
     if !counted.isEmpty {
       let count = Reconciliation(
         date: environment.calendar.day(of: at), reconciledAt: at, actualTotalRubE4: .zero,
-        kind: .opening, origin: .account)
+        kind: .opening, origin: .account,
+        timeZoneId: TravelDay.recordedId(in: environment.calendar.timeZone))
       rows.reconciliations = [count]
       rows.reconciledBalances = counted.sorted { $0.key.code < $1.key.code }.map {
         ReconciledBalance(

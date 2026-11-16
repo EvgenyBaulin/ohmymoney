@@ -18,9 +18,10 @@ extension Namesakes {
     var extra: [UUID: [MonthKey]] = [:]
     for transfer in transfers {
       extra[transfer.fromAccountId, default: []].append(
-        calendar.day(of: transfer.occurredAt).monthKey)
+        calendar.day(of: transfer).monthKey)
       extra[transfer.toAccountId, default: []].append(
-        calendar.day(of: transfer.arrivedAt ?? transfer.occurredAt).monthKey)
+        calendar.day(of: transfer.arrivedAt ?? transfer.occurredAt, recordedIn: transfer.timeZoneId)
+          .monthKey)
     }
     let reconciliations = Dictionary(
       planning.reconciliations.map { ($0.id, $0.date.monthKey) },

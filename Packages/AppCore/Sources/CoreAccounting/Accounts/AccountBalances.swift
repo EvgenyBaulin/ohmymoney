@@ -58,6 +58,8 @@ public struct AccountBalance: Hashable, Sendable {
   public var anchor: ReconciledBalance?
   /// The moment of that count.
   public var anchorAt: Date?
+  /// The day of that count: the day of its moment in the zone it was made in.
+  public var anchorDay: DateOnly?
   /// Σ of `movements`.
   public var movedSinceAnchor: AmountE4
   /// What moved after the count and up to now, oldest first; with no count, everything up to
@@ -72,11 +74,12 @@ public struct AccountBalance: Hashable, Sendable {
   public init(
     key: BalanceKey, anchor: ReconciledBalance? = nil, anchorAt: Date? = nil,
     movedSinceAnchor: AmountE4 = .zero, movements: [AccountMovement] = [],
-    journalLinesOnAnchorDay: Int = 0, undatedJournalLines: Int = 0
+    journalLinesOnAnchorDay: Int = 0, undatedJournalLines: Int = 0, anchorDay: DateOnly? = nil
   ) {
     self.key = key
     self.anchor = anchor
     self.anchorAt = anchorAt
+    self.anchorDay = anchorDay
     self.movedSinceAnchor = movedSinceAnchor
     self.movements = movements
     self.journalLinesOnAnchorDay = journalLinesOnAnchorDay
@@ -224,16 +227,21 @@ public struct AccountBalances: Hashable, Sendable {
       movements[key]?.sort(by: Self.oldestFirst)
     }
 
+    // A count is on the day of its moment in the zone it was made in, as an operation is on the
+    // day of the zone it was recorded in: a count made at 01:30 in Bali stays on its day after
+    // the Mac comes home.
     let counted = Dictionary(
       reconciliations.filter { $0.kind != .total }.compactMap { reconciliation in
-        reconciliation.reconciledAt.map { (reconciliation.id, $0) }
+        reconciliation.reconciledAt.map {
+          (reconciliation.id, (at: $0, day: calendar.day(of: reconciliation)))
+        }
       },
       uniquingKeysWith: { first, _ in first })
     var anchors: [BalanceKey: [Anchor]] = [:]
     for balance in balances where !borrowed.contains(balance.key.accountId) {
-      guard let at = counted[balance.reconciliationId] else { continue }
+      guard let count = counted[balance.reconciliationId] else { continue }
       anchors[balance.key, default: []].append(
-        Anchor(balance: balance, at: at, day: calendar.day(of: at)))
+        Anchor(balance: balance, at: count.at, day: count.day))
     }
 
     var keys = Set(movements.keys).union(anchors.keys)
@@ -348,10 +356,16 @@ public struct AccountBalances: Hashable, Sendable {
     (anchorsByKey[key] ?? []).map { ($0.balance, $0.at) }
   }
 
-  /// The owner's day of `instant`, read in the calendar the balances were worked out in — the
-  /// one that gave every count its day.
+  /// The owner's day of `instant`, read in the calendar the balances were worked out in.
   public func day(of instant: Date) -> DateOnly {
     days.calendar.day(of: instant)
+  }
+
+  /// The day of a count: the day of its moment `at` in the zone it was made in
+  /// (`CalendarContext.day(of: Reconciliation)`); a count these balances do not hold is read in
+  /// their calendar.
+  public func countDay(_ count: ReconciledBalance, at: Date) -> DateOnly {
+    anchorsByKey[count.key]?.first { $0.balance.id == count.id }?.day ?? day(of: at)
   }
 
   /// What moved on the key after `after` and up to `through`, signed: the rule of a balance
@@ -411,7 +425,8 @@ public struct AccountBalances: Hashable, Sendable {
   }
 
   private func balance(of key: BalanceKey, anchor: Anchor?, through end: Date) -> AccountBalance {
-    var balance = AccountBalance(key: key, anchor: anchor?.balance, anchorAt: anchor?.at)
+    var balance = AccountBalance(
+      key: key, anchor: anchor?.balance, anchorAt: anchor?.at, anchorDay: anchor?.day)
     for movement in movementsByKey[key] ?? [] {
       switch movement.timing {
       case .undated:

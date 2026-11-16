@@ -33,11 +33,18 @@ public struct CountState: Hashable, Sendable {
   public var count: ReconciledBalance
   public var countAt: Date
   public var operation: TransactionEntry?
+  /// The zone the count was made in (`Reconciliation.timeZoneId`): a new operation of its
+  /// difference is recorded in it, so it stays on the count's day.
+  public var countZoneId: String?
 
-  public init(count: ReconciledBalance, countAt: Date, operation: TransactionEntry? = nil) {
+  public init(
+    count: ReconciledBalance, countAt: Date, operation: TransactionEntry? = nil,
+    countZoneId: String? = nil
+  ) {
     self.count = count
     self.countAt = countAt
     self.operation = operation
+    self.countZoneId = countZoneId
   }
 }
 
@@ -226,7 +233,7 @@ public enum LiveCounts {
         difference, key: stored.key, rate: rate, at: state.countAt, tree: tree,
         categories: categories, countId: stored.id,
         link: .reconciledBalance(reconciliation: stored.reconciliationId, balance: stored.id),
-        now: now)
+        now: now, zoneId: state.countZoneId)
       count.transactionId = entry.id
       change = .create(entry)
     } else {
@@ -244,10 +251,12 @@ public enum LiveCounts {
   /// at its moment, keyed `link`. A foreign one is at `rate` of the bank for the count's day;
   /// its rubles are rounded once. The operation and its one part take the ids derived from the
   /// count (`ReconcileDifferenceIds`), so a purge and a re-creation always name the same rows.
+  /// It is recorded in the zone of its count (`zoneId`; none — Moscow), so it is on the count's
+  /// day.
   public static func differenceOperation(
     _ difference: AmountE4, key: BalanceKey, rate: CountRate?, at moment: Date,
     tree: CategoryTree, categories: ReconcileCategories, countId: UUID, link: OperationLink,
-    now: Date
+    now: Date, zoneId: String? = nil
   ) -> TransactionEntry {
     let id = ReconcileDifferenceIds.operation(forCount: countId)
     let missing = difference.isNegative
@@ -275,7 +284,7 @@ public enum LiveCounts {
       rate: draft.rate, rateDate: draft.rateDate, rateSource: draft.rateSource,
       rateProvisional: draft.rateProvisional, amountRubE4: rubles,
       paymentMethodId: key.accountId, externalId: link.externalId, createdAt: now,
-      updatedAt: now)
+      updatedAt: now, timeZoneId: zoneId)
     return TransactionEntry(
       transaction: transaction,
       parts: draft.parts.map { $0.materialize(transactionId: id, amountRub: rubles) })

@@ -249,12 +249,14 @@ public enum ExportTables {
   /// `Schema/0002_planning.sql` and go last, so every older column keeps its place. The
   /// breakdown is the JSON text of the database column (`ReconciliationBreakdown`). `kind`
   /// came with `Schema/0004_accounts.sql`, `origin` with `Schema/0005_cards.sql`: where the
-  /// starting balances of an opening came from.
+  /// starting balances of an opening came from. `time_zone` came with
+  /// `Schema/0033_transfer_and_reconciliation_time_zone.sql` and goes last: the zone the count
+  /// was made in, empty for Moscow.
   public static let reconciliations = ExportTable(
     fileName: "reconciliations.csv",
     columns: [
       "id", "date", "actual_total_rub", "expected_total_rub", "difference",
-      "transaction_id", "reconciled_at", "breakdown", "kind", "origin",
+      "transaction_id", "reconciled_at", "breakdown", "kind", "origin", "time_zone",
     ])
 
   /// No `id` column: the schema's primary key is `(date, currency, source)`. `rub_per_unit`
@@ -272,13 +274,15 @@ public enum ExportTables {
   /// Columns match `Schema/0004_accounts.sql`; `external_id` came with
   /// `Schema/0009_credit_and_allocation.sql`: what wrote the transfer, when the app did.
   /// `arrived_at` came with `Schema/0014_import_year_questions_subscriptions.sql`: when the money
-  /// arrived, empty when it arrived when it was sent.
+  /// arrived, empty when it arrived when it was sent. `time_zone` came with
+  /// `Schema/0033_transfer_and_reconciliation_time_zone.sql` and goes last: the zone the
+  /// transfer was recorded in, empty for Moscow, as `transactions.csv` has it.
   public static let transfers = ExportTable(
     fileName: "transfers.csv",
     columns: [
       "id", "occurred_at", "from_payment_method_id", "from_currency", "from_amount",
       "to_payment_method_id", "to_currency", "to_amount", "note", "created_at", "updated_at",
-      "external_id", "arrived_at",
+      "external_id", "arrived_at", "time_zone",
     ])
 
   /// Columns match `Schema/0004_accounts.sql`. Amounts are in the row's currency; an empty
@@ -1003,6 +1007,7 @@ extension ExportTables {
       CSVValue.string(ReconciliationBreakdown.json(reconciliation.breakdown)),
       reconciliation.kind.rawValue,
       CSVValue.string(reconciliation.origin?.rawValue),
+      CSVValue.string(reconciliation.timeZoneId),
     ]
   }
 
@@ -1042,6 +1047,7 @@ extension ExportTables {
       CSVValue.string(instant: transfer.updatedAt),
       CSVValue.string(transfer.externalId),
       CSVValue.string(instant: transfer.arrivedAt),
+      CSVValue.string(transfer.timeZoneId),
     ]
   }
 

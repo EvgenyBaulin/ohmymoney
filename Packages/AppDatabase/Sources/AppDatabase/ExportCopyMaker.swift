@@ -146,14 +146,14 @@ public struct ExportCopyMaker: Sendable {
         try db.execute(
           sql: "DELETE FROM utility_charges WHERE bill_id NOT IN (SELECT id FROM utility_bills)")
       }
-      // The day an operation is shown on, in the zone it was recorded in; a transfer has no zone
-      // and is read in Moscow, as everywhere else.
+      // The day an operation or a transfer is shown on, in the zone it was recorded in (none:
+      // Moscow).
       let outside = try CoreKit.Transaction.fetchAll(db)
         .filter { !range.contains(TravelDay.day(of: $0.occurredAt, zoneId: $0.timeZoneId)) }
         .map(\.id.uuidString)
       try delete(ids: outside, from: "transactions", db: db)
       let outsideTransfers = try Transfer.fetchAll(db)
-        .filter { !range.contains(TravelDay.day(of: $0.occurredAt, zoneId: nil)) }
+        .filter { !range.contains(TravelDay.day(of: $0.occurredAt, zoneId: $0.timeZoneId)) }
         .map(\.id.uuidString)
       try delete(ids: outsideTransfers, from: "transfers", db: db)
     }

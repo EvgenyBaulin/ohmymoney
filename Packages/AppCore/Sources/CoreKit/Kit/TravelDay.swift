@@ -31,3 +31,19 @@ public enum TravelDay {
       .timeOfDay(instant)
   }
 }
+
+extension Transfer {
+  /// The transfer as it is written now, on a device in `zone`: a new one records that zone
+  /// (`TravelDay.recordedId`); an edit of `previous` that leaves the moment where it was keeps
+  /// the zone it was recorded in, and one that moves the moment is a new date typed on this
+  /// device — the rule an operation follows (`TransactionEntry.rebased`).
+  public func recorded(in zone: TimeZone, replacing previous: Transfer? = nil) -> Transfer {
+    var written = self
+    if let previous, previous.occurredAt == occurredAt {
+      written.timeZoneId = previous.timeZoneId
+    } else {
+      written.timeZoneId = TravelDay.recordedId(in: zone)
+    }
+    return written
+  }
+}

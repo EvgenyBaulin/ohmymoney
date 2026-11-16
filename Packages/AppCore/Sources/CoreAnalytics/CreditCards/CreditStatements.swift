@@ -179,7 +179,7 @@ public enum CreditStatements {
           kind: kind, isFee: isFee && kind == .cashLike))
     }
     for transfer in transfers {
-      let day = calendar.day(of: transfer.occurredAt)
+      let day = calendar.day(of: transfer)
       if transfer.from == key, !transfer.fromAmountE4.isZero {
         result.append(
           CreditMovement(
@@ -213,7 +213,8 @@ public enum CreditStatements {
     let gap = counted - before
     guard !gap.isZero else { return movements }
     let opening = CreditMovement(
-      id: first.balance.id, day: calendar.day(of: first.at), at: first.at, amountE4: gap,
+      id: first.balance.id, day: balances.countDay(first.balance, at: first.at), at: first.at,
+      amountE4: gap,
       kind: gap.raw < 0 ? .purchase : .payment)
     return (movements + [opening]).sorted(by: oldestFirst)
   }
@@ -226,7 +227,7 @@ public enum CreditStatements {
     guard case .statement(let statementDay, let payDays) = terms.grace else { return [] }
     let key = BalanceKey(accountId: account.id, currency: account.mainCurrency)
     guard let first = balances.anchors(key).first else { return [] }
-    let counted = calendar.day(of: first.at)
+    let counted = balances.countDay(first.balance, at: first.at)
     var result: [CreditStatement] = []
     var month = counted.monthKey
     while month.firstDay <= today {

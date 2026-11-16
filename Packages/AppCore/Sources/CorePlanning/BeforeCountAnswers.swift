@@ -29,8 +29,9 @@ public enum BeforeCountAnswers {
     var kept = Set<UUID>()
     for key in balances.keys {
       guard let latest = balances.latestAnchor(key) else { continue }
-      let day = balances.day(of: latest.at)
-      for anchor in balances.anchors(key) where balances.day(of: anchor.at) == day {
+      let day = balances.countDay(latest.balance, at: latest.at)
+      for anchor in balances.anchors(key)
+      where balances.countDay(anchor.balance, at: anchor.at) == day {
         kept.insert(anchor.balance.reconciliationId)
       }
     }

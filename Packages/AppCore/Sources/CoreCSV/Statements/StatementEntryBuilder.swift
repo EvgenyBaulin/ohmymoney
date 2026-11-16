@@ -213,6 +213,7 @@ public enum StatementEntryBuilder {
         outgoing: outgoing, from: fromAccount, incoming: incoming, to: toAccount,
         ordinal: ordinal),
       arrivedAt: incoming.moment.day > outgoing.moment.day
-        ? occurredAt(incoming.moment, zoneID: zoneID) : nil)
+        ? occurredAt(incoming.moment, zoneID: zoneID) : nil,
+      timeZoneId: zoneID == TravelDay.moscowId ? nil : zoneID)
   }
 }

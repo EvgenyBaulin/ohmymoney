@@ -110,6 +110,14 @@ enum RowMapping {
     return text
   }
 
+  /// The zone a row was recorded in (`time_zone`): a blank text, or a value that is not text,
+  /// reads as none, like a NULL — Moscow.
+  static func zone(_ row: Row, _ column: String = "time_zone") -> String? {
+    guard let text = text(row, column) else { return nil }
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    return trimmed.isEmpty ? nil : trimmed
+  }
+
   static func day(_ row: Row, _ column: String) -> DateOnly? {
     guard let text: String = row[column] else { return nil }
     return DateOnly(iso: text)

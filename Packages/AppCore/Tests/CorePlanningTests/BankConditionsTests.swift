@@ -150,6 +150,26 @@ struct BankLimitTests {
     #expect(!line.exceeded)
   }
 
+  /// Cash taken out at 01:30 on 1 November in Makassar (UTC+8) counts against November's limit
+  /// back home in Moscow, where it was still 31 October: a transfer is on the day of its zone.
+  @Test func cashTakenOutAtNightAbroadIsInTheMonthOfItsZone() {
+    var books = books()
+    // 2026-10-31T17:30Z.
+    let night = Date(timeIntervalSince1970: 1_793_467_800)
+    var taken = B.transfer(1, "2026-10-31", "30000", from: B.current, to: B.cash)
+    taken.occurredAt = night
+    taken.timeZoneId = "Asia/Makassar"
+    books.transfers = [taken]
+    let ledger = Ledger(dataset: books.dataset, calendar: .moscow)
+    let data = BankData(conditions: books.conditions, settings: books.settings)
+    let november = BankLimits.movements(
+      ledger: ledger, data: data, month: MonthKey(year: 2026, month: 11))
+    #expect(november.map(\.day) == [B.day("2026-11-01")])
+    #expect(
+      BankLimits.movements(ledger: ledger, data: data, month: MonthKey(year: 2026, month: 10))
+        .isEmpty)
+  }
+
   @Test func aTransferToOwnAccountInAnotherBankHasItsOwnSbpLimitAndOneWithinTheBankIsFree() throws {
     var books = books()
     books.transfers = [
@@ -485,6 +505,24 @@ struct BankForgottenTests {
     books.entries = [B.expense(1, "2026-06-01", "100", account: B.other)]
     books.transfers = [B.transfer(1, "2026-10-01", "10", from: B.savings, to: B.other)]
     #expect(books.report.forgotten.isEmpty)
+  }
+
+  /// A transfer at 01:30 on 1 July in Makassar (UTC+8) is the last movement of 1 July back
+  /// home in Moscow, where it was still 30 June: a transfer is on the day of its zone.
+  @Test func aNightTransferAbroadMovesTheAccountOnTheDayOfItsZone() throws {
+    var books = BankBooks()
+    books.entries = [B.expense(1, "2026-06-01", "100", account: B.other)]
+    // 2026-06-30T17:30Z.
+    var moved = B.transfer(1, "2026-06-30", "10", from: B.savings, to: B.other)
+    moved.occurredAt = Date(timeIntervalSince1970: 1_782_840_600)
+    moved.timeZoneId = "Asia/Makassar"
+    books.transfers = [moved]
+    let list = BankForgotten.list(
+      ledger: Ledger(dataset: books.dataset, calendar: .moscow),
+      data: BankData(conditions: books.conditions, settings: books.settings),
+      accounts: books.accountsSnapshot, today: B.today)
+    let other = try #require(list.first { $0.accountId == B.other })
+    #expect(other.lastMove == B.day("2026-07-01"))
   }
 
   @Test func theNumberOfDaysIsASetting() {

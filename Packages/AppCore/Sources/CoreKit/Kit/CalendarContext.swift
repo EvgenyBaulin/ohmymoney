@@ -55,6 +55,20 @@ public struct CalendarContext: Sendable {
     day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId)
   }
 
+  /// The day of a transfer: the day its instant is on in the zone it was recorded in, read the
+  /// way an operation's is — a night transfer on a trip stays on its day after the Mac comes
+  /// home.
+  public func day(of transfer: Transfer) -> DateOnly {
+    day(of: transfer.occurredAt, recordedIn: transfer.timeZoneId)
+  }
+
+  /// The day a count anchors the balances on: the day of its moment in the zone it was made in;
+  /// a count with no moment — a total, which anchors nothing — is on the day it was dated.
+  public func day(of reconciliation: Reconciliation) -> DateOnly {
+    guard let at = reconciliation.reconciledAt else { return reconciliation.date }
+    return day(of: at, recordedIn: reconciliation.timeZoneId)
+  }
+
   /// The time on the clock of the zone an operation was recorded in.
   public func timeOfDay(_ instant: Date, recordedIn zoneId: String?) -> TimeOfDay {
     let zone = zone(recordedIn: zoneId)

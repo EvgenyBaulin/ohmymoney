@@ -372,6 +372,10 @@ struct ExportRoundTripPropertyTests {
         sql:
           "UPDATE debts SET opened_on = '2018-03-01', original_amount_e4 = 42000000000 WHERE rowid = 1"
       )
+      // Schema 33: the zone a transfer and a count were recorded in.
+      try db.execute(sql: "UPDATE transfers SET time_zone = 'Asia/Makassar' WHERE rowid = 1")
+      try db.execute(
+        sql: "UPDATE reconciliations SET time_zone = 'America/Los_Angeles' WHERE rowid = 1")
       if let item = try String.fetchOne(db, sql: "SELECT id FROM owned_items LIMIT 1") {
         try db.execute(
           sql: """
@@ -562,6 +566,7 @@ struct ExportRoundTripPropertyTests {
           "0030_utility_meters_and_bills",
           "0031_place_marks",
           "0032_asset_purchase_and_loan_opening",
+          "0033_transfer_and_reconciliation_time_zone",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -794,12 +799,18 @@ struct ExportRoundTripPropertyTests {
     "debts.csv:original_amount",
   ]
 
+  /// The zone of a transfer and of a count (`0033_transfer_and_reconciliation_time_zone`).
+  private static let addedByTheZones: Set<String> = [
+    "transfers.csv:time_zone", "reconciliations.csv:time_zone",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
     .union(addedByTheSplitDates).union(addedByTheCodeAndTheFee)
     .union(addedByTheSavingsAndPauses).union(addedByTheDeductions).union(addedByTheOpenings)
+    .union(addedByTheZones)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]

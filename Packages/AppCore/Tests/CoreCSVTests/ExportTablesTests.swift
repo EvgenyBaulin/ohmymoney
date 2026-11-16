@@ -126,9 +126,12 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(Array(ExportTables.debtEntries.columns.suffix(2)) == ["tranche", "prepay"])
     #expect(
-      Array(ExportTables.transfers.columns.suffix(3)) == [
+      Array(ExportTables.transfers.columns.dropLast(1).suffix(3)) == [
         "updated_at", "external_id", "arrived_at",
       ])
+    // The zone a transfer and a count were recorded in goes last.
+    #expect(ExportTables.transfers.columns.last == "time_zone")
+    #expect(ExportTables.reconciliations.columns.last == "time_zone")
   }
 
   /// The capital brought two files at the end and one column at the end of the accounts and of
@@ -193,7 +196,7 @@ struct ExportTablesDescriptionTests {
     #expect(
       ExportTables.reconciliations.columns == [
         "id", "date", "actual_total_rub", "expected_total_rub", "difference", "transaction_id",
-        "reconciled_at", "breakdown", "kind", "origin",
+        "reconciled_at", "breakdown", "kind", "origin", "time_zone",
       ])
     #expect(
       ExportTables.reconciliationBalances.columns == [
@@ -253,7 +256,7 @@ struct ExportTablesDescriptionTests {
     #expect(ExportTables.templates.columns.count == 8)
     #expect(ExportTables.goals.columns.count == 13)
     #expect(ExportTables.debtEntries.columns.count == 18)
-    #expect(ExportTables.reconciliations.columns.count == 10)
+    #expect(ExportTables.reconciliations.columns.count == 11)
     #expect(
       ExportTables.accountGroups.columns == ["id", "name", "in_summary", "sort", "archived"])
     #expect(
@@ -1070,7 +1073,7 @@ extension ExportTablesRowTests {
     #expect(
       ExportTables.reconciliations.columns == [
         "id", "date", "actual_total_rub", "expected_total_rub", "difference",
-        "transaction_id", "reconciled_at", "breakdown", "kind", "origin",
+        "transaction_id", "reconciled_at", "breakdown", "kind", "origin", "time_zone",
       ])
     let reconciledAt = Self.utc.date(
       from: DateComponents(year: 2026, month: 9, day: 17, hour: 6, minute: 30, second: 5))!
@@ -1288,6 +1291,31 @@ extension ExportTablesRowTests {
       date: DateOnly(year: 2026, month: 9, day: 20), actualTotalRubE4: .zero, kind: .accounts)
     #expect(
       try roundTrip(ExportTables.reconciliations, row: ExportTables.row(sheet))["origin"] == "")
+  }
+
+  /// The zone a transfer and a count were recorded in goes out as its identifier, empty for
+  /// Moscow — as `transactions.csv` has it.
+  @Test func theZoneOfATransferAndOfACountRoundTrips() throws {
+    let transfer = Transfer(
+      occurredAt: Date(timeIntervalSince1970: 1_796_000_000), fromAccountId: UUID(),
+      fromCurrency: .rub, fromAmountE4: AmountE4(whole: 10_000), toAccountId: UUID(),
+      toCurrency: .rub, toAmountE4: AmountE4(whole: 10_000), timeZoneId: "Asia/Makassar")
+    let sent = try roundTrip(ExportTables.transfers, row: ExportTables.row(transfer))
+    #expect(sent["time_zone"] == "Asia/Makassar")
+    var home = transfer
+    home.timeZoneId = nil
+    #expect(try roundTrip(ExportTables.transfers, row: ExportTables.row(home))["time_zone"] == "")
+    let count = Reconciliation(
+      date: DateOnly(year: 2026, month: 12, day: 1),
+      reconciledAt: Date(timeIntervalSince1970: 1_796_000_000), actualTotalRubE4: .zero,
+      kind: .accounts, timeZoneId: "Asia/Makassar")
+    let counted = try roundTrip(ExportTables.reconciliations, row: ExportTables.row(count))
+    #expect(counted["time_zone"] == "Asia/Makassar")
+    var moscow = count
+    moscow.timeZoneId = nil
+    #expect(
+      try roundTrip(ExportTables.reconciliations, row: ExportTables.row(moscow))["time_zone"]
+        == "")
   }
 
   /// A deleted debt says when, as every instant of the export; the event of a payment, the

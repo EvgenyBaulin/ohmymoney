@@ -166,6 +166,32 @@ struct AllocationTests {
     #expect(linked.transfers.count == 2)
   }
 
+  /// What an income is spread into is dated a second after it, so it is read in the zone the
+  /// income was recorded in: an income recorded at night in Makassar does not leave its
+  /// transfers and contributions on the evening before back in Moscow.
+  @Test func theContributionsAndTransfersOfAnIncomeKeepItsZone() {
+    var setup = Setup()
+    setup.book.goals[0].accountId = setup.savings
+    setup.book.goals[0].transfersOnContribution = true
+    let income = setup.book.operation(
+      .income, "120000", on: B.day(10, 5), category: setup.salary, account: setup.main)
+    setup.book.rules = [
+      AllocationRule(target: .goal(setup.trip.id), amount: .percent(50), sort: 0),
+      AllocationRule(target: .cushion(nil), amount: .fixed(B.rub("10000"), .rub), sort: 1),
+    ]
+    let sheet = setup.sheet(income, today: B.day(10, 5))
+    var entry = setup.book.entry(income)
+    entry.transaction.timeZoneId = "Asia/Makassar"
+    let written = Allocation.write(
+      sheet: sheet,
+      chosen: ["goal:\(setup.trip.id.uuidString)": B.rub("60000"), "cushion": B.rub("10000")],
+      income: entry, goals: setup.book.goals, ids: { UUID() })
+    #expect(written.transfers.count == 2)
+    #expect(written.transfers.allSatisfy { $0.timeZoneId == "Asia/Makassar" })
+    #expect(written.contributions.count == 1)
+    #expect(written.contributions.allSatisfy { $0.transaction.timeZoneId == "Asia/Makassar" })
+  }
+
   @Test func untickingTheTransferRemembersItAtTheGoal() {
     var setup = Setup()
     setup.book.goals[0].accountId = setup.savings

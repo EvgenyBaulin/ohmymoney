@@ -159,7 +159,7 @@ public enum DepositPayouts {
       let targetId =
         terms.payoutAccountId.map { DueAccounts.effective($0, accounts: accounts) ?? mainId }
         ?? account.id
-      let firstCount = balances.anchors(key).first.map { balances.day(of: $0.at) }
+      let firstCount = balances.anchors(key).first.map { balances.countDay($0.balance, at: $0.at) }
       var plan = Plan(
         account: account, terms: terms, key: key, firstCount: firstCount,
         target: targetId.map { BalanceKey(accountId: $0, currency: account.mainCurrency) },

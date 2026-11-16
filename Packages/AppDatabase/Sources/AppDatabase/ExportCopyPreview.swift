@@ -83,7 +83,9 @@ public struct ExportCopyPreviewer: Sendable {
       var transfersAll = 0
       for transfer in try Transfer.fetchAll(db) {
         transfersAll += 1
-        if let span, !span.contains(TravelDay.day(of: transfer.occurredAt, zoneId: nil)) {
+        if let span,
+          !span.contains(TravelDay.day(of: transfer.occurredAt, zoneId: transfer.timeZoneId))
+        {
           continue
         }
         if skipHidden,

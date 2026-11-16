@@ -319,13 +319,16 @@ enum LiveCountsWriter {
     var categories: ReconcileCategories?
     var rates: RateTable?
     var result = CountsSettled()
+    let zones = Dictionary(
+      book.reconciliations.map { ($0.id, $0.timeZoneId) }, uniquingKeysWith: { first, _ in first })
 
     for pair in pairs {
       let expected =
         pair.previous.actualE4
         + window.moved(pair.count.key, after: pair.from, through: pair.countAt)
       let state = CountState(
-        count: pair.count, countAt: pair.countAt, operation: operations[pair.count.id])
+        count: pair.count, countAt: pair.countAt, operation: operations[pair.count.id],
+        countZoneId: zones[pair.count.reconciliationId] ?? nil)
       func decide(_ template: TransactionEntry?) throws -> CountSettlement {
         var rate: CountRate?
         var settlement = LiveCounts.settle(
@@ -333,7 +336,7 @@ enum LiveCountsWriter {
           template: template)
         if settlement.waitsForRate {
           if rates == nil { rates = try rateTable(db: db) }
-          let day = context.calendar.day(of: pair.countAt)
+          let day = book.anchors.countDay(pair.count, at: pair.countAt)
           rate = rates?.resolve(pair.count.currency, on: day).map {
             CountRate(perUnit: $0.rate.perUnit, day: day, provisional: $0.isProvisional)
           }

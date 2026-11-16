@@ -703,7 +703,7 @@ public struct AccountRepository: Sendable {
   ) throws {
     let reconciliation = Reconciliation(
       date: calendar.day(of: instant), reconciledAt: instant, actualTotalRubE4: .zero,
-      kind: .opening, origin: origin)
+      kind: .opening, origin: origin, timeZoneId: TravelDay.recordedId(in: calendar.timeZone))
     try reconciliation.insert(db)
     for balance in balances {
       try ReconciledBalance(

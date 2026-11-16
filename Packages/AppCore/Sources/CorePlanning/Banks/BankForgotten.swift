@@ -65,7 +65,7 @@ public enum BankForgotten {
       }
     }
     for transfer in dataset.transfers {
-      let day = ledger.calendar.day(of: transfer.occurredAt)
+      let day = ledger.calendar.day(of: transfer)
       note(transfer.fromAccountId, day)
       note(transfer.toAccountId, day)
     }
@@ -78,8 +78,9 @@ public enum BankForgotten {
       let charges =
         conditions.map { $0.serviceFreeSpendE4 != nil || $0.serviceFreeBalanceE4 != nil } ?? false
       guard positive.raw > 0 || charges else { continue }
-      let anchor = (line?.keys ?? []).compactMap(\.anchorAt).min()
-        .map { ledger.calendar.day(of: $0) }
+      let anchor = (line?.keys ?? []).compactMap { key in
+        key.anchorDay ?? key.anchorAt.map { ledger.calendar.day(of: $0) }
+      }.min()
       guard let last = lastByAccount[account.id] ?? anchor else { continue }
       let idle = last.days(to: today)
       if idle >= threshold {

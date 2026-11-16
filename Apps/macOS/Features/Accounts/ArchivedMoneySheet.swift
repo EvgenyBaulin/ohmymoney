@@ -327,7 +327,10 @@ struct ArchivedMoneySheet: View {
 
   private func confirm() {
     guard let form, form.canConfirm, !isSaving else { return }
+    // Written on this Mac now: each records the zone it is in.
+    let zone = environment.calendar.timeZone
     let transfers = form.transfers(now: environment.now(), note: t("archived.leftover.note"))
+      .map { $0.recorded(in: zone) }
     switch purpose {
     case .change(_, let confirm):
       confirm(transfers)

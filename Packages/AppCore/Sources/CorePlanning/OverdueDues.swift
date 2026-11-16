@@ -140,7 +140,8 @@ extension AccountReconciliation {
     var latest: (at: Date, reconciliation: UUID)?
     var seen: Set<BalanceKey> = []
     for key in keys where seen.insert(key).inserted {
-      guard let anchor = balances.latestAnchor(key), calendar.day(of: anchor.at) > due,
+      guard let anchor = balances.latestAnchor(key),
+        balances.countDay(anchor.balance, at: anchor.at) > due,
         occurredAt < anchor.at, savedAt > anchor.at
       else { continue }
       if let found = latest, found.at >= anchor.at { continue }

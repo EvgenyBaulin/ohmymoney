@@ -566,7 +566,8 @@ public enum Allocation {
   /// contribution» the line says otherwise comes back changed, to be written in the same
   /// record. Every other line writes a transfer to its account, none to the account of the
   /// income itself. The caller gives the income its account (the main one when it names none).
-  /// Everything is dated a second after the income and carries `alloc:<income>:<uuid>`; the
+  /// Everything is dated a second after the income, in the zone it was recorded in, and carries
+  /// `alloc:<income>:<uuid>`; the
   /// transfer that moves the money of a contribution carries the contribution's own key.
   public static func write(
     sheet: AllocationSheet, chosen: [String: AmountE4], income: TransactionEntry, goals: [Goal],
@@ -599,7 +600,8 @@ public enum Allocation {
           id: ids(), occurredAt: at, fromAccountId: from, fromCurrency: transaction.currency,
           fromAmountE4: amount, toAccountId: account, toCurrency: toCurrency,
           toAmountE4: toAmount, createdAt: at, updatedAt: at,
-          externalId: key ?? externalId(incomeId: income.id, uuid: ids())))
+          externalId: key ?? externalId(incomeId: income.id, uuid: ids()),
+          timeZoneId: transaction.timeZoneId))
     }
     for line in sheet.lines {
       guard let amount = chosen[line.id], amount.raw > 0 else { continue }
@@ -613,7 +615,8 @@ public enum Allocation {
           amountE4: amount, rate: transaction.rate, rateDate: transaction.rateDate,
           rateSource: transaction.rateSource, rateProvisional: transaction.rateProvisional,
           amountRubE4: rubles(amount), paymentMethodId: from,
-          externalId: externalId(incomeId: income.id, uuid: ids()), createdAt: at, updatedAt: at)
+          externalId: externalId(incomeId: income.id, uuid: ids()), createdAt: at, updatedAt: at,
+          timeZoneId: transaction.timeZoneId)
         if let accountCurrency = transaction.accountCurrency,
           let moved = transaction.accountAmountE4, transaction.amountE4.raw != 0
         {

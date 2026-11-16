@@ -176,13 +176,16 @@ struct AllocationActions {
     settings.monthRestDone = offer.month
     settings.monthRestTarget = target
     let key = Allocation.externalId(incomeId: offer.month.firstDay.monthRestId, uuid: ids())
+    // Written on this Mac now, in the zone it is in, as an operation typed now is.
+    let zone = TravelDay.recordedId(in: snapshot.ledger.calendar.timeZone)
     switch target {
     case .cushion:
       guard let account = cushionAccount, account != main.id else { return nil }
       let transfer = Transfer(
         occurredAt: moment, fromAccountId: main.id, fromCurrency: main.mainCurrency,
         fromAmountE4: amount, toAccountId: account, toCurrency: main.mainCurrency,
-        toAmountE4: amount, createdAt: moment, updatedAt: moment, externalId: key)
+        toAmountE4: amount, createdAt: moment, updatedAt: moment, externalId: key,
+        timeZoneId: zone)
       settings.cushionAccountId = account
       return PlanningChange(
         upsert: PlanningRows(transfers: [transfer]), settings: settings.storedValues, at: moment)
@@ -201,7 +204,8 @@ struct AllocationActions {
       let contribution = TransactionEntry(
         transaction: Transaction(
           id: id, kind: .expense, occurredAt: moment, currency: .rub, amountE4: amount,
-          paymentMethodId: main.id, externalId: key, createdAt: moment, updatedAt: moment),
+          paymentMethodId: main.id, externalId: key, createdAt: moment, updatedAt: moment,
+          timeZoneId: zone),
         parts: [
           TransactionPart(
             transactionId: id, categoryId: goal.subcategoryId, categorySource: .system,
@@ -216,7 +220,7 @@ struct AllocationActions {
           Transfer(
             occurredAt: moment, fromAccountId: main.id, fromCurrency: .rub, fromAmountE4: amount,
             toAccountId: account, toCurrency: .rub, toAmountE4: amount, createdAt: moment,
-            updatedAt: moment, externalId: key)
+            updatedAt: moment, externalId: key, timeZoneId: zone)
         ]
       }
       return PlanningChange(

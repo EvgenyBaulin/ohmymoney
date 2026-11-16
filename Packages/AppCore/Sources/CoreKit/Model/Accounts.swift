@@ -68,12 +68,16 @@ public struct Transfer: Identifiable, Hashable, Sendable, Codable {
   /// it arrived when it was sent, as every transfer did before this field. Nothing moves a
   /// balance by it yet.
   public var arrivedAt: Date?
+  /// The zone the transfer was recorded in (`transfers.time_zone`), as an operation keeps its
+  /// own: its day is the day of `occurredAt` there. `nil` — Moscow, as every transfer written
+  /// before the zone was kept (`CalendarContext.day(of:)`).
+  public var timeZoneId: String?
 
   public init(
     id: UUID = UUID(), occurredAt: Date, fromAccountId: UUID, fromCurrency: CurrencyCode,
     fromAmountE4: AmountE4, toAccountId: UUID, toCurrency: CurrencyCode, toAmountE4: AmountE4,
     note: String? = nil, createdAt: Date = Date(), updatedAt: Date = Date(),
-    externalId: String? = nil, arrivedAt: Date? = nil
+    externalId: String? = nil, arrivedAt: Date? = nil, timeZoneId: String? = nil
   ) {
     self.id = id
     self.occurredAt = occurredAt
@@ -88,6 +92,7 @@ public struct Transfer: Identifiable, Hashable, Sendable, Codable {
     self.updatedAt = updatedAt
     self.externalId = externalId
     self.arrivedAt = arrivedAt
+    self.timeZoneId = timeZoneId
   }
 
   public var from: BalanceKey { BalanceKey(accountId: fromAccountId, currency: fromCurrency) }

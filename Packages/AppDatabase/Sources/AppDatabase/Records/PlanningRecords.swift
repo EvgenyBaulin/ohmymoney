@@ -174,7 +174,7 @@ extension Budget: @retroactive FetchableRecord, @retroactive PersistableRecord {
 /// (`StoredInstant`) — UTC text `YYYY-MM-DD HH:MM:SS.SSS`. The breakdown is one JSON text,
 /// spelled by `ReconciliationBreakdown` so the database and the export files agree; NULL when
 /// there is none. A `kind` this build does not know reads as a total, which anchors nothing; an
-/// `origin` it does not know reads as none.
+/// `origin` it does not know reads as none, a blank `time_zone` as none — Moscow.
 extension Reconciliation: @retroactive FetchableRecord, @retroactive PersistableRecord {
   public static let databaseTableName = "reconciliations"
 
@@ -189,7 +189,8 @@ extension Reconciliation: @retroactive FetchableRecord, @retroactive Persistable
       transactionId: RowMapping.optionalUUID(row, "transaction_id"),
       breakdown: ReconciliationBreakdown.amounts(fromJSON: row["breakdown"]),
       kind: ReconciliationKind(rawValue: row["kind"] ?? "total") ?? .total,
-      origin: (row["origin"] as String?).flatMap(ReconciliationOrigin.init(rawValue:)))
+      origin: (row["origin"] as String?).flatMap(ReconciliationOrigin.init(rawValue:)),
+      timeZoneId: RowMapping.zone(row))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -203,6 +204,7 @@ extension Reconciliation: @retroactive FetchableRecord, @retroactive Persistable
     container["breakdown"] = ReconciliationBreakdown.json(breakdown)
     container["kind"] = kind.rawValue
     container["origin"] = origin?.rawValue
+    container["time_zone"] = timeZoneId
   }
 }
 

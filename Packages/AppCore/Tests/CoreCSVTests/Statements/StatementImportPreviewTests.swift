@@ -273,6 +273,12 @@ struct StatementEntryBuilderTests {
     #expect(transfer.toAmountE4 == AmountE4(whole: 5000))
     #expect(transfer.arrivedAt != nil)
     #expect(transfer.externalId?.hasPrefix("stmt:") == true)
+    // The zone of the statement, as its operations have it: Moscow as none.
+    #expect(transfer.timeZoneId == nil)
+    let abroad = StatementEntryBuilder.transfer(
+      outgoing: out, from: account, incoming: into, to: other, zoneID: "Asia/Makassar",
+      now: now)
+    #expect(abroad.timeZoneId == "Asia/Makassar")
   }
 
   @Test func theExternalIdOfATransferTellsEqualTransfersApartAndFindsTheSameOneAgain() {

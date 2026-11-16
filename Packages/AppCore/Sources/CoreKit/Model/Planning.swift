@@ -240,12 +240,17 @@ public struct Reconciliation: Identifiable, Hashable, Sendable, Codable {
   /// Where the balances of an `.opening` came from; `nil` for every other kind, and for an
   /// opening written before this was kept.
   public var origin: ReconciliationOrigin?
+  /// The zone the count was made in (`reconciliations.time_zone`): the day of `reconciledAt`
+  /// there is the day it anchors the balances on. `nil` — Moscow, as every count made before
+  /// the zone was kept (`CalendarContext.day(ofCount:)`).
+  public var timeZoneId: String?
 
   public init(
     id: UUID = UUID(), date: DateOnly, reconciledAt: Date? = nil, actualTotalRubE4: AmountE4,
     expectedTotalRubE4: AmountE4? = nil, differenceE4: AmountE4? = nil,
     transactionId: UUID? = nil, breakdown: [ReconciliationAmount] = [],
-    kind: ReconciliationKind = .total, origin: ReconciliationOrigin? = nil
+    kind: ReconciliationKind = .total, origin: ReconciliationOrigin? = nil,
+    timeZoneId: String? = nil
   ) {
     self.id = id
     self.date = date
@@ -257,6 +262,7 @@ public struct Reconciliation: Identifiable, Hashable, Sendable, Codable {
     self.breakdown = breakdown
     self.kind = kind
     self.origin = origin
+    self.timeZoneId = timeZoneId
   }
 }
 

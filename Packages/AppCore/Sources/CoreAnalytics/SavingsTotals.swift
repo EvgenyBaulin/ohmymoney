@@ -29,7 +29,7 @@ public struct SavingsTotals: Hashable, Sendable {
     var net = AmountE4.zero
     var foreign = 0
     for transfer in ledger.dataset.transfers
-    where span.contains(ledger.calendar.day(of: transfer.occurredAt)) {
+    where span.contains(ledger.calendar.day(of: transfer)) {
       let into = savers.contains(transfer.toAccountId)
       let out = savers.contains(transfer.fromAccountId)
       guard into != out else { continue }
@@ -56,7 +56,7 @@ public struct SavingsTotals: Hashable, Sendable {
     var net = AmountE4.zero
     var foreign = 0
     for transfer in ledger.dataset.transfers
-    where span.contains(ledger.calendar.day(of: transfer.occurredAt)) {
+    where span.contains(ledger.calendar.day(of: transfer)) {
       if transfer.toAccountId == accountId, !savers.contains(transfer.fromAccountId) {
         if transfer.toCurrency == .rub { net += transfer.toAmountE4 } else { foreign += 1 }
       } else if transfer.fromAccountId == accountId, !savers.contains(transfer.toAccountId) {

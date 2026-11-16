@@ -143,7 +143,7 @@ public enum BankLimits {
     for transfer in dataset.transfers {
       guard let conditions = own[transfer.fromAccountId],
         transfer.fromCurrency == conditions.currency,
-        ledger.calendar.day(of: transfer.occurredAt).monthKey == month,
+        ledger.calendar.day(of: transfer).monthKey == month,
         let from = accounts[transfer.fromAccountId], let to = accounts[transfer.toAccountId],
         transfer.fromAccountId != transfer.toAccountId
       else { continue }
@@ -165,7 +165,7 @@ public enum BankLimits {
       result.append(
         BankLimitMovement(
           id: transfer.id, source: .transfer, accountId: transfer.fromAccountId, kind: kind,
-          day: ledger.calendar.day(of: transfer.occurredAt), amountE4: transfer.fromAmountE4,
+          day: ledger.calendar.day(of: transfer), amountE4: transfer.fromAmountE4,
           off: data.settings.limitOff.contains(transfer.id)))
     }
     let kindOfTag = Dictionary(

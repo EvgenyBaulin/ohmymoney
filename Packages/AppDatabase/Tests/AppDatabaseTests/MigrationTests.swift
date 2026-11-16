@@ -156,8 +156,8 @@ extension MigrationTests {
     try stack.writer.read { db in
       #expect(try db.columns(in: "budgets").map(\.name).last == "start_month")
       #expect(
-        try db.columns(in: "reconciliations").map(\.name).suffix(4)
-          == ["reconciled_at", "breakdown", "kind", "origin"])
+        try db.columns(in: "reconciliations").map(\.name).suffix(5)
+          == ["reconciled_at", "breakdown", "kind", "origin", "time_zone"])
       // An index on expressions, which `db.indexes(on:)` leaves out: asked of SQLite itself.
       let unique = try Bool.fetchOne(
         db,
