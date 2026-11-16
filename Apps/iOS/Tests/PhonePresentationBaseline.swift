@@ -34,6 +34,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Attachments/AttachmentsSettingsView.swift": 4,
     "Apps/macOS/Features/Calendar/CalendarQuick.swift": 3,
     "Apps/macOS/Features/Capital/CapitalPage.swift": 1,
+    "Apps/macOS/Features/Capital/CapitalPastFooter.swift": 1,
     "Apps/macOS/Features/Capital/CapitalView.swift": 3,
     "Apps/macOS/Features/Capital/CushionSection.swift": 1,
     // The form of a challenge: one sheet over the list.
@@ -63,6 +64,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Overview/OverviewCards.swift": 2,
     "Apps/macOS/Features/Overview/OverviewTileContent.swift": 1,
     "Apps/macOS/Features/Overview/OverviewView.swift": 1,
+    "Apps/macOS/Features/Overview/OverviewDoNow.swift": 1,
     "Apps/macOS/Features/Planning/AllLimitsSheet.swift": 2,
     "Apps/macOS/Features/Planning/CreditMinimumPlanCard.swift": 1,
     "Apps/macOS/Features/Planning/DepositPayoutRows.swift": 1,

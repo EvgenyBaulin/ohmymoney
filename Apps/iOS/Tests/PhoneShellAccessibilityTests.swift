@@ -16,7 +16,7 @@ final class PhoneShellAccessibilityTests: XCTestCase {
     [
       environment.language("section.overview"),
       environment.language("section.operations"),
-      environment.language("phone.tab.planning", table: "Phone"),
+      environment.language("section.planning"),
       environment.language("accounts.section.accounts", table: "Accounts"),
       environment.language("phone.tab.more", table: "Phone"),
     ]
