@@ -134,6 +134,7 @@ enum NotificationPermissionPrompt {
       guard let parent = NSApp.keyWindow ?? NSApp.mainWindow else { return false }
       return await withCheckedContinuation { continuation in
         let sheet = NSWindow()
+        // dependencies: none — handed its reason and answer, it reads its language itself.
         sheet.contentViewController = NSHostingController(
           rootView: NotificationPermissionSheet(
             reason: reason, settings: settings,
