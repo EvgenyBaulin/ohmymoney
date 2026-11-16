@@ -41,6 +41,7 @@ public struct DatasetRepository: Sendable {
   /// - And the sums of dues typed from a bank's app, the costs of the loans, the rules of the
   ///   allocation of income, the custom currencies, and the settings of self-employment, of the
   ///   allocation and of the debts.
+  /// - The latest statement import for each account, including an import that added no operations.
   /// - And the tags with their links to parts, the rules in the order of precedence, the notes of
   ///   days and the settings of «Доход и сбережения», of the weekend and of the price in hours.
   ///
@@ -79,6 +80,19 @@ public struct DatasetRepository: Sendable {
     let events = try Event.order(Column("name")).fetchAll(db)
     let paymentMethods = try PaymentMethod.order(Column("name")).fetchAll(db)
     let allDebts = try Debt.order(Column("name")).fetchAll(db)
+    var statementImportMoments: [UUID: Date] = [:]
+    for row in try Row.fetchAll(
+      db,
+      sql: """
+        SELECT payment_method_id, MAX(imported_at) AS imported_at
+        FROM import_batches
+        WHERE payment_method_id IS NOT NULL
+        GROUP BY payment_method_id
+        """)
+    {
+      statementImportMoments[try RowMapping.uuid(row, "payment_method_id")] =
+        try RowMapping.instant(row, "imported_at")
+    }
     let goals = try Goal.order(Column("sort"), Column("name")).fetchAll(db)
     let cashback = try String.fetchOne(
       db, sql: "SELECT value FROM settings WHERE key = ?",
@@ -219,6 +233,7 @@ public struct DatasetRepository: Sendable {
       shoppingItems: shoppingItems,
       ownedItems: ownedItems,
       purchaseSettings: purchaseSettings,
-      creditStatements: try CreditStatementRepository.all(db))
+      creditStatements: try CreditStatementRepository.all(db),
+      statementImportMoments: statementImportMoments)
   }
 }

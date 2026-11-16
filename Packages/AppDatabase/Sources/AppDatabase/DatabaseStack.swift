@@ -244,8 +244,8 @@ public final class DatabaseStack: Sendable {
   /// the transfers between them and the balances counted on them; so do the cards and
   /// their cashback rules, which the cashback expected of every purchase is made of; and so do
   /// the banks, which name the accounts in every list; and the conditions of bank products and the
-  /// deposits the owner typed in. A test holds this list against the
-  /// statements the load runs.
+  /// deposits the owner typed in, and the latest statement imports for each account. A test
+  /// holds this list against the statements the load runs.
   static let ledgerTables = [
     "transactions", "transaction_parts", "reimbursement_links", "categories", "people",
     "places", "events", "payment_methods", "goals", "debts", "debt_entries", "rates",
@@ -253,6 +253,7 @@ public final class DatabaseStack: Sendable {
     "expected_income_links", "budgets", "reconciliations", "anomaly_dismissals",
     "category_feedback", "account_groups", "transfers", "reconciliation_balances", "cards",
     "cashback_rules", "banks", "assets", "asset_valuations", "debt_instalments", "debt_costs",
+    "import_batches",
     "allocation_rules", "custom_currencies", "tags", "part_tags", "rules", "day_notes",
     "saved_views", "budget_month_exceptions", "event_budget_items", "event_templates",
     "subscription_terms", "subscription_usage", "subscription_users", "subscription_keep_groups",

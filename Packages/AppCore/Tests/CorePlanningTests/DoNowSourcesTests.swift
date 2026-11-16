@@ -68,6 +68,17 @@ struct DoNowSourcesTests {
     #expect(sources[0].daysAgo == 14)
   }
 
+  @Test func anImportWithNoNewOperationsStillAsksForTheNextStatement() {
+    let bank = UUID()
+    let importedAt = calendar.startOfDay(today.adding(days: -14)).addingTimeInterval(7200)
+    let sources = DoNowSources.statements(
+      entries: [], today: today, calendar: calendar,
+      statementImportMoments: [bank: importedAt])
+
+    #expect(sources.map(\.accountId) == [bank])
+    #expect(sources.first?.daysAgo == 14)
+  }
+
   @Test func aFreshStatementOrNoStatementAtAllAsksForNothing() throws {
     let bank = UUID()
     let entries = [
@@ -76,6 +87,27 @@ struct DoNowSourcesTests {
       try entry(daysAgo: 40, categorized: true, source: "manual", account: UUID()),
     ]
     #expect(DoNowSources.statements(entries: entries, today: today, calendar: calendar).isEmpty)
+  }
+
+  @Test func anAccountWithoutAnImportRecordFallsBackToItsStatementOperations() throws {
+    let importedAccount = UUID()
+    let fallbackAccount = UUID()
+    let entries = [
+      try entry(
+        daysAgo: 60, categorized: true, source: "statement", account: importedAccount,
+        loadedDaysAgo: 60),
+      try entry(
+        daysAgo: 14, categorized: true, source: "statement", account: fallbackAccount,
+        loadedDaysAgo: 14),
+    ]
+    let recentImport =
+      calendar.startOfDay(today.adding(days: -11)).addingTimeInterval(7200)
+    let sources = DoNowSources.statements(
+      entries: entries, today: today, calendar: calendar,
+      statementImportMoments: [importedAccount: recentImport])
+
+    #expect(sources.map(\.accountId) == [fallbackAccount])
+    #expect(sources.first?.daysAgo == 14)
   }
 
   /// A card with a quiet month: the statement was loaded 11 days ago although its newest
@@ -92,6 +124,7 @@ struct DoNowSourcesTests {
   @Test func anArchivedAccountNeverAsksForAStatement() throws {
     let open = UUID()
     let closed = UUID()
+    let importedAt = calendar.startOfDay(today.adding(days: -60)).addingTimeInterval(7200)
     let entries = [
       try entry(
         daysAgo: 60, categorized: true, source: "statement", account: open, loadedDaysAgo: 60),
@@ -99,7 +132,9 @@ struct DoNowSourcesTests {
         daysAgo: 60, categorized: true, source: "statement", account: closed, loadedDaysAgo: 60),
     ]
     let sources = DoNowSources.statements(
-      entries: entries, today: today, calendar: calendar, archivedAccounts: [closed])
+      entries: entries, today: today, calendar: calendar,
+      statementImportMoments: [open: importedAt, closed: importedAt],
+      archivedAccounts: [closed])
     #expect(sources.map(\.accountId) == [open])
   }
 

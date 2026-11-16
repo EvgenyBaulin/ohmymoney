@@ -60,6 +60,11 @@ enum OverviewDoNow {
       guard let account = $0.transaction.paymentMethodId else { return true }
       return !hidden.isHidden(account)
     }
+    let statementImportMoments = snapshot.dataset.statementImportMoments.reduce(
+      into: [UUID: Date]()
+    ) { visible, imported in
+      if !hidden.isHidden(imported.key) { visible[imported.key] = imported.value }
+    }
     let payments = snapshot.dataset.planning.scheduled.filter {
       guard let account = $0.paymentMethodId else { return true }
       return !hidden.isHidden(account)
@@ -87,6 +92,7 @@ enum OverviewDoNow {
         entries: entries, today: environment.today, calendar: environment.calendar),
       statements: DoNowSources.statements(
         entries: entries, today: environment.today, calendar: environment.calendar,
+        statementImportMoments: statementImportMoments,
         archivedAccounts: Set(
           snapshot.dataset.paymentMethods.filter(\.archived).map(\.id)),
         skips: skips),
