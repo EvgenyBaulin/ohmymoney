@@ -76,7 +76,7 @@ struct MigrationFlow: View {
         } label: {
           EmptyView()
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
         .accessibilityIdentifier("migration.steps")
       }

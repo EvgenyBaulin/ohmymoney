@@ -12,7 +12,9 @@ struct SmallPurchaseLimitField: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 4) {
-      LabeledContent {
+      AdaptiveStack(alignment: .firstTextBaseline) {
+        Text(verbatim: t("overview.small.field.title"))
+        Spacer(minLength: 8)
         HStack(spacing: 4) {
           TextField("", text: $text)
             .multilineTextAlignment(.trailing)
@@ -24,8 +26,6 @@ struct SmallPurchaseLimitField: View {
           Text(verbatim: environment.money.symbol(for: .rub))
             .secondaryInk()
         }
-      } label: {
-        Text(verbatim: t("overview.small.field.title"))
       }
       Text(verbatim: t("overview.small.field.hint"))
         .appFont(.callout)

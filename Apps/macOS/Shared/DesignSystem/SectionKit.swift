@@ -232,8 +232,11 @@ struct SectionSegments<Value: Hashable>: View {
     }
   }
 
+  @Environment(\.dynamicTypeSize) private var textSize
+  private var column: Bool { textSize.isAccessibilitySize }
+
   private var track: some View {
-    HStack(spacing: SectionMetrics.segmentGap) {
+    AdaptiveStack(columnAlignment: .center, spacing: SectionMetrics.segmentGap) {
       ForEach(options.indices, id: \.self) { index in
         let option = options[index]
         let selected = option.value == selection
@@ -243,10 +246,10 @@ struct SectionSegments<Value: Hashable>: View {
           Text(verbatim: option.title)
             .appFont(SectionType.segment(selected: selected))
             .foregroundStyle(selected ? theme.contentPrimary : theme.contentSecondary)
-            .lineLimit(1)
+            .lineLimit(column ? nil : 1)
             .padding(.horizontal, SectionMetrics.segmentHorizontal)
             .padding(.vertical, SectionMetrics.segmentVertical)
-            .frame(maxWidth: fillsWidth ? .infinity : nil)
+            .frame(maxWidth: fillsWidth || column ? .infinity : nil)
             .background(
               selected ? surfaces.card : .clear,
               in: .rect(cornerRadius: SectionMetrics.segmentRadius)
@@ -260,11 +263,11 @@ struct SectionSegments<Value: Hashable>: View {
     }
     .padding(SectionMetrics.trackInset)
     .background(theme.surfaceSegmented, in: .rect(cornerRadius: SectionMetrics.trackRadius))
-    .fixedSize(horizontal: !fillsWidth, vertical: true)
+    .fixedSize(horizontal: !fillsWidth && !column, vertical: true)
   }
 
   private var chips: some View {
-    HStack(spacing: SectionMetrics.chipGap) {
+    AdaptiveStack(columnAlignment: .leading, spacing: SectionMetrics.chipGap) {
       ForEach(options.indices, id: \.self) { index in
         let option = options[index]
         let selected = option.value == selection
@@ -274,7 +277,7 @@ struct SectionSegments<Value: Hashable>: View {
           Text(verbatim: option.title)
             .appFont(SectionType.chip(selected: selected))
             .foregroundStyle(selected ? theme.contentOnAccent : theme.contentSecondary)
-            .lineLimit(1)
+            .lineLimit(column ? nil : 1)
             .padding(.horizontal, SectionMetrics.chipHorizontal)
             .padding(.vertical, SectionMetrics.chipVertical)
             .background(selected ? theme.accentDefault : theme.fillNeutral, in: Capsule())
@@ -285,7 +288,7 @@ struct SectionSegments<Value: Hashable>: View {
         .accessibilityIdentifier(identifier(option.value) ?? "")
       }
     }
-    .fixedSize()
+    .fixedSize(horizontal: !column, vertical: true)
   }
 }
 

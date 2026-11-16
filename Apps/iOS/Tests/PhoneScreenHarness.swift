@@ -152,6 +152,9 @@ final class PhoneHarness {
   private var windows: [UIWindow] = []
   /// The operations of the synthetic book: the editor is shown for some of them.
   private(set) var sampleEntries: [TransactionEntry] = []
+  /// The Dynamic Type size of the device the windows pretend to be on (as the owner sets it in
+  /// Settings → Display): what «Как в системе» follows. `nil` leaves the simulator's own.
+  var contentSize: UIContentSizeCategory?
 
   var deps: AppDependencies {
     AppDependencies(environment: environment, store: store, compute: compute)
@@ -287,6 +290,10 @@ final class PhoneHarness {
     let sizeClass: UIUserInterfaceSizeClass = size.width >= 600 ? .regular : .compact
     window.traitOverrides.horizontalSizeClass = sizeClass
     controller.traitOverrides.horizontalSizeClass = sizeClass
+    if let contentSize {
+      window.traitOverrides.preferredContentSizeCategory = contentSize
+      controller.traitOverrides.preferredContentSizeCategory = contentSize
+    }
     window.rootViewController = controller
     window.isHidden = false
     controller.view.frame = window.bounds

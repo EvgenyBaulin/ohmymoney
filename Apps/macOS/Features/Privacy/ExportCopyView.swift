@@ -98,7 +98,7 @@ struct ExportCopyView: View {
           Text(verbatim: t("privacy.copy.scope.whole")).tag(ExportCopyModel.ScopeChoice.whole)
           Text(verbatim: t("privacy.copy.scope.period")).tag(ExportCopyModel.ScopeChoice.period)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         if model.scope == .period {
           DatePicker(
             t("privacy.copy.from"), selection: $model.periodStart, displayedComponents: .date)

@@ -134,7 +134,7 @@ struct InstalmentPartsCard: View {
       }
       Text(verbatim: t(done ? "parts.paid" : "parts.waits"))
         .appFont(.caption2).foregroundStyle(surfaces.secondary).lineLimit(1)
-        .minimumScaleFactor(0.7)
+        .shrinksToFit(0.7)
     }
     .frame(maxWidth: .infinity, minHeight: 46)
     .padding(.vertical, 4)

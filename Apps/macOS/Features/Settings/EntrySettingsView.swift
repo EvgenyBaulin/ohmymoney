@@ -82,7 +82,7 @@ struct EntrySettingsView: View {
           Text(verbatim: t(words.label))
         }
         .pickerStyle(.menu)
-        .fixedSize()
+        .fixedSizeUnlessLargeText()
         .accessibilityIdentifier("settings.entry.style")
         hint(words.hint)
         Toggle(

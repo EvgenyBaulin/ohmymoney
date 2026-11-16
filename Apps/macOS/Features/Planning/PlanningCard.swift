@@ -46,7 +46,7 @@ struct PlanningCard<Content: View>: View {
     // The design's header is the symbol, the title and «все»; the total and the controls that
     // fold the card or set its length sit at the end, small and secondary, and on a touch
     // device the length menu moves into a long press of the title.
-    HStack(alignment: .center, spacing: PlanningMetrics.headerIconGap) {
+    AdaptiveStack(alignment: .center, spacing: PlanningMetrics.headerIconGap) {
       Image(systemName: PlanningBlockText.symbol(of: block))
         .appFont(.callout.weight(.semibold))
         .foregroundStyle(theme.accentDefault)
@@ -68,7 +68,7 @@ struct PlanningCard<Content: View>: View {
           .appFont(PlanningType.cardLink.monospacedDigit())
           .foregroundStyle(theme.contentSecondary)
           .lineLimit(1)
-          .minimumScaleFactor(0.8)
+          .shrinksToFit(0.8)
           .accessibilityIdentifier("planning.card.\(block.rawValue).total")
       }
       if let showAll {
@@ -78,7 +78,7 @@ struct PlanningCard<Content: View>: View {
             .foregroundStyle(theme.accentContent)
         }
         .buttonStyle(.plain)
-        .fixedSize()
+        .fixedSizeUnlessLargeText()
         .accessibilityIdentifier("planning.card.\(block.rawValue).all")
       }
       #if os(macOS)

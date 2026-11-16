@@ -129,15 +129,17 @@ enum PlanningType {
 /// is the content's — the window less the sidebar, the form at the right and the margins — and
 /// every threshold grows with the size of the text.
 enum PlanningPageLayout {
-  static func blockColumns(forContent width: CGFloat, fontSize: AppFontSize = .regular) -> Int {
-    let card = fontSize.points(fromRegular: PlanningMetrics.cardMinWidth)
+  static func blockColumns(
+    forContent width: CGFloat, fontSize: AppFontSize = .regular, textScale: CGFloat = 1
+  ) -> Int {
+    let card = fontSize.points(fromRegular: PlanningMetrics.cardMinWidth, textScale: textScale)
     return width >= 3 * card + 2 * PlanningMetrics.columnGap ? 3 : 1
   }
 
   static func freeShowsColumns(
-    forContent width: CGFloat, fontSize: AppFontSize = .regular
+    forContent width: CGFloat, fontSize: AppFontSize = .regular, textScale: CGFloat = 1
   ) -> Bool {
-    width >= fontSize.points(fromRegular: PlanningMetrics.sixColumnsFrom)
+    width >= fontSize.points(fromRegular: PlanningMetrics.sixColumnsFrom, textScale: textScale)
   }
 
   /// The width of one card in `columns` columns.
@@ -233,7 +235,7 @@ struct PlanningHeader: View {
           .appFont(Self.titleFont)
           .lineLimit(1)
           #if os(iOS)
-            .minimumScaleFactor(compact ? 0.8 : 1)
+            .shrinksToFit(compact ? 0.8 : 1)
           #endif
           .accessibilityAddTraits(.isHeader)
           .accessibilityIdentifier("planning.title")
@@ -579,7 +581,7 @@ struct PlanningFreeCard: View {
           .appFont(PlanningType.freeFigure)
           .foregroundStyle(theme.contentPrimary)
           .lineLimit(1)
-          .minimumScaleFactor(0.6)
+          .shrinksToFit(0.6)
           .accessibilityIdentifier("planning.hero.figure")
         Text(verbatim: figures.main.words)
           .appFont(PlanningType.freeWords)
@@ -598,7 +600,7 @@ struct PlanningFreeCard: View {
             .appFont(PlanningType.freeColumn)
             .foregroundStyle(theme.contentPrimary)
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
           Text(verbatim: column.words)
             .appFont(PlanningType.freeWords)
             .foregroundStyle(theme.contentSecondary)
@@ -626,7 +628,7 @@ struct PlanningFreeCard: View {
             .appFont(PlanningType.metricFigure)
             .foregroundStyle(theme.contentPrimary)
             .lineLimit(1)
-            .minimumScaleFactor(0.6)
+            .shrinksToFit(0.6)
             .accessibilityIdentifier("planning.metric.\(metric.id).figure")
           Text(verbatim: metric.words)
             .appFont(PlanningType.freeWords)

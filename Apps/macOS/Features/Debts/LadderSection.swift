@@ -28,7 +28,7 @@ struct LadderSection: View {
           Text(verbatim: t("ladder.avalanche")).tag(LadderMethod.avalanche.rawValue)
           Text(verbatim: t("ladder.snowball")).tag(LadderMethod.snowball.rawValue)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
         .accessibilityLabel(t("ladder.method"))
         .accessibilityIdentifier("debts.ladder.method")

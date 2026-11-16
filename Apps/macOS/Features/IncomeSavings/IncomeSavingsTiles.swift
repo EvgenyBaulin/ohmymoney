@@ -79,7 +79,7 @@ private struct IncomeFigureBody: View {
         Text(verbatim: figure.value)
           .appFont(compact ? .title3.monospacedDigit() : .title2.monospacedDigit())
           .lineLimit(compact ? 2 : 1)
-          .minimumScaleFactor(0.7)
+          .shrinksToFit(0.7)
           .accessibilityIdentifier(identifier)
       }
       if let caption = figure.caption {

@@ -97,7 +97,7 @@ struct AccountCardsSection: View {
         .secondaryInk()
       Text(verbatim: snapshot.inSummaryTotalRub.map { environment.money.rounded($0) } ?? "—")
         .appFont(.largeTitle.bold().monospacedDigit())
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .lineLimit(1)
       if compute.snapshot?.coveredAccounts?.partHidden == true {
         Text(verbatim: environment.language("privacy.partHidden", table: "PrivacyScreens"))
@@ -173,7 +173,7 @@ struct AccountCardsSection: View {
         .padding(.top, 8)
       Text(verbatim: figure.main)
         .appFont(.title.bold().monospacedDigit())
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .lineLimit(1)
       if let caption = figure.caption {
         Text(verbatim: caption)

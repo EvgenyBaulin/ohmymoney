@@ -43,7 +43,7 @@ struct FigureTileCard: View {
               .appFont(compact ? StyleType.tileFigure : StyleType.mainFigure)
               .foregroundStyle(surfaces.primary)
               .lineLimit(compact ? 2 : 1)
-              .minimumScaleFactor(0.7)
+              .shrinksToFit(0.7)
           }
           if let caption = figure.caption {
             Text(verbatim: caption)
@@ -286,7 +286,7 @@ struct MonthlySpendingCard: View {
                 .appFont(.caption2)
                 .secondaryInk()
                 .lineLimit(1)
-                .minimumScaleFactor(0.6)
+                .shrinksToFit(0.6)
             }
             .frame(maxWidth: .infinity, alignment: .bottom)
             .accessibilityElement(children: .ignore)

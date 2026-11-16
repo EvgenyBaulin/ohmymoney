@@ -84,7 +84,7 @@ struct SplitBarView: View {
         .appFont(.caption.monospacedDigit())
         .foregroundStyle(text)
         .lineLimit(1)
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .padding(.horizontal, 8)
     }
     .frame(height: height)

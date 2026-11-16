@@ -146,6 +146,7 @@ private struct OverviewHeader: View {
   @Environment(\.overviewRoom) private var room
   @Environment(\.overviewPageMetrics) private var pageMetrics
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.appTextScale) private var textScale
   @Environment(\.layoutIdiom) private var idiom
   @Dependency(\.compute) private var compute
   let actions: OperationActions
@@ -164,7 +165,8 @@ private struct OverviewHeader: View {
   var body: some View {
     let columns =
       columnsOverride
-      ?? OverviewCard.columns(forWidth: width, fontSize: fontSize, gap: metrics.columnGap)
+      ?? OverviewCard.columns(
+        forWidth: width, fontSize: fontSize, gap: metrics.columnGap, textScale: textScale)
     // A tablet lays «Что сделать сейчас» with the main card: beside it, or under it.
     let doNowWithMain =
       metrics.doNowWithMain

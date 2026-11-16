@@ -291,7 +291,7 @@ struct ReportsWindow: View {
       } label: {
         Text(verbatim: t("reports.period.kind"))
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
       PeriodChooser(period: period, today: today) { chosen in
         setPeriod(chosen)

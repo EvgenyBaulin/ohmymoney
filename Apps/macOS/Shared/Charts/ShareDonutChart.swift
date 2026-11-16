@@ -51,7 +51,7 @@ struct ShareDonutChart: View {
         Text(verbatim: figure)
           .appFont(figureType.monospacedDigit())
           .lineLimit(1)
-          .minimumScaleFactor(0.6)
+          .shrinksToFit(0.6)
         Text(verbatim: caption)
           .appFont(captionType)
           .foregroundStyle(.secondary)

@@ -138,7 +138,7 @@ struct PlanningRibbonView: View {
       .frame(height: mark)
     }
     .lineLimit(1)
-    .minimumScaleFactor(0.6)
+    .shrinksToFit(0.6)
     .padding(.horizontal, inside.width)
     .padding(.vertical, inside.height)
     .frame(maxWidth: .infinity)

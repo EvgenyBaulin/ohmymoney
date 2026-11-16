@@ -133,7 +133,7 @@ struct CapitalHeroCard: View {
         .appFont(.system(size: 12, weight: .medium))
       Text(verbatim: model.map { environment.money.rounded($0.net) } ?? "—")
         .appFont(.system(size: CapitalMetrics.heroFigure(design), weight: .bold).monospacedDigit())
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .lineLimit(1)
         .accessibilityIdentifier("capital.net")
       if let change = changeLine {

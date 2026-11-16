@@ -161,6 +161,7 @@ struct OverviewFreeSumPartsCard: View {
   private struct Plate: View {
     @Environment(\.themeSurfaces) private var surfaces
     @Environment(\.appFontSize) private var fontSize
+    @Environment(\.appTextScale) private var textScale
     let figure: String
     let label: String
     let width: CGFloat?
@@ -171,7 +172,7 @@ struct OverviewFreeSumPartsCard: View {
           .appFont(StyleType.partFigure)
           .foregroundStyle(surfaces.primary)
           .lineLimit(1)
-          .minimumScaleFactor(0.8)
+          .shrinksToFit(0.8)
         Text(verbatim: label)
           .appFont(StyleType.partLabel)
           .foregroundStyle(surfaces.secondary)
@@ -180,7 +181,7 @@ struct OverviewFreeSumPartsCard: View {
       .padding(StyleMetrics.partPadding)
       .frame(
         minWidth: width, maxWidth: width ?? .infinity,
-        minHeight: fontSize.points(fromRegular: StyleMetrics.partHeight), alignment: .topLeading
+        minHeight: fontSize.points(fromRegular: StyleMetrics.partHeight, textScale: textScale), alignment: .topLeading
       )
       .background(
         surfaces.background, in: .rect(cornerRadius: StyleMetrics.partRadius)

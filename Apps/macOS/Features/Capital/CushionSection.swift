@@ -189,7 +189,7 @@ struct CushionPlanningRow: View {
             Text(verbatim: environment.money.rounded(status.moneyRub))
               .appFont(.body.weight(.semibold).monospacedDigit())
               .lineLimit(1)
-              .minimumScaleFactor(0.8)
+              .shrinksToFit(0.8)
           }
         }
         if status.state == .ready {

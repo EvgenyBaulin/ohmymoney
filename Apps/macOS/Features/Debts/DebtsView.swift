@@ -509,7 +509,7 @@ private struct DebtDetail: View {
       }
       Text(verbatim: environment.money.exact(line.balance, currency: debt.currency))
         .appFont(.largeTitle.bold().monospacedDigit())
-        .minimumScaleFactor(0.6).lineLimit(1)
+        .shrinksToFit(0.6).lineLimit(1)
         .accessibilityIdentifier("debts.balance")
       if let progress = DebtCardModel.progress(of: line) {
         ProgressView(value: progress)

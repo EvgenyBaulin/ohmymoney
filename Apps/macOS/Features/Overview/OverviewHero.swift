@@ -68,7 +68,7 @@ struct PhoneHeroCard: View {
         .cardInk(.caption)
       Text(verbatim: figure)
         .appFont(.largeTitle.bold().monospacedDigit())
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .lineLimit(1)
         .accessibilityIdentifier(figureIdentifier)
       if let line {

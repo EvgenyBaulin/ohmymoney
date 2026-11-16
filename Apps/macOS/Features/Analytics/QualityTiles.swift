@@ -47,7 +47,7 @@ struct QualityTiles: View {
             .appFont(.system(size: 14, weight: .semibold))
           Text(verbatim: environment.money.rubles(tile.value))
             .appFont(.system(size: 20, weight: .bold).monospacedDigit())
-            .minimumScaleFactor(0.7).lineLimit(1)
+            .shrinksToFit(0.7).lineLimit(1)
           Text(
             verbatim: tile.basisPoints.map {
               environment.money.percent(basisPoints: $0, fractionDigits: 0)

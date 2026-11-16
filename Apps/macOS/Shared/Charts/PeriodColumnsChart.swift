@@ -46,7 +46,7 @@ struct PeriodColumnsChart: View {
             .appFont(axisType.monospacedDigit())
             .foregroundStyle(theme.contentSecondary)
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
             .frame(maxWidth: .infinity)
         }
       }
@@ -131,7 +131,7 @@ struct PeriodColumnsLegend: View {
     .appFont(type)
     .foregroundStyle(theme.contentSecondary)
     .lineLimit(1)
-    .minimumScaleFactor(0.8)
+    .shrinksToFit(0.8)
     .accessibilityElement(children: .combine)
   }
 }

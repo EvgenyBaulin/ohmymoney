@@ -119,7 +119,7 @@ struct OverviewAccountsStrip: View {
       }
       Text(verbatim: line.figure)
         .appFont(.title2.bold().monospacedDigit())
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .lineLimit(1)
     }
     // White or black on the owner's colour, whichever reads at 4.5 : 1 on both ends of the

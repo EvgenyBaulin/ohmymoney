@@ -467,7 +467,7 @@ struct TransactionEditor: View {
       } label: {
         EmptyView()
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
       .fixedSize()
       .accessibilityIdentifier("editor.tabs")

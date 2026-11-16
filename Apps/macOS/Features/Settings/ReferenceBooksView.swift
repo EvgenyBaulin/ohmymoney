@@ -127,7 +127,7 @@ struct ReferenceBooksView: View {
     } label: {
       EmptyView()
     }
-    .pickerStyle(.segmented)
+    .segmentedUnlessLargeText()
     .labelsHidden()
   }
 

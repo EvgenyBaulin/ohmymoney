@@ -240,7 +240,7 @@ struct TripSummaryView: View {
       Text(verbatim: value)
         .appFont(.body.weight(.semibold).monospacedDigit())
         .lineLimit(1)
-        .minimumScaleFactor(0.8)
+        .shrinksToFit(0.8)
     }
     .accessibilityElement(children: .combine)
   }

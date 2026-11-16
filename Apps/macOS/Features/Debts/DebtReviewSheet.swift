@@ -142,7 +142,7 @@ struct DebtReviewSheet: View {
           Text(verbatim: t("wizard.every.twoWeeks")).tag(true)
           Text(verbatim: t("wizard.every.month")).tag(false)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         LabeledContent(t("wizard.markup")) { AmountField(amount: $answers.markup) }
       }
     }

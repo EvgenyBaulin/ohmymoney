@@ -37,7 +37,7 @@ struct RulesSettingsView: View {
       } label: {
         EmptyView()
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
       .padding(.horizontal, 20)
       .padding(.vertical, 8)

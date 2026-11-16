@@ -62,7 +62,7 @@ struct TagReportSheet: View {
         } label: {
           EmptyView()
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
         .fixedSize()
       }
@@ -148,7 +148,7 @@ struct TagReportSheet: View {
           } label: {
             EmptyView()
           }
-          .pickerStyle(.segmented)
+          .segmentedUnlessLargeText()
           .labelsHidden()
           .fixedSize()
           Spacer()

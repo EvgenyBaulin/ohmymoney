@@ -26,7 +26,7 @@ struct BudgetForm: View {
           Text(verbatim: t("limit.badTotal")).tag(BudgetScope.badTotal)
           Text(verbatim: t("form.limit.scope.forWhom")).tag(BudgetScope.forWhom)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         switch budget.scope {
         case .category:
           Picker(t("form.category"), selection: $budget.categoryId) {

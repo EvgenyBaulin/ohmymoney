@@ -231,15 +231,13 @@ struct ScheduledRow: View {
           // than it is offered, which longer words (German, French) did.
           FlowRow(spacing: 14, lineSpacing: 4) {
             Button(t("scheduled.markAsPaid")) { sheet = .markAsPaid(Self.paying(status)) }
-              .lineLimit(1)
-              .fixedSize(horizontal: true, vertical: false)
+              .oneLineUnlessLargeText()
             Button(t("scheduled.skip")) {
               if let dependencies {
                 PlanningActions(dependencies).skip(payment, due: status.nextUnpaid)
               }
             }
-            .lineLimit(1)
-            .fixedSize(horizontal: true, vertical: false)
+            .oneLineUnlessLargeText()
           }
           .buttonStyle(.borderless)
           .appFont(.callout)
@@ -251,7 +249,7 @@ struct ScheduledRow: View {
       Text(verbatim: environment.money.exact(status.amountNext, currency: payment.currency))
         .appFont(.body.weight(.semibold).monospacedDigit())
         .lineLimit(1)
-        .minimumScaleFactor(0.8)
+        .shrinksToFit(0.8)
     }
     .contentShape(Rectangle())
     .contextMenu {

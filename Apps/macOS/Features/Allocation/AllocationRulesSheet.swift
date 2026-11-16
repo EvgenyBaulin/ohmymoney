@@ -214,7 +214,7 @@ struct AllocationRuleForm: View {
           Text(verbatim: AllocationText.t("rules.form.percent", environment)).tag(true)
           Text(verbatim: AllocationText.t("rules.form.fixed", environment)).tag(false)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         if byPercent {
           LabeledContent(AllocationText.t("rules.form.percentOfBase", environment)) {
             HStack {

@@ -41,7 +41,7 @@ extension AppearanceSettingsView {
         } label: {
           Text(verbatim: environment.language("settings.appearance.scheme", table: "Settings"))
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .accessibilityIdentifier("settings.appearance.scheme")
       } footer: {
         Text(verbatim: environment.language("settings.appearance.hint", table: "Settings"))
@@ -99,7 +99,7 @@ extension AppearanceSettingsView {
 
       Section {
         Picker(selection: $theme.fontSize) {
-          ForEach(AppFontSize.allCases, id: \.self) { size in
+          ForEach(AppFontSize.choices, id: \.self) { size in
             Text(verbatim: environment.language(size.settingsKey, table: "Settings")).tag(size)
           }
         } label: {

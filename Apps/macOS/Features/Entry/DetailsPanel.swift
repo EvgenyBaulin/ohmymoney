@@ -618,7 +618,7 @@ struct DetailsPanel: View {
           .appFont(.caption.monospacedDigit())
           .secondaryInk()
           .lineLimit(1)
-          .minimumScaleFactor(0.7)
+          .shrinksToFit(0.7)
           .accessibilityIdentifier("entry.approximate")
       }
     }

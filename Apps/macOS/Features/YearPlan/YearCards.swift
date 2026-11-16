@@ -16,7 +16,7 @@ struct YearCards: View {
         Text(verbatim: YearText.t("year.span.rolling", environment)).tag(YearPage.Span.rolling)
         Text(verbatim: YearText.t("year.span.calendar", environment)).tag(YearPage.Span.calendar)
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .accessibilityIdentifier("year.span")
       ScreenHero(
         caption: YearText.f(
@@ -123,7 +123,7 @@ struct YearSeasonCard: View {
           Text(verbatim: YearText.monthName(month.month, environment))
             .appFont(.caption)
             .lineLimit(1)
-            .minimumScaleFactor(0.6)
+            .shrinksToFit(0.6)
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)

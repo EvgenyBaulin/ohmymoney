@@ -22,7 +22,7 @@ struct PlanningAreaPicker: View {
         Text(verbatim: YearText.t(area.titleKey, environment)).tag(area)
       }
     }
-    .pickerStyle(.segmented)
+    .segmentedUnlessLargeText()
     .labelsHidden()
     .fixedSize()
     .accessibilityIdentifier("planning.area")

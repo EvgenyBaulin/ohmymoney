@@ -127,7 +127,7 @@ struct GoalsBlock: View {
             Text(verbatim: environment.money.rounded(status.saved, currency: status.currency))
               .appFont(.body.weight(.semibold).monospacedDigit())
               .lineLimit(1)
-              .minimumScaleFactor(0.8)
+              .shrinksToFit(0.8)
           }
           GoalProgressBar(basisPoints: status.progressBp)
         }
