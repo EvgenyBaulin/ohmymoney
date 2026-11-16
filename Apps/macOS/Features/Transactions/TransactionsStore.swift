@@ -194,6 +194,9 @@ public final class TransactionsStore {
     case migrated(PlanningUndo, imports: [String])
     /// Import rows, status upgrades, learned rules and operations, in their write order.
     case statement([UndoStep])
+    /// «Дополнить» from an import: the empty fields filled and the file attached, taken back
+    /// together in one write; `replay` makes it again.
+    case supplemented(SupplementWrite, replay: SupplementReplay)
 
     /// How many operations undoing it writes.
     var size: Int {
@@ -212,6 +215,7 @@ public final class TransactionsStore {
       case .spending(let step): step.size
       case .later(let step): step.size
       case .statement(let steps): steps.reduce(0) { $0 + $1.size }
+      case .supplemented: 1
       }
     }
   }
@@ -242,6 +246,8 @@ public final class TransactionsStore {
     case migration(PlanningChange, imports: [StatementImportRecord])
     /// Money back recorded by a sheet, written again by the same call.
     case moneyBack(MoneyBackReplay)
+    /// «Дополнить» from an import, written again by the same call.
+    case supplement(SupplementReplay)
     case statement([RedoStep])
   }
 
@@ -254,6 +260,14 @@ public final class TransactionsStore {
     var debt: DebtSettling
     var repricing: [UUID: Decimal]
     var settlement: SettlementSetting
+    var calendar: CalendarContext
+  }
+
+  /// What «Дополнить» was given, so ⇧⌘Z can supplement the operation again.
+  struct SupplementReplay: Sendable {
+    var id: UUID
+    var item: RecognizedPurchase
+    var kind: AttachmentKind
     var calendar: CalendarContext
   }
 
@@ -567,6 +581,54 @@ public final class TransactionsStore {
   }
 
   /// What became of the edit of a saved operation.
+  /// What «Дополнить» from an import came to.
+  public enum SupplementOutcome: Equatable, Sendable {
+    /// Written as one step of ⌘Z: the fields filled, and whether the file was attached.
+    case supplemented(Set<ImportSupplement.Field>, attached: Bool)
+    /// The operation had nothing empty to fill and already holds the file: no step.
+    case nothingToAdd
+    /// The operation was deleted meanwhile: nothing was written.
+    case gone
+    /// «Только просмотр» or no database: nothing was attempted.
+    case refused
+    /// The write failed; `lastError` says how.
+    case failed
+  }
+
+  /// «Дополнить»: fills only the empty fields of operation `id` from a recognised purchase and
+  /// attaches its file (`kind`: `.other` for a bank screenshot, `.receipt` for a receipt) in
+  /// one write and one step of ⌘Z. Never writes a new operation.
+  @discardableResult
+  public func supplement(
+    _ id: UUID, with item: RecognizedPurchase, kind: AttachmentKind,
+    calendar: CalendarContext = .system, file: String = #fileID
+  ) -> SupplementOutcome {
+    guard !refuses("supplement", file) else { return .refused }
+    guard let repository, let attachments else { return .failed }
+    do {
+      let result = try attachments.supplement(
+        repository, id: id, with: item, kind: kind, calendar: calendar)
+      guard case .written(let write) = result else { return .gone }
+      guard !write.isEmpty else { return .nothingToAdd }
+      push(
+        .supplemented(
+          write, replay: SupplementReplay(id: id, item: item, kind: kind, calendar: calendar)))
+      var changed = StoreWrite()
+      if let edit = write.edit {
+        edit.settlement.counts.log()
+        changed = Self.laid(
+          edit.counts,
+          over: StoreWrite(
+            upserted: [edit.after], planningChanged: edit.reachesBeyondTheOperation))
+      }
+      finishWrite(changed)
+      return .supplemented(write.filled, attached: write.attached != nil)
+    } catch {
+      failed(.edit, error, file: file)
+      return .failed
+    }
+  }
+
   public enum EditOutcome: Equatable, Sendable {
     case saved
     /// The operation was deleted after the editing began: there is nothing to save the
@@ -1393,6 +1455,9 @@ public final class TransactionsStore {
       redo = change.reachesBeyondTheOperation ? nil : .save(change.after)
       let back = try repository.revert(change)
       write = Self.laid(back, over: Self.revertedEdit(change))
+    case .supplemented(let supplement, let replay):
+      redo = .supplement(replay)
+      write = try Self.reverted(supplement, repository: repository)
     case .editedMany(let before, let counts):
       // What the change left, kept for ⇧⌘Z before the rows go back.
       redo = .bulk(try repository.entries(ids: before.map(\.id)))
@@ -1566,6 +1631,14 @@ public final class TransactionsStore {
       landed = applyMigration(change, imports: records, file: file)
     case .moneyBack(let replay):
       landed = replayMoneyBack(replay, file: file)
+    case .supplement(let replay):
+      if case .supplemented = supplement(
+        replay.id, with: replay.item, kind: replay.kind, calendar: replay.calendar, file: file)
+      {
+        landed = true
+      } else {
+        landed = false
+      }
     }
     return landed
   }
@@ -1605,6 +1678,7 @@ public final class TransactionsStore {
     case .deletedMany(let ids, _): redo = .delete(ids)
     case .planned(let undo): redo = undo.change.map { .apply($0) }
     case .moneyBack(_, let replay): redo = replay.map { .moneyBack($0) }
+    case .supplemented(_, let replay): redo = .supplement(replay)
     case .spending(.backfill(let applied)):
       let written = try await repository.entriesInBackground(ids: applied.entries.map(\.id))
       redo = .backfill(
@@ -1638,6 +1712,8 @@ public final class TransactionsStore {
     case .edited(let change):
       let back = try repository.revert(change)
       return laid(back, over: revertedEdit(change))
+    case .supplemented(let supplement, _):
+      return try reverted(supplement, repository: repository)
     case .editedMany(let before, let counts):
       let snapshots = byId(before)
       let batch = try await repository.modifyReportingInBackground(
@@ -1699,6 +1775,15 @@ public final class TransactionsStore {
   /// What the undo of an edit wrote: the operation as it was. A difference of a count given back
   /// may have taken the place of the one made again under its count's id, so planning is read
   /// again then too.
+  /// Takes a supplement back in one write; what the screens hear is the operation as it was.
+  private nonisolated static func reverted(
+    _ supplement: SupplementWrite, repository: TransactionRepository
+  ) throws -> StoreWrite {
+    let back = try repository.revert(supplement)
+    guard let edit = supplement.edit, let back else { return StoreWrite() }
+    return laid(back, over: revertedEdit(edit))
+  }
+
   private nonisolated static func revertedEdit(_ change: EditedEntry) -> StoreWrite {
     StoreWrite(
       upserted: [change.before],

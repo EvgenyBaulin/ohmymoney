@@ -76,16 +76,32 @@ public enum ImportMatchOutcome: Hashable, Sendable {
     case .several(let list, _): list
     }
   }
+}
 
-  /// A new operation would most likely record the purchase a second time: the file is already
-  /// on an operation, or an operation of the same account, sum and day is there.
-  public var isProbableDuplicate: Bool {
-    switch self {
-    case .alreadyAttached: true
-    case .one(_, let similar), .several(_, let similar): !similar
-    case .needsAccount, .none: false
-    }
+/// What the import offers, and what a new operation would have to be confirmed against.
+public struct ImportProposal: Hashable, Sendable {
+  public var outcome: ImportMatchOutcome
+  /// Offered operations a new one would most likely repeat: the one already holding the file,
+  /// every exact match, and a similar one whose note names the same shop.
+  public var duplicates: Set<UUID>
+  /// Operations of the same kind, sum and day on another account. They are not offered (the
+  /// account is part of a match), but a new operation is written only after «всё равно
+  /// создать»: the owner may have written the purchase on the wrong card.
+  public var otherAccount: [ScreenshotCandidate]
+
+  public init(
+    outcome: ImportMatchOutcome, duplicates: Set<UUID> = [],
+    otherAccount: [ScreenshotCandidate] = []
+  ) {
+    self.outcome = outcome
+    self.duplicates = duplicates
+    self.otherAccount = otherAccount
   }
+
+  /// «Это другая покупка» asks «точно создать ещё одну?» first.
+  public var needsDuplicateConfirmation: Bool { !duplicates.isEmpty }
+  /// A new operation asks «Похоже на операцию на другом счёте — всё равно создать?» first.
+  public var needsOtherAccountConfirmation: Bool { !otherAccount.isEmpty }
 }
 
 /// What the owner pressed.
@@ -93,8 +109,9 @@ public enum ImportChoice: Hashable, Sendable {
   /// «Дополнить эту операцию».
   case supplement(UUID)
   /// «Это другая покупка — создать новую»; `confirmedDuplicate` is the second yes a probable
-  /// duplicate asks for.
-  case createNew(confirmedDuplicate: Bool)
+  /// duplicate asks for, `confirmedOtherAccount` the yes to «Похоже на операцию на другом
+  /// счёте — всё равно создать?».
+  case createNew(confirmedDuplicate: Bool, confirmedOtherAccount: Bool = false)
 }
 
 /// What to do about the choice.
@@ -114,6 +131,8 @@ public enum ImportRefusal: Error, Hashable, Sendable {
   case needsAccount
   /// A new operation over a probable duplicate needs the second yes.
   case duplicateNeedsConfirmation
+  /// A new operation while the same sum and day stand on another account needs a yes.
+  case otherAccountNeedsConfirmation
 }
 
 public enum ImportMatch {
@@ -133,35 +152,71 @@ public enum ImportMatch {
   public static func propose(
     _ item: RecognizedPurchase, among candidates: [ScreenshotCandidate],
     holdingFile: Set<UUID> = [], calendar: CalendarContext
-  ) -> ImportMatchOutcome {
+  ) -> ImportProposal {
     if let holder = candidates.filter({ holdingFile.contains($0.id) && !$0.isTransfer })
       .min(by: { $0.occurredAt < $1.occurredAt })
     {
-      return .alreadyAttached(holder)
+      return ImportProposal(outcome: .alreadyAttached(holder), duplicates: [holder.id])
     }
-    guard let account = item.accountID else { return .needsAccount }
+    guard let account = item.accountID else { return ImportProposal(outcome: .needsAccount) }
     let proposal = ScreenshotMatch.propose(
       amount: item.amount, kind: item.kind, currency: item.currency, accountID: account,
       day: item.day, time: item.time, among: candidates, calendar: calendar)
     // A transfer has both sides on the list of candidates; one id is one offer.
     var seen = Set<UUID>()
     let matches = proposal.matches.filter { seen.insert($0.id).inserted }
-    switch matches.count {
-    case 0: return .none
-    case 1: return .one(matches[0], isSimilar: proposal.isSimilar)
-    default: return .several(matches, isSimilar: proposal.isSimilar)
+    let outcome: ImportMatchOutcome =
+      switch matches.count {
+      case 0: .none
+      case 1: .one(matches[0], isSimilar: proposal.isSimilar)
+      default: .several(matches, isSimilar: proposal.isSimilar)
+      }
+    let duplicates = matches.filter {
+      !proposal.isSimilar || isSameMerchant(item.merchant, $0.note)
+    }.map(\.id)
+    let elsewhere = candidates.filter {
+      $0.accountID != account && !$0.isTransfer && $0.kind == item.kind
+        && $0.amount(in: item.currency) == item.amount
+        && calendar.day(of: $0.occurredAt, recordedIn: $0.timeZoneID) == item.day
+    }.sorted {
+      $0.occurredAt != $1.occurredAt
+        ? $0.occurredAt < $1.occurredAt : $0.id.uuidString < $1.id.uuidString
     }
+    return ImportProposal(
+      outcome: outcome, duplicates: Set(duplicates), otherAccount: elsewhere)
   }
 
-  /// Checks the owner's choice against what was offered.
+  /// Whether the shop a picture names is the one an operation's note names: the same words
+  /// regardless of case, «ё» and spaces, one holding the other («Пятёрочка» and «пятерочка у
+  /// дома»). Fewer than three letters say nothing.
+  public static func isSameMerchant(_ merchant: String?, _ note: String?) -> Bool {
+    func plain(_ text: String?) -> String {
+      (text ?? "").lowercased()
+        .replacingOccurrences(of: "ё", with: "е")
+        .split(whereSeparator: \.isWhitespace).joined(separator: " ")
+    }
+    let shop = plain(merchant)
+    let written = plain(note)
+    guard min(shop.count, written.count) >= 3 else { return false }
+    return written.contains(shop) || shop.contains(written)
+  }
+
+  /// Checks the owner's choice against what was offered. A new operation asks the questions in
+  /// order: first about a probable duplicate, then about the same purchase on another account.
   public static func resolve(
-    _ choice: ImportChoice, for outcome: ImportMatchOutcome
+    _ choice: ImportChoice, for proposal: ImportProposal
   ) -> Result<ImportStep, ImportRefusal> {
+    let outcome = proposal.outcome
     if case .needsAccount = outcome { return .failure(.needsAccount) }
     switch choice {
-    case .createNew(let confirmed):
-      return outcome.isProbableDuplicate && !confirmed
-        ? .failure(.duplicateNeedsConfirmation) : .success(.create)
+    case .createNew(let duplicate, let otherAccount):
+      if proposal.needsDuplicateConfirmation && !duplicate {
+        return .failure(.duplicateNeedsConfirmation)
+      }
+      if proposal.needsOtherAccountConfirmation && !otherAccount {
+        return .failure(.otherAccountNeedsConfirmation)
+      }
+      return .success(.create)
     case .supplement(let id):
       guard let chosen = outcome.offered.first(where: { $0.id == id }) else {
         return .failure(.notOffered)

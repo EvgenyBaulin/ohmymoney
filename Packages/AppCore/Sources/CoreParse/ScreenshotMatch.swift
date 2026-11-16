@@ -16,11 +16,13 @@ public struct ScreenshotCandidate: Hashable, Sendable, Identifiable {
   /// shows this sum. `nil` when the operation is in the account's own currency.
   public var chargedCurrency: CurrencyCode?
   public var chargedAmount: AmountE4?
+  /// The operation's note: where the purchase was, as the owner wrote it.
+  public var note: String?
 
   public init(
     id: UUID, accountID: UUID, kind: TransactionKind, currency: CurrencyCode,
     amount: AmountE4, occurredAt: Date, timeZoneID: String? = nil, isTransfer: Bool = false,
-    chargedCurrency: CurrencyCode? = nil, chargedAmount: AmountE4? = nil
+    chargedCurrency: CurrencyCode? = nil, chargedAmount: AmountE4? = nil, note: String? = nil
   ) {
     self.id = id
     self.accountID = accountID
@@ -32,6 +34,7 @@ public struct ScreenshotCandidate: Hashable, Sendable, Identifiable {
     self.isTransfer = isTransfer
     self.chargedCurrency = chargedCurrency
     self.chargedAmount = chargedAmount
+    self.note = note
   }
 
   /// The operation's sum in `currency`: its own, or what the account was charged; `nil` when
@@ -64,7 +67,8 @@ public enum ScreenshotMatch {
         currency: transaction.currency, amount: transaction.amountE4,
         occurredAt: transaction.occurredAt, timeZoneID: transaction.timeZoneId,
         chargedCurrency: charged,
-        chargedAmount: charged == nil ? nil : transaction.accountAmountE4)
+        chargedAmount: charged == nil ? nil : transaction.accountAmountE4,
+        note: transaction.note)
     }
     for transfer in transfers {
       result.append(

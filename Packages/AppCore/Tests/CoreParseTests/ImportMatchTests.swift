@@ -24,12 +24,13 @@ struct ImportMatchTests {
   private func candidate(
     _ amount: Int64, at moment: Date? = nil, account: UUID? = nil,
     currency: CurrencyCode = .rub, kind: TransactionKind = .expense,
-    charged: (CurrencyCode, Int64)? = nil, transfer: Bool = false
+    charged: (CurrencyCode, Int64)? = nil, transfer: Bool = false, note: String? = nil
   ) -> ScreenshotCandidate {
     ScreenshotCandidate(
       id: UUID(), accountID: account ?? self.account, kind: kind, currency: currency,
       amount: AmountE4(whole: amount), occurredAt: moment ?? timeless(), isTransfer: transfer,
-      chargedCurrency: charged?.0, chargedAmount: charged.map { AmountE4(whole: $0.1) })
+      chargedCurrency: charged?.0, chargedAmount: charged.map { AmountE4(whole: $0.1) },
+      note: note)
   }
 
   private func item(
@@ -43,7 +44,7 @@ struct ImportMatchTests {
 
   private func propose(
     _ item: RecognizedPurchase, _ candidates: [ScreenshotCandidate], holding: Set<UUID> = []
-  ) -> ImportMatchOutcome {
+  ) -> ImportProposal {
     ImportMatch.propose(item, among: candidates, holdingFile: holding, calendar: calendar)
   }
 
@@ -52,14 +53,14 @@ struct ImportMatchTests {
   @Test func oneExactOperationIsOfferedToSupplement() {
     let found = candidate(1_000)
     let other = candidate(999)
-    #expect(propose(item(), [found, candidate(2_000)]) == .one(found, isSimilar: false))
-    #expect(propose(item(), [found, other]) == .one(found, isSimilar: false))
+    #expect(propose(item(), [found, candidate(2_000)]).outcome == .one(found, isSimilar: false))
+    #expect(propose(item(), [found, other]).outcome == .one(found, isSimilar: false))
   }
 
   @Test func severalExactOperationsAreAListWithNothingChosen() {
     let first = candidate(1_000, at: at(9))
     let second = candidate(1_000, at: at(18))
-    guard case .several(let list, let similar) = propose(item(), [first, second]) else {
+    guard case .several(let list, let similar) = propose(item(), [first, second]).outcome else {
       Issue.record("expected a list")
       return
     }
@@ -67,13 +68,13 @@ struct ImportMatchTests {
     #expect(!similar)
     // Nothing is preselected: the only way to go on with a list is to name one of it.
     #expect(
-      ImportMatch.resolve(.supplement(UUID()), for: .several(list, isSimilar: false))
+      ImportMatch.resolve(.supplement(UUID()), for: propose(item(), [first, second]))
         == .failure(.notOffered))
   }
 
   @Test func nothingFitsMeansANewOperation() {
     let outcome = propose(item(), [candidate(3_000), candidate(1_000, kind: .income)])
-    #expect(outcome == .none)
+    #expect(outcome.outcome == .none)
     #expect(
       ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: outcome)
         == .success(.create))
@@ -81,7 +82,7 @@ struct ImportMatchTests {
 
   @Test func withoutAnAccountNothingIsMatchedAndNothingIsWritten() {
     let outcome = propose(item(account: .some(nil)), [candidate(1_000)])
-    #expect(outcome == .needsAccount)
+    #expect(outcome.outcome == .needsAccount)
     #expect(
       ImportMatch.resolve(.createNew(confirmedDuplicate: true), for: outcome)
         == .failure(.needsAccount))
@@ -96,7 +97,7 @@ struct ImportMatchTests {
     let noTime = candidate(1_000)
     let farTyped = candidate(1_000, at: at(20))
     let outcome = propose(item(time: TimeOfDay(hour: 12, minute: 5)), [noTime, farTyped, typed])
-    #expect(outcome == .several([typed, noTime, farTyped], isSimilar: false))
+    #expect(outcome.outcome == .several([typed, noTime, farTyped], isSimilar: false))
     // The same order comes from the screenshot matcher the sheet uses.
     let bare = ScreenshotMatch.propose(
       amount: AmountE4(whole: 1_000), kind: .expense, currency: .rub, accountID: account,
@@ -109,14 +110,14 @@ struct ImportMatchTests {
     let exactMinute = candidate(1_000, at: at(14, 7))
     let morning = candidate(1_000, at: at(8))
     let outcome = propose(item(time: TimeOfDay(hour: 14, minute: 7)), [morning, exactMinute])
-    #expect(outcome == .several([exactMinute, morning], isSimilar: false))
+    #expect(outcome.outcome == .several([exactMinute, morning], isSimilar: false))
   }
 
   @Test func aTimelessOperationOfTheNextDayIsOnlySimilar() {
     let nextDay = candidate(1_000, at: timeless(dayOffset: 1))
     let twoDaysOff = candidate(1_000, at: timeless(dayOffset: 2))
     #expect(
-      propose(item(time: TimeOfDay(hour: 23, minute: 0)), [nextDay, twoDaysOff])
+      propose(item(time: TimeOfDay(hour: 23, minute: 0)), [nextDay, twoDaysOff]).outcome
         == .one(nextDay, isSimilar: true))
   }
 
@@ -124,7 +125,7 @@ struct ImportMatchTests {
     let near = candidate(1_040, at: at(13))
     let far = candidate(1_060, at: at(13))
     let outcome = propose(item(time: TimeOfDay(hour: 12, minute: 0)), [near, far])
-    #expect(outcome == .one(near, isSimilar: true))
+    #expect(outcome.outcome == .one(near, isSimilar: true))
     // A similar operation is no probable duplicate: a new one is written without a second ask.
     #expect(
       ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: outcome)
@@ -134,21 +135,21 @@ struct ImportMatchTests {
   // MARK: Currency and account
 
   @Test func anotherCurrencyIsAnotherOperation() {
-    #expect(propose(item(), [candidate(1_000, currency: .usd)]) == .none)
-    #expect(propose(item(currency: .usd), [candidate(1_000)]) == .none)
+    #expect(propose(item(), [candidate(1_000, currency: .usd)]).outcome == .none)
+    #expect(propose(item(currency: .usd), [candidate(1_000)]).outcome == .none)
   }
 
   /// A bank screenshot of a purchase abroad shows what the account was charged.
   @Test func whatTheAccountWasChargedMatchesTooForAPurchaseInAnotherCurrency() {
     let abroad = candidate(12, currency: .usd, charged: (.rub, 1_000))
-    #expect(propose(item(), [abroad]) == .one(abroad, isSimilar: false))
-    #expect(propose(item(12, currency: .usd), [abroad]) == .one(abroad, isSimilar: false))
+    #expect(propose(item(), [abroad]).outcome == .one(abroad, isSimilar: false))
+    #expect(propose(item(12, currency: .usd), [abroad]).outcome == .one(abroad, isSimilar: false))
   }
 
   @Test func anOperationOfAnotherAccountIsNotOffered() {
     let elsewhere = candidate(1_000, account: otherAccount)
-    #expect(propose(item(), [elsewhere]) == .none)
-    #expect(propose(item(time: TimeOfDay(hour: 12, minute: 0)), [elsewhere]) == .none)
+    #expect(propose(item(), [elsewhere]).outcome == .none)
+    #expect(propose(item(time: TimeOfDay(hour: 12, minute: 0)), [elsewhere]).outcome == .none)
   }
 
   @Test func theCardDigitsNameTheAccountOnlyWhenOneAccountHasThem() {
@@ -167,7 +168,7 @@ struct ImportMatchTests {
   @Test func anotherPurchaseOverAnExactMatchNeedsASecondYes() {
     let found = candidate(1_000)
     let outcome = propose(item(), [found])
-    #expect(outcome.isProbableDuplicate)
+    #expect(outcome.needsDuplicateConfirmation)
     #expect(
       ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: outcome)
         == .failure(.duplicateNeedsConfirmation))
@@ -183,24 +184,117 @@ struct ImportMatchTests {
     let holder = candidate(5_000, at: at(9))
     let exact = candidate(1_000)
     let outcome = propose(item(), [exact, holder], holding: [holder.id])
-    #expect(outcome == .alreadyAttached(holder))
-    #expect(outcome.isProbableDuplicate)
+    #expect(outcome.outcome == .alreadyAttached(holder))
+    #expect(outcome.needsDuplicateConfirmation)
     #expect(ImportMatch.resolve(.supplement(holder.id), for: outcome) == .success(.open(holder.id)))
     #expect(ImportMatch.resolve(.supplement(exact.id), for: outcome) == .failure(.notOffered))
     #expect(
       ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: outcome)
         == .failure(.duplicateNeedsConfirmation))
     // A holder that is not among the live operations (deleted) holds nothing.
-    #expect(propose(item(), [exact], holding: [UUID()]) == .one(exact, isSimilar: false))
+    #expect(propose(item(), [exact], holding: [UUID()]).outcome == .one(exact, isSimilar: false))
   }
 
   @Test func aTransferIsOpenedNotSupplemented() {
     let transfer = candidate(1_000, transfer: true)
     let outcome = propose(item(), [transfer])
-    #expect(outcome == .one(transfer, isSimilar: false))
+    #expect(outcome.outcome == .one(transfer, isSimilar: false))
     #expect(
       ImportMatch.resolve(.supplement(transfer.id), for: outcome)
         == .success(.open(transfer.id)))
+  }
+
+  // MARK: Another account (a new operation asks first)
+
+  /// The owner wrote the purchase on the wrong card: the operation of the same day and sum on
+  /// another account is not offered, but a new one is written only after «всё равно создать».
+  @Test func theSameSumAndDayOnAnotherAccountAsksBeforeANewOperation() {
+    let elsewhere = candidate(1_000, at: at(15), account: otherAccount)
+    let proposal = propose(item(), [elsewhere])
+    #expect(proposal.outcome == .none)
+    #expect(proposal.otherAccount == [elsewhere])
+    #expect(
+      ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: proposal)
+        == .failure(.otherAccountNeedsConfirmation))
+    #expect(
+      ImportMatch.resolve(
+        .createNew(confirmedDuplicate: false, confirmedOtherAccount: true), for: proposal)
+        == .success(.create))
+    #expect(ImportMatch.resolve(.supplement(elsewhere.id), for: proposal) == .failure(.notOffered))
+  }
+
+  @Test func onlyTheSameSumAndDayOnAnotherAccountAsks() {
+    let otherDay = candidate(1_000, at: at(10, dayOffset: 1), account: otherAccount)
+    let otherSum = candidate(1_010, account: otherAccount)
+    let otherKind = candidate(1_000, account: otherAccount, kind: .income)
+    let transfer = candidate(1_000, account: otherAccount, transfer: true)
+    let charged = candidate(
+      12, account: otherAccount, currency: .usd, charged: (.rub, 1_000))
+    let proposal = propose(item(), [otherDay, otherSum, otherKind, transfer, charged])
+    #expect(proposal.otherAccount == [charged])
+    #expect(!propose(item(), [otherDay, otherSum, otherKind, transfer]).needsOtherAccountConfirmation)
+    #expect(propose(item(account: .some(nil)), [charged]).otherAccount.isEmpty)
+  }
+
+  @Test func bothQuestionsAreAskedOneAfterTheOther() {
+    let here = candidate(1_000)
+    let elsewhere = candidate(1_000, account: otherAccount)
+    let proposal = propose(item(), [here, elsewhere])
+    #expect(proposal.outcome == .one(here, isSimilar: false))
+    #expect(
+      ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: proposal)
+        == .failure(.duplicateNeedsConfirmation))
+    #expect(
+      ImportMatch.resolve(.createNew(confirmedDuplicate: true), for: proposal)
+        == .failure(.otherAccountNeedsConfirmation))
+    #expect(
+      ImportMatch.resolve(
+        .createNew(confirmedDuplicate: true, confirmedOtherAccount: true), for: proposal)
+        == .success(.create))
+  }
+
+  // MARK: A similar sum in the same shop
+
+  @Test func aSimilarSumInTheSameShopNeedsTheSecondYes() {
+    let sameShop = candidate(980, at: at(13), note: "кофейня у дома")
+    let proposal = propose(item(time: TimeOfDay(hour: 12, minute: 0)), [sameShop])
+    #expect(proposal.outcome == .one(sameShop, isSimilar: true))
+    #expect(proposal.needsDuplicateConfirmation)
+    #expect(
+      ImportMatch.resolve(.createNew(confirmedDuplicate: false), for: proposal)
+        == .failure(.duplicateNeedsConfirmation))
+    #expect(
+      ImportMatch.resolve(.createNew(confirmedDuplicate: true), for: proposal)
+        == .success(.create))
+  }
+
+  @Test func aSimilarSumElsewhereOrWithoutAShopIsWrittenWithoutAsking() {
+    let otherShop = candidate(980, at: at(13), note: "Аптека")
+    let noNote = candidate(990, at: at(13))
+    let proposal = propose(item(time: TimeOfDay(hour: 12, minute: 0)), [otherShop, noNote])
+    #expect(proposal.outcome == .several([noNote, otherShop], isSimilar: true))
+    #expect(!proposal.needsDuplicateConfirmation)
+    var unread = item(time: TimeOfDay(hour: 12, minute: 0))
+    unread.merchant = nil
+    let sameShop = candidate(980, at: at(13), note: "Кофейня")
+    #expect(!propose(unread, [sameShop]).needsDuplicateConfirmation)
+  }
+
+  @Test func theShopIsComparedWithoutCaseYoAndSpaces() {
+    #expect(ImportMatch.isSameMerchant("ПЯТЁРОЧКА", "пятерочка у дома"))
+    #expect(ImportMatch.isSameMerchant("  Кофейня  ", "Кофейня"))
+    #expect(ImportMatch.isSameMerchant("Coffee Bean", "coffee bean #12"))
+    #expect(!ImportMatch.isSameMerchant("Аптека", "Кофейня"))
+    #expect(!ImportMatch.isSameMerchant("Ок", "Окей"), "too short to say")
+    #expect(!ImportMatch.isSameMerchant(nil, "Кофейня"))
+    #expect(!ImportMatch.isSameMerchant("Кофейня", nil))
+  }
+
+  /// The note of an operation goes with its candidate, so the shop can be compared.
+  @Test func theNoteOfAnOperationGoesWithItsCandidate() throws {
+    var entry = try split(total: 1_000, parts: [1_000], at: timeless())
+    entry.transaction.note = "Кофейня"
+    #expect(ScreenshotMatch.candidates(entries: [entry], transfers: []).first?.note == "Кофейня")
   }
 
   // MARK: Split operations
@@ -208,8 +302,8 @@ struct ImportMatchTests {
   @Test func aSplitOperationIsMatchedByItsWholeSumNotByAPart() throws {
     let entry = try split(total: 1_000, parts: [600, 400], at: timeless())
     let candidates = ScreenshotMatch.candidates(entries: [entry], transfers: [])
-    #expect(propose(item(), candidates) == .one(candidates[0], isSimilar: false))
-    #expect(propose(item(600), candidates) == .none)
+    #expect(propose(item(), candidates).outcome == .one(candidates[0], isSimilar: false))
+    #expect(propose(item(600), candidates).outcome == .none)
   }
 
   // MARK: Supplement fills only what is empty
