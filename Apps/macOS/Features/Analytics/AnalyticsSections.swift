@@ -165,7 +165,7 @@ private struct OverviewSection: View {
       }
       .segmentedUnlessLargeText()
       .labelsHidden()
-      .fixedSize()
+      .fixedSizeUnlessLargeText()
     } content: { steps in
       let series = steps.series(stepChoice.step(for: steps))
       ColumnChart(

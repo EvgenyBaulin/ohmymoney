@@ -155,7 +155,7 @@ struct LimitStatusLine: View {
   var editing: LimitAmountEditing?
 
   var body: some View {
-    HStack(alignment: .firstTextBaseline, spacing: 6) {
+    AdaptiveStack(alignment: .firstTextBaseline, spacing: 6) {
       Image(systemName: PlanningText.statusSymbol(line.status))
         .foregroundStyle(PlanningText.statusTint(line.status))
         .accessibilityHidden(true)
@@ -176,7 +176,7 @@ struct LimitStatusLine: View {
           .monospacedDigit()
         }
       }
-      .fixedSize()
+      .fixedSizeUnlessLargeText()
     }
     .appFont(.callout)
     // Read as one line, unless there is a button in it to reach.
@@ -199,7 +199,7 @@ private struct LimitAmountField: View {
   private var isEditing: Bool { editing.editing.wrappedValue == line.budget.id }
 
   var body: some View {
-    HStack(alignment: .firstTextBaseline, spacing: 4) {
+    AdaptiveStack(alignment: .firstTextBaseline, spacing: 4) {
       Text(verbatim: "\(environment.money.rounded(line.spent)) /")
         .monospacedDigit()
       if isEditing {

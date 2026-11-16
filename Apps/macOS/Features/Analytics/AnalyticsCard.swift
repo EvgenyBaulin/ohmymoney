@@ -180,7 +180,7 @@ struct AnalyticsCardHeader<Accessory: View>: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: AnalyticsCardMetrics.subtitleGap) {
-      HStack(alignment: .firstTextBaseline, spacing: AnalyticsCardMetrics.captionGap) {
+      AdaptiveStack(alignment: .firstTextBaseline, spacing: AnalyticsCardMetrics.captionGap) {
         Text(verbatim: title)
           .appFont(AnalyticsCardType.title(style))
           .frame(maxWidth: .infinity, alignment: .leading)
@@ -189,8 +189,7 @@ struct AnalyticsCardHeader<Accessory: View>: View {
           Text(verbatim: caption)
             .appFont(AnalyticsCardType.caption)
             .secondaryInk()
-            .lineLimit(1)
-            .fixedSize()
+            .oneLineUnlessLargeText()
         }
         accessory
       }
