@@ -48,7 +48,7 @@ final class DatabaseRecordApplier: RecordApplier, @unchecked Sendable {
       var batch = ApplyTally()
       var identities = try SystemRowIdentity.load(db)
       try identities.learn(db, from: records)
-      for record in records {
+      for record in Self.cardsFirst(records) {
         try SyncBook.undefer(db, record.key)
         // A system row two devices made apart is one row with two ids: the other device's
         // version is applied to the local row, and its references are pointed at it.
@@ -110,5 +110,19 @@ final class DatabaseRecordApplier: RecordApplier, @unchecked Sendable {
       tally.deferred += batch.deferred
       tally.unknownTable += batch.unknownTable
     }
+  }
+
+  /// The batch with the cards written or changed first, the rest in the order it came. The
+  /// schema holds an account's main card to a card of that account (`SyncRows.write` sets it
+  /// right after the account), so an account that arrives with its main card — a new device
+  /// taking the books, a new account, a card turned into a credit card of its own — needs the
+  /// card in place first; the card, pointing at an account not written yet, waits for the end
+  /// of the batch like any other key. A deleted card keeps its place: operations that still
+  /// name it let go of it later in the batch, and the schema refuses deleting a card they name.
+  static func cardsFirst(_ records: [ResolvedRecord]) -> [ResolvedRecord] {
+    let isCard = { (record: ResolvedRecord) in
+      record.key.table == "cards" && !record.isDeleted
+    }
+    return records.filter(isCard) + records.filter { !isCard($0) }
   }
 }

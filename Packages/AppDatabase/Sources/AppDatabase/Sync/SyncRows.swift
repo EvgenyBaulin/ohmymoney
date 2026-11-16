@@ -57,6 +57,14 @@ enum SyncRows {
     let known = Set(try db.columns(in: table).map(\.name))
     var values = fields.filter { known.contains($0.key) && $0.key != pk }
     values[pk] = .string(key)
+    // The schema refuses an account written with its main card in the same statement: the
+    // account goes in without it, and the main card follows — a card of the account by then,
+    // the cards of a batch being written first (`DatabaseRecordApplier.cardsFirst`).
+    var mainCard: SyncValue?
+    if table == "payment_methods", let card = values["main_card_id"], card != .null {
+      mainCard = card
+      values["main_card_id"] = .null
+    }
     let names = values.keys.sorted()
     let columns = names.map { "\"\($0)\"" }.joined(separator: ", ")
     let marks = databaseQuestionMarks(count: names.count)
@@ -68,6 +76,11 @@ enum SyncRows {
       sql:
         "INSERT INTO \"\(table)\" (\(columns)) VALUES (\(marks)) ON CONFLICT(\"\(pk)\") \(conflict)",
       arguments: StatementArguments(names.map { databaseValue(values[$0]!) }))
+    if let mainCard {
+      try db.execute(
+        sql: "UPDATE payment_methods SET main_card_id = ? WHERE \"\(pk)\" = ?",
+        arguments: [databaseValue(mainCard), key])
+    }
   }
 }
 
