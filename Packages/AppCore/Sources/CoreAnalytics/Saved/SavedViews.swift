@@ -74,6 +74,7 @@ public struct SavedFilter: Hashable, Sendable, Codable, Identifiable {
   public var kind: TransactionKind?
   public var categoryId: UUID?
   public var subcategoryId: UUID?
+  public var uncategorizedOnly: Bool
   public var quality: Quality?
   public var forWhom: ForWhom?
   public var personId: UUID?
@@ -97,6 +98,7 @@ public struct SavedFilter: Hashable, Sendable, Codable, Identifiable {
     self.kind = filter.kind
     self.categoryId = filter.categoryId
     self.subcategoryId = filter.subcategoryId
+    self.uncategorizedOnly = filter.uncategorizedOnly
     self.quality = filter.quality
     self.forWhom = filter.forWhom
     self.personId = filter.personId
@@ -109,11 +111,40 @@ public struct SavedFilter: Hashable, Sendable, Codable, Identifiable {
     self.columns = columns
   }
 
+  private enum CodingKeys: String, CodingKey {
+    case id, name, period, kind, categoryId, subcategoryId, uncategorizedOnly, quality, forWhom
+    case personId, placeId, eventId, paymentMethodId, cardId, reimbursementStatus, text, columns
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    id = try container.decode(UUID.self, forKey: .id)
+    name = try container.decode(String.self, forKey: .name)
+    period = try container.decodeIfPresent(SavedPeriod.self, forKey: .period)
+    kind = try container.decodeIfPresent(TransactionKind.self, forKey: .kind)
+    categoryId = try container.decodeIfPresent(UUID.self, forKey: .categoryId)
+    subcategoryId = try container.decodeIfPresent(UUID.self, forKey: .subcategoryId)
+    uncategorizedOnly =
+      try container.decodeIfPresent(Bool.self, forKey: .uncategorizedOnly) ?? false
+    quality = try container.decodeIfPresent(Quality.self, forKey: .quality)
+    forWhom = try container.decodeIfPresent(ForWhom.self, forKey: .forWhom)
+    personId = try container.decodeIfPresent(UUID.self, forKey: .personId)
+    placeId = try container.decodeIfPresent(UUID.self, forKey: .placeId)
+    eventId = try container.decodeIfPresent(UUID.self, forKey: .eventId)
+    paymentMethodId = try container.decodeIfPresent(UUID.self, forKey: .paymentMethodId)
+    cardId = try container.decodeIfPresent(UUID.self, forKey: .cardId)
+    reimbursementStatus = try container.decodeIfPresent(
+      ReimbursementStatus.self, forKey: .reimbursementStatus)
+    text = try container.decode(String.self, forKey: .text)
+    columns = try container.decodeIfPresent([String].self, forKey: .columns)
+  }
+
   /// The filter as it applies on `today`: a floating period is worked out now.
   public func entryFilter(today: DateOnly) -> EntryFilter {
     EntryFilter(
       period: period?.resolved(today: today), kind: kind, categoryId: categoryId,
-      subcategoryId: subcategoryId, quality: quality, forWhom: forWhom, personId: personId,
+      subcategoryId: subcategoryId, uncategorizedOnly: uncategorizedOnly, quality: quality,
+      forWhom: forWhom, personId: personId,
       placeId: placeId, eventId: eventId, paymentMethodId: paymentMethodId,
       reimbursementStatus: reimbursementStatus, text: text, cardId: cardId)
   }

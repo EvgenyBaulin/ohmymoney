@@ -36,6 +36,7 @@ struct TransactionFilters: Hashable, Sendable {
   private(set) var kind: TransactionKind?
   private(set) var categoryId: UUID?
   var subcategoryId: UUID?
+  private(set) var uncategorizedOnly = false
   var quality: Quality?
   var forWhom: ForWhom?
   var personId: UUID?
@@ -67,9 +68,19 @@ struct TransactionFilters: Hashable, Sendable {
   /// Another category drops the subcategory: a child of the category that was there before
   /// would leave the pair mismatched.
   mutating func setCategory(_ categoryId: UUID?) {
+    if categoryId != nil { uncategorizedOnly = false }
     guard categoryId != self.categoryId else { return }
     self.categoryId = categoryId
     subcategoryId = nil
+  }
+
+  /// The uncategorized choice replaces a chosen category and subcategory.
+  mutating func setUncategorizedOnly(_ enabled: Bool) {
+    uncategorizedOnly = enabled
+    if enabled {
+      categoryId = nil
+      subcategoryId = nil
+    }
   }
 
   /// The account picker's choice: a card, or an account.
@@ -136,7 +147,8 @@ struct TransactionFilters: Hashable, Sendable {
     count +=
       [
         kind != nil, categoryId != nil, subcategoryId != nil, quality != nil, forWhom != nil,
-        personId != nil, placeId != nil, eventId != nil, accountOrCard != nil, status != nil,
+        uncategorizedOnly, personId != nil, placeId != nil, eventId != nil,
+        accountOrCard != nil, status != nil,
       ].filter { $0 }.count
     return count
   }
@@ -167,7 +179,8 @@ struct TransactionFilters: Hashable, Sendable {
   func entryFilter(today: DateOnly) -> EntryFilter {
     EntryFilter(
       period: period(today: today), kind: kind, categoryId: categoryId,
-      subcategoryId: subcategoryId, quality: quality, forWhom: forWhom, personId: personId,
+      subcategoryId: subcategoryId, uncategorizedOnly: uncategorizedOnly, quality: quality,
+      forWhom: forWhom, personId: personId,
       placeId: placeId, eventId: eventId, paymentMethodId: paymentMethodId,
       reimbursementStatus: status, text: search.trimmingCharacters(in: .whitespaces),
       cardId: cardId)

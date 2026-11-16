@@ -8770,6 +8770,23 @@
         }
       }
     },
+    "look.action.openUtilities": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check readings"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверить показания"
+          }
+        }
+      }
+    },
     "look.action.openWarranty": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -14988,6 +15005,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "薪水還沒入帳？原定 %@ 入帳"
+          }
+        }
+      }
+    },
+    "look.utilityReadings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Possible typo in the readings"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Похоже на опечатку в показаниях"
           }
         }
       }
@@ -90055,6 +90089,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "薪水尚未入帳？"
+          }
+        }
+      }
+    },
+    "why.look.utilityReadings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Possible typo in the readings — %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Похоже на опечатку в показаниях — %@"
           }
         }
       }

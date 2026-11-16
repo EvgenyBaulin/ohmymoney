@@ -44,6 +44,7 @@ extension TransactionFilters {
     cardId = filter.cardId
     status = filter.reimbursementStatus
     search = filter.text
+    setUncategorizedOnly(filter.uncategorizedOnly)
     if let span = filter.period {
       if span == Period.month(today.monthKey) {
         period = .thisMonth

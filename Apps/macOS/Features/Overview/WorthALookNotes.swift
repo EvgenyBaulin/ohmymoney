@@ -68,6 +68,8 @@ enum WorthALookNoteText {
     case .burnout(let signal):
       return environment.format(
         "look.burnout", table: table, counts: signal.lastWeekCount, signal.usualCount)
+    case .utilityReadings(_, let name):
+      return environment.language("look.utilityReadings", table: table) + " · " + name
     case .databaseProblems(let count):
       return environment.format("look.databaseProblems", table: table, counts: count)
     case .bank(let bankNote): return bankText(bankNote, accounts: accounts, environment)
@@ -108,6 +110,7 @@ enum WorthALookNoteText {
     case .monthRest: "tray.and.arrow.down"
     case .npdLimit: "exclamationmark.triangle"
     case .burnout: "cup.and.saucer"
+    case .utilityReadings: "exclamationmark.triangle"
     case .lowCopySpace: "externaldrive.badge.exclamationmark"
     case .bank(let bankNote): bankSymbol(bankNote)
     case .depositEnds: "calendar.badge.clock"
@@ -169,6 +172,7 @@ enum WorthALookNoteText {
     case noSpend
     /// Opens the sheet of the month's choice of cashback categories.
     case chooseCashback
+    case openUtilities
 
     /// The actions of the purchase notes have their words in the catalog of the purchases.
     var isPurchase: Bool {
@@ -228,6 +232,7 @@ enum WorthALookNoteText {
     case .cashback(.choose): [.chooseCashback, .done]
     case .cashback: [.done]
     case .keyRate: [.openDebts, .done]
+    case .utilityReadings: [.openUtilities]
     }
   }
 
@@ -424,6 +429,7 @@ extension WorthALook {
 
 /// What a line of «Стоит посмотреть» opens.
 enum WorthALookSheet: Identifiable {
+  case utilities(meterId: UUID)
   case allocate(AllocationRequest)
   case monthRest(MonthRestOffer)
   case pay(NPDMonth)
@@ -436,6 +442,7 @@ enum WorthALookSheet: Identifiable {
 
   var id: String {
     switch self {
+    case .utilities(let id): "utilities:\(id)"
     case .warranty: "warranty"
     case .missedDays(let gap): gap.id
     case .cashbackChoice(let id, let month): "cashbackChoice:\(id):\(month.iso)"
@@ -586,6 +593,8 @@ struct WorthALookNoteRow: View {
     case .openPlanning:
       NotificationCenter.default.post(
         name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
+    case .openUtilities:
+      if case .utilityReadings(let meter, _) = note { open(.utilities(meterId: meter)) }
     case .allocate:
       if case .allocate(let incomeId, _, _) = note {
         open(.allocate(AllocationRequest(incomeId: incomeId)))

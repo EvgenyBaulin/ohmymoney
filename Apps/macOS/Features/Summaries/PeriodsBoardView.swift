@@ -274,6 +274,7 @@ struct PeriodsHeroCard: View {
 /// «Куда ушли деньги»: the ring of the four categories and the rest, the spending of the period in
 /// its hole, every part named with its percent beside it.
 struct PeriodsDonutCard: View {
+  @Environment(\.dismiss) private var dismiss
   @Environment(\.appTheme) private var theme
   @Environment(\.dynamicTypeSize) private var textSize
   let board: PeriodBoard
@@ -290,36 +291,31 @@ struct PeriodsDonutCard: View {
         ShareDonutChart(
           slices: board.slices.enumerated().map { index, slice in
             ShareDonutSlice(
-              id: slice.categoryId?.uuidString ?? "rest", name: text.category(slice.categoryId),
+              id: slice.id, name: text.category(slice),
               basisPoints: slice.shareBP,
-              tint: PeriodsBoardTint.slice(index, isRest: slice.categoryId == nil, theme))
+              tint: tint(slice, at: index))
           },
           figure: text.rubles(board.spent),
           caption: text.t("summaries.board.donut.\(board.id.kind.rawValue)"),
           side: PeriodsBoardMetrics.donut, figureType: PeriodsBoardType.donutFigure,
-          captionType: PeriodsBoardType.donutCaption)
+          captionType: PeriodsBoardType.donutCaption,
+          onSelect: { id in
+            if let slice = board.slices.first(where: { $0.id == id }) { open(slice) }
+          })
         VStack(alignment: .leading, spacing: PeriodsBoardMetrics.legendGap) {
           ForEach(Array(board.slices.enumerated()), id: \.offset) { index, slice in
-            HStack(spacing: PeriodsBoardMetrics.legendGap) {
-              Circle()
-                .fill(PeriodsBoardTint.slice(index, isRest: slice.categoryId == nil, theme))
-                .frame(width: PeriodsBoardMetrics.legendDot, height: PeriodsBoardMetrics.legendDot)
-                .accessibilityHidden(true)
-              Text(verbatim: text.category(slice.categoryId))
-                .appFont(PeriodsBoardType.legendName)
-                .lineLimit(textSize.isAccessibilitySize ? nil : 1)
-                // 90 as the frames draw it; a narrow phone takes from the name, never the percent.
-                // At the accessibility sizes the name takes the room the legend has.
-                .frame(
-                  minWidth: 0, idealWidth: PeriodsBoardMetrics.legendName,
-                  maxWidth: textSize.isAccessibilitySize
-                    ? .infinity : PeriodsBoardMetrics.legendName, alignment: .leading)
-              Text(verbatim: text.percent(slice.shareBP))
-                .appFont(PeriodsBoardType.figure)
-                .fixedSize()
+            if slice.isUncategorized {
+              Button {
+                open(slice)
+              } label: {
+                legend(slice, at: index)
+              }
+              .buttonStyle(.plain)
+              .frame(minHeight: 44)
+              .accessibilityIdentifier("summaries.donut.uncategorized")
+            } else {
+              legend(slice, at: index)
             }
-            .foregroundStyle(theme.contentPrimary)
-            .accessibilityElement(children: .combine)
           }
         }
         Spacer(minLength: 0)
@@ -328,6 +324,39 @@ struct PeriodsDonutCard: View {
     .boardCard(metrics)
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("summaries.donut")
+  }
+
+  private func tint(_ slice: PeriodBoard.Slice, at index: Int) -> Color {
+    slice.isUncategorized
+      ? .gray
+      : PeriodsBoardTint.slice(index, isRest: slice.categoryId == nil, theme)
+  }
+
+  private func legend(_ slice: PeriodBoard.Slice, at index: Int) -> some View {
+    HStack(spacing: PeriodsBoardMetrics.legendGap) {
+      Circle()
+        .fill(tint(slice, at: index))
+        .frame(width: PeriodsBoardMetrics.legendDot, height: PeriodsBoardMetrics.legendDot)
+        .accessibilityHidden(true)
+      Text(verbatim: text.category(slice))
+        .appFont(PeriodsBoardType.legendName)
+        .lineLimit(textSize.isAccessibilitySize ? nil : 1)
+        .frame(
+          minWidth: 0, idealWidth: PeriodsBoardMetrics.legendName,
+          maxWidth: textSize.isAccessibilitySize ? .infinity : PeriodsBoardMetrics.legendName,
+          alignment: .leading)
+      Text(verbatim: text.percent(slice.shareBP))
+        .appFont(PeriodsBoardType.figure)
+        .fixedSize()
+    }
+    .foregroundStyle(theme.contentPrimary)
+    .accessibilityElement(children: .combine)
+  }
+
+  private func open(_ slice: PeriodBoard.Slice) {
+    guard let filter = slice.operationsFilter(in: board.range) else { return }
+    dismiss()
+    QuestionOpening.showOperations(OperationsFilterRequest(filter: filter, columns: nil))
   }
 }
 

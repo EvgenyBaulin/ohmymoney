@@ -24,6 +24,8 @@ struct ShareDonutChart: View {
   /// The figure and the word in the hole: 15 bold and 11 in Capital, 13 and 9 in «Итоги».
   var figureType: AppFont = .system(size: 15, weight: .bold)
   var captionType: AppFont = .system(size: 11)
+  var onSelect: ((String) -> Void)? = nil
+  @State private var selectedAngle: Int?
 
   /// The hole: the ring is 16 % of the side wide, as the frames draw it.
   static let innerRatio: CGFloat = 0.68
@@ -45,6 +47,20 @@ struct ShareDonutChart: View {
       .accessibilityIdentifier("chart.native.share.\(slice.id)")
     }
     .chartLegend(.hidden)
+    .chartAngleSelection(value: $selectedAngle)
+    .onChange(of: selectedAngle) { _, angle in
+      guard let angle, let onSelect else { return }
+      defer { selectedAngle = nil }
+      var end = 0
+      for slice in slices {
+        end += slice.basisPoints
+        if angle < end {
+          onSelect(slice.id)
+          return
+        }
+      }
+      if let last = slices.last, angle == end { onSelect(last.id) }
+    }
     .frame(width: side, height: side)
     .overlay {
       VStack(spacing: 0) {
@@ -57,6 +73,7 @@ struct ShareDonutChart: View {
           .secondaryInk()
       }
       .frame(width: side * Self.innerRatio - 8)
+      .allowsHitTesting(false)
     }
   }
 }

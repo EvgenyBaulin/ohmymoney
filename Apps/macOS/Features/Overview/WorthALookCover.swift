@@ -86,7 +86,7 @@ enum WorthALookCover {
       .databaseProblems:
       return false
     // The lines of the habits name no account: the wizard asks only about the accounts shown.
-    case .habit:
+    case .habit, .utilityReadings:
       return false
     }
   }

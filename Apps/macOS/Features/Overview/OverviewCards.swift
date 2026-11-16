@@ -669,6 +669,8 @@ struct AnomaliesCard: View {
     }
     .sheet(item: $opened) { sheet in
       switch sheet {
+      case .utilities(let meter):
+        UtilitiesScreen(focusedMeterId: meter).handingOver(dependencies)
       case .allocate(let request): AllocationSheetView(request: request).handingOver(dependencies)
       case .monthRest(let offer): MonthRestSheet(offer: offer).handingOver(dependencies)
       case .pay(let month): NPDPaymentSheet(month: month).handingOver(dependencies)

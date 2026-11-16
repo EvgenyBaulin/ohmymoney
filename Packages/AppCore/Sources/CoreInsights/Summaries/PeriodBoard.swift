@@ -17,12 +17,22 @@ public struct PeriodBoard: Hashable, Sendable {
     case bestMonth(MonthKey)
   }
 
-  /// A part of the ring: a category, or `nil` for everything past the first four.
+  /// A part of the ring: a named category, the remaining categories or uncategorized spending.
   public struct Slice: Hashable, Sendable {
     public var categoryId: UUID?
     public var amount: AmountE4
     /// Basis points of the positive spending; the slices add up to exactly 10,000.
     public var shareBP: Int
+    public var isUncategorized = false
+
+    public var id: String {
+      isUncategorized ? "uncategorized" : categoryId?.uuidString ?? "rest"
+    }
+
+    public func operationsFilter(in range: DayRange) -> EntryFilter? {
+      guard isUncategorized else { return nil }
+      return EntryFilter(period: .days(range), kind: .expense, uncategorizedOnly: true)
+    }
   }
 
   /// A column of «Расходы по неделям / по месяцам»: the spending of a week or a month and of the
@@ -99,6 +109,9 @@ public struct PeriodBoard: Hashable, Sendable {
     }
     let spending = ledger.rows(in: range).filter { !$0.contribution.isZero }
     let categories = categories(ledger: ledger, range: range)
+    let uncategorized = AmountE4.sum(
+      CategoryBreakdown(ledger: ledger, period: .days(range), kind: .expense).nodes
+        .filter { $0.key == .uncategorized }.map(\.amount))
     return PeriodBoard(
       id: id, range: range, hasData: !spending.isEmpty || !income.isZero, spent: spent,
       income: income,
@@ -106,7 +119,8 @@ public struct PeriodBoard: Hashable, Sendable {
       previousSpent: previousSpent,
       changeBP: SummaryMath.changeBP(spent.decimal, base: previousSpent.decimal),
       highlight: best.map(Highlight.bestMonth) ?? dearestDay(spending).map(Highlight.dearestDay),
-      slices: slices(categories), columns: columns(id, ledger: ledger, today: today),
+      slices: slices(categories, uncategorized: uncategorized),
+      columns: columns(id, ledger: ledger, today: today),
       grades: grades(spending), topCategories: Array(categories.prefix(namedCategories)))
   }
 
@@ -125,14 +139,19 @@ public struct PeriodBoard: Hashable, Sendable {
 
   /// The first four categories and «Другое» for the rest, shared out so they make exactly
   /// 10,000 basis points.
-  static func slices(_ categories: [SummaryCategory]) -> [Slice] {
+  static func slices(
+    _ categories: [SummaryCategory], uncategorized: AmountE4 = .zero
+  ) -> [Slice] {
     let named = Array(categories.prefix(namedCategories))
     let rest = AmountE4.sum(categories.dropFirst(namedCategories).map(\.amount))
     var parts: [(UUID?, AmountE4)] = named.map { ($0.categoryId, $0.amount) }
     if rest.raw > 0 { parts.append((nil, rest)) }
+    if uncategorized.raw > 0 { parts.append((nil, uncategorized)) }
     let shares = Shares.basisPoints(parts.map(\.1))
     return parts.indices.map { index in
-      Slice(categoryId: parts[index].0, amount: parts[index].1, shareBP: shares[index] ?? 0)
+      Slice(
+        categoryId: parts[index].0, amount: parts[index].1, shareBP: shares[index] ?? 0,
+        isUncategorized: uncategorized.raw > 0 && index == parts.count - 1)
     }
   }
 

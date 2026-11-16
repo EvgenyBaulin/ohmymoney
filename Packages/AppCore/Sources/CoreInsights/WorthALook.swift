@@ -129,6 +129,8 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
   case cashback(CashbackNote)
   /// «Ключевая ставка снизилась — проверьте рефинансирование» (`KeyRateAdvisor`).
   case keyRate(KeyRateNote)
+  /// A meter whose usage cost cannot be represented; the readings remain saved for correction.
+  case utilityReadings(meterId: UUID, name: String)
 
   public var id: String {
     switch self {
@@ -148,6 +150,7 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
     case .habit(let note): note.id
     case .cashback(let note): note.id
     case .keyRate(let note): note.id
+    case .utilityReadings(let meter, _): "utilityReadings:\(meter)"
     }
   }
 }
@@ -209,6 +212,16 @@ extension WorthALook {
     notes.insert(contentsOf: habits.map(WorthALookNote.habit), at: 0)
     notes += cashback.map(WorthALookNote.cashback)
     notes += keyRate.map(WorthALookNote.keyRate)
+    let utilities = ledger.dataset.utilities
+    for meter in utilities.meters.filter({ !$0.archived }).sorted(by: {
+      ($0.sort, $0.id.uuidString) < ($1.sort, $1.id.uuidString)
+    }) {
+      if UtilityUsage.months(of: meter, readings: utilities.readings).values.contains(where: {
+        $0.costState == .cannotCompute
+      }) {
+        notes.append(.utilityReadings(meterId: meter.id, name: meter.name))
+      }
+    }
     return notes
   }
 }
