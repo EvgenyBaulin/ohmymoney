@@ -82,6 +82,8 @@ public struct Dataset: Sendable {
   public var debtInstalments: [DebtInstalmentStep]
   /// The minimum and deadline the bank named for single statements of credit cards.
   public var creditStatements: [CreditStatementOverride]
+  /// The latest statement-import moment for each account, including imports that added no rows.
+  public var statementImportMoments: [UUID: Date]
   /// What else the loans cost, by debt in the owner's order.
   public var debtCosts: [DebtCost]
   /// How the owner usually allocates an income, in the owner's order.
@@ -170,9 +172,11 @@ public struct Dataset: Sendable {
     shoppingItems: [ShoppingItem] = [],
     ownedItems: [OwnedItem] = [],
     purchaseSettings: PurchaseSettings = PurchaseSettings(),
-    creditStatements: [CreditStatementOverride] = []
+    creditStatements: [CreditStatementOverride] = [],
+    statementImportMoments: [UUID: Date] = [:]
   ) {
     self.creditStatements = creditStatements
+    self.statementImportMoments = statementImportMoments
     self.entries = entries
     self.links = links
     self.categories = categories

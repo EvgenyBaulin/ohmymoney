@@ -53,6 +53,38 @@ struct DatasetTests {
     #expect(dataset.settings.cashbackCategoryId == set.cashbackCategoryId)
   }
 
+  @Test func theSnapshotCarriesTheLatestStatementImportMomentPerAccount() async throws {
+    let stack = try TestSupport.makeStack()
+    let firstAccount = PaymentMethod(name: "First card", kind: .card, currency: .rub)
+    let secondAccount = PaymentMethod(name: "Second card", kind: .card, currency: .rub)
+    let references = ReferenceRepository(writer: stack.writer)
+    try references.save(firstAccount)
+    try references.save(secondAccount)
+
+    let imports = StatementImportRepository(writer: stack.writer)
+    let firstImport = Date(timeIntervalSince1970: 1_800_000_000)
+    let latestFirstImport = Date(timeIntervalSince1970: 1_800_086_400)
+    let secondImport = Date(timeIntervalSince1970: 1_800_043_200)
+    for (account, importedAt, newCount) in [
+      (firstAccount, firstImport, 3),
+      (firstAccount, latestFirstImport, 0),
+      (secondAccount, secondImport, 1),
+    ] {
+      try imports.record(
+        StatementImportRecord(
+          id: UUID().uuidString, accountID: account.id.uuidString, profileID: "",
+          fileName: "statement.csv", importedAt: importedAt, periodFrom: nil, periodTo: nil,
+          rowCount: 3, newCount: newCount, duplicateCount: 3 - newCount,
+          declinedCount: 0, unparsedCount: 0))
+    }
+
+    let dataset = try await DatasetRepository(writer: stack.writer).load(version: 1)
+
+    #expect(
+      dataset.statementImportMoments
+        == [firstAccount.id: latestFirstImport, secondAccount.id: secondImport])
+  }
+
   /// The planning book comes in the same read: every table of the planning, the journals
   /// of every debt — the closed ones too — the reconciliations oldest first, and the
   /// planning settings.

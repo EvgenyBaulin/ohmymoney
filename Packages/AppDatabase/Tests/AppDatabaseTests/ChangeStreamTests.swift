@@ -138,17 +138,16 @@ struct ChangeStreamTests {
 
   /// The tables of the accounts are ledger tables: balances are made of the transfers and the
   /// counts, and the groups decide what the total shows. So are the cards and their cashback
-  /// rules: what Analytics shows of the cashback expected is made of them. And the assets with
-  /// their valuations: the capital is made of them.
+  /// rules, the imports that drive the statement reminder, and the assets with their valuations.
   @Test func theTablesOfTheAccountsAreWatched() throws {
     for table in [
       "account_groups", "transfers", "reconciliation_balances", "cards", "cashback_rules",
-      "banks", "assets", "asset_valuations", "debt_instalments", "debt_costs",
+      "banks", "assets", "asset_valuations", "debt_instalments", "debt_costs", "import_batches",
       "allocation_rules", "custom_currencies", "tags", "part_tags", "rules", "day_notes",
     ] {
       #expect(DatabaseStack.ledgerTables.contains(table), "\(table) is not watched")
     }
-    #expect(DatabaseStack.ledgerTables.count == 62)
+    #expect(DatabaseStack.ledgerTables.count == 63)
     #expect(Set(DatabaseStack.ledgerTables).count == DatabaseStack.ledgerTables.count)
   }
 
@@ -186,6 +185,13 @@ struct ChangeStreamTests {
       ).insert(db)
     }
     #expect(seen.value > before, "a count was not announced")
+    let beforeImport = seen.value
+    try StatementImportRepository(writer: stack.writer).record(
+      StatementImportRecord(
+        id: UUID().uuidString, accountID: card.id.uuidString, profileID: "",
+        fileName: "statement.csv", importedAt: at, periodFrom: nil, periodTo: nil,
+        rowCount: 1, newCount: 0, duplicateCount: 1, declinedCount: 0, unparsedCount: 0))
+    #expect(seen.value > beforeImport, "a statement import was not announced")
     withExtendedLifetime(changes) {}
   }
 

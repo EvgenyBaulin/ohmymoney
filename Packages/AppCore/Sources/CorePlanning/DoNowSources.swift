@@ -37,21 +37,25 @@ public enum DoNowSources {
     return sources
   }
 
-  /// «Загрузить»: for each open account that has had statements loaded, one source when the
-  /// newest statement was loaded `statementDays` ago or earlier. The day of loading is when the
-  /// operations were created, not the day of the newest operation in the file: a quiet card
-  /// whose last operation is old is not asked. An account with no statement operation at all
-  /// never asks (the owner may not use statements for it), nor does an archived one, nor one the
-  /// owner skipped fewer than `statementDays` days ago.
+  /// «Загрузить»: ask for each open account whose latest statement import was
+  /// `statementDays` ago or earlier. Import dates include batches that added no operations;
+  /// accounts without an import record fall back to their statement operations. Archived
+  /// accounts and accounts skipped fewer than `statementDays` days ago are left out.
   public static func statements(
     entries: [TransactionEntry], today: DateOnly, calendar: CalendarContext,
+    statementImportMoments: [UUID: Date] = [:],
     archivedAccounts: Set<UUID> = [], skips: StatementSkips = StatementSkips()
   ) -> [DoNowSource] {
     var latest: [UUID: DateOnly] = [:]
+    for (account, moment) in statementImportMoments
+    where !archivedAccounts.contains(account) {
+      latest[account] = calendar.day(of: moment)
+    }
     for entry in entries where entry.transaction.deletedAt == nil {
       guard entry.transaction.source == "statement",
         let account = entry.transaction.paymentMethodId,
-        !archivedAccounts.contains(account)
+        !archivedAccounts.contains(account),
+        statementImportMoments[account] == nil
       else { continue }
       let day = calendar.day(of: entry.transaction.createdAt)
       if latest[account].map({ day > $0 }) ?? true { latest[account] = day }
