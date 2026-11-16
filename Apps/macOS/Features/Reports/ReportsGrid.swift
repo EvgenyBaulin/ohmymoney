@@ -496,7 +496,7 @@ struct ReportGridView: View {
       HStack(spacing: 6) {
         Text(verbatim: text).truncationMode(.tail)
         if let mark {
-          Text(verbatim: mark).appFont(.caption).foregroundStyle(theme.contentSecondary)
+          Text(verbatim: mark).appFont(.caption).secondaryInk()
         }
       }
       .padding(.leading, CGFloat(depth) * metrics.indent)

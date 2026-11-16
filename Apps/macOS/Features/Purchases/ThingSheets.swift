@@ -76,7 +76,7 @@ struct ThingEditor: View {
         }
         Text(verbatim: t("purchases.thing.editor.tagHint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         TextField(
           text: Binding(get: { item.note ?? "" }, set: { item.note = $0 }), axis: .vertical
@@ -174,7 +174,7 @@ struct ThingSaleSheet: View {
         }
         Text(verbatim: t("purchases.sale.hint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

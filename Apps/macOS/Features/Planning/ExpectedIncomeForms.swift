@@ -163,11 +163,11 @@ struct ExpectedIncomeForm: View {
           .accessibilityIdentifier("expected.payoutAsset")
           if holdings.isEmpty {
             Text(verbatim: DepositText.t("payout.noAssets", environment))
-              .appFont(.caption).foregroundStyle(.secondary)
+              .appFont(.caption).secondaryInk()
           }
           if income.kind == .oneOff {
             Text(verbatim: DepositText.t("payout.recurringHint", environment))
-              .appFont(.caption).foregroundStyle(.secondary)
+              .appFont(.caption).secondaryInk()
           }
         }
         Picker(t("form.toAccount"), selection: $income.paymentMethodId) {
@@ -401,7 +401,7 @@ struct LinkIncomeForm: View {
       Text(verbatim: environment.format("form.link.title", table: "Planning", status.income.name))
         .appFont(.headline)
       if candidates.isEmpty {
-        Text(verbatim: t("form.link.none")).foregroundStyle(.secondary)
+        Text(verbatim: t("form.link.none")).secondaryInk()
       }
       List(candidates, id: \.id) { entry in
         HStack {

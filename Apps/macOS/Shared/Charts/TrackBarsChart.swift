@@ -101,7 +101,7 @@ struct TrackBarsChart: View {
             .frame(width: layout.amountWidth, alignment: .trailing)
           Text(verbatim: row.note ?? "")
             .appFont(.system(size: layout.noteSize).monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
             .frame(width: layout.noteWidth, alignment: .leading)
         }

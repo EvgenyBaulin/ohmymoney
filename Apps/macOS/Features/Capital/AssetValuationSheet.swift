@@ -25,7 +25,7 @@ struct AssetValuationSheet: View {
           HStack {
             AmountField(amount: $value, locale: environment.language.locale)
             Text(verbatim: environment.money.symbol(for: asset.currency))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
         DatePicker(
@@ -41,7 +41,7 @@ struct AssetValuationSheet: View {
             Image(systemName: "arrow.triangle.2.circlepath")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("capital.valuation.replaces")
         }
@@ -86,7 +86,7 @@ struct AssetHistorySheet: View {
         .appFont(.headline)
       if history.isEmpty {
         Text(verbatim: CapitalText.t("capital.history.empty", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       List(history) { valuation in
         HStack(alignment: .firstTextBaseline) {
@@ -95,7 +95,7 @@ struct AssetHistorySheet: View {
             if let note = valuation.note {
               Text(verbatim: note)
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
           Spacer(minLength: 8)
@@ -145,7 +145,7 @@ struct AssetDisposalSheet: View {
           displayedComponents: .date)
         Text(verbatim: CapitalText.t("capital.dispose.hint", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

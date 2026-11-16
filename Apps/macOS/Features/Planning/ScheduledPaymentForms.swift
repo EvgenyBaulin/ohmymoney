@@ -80,7 +80,7 @@ struct ScheduledPaymentForm: View {
             Image(systemName: "archivebox")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         }
         Picker(t("form.event"), selection: $draft.payment.eventId) {
@@ -94,7 +94,7 @@ struct ScheduledPaymentForm: View {
         if draft.payment.eventId != nil {
           Text(verbatim: t("form.event.hint"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         Picker(t("form.freq"), selection: presetBinding) {
@@ -208,7 +208,7 @@ struct ScheduledPaymentForm: View {
               "form.remind", table: "Planning", draft.payment.remindDaysBefore ?? 3))
         }
         if let issue = issue(choices) {
-          Text(verbatim: t(issue.key)).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: t(issue.key)).appFont(.caption).secondaryInk()
         }
       }
       .formStyle(.grouped)
@@ -522,7 +522,7 @@ struct MarkAsPaidForm: View {
         LabeledContent(t("form.amount")) {
           HStack {
             AmountField(amount: $amount, locale: environment.language.locale)
-            Text(verbatim: payment.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: payment.currency.code).secondaryInk()
           }
         }
         DatePicker(t("form.date"), selection: $date)
@@ -1120,7 +1120,7 @@ struct ChargeRow: View {
             locale: environment.language.locale
           )
           .accessibilityLabel(Text(verbatim: t("entry.accountCharge")))
-          Text(verbatim: currency.code).foregroundStyle(.secondary)
+          Text(verbatim: currency.code).secondaryInk()
         }
       }
       if charge.provisional {
@@ -1143,7 +1143,7 @@ struct ChargeRow: View {
       Image(systemName: symbol)
     }
     .appFont(.caption)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
     .fixedSize(horizontal: false, vertical: true)
   }
 

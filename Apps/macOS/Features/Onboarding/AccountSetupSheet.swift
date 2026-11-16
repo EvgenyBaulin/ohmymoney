@@ -30,7 +30,7 @@ struct AccountSetupSheet: View {
           .appFont(.title2.bold())
           .accessibilityAddTraits(.isHeader)
         Text(verbatim: t("onboarding.intro"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .frame(maxWidth: .infinity, alignment: .leading)
@@ -82,7 +82,7 @@ struct AccountSetupSheet: View {
             Image(systemName: "info.circle")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       groupsSection
@@ -214,7 +214,7 @@ struct AccountSetupSheet: View {
         // What a credit card holds is typed as what is owed, with a minus.
         Text(verbatim: environment.language("account.balance.creditHint", table: "Accounts"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       HStack {
@@ -240,7 +240,7 @@ struct AccountSetupSheet: View {
         } else {
           Text(verbatim: t("onboarding.account.existing"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     } header: {
@@ -285,7 +285,7 @@ struct AccountSetupSheet: View {
             verbatim: environment.format("onboarding.balance", table: "Onboarding", currency.code)
           ))
         Text(verbatim: environment.money.symbol(for: currency))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         if let expected = model?.expected[key], let difference = model?.difference(key) {
           Text(
             verbatim: environment.format(
@@ -324,7 +324,7 @@ struct AccountSetupSheet: View {
         if isMain {
           Text(verbatim: t("onboarding.currency.main"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }
@@ -356,7 +356,7 @@ struct AccountSetupSheet: View {
           if !group.inSummary {
             // Out of the summary: a symbol with the words, not a colour.
             Image(systemName: "eye.slash")
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityHidden(true)
           }
           if group.isNew {
@@ -400,7 +400,7 @@ struct AccountSetupSheet: View {
     } footer: {
       Text(verbatim: t("onboarding.groups.footer"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -438,7 +438,7 @@ struct AccountSetupSheet: View {
     } footer: {
       Text(verbatim: t("onboarding.main.footer"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
   }
@@ -480,7 +480,7 @@ struct AccountSetupSheet: View {
         } icon: {
           Image(systemName: "info.circle")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Spacer()
       Button(t("onboarding.later"), action: later)

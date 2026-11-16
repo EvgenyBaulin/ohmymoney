@@ -102,7 +102,7 @@ struct PlaceFromNoteSheet: View {
         .accessibilityAddTraits(.isHeader)
       Text(verbatim: t("spending.places.setFromNote.rule"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       if plan.proposals.isEmpty {
         Label {
@@ -112,7 +112,7 @@ struct PlaceFromNoteSheet: View {
         } icon: {
           Image(systemName: loaded ? "checkmark.circle" : "hourglass")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("spending.placeFromNote.none")
       } else {
         List {

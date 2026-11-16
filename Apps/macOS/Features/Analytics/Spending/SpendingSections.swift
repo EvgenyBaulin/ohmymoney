@@ -114,7 +114,7 @@ struct WeekendPriceView: View {
       }
       Text(verbatim: SpendingText.windowLine(price.window, environment))
         .appFont(AnalyticsCardType.subtitle)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("spending.weekend.window")
       if price.months.count > 1 {
         Divider()
@@ -224,7 +224,7 @@ struct UsualDayView: View {
         } icon: {
           Image(systemName: "hourglass")
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .appFont(.caption)
       }
     }
@@ -391,7 +391,7 @@ private struct HabitsSection: View {
       if let hint = SpendingText.withoutPlaceHint(display.places, environment) {
         Text(verbatim: hint)
           .appFont(AnalyticsCardType.subtitle)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("spending.places.hint")
       }
@@ -640,7 +640,7 @@ private struct LeaksSection: View {
       Text(verbatim: name).appFont(.system(size: 13, weight: .medium))
       Text(verbatim: detail)
         .appFont(AnalyticsCardType.subtitle.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .accessibilityElement(children: .combine)
@@ -671,7 +671,7 @@ private struct LeaksSection: View {
       if let others = SpendingText.othersLine(consumption, environment) {
         Text(verbatim: others)
           .appFont(AnalyticsCardType.subtitle.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("spending.limit.others")
       }
     }

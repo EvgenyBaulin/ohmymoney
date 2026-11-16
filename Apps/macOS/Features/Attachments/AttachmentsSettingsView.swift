@@ -58,7 +58,7 @@ struct AttachmentsSettingsView: View {
         Text(verbatim: t("att.settings.title")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("att.settings.footer"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       Section {
@@ -169,7 +169,7 @@ struct AttachmentTrashView: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("att.trash.title")).appFont(.headline)
       if items.isEmpty {
-        Text(verbatim: t("att.trash.empty")).foregroundStyle(.secondary)
+        Text(verbatim: t("att.trash.empty")).secondaryInk()
           .frame(maxWidth: .infinity, alignment: .leading)
       } else {
         List(items) { item in
@@ -219,7 +219,7 @@ struct AttachmentTrashView: View {
       AttachmentThumbnail(file: item, service: service, side: 36)
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: item.fileName).lineLimit(1).truncationMode(.middle)
-        Text(verbatim: subtitle(item)).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: subtitle(item)).appFont(.caption).secondaryInk()
       }
       Spacer(minLength: 4)
       Button(t("att.trash.restore")) {
@@ -280,7 +280,7 @@ struct AttachmentTrashView: View {
           }
           Text(verbatim: t("att.settings.footer"))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -293,7 +293,7 @@ struct AttachmentTrashView: View {
       SettingsCardRow(title: title, showsDivider: !last, compact: true) {
         Text(verbatim: value)
           .appFont(AppFont.system(size: 13, weight: .semibold).monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
 

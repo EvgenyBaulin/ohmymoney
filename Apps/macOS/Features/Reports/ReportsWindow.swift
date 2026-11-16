@@ -341,7 +341,7 @@ struct ReportsWindow: View {
       }
       Text(verbatim: t(tab == .byMonth ? "reports.monthNote" : "reports.csvNote"))
         .appFont(ReportsType.note)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .accessibilityIdentifier("reports.note")
     } else {
       ComputedBlock(

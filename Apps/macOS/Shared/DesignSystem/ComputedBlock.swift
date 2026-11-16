@@ -81,7 +81,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
             Spacer(minLength: 4)
             Text(verbatim: ComputedBlockText.asOf(asOf, environment))
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .accessibilityIdentifier("block.asOf")
           }
         }
@@ -121,7 +121,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
           .controlSize(.small)
           .accessibilityLabel(Text(verbatim: environment.language("common.calculating")))
         Text(verbatim: environment.language("common.calculating"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityHidden(true)
       }
     case .failed(let messageKey):
@@ -158,7 +158,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
       } icon: {
         Image(systemName: "hammer")
       }
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 }

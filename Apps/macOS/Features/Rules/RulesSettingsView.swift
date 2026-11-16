@@ -100,7 +100,7 @@ struct RulesSettingsView: View {
               ) {
                 Image(systemName: "chevron.right")
                   .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron in a 14 pt slot
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
                   .accessibilityHidden(true)
               }
               .contentShape(Rectangle())
@@ -115,7 +115,7 @@ struct RulesSettingsView: View {
             .accessibilityIdentifier("rules.backfill")
           Text(verbatim: RulesText.t("rules.hub.hint", environment))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
@@ -176,7 +176,7 @@ struct RulesPane: View {
       Section {
         if rules.isEmpty {
           Text(verbatim: t("rules.empty"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("rules.empty")
         }
         ForEach(rules) { rule in
@@ -191,7 +191,7 @@ struct RulesPane: View {
         Text(verbatim: t("rules.title")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("rules.hint"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       Section {
@@ -248,7 +248,7 @@ struct RulesPane: View {
           Text(verbatim: wording.title(rule)).lineLimit(1)
           if !rule.name.trimmingCharacters(in: .whitespaces).isEmpty {
             Text(verbatim: wording.summary(rule))
-              .appFont(.callout).foregroundStyle(.secondary).lineLimit(2)
+              .appFont(.callout).secondaryInk().lineLimit(2)
           }
           if let dead = wording.deadReason(rule, live: live) {
             Label(dead, systemImage: "exclamationmark.triangle")
@@ -349,7 +349,7 @@ struct RuleExchangePane: View {
         Text(verbatim: t("exchange.title")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("exchange.hint"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }

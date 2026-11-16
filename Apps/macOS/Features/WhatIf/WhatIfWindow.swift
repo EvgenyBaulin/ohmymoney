@@ -125,7 +125,7 @@ struct WhatIfWindow: View {
         TextField(text("whatif.horizon"), text: $draft.horizon).monospacedDigit()
       }
       if draft.unreadRows > 0 {
-        Text(verbatim: text("whatif.unread")).appFont(.footnote).foregroundStyle(.secondary)
+        Text(verbatim: text("whatif.unread")).appFont(.footnote).secondaryInk()
       }
     }
     .formStyle(.grouped)
@@ -138,7 +138,7 @@ struct WhatIfWindow: View {
   private var result: some View {
     if !draft.hasScenario {
       Text(verbatim: text("whatif.enterScenario"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .padding(16)
         .accessibilityIdentifier("whatif.emptyScenario")
     } else if let baseline {
@@ -161,7 +161,7 @@ struct WhatIfWindow: View {
       }
       .padding(16)
     } else {
-      Text(verbatim: text("whatif.waiting")).foregroundStyle(.secondary)
+      Text(verbatim: text("whatif.waiting")).secondaryInk()
     }
   }
 

@@ -227,7 +227,7 @@ struct SettingsSearchField: View {
     HStack(spacing: 8) {
       Image(systemName: "magnifyingglass")
         .font(.system(size: 13))  // font-fixed: 15 pt symbol of the field
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .frame(width: 15, height: 15)
         .accessibilityHidden(true)
       TextField(text: $query, prompt: Text(verbatim: prompt)) { Text(verbatim: prompt) }
@@ -240,7 +240,7 @@ struct SettingsSearchField: View {
           query = ""
         } label: {
           Image(systemName: "xmark.circle.fill")
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text(verbatim: prompt))

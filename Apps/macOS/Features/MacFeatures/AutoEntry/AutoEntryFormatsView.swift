@@ -84,7 +84,7 @@ struct AutoEntryFormatsView: View {
       Text(verbatim: words.t("autoEntry.formats.folder.header")).settingsHeaderStyle()
     } footer: {
       Text(verbatim: words.t("autoEntry.formats.folder.footer"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
   }
 
@@ -94,7 +94,7 @@ struct AutoEntryFormatsView: View {
         VStack(alignment: .leading, spacing: 2) {
           Text(verbatim: skip.path).appFont(.callout)
           ForEach(Array(skip.problems.enumerated()), id: \.offset) { _, problem in
-            Text(verbatim: reason(problem)).appFont(.caption).foregroundStyle(.secondary)
+            Text(verbatim: reason(problem)).appFont(.caption).secondaryInk()
           }
         }
         .accessibilityElement(children: .combine)
@@ -124,7 +124,7 @@ struct AutoEntryFormatsView: View {
       Text(verbatim: words.t("autoEntry.formats.conflicts.header")).settingsHeaderStyle()
     } footer: {
       Text(verbatim: words.t("autoEntry.formats.conflicts.footer"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
   }
 
@@ -159,7 +159,7 @@ struct AutoEntryFormatsView: View {
       Text(verbatim: words.t("autoEntry.formats.offers.header")).settingsHeaderStyle()
     } footer: {
       Text(verbatim: words.t("autoEntry.formats.offers.footer"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
   }
 
@@ -168,7 +168,7 @@ struct AutoEntryFormatsView: View {
   private var ownSection: some View {
     Section {
       if own.items.isEmpty {
-        Text(verbatim: words.t("autoEntry.formats.own.empty")).foregroundStyle(.secondary)
+        Text(verbatim: words.t("autoEntry.formats.own.empty")).secondaryInk()
       }
       ForEach(own.items) { item in
         HStack {

@@ -108,7 +108,7 @@ struct AccountsTreeRow<MenuSlot: View>: View {
       if let currency {
         Text(verbatim: currency)
           .appFont(.footnote)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .fixedSize()
       }
       if let plusHelp {
@@ -195,7 +195,7 @@ struct AccountsTreeRow<MenuSlot: View>: View {
       Button(action: toggleFold) {
         Image(systemName: row.isFolded ? "chevron.right" : "chevron.down")
           .font(.system(size: 8, weight: .semibold))  // font-fixed: chevron in a 10 pt slot
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .frame(width: AccountsTreeMetrics.chevron, height: AccountsTreeMetrics.chevron)
           .contentShape(.rect)
       }
@@ -215,7 +215,7 @@ struct AccountsTreeRow<MenuSlot: View>: View {
       if let caption {
         Text(verbatim: caption)
           .appFont(.subheadline)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .lineLimit(1)
       }
       if let badge {

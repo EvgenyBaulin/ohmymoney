@@ -213,7 +213,7 @@ private struct ComparisonTable: View {
           Image(systemName: "divide.circle")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityIdentifier("spending.cmp.note")
       }
       ForEach(Array(comparison.rows.enumerated()), id: \.offset) { _, row in
@@ -257,7 +257,7 @@ private struct ComparisonTable: View {
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: name)
         Text(verbatim: "\(money.rounded(row.current)) · \(money.rounded(row.baseline))")
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         changeLabel(row)
       }
     }
@@ -276,7 +276,7 @@ private struct ComparisonTable: View {
       Image(systemName: SpendingText.symbol(of: row)).accessibilityHidden(true)
     }
     .labelStyle(.titleAndIcon)
-    .foregroundStyle(.secondary)
+    .secondaryInk()
   }
 
   @ViewBuilder

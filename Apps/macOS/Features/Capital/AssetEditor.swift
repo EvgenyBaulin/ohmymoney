@@ -71,7 +71,7 @@ struct AssetEditor: View {
             HStack {
               AmountField(amount: $value, locale: environment.language.locale)
               Text(verbatim: environment.money.symbol(for: asset.currency))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
           DatePicker(
@@ -83,7 +83,7 @@ struct AssetEditor: View {
         } else {
           Text(verbatim: CapitalText.t("capital.editor.valueHint", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         TextField(
@@ -151,7 +151,7 @@ struct AssetEditor: View {
         HStack {
           AmountField(amount: $purchasePrice, locale: environment.language.locale)
           Text(verbatim: environment.money.symbol(for: asset.currency))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }

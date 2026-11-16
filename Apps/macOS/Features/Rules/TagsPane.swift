@@ -68,7 +68,7 @@ struct TagsPane: View {
     Form {
       Section {
         if rows.isEmpty {
-          Text(verbatim: t("tags.empty")).foregroundStyle(.secondary)
+          Text(verbatim: t("tags.empty")).secondaryInk()
         }
         ForEach(rows) { row in
           tagRow(row, book: book)
@@ -76,7 +76,7 @@ struct TagsPane: View {
       } header: {
         Text(verbatim: t("tags.title")).settingsHeaderStyle()
       } footer: {
-        Text(verbatim: t("tags.hint")).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: t("tags.hint")).appFont(.callout).secondaryInk()
       }
       Section {
         Button {
@@ -155,10 +155,10 @@ struct TagsPane: View {
           Text(verbatim: "#" + row.tag.name)
           if row.tag.archived {
             Label(t("tags.archived"), systemImage: "archivebox")
-              .appFont(.caption).foregroundStyle(.secondary)
+              .appFont(.caption).secondaryInk()
           }
         }
-        Text(verbatim: usage(row)).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: usage(row)).appFont(.callout).secondaryInk()
       }
       Spacer()
       Menu {
@@ -197,7 +197,7 @@ struct TagsPane: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: RulesText.format("tags.merge.title", environment, tag.name))
         .appFont(.headline)
-      Text(verbatim: t("tags.merge.hint")).appFont(.callout).foregroundStyle(.secondary)
+      Text(verbatim: t("tags.merge.hint")).appFont(.callout).secondaryInk()
       Picker(selection: $mergeTarget) {
         Text(verbatim: t("rules.editor.choose")).tag(UUID?.none)
         ForEach(book.tags.filter { $0.id != tag.id }) { other in

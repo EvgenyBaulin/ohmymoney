@@ -186,7 +186,7 @@ struct OperationDayCards<MenuItems: View>: View {
           Image(systemName: "square.split.2x1")
         }
         .appFont(.caption)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
       }
     }
   }
@@ -209,7 +209,7 @@ struct OperationDayCards<MenuItems: View>: View {
             }
             Text(verbatim: caption)
               .appFont(OperationsType.phoneCaption)
-              .foregroundStyle(theme.contentSecondary)
+              .secondaryInk()
               .lineLimit(1)
           }
         }
@@ -332,7 +332,7 @@ struct OperationDayHead: View {
       if let figure = Self.figure(totals, money: environment.money) {
         Text(verbatim: figure)
           .appFont(OperationsType.dayFigure)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
       }
     }
     .accessibilityElement(children: .combine)

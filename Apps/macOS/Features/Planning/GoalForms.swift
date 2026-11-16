@@ -70,7 +70,7 @@ struct GoalForm: View {
                 get: { goal.monthlyPlanE4 ?? .zero },
                 set: { goal.monthlyPlanE4 = $0.isZero ? nil : $0 }),
               locale: environment.language.locale)
-            Text(verbatim: goal.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: goal.currency.code).secondaryInk()
           }
         }
         if let start = planStart {
@@ -142,7 +142,7 @@ struct GoalForm: View {
       if let deletionNote {
         Text(verbatim: t(deletionNote))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }
@@ -298,7 +298,7 @@ struct GoalAccountFields: View {
       .accessibilityIdentifier("goal.transfers")
     Text(verbatim: t(goal.accountId == nil ? "form.goal.account.hint" : "form.goal.transfers.hint"))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
   }
 
@@ -391,7 +391,7 @@ struct GoalMoveForm: View {
           } icon: {
             Image(systemName: "hourglass")
           }
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         }
         DatePicker(t("form.date"), selection: $date)

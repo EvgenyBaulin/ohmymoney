@@ -76,7 +76,7 @@ struct BackfillSheet: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("backfill.title")).appFont(.headline)
       Text(verbatim: t("backfill.hint"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       content
       footer
@@ -96,7 +96,7 @@ struct BackfillSheet: View {
       case .planning:
         HStack(spacing: 8) {
           ProgressView().controlSize(.small)
-          Text(verbatim: t("backfill.planning")).foregroundStyle(.secondary)
+          Text(verbatim: t("backfill.planning")).secondaryInk()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       case .failed:
@@ -117,7 +117,7 @@ struct BackfillSheet: View {
     Text(verbatim: summary(plan)).accessibilityIdentifier("backfill.summary")
     if plan.items.isEmpty {
       Text(verbatim: t("backfill.nothing"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     } else {
       HStack {
@@ -173,7 +173,7 @@ struct BackfillSheet: View {
           .monospacedDigit()
         }
         ForEach(BackfillRowText.lines(item, names: names, wording: wording), id: \.self) { line in
-          Text(verbatim: line).appFont(.callout).foregroundStyle(.secondary).lineLimit(2)
+          Text(verbatim: line).appFont(.callout).secondaryInk().lineLimit(2)
         }
         if item.editedByHand {
           Label(t("backfill.editedByHand"), systemImage: "pencil")
@@ -212,7 +212,7 @@ struct BackfillSheet: View {
         )
         .appFont(.callout).foregroundStyle(.secondary)
       }
-      Text(verbatim: t("backfill.undoHint")).appFont(.callout).foregroundStyle(.secondary)
+      Text(verbatim: t("backfill.undoHint")).appFont(.callout).secondaryInk()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
   }

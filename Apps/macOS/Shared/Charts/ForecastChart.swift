@@ -111,7 +111,7 @@ struct ForecastChart: View {
             .annotation(position: .topTrailing, alignment: .leading, spacing: 2) {
               Text(verbatim: rangeText)
                 .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .fixedSize()
             }
             .accessibilityHidden(true)

@@ -26,7 +26,7 @@ struct AllLimitsSheet: View {
           if let snapshot = compute.snapshot {
             let lines = LimitLists.ranked(snapshot, environment, all: true).shown
             if lines.isEmpty {
-              Text(verbatim: t("limits.none")).foregroundStyle(.secondary)
+              Text(verbatim: t("limits.none")).secondaryInk()
             }
             ForEach(lines, id: \.budget.id) { line in
               LimitRow(
@@ -39,7 +39,7 @@ struct AllLimitsSheet: View {
             }
           } else {
             Text(verbatim: environment.language("common.calculating"))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
         .padding(.trailing, 8)

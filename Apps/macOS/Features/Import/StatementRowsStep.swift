@@ -32,7 +32,7 @@ struct StatementRowsStep: View {
         list(file: file, preview: preview)
       } else {
         Text(verbatim: t("import.rows.noAccount"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }
@@ -93,14 +93,14 @@ struct StatementRowsStep: View {
           unparsedRow(line)
         }
         if preview.unparsed.isEmpty {
-          Text(verbatim: t("import.rows.noneUnparsed")).foregroundStyle(.secondary)
+          Text(verbatim: t("import.rows.noneUnparsed")).secondaryInk()
         }
       } else {
         ForEach(rows) { row in
           StatementRowView(model: model, file: file, row: row)
         }
         if rows.isEmpty {
-          Text(verbatim: t("import.rows.none")).foregroundStyle(.secondary)
+          Text(verbatim: t("import.rows.none")).secondaryInk()
         }
       }
     }
@@ -120,12 +120,12 @@ struct StatementRowsStep: View {
 
   private func unparsedRow(_ line: StatementUnparsedLine) -> some View {
     HStack(alignment: .firstTextBaseline) {
-      Image(systemName: "questionmark.diamond").foregroundStyle(.secondary)
+      Image(systemName: "questionmark.diamond").secondaryInk()
         .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: ImportText.format("import.unparsed.line", environment, line.sourceIndex + 1))
         Text(verbatim: t("import.unparsed.reason.\(line.reason.rawValue)"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
       }
       Spacer()
       if let amount = line.amount {
@@ -167,7 +167,7 @@ struct StatementRowView: View {
         }
         HStack(spacing: 10) {
           Text(verbatim: when(operation))
-            .appFont(.caption).foregroundStyle(.secondary).monospacedDigit()
+            .appFont(.caption).secondaryInk().monospacedDigit()
           disposition
           if let filing = model.filing(of: ref) {
             Label(

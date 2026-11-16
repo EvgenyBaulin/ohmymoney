@@ -90,7 +90,7 @@ struct AccountCreditPanelRows: View {
   private func label(_ key: String) -> some View {
     Text(verbatim: t(key))
       .appFont(.callout)
-      .foregroundStyle(theme.contentSecondary)
+      .secondaryInk()
       .frame(maxWidth: .infinity, alignment: .leading)
   }
 
@@ -110,7 +110,7 @@ struct AccountCreditPanelRows: View {
         .accessibilityIdentifier("accounts.panel.\(key)")
       Text(verbatim: unit)
         .appFont(.footnote)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
     }
   }
 
@@ -129,7 +129,7 @@ struct AccountCreditPanelRows: View {
             .lineLimit(1)
           Image(systemName: "chevron.down")
             .font(.system(size: 8, weight: .semibold))  // font-fixed: chevron in a 10 pt slot
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
             .frame(width: 10, height: 10)
         }
       }

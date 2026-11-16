@@ -21,12 +21,12 @@ struct AllocationRulesSheet: View {
         .appFont(.headline)
       Text(verbatim: AllocationText.t("rules.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       List {
         if rules.isEmpty {
           Text(verbatim: AllocationText.t("rules.empty", environment))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         ForEach(rules) { rule in
           HStack {
@@ -43,7 +43,7 @@ struct AllocationRulesSheet: View {
                 Text(verbatim: AllocationRulesText.target(rule.target, snapshot, environment))
                 Text(verbatim: AllocationRulesText.amount(rule.amount, environment))
                   .appFont(.caption)
-                  .foregroundStyle(.secondary)
+                  .secondaryInk()
               }
             }
             Spacer()
@@ -208,7 +208,7 @@ struct AllocationRuleForm: View {
         case .cushion:
           Text(verbatim: AllocationText.t("rules.form.cushionHint", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Picker(AllocationText.t("rules.form.how", environment), selection: $byPercent) {
           Text(verbatim: AllocationText.t("rules.form.percent", environment)).tag(true)
@@ -220,7 +220,7 @@ struct AllocationRuleForm: View {
             HStack {
               TextField(text: $percentText) { Text(verbatim: "10") }
                 .frame(width: 80)
-              Text(verbatim: "%").foregroundStyle(.secondary)
+              Text(verbatim: "%").secondaryInk()
             }
           }
         } else {
@@ -228,7 +228,7 @@ struct AllocationRuleForm: View {
             HStack {
               AmountField(amount: $fixed).frame(width: 120)
               Text(verbatim: environment.money.symbol(for: currency))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
         }

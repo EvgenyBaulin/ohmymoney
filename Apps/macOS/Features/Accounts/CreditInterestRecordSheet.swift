@@ -60,7 +60,7 @@ struct CreditInterestRecordSheet: View {
           HStack {
             AmountField(amount: $amount, locale: environment.language.locale)
               .accessibilityIdentifier("account.credit.recordAmount")
-            Text(verbatim: prefill.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: prefill.currency.code).secondaryInk()
           }
         }
         LabeledContent(t("account.credit.recordCategory")) {
@@ -68,7 +68,7 @@ struct CreditInterestRecordSheet: View {
         }
         Text(verbatim: t("account.credit.recordHint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         if let refusal {
           Label {
@@ -77,7 +77,7 @@ struct CreditInterestRecordSheet: View {
           } icon: {
             Image(systemName: "exclamationmark.triangle")
           }
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       .formStyle(.grouped)

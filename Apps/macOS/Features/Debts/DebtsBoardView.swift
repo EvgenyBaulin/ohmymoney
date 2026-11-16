@@ -168,13 +168,13 @@ struct DebtsBoardView: View {
           symbol: symbol, ink: ink, tint: tint, size: DebtsMetrics.summaryIcon,
           glyph: DebtsMetrics.summaryGlyph)
         Text(verbatim: label)
-          .appFont(DebtsType.summaryLabel).foregroundStyle(theme.contentSecondary)
+          .appFont(DebtsType.summaryLabel).secondaryInk()
       }
       Text(verbatim: environment.money.rounded(amount))
         .appFont(DebtsType.figure).foregroundStyle(theme.contentPrimary)
         .lineLimit(1).shrinksToFit(0.5)
       Text(verbatim: line)
-        .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
+        .appFont(DebtsType.caption).secondaryInk()
     }
     .padding(DebtsMetrics.summaryPadding)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -242,7 +242,7 @@ struct DebtsBoardView: View {
       } label: {
         HStack(spacing: 4) {
           Image(systemName: "chevron.right")
-            .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
+            .appFont(DebtsType.caption).secondaryInk()
             .rotationEffect(.degrees(showsClosed ? 90 : 0))
             .accessibilityHidden(true)
           title
@@ -305,7 +305,7 @@ struct DebtsBoardView: View {
       if withoutRate > 0 { withoutRateNote }
       if board.groups.isEmpty, ladder == nil {
         Text(verbatim: t("debts.none"))
-          .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
+          .appFont(DebtsType.caption).secondaryInk()
       }
       ForEach(board.groups) { group in
         VStack(alignment: .leading, spacing: DebtsMetrics.groupTitleGap) {
@@ -344,7 +344,7 @@ struct DebtsBoardView: View {
   private func phoneSummaryLine(_ label: String, _ amount: AmountE4) -> some View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
       Text(verbatim: label)
-        .appFont(DebtsType.summaryLabel).foregroundStyle(theme.contentSecondary)
+        .appFont(DebtsType.summaryLabel).secondaryInk()
       Spacer(minLength: 8)
       Text(verbatim: environment.money.rounded(amount))
         .appFont(DebtsType.phoneSummaryValue).foregroundStyle(theme.contentPrimary)
@@ -475,7 +475,7 @@ struct DebtsBoardCard: View {
   private func term(_ label: String, _ value: String?) -> some View {
     VStack(alignment: .leading, spacing: DebtsMetrics.termLineGap) {
       Text(verbatim: label)
-        .appFont(DebtsType.termLabel).foregroundStyle(theme.contentSecondary)
+        .appFont(DebtsType.termLabel).secondaryInk()
       Text(verbatim: value ?? "—")
         .appFont(DebtsType.termValue).foregroundStyle(theme.contentPrimary)
     }
@@ -565,7 +565,7 @@ struct DebtsLadderCardView: View {
         .accessibilityAddTraits(.isHeader)
       if !phone {
         Text(verbatim: t("ladder.card.\(ladder.method.rawValue)"))
-          .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
+          .appFont(DebtsType.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       ForEach(Array(ladder.steps.enumerated()), id: \.element.id) { index, step in
@@ -625,7 +625,7 @@ struct DebtsLadderCardView: View {
           Text(verbatim: step.name)
           Text(verbatim: stepDetail(step))
         }
-        .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
+        .appFont(DebtsType.caption).secondaryInk()
         .lineLimit(1)
         .padding(.horizontal, DebtsMetrics.macStepHorizontal)
         .padding(.vertical, DebtsMetrics.macStepVertical)
@@ -643,7 +643,7 @@ struct DebtsLadderCardView: View {
           Text(verbatim: step.name)
             .appFont(DebtsType.stepName).foregroundStyle(theme.contentPrimary)
           Text(verbatim: stepDetail(step))
-            .appFont(DebtsType.stepDetail).foregroundStyle(theme.contentSecondary)
+            .appFont(DebtsType.stepDetail).secondaryInk()
         }
         .lineLimit(1)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -673,7 +673,7 @@ struct DebtsLadderCardView: View {
 
   private func resultLabel(_ label: String) -> some View {
     Text(verbatim: label)
-      .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
+      .appFont(DebtsType.caption).secondaryInk()
       .fixedSize()
   }
 

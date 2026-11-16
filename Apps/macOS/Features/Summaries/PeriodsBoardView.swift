@@ -87,7 +87,7 @@ struct PeriodsBoardView: View {
     } else {
       Text(verbatim: t("summaries.calculating"))
         .appFont(.callout)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
     }
   }
@@ -111,14 +111,14 @@ struct PeriodsBoardView: View {
     VStack(spacing: 8) {
       Image(systemName: "chart.bar.xaxis")
         .appFont(AppFont.system(size: 22))
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       Text(verbatim: t("summaries.board.empty.title"))
         .appFont(PeriodsBoardType.emptyTitle)
         .foregroundStyle(theme.contentPrimary)
       Text(verbatim: t(reason))
         .appFont(PeriodsBoardType.emptyText)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .multilineTextAlignment(.center)
     }
     .frame(maxWidth: .infinity, minHeight: PeriodsBoardMetrics.emptyHeight)

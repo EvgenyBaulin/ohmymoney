@@ -235,7 +235,7 @@ struct ReportsEventList: View {
     HStack(spacing: ReportsEventBoardMetrics.badgeGap) {
       Image(systemName: "tag")
         .font(.system(size: ReportsEventBoardMetrics.badgeGlyph * 0.85))  // font-fixed: badge glyph
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .frame(width: ReportsEventBoardMetrics.badge, height: ReportsEventBoardMetrics.badge)
         .background(theme.fillNeutral, in: Circle())
         .accessibilityHidden(true)

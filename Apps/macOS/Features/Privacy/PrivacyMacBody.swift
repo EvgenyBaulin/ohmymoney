@@ -89,7 +89,7 @@
     private var chevron: some View {
       Image(systemName: "chevron.right")
         .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron in a 15 pt slot
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .accessibilityHidden(true)
     }
 
@@ -114,7 +114,7 @@
         content()
         if let footer {
           Text(verbatim: t(footer))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }

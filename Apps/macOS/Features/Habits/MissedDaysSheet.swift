@@ -115,7 +115,7 @@ struct MissedDaysSheet: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("missed.title")).appFont(.headline)
       Text(verbatim: subtitle)
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Text(verbatim: t(step == .balances ? "missed.step.balances" : "missed.step.days"))
         .appFont(.subheadline.weight(.semibold))
@@ -154,12 +154,12 @@ struct MissedDaysSheet: View {
   @ViewBuilder private var balancesStep: some View {
     if balances.isEmpty {
       Text(verbatim: t("missed.balances.noAccounts"))
-        .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        .secondaryInk().fixedSize(horizontal: false, vertical: true)
     } else {
       Section {
         ForEach(balances) { balance in balanceRow(balance) }
       } footer: {
-        Text(verbatim: t("missed.balances.hint")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("missed.balances.hint")).appFont(.caption).secondaryInk()
       }
     }
   }
@@ -176,7 +176,7 @@ struct MissedDaysSheet: View {
               get: { actual[balance.key] ?? balance.expected },
               set: { actual[balance.key] = $0 }),
             locale: environment.language.locale)
-          Text(verbatim: currency.code).foregroundStyle(.secondary)
+          Text(verbatim: currency.code).secondaryInk()
         }
       } label: {
         Text(verbatim: balance.account.name)
@@ -207,7 +207,7 @@ struct MissedDaysSheet: View {
   @ViewBuilder private var daysStep: some View {
     let missing = self.missing
     if missing.isEmpty {
-      Text(verbatim: t("missed.balances.none")).foregroundStyle(.secondary)
+      Text(verbatim: t("missed.balances.none")).secondaryInk()
     } else {
       ForEach(balances.filter { missing[$0.key] != nil }) { balance in
         let left = MissedDaysWizard.left(
@@ -235,7 +235,7 @@ struct MissedDaysSheet: View {
         Button(t("missed.days.allUnknown")) { fillUnknown() }
           .disabled(MissedDaysWrite.unknownCategory(categories) == nil)
       } footer: {
-        Text(verbatim: t("missed.days.hint")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("missed.days.hint")).appFont(.caption).secondaryInk()
       }
     }
   }

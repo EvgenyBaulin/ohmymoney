@@ -261,7 +261,7 @@ struct DebtSheetView: View {
           Image(systemName: "info.circle")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Picker(t("form.direction"), selection: $debt.direction) {
         Text(verbatim: t("debts.iOwe")).tag(DebtDirection.iOwe)
@@ -284,7 +284,7 @@ struct DebtSheetView: View {
       }
       LabeledContent(t("form.balance")) { amountField($amount) }
       if amount.isNegative {
-        Text(verbatim: t("form.balance.negative")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("form.balance.negative")).appFont(.caption).secondaryInk()
       }
       if DebtOpeningDraft.applies(to: debt) {
         DebtOpeningFields(draft: $opening, currency: debt.currency)
@@ -315,7 +315,7 @@ struct DebtSheetView: View {
         .segmentedUnlessLargeText()
         .accessibilityIdentifier("debt.create.monthPaid")
         Text(verbatim: t(monthPaid == nil ? "form.monthPaid.ask" : "form.monthPaid.hint"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     case .pay(let debt), .payAt(let debt, _, _), .repay(let debt, _, _), .offset(let debt):
@@ -345,14 +345,14 @@ struct DebtSheetView: View {
           .pickerStyle(.radioGroup)
           .accessibilityIdentifier("debt.pay.prepay")
           Text(verbatim: t("prepay.hint"))
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         if offersClosingTerm {
           Toggle(t("form.pay.closesTerm"), isOn: $closesTerm)
             .accessibilityIdentifier("debt.pay.closesTerm")
           Text(verbatim: t("form.pay.closesTermHint"))
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         if paysOff, let balance {
@@ -413,7 +413,7 @@ struct DebtSheetView: View {
       LabeledContent(t("form.amount")) { amountField($amount, currency: debt.currency) }
       if amount > balance {
         // Refused, not capped: the source would close with money on it.
-        Text(verbatim: t("form.transfer.tooMuch")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("form.transfer.tooMuch")).appFont(.caption).secondaryInk()
       }
       DatePicker(t("form.date"), selection: $date, displayedComponents: .date)
     case .adjust(let debt, let carried):
@@ -471,7 +471,7 @@ struct DebtSheetView: View {
         direction: debt.direction
       ).contains(.mainPaymentMissing) {
         Text(verbatim: t("schedule.issue.mainPayment"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }
@@ -534,7 +534,7 @@ struct DebtSheetView: View {
   private func amountField(_ value: Binding<AmountE4>, currency: CurrencyCode? = nil) -> some View {
     HStack {
       AmountField(amount: value)
-      if let currency { Text(verbatim: currency.code).foregroundStyle(.secondary) }
+      if let currency { Text(verbatim: currency.code).secondaryInk() }
     }
   }
 

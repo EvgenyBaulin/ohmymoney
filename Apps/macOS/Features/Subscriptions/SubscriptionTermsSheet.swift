@@ -98,7 +98,7 @@ struct SubscriptionTermsSheet: View {
             .accessibilityIdentifier("subs.terms.needed")
           Text(verbatim: t("subs.terms.neededNote"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if paidFromABank {
           Section {
@@ -116,13 +116,13 @@ struct SubscriptionTermsSheet: View {
                 .appFont(.body.monospacedDigit())
                 .frame(width: 80)
                 .accessibilityIdentifier("subs.terms.bankShare")
-                Text(verbatim: "%").foregroundStyle(.secondary)
+                Text(verbatim: "%").secondaryInk()
               }
             }
           } header: {
             Text(verbatim: t("subs.terms.bank"))
           } footer: {
-            Text(verbatim: t("subs.terms.bankNote")).foregroundStyle(.secondary)
+            Text(verbatim: t("subs.terms.bankNote")).secondaryInk()
           }
         }
         Section {
@@ -139,7 +139,7 @@ struct SubscriptionTermsSheet: View {
           if candidates.isEmpty {
             Text(verbatim: t("subs.terms.peopleNote"))
               .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           } else {
             Toggle(t("subs.terms.ownerUses"), isOn: $terms.ownerUses)
           }
@@ -231,7 +231,7 @@ struct SubscriptionCancelSheet: View {
         .accessibilityIdentifier("subs.cancel.day")
       Text(verbatim: t("subs.cancel.message"))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       HStack {
         Spacer()

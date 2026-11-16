@@ -166,7 +166,7 @@ struct RefundPicker: View {
       if picker.narrowed {
         Text(verbatim: t("refund.narrowed"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Button(t("refund.showAll")) { picker.showsAll = true }
           .buttonStyle(.link)
       }
@@ -178,7 +178,7 @@ struct RefundPicker: View {
     }
     if picker.candidates.isEmpty {
       Text(verbatim: t("refund.empty"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .frame(maxWidth: .infinity, minHeight: 160)
     } else {
       List(selection: $picker.selectedId) {
@@ -205,7 +205,7 @@ struct RefundPicker: View {
             .accessibilityLabel(
               Text(verbatim: environment.language("entry.amount", table: "Entry")))
           Text(verbatim: selected.currency.code)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
     }
@@ -274,7 +274,7 @@ struct RefundPicker: View {
             Image(systemName: "arrow.uturn.left.circle")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
     }

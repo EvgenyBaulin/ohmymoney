@@ -49,7 +49,7 @@ struct RuleEditorSheet: View {
           Text(verbatim: t("rules.editor.if")).settingsHeaderStyle()
         } footer: {
           Text(verbatim: t("rules.editor.ifHint"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
         }
         Section {
           ForEach($draft.actions) { $row in
@@ -67,7 +67,7 @@ struct RuleEditorSheet: View {
           Text(verbatim: t("rules.editor.then")).settingsHeaderStyle()
         } footer: {
           Text(verbatim: t("rules.editor.thenHint"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
         }
         problemsSection(found, wording: wording)
         Section {
@@ -145,7 +145,7 @@ struct RuleEditorSheet: View {
           .multilineTextAlignment(.trailing)
           .monospacedDigit()
           .frame(maxWidth: 140)
-        Text(verbatim: "₽").foregroundStyle(.secondary)
+        Text(verbatim: "₽").secondaryInk()
       }
     case .kind:
       Picker(selection: row.transactionKind) {
@@ -162,7 +162,7 @@ struct RuleEditorSheet: View {
     case .time:
       HStack(spacing: 6) {
         minutePicker(row.fromMinute)
-        Text(verbatim: t("rules.editor.until")).foregroundStyle(.secondary)
+        Text(verbatim: t("rules.editor.until")).secondaryInk()
         minutePicker(row.toMinute)
       }
     }
@@ -250,7 +250,7 @@ struct RuleEditorSheet: View {
         .fixedSize()
       case .tag:
         HStack(spacing: 4) {
-          Text(verbatim: "#").foregroundStyle(.secondary)
+          Text(verbatim: "#").secondaryInk()
           TextField(text: row.tagText) { Text(verbatim: t("rules.editor.tag")) }
           if !choices.tags.isEmpty {
             Menu {
@@ -266,7 +266,7 @@ struct RuleEditorSheet: View {
           }
         }
         if let note = newTagNote(row.wrappedValue.tagText, book: book) {
-          Text(verbatim: note).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: note).appFont(.caption).secondaryInk()
         }
       }
       Spacer(minLength: 0)
@@ -346,11 +346,11 @@ struct RuleEditorSheet: View {
   private func trialView(wording: RuleWording) -> some View {
     switch trial {
     case .waiting:
-      Text(verbatim: t("rules.trial.waiting")).foregroundStyle(.secondary)
+      Text(verbatim: t("rules.trial.waiting")).secondaryInk()
     case .working:
       HStack(spacing: 8) {
         ProgressView().controlSize(.small)
-        Text(verbatim: t("rules.trial.working")).foregroundStyle(.secondary)
+        Text(verbatim: t("rules.trial.working")).secondaryInk()
       }
     case .done(let result):
       VStack(alignment: .leading, spacing: 6) {
@@ -361,7 +361,7 @@ struct RuleEditorSheet: View {
             Text(verbatim: sample.title(environment)).lineLimit(1)
             Spacer(minLength: 8)
             Text(verbatim: sample.changes(wording))
-              .foregroundStyle(.secondary).lineLimit(1)
+              .secondaryInk().lineLimit(1)
           }
           .appFont(.callout)
         }

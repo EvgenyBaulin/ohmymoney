@@ -559,13 +559,13 @@ struct PlanningFreeCard: View {
       if let recovery = figures.recovery {
         Text(verbatim: recovery)
           .appFont(PlanningType.freeWords)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("planning.free.recovery")
       }
       Text(verbatim: figures.hint)
         .appFont(PlanningType.freeHint)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(PlanningMetrics.freeInset + PlanningMetrics.cardEdge)
@@ -585,7 +585,7 @@ struct PlanningFreeCard: View {
           .accessibilityIdentifier("planning.hero.figure")
         Text(verbatim: figures.main.words)
           .appFont(PlanningType.freeWords)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .lineLimit(1)
       }
       .fixedSize()
@@ -603,7 +603,7 @@ struct PlanningFreeCard: View {
             .shrinksToFit(0.7)
           Text(verbatim: column.words)
             .appFont(PlanningType.freeWords)
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
             .lineLimit(2)
             .fixedSize(horizontal: false, vertical: true)
         }
@@ -632,7 +632,7 @@ struct PlanningFreeCard: View {
             .accessibilityIdentifier("planning.metric.\(metric.id).figure")
           Text(verbatim: metric.words)
             .appFont(PlanningType.freeWords)
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
             .lineLimit(2)
             .fixedSize(horizontal: false, vertical: true)
         }

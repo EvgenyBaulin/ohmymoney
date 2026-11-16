@@ -250,7 +250,7 @@ private struct EncryptedExportSheet: View {
       Form {
         Section {
           Text(verbatim: environment.language("export.warning.body", table: "Settings"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Section {
           Toggle(
@@ -260,7 +260,7 @@ private struct EncryptedExportSheet: View {
           .accessibilityIdentifier("export.encrypt")
           Text(verbatim: environment.language("export.encrypt.note", table: "Reports"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           if form.encrypt {
             SecureField(privacy("privacy.copy.password"), text: $form.password)
               .accessibilityIdentifier("export.encrypt.password")
