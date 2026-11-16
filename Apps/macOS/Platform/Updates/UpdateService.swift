@@ -119,6 +119,19 @@ enum UpdateService {
     #endif
   }
 
+  /// When Sparkle last asked the feed, for the line under the version in Settings. Read from
+  /// the defaults Sparkle writes it to rather than from the updater, so that looking at
+  /// Settings never starts one. `nil` — never checked, or a build with no updater.
+  static func lastCheckDate(defaults: UserDefaults = .standard) -> Date? {
+    // Not even the name of Sparkle's key may stand in the store build.
+    #if APPSTORE
+      return nil
+    #else
+      guard kind != .restartAndStorePage else { return nil }
+      return defaults.object(forKey: "SULastCheckTime") as? Date
+    #endif
+  }
+
   /// Opens the store page. Nothing to do outside the store build.
   static func openStorePage() {
     guard kind == .restartAndStorePage, let storePageURL else { return }
@@ -310,3 +323,48 @@ enum UpdateService {
     }
   }
 #endif
+
+/// The button of Settings beside the version, decided apart from the view so each build's
+/// answer can be tested: Direct checks for an update, the store build opens the app's page
+/// (it may not carry an updater), and a build with no updater at all (iPhone, iPad — nothing
+/// here is compiled there) has no button: `make(kind: nil)` is `nil`.
+struct UpdateButtonModel: Equatable {
+  enum Action: Equatable {
+    case check
+    case openStorePage
+  }
+
+  /// A key of the Common table.
+  let titleKey: String
+  let action: Action
+  /// A Direct build without a real key cannot verify an update, so the button stays in view,
+  /// greyed — the same as the automatic-updates switch beside it.
+  let isEnabled: Bool
+
+  static func make(kind: UpdateService.Kind?) -> UpdateButtonModel? {
+    switch kind {
+    case nil:
+      return nil
+    case .checkForUpdates?:
+      return UpdateButtonModel(titleKey: "action.checkForUpdates", action: .check, isEnabled: true)
+    case .restartOnly?:
+      return UpdateButtonModel(
+        titleKey: "action.checkForUpdates", action: .check, isEnabled: false)
+    case .restartAndStorePage?:
+      return UpdateButtonModel(
+        titleKey: "action.openStorePage", action: .openStorePage, isEnabled: true)
+    }
+  }
+
+  /// The model of the build this is compiled into.
+  @MainActor static var current: UpdateButtonModel? { make(kind: UpdateService.kind) }
+
+  /// The same entry points as the menu command and the palette, so all three do one thing.
+  @MainActor func perform() {
+    guard isEnabled else { return }
+    switch action {
+    case .check: UpdateService.press()
+    case .openStorePage: UpdateService.openStorePage()
+    }
+  }
+}

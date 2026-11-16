@@ -811,6 +811,24 @@
         }
       }
     },
+    "settings.general.lastCheck": {
+      "comment": "Added in ru and en; other languages follow the translation pass.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "last checked: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "последняя проверка: %@"
+          }
+        }
+      }
+    },
     "settings.general.lock": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -1131,6 +1149,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "密碼儲存在鑰匙圈中，不會存入資料庫"
+          }
+        }
+      }
+    },
+    "settings.general.neverChecked": {
+      "comment": "Added in ru and en; other languages follow the translation pass.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "not checked yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "проверок ещё не было"
           }
         }
       }
@@ -1779,6 +1815,42 @@
           "stringUnit": {
             "state": "translated",
             "value": "每天從 GitHub 檢查一次"
+          }
+        }
+      }
+    },
+    "settings.general.version": {
+      "comment": "Added in ru and en; other languages follow the translation pass.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия"
+          }
+        }
+      }
+    },
+    "settings.general.versionValue": {
+      "comment": "Added in ru and en; other languages follow the translation pass.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@ (build %@)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия %@ (сборка %@)"
           }
         }
       }

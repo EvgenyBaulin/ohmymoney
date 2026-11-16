@@ -47,9 +47,7 @@ struct GeneralSettingsView: View {
       #if os(macOS)
         languageGroup
         PrivacySettingsSection()
-        #if !APPSTORE
-          updatesGroup
-        #endif
+        updatesGroup
       #else
         Picker(selection: $language.choice) {
           ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
@@ -278,32 +276,81 @@ struct GeneralSettingsView: View {
     private func g(_ key: String) -> String { environment.language(key, table: "SettingsGeneral") }
   #endif
 
-  #if !APPSTORE && os(macOS)
-    /// «Обновления» of the design (Figma 52:675): one row with a switch; a build that cannot
-    /// verify an update keeps the switch in view, greyed, and says why under the card.
+  #if os(macOS)
+    /// «Обновления» of the design (Figma 52:675): the version with its button, and — where an
+    /// update can arrive — one row with a switch. A build that cannot verify an update keeps
+    /// both in view, greyed, and says why under the card. The store build has the version and a
+    /// button to the store page only: it carries no updater. iPhone and iPad have no updater,
+    /// so this group is not there at all.
     private var updatesGroup: some View {
-      SettingsCardGroup(
-        title: g("settings.general.group.updates"),
-        footer: AutomaticUpdates.isChangeable
+      SettingsCardGroup(title: g("settings.general.group.updates"), footer: updatesFooter) {
+        versionRow
+        #if !APPSTORE
+          SettingsCardRow(
+            symbol: "arrow.clockwise", title: g("settings.general.updates"),
+            hint: g("settings.general.updatesHint"), showsDivider: false, verticalPadding: 11
+          ) {
+            Toggle(
+              isOn: Binding(
+                get: { automaticUpdates },
+                set: { isOn in
+                  AutomaticUpdates().isOn = isOn
+                  automaticUpdates = isOn
+                })
+            ) { Text(verbatim: g("settings.general.updates")) }
+            .labelsHidden().toggleStyle(.switch)
+            .disabled(!AutomaticUpdates.isChangeable)
+            .accessibilityIdentifier("settings.updates.automatic")
+          }
+        #endif
+      }
+    }
+
+    private var updatesFooter: String? {
+      #if APPSTORE
+        nil
+      #else
+        AutomaticUpdates.isChangeable
           ? nil : environment.language("settings.updates.unavailableHint", table: "Settings")
+      #endif
+    }
+
+    private var versionRow: some View {
+      let button = UpdateButtonModel.current
+      return SettingsCardRow(
+        symbol: "info.circle", title: g("settings.general.version"),
+        hint: versionHint, showsDivider: button != nil && !Self.hasSwitch, verticalPadding: 11
       ) {
-        SettingsCardRow(
-          symbol: "arrow.clockwise", title: g("settings.general.updates"),
-          hint: g("settings.general.updatesHint"), showsDivider: false, verticalPadding: 11
-        ) {
-          Toggle(
-            isOn: Binding(
-              get: { automaticUpdates },
-              set: { isOn in
-                AutomaticUpdates().isOn = isOn
-                automaticUpdates = isOn
-              })
-          ) { Text(verbatim: g("settings.general.updates")) }
-          .labelsHidden().toggleStyle(.switch)
-          .disabled(!AutomaticUpdates.isChangeable)
-          .accessibilityIdentifier("settings.updates.automatic")
+        if let button {
+          Button(environment.language(button.titleKey)) { button.perform() }
+            .disabled(!button.isEnabled)
+            .accessibilityIdentifier("settings.updates.check")
         }
       }
+    }
+
+    private static var hasSwitch: Bool {
+      #if APPSTORE
+        false
+      #else
+        true
+      #endif
+    }
+
+    /// «Версия 2.20.0 (32)» and, where the updater keeps one, when it last asked the feed.
+    private var versionHint: String {
+      let version = environment.language.format(
+        "settings.general.versionValue", table: "SettingsGeneral",
+        AppEnvironment.appVersion, AppEnvironment.buildVersion)
+      guard UpdateService.kind != .restartAndStorePage else { return version }
+      let last =
+        UpdateService.lastCheckDate().map {
+          $0.formatted(
+            Date.FormatStyle(date: .abbreviated, time: .shortened)
+              .locale(environment.language.locale))
+        } ?? g("settings.general.neverChecked")
+      return version + " · " + environment.language.format(
+        "settings.general.lastCheck", table: "SettingsGeneral", last)
     }
   #endif
 

@@ -428,3 +428,71 @@ final class AutomaticUpdatesTests: XCTestCase {
     }
   }
 #endif
+
+/// What the button of Settings does in each configuration: Direct checks, the store build
+/// opens its page, a build with no updater has no button.
+@MainActor
+final class UpdateButtonModelTests: XCTestCase {
+  func testDirectWithAKeyChecksForUpdates() {
+    let model = UpdateButtonModel.make(kind: .checkForUpdates)
+    XCTAssertEqual(model?.action, .check)
+    XCTAssertEqual(model?.titleKey, "action.checkForUpdates")
+    XCTAssertEqual(model?.isEnabled, true)
+  }
+
+  func testDirectWithoutAKeyShowsTheButtonGreyed() {
+    let model = UpdateButtonModel.make(kind: .restartOnly)
+    XCTAssertEqual(model?.action, .check)
+    XCTAssertEqual(model?.isEnabled, false)
+  }
+
+  func testTheStoreBuildOpensTheStorePageAndNeverChecks() {
+    let model = UpdateButtonModel.make(kind: .restartAndStorePage)
+    XCTAssertEqual(model?.action, .openStorePage)
+    XCTAssertEqual(model?.titleKey, "action.openStorePage")
+    XCTAssertEqual(model?.isEnabled, true)
+  }
+
+  func testABuildWithNoUpdaterHasNoButton() {
+    XCTAssertNil(UpdateButtonModel.make(kind: nil))
+  }
+
+  func testTheButtonAndVersionTextsExistInBothLanguages() {
+    for key in ["settings.general.version", "settings.general.versionValue",
+      "settings.general.lastCheck", "settings.general.neverChecked"]
+    {
+      for code in ["ru", "en"] {
+        let path = Bundle.main.path(forResource: code, ofType: "lproj")
+        let text = path.flatMap(Bundle.init(path:))?
+          .localizedString(forKey: key, value: key, table: "SettingsGeneral")
+        XCTAssertNotEqual(text, key, "\(key) in \(code)")
+      }
+    }
+  }
+
+  func testTheTitlesExistInBothLanguages() {
+    for key in ["action.checkForUpdates", "action.openStorePage"] {
+      for code in ["ru", "en"] {
+        let path = try? XCTUnwrap(Bundle.main.path(forResource: code, ofType: "lproj"))
+        let bundle = path.flatMap(Bundle.init(path:))
+        let text = bundle?.localizedString(forKey: key, value: key, table: "Common")
+        XCTAssertNotNil(text, "\(code).lproj")
+        XCTAssertNotEqual(text, key, "\(key) in \(code)")
+      }
+    }
+  }
+
+  func testTheLastCheckIsReadFromSparklesDefaultsWithoutStartingIt() throws {
+    let suite = "update-button-\(UUID().uuidString)"
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+    defer { defaults.removePersistentDomain(forName: suite) }
+    XCTAssertNil(UpdateService.lastCheckDate(defaults: defaults))
+    let date = Date(timeIntervalSince1970: 1_700_000_000)
+    defaults.set(date, forKey: "SULastCheckTime")
+    if UpdateService.kind == .restartAndStorePage {
+      XCTAssertNil(UpdateService.lastCheckDate(defaults: defaults))
+    } else {
+      XCTAssertEqual(UpdateService.lastCheckDate(defaults: defaults), date)
+    }
+  }
+}
