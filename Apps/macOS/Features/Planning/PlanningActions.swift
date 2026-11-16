@@ -202,8 +202,12 @@ struct PlanningActions {
     return snapshot.planning.matches.toKey(payment.id, from: next, through: due)
       .compactMap { paid in
         guard let entry = snapshot.ledger.entry(paid.operation) else { return nil }
+        let isPart =
+          snapshot.planning.matches.partDues(of: payment.id)[paid.due]?.operations
+          .contains(paid.operation) == true
         return ScheduledMatching.bind(
-          entry, to: payment, due: paid.due, eventId: event(of: payment, due: paid.due)
+          entry, to: payment, due: paid.due, eventId: event(of: payment, due: paid.due),
+          asPart: isPart
         ).operation
       }
   }

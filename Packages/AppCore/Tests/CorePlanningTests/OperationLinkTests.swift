@@ -4,6 +4,17 @@ import Foundation
 import Testing
 
 @Suite struct OperationLinkTests {
+  /// A part of a due date paid in part keys as `sched:<payment>:<due>:<operation>`: its own
+  /// string (`external_id` is unique), the same link.
+  @Test func aPartKeyReadsBackAsItsDueDate() {
+    let payment = UUID()
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    let key = OperationLink.scheduledPartExternalId(paymentId: payment, due: due, operation: UUID())
+    #expect(key != OperationLink.scheduled(paymentId: payment, due: due).externalId)
+    #expect(OperationLink(externalId: key) == .scheduled(paymentId: payment, due: due))
+    #expect(OperationLink(externalId: "sched:\(payment.uuidString):2026-09-15:x") == nil)
+  }
+
   @Test func everyKindReadsBackWhatItWrites() throws {
     let payment = UUID()
     let reconciliation = UUID()

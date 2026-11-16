@@ -40,6 +40,12 @@ public enum OperationLink: Hashable, Sendable {
         return nil
       }
       self = .scheduled(paymentId: id, due: due)
+    case "sched" where fields.count == 4:
+      // A part paid before «Провести» wrote the rest: same due date, its own key.
+      guard let id = UUID(uuidString: fields[1]), let due = DateOnly(iso: fields[2]),
+        UUID(uuidString: fields[3]) != nil
+      else { return nil }
+      self = .scheduled(paymentId: id, due: due)
     case "reconcile" where fields.count == 2:
       guard let id = UUID(uuidString: fields[1]) else { return nil }
       self = .reconciliation(id)
@@ -56,6 +62,16 @@ public enum OperationLink: Hashable, Sendable {
     default:
       return nil
     }
+  }
+
+  /// The key of an operation that paid `due` in part (`sched:<payment>:<due>:<operation>`).
+  /// `external_id` is unique, so the parts and the rest of one due date cannot share
+  /// `externalId`; every form parses to `.scheduled(paymentId:due:)`.
+  public static func scheduledPartExternalId(
+    paymentId: UUID, due: DateOnly, operation: UUID
+  ) -> String {
+    "\(OperationLink.scheduled(paymentId: paymentId, due: due).externalId):"
+      + operation.uuidString.lowercased()
   }
 
   public var externalId: String {

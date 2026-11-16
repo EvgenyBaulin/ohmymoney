@@ -252,11 +252,15 @@ public enum ScheduledMatching {
   /// «потрачено».
   public static func bind(
     _ operation: TransactionEntry, to payment: ScheduledPayment, due: DateOnly,
-    matches: ScheduledMatches = .empty, eventId: UUID? = nil
+    matches: ScheduledMatches = .empty, eventId: UUID? = nil, asPart: Bool = false
   ) -> (operation: TransactionEntry, payment: ScheduledPayment) {
     var bound = operation
+    // A part keeps a key of its own: the rest written for the same due date takes the plain one.
     bound.transaction.externalId =
-      OperationLink.scheduled(paymentId: payment.id, due: due).externalId
+      asPart
+      ? OperationLink.scheduledPartExternalId(
+        paymentId: payment.id, due: due, operation: operation.transaction.id)
+      : OperationLink.scheduled(paymentId: payment.id, due: due).externalId
     if let eventId {
       for index in bound.parts.indices where bound.parts[index].eventId == nil {
         bound.parts[index].eventId = eventId

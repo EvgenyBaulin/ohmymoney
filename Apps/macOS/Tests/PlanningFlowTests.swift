@@ -580,7 +580,13 @@ final class PlanningFlowTests: XCTestCase {
         updatePrice: false))
     let written = try transactions.entries(from: .distantPast, to: .distantFuture)
     XCTAssertEqual(written.count, 2)
-    XCTAssertEqual(Set(written.map(\.transaction.externalId)), [key])
+    // `external_id` is unique: the rest takes the plain key, the part a key of its own that
+    // reads back as the same due date.
+    let partKey = OperationLink.scheduledPartExternalId(
+      paymentId: payment.id, due: due, operation: part.id)
+    XCTAssertEqual(Set(written.map(\.transaction.externalId)), [key, partKey])
+    XCTAssertEqual(
+      OperationLink(externalId: partKey), .scheduled(paymentId: payment.id, due: due))
     XCTAssertEqual(
       try planning.scheduled().first?.nextDate, DateOnly(year: 2026, month: 10, day: 15))
     let shown = try showStored(version: 2)
