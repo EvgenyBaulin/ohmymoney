@@ -393,4 +393,43 @@ struct AccountsSnapshotTests {
     #expect(spent.inSummaryTotalRub == B.money("68000"))
     #expect(free(spent) == B.money("68000"))
   }
+  /// A credit card beside the debit card of its bank, in one group: the debt is counted once —
+  /// counted at −30,000 beside 100,000 the group, the bank and «Всего» all say 70,000, never
+  /// 40,000 (the debt twice) nor 100,000 (the debt left out) — and the row of the card tells
+  /// what is left of its limit.
+  @Test func aCreditCardDebtIsInTheBankAndGroupTotalsExactlyOnce() throws {
+    let bank = Bank(id: B.id(60), name: "Т-Банк")
+    var book = AccountsBook()
+    book.accounts = [
+      PaymentMethod(
+        id: B.tbank, name: "Дебетовая", currency: .rub, isDefault: true, groupId: B.russia,
+        bankId: bank.id),
+      PaymentMethod(
+        id: B.sber, name: "Кредитка", currency: .rub, groupId: B.russia, bankId: bank.id,
+        credit: CreditCardTerms(limitE4: B.money("150000"))),
+    ]
+    book.groups = [AccountGroup(id: B.russia, name: "Россия")]
+    book.counts = [
+      AccountsBook.count(31, B.tbank, .rub, "100000"),
+      AccountsBook.count(35, B.sber, .rub, "-30000"),
+    ]
+    book.entries = []
+    book.transfers = []
+    let snapshot = book.snapshot()
+    #expect(snapshot.inSummaryTotalRub == B.money("70000"))
+    let nodes = AccountsTree.build(
+      accounts: book.accounts, groups: book.groups, banks: [bank], cards: [],
+      snapshot: snapshot, locale: Locale(identifier: "ru"))
+    let group = try #require(nodes.first { $0.id == "g:\(B.russia.uuidString)" })
+    #expect(group.amount == B.money("70000"))
+    let bankNode = try #require(group.children.first)
+    #expect(bankNode.amount == B.money("70000"))
+    let creditRow = try #require(bankNode.children.first { $0.account?.id == B.sber })
+    #expect(creditRow.amount == B.money("-30000"))
+    #expect(creditRow.creditLimit == B.money("150000"))
+    #expect(creditRow.creditAvailable == B.money("120000"))
+    // The rows of the group add up to the group: nothing is counted twice or left out.
+    let rows = bankNode.children.compactMap(\.amount).reduce(AmountE4.zero, +)
+    #expect(rows == group.amount)
+  }
 }

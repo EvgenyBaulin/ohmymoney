@@ -155,15 +155,20 @@ struct AccountCreditSection: View {
   @Binding var draft: CreditDraft
   /// The main currency of the account: every term is in it.
   let currency: CurrencyCode
+  /// «Это кредитная карта» is asked in the editor of an account; a card made a credit card is
+  /// one already, and the sheet leaves the switch out.
+  var showsToggle = true
 
   private func t(_ key: String) -> String { environment.language(key, table: AccountText.table) }
 
   var body: some View {
     Section {
-      Toggle(isOn: $draft.isOn) {
-        Text(verbatim: t("account.credit.toggle"))
+      if showsToggle {
+        Toggle(isOn: $draft.isOn) {
+          Text(verbatim: t("account.credit.toggle"))
+        }
+        .accessibilityIdentifier("account.credit.toggle")
       }
-      .accessibilityIdentifier("account.credit.toggle")
       if draft.isOn {
         amountField(
           "account.credit.limit", text: $draft.limitText, prompt: "150000",
