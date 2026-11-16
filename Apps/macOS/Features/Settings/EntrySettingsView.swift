@@ -141,6 +141,7 @@ struct EntrySettingsView: View {
         .fixedSize(horizontal: false, vertical: true)
       }
     }
+    .accessibilityElement(children: .contain)
     #if os(macOS)
       .padding(.horizontal, SettingsChromeMetrics.contentInset)
       .padding(.vertical, 12)

@@ -6157,6 +6157,24 @@
         }
       }
     },
+    "tree.amount": {
+      "comment": "Label for an account or group amount in the settings tree.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма: %@"
+          }
+        }
+      }
+    },
     "tree.archive": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

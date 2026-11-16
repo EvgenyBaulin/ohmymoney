@@ -339,9 +339,14 @@ struct AccountsSettingsView: View {
   private func rowView(_ row: AccountsTree.Row) -> some View {
     let node = row.node
     let isChosen = chosen == node.id
+    let amount = amount(of: node)
     return AccountsTreeRow(
       row: row, title: title(of: node), caption: caption(of: node), badge: badge(of: node),
-      amount: amount(of: node), currency: currencyCode(of: node), isChosen: isChosen,
+      amount: amount,
+      amountLabel: amount.map {
+        environment.format("tree.amount", table: "SettingsAccounts", $0)
+      },
+      currency: currencyCode(of: node), isChosen: isChosen,
       mark: mark(of: node), showsHandle: isDraggable(row), showsMarks: showsMarks,
       plusHelp: plusHelp(of: node),
       foldLabel: environment.format(

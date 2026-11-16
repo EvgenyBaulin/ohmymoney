@@ -203,6 +203,7 @@ struct GeneralSettingsView: View {
       #endif
     }
     .formStyle(.grouped)
+    .accessibilityElement(children: .contain)
     .padding()
     .onAppear(perform: reloadPeople)
     .refusedWriteAlert($refused, environment)

@@ -36,6 +36,7 @@ struct EntryLinkedSettings: View {
         .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
     }
+    .accessibilityElement(children: .contain)
   }
 
   /// A row with the value kept in another section and the way there: on the Mac the section of

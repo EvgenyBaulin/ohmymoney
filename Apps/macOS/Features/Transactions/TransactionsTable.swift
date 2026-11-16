@@ -159,7 +159,6 @@ struct TransactionsTable<MenuItems: View>: View {
 /// amount 15 semibold, every other column 14 in the secondary colour, as the design draws them.
 private struct OperationCell: View {
   @Dependency(\.environment) private var environment
-  @Environment(\.appTheme) private var theme
   let column: OperationColumn
   let item: TransactionRowItem
   var openPurchase: ((UUID) -> Void)? = nil
@@ -171,7 +170,7 @@ private struct OperationCell: View {
     default:
       content
         .appFont(OperationsType.rowCell)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
     }
   }
 
@@ -206,7 +205,7 @@ private struct OperationCell: View {
       if let cashback = item.cashback {
         Text(verbatim: environment.money.exact(cashback.amount, currency: cashback.currency))
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     case .note:
       // The comment on one line; the whole of it is in the editor and in the tooltip.
@@ -291,7 +290,7 @@ private struct DescriptionCell: View {
       if let note = transfer.note, !note.isEmpty {
         Text(verbatim: note)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(1)
       }
     }
@@ -312,7 +311,7 @@ private struct DescriptionCell: View {
             Image(systemName: "square.split.2x1")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         if let mark = item.owedMark {
           let words = [
@@ -321,7 +320,7 @@ private struct DescriptionCell: View {
           ]
           .joined(separator: " · ")
           Image(systemName: Palette.reimbursementSymbol(mark))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .help(Text(verbatim: words))
             .accessibilityLabel(Text(verbatim: words))
         }
@@ -333,13 +332,13 @@ private struct DescriptionCell: View {
               "transactions.moneyBackNotIncome", table: "Transactions")
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       if let expression = item.expression {
         Text(verbatim: expression)
           .appFont(.caption.monospaced())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       // «вернули 500 ₽» on a purchase, «к покупке «Кроссовки», 12 сентября» on its refund.
       if let refund = item.refund {
@@ -358,7 +357,7 @@ private struct DescriptionCell: View {
         verbatim: environment.language.format(
           "transactions.part", table: "Transactions", counts: number)
       )
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     } else {
       RowTitleText(title: item.title)
     }
@@ -379,7 +378,7 @@ private struct CategoryCell: View {
       // Money given back and a transfer have no category; anything else without one says so.
       if item.kind != .reimbursement, !item.isTransfer {
         Text(verbatim: environment.language("category.uncategorized"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
   }
@@ -401,8 +400,11 @@ private struct ForWhomCell: View {
     case .several:
       SeveralText()
     case .one(.value(let value)):
-      Text(verbatim: environment.label(for: value))
-        .foregroundStyle(value == .me ? .secondary : .primary)
+      if value == .me {
+        Text(verbatim: environment.label(for: value)).secondaryInk()
+      } else {
+        Text(verbatim: environment.label(for: value)).foregroundStyle(.primary)
+      }
     case .one(.person(let name)):
       Text(verbatim: ForWhomValue.personText(name, kind: kind, language: environment.language))
     case .one(.owed(let name, let status)):
@@ -412,7 +414,7 @@ private struct ForWhomCell: View {
       } icon: {
         Image(systemName: Palette.reimbursementSymbol(status))
       }
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityLabel(Text(verbatim: words))
     }
   }
@@ -472,14 +474,17 @@ private struct AmountCell: View {
 
   var body: some View {
     VStack(alignment: .trailing, spacing: 1) {
-      Text(
-        verbatim: OperationAmountSign.prefix(
-          kind: item.kind, isTransfer: item.isTransfer, isPart: item.isPart)
-          + environment.money.exact(item.amount, currency: item.currency)
-      )
-      .appFont(item.isPart ? OperationsType.rowCell : OperationsType.rowAmount)
-      .monospacedDigit()
-      .foregroundStyle(item.isPart ? theme.contentSecondary : theme.contentPrimary)
+      if item.isPart {
+        Text(verbatim: amountText)
+          .appFont(OperationsType.rowCell)
+          .monospacedDigit()
+          .secondaryInk()
+      } else {
+        Text(verbatim: amountText)
+          .appFont(OperationsType.rowAmount)
+          .monospacedDigit()
+          .foregroundStyle(theme.contentPrimary)
+      }
       if let transfer = item.transfer {
         // An exchange says what arrived; a transfer in one currency arrives as it was sent.
         if transfer.isExchange {
@@ -487,15 +492,21 @@ private struct AmountCell: View {
           Text(verbatim: "→ \(received)")
             .appFont(.caption)
             .monospacedDigit()
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       } else if item.currency != .rub {
         Text(verbatim: "≈ \(environment.money.rounded(item.amountRub))")
           .appFont(.caption)
           .monospacedDigit()
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
+  }
+
+  private var amountText: String {
+    OperationAmountSign.prefix(
+      kind: item.kind, isTransfer: item.isTransfer, isPart: item.isPart)
+      + environment.money.exact(item.amount, currency: item.currency)
   }
 }
 
@@ -505,6 +516,6 @@ private struct SeveralText: View {
 
   var body: some View {
     Text(verbatim: environment.language("transactions.several", table: "Transactions"))
-      .foregroundStyle(.secondary)
+      .secondaryInk()
   }
 }

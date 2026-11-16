@@ -50,6 +50,8 @@ struct AccountsTreeRow<MenuSlot: View>: View {
   let badge: (symbol: String, text: String)?
   /// The money, written; `nil`: none shown.
   let amount: String?
+  /// The localized accessibility label for the money.
+  let amountLabel: String?
   /// The code of the currency after an account's money.
   let currency: String?
   let isChosen: Bool
@@ -90,6 +92,7 @@ struct AccountsTreeRow<MenuSlot: View>: View {
           .foregroundStyle(Color(isChosen ? theme.palette.tintedCardText : theme.palette.cardText))
           .lineLimit(1)
           .fixedSize()
+          .accessibilityLabel(Text(verbatim: amountLabel ?? amount))
       }
       if let currency {
         Text(verbatim: currency)
