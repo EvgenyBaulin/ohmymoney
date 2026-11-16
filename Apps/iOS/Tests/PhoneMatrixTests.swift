@@ -59,7 +59,7 @@ final class PhoneConditionsMatrixTests: XCTestCase {
       let name = "\(screen) \(language.rawValue) \(Int(size.width)) \(fontSize) dark=\(dark)"
       if !knownFindings.contains(screen.description),
         !PhoneLayoutKnownIssues.contains(
-        screen, width: size.width, idiom: idiom, largestText: fontSize == .xlarge)
+          screen, width: size.width, idiom: idiom, largestText: fontSize == .xlarge)
       {
         failures += (layout + keys).map { "\(name): \($0)" }
       }

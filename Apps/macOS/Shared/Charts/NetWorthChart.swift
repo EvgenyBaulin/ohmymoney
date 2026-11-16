@@ -143,7 +143,10 @@ struct NetWorthChart: View {
                   "\(names.net): \(money.rubles(point.net))",
                   "\(names.have): \(money.rubles(point.have))",
                   "\(names.owe): \(money.rubles(point.owe))",
-                ] + point.notes.map { CapitalText.t("capital.chart.note.\($0.rawValue)", environment) })
+                ]
+                  + point.notes.map {
+                    CapitalText.t("capital.chart.note.\($0.rawValue)", environment)
+                  })
             }
             .accessibilityHidden(true)
         }
@@ -302,7 +305,10 @@ struct NetWorthAreaChart: View {
                 "\(names.net): \(money.rubles(point.net))",
                 "\(names.have): \(money.rubles(point.have))",
                 "\(names.owe): \(money.rubles(point.owe))",
-              ] + point.notes.map { CapitalText.t("capital.chart.note.\($0.rawValue)", environment) })
+              ]
+                + point.notes.map {
+                  CapitalText.t("capital.chart.note.\($0.rawValue)", environment)
+                })
           }
           .accessibilityHidden(true)
       }

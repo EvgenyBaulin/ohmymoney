@@ -91,7 +91,8 @@ struct DebtRestoration {
     let payday = DebtDueState.payday(paymentDay, in: start.monthKey)
     let paid = months - (start < payday ? 1 : 0)
     let reached = Self.balance(of: balances, after: paid, hasPayment: payment != nil)
-    let first = DebtBalanceAt.balance(of: debt, journal: journal, through: start, calendar: calendar)
+    let first = DebtBalanceAt.balance(
+      of: debt, journal: journal, through: start, calendar: calendar)
     gap = first - reached
   }
 
@@ -107,7 +108,9 @@ struct DebtRestoration {
   }
 
   /// The schedule after `count` payments: the sum borrowed with none, nothing once it is paid.
-  private static func balance(of balances: [AmountE4], after count: Int, hasPayment: Bool)
+  private static func balance(
+    of balances: [AmountE4], after count: Int, hasPayment: Bool
+  )
     -> AmountE4
   {
     guard hasPayment else { return balances[0] }

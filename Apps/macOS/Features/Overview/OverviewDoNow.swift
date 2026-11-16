@@ -224,7 +224,9 @@ struct OverviewDoNowCard: View {
   }
 
   /// «Не пришёл?»: the three answers — the day it will come, closed, moved a week on.
-  private func incomeMenu(_ item: DoNowItem, text: DoNowRowText, snapshot: DataSnapshot)
+  private func incomeMenu(
+    _ item: DoNowItem, text: DoNowRowText, snapshot: DataSnapshot
+  )
     -> some View
   {
     Menu(text.button) {

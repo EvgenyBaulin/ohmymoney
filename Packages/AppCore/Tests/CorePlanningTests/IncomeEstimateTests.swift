@@ -352,7 +352,8 @@ struct IncomeEstimateTests: SavingsFixtures {
     let postponed = ExpectedIncomeRules.postponed(project, today: today)
     #expect(postponed?.dueDate == date("2026-09-26"))
     #expect(estimate(book, [postponed ?? project]).expectedRemaining == rub("30000"))
-    #expect(ExpectedIncomeRules.moved(project, to: date("2026-09-30"))?.dueDate == date("2026-09-30"))
+    #expect(
+      ExpectedIncomeRules.moved(project, to: date("2026-09-30"))?.dueDate == date("2026-09-30"))
     var closed = project
     closed.closed = true
     #expect(ExpectedIncomeRules.moved(closed, to: today) == nil)

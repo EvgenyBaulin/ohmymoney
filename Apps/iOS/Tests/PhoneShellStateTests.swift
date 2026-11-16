@@ -210,14 +210,18 @@ final class PhoneShellStateTests: XCTestCase {
   func testEveryFourDifferentSectionsInAnyOrderSurviveTheRoundTrip() {
     let all = NavItem.allCases
     var checked = 0
-    for a in all { for b in all where b != a { for c in all where c != a && c != b {
-      for d in all where d != a && d != b && d != c {
-        let items = [a, b, c, d]
-        XCTAssertEqual(PhoneTabsPreference.decode(PhoneTabsPreference.encode(items)), items)
-        XCTAssertNotNil(PhoneTabsPreference.validated(items))
-        checked += 1
+    for a in all {
+      for b in all where b != a {
+        for c in all where c != a && c != b {
+          for d in all where d != a && d != b && d != c {
+            let items = [a, b, c, d]
+            XCTAssertEqual(PhoneTabsPreference.decode(PhoneTabsPreference.encode(items)), items)
+            XCTAssertNotNil(PhoneTabsPreference.validated(items))
+            checked += 1
+          }
+        }
       }
-    } } }
+    }
     XCTAssertEqual(checked, 10 * 9 * 8 * 7)
   }
 
@@ -267,7 +271,8 @@ final class PhoneShellStateTests: XCTestCase {
       for item in NavItem.allCases {
         let name = environment.language(item.phoneBarKey.key, table: item.phoneBarKey.table)
         XCTAssertFalse(name.isEmpty, "\(item) in \(language.rawValue)")
-        XCTAssertNotEqual(name, item.phoneBarKey.key, "\(item) is a bare key in \(language.rawValue)")
+        XCTAssertNotEqual(
+          name, item.phoneBarKey.key, "\(item) is a bare key in \(language.rawValue)")
       }
       let more = environment.language("phone.tab.more", table: "Phone")
       XCTAssertNotEqual(more, "phone.tab.more", "\(language.rawValue)")

@@ -56,7 +56,9 @@ final class AppLockEdgeTests: XCTestCase {
     return (AppLock(defaults: defaults, authenticator: fake, now: { clock.date }), fake, clock)
   }
 
-  private func enabledAndLocked(clock: TestClock = TestClock()) async -> (AppLock, FakeAuthenticator) {
+  private func enabledAndLocked(
+    clock: TestClock = TestClock()
+  ) async -> (AppLock, FakeAuthenticator) {
     let (first, _, _) = make(clock: clock)
     _ = await first.enable(reason: "r")
     let (lock, fake, _) = make(clock: clock)

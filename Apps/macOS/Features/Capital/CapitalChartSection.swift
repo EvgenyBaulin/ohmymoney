@@ -83,25 +83,25 @@ struct CapitalChartSection: View {
       retry: { compute.retry(ComputeStep.data) }
     ) { chart in
       VStack(alignment: .leading, spacing: 8) {
-      NetWorthChart(
-        model: chart,
-        names: (
-          CapitalText.t("capital.chart.net", environment),
-          CapitalText.t("capital.chart.have", environment),
-          CapitalText.t("capital.chart.owe", environment)
-        ),
-        label: { point in
-          point.isNow
-            ? CapitalText.t("capital.chart.now", environment)
-            : environment.dates.shortMonth(
-              point.day.monthKey, withYear: chart.points.first?.day.year != point.day.year)
-        },
-        spoken: { point in
-          point.isNow
-            ? CapitalText.t("capital.chart.now", environment)
-            : environment.dates.monthTitle(point.day.monthKey)
-        })
-      CapitalPastFooter(model: chart)
+        NetWorthChart(
+          model: chart,
+          names: (
+            CapitalText.t("capital.chart.net", environment),
+            CapitalText.t("capital.chart.have", environment),
+            CapitalText.t("capital.chart.owe", environment)
+          ),
+          label: { point in
+            point.isNow
+              ? CapitalText.t("capital.chart.now", environment)
+              : environment.dates.shortMonth(
+                point.day.monthKey, withYear: chart.points.first?.day.year != point.day.year)
+          },
+          spoken: { point in
+            point.isNow
+              ? CapitalText.t("capital.chart.now", environment)
+              : environment.dates.monthTitle(point.day.monthKey)
+          })
+        CapitalPastFooter(model: chart)
       }
     }
   }

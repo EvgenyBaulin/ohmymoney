@@ -21,7 +21,9 @@ struct CapitalPastTests {
 
   // MARK: Assets
 
-  func carDataset(price: String = "900", valued: String? = "1800", cash: PastCash? = nil)
+  func carDataset(
+    price: String = "900", valued: String? = "1800", cash: PastCash? = nil
+  )
     -> Dataset
   {
     let (count, rows) = Fx.count(1, "2026-03-10", [(main, .rub, "100000")])
@@ -138,7 +140,8 @@ struct CapitalPastTests {
     let expected = 50_000 + 50_000 * 30.0 / 89.0
     #expect(abs(Double(january?.estimatedCashRub.raw ?? 0) / 10_000 - expected) < 1)
     #expect(january?.withoutCash == false)
-    #expect(january?.haveRub == (january?.assetsRub ?? .zero) + (january?.estimatedCashRub ?? .zero))
+    #expect(
+      january?.haveRub == (january?.assetsRub ?? .zero) + (january?.estimatedCashRub ?? .zero))
     // The books count the cash from then on and never read the sum again.
     let april = point(capital, "2026-04-30")
     #expect(april?.estimatedCashRub == .zero)

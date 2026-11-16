@@ -24,7 +24,8 @@ final class CapitalPastCashChangeTests: XCTestCase {
   func testRemovingTheAnswerDeletesBothKeys() throws {
     let cash = PastCash(day: day, amountE4: AmountE4(whole: 150_000))
     let change = try XCTUnwrap(CapitalPastCashChange.change(from: cash, to: nil, at: Date()))
-    XCTAssertEqual(Set(change.settings.keys), [CapitalSettings.pastCashKey, CapitalSettings.pastCashDayKey])
+    XCTAssertEqual(
+      Set(change.settings.keys), [CapitalSettings.pastCashKey, CapitalSettings.pastCashDayKey])
     XCTAssertTrue(change.settings.values.allSatisfy { $0 == nil })
   }
 }

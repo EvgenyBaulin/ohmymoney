@@ -11,7 +11,8 @@ struct AfterMidnightTests {
   let calendar = CalendarContext.moscow
 
   func local(_ iso: String, _ hour: Int, _ minute: Int = 0) -> Date {
-    calendar.startOfDay(DateOnly(iso: iso)!).addingTimeInterval(TimeInterval(hour * 3600 + minute * 60))
+    calendar.startOfDay(DateOnly(iso: iso)!).addingTimeInterval(
+      TimeInterval(hour * 3600 + minute * 60))
   }
 
   @Test func theSmallHoursAreMidnightUntilFour() {

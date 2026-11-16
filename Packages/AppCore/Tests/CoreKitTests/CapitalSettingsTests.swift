@@ -35,7 +35,8 @@ struct CapitalSettingsTests {
   }
 
   @Test func theRoughCashBeforeTheBooksReadsBackAndADamagedOneIsNotSaid() {
-    let said = PastCash(day: DateOnly(year: 2024, month: 5, day: 1), amountE4: AmountE4(whole: 150_000))
+    let said = PastCash(
+      day: DateOnly(year: 2024, month: 5, day: 1), amountE4: AmountE4(whole: 150_000))
     let settings = CapitalSettings(pastCash: said)
     let rows = settings.storedValues.compactMapValues { $0 }
     #expect(rows[CapitalSettings.pastCashDayKey] == "2024-05-01")

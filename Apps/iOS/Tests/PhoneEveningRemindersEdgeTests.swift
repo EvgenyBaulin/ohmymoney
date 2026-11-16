@@ -37,7 +37,8 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
       await value.apply(now: now)
       let trigger = center.added.first?.trigger as? UNTimeIntervalNotificationTrigger
       let evening = calendar.moment(today, hour: HabitNotes.defaultEveningHour, minute: 0)
-      XCTAssertEqual(trigger?.timeInterval ?? -1, evening.timeIntervalSince(now), accuracy: 0.5, zone)
+      XCTAssertEqual(
+        trigger?.timeInterval ?? -1, evening.timeIntervalSince(now), accuracy: 0.5, zone)
       XCTAssertEqual(center.added.count, EveningReminders.horizon, zone)
     }
   }
@@ -112,7 +113,8 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
       let day = today.adding(days: offset)
       let id = "habits.nudge:\(day.iso)"
       // The system keeps the last request of an id: that one has to be at the new hour.
-      let last = center.added.last { $0.identifier == id }?.trigger
+      let last =
+        center.added.last { $0.identifier == id }?.trigger
         as? UNTimeIntervalNotificationTrigger
       let wanted = calendar.moment(day, hour: 7, minute: 0).timeIntervalSince(now)
       XCTAssertEqual(last?.timeInterval ?? -1, wanted, accuracy: 0.5, "\(day.iso)")
@@ -132,7 +134,8 @@ final class PhoneEveningRemindersEdgeTests: XCTestCase {
       entryDays: [today.adding(days: -1)], today: today, calendar: baku)
     await value.apply(now: now)
     let id = "habits.nudge:\(today.iso)"
-    let last = center.added.last { $0.identifier == id }?.trigger as? UNTimeIntervalNotificationTrigger
+    let last =
+      center.added.last { $0.identifier == id }?.trigger as? UNTimeIntervalNotificationTrigger
     let wanted = baku.moment(today, hour: HabitNotes.defaultEveningHour, minute: 0)
       .timeIntervalSince(now)
     XCTExpectFailure("a held evening keeps the old zone's clock") {
