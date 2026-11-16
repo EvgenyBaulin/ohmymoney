@@ -19,6 +19,8 @@ public struct EntryFilter: Hashable, Sendable {
   public var categoryId: UUID?
   /// A subcategory: only itself matches.
   public var subcategoryId: UUID?
+  /// An operation with at least one part that has no category.
+  public var uncategorizedOnly: Bool
   /// The quality of the ledger row: stored, or the one the rules give.
   public var quality: Quality?
   public var forWhom: ForWhom?
@@ -42,7 +44,8 @@ public struct EntryFilter: Hashable, Sendable {
 
   public init(
     period: Period? = nil, kind: TransactionKind? = nil, categoryId: UUID? = nil,
-    subcategoryId: UUID? = nil, quality: Quality? = nil, forWhom: ForWhom? = nil,
+    subcategoryId: UUID? = nil, uncategorizedOnly: Bool = false, quality: Quality? = nil,
+    forWhom: ForWhom? = nil,
     personId: UUID? = nil, placeId: UUID? = nil, eventId: UUID? = nil,
     paymentMethodId: UUID? = nil, reimbursementStatus: ReimbursementStatus? = nil,
     text: String = "", cardId: UUID? = nil, hiddenAccountIds: Set<UUID> = [],
@@ -52,6 +55,7 @@ public struct EntryFilter: Hashable, Sendable {
     self.kind = kind
     self.categoryId = categoryId
     self.subcategoryId = subcategoryId
+    self.uncategorizedOnly = uncategorizedOnly
     self.quality = quality
     self.forWhom = forWhom
     self.personId = personId
@@ -75,7 +79,7 @@ public struct EntryFilter: Hashable, Sendable {
   }
 
   private var hasPartCriteria: Bool {
-    categoryId != nil || subcategoryId != nil || quality != nil || forWhom != nil
+    categoryId != nil || subcategoryId != nil || uncategorizedOnly || quality != nil || forWhom != nil
       || personId != nil || eventId != nil || reimbursementStatus != nil
   }
 
@@ -119,6 +123,7 @@ public struct EntryFilter: Hashable, Sendable {
   }
 
   private func matchesPart(_ row: LedgerRow) -> Bool {
+    if uncategorizedOnly, row.categoryId != nil { return false }
     if let subcategoryId {
       guard row.categoryId == subcategoryId else { return false }
     } else if let categoryId {

@@ -67,7 +67,7 @@ enum OperationsMonth {
       let month = start.monthKey
       guard start == month.firstDay, end == lastDay(of: month) else { return nil }
       return month
-    case .thisYear, .allTime: return nil
+    case .thisYear, .allTime, .olderThanWeek: return nil
     }
   }
 

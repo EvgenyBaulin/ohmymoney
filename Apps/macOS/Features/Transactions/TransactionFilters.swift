@@ -15,7 +15,7 @@ import Foundation
 ///   and the search looks through all of it.
 struct TransactionFilters: Hashable, Sendable {
   enum PeriodChoice: String, CaseIterable, Hashable, Sendable {
-    case thisMonth, lastMonth, thisYear, allTime, custom
+    case thisMonth, lastMonth, thisYear, allTime, custom, olderThanWeek
 
     var titleKey: String {
       switch self {
@@ -24,8 +24,15 @@ struct TransactionFilters: Hashable, Sendable {
       case .thisYear: "filters.thisYear"
       case .allTime: "filters.allTime"
       case .custom: "filters.custom"
+      case .olderThanWeek: "filters.olderThanWeek"
       }
     }
+  }
+
+  static func olderThanWeekRange(today: DateOnly) -> DayRange {
+    DayRange(
+      DateOnly(year: 1, month: 1, day: 1),
+      today.adding(days: -DoNowSources.reviewDays))
   }
 
   var period: PeriodChoice = .allTime
@@ -36,6 +43,7 @@ struct TransactionFilters: Hashable, Sendable {
   private(set) var kind: TransactionKind?
   private(set) var categoryId: UUID?
   var subcategoryId: UUID?
+  private(set) var uncategorizedOnly = false
   var quality: Quality?
   var forWhom: ForWhom?
   var personId: UUID?
@@ -67,9 +75,19 @@ struct TransactionFilters: Hashable, Sendable {
   /// Another category drops the subcategory: a child of the category that was there before
   /// would leave the pair mismatched.
   mutating func setCategory(_ categoryId: UUID?) {
+    if categoryId != nil { uncategorizedOnly = false }
     guard categoryId != self.categoryId else { return }
     self.categoryId = categoryId
     subcategoryId = nil
+  }
+
+  /// The uncategorized choice replaces a chosen category and subcategory.
+  mutating func setUncategorizedOnly(_ enabled: Bool) {
+    uncategorizedOnly = enabled
+    if enabled {
+      categoryId = nil
+      subcategoryId = nil
+    }
   }
 
   /// The account picker's choice: a card, or an account.
@@ -136,7 +154,8 @@ struct TransactionFilters: Hashable, Sendable {
     count +=
       [
         kind != nil, categoryId != nil, subcategoryId != nil, quality != nil, forWhom != nil,
-        personId != nil, placeId != nil, eventId != nil, accountOrCard != nil, status != nil,
+        uncategorizedOnly, personId != nil, placeId != nil, eventId != nil,
+        accountOrCard != nil, status != nil,
       ].filter { $0 }.count
     return count
   }
@@ -158,6 +177,7 @@ struct TransactionFilters: Hashable, Sendable {
     case .lastMonth: return .month(month.previous)
     case .thisYear: return .year(today.year)
     case .allTime: return nil
+    case .olderThanWeek: return .days(Self.olderThanWeekRange(today: today))
     case .custom:
       return .days(DayRange(min(customStart, customEnd), max(customStart, customEnd)))
     }
@@ -167,7 +187,8 @@ struct TransactionFilters: Hashable, Sendable {
   func entryFilter(today: DateOnly) -> EntryFilter {
     EntryFilter(
       period: period(today: today), kind: kind, categoryId: categoryId,
-      subcategoryId: subcategoryId, quality: quality, forWhom: forWhom, personId: personId,
+      subcategoryId: subcategoryId, uncategorizedOnly: uncategorizedOnly, quality: quality,
+      forWhom: forWhom, personId: personId,
       placeId: placeId, eventId: eventId, paymentMethodId: paymentMethodId,
       reimbursementStatus: status, text: search.trimmingCharacters(in: .whitespaces),
       cardId: cardId)

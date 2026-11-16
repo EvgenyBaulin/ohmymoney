@@ -9763,6 +9763,23 @@
         }
       }
     },
+    "filters.olderThanWeek": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Older than 7 days"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Старше 7 дней"
+          }
+        }
+      }
+    },
     "filters.period": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -11216,6 +11233,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "類型"
+          }
+        }
+      }
+    },
+    "filters.uncategorized": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без категории"
           }
         }
       }

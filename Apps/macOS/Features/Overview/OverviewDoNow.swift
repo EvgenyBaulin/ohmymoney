@@ -30,6 +30,24 @@ enum StatementSkipMarks {
 enum OverviewDoNow {
   static let table = "Overview"
 
+  /// The filter requested by one of the two review rows.
+  static func operationsRequest(for item: DoNowItem, today: DateOnly) -> OperationsFilterRequest? {
+    guard item.action == .review else { return nil }
+    var filters = TransactionFilters(today: today)
+    filters.setUncategorizedOnly(true)
+    switch item.id {
+    case "review:\(DoNowSources.recentReviewId)":
+      filters.period = .custom
+      filters.customStart = today.adding(days: -(DoNowSources.reviewDays - 1))
+      filters.customEnd = today
+    case "review:\(DoNowSources.olderReviewId)":
+      filters.period = .olderThanWeek
+    default:
+      return nil
+    }
+    return OperationsFilterRequest(filter: filters.entryFilter(today: today), columns: nil)
+  }
+
   /// The list the block shows, from the snapshot: due payments, operations to sort out and
   /// banks whose statement is old. Accounts hidden by «Только просмотр» stay out of the lists.
   @MainActor
@@ -430,7 +448,10 @@ struct OverviewDoNowCard: View {
     case .income, .closeRemainder: break
     case .post: post(item, snapshot: snapshot)
     case .review:
-      TileWhyNavigation.go(.section(.operations), environment: environment, openWindow: openWindow)
+      guard
+        let request = OverviewDoNow.operationsRequest(for: item, today: environment.today)
+      else { return }
+      QuestionOpening.showOperations(request)
     case .load:
       environment.statementImportRequest = StatementImportRequest(urls: [])
     }

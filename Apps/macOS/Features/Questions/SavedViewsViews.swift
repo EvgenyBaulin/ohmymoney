@@ -58,7 +58,7 @@ struct SaveViewSheet: View {
       case .thisMonth: return .thisMonth
       case .lastMonth: return .lastMonth
       case .thisYear: return .thisYear
-      case .allTime, .custom: return nil
+      case .allTime, .custom, .olderThanWeek: return nil
       }
     case .report(_, _, let period):
       let words = SavedViewsText.relativePeriod(for: period, today: today)

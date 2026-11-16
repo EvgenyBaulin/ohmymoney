@@ -62,6 +62,18 @@ final class OperationsAccountsChromeTests: XCTestCase {
     }
   }
 
+  func testUncategorizedFilterHasWordsInBothLanguages() {
+    let language = AppLanguage()
+    var words: Set<String> = []
+    for choice in [AppLanguage.Choice.english, .russian] {
+      language.choice = choice
+      let word = language("filters.uncategorized", table: "Transactions")
+      XCTAssertNotEqual(word, "filters.uncategorized")
+      words.insert(word)
+    }
+    XCTAssertEqual(words.count, 2)
+  }
+
   func testATransferRowHasItsOwnTitleInBothLanguages() {
     let language = AppLanguage()
     var seen: Set<String> = []

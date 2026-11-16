@@ -44,6 +44,7 @@ extension TransactionFilters {
     cardId = filter.cardId
     status = filter.reimbursementStatus
     search = filter.text
+    setUncategorizedOnly(filter.uncategorizedOnly)
     if let span = filter.period {
       if span == Period.month(today.monthKey) {
         period = .thisMonth
@@ -51,6 +52,8 @@ extension TransactionFilters {
         period = .lastMonth
       } else if span == Period.year(today.year) {
         period = .thisYear
+      } else if span == Period.days(TransactionFilters.olderThanWeekRange(today: today)) {
+        period = .olderThanWeek
       } else {
         customStart = span.range.start
         customEnd = span.range.end
@@ -71,6 +74,9 @@ extension TransactionFilters {
     case .thisMonth: savedPeriod = SavedPeriod.saving(.thisMonth, floating: floating, today: today)
     case .lastMonth: savedPeriod = SavedPeriod.saving(.lastMonth, floating: floating, today: today)
     case .thisYear: savedPeriod = SavedPeriod.saving(.thisYear, floating: floating, today: today)
+    case .olderThanWeek:
+      let range = TransactionFilters.olderThanWeekRange(today: today)
+      savedPeriod = .fixed(start: range.start, end: range.end)
     case .custom:
       savedPeriod = .fixed(start: min(customStart, customEnd), end: max(customStart, customEnd))
     }
@@ -83,7 +89,7 @@ extension TransactionFilters {
   var periodCanFloat: Bool {
     switch period {
     case .thisMonth, .lastMonth, .thisYear: true
-    case .allTime, .custom: false
+    case .allTime, .custom, .olderThanWeek: false
     }
   }
 }

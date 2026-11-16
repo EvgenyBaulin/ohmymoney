@@ -655,7 +655,8 @@ struct TransactionListing: Sendable {
   /// received, written as an operation's amount is for its search.
   static func transfers(matching filter: EntryFilter, in ledger: Ledger) -> [Transfer] {
     guard filter.kind == nil, filter.cardId == nil, filter.categoryId == nil,
-      filter.subcategoryId == nil, filter.quality == nil, filter.forWhom == nil,
+      filter.subcategoryId == nil, !filter.uncategorizedOnly, filter.quality == nil,
+      filter.forWhom == nil,
       filter.personId == nil, filter.placeId == nil, filter.eventId == nil,
       filter.reimbursementStatus == nil
     else { return [] }

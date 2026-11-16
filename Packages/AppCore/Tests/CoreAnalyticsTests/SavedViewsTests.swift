@@ -110,6 +110,21 @@ struct SavedViewsTests {
     #expect(saved.entryFilter(today: Self.december) == filter)
   }
 
+  @Test("An old saved filter without uncategorizedOnly decodes")
+  func oldSavedFilterDefaultsToCategorizedAndRoundTripsUncategorized() throws {
+    let old = Data(
+      #"{"id":"00000000-0000-0000-0000-000000000001","name":"Все","text":""}"#.utf8)
+    let decoded = try JSONDecoder().decode(SavedFilter.self, from: old)
+    #expect(!decoded.uncategorizedOnly)
+
+    let saved = SavedFilter(
+      name: "Без категории", filter: EntryFilter(uncategorizedOnly: true), period: nil)
+    let data = try JSONEncoder().encode(saved)
+    let back = try JSONDecoder().decode(SavedFilter.self, from: data)
+    #expect(back.uncategorizedOnly)
+    #expect(back.entryFilter(today: Self.october).uncategorizedOnly)
+  }
+
   @Test("«Кафе за квартал» в октябре и в январе — разные кварталы")
   func aFloatingFilterFollowsToday() throws {
     let ledger = try Self.makeLedger()

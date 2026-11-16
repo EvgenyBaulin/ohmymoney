@@ -636,6 +636,42 @@ final class OperationsScenarioFiltersTests: XCTestCase {
     XCTAssertEqual(searched("кофе", in: ledger([gone, kept])), [kept.id])
   }
 
+  func testNoCategoryFindsUncategorizedOperationsAndSplitPartsButNotTransfers() throws {
+    let day = DateOnly(year: 2026, month: 5, day: 5)
+    let categorized = try entry("categorized", on: day)
+    let uncategorized = try entry(
+      "uncategorized", on: day,
+      parts: [PartDraft(categoryId: nil, amount: AmountE4(whole: 100))])
+    let split = try entry(
+      "split", on: day,
+      parts: [
+        PartDraft(categoryId: food.id, amount: AmountE4(whole: 50)),
+        PartDraft(categoryId: nil, amount: AmountE4(whole: 50)),
+      ])
+    let transfer = Transfer(
+      occurredAt: at(day), fromAccountId: main.id, fromCurrency: .rub,
+      fromAmountE4: AmountE4(whole: 500), toAccountId: spare.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 500), note: nil, createdAt: at(day), updatedAt: at(day))
+    var filters = TransactionFilters(today: day)
+    filters.setUncategorizedOnly(true)
+    XCTAssertEqual(filters.activeCount, 1)
+    XCTAssertTrue(filters.canReset)
+
+    let listing = TransactionListing.build(
+      matching: filters.entryFilter(today: day),
+      in: ledger([categorized, uncategorized, split], transfers: [transfer]))
+
+    XCTAssertEqual(listing.visibleIds, [uncategorized.id, split.id])
+    XCTAssertTrue(listing.transferIds.isEmpty)
+    filters.setCategory(food.id)
+    XCTAssertFalse(filters.uncategorizedOnly)
+    filters.setUncategorizedOnly(true)
+    XCTAssertNil(filters.categoryId)
+    filters.reset()
+    XCTAssertFalse(filters.uncategorizedOnly)
+    XCTAssertEqual(filters.activeCount, 0)
+  }
+
   func testAnEmptyHistoryFindsNothingWhateverTheFilters() {
     var filters = TransactionFilters(today: DateOnly(year: 2026, month: 5, day: 5))
     filters.search = "кофе"

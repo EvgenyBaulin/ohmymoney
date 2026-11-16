@@ -151,6 +151,29 @@ final class OverviewDoNowTests: XCTestCase {
     XCTAssertFalse(older.detail.isEmpty)
   }
 
+  func testReviewActionsOpenOperationsWithUncategorizedFilterAndTheirPeriod() {
+    let today = DateOnly(year: 2026, month: 11, day: 16)
+    let recentItem = DoNowItem(
+      id: "review:\(DoNowSources.recentReviewId)", action: .review, count: 3)
+    let olderItem = DoNowItem(
+      id: "review:\(DoNowSources.olderReviewId)", action: .review, count: 5)
+
+    let recent = OverviewDoNow.operationsRequest(for: recentItem, today: today)
+    let older = OverviewDoNow.operationsRequest(for: olderItem, today: today)
+
+    XCTAssertTrue(recent?.filter.uncategorizedOnly == true)
+    XCTAssertNil(recent?.columns)
+    XCTAssertEqual(
+      recent?.filter.period?.range,
+      DayRange(today.adding(days: -6), today))
+    XCTAssertTrue(older?.filter.uncategorizedOnly == true)
+    XCTAssertNil(older?.columns)
+    XCTAssertEqual(
+      older.flatMap { TransactionFilters($0.filter, today: today).period }, .olderThanWeek)
+    XCTAssertEqual(
+      older?.filter.period?.range, TransactionFilters.olderThanWeekRange(today: today))
+  }
+
   /// A one-off income that was due a week ago and did not come: «<Доход> не пришёл?» with its
   /// answers, after the payments and before the things to sort out; the same income due
   /// tomorrow asks nothing yet.

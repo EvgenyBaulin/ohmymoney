@@ -47,6 +47,9 @@ struct TransactionFiltersForm: View {
           options: choices.subcategories(of: filters.categoryId).map { ($0.id, $0.name) }
         )
         .disabled(choices.subcategories(of: filters.categoryId).isEmpty)
+        Toggle(isOn: uncategorizedOnly) {
+          Text(verbatim: t("filters.uncategorized"))
+        }
         OptionalPicker(
           title: entry("entry.quality"), any: any, selection: $filters.quality,
           options: Quality.allCases.map { ($0, environment.language(Palette.qualityKey($0))) })
@@ -101,6 +104,12 @@ struct TransactionFiltersForm: View {
     Binding(
       get: { filters.accountOrCard },
       set: { filters.setAccountOrCard($0, cards: choices.cards) })
+  }
+
+  private var uncategorizedOnly: Binding<Bool> {
+    Binding(
+      get: { filters.uncategorizedOnly },
+      set: { filters.setUncategorizedOnly($0) })
   }
 
   /// Another category drops the subcategory.
