@@ -458,7 +458,7 @@ public enum NetWorth {
           updates,
           owner: owner, id: asset.id, through: day)
         let useUpdate = update.map { value in legacy.map { value.day >= $0.day } ?? true } ?? false
-        var amount = useUpdate ? update?.amountE4 : legacy?.valueE4
+        let amount = useUpdate ? update?.amountE4 : legacy?.valueE4
         let currency = useUpdate ? (update?.currency ?? asset.currency) : asset.currency
         var issue: CapitalLine.Issue?
         var rub: AmountE4?
@@ -468,7 +468,8 @@ public enum NetWorth {
           // Before its first valuation an asset is worth what it cost, and then the straight
           // line towards that valuation; «now» keeps saying «no valuation».
           let next = nextValuation(of: asset.id, after: day)
-          let price = NetWorth.rubles(purchase.priceE4, in: purchase.currency, rate: rate(purchase.currency))
+          let price = NetWorth.rubles(
+            purchase.priceE4, in: purchase.currency, rate: rate(purchase.currency))
           let target = next.flatMap { value in
             NetWorth.rubles(value.amount, in: value.currency, rate: rate(value.currency))
               .map { (value.day, $0) }
