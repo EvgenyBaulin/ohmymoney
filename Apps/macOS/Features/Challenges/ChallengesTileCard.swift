@@ -85,7 +85,7 @@ struct ChallengesTileCard: View {
           Text(verbatim: figure.title)
             .appFont(compact ? .headline : .title3)
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
             .accessibilityIdentifier("overview.challenges.title")
         }
         Text(verbatim: figure.caption)

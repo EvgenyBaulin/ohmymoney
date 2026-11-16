@@ -60,7 +60,7 @@ struct WeekMoodRow: View {
               .appFont(.caption)
               .secondaryInk()
               .lineLimit(1)
-              .minimumScaleFactor(0.7)
+              .shrinksToFit(0.7)
           }
           .frame(maxWidth: .infinity, minHeight: 48)
           .padding(.vertical, 4)

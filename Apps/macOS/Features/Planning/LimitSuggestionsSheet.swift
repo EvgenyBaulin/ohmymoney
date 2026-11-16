@@ -38,7 +38,7 @@ struct LimitSuggestionsSheet: View {
           Text(verbatim: t("limits.suggest.basis.tenPercentLess"))
             .tag(LimitSuggestionBasis.tenPercentLess)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
         .accessibilityIdentifier("limits.suggest.basis")
         ScrollView {

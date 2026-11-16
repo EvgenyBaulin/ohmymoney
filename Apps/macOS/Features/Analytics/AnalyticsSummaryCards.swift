@@ -287,7 +287,7 @@ private struct OverviewQualityView: View {
       .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: OverviewQualityMetrics.rowGap) {
         ForEach(totals.tiles, id: \.quality) { tile in
-          HStack(spacing: AnalyticsCardMetrics.captionGap) {
+          AdaptiveStack(spacing: AnalyticsCardMetrics.captionGap) {
             Label {
               Text(verbatim: environment.language(Palette.qualityKey(tile.quality)))
             } icon: {
@@ -299,8 +299,7 @@ private struct OverviewQualityView: View {
             Text(verbatim: figure(tile))
               .appFont(.system(size: 12, weight: .semibold).monospacedDigit())
               .foregroundStyle(figureInk(tile.quality))
-              .lineLimit(1)
-              .fixedSize()
+              .oneLineUnlessLargeText()
           }
           .appFont(.system(size: 12))
           .accessibilityElement(children: .combine)
@@ -368,7 +367,7 @@ private struct OverviewAnomalyRow: View {
       Button(AnalyticsText.t("analytics.anomaly.normal", environment), action: hide)
         .buttonStyle(.plain)
         .appFont(.system(size: 13, weight: .semibold))
-        .fixedSize()
+        .fixedSizeUnlessLargeText()
     }
   }
 }

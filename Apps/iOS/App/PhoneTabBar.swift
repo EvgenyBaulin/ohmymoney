@@ -152,6 +152,10 @@ struct PhoneTabBar: View {
     }
     .padding(.horizontal, Self.innerPadding)
     .padding(.vertical, 6)
+    // The bar is chrome of a fixed height with five tabs in one row: its names follow the system's
+    // text size up to «xxLarge», as the system's own tab bar does, and stay there at the
+    // accessibility sizes, where five names no longer fit one row.
+    .dynamicTypeSize(...DynamicTypeSize.xxLarge)
     .background(colors.background, in: RoundedRectangle(cornerRadius: 34, style: .continuous))
     .shadow(color: .black.opacity(0.18), radius: 12, y: 4)
     // The bar floats: a margin on every side, the page shows around it (design: tab bar pill).

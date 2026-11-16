@@ -234,6 +234,7 @@ struct MainCard<Content: View>: View {
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.colorSchemeContrast) private var contrast
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.appTextScale) private var textScale
   @Environment(\.layoutIdiom) private var idiom
   let stripe: Color
   @ViewBuilder let content: Content
@@ -252,7 +253,7 @@ struct MainCard<Content: View>: View {
         // The stripe grows with the text it stands beside.
         .frame(
           width: StyleMetrics.stripeWidth,
-          height: fontSize.points(fromRegular: StyleMetrics.stripeHeight)
+          height: fontSize.points(fromRegular: StyleMetrics.stripeHeight, textScale: textScale)
         )
         .accessibilityHidden(true)
       content.frame(maxWidth: .infinity, alignment: .leading)
@@ -382,9 +383,11 @@ struct SegmentedTabs<Value: Hashable>: View {
   @Environment(\.themeSurfaces) private var surfaces
   let options: [(value: Value, title: String)]
   @Binding var selection: Value
+  @Environment(\.dynamicTypeSize) private var textSize
 
   var body: some View {
-    HStack(spacing: 2) {
+    let column = textSize.isAccessibilitySize
+    AdaptiveStack(columnAlignment: .center, spacing: 2) {
       ForEach(options.indices, id: \.self) { index in
         let option = options[index]
         let selected = option.value == selection
@@ -393,6 +396,7 @@ struct SegmentedTabs<Value: Hashable>: View {
         } label: {
           Text(verbatim: option.title)
             .appFont(.callout.weight(selected ? .semibold : .regular))
+            .frame(maxWidth: column ? .infinity : nil)
             .padding(.horizontal, 12)
             .padding(.vertical, 5)
             .frame(maxWidth: Self.fillsWidth ? .infinity : nil)
@@ -404,7 +408,7 @@ struct SegmentedTabs<Value: Hashable>: View {
     }
     .padding(2)
     .background(theme.surfaceSegmented, in: .rect(cornerRadius: 10))
-    .fixedSize(horizontal: !Self.fillsWidth, vertical: true)
+    .fixedSize(horizontal: !Self.fillsWidth && !column, vertical: true)
   }
 
   /// A phone stretches the switch over the page; the Mac and the tablet keep it as wide as its

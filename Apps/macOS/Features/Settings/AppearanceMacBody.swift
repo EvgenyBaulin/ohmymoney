@@ -57,7 +57,7 @@
         HStack(alignment: .top, spacing: SettingsControlMetrics.fontAndCurrencyGap) {
           labelled("settings.appearance.fontSize", hint: nil, symbol: "textformat.size") {
             SettingsSegmented(
-              selection: $theme.fontSize, choices: Array(AppFontSize.allCases),
+              selection: $theme.fontSize, choices: AppFontSize.choices,
               title: { environment.language($0.settingsKey, table: "Settings") },
               identifier: "settings.appearance.fontSize")
           }

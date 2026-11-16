@@ -163,9 +163,9 @@ private struct OverviewSection: View {
       } label: {
         Text(verbatim: t("analytics.step.title"))
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
-      .fixedSize()
+      .fixedSizeUnlessLargeText()
     } content: { steps in
       let series = steps.series(stepChoice.step(for: steps))
       ColumnChart(
@@ -917,7 +917,7 @@ struct EventBudgetCards: View {
           Text(verbatim: figures(item))
             .appFont(.system(size: 16, weight: .bold).monospacedDigit())
             .lineLimit(1)
-            .minimumScaleFactor(0.8)
+            .shrinksToFit(0.8)
           if let budget = item.budget, budget > 0 {
             progress(item, budget: budget)
           }

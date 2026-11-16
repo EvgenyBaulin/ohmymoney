@@ -12,10 +12,13 @@ enum OverviewCard {
   /// 568. A larger text needs wider tiles, so the narrowest tile grows with the body size (17 pt
   /// of «Очень крупный» against 13).
   static func columns(
-    forWidth width: CGFloat, fontSize: AppFontSize = .regular, gap: CGFloat = columnGap
+    forWidth width: CGFloat, fontSize: AppFontSize = .regular, gap: CGFloat = columnGap,
+    textScale: CGFloat = 1
   ) -> Int {
     let scale = max(
-      1, (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
+      1, fontSize == .system
+        ? textScale
+        : (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
     let tile = StyleMetrics.tileMinWidth * scale
     let fitting = Int(((width + gap) / (tile + gap)).rounded(.down))
     return min(maxColumns, max(1, fitting))

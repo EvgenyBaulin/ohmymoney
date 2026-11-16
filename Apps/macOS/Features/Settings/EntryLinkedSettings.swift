@@ -29,7 +29,7 @@ struct EntryLinkedSettings: View {
         Text(verbatim: t("settings.entry.firstPurchase"))
       }
       .pickerStyle(.menu)
-      .fixedSize()
+      .fixedSizeUnlessLargeText()
       .accessibilityIdentifier("settings.entry.firstPurchase")
       Text(verbatim: t("settings.entry.firstPurchaseHint"))
         .appFont(.callout)
@@ -64,7 +64,7 @@ struct EntryLinkedSettings: View {
   }
 
   private func row(_ key: String, value: String) -> some View {
-    HStack(spacing: 6) {
+    AdaptiveStack(spacing: 6) {
       Text(verbatim: t(key))
       Spacer(minLength: 8)
       Text(verbatim: value)

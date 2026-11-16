@@ -37,7 +37,7 @@ struct ExpectedIncomeForm: View {
           Text(verbatim: t("form.expected.oneOff")).tag(ExpectedIncomeKind.oneOff)
           Text(verbatim: t("form.expected.recurring")).tag(ExpectedIncomeKind.recurring)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .onChange(of: income.kind) { followTheLastDay() }
         LabeledContent(t(income.kind == .oneOff ? "form.expected.total" : "form.expected.each")) {
           HStack {

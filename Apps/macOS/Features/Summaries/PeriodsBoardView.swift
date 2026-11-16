@@ -212,7 +212,7 @@ struct PeriodsHeroCard: View {
         Text(verbatim: text.rubles(board.spent))
           .appFont(PeriodsBoardType.heroFigure)
           .lineLimit(1)
-          .minimumScaleFactor(0.6)
+          .shrinksToFit(0.6)
           .accessibilityIdentifier("summaries.hero.figure")
         HStack(spacing: 4) {
           if let symbol = text.changeSymbol(board) {
@@ -264,7 +264,7 @@ struct PeriodsHeroCard: View {
       Text(verbatim: value)
         .appFont(PeriodsBoardType.heroValue(metrics))
         .lineLimit(1)
-        .minimumScaleFactor(0.7)
+        .shrinksToFit(0.7)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .accessibilityElement(children: .combine)
@@ -275,6 +275,7 @@ struct PeriodsHeroCard: View {
 /// its hole, every part named with its percent beside it.
 struct PeriodsDonutCard: View {
   @Environment(\.appTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var textSize
   let board: PeriodBoard
   let text: PeriodsBoardText
   let metrics: PeriodsBoardMetrics
@@ -285,7 +286,7 @@ struct PeriodsDonutCard: View {
         .appFont(PeriodsBoardType.cardTitle)
         .foregroundStyle(theme.contentPrimary)
         .accessibilityAddTraits(.isHeader)
-      HStack(spacing: PeriodsBoardMetrics.donutToLegend) {
+      AdaptiveStack(spacing: PeriodsBoardMetrics.donutToLegend) {
         ShareDonutChart(
           slices: board.slices.enumerated().map { index, slice in
             ShareDonutSlice(
@@ -306,11 +307,13 @@ struct PeriodsDonutCard: View {
                 .accessibilityHidden(true)
               Text(verbatim: text.category(slice.categoryId))
                 .appFont(PeriodsBoardType.legendName)
-                .lineLimit(1)
+                .lineLimit(textSize.isAccessibilitySize ? nil : 1)
                 // 90 as the frames draw it; a narrow phone takes from the name, never the percent.
+                // At the accessibility sizes the name takes the room the legend has.
                 .frame(
                   minWidth: 0, idealWidth: PeriodsBoardMetrics.legendName,
-                  maxWidth: PeriodsBoardMetrics.legendName, alignment: .leading)
+                  maxWidth: textSize.isAccessibilitySize
+                    ? .infinity : PeriodsBoardMetrics.legendName, alignment: .leading)
               Text(verbatim: text.percent(slice.shareBP))
                 .appFont(PeriodsBoardType.figure)
                 .fixedSize()
@@ -368,6 +371,7 @@ struct PeriodsColumnsCard: View {
 /// its money against the largest, and the money with its share.
 struct PeriodsGradesCard: View {
   @Environment(\.appTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var textSize
   @Environment(\.themeSurfaces) private var surfaces
   let board: PeriodBoard
   let text: PeriodsBoardText
@@ -381,7 +385,7 @@ struct PeriodsGradesCard: View {
         .accessibilityAddTraits(.isHeader)
       let largest = board.grades.map(\.amount.raw).max() ?? 0
       ForEach(board.grades, id: \.quality) { grade in
-        HStack(spacing: PeriodsBoardMetrics.gradeGap) {
+        AdaptiveStack(spacing: PeriodsBoardMetrics.gradeGap) {
           Image(systemName: Palette.qualitySymbol(grade.quality))
             .appFont(AppFont.system(size: 15))
             .foregroundStyle(ink(grade.quality))
@@ -390,8 +394,10 @@ struct PeriodsGradesCard: View {
           Text(verbatim: text.gradeName(grade.quality))
             .appFont(PeriodsBoardType.legendName)
             .foregroundStyle(theme.contentPrimary)
-            .lineLimit(1)
-            .frame(width: PeriodsBoardMetrics.gradeWord, alignment: .leading)
+            .lineLimit(textSize.isAccessibilitySize ? nil : 1)
+            .frame(
+              width: textSize.isAccessibilitySize ? nil : PeriodsBoardMetrics.gradeWord,
+              alignment: .leading)
           // The track of the frame, shorter only when a narrow phone needs room for the figures.
           Capsule()
             .fill(theme.fillNeutral)
@@ -409,8 +415,7 @@ struct PeriodsGradesCard: View {
           Text(verbatim: text.grade(grade))
             .appFont(PeriodsBoardType.figure)
             .foregroundStyle(theme.contentPrimary)
-            .lineLimit(1)
-            .fixedSize()
+            .oneLineUnlessLargeText()
         }
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("summaries.grade.\(grade.quality.rawValue)")
@@ -450,12 +455,12 @@ struct PeriodsTopCard: View {
         .accessibilityAddTraits(.isHeader)
       let items = Array(board.topCategories.enumerated())
       ForEach(Array(stride(from: 0, to: items.count, by: 2)), id: \.self) { start in
-        HStack(alignment: .top, spacing: PeriodsBoardMetrics.topColumnsGap) {
+        AdaptiveStack(alignment: .top, spacing: PeriodsBoardMetrics.topColumnsGap) {
           row(items[start].offset, items[start].element)
           if start + 1 < items.count {
             row(items[start + 1].offset, items[start + 1].element)
           } else {
-            Color.clear.frame(maxWidth: .infinity, maxHeight: 1)
+            Color.clear.frame(maxWidth: .infinity, maxHeight: 1).accessibilityHidden(true)
           }
         }
       }
@@ -557,9 +562,13 @@ struct PhoneCapsuleSegments<Value: Hashable>: View {
   let options: [(value: Value, title: String)]
   @Binding var selection: Value
   var identifier: (Value) -> String = { _ in "" }
+  @Environment(\.dynamicTypeSize) private var textSize
 
   var body: some View {
-    HStack(spacing: 0) {
+    // At the accessibility text sizes three words side by side are wider than the phone: the
+    // segments stand one under another, each a full-width line.
+    let column = textSize.isAccessibilitySize
+    AdaptiveStack(alignment: .center, columnAlignment: .center, spacing: 0) {
       ForEach(options.indices, id: \.self) { index in
         let option = options[index]
         let selected = option.value == selection
@@ -569,8 +578,9 @@ struct PhoneCapsuleSegments<Value: Hashable>: View {
           Text(verbatim: option.title)
             .appFont(PeriodsBoardType.segmentPhone)
             .foregroundStyle(theme.contentPrimary)
-            .lineLimit(1)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .lineLimit(column ? nil : 1)
+            .padding(.vertical, column ? 8 : 0)
+            .frame(maxWidth: .infinity, maxHeight: column ? nil : .infinity)
             .background(selected ? theme.surfaceCard : .clear, in: Capsule())
             .contentShape(Capsule())
         }
@@ -580,7 +590,7 @@ struct PhoneCapsuleSegments<Value: Hashable>: View {
       }
     }
     .padding(3)
-    .frame(height: PeriodsBoardMetrics.phoneSegmentHeight)
-    .background(theme.surfaceSegmented, in: Capsule())
+    .frame(height: column ? nil : PeriodsBoardMetrics.phoneSegmentHeight)
+    .background(theme.surfaceSegmented, in: column ? AnyShape(.rect(cornerRadius: 22)) : AnyShape(Capsule()))
   }
 }

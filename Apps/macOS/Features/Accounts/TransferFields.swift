@@ -648,7 +648,7 @@ struct TransferFields: View {
       } label: {
         Text(verbatim: t("transfer.sheet.currency"))
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .modifier(HiddenLabel(hidden: layout != .sheet))
     }
   }

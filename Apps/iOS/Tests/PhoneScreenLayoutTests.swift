@@ -28,9 +28,10 @@ final class PhoneScreenLayoutTests: XCTestCase {
 
   private func walk(
     size: CGSize, fontSize: AppFontSize = .regular, dark: Bool = false, idiom: LayoutIdiom = .phone,
-    file: StaticString = #filePath, line: UInt = #line
+    accessibility5: Bool = false, file: StaticString = #filePath, line: UInt = #line
   ) {
-    harness.environment.theme.fontSize = fontSize
+    harness.environment.theme.fontSize = accessibility5 ? .system : fontSize
+    harness.contentSize = accessibility5 ? .accessibilityExtraExtraExtraLarge : nil
     for screen in PhoneScreen.all {
       let shown = PhoneScreenRegistry.open(
         screen, in: harness, size: size, dark: dark, idiom: idiom)
@@ -38,9 +39,10 @@ final class PhoneScreenLayoutTests: XCTestCase {
         shown, size: size, reachesRightMargin: idiom == .phone && screen == .tab(.overview))
       let mac = audit.macElements(shown)
       harness.close(shown.window)
-      let where_ = "\(screen) at \(Int(size.width)) pt, \(fontSize)"
+      let where_ = "\(screen) at \(Int(size.width)) pt, \(accessibility5 ? "AX5" : "\(fontSize)")"
       if PhoneLayoutKnownIssues.contains(
-        screen, width: size.width, idiom: idiom, largestText: fontSize == .xlarge)
+        screen, width: size.width, idiom: idiom, largestText: fontSize == .xlarge,
+        accessibility5: accessibility5)
       {
         XCTAssertFalse(
           layout.isEmpty, "\(where_) fits now: take it out of PhoneLayoutKnownIssues",
@@ -83,6 +85,18 @@ final class PhoneScreenLayoutTests: XCTestCase {
   func testEveryScreenFitsAPhone440WideAtTheLargestTextSize() {
     executionTimeAllowance = 300
     walk(size: PhoneSize.wide, fontSize: .xlarge)
+  }
+
+  /// «Как в системе» at the largest accessibility size of the device (AX5): the same walk, with
+  /// the text five steps beyond «Очень крупный».
+  func testEveryScreenFitsAPhone375WideAtTheSystemsAX5TextSize() {
+    executionTimeAllowance = 600
+    walk(size: PhoneSize.narrow, accessibility5: true)
+  }
+
+  func testEveryScreenFitsAPhone402WideAtTheSystemsAX5TextSize() {
+    executionTimeAllowance = 600
+    walk(size: PhoneSize.regular, accessibility5: true)
   }
 
   func testEveryScreenFitsAnIPadPro12_9InEveryWindowSize() {

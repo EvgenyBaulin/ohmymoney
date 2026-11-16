@@ -93,7 +93,7 @@ struct ComparisonSection: View {
           Text(verbatim: t("spending.cmp.dimension"))
         }
         .labelsHidden()
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .fixedSize()
         .accessibilityIdentifier("spending.cmp.dimension")
       }
@@ -106,7 +106,7 @@ struct ComparisonSection: View {
           Text(verbatim: t("spending.cmp.choice"))
         }
         .labelsHidden()
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .fixedSize()
         .accessibilityIdentifier("spending.cmp.choice")
       }

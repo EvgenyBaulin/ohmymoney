@@ -78,7 +78,7 @@ struct StatementRowsStep: View {
     if sizeClass == .compact {
       picker.pickerStyle(.menu)
     } else {
-      picker.pickerStyle(.segmented).labelsHidden()
+      picker.segmentedUnlessLargeText().labelsHidden()
     }
   }
 

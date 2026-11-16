@@ -37,6 +37,7 @@ enum OperationBadgeKind: Equatable, Sendable {
 struct OperationBadge: View {
   @Environment(\.appTheme) private var theme
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.appTextScale) private var textScale
   let kind: OperationBadgeKind
   /// The category's own symbol and tone, when the row has them; else the kind draws.
   var category: CategoryMark? = nil
@@ -45,8 +46,8 @@ struct OperationBadge: View {
 
   var body: some View {
     let palette = theme.palette
-    let circle = fontSize.points(fromRegular: side)
-    let drawing = fontSize.points(fromRegular: symbolSide)
+    let circle = fontSize.points(fromRegular: side, textScale: textScale)
+    let drawing = fontSize.points(fromRegular: symbolSide, textScale: textScale)
     Image(systemName: category?.icon ?? kind.symbol)
       // The drawing fills a square of `symbolSide`, as the design's 16-pt frame holds it.
       .font(.system(size: drawing * 0.8, weight: .semibold))  // font-fixed: grows with the badge

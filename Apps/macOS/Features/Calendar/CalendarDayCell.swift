@@ -50,7 +50,7 @@ struct CalendarDayCell: View {
           Text(verbatim: CalendarText.money(spent, of: calendar, environment))
             .appFont((compact ? AppFont.caption : .callout).monospacedDigit())
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
         }
         plans
       }
@@ -90,7 +90,7 @@ struct CalendarDayCell: View {
       // A number is one line, however narrow the cell of the strip: «15» was «1» over «5». It
       // gives way a little in size instead of pushing the strip wider than the window.
       .lineLimit(1)
-      .minimumScaleFactor(0.6)
+      .shrinksToFit(0.6)
       .padding(.horizontal, day.isToday ? (compact ? 3 : 5) : 0)
       .background {
         if day.isToday { Capsule().fill(surfaces.accent) }
@@ -137,7 +137,7 @@ struct CalendarDayCell: View {
           Text(verbatim: CalendarText.money(amount, of: calendar, environment))
             .monospacedDigit()
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
         }
       }
       .appFont(.caption)

@@ -373,7 +373,7 @@ private struct HabitsSection: View {
       } label: {
         EmptyView()
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
       .fixedSize()
       TrackBarsChart(
@@ -603,7 +603,7 @@ private struct LeaksSection: View {
       Text(verbatim: t("spending.leaks.grouping"))
     }
     .labelsHidden()
-    .pickerStyle(.segmented)
+    .segmentedUnlessLargeText()
     .fixedSize()
     .accessibilityIdentifier("spending.leaks.grouping")
   }

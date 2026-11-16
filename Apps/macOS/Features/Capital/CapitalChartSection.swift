@@ -70,7 +70,7 @@ struct CapitalChartSection: View {
       Text(verbatim: CapitalText.t("capital.chart.range", environment))
     }
     .labelsHidden()
-    .pickerStyle(.segmented)
+    .segmentedUnlessLargeText()
     .controlSize(.small)
     .fixedSize()
     .accessibilityIdentifier("capital.chart.range")

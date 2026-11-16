@@ -394,7 +394,7 @@ struct BulkCategoryPopover: View {
         } label: {
           EmptyView()
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
       }
       Picker(selection: categoryBinding) {

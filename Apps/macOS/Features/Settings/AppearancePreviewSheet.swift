@@ -116,7 +116,7 @@ struct AppearancePreviewSheet: View {
     } label: {
       Text(verbatim: environment.language("appearance.scheme.title", table: "Appearance"))
     }
-    .pickerStyle(.segmented)
+    .segmentedUnlessLargeText()
     .labelsHidden()
     .accessibilityIdentifier("appearance.preview.scheme")
   }
@@ -174,7 +174,7 @@ struct AppearancePreviewSheet: View {
       } label: {
         Text(verbatim: environment.language("appearance.preview.screen", table: "Appearance"))
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
       .accessibilityIdentifier("appearance.preview.screens")
 

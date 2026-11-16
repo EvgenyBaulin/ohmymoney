@@ -189,6 +189,7 @@ enum SidebarItem: Hashable, Sendable {
 /// 14 medium (semibold when chosen), 10 × 7 of margin inside the plate.
 struct SidebarRowLabel: View {
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.appTextScale) private var textScale
   let title: String
   let symbol: String
   let chosen: Bool
@@ -203,8 +204,8 @@ struct SidebarRowLabel: View {
       Image(systemName: symbol)
         .appFont(SidebarType.row)
         .frame(
-          width: fontSize.points(fromRegular: SidebarMetrics.icon),
-          height: fontSize.points(fromRegular: SidebarMetrics.icon)
+          width: fontSize.points(fromRegular: SidebarMetrics.icon, textScale: textScale),
+          height: fontSize.points(fromRegular: SidebarMetrics.icon, textScale: textScale)
         )
         .accessibilityHidden(true)
       Text(verbatim: title)

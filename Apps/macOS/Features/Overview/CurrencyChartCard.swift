@@ -51,7 +51,7 @@ struct CurrencyChartCard: View {
         Text(verbatim: t("currencyChart.period"))
       }
       .labelsHidden()
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .controlSize(.small)
       if let summary = CurrencyChart.summary(points) {
         HStack(alignment: .firstTextBaseline, spacing: 8) {

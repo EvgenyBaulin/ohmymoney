@@ -192,7 +192,7 @@ struct PlanningSettingsView: View {
         } label: {
           Text(verbatim: t("settings.anomalies.sensitivity"))
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
       } header: {
         Text(verbatim: t("settings.anomalies"))
           .settingsHeaderStyle()

@@ -48,7 +48,7 @@ struct LimitsBlock: View {
               save: { budget, text in save(budget, text) }),
             edit: { sheet = .budget($0) }, delete: { deleting = $0 })
         }
-        HStack(spacing: 8) {
+        AdaptiveStack(spacing: 8) {
           if !(hosted && ranked.total == 0) {
             Button(t("limits.add")) { sheet = .budget(nil) }
               .buttonStyle(.bordered)

@@ -44,8 +44,14 @@ public struct AppFont: Hashable, Sendable {
   /// style: a phone's and a tablet's frames write their type in the Mac's points, which the
   /// styles of iOS draw several points larger. The Mac's styles are the table, so it changes
   /// nothing there.
-  public func font(at size: AppFontSize, designPoints: Bool = false) -> Font {
-    steps.reduce(baseFont(at: size, designPoints: designPoints)) { font, step in
+  ///
+  /// `dynamicType` matters for `system` only: the points follow it (`AppFontSize.systemScale`),
+  /// and a text style not written in design points is the system's own, which grows by itself.
+  public func font(
+    at size: AppFontSize, designPoints: Bool = false, dynamicType: DynamicTypeSize = .large
+  ) -> Font {
+    steps.reduce(baseFont(at: size, designPoints: designPoints, dynamicType: dynamicType)) {
+      font, step in
       switch step {
       case .monospacedDigit: font.monospacedDigit()
       case .monospaced: font.monospaced()
@@ -57,29 +63,83 @@ public struct AppFont: Hashable, Sendable {
   }
 
   /// The size this font is drawn at, in points; `nil` for the system's own size of a style.
-  func points(at size: AppFontSize, designPoints: Bool = false) -> CGFloat? {
+  func points(
+    at size: AppFontSize, designPoints: Bool = false, dynamicType: DynamicTypeSize = .large
+  ) -> CGFloat? {
+    let grown = growth(at: size, dynamicType: dynamicType)
     switch base {
     case .style(let style, _):
-      size == .regular && !designPoints ? nil : size.points(of: style)
+      if size == .system, !designPoints, let capped = Self.cappedHeadingPoints(style, dynamicType) {
+        return capped
+      }
+      if (size == .system || size == .regular) && !designPoints { return nil }
+      return Self.grow(size.points(of: style), by: grown)
     case .points(let points, _, _):
-      size.points(fromRegular: points)
+      return Self.grow(size.points(fromRegular: points), by: grown)
     }
   }
 
-  private func baseFont(at size: AppFontSize, designPoints: Bool) -> Font {
+  private func baseFont(at size: AppFontSize, designPoints: Bool, dynamicType: DynamicTypeSize)
+    -> Font
+  {
+    let grown = growth(at: size, dynamicType: dynamicType)
     switch base {
     case .style(let style, let design):
-      if size == .regular, !designPoints {
+      if size == .system, !designPoints, let capped = Self.cappedHeadingPoints(style, dynamicType) {
+        return Font.system(
+          size: capped, weight: AppFontSize.defaultWeight(of: style), design: design ?? .default)
+      }
+      if (size == .regular || size == .system), !designPoints {
         return design.map { Font.system(style, design: $0, weight: nil) }
           ?? Self.systemFont(of: style)
       }
       return Font.system(
-        size: size.points(of: style), weight: AppFontSize.defaultWeight(of: style),
+        size: Self.grow(size.points(of: style), by: grown),
+        weight: AppFontSize.defaultWeight(of: style),
         design: design ?? .default)
     case .points(let points, let weight, let design):
       // The same overload the call wrote, with nothing it did not name.
-      return Font.system(size: size.points(fromRegular: points), weight: weight, design: design)
+      return Font.system(
+        size: Self.grow(size.points(fromRegular: points), by: grown), weight: weight, design: design)
     }
+  }
+
+  /// The most a heading grows at the accessibility sizes: a title one word wide would be wider
+  /// than any phone at the full factor (a 26 pt «Планирование» at AX5 is over 500 pt), and a
+  /// word does not wrap. Headings stay legible and large, and the body text — which wraps — takes
+  /// the whole factor.
+  static let headingGrowthLimit: CGFloat = 1.35
+
+  /// The Dynamic Type factor this font is drawn with at `size`.
+  func growth(at size: AppFontSize, dynamicType: DynamicTypeSize) -> CGFloat {
+    guard size == .system else { return 1 }
+    let factor = AppFontSize.systemScale(for: dynamicType)
+    switch base {
+    case .style(let style, _):
+      return [.largeTitle, .title, .title2].contains(style)
+        ? min(factor, Self.headingGrowthLimit) : factor
+    case .points(let points, _, _):
+      return points >= 22 ? min(factor, Self.headingGrowthLimit) : factor
+    }
+  }
+
+  /// The points a heading style is drawn at at an accessibility size, where the system's own
+  /// style would grow past `headingGrowthLimit`; `nil` where the system's style is kept.
+  static func cappedHeadingPoints(_ style: Font.TextStyle, _ dynamicType: DynamicTypeSize) -> CGFloat? {
+    guard dynamicType.isAccessibilitySize else { return nil }
+    let regular: CGFloat
+    switch style {
+    case .largeTitle: regular = 34
+    case .title: regular = 28
+    case .title2: regular = 22
+    default: return nil
+    }
+    return (regular * headingGrowthLimit).rounded()
+  }
+
+  /// `points` grown by the Dynamic Type factor, to whole points; untouched when nothing grows.
+  static func grow(_ points: CGFloat, by factor: CGFloat) -> CGFloat {
+    factor == 1 ? points : (points * factor).rounded()
   }
 
   /// The system's font of a style, by the name SwiftUI gives it: `.caption` and not
@@ -159,8 +219,15 @@ extension AppFontSize {
   }
 
   /// A size written in points for «Обычный», at this size: grown with the body, to whole points.
+  ///
+  /// `textScale` (`EnvironmentValues.appTextScale`) is the growth `system` follows with the
+  /// device's Dynamic Type size; the fixed sizes ignore it.
+  public func points(fromRegular points: CGFloat, textScale: CGFloat) -> CGFloat {
+    self == .system ? AppFont.grow(points, by: textScale) : self.points(fromRegular: points)
+  }
+
   public func points(fromRegular points: CGFloat) -> CGFloat {
-    self == .regular ? points : max(9, (points * scale).rounded())
+    self == .regular || self == .system ? points : max(9, (points * scale).rounded())
   }
 
   /// The weight macOS draws a style in when nothing names one: the headline is bold, the second
@@ -195,16 +262,21 @@ extension EnvironmentValues {
   /// (`AppFont.font(at:designPoints:)`): set by a screen of a phone or a tablet whose frame
   /// writes its type in the Mac's points.
   @Entry var appFontDesignPoints = false
+  /// How much larger than at the default size the text is drawn when the size is «Как в системе»
+  /// (`AppFontSize.systemScale`); 1 for every fixed size. Sizes written in points for «Обычный»
+  /// (icons, minimum heights, thresholds of a layout) grow by it.
+  @Entry public var appTextScale: CGFloat = 1
 }
 
 /// Sets `font` at the size of the text in the environment.
 struct AppFontModifier: ViewModifier {
   @Environment(\.appFontSize) private var size
   @Environment(\.appFontDesignPoints) private var designPoints
+  @Environment(\.dynamicTypeSize) private var dynamicType
   let font: AppFont
 
   func body(content: Content) -> some View {
-    content.font(font.font(at: size, designPoints: designPoints))
+    content.font(font.font(at: size, designPoints: designPoints, dynamicType: dynamicType))
   }
 }
 

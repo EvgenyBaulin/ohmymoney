@@ -53,7 +53,7 @@ struct SubscriptionsTileCard: View {
           Text(verbatim: figure.value)
             .appFont(compact ? .title3.monospacedDigit() : .title2.monospacedDigit())
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
             .accessibilityIdentifier("overview.subscriptions.value")
         }
         Text(verbatim: figure.caption)

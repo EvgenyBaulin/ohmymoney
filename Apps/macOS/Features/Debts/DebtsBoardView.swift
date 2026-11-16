@@ -172,7 +172,7 @@ struct DebtsBoardView: View {
       }
       Text(verbatim: environment.money.rounded(amount))
         .appFont(DebtsType.figure).foregroundStyle(theme.contentPrimary)
-        .lineLimit(1).minimumScaleFactor(0.5)
+        .lineLimit(1).shrinksToFit(0.5)
       Text(verbatim: line)
         .appFont(DebtsType.caption).foregroundStyle(theme.contentSecondary)
     }
@@ -391,7 +391,7 @@ struct DebtsBoardCard: View {
       VStack(
         alignment: .leading, spacing: phone ? DebtsMetrics.phoneCardGap : DebtsMetrics.cardGap
       ) {
-        HStack(spacing: DebtsMetrics.cardIconGap) {
+        AdaptiveStack(spacing: DebtsMetrics.cardIconGap) {
           KindIcon(
             symbol: card.symbol, ink: theme.accentDefault, tint: theme.accentTint,
             size: DebtsMetrics.cardIcon, glyph: DebtsMetrics.cardGlyph)
@@ -406,11 +406,11 @@ struct DebtsBoardCard: View {
         }
         Text(verbatim: environment.money.rounded(card.amount, currency: card.currency))
           .appFont(DebtsType.figure).foregroundStyle(theme.contentPrimary)
-          .lineLimit(1).minimumScaleFactor(0.5)
+          .lineLimit(1).shrinksToFit(0.5)
         if let percent = card.percent, let paid = card.paid, let total = card.total {
           progress(percent: percent, paid: paid, total: total)
         }
-        HStack(alignment: .top, spacing: DebtsMetrics.termsGap) {
+        AdaptiveStack(alignment: .top, spacing: DebtsMetrics.termsGap) {
           term(t("debts.card.rate"), card.rate.map { "\(environment.money.rate($0)) %" })
           term(
             t("debts.card.payment"),

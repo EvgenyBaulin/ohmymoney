@@ -183,7 +183,7 @@ struct GoalsScreen: View {
         Text(verbatim: title)
           .appFont(.body.monospacedDigit())
           .lineLimit(1)
-          .minimumScaleFactor(0.85)
+          .shrinksToFit(0.85)
         if let subtitle {
           Text(verbatim: subtitle)
             .appFont(.caption.monospacedDigit())

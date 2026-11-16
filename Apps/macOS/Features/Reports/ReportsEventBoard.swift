@@ -174,7 +174,7 @@ private struct ReportsEventCard: View {
       Text(verbatim: figure)
         .appFont(ReportsEventBoardType.cardFigure)
         .lineLimit(1)
-        .minimumScaleFactor(0.7)
+        .shrinksToFit(0.7)
       HStack(spacing: ReportsEventBoardMetrics.symbolGap) {
         Image(systemName: symbol)
           .font(.system(size: ReportsEventBoardMetrics.symbol * 0.85))  // font-fixed: a fixed glyph

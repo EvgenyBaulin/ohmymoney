@@ -43,7 +43,7 @@ struct CurrencyGainSection: View {
             Text(verbatim: TravelText.t("travel.gain.year", environment)).tag(
               CurrencyGainPeriod.year)
           }
-          .pickerStyle(.segmented)
+          .segmentedUnlessLargeText()
           .labelsHidden()
           .frame(width: 160)
         }

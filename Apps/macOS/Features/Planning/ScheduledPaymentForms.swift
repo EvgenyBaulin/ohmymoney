@@ -42,7 +42,7 @@ struct ScheduledPaymentForm: View {
           Text(verbatim: t("form.kind.bill")).tag(ScheduledKind.bill)
           Text(verbatim: t("form.kind.subscription")).tag(ScheduledKind.subscription)
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         LabeledContent(t("form.amount")) {
           HStack {
             AmountField(amount: $draft.payment.amountE4, locale: environment.language.locale)
@@ -109,7 +109,7 @@ struct ScheduledPaymentForm: View {
               Text(verbatim: t("form.unit.\($0.rawValue)")).tag($0)
             }
           }
-          .pickerStyle(.segmented)
+          .segmentedUnlessLargeText()
           Stepper(value: $draft.payment.interval, in: FrequencyPreset.intervals) {
             Text(
               verbatim: FrequencyPreset.everyText(

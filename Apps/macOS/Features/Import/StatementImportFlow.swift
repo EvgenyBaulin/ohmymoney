@@ -118,7 +118,7 @@ struct StatementImportFlow: View {
         } label: {
           EmptyView()
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
         .accessibilityIdentifier("import.steps")
       }

@@ -20,7 +20,7 @@ struct SummariesPage: View {
   var body: some View {
     ScrollView(.vertical) {
       VStack(alignment: .leading, spacing: SummariesPageMetrics.titleToContent) {
-        HStack(alignment: .firstTextBaseline) {
+        AdaptiveStack(alignment: .firstTextBaseline) {
           Text(verbatim: environment.language("summaries.title", table: "Summaries"))
             .appFont(AppFont.system(size: 34, weight: .bold))
             .foregroundStyle(theme.contentPrimary)

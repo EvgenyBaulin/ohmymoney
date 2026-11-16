@@ -334,7 +334,7 @@ struct MoreExtrasSections: View {
       } label: {
         Text(verbatim: t("phone.data.title"))
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .disabled(session.isSwitching)
     } header: {
       Text(verbatim: t("phone.data.title"))

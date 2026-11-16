@@ -347,7 +347,7 @@ struct AnalyticsPeriodSheet: View {
       } label: {
         Text(verbatim: AnalyticsText.t("analytics.period.kind", environment))
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       .labelsHidden()
       PeriodChooser(period: AnalyticsPeriod(kind: kind, month: period.month), today: today) {
         chosen in

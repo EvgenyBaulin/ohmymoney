@@ -402,7 +402,7 @@ struct FreeMoneyCard: View {
           .appFont(StyleType.mainFigure)
           .foregroundStyle(surfaces.primary)
           .lineLimit(1)
-          .minimumScaleFactor(0.7)
+          .shrinksToFit(0.7)
         Text(verbatim: tile.hint)
           .appFont(StyleType.tileHint)
           .foregroundStyle(surfaces.secondary)

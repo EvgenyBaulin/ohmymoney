@@ -19,6 +19,7 @@ struct PlanningView: View {
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.appTextScale) private var textScale
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.windowWidth) private var windowWidth
   /// The layout of this Mac; a test passes its own.
@@ -135,7 +136,7 @@ struct PlanningView: View {
               PlanningFreeCard(
                 figures: figures,
                 showsColumns: PlanningPageLayout.freeShowsColumns(
-                  forContent: content, fontSize: fontSize)
+                  forContent: content, fontSize: fontSize, textScale: textScale)
               ) { showsFree = true }
             }
           } else {
@@ -159,7 +160,7 @@ struct PlanningView: View {
       } else {
         cards(
           PlanningPageLayout.gridBlocks(shown(snapshot)),
-          columns: PlanningPageLayout.blockColumns(forContent: content, fontSize: fontSize),
+          columns: PlanningPageLayout.blockColumns(forContent: content, fontSize: fontSize, textScale: textScale),
           snapshot: snapshot, free: free)
       }
     default:

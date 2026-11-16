@@ -267,7 +267,7 @@ struct DebtSheetView: View {
         Text(verbatim: t("debts.iOwe")).tag(DebtDirection.iOwe)
         Text(verbatim: t("debts.owedToMe")).tag(DebtDirection.owedToMe)
       }
-      .pickerStyle(.segmented)
+      .segmentedUnlessLargeText()
       Picker(t("form.type"), selection: $debt.type) {
         ForEach(DebtType.allCases, id: \.self) {
           Text(verbatim: t("debts.type.\($0.rawValue)")).tag($0)
@@ -312,7 +312,7 @@ struct DebtSheetView: View {
           Text(verbatim: t("form.monthPaid.yes")).tag(Bool?.some(true))
           Text(verbatim: t("form.monthPaid.no")).tag(Bool?.some(false))
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .accessibilityIdentifier("debt.create.monthPaid")
         Text(verbatim: t(monthPaid == nil ? "form.monthPaid.ask" : "form.monthPaid.hint"))
           .appFont(.caption).foregroundStyle(.secondary)

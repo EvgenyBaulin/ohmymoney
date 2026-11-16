@@ -145,21 +145,21 @@ struct CategoriesSettingsView: View {
 
   private var formLayout: some View {
     VStack(alignment: .leading, spacing: 12) {
-      HStack {
+      AdaptiveStack {
         Picker(selection: $kind) {
           Text(verbatim: environment.language("kind.expense")).tag(CategoryKind.expense)
           Text(verbatim: environment.language("kind.income")).tag(CategoryKind.income)
         } label: {
           EmptyView()
         }
-        .pickerStyle(.segmented)
+        .segmentedUnlessLargeText()
         .labelsHidden()
 
         Toggle(isOn: $showsArchived) {
           Text(verbatim: environment.language("categories.showArchived", table: "Settings"))
         }
         .toggleStyle(.checkbox)
-        .fixedSize()
+        .fixedSizeUnlessLargeText()
         .onChange(of: showsArchived) { _, _ in reload() }
       }
 
@@ -193,7 +193,7 @@ struct CategoriesSettingsView: View {
       .listStyle(.inset)
       .frame(minHeight: 220)
 
-      HStack {
+      AdaptiveStack {
         TextField(text: $newName) {
           Text(verbatim: environment.language("references.name", table: "Settings"))
         }
@@ -350,7 +350,7 @@ struct CategoriesSettingsView: View {
             rowLead(category, tree: tree, isChild: isChild, isSystem: isSystem)
             Spacer(minLength: 8)
           }
-          HStack { rowTrail(category, tree: tree) }
+          AdaptiveStack { rowTrail(category, tree: tree) }
         }
       } else {
         HStack {

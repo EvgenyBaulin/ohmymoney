@@ -21,7 +21,7 @@ struct ScreenHero: View {
         .opacity(0.85)
       Text(verbatim: figure)
         .appFont(.largeTitle.bold().monospacedDigit())
-        .minimumScaleFactor(0.6)
+        .shrinksToFit(0.6)
         .lineLimit(1)
         .accessibilityIdentifier(figureIdentifier)
       ForEach(Array(lines.enumerated()), id: \.offset) { position, line in
@@ -68,7 +68,7 @@ struct ScreenCardHeader: View {
           .appFont(.callout.monospacedDigit())
           .secondaryInk()
           .lineLimit(1)
-          .minimumScaleFactor(0.8)
+          .shrinksToFit(0.8)
       }
     }
   }

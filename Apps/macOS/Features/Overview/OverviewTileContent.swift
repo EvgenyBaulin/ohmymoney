@@ -475,7 +475,7 @@ struct MonthRestTileCard: View {
             .appFont(StyleType.mainFigure)
             .foregroundStyle(surfaces.primary)
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .shrinksToFit(0.7)
           Button(environment.language("look.action.allocate", table: "Overview")) {
             opened = offer
           }

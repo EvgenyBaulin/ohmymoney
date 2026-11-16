@@ -20,6 +20,7 @@ enum ListDensity {
     case .small, .regular: return .small
     case .large: return .regular
     case .xlarge: return .large
+    case .system: return .system
     }
   }
 
