@@ -167,45 +167,51 @@ extension TransactionRepository {
   public func revert(_ edit: EditedEntry) throws -> CountsSettled {
     guard edit.before.isBalanced else { throw DatabaseError.unbalancedParts }
     let context = liveCounts
-    return try writer.write { db in
-      // What stands now, for the counts: everything the undo is about to write over or take.
-      let standing = try Self.standing(of: edit, db: db)
-      try Self.clearTwin(of: edit.before, db: db)
-      _ = try Transfer.deleteAll(db, keys: edit.settlingTransfers.map(\.uuidString))
-      try edit.before.transaction.save(db)
-      try Self.replaceParts(of: edit.before, db: db)
-      for refund in edit.refundsBefore {
-        guard let current = try Self.entry(id: refund.id, db: db) else { continue }
-        try Self.write(refund, over: current, db: db)
-      }
-      try Self.revert(edit.settlement, db: db)
-      try Self.relink(edit.releasedRefunds, db: db)
-      _ = try DebtEntry.deleteAll(db, keys: edit.journalAdded.map(\.uuidString))
-      for line in edit.journalBefore {
-        guard try Debt.exists(db, key: line.debtId.uuidString) else { continue }
-        try line.save(db)
-        guard let rowID = edit.journalRowIDs[line.id] else { continue }
-        // `OR IGNORE`: a rowid another line took meanwhile leaves this one last, nothing more.
-        try db.execute(
-          sql: "UPDATE OR IGNORE debt_entries SET rowid = ? WHERE id = ? AND rowid <> ?",
-          arguments: [rowID, line.id.uuidString, rowID])
-      }
-      for link in edit.removedLinks {
-        guard try CoreKit.Transaction.exists(db, key: link.reimbursementTxId.uuidString),
-          try TransactionPart.exists(db, key: link.partId.uuidString)
-        else { continue }
-        try link.save(db)
-      }
-      let written = try Self.entries(ids: standing.ids, db: db)
-      let lines = try DebtEntry.filter(Column("transaction_id") == edit.before.id.uuidString)
-        .fetchAll(db)
-      let touch = try LiveCountsWriter.touch(
-        entries: standing.operations.map { ($0, nil) } + written.map { (nil, $0) },
-        transfers: standing.transfers, lines: standing.lines + lines,
-        calendar: context.calendar, lookups: WriteLookups(), db: db)
-      return try LiveCountsWriter.settle(
-        touch, context: context, templates: edit.counts.operationsBefore, db: db)
+    return try writer.write { db in try Self.revert(edit, context: context, db: db) }
+  }
+
+  /// The same inside a write that takes more back with it (`revert(_:)` of a supplement).
+  static func revert(
+    _ edit: EditedEntry, context: LiveCountsContext, db: Database
+  ) throws -> CountsSettled {
+    guard edit.before.isBalanced else { throw DatabaseError.unbalancedParts }
+    // What stands now, for the counts: everything the undo is about to write over or take.
+    let standing = try Self.standing(of: edit, db: db)
+    try Self.clearTwin(of: edit.before, db: db)
+    _ = try Transfer.deleteAll(db, keys: edit.settlingTransfers.map(\.uuidString))
+    try edit.before.transaction.save(db)
+    try Self.replaceParts(of: edit.before, db: db)
+    for refund in edit.refundsBefore {
+      guard let current = try Self.entry(id: refund.id, db: db) else { continue }
+      try Self.write(refund, over: current, db: db)
     }
+    try Self.revert(edit.settlement, db: db)
+    try Self.relink(edit.releasedRefunds, db: db)
+    _ = try DebtEntry.deleteAll(db, keys: edit.journalAdded.map(\.uuidString))
+    for line in edit.journalBefore {
+      guard try Debt.exists(db, key: line.debtId.uuidString) else { continue }
+      try line.save(db)
+      guard let rowID = edit.journalRowIDs[line.id] else { continue }
+      // `OR IGNORE`: a rowid another line took meanwhile leaves this one last, nothing more.
+      try db.execute(
+        sql: "UPDATE OR IGNORE debt_entries SET rowid = ? WHERE id = ? AND rowid <> ?",
+        arguments: [rowID, line.id.uuidString, rowID])
+    }
+    for link in edit.removedLinks {
+      guard try CoreKit.Transaction.exists(db, key: link.reimbursementTxId.uuidString),
+        try TransactionPart.exists(db, key: link.partId.uuidString)
+      else { continue }
+      try link.save(db)
+    }
+    let written = try Self.entries(ids: standing.ids, db: db)
+    let lines = try DebtEntry.filter(Column("transaction_id") == edit.before.id.uuidString)
+      .fetchAll(db)
+    let touch = try LiveCountsWriter.touch(
+      entries: standing.operations.map { ($0, nil) } + written.map { (nil, $0) },
+      transfers: standing.transfers, lines: standing.lines + lines,
+      calendar: context.calendar, lookups: WriteLookups(), db: db)
+    return try LiveCountsWriter.settle(
+      touch, context: context, templates: edit.counts.operationsBefore, db: db)
   }
 
   /// What an edit's undo is about to write over or take away, as it stands: the operation, its
