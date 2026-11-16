@@ -28182,6 +28182,40 @@
         }
       }
     },
+    "expected.due.move": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move this due…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести этот срок…"
+          }
+        }
+      }
+    },
+    "expected.due.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close this due only"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрыть только этот срок"
+          }
+        }
+      }
+    },
     "expected.edit": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

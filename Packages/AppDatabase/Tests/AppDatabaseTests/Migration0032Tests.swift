@@ -203,7 +203,7 @@ struct Migration0032Tests {
   }
 
   @Test func theValuesGoLastInTheCSVAndTheNumberOfFilesIsUnchanged() throws {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     #expect(Array(ExportTables.assets.columns.suffix(2)) == ["purchased_on", "purchase_price"])
     #expect(Array(ExportTables.debts.columns.suffix(2)) == ["opened_on", "original_amount"])
     let stack = try TestSupport.makeStack()

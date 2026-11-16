@@ -172,7 +172,7 @@ struct Migration0033Tests {
   }
 
   @Test func theZoneGoesLastInTheCSVAndTheNumberOfFilesIsUnchanged() throws {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     #expect(ExportTables.transfers.columns.last == "time_zone")
     #expect(ExportTables.reconciliations.columns.last == "time_zone")
     let stack = try TestSupport.makeStack()

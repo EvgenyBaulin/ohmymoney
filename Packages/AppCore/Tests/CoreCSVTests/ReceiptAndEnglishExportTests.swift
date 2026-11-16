@@ -48,7 +48,7 @@ struct ReceiptAndEnglishExportTests {
   }
 
   @Test func theFilesStayFiftyThreeAndNoColumnEndsInE4() {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     for table in [ExportTables.transactions, ExportTables.categories] {
       #expect(!table.columns.contains { $0.hasSuffix("_e4") })
     }

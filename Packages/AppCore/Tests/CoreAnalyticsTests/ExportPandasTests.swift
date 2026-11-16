@@ -114,6 +114,16 @@ struct ExportPandasTests {
           service: "ХВС, перерасчёт", amountE4: AmountE4(whole: -120),
           quantityE4: AmountE4(raw: 3_5000), meterId: meter.id))
     ]
+    // A skipped due and a moved one of a recurring income.
+    let salary = UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000009")!
+    rows[ExportTables.expectedIncomeDues] = [
+      ExportTables.row(
+        ExpectedIncomeDue(expectedIncomeId: salary, due: DateOnly(year: 2026, month: 9, day: 5))),
+      ExportTables.row(
+        ExpectedIncomeDue(
+          expectedIncomeId: salary, due: DateOnly(year: 2026, month: 10, day: 5),
+          movedTo: DateOnly(year: 2026, month: 10, day: 12))),
+    ]
     rows[ExportTables.depositOffers] = [
       ExportTables.row(
         DepositOffer(
@@ -195,7 +205,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,

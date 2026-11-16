@@ -187,4 +187,96 @@ final class OverviewDoNowTests: XCTestCase {
       version: DataVersion(load: 0))
     XCTAssertTrue(OverviewDoNow.list(snapshot: quiet, environment: environment).isEmpty)
   }
+
+  /// «Зарплата» every month, the due of last month passed without the money: it asks too, about
+  /// that due alone — «Закрыть только этот срок», «Перенести этот срок…», «Это ошибка» —, and the
+  /// row tells what that one due still waits for, not every due since the income began.
+  func testARecurringIncomeThatDidNotComeAsksAboutThatDue() throws {
+    let calendar = CalendarContext.system
+    let missed = calendar.adding(days: -7, to: environment.today)
+    let salary = ExpectedIncome(
+      name: "Зарплата", kind: .recurring, totalE4: AmountE4(whole: 100_000), dueDate: missed,
+      freq: .monthly, day: missed.day)
+    var dataset = Dataset(entries: [try entry(daysAgo: 1)], categories: [food])
+    dataset.planning = PlanningBook(expected: [salary])
+    let waiting = DataSnapshot.build(
+      dataset: dataset, calendar: .system, today: environment.today, context: SnapshotContext(),
+      version: DataVersion(load: 0))
+    let list = OverviewDoNow.list(snapshot: waiting, environment: environment)
+    let item = try XCTUnwrap(list.items.first)
+    XCTAssertEqual(item.action, .income)
+    XCTAssertTrue(item.recurring)
+    XCTAssertEqual(item.scheduled, missed)
+    XCTAssertEqual(item.day, missed)
+    XCTAssertEqual(
+      OverviewDoNowCard.incomeAnswers(recurring: true), [.skip, .pickDay, .editRecurrence])
+    XCTAssertEqual(
+      OverviewDoNowCard.incomeAnswers(recurring: false), [.pickDay, .close, .postpone])
+    let words = OverviewDoNowCard.incomeAnswers(recurring: true).map {
+      environment.language($0.key(recurring: true), table: OverviewDoNow.table)
+    }
+    XCTAssertEqual(
+      words, ["Закрыть только этот срок", "Перенести этот срок…", "Это ошибка: изменить повтор…"])
+    let text = OverviewDoNow.text(item, snapshot: waiting, environment: environment)
+    XCTAssertTrue(text.title.contains("Зарплата"))
+    XCTAssertEqual(
+      OverviewDoNow.remaining(
+        of: item, in: try XCTUnwrap(waiting.planning.expected.first)),
+      AmountE4(whole: 100_000))
+
+    // Skipped, it asks no more; the recurrence stays and is not closed.
+    dataset.planning.expectedDues = [ExpectedIncomeDue(expectedIncomeId: salary.id, due: missed)]
+    let skipped = DataSnapshot.build(
+      dataset: dataset, calendar: .system, today: environment.today, context: SnapshotContext(),
+      version: DataVersion(load: 0))
+    XCTAssertTrue(OverviewDoNow.list(snapshot: skipped, environment: environment).isEmpty)
+    XCTAssertEqual(skipped.planning.expected.map(\.id), [salary.id])
+    XCTAssertEqual(skipped.planning.income.notArrived, .zero)
+
+    // Moved to tomorrow, it waits; the day after, it asks again about the same due.
+    let tomorrow = calendar.adding(days: 1, to: environment.today)
+    dataset.planning.expectedDues = [
+      ExpectedIncomeDue(expectedIncomeId: salary.id, due: missed, movedTo: tomorrow)
+    ]
+    let moved = DataSnapshot.build(
+      dataset: dataset, calendar: .system, today: environment.today, context: SnapshotContext(),
+      version: DataVersion(load: 0))
+    XCTAssertTrue(OverviewDoNow.list(snapshot: moved, environment: environment).isEmpty)
+  }
+
+  /// «Закрыть только этот срок» and «Перенести этот срок…» each write one answer for the due,
+  /// one step of ⌘Z; a second answer rewrites the first; the recurrence is never touched.
+  @MainActor
+  func testTheAnswersForADueAreOneStepOfUndoAndLeaveTheRecurrence() throws {
+    let stack = try DatabaseStack(inMemory: BundleSchemaSource(bundle: .main))
+    let references = ReferenceRepository(writer: stack.writer)
+    let planning = PlanningRepository(writer: stack.writer)
+    let store = TransactionsStore()
+    store.attach(
+      TransactionRepository(writer: stack.writer), references: references, planning: planning)
+    let deps = AppDependencies(
+      environment: AppEnvironment(), store: store,
+      compute: ComputeStore(calendar: .utc, rebuildsInline: true))
+    let salary = ExpectedIncome(
+      name: "Зарплата", kind: .recurring, totalE4: AmountE4(whole: 100_000),
+      dueDate: DateOnly(year: 2026, month: 8, day: 5), freq: .monthly, day: 5)
+    let actions = PlanningActions(deps)
+    XCTAssertTrue(actions.save(salary))
+    let due = DateOnly(year: 2026, month: 9, day: 5)
+    XCTAssertTrue(actions.skip(salary, due: due))
+    XCTAssertEqual(
+      try planning.book().expectedDues, [ExpectedIncomeDue(expectedIncomeId: salary.id, due: due)])
+    let day = DateOnly(year: 2026, month: 9, day: 20)
+    XCTAssertTrue(actions.move(salary, due: due, to: day))
+    XCTAssertEqual(try planning.book().expectedDues.map(\.movedTo), [day])
+    XCTAssertEqual(try planning.expected(), [salary], "the recurrence stays as it was")
+    store.undo()
+    XCTAssertEqual(try planning.book().expectedDues.map(\.movedTo), [nil])
+    store.undo()
+    XCTAssertTrue(try planning.book().expectedDues.isEmpty)
+    // A one-off income has no due of its own to skip: it is closed whole.
+    let project = ExpectedIncome(
+      name: "Проект", totalE4: AmountE4(whole: 30_000), dueDate: due)
+    XCTAssertFalse(actions.skip(project, due: due))
+  }
 }

@@ -403,6 +403,38 @@ struct PlanningActions {
     archive(income)
   }
 
+  /// «Закрыть» of «не пришёл?» for one due of a recurring income: only that due is skipped,
+  /// the recurrence and every other due stay. `due` is the day the recurrence puts it on.
+  /// One step of ⌘Z. A one-off or closed income has no due of its own to skip.
+  @discardableResult
+  func skip(_ income: ExpectedIncome, due: DateOnly) -> Bool {
+    guard let mark = ExpectedIncomeRules.skipped(income, due: due) else { return false }
+    return answer(mark)
+  }
+
+  /// «Перенести» of «не пришёл?» for one due of a recurring income: only that due is expected
+  /// on `day`. One step of ⌘Z.
+  @discardableResult
+  func move(_ income: ExpectedIncome, due: DateOnly, to day: DateOnly) -> Bool {
+    guard let mark = ExpectedIncomeRules.moved(income, due: due, to: day) else { return false }
+    return answer(mark)
+  }
+
+  /// Writes the answer for a due over the one the books hold for it, under that row's id: a row
+  /// another build wrote with an id of its own is rewritten, never met by a second row of the
+  /// same due.
+  private func answer(_ mark: ExpectedIncomeDue) -> Bool {
+    var mark = mark
+    if let held = snapshot?.dataset.planning.expectedDues.first(where: {
+      $0.expectedIncomeId == mark.expectedIncomeId && $0.due == mark.due
+    }) {
+      mark.id = held.id
+    }
+    var rows = PlanningRows.empty
+    rows.expectedDues = [mark]
+    return apply(PlanningChange(upsert: rows))
+  }
+
   /// The existing `closed` flag is the archive state: all expectations may be archived,
   /// regardless of whether they have been fulfilled. Links and operations are kept.
   @discardableResult

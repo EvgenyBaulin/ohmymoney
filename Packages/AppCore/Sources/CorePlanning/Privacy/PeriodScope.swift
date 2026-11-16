@@ -108,6 +108,10 @@ public enum PeriodScope {
     planning.expectedLinks = dataset.planning.expectedLinks.filter {
       expectedIds.contains($0.expectedIncomeId) && keep.contains($0.transactionId)
     }
+    // The answers for single dues of the period, of the incomes kept.
+    planning.expectedDues = dataset.planning.expectedDues.filter {
+      expectedIds.contains($0.expectedIncomeId) && range.contains($0.due)
+    }
     planning.reconciliations = dataset.planning.reconciliations.filter {
       range.contains($0.date)
     }

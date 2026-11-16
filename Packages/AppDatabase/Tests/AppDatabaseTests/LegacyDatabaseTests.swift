@@ -688,6 +688,7 @@ struct PendingMigrationsTests {
           "0031_place_marks",
           "0032_asset_purchase_and_loan_opening",
           "0033_transfer_and_reconciliation_time_zone",
+          "0034_expected_income_dues",
         ])
     // Asking leaves the folder as it was: no log is left for the next file of that name.
     #expect(try FileManager.default.contentsOfDirectory(atPath: folder).sorted() == files)
@@ -853,6 +854,7 @@ struct MigrationDryRunTests {
           "0031_place_marks",
           "0032_asset_purchase_and_loan_opening",
           "0033_transfer_and_reconciliation_time_zone",
+          "0034_expected_income_dues",
         ])
   }
 

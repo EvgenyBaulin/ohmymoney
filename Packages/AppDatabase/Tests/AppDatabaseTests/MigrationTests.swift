@@ -29,7 +29,7 @@ struct MigrationTests {
       "categories", "category_feedback", "credit_statements",
       "currencies", "custom_currencies", "day_notes", "debt_costs",
       "debt_entries", "debt_instalments", "debts", "deposit_offers", "event_budget_items",
-      "event_templates", "events", "expected_income", "expected_income_links",
+      "event_templates", "events", "expected_income", "expected_income_dues", "expected_income_links",
       "goals", "habit_badges", "identity_items", "import_batches", "import_mappings",
       "ml_models", "no_spend_days", "owned_items", "part_tags", "payment_methods", "people",
       "place_marks", "places", "rates", "reconciliation_balances", "reconciliations",

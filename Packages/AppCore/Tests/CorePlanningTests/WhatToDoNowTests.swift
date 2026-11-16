@@ -72,9 +72,14 @@ struct WhatToDoNowTests {
     let list = WhatToDoNow.list(
       payments: [payment("p", due: today)], overdueIncomes: [late, recurring],
       reviews: [DoNowSource(id: "inbox", count: 3)], today: today)
-    #expect(list.items.map(\.action) == [.post, .income, .review])
-    #expect(list.items[1].incomeId == late.incomeId)
-    #expect(list.items[1].day == late.due)
+    // A recurring income asks too (about that due alone), the oldest due first.
+    #expect(list.items.map(\.action) == [.post, .income, .income])
+    #expect(list.items[1].incomeId == recurring.incomeId)
+    #expect(list.items[1].recurring)
+    #expect(list.items[2].incomeId == late.incomeId)
+    #expect(list.items[2].day == late.due)
+    #expect(!list.items[2].recurring)
+    #expect(list.more == 1)
   }
 
   @Test func oneItemPerIncomeWhateverHowManyDueDatesPassed() {

@@ -259,7 +259,7 @@ public final class DatabaseStack: Sendable {
     "bank_conditions", "deposit_offers", "wishes", "wish_prices", "shopping_items",
     "owned_items", "habit_badges", "no_spend_days", "bank_cashback_categories",
     "cashback_offers", "credit_statements", "thing_valuations", "utility_meters",
-    "utility_readings", "utility_bills", "utility_charges",
+    "utility_readings", "utility_bills", "utility_charges", "expected_income_dues",
   ]
 
   /// One element after every committed transaction that changed one of `ledgerTables` —

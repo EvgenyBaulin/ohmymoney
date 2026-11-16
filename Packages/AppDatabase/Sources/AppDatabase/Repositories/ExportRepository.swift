@@ -427,6 +427,17 @@ public struct ExportRepository: Sendable {
               + Self.text(row, ["meter_id"]) + Self.integer(row, "sort"))
         }
       }
+    case ExportTables.expectedIncomeDues.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM expected_income_dues ORDER BY expected_income_id, due_on, id")
+      {
+        // A row this build can not read still goes out, in the text of the database.
+        if let due = ExpectedIncomeDue.readable(row) {
+          csv.append(ExportTables.row(due))
+        } else {
+          csv.append(Self.text(row, ["id", "expected_income_id", "due_on", "moved_to"]))
+        }
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break

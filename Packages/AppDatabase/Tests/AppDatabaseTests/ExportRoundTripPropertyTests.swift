@@ -401,6 +401,15 @@ struct ExportRoundTripPropertyTests {
         arguments: [
           meter, UUID().uuidString, meter, bill, UUID().uuidString, bill, meter,
         ])
+      // Schema 34: a skipped due and a moved one of an expected income.
+      try db.execute(
+        sql: """
+          INSERT INTO expected_income_dues (id, expected_income_id, due_on, moved_to)
+            SELECT ?, id, '2026-09-05', NULL FROM expected_income ORDER BY rowid LIMIT 1;
+          INSERT INTO expected_income_dues (id, expected_income_id, due_on, moved_to)
+            SELECT ?, id, '2026-10-05', '2026-10-12' FROM expected_income ORDER BY rowid LIMIT 1;
+          """,
+        arguments: [UUID().uuidString, UUID().uuidString])
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -567,6 +576,7 @@ struct ExportRoundTripPropertyTests {
           "0031_place_marks",
           "0032_asset_purchase_and_loan_opening",
           "0033_transfer_and_reconciliation_time_zone",
+          "0034_expected_income_dues",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }

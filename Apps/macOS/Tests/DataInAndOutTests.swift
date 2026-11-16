@@ -180,13 +180,13 @@ final class DataInAndOutTests: XCTestCase {
     language.choice = .russian
     XCTAssertEqual(
       language.format("export.replace.title", table: "Settings", replaced.count),
-      "Заменить 59 файлов в этой папке?")
+      "Заменить 60 файлов в этой папке?")
     XCTAssertEqual(
-      language.format("export.done", table: "Settings", replaced.count), "Записано 59 файлов CSV")
+      language.format("export.done", table: "Settings", replaced.count), "Записано 60 файлов CSV")
     language.choice = .english
     XCTAssertEqual(
       language.format("export.replace.title", table: "Settings", replaced.count),
-      "Replace 59 files in this folder?")
+      "Replace 60 files in this folder?")
   }
 
   /// A second export over the first replaces the files with the same bytes, leaves nothing of

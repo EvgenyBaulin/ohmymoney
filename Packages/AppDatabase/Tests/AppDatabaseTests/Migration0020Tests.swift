@@ -80,6 +80,7 @@ struct Migration0020Tests {
           "0031_place_marks",
           "0032_asset_purchase_and_loan_opening",
           "0033_transfer_and_reconciliation_time_zone",
+          "0034_expected_income_dues",
         ])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -222,7 +223,7 @@ struct Migration0020Tests {
     let tables = try ExportRepository(writer: stack.writer).tables()
     #expect(tables.count == ExportTables.all.count)
     #expect(
-      tables.dropLast(8).suffix(2).map(\.fileName) == ["habit_badges.csv", "no_spend_days.csv"])
+      tables.dropLast(9).suffix(2).map(\.fileName) == ["habit_badges.csv", "no_spend_days.csv"])
     let badges = try CSVReader.dictionaries(
       from: try #require(tables.first { $0.name == "habit_badges" }).data)
     #expect(badges.first?["kind"] == "count3" && badges.first?["period"] == "2026-08")

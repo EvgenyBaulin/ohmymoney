@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 59 files of Export, always in the same order.
+/// The 60 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -582,7 +582,14 @@ public enum ExportTables {
     fileName: "utility_charges.csv",
     columns: ["id", "bill_id", "service", "amount", "quantity", "tariff", "meter_id", "sort"])
 
-  /// All 59 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// Columns match `Schema/0034_expected_income_dues.sql`: the answer to «не пришёл?» for one due
+  /// of a recurring expected income. `due_on` is the day the recurrence puts the due on;
+  /// `moved_to` the day the money is expected instead, empty when the due is skipped.
+  public static let expectedIncomeDues = ExportTable(
+    fileName: "expected_income_dues.csv",
+    columns: ["id", "expected_income_id", "due_on", "moved_to"])
+
+  /// All 60 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
@@ -591,7 +598,8 @@ public enum ExportTables {
   /// wishes, their prices, the shopping list and the things outside the capital, then the badges
   /// and the days without spending, then the banks' tables of cashback categories and the offers
   /// of the months, then the statements of credit cards, then the valuations of things, then the
-  /// meters of the home, their readings, the bills of the providers and the lines of the bills.
+  /// meters of the home, their readings, the bills of the providers and the lines of the bills,
+  /// then the answers for single dues of recurring expected incomes.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -602,7 +610,7 @@ public enum ExportTables {
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
     attachments, wishes, wishPrices, shoppingItems, ownedItems, habitBadges, noSpendDays,
     bankCashbackCategories, cashbackOffers, creditStatements, thingValuations, utilityMeters,
-    utilityReadings, utilityBills, utilityCharges,
+    utilityReadings, utilityBills, utilityCharges, expectedIncomeDues,
   ]
 }
 
@@ -1216,6 +1224,13 @@ extension ExportTables {
       bill.currency.code, CSVValue.string(day: bill.payBy), CSVValue.string(bill.transactionId),
       CSVValue.string(bill.scheduledPaymentId), CSVValue.string(bill.note),
       CSVValue.string(instant: bill.recordedAt),
+    ]
+  }
+
+  public static func row(_ due: ExpectedIncomeDue) -> [String] {
+    [
+      due.id.uuidString, due.expectedIncomeId.uuidString, due.due.iso,
+      CSVValue.string(day: due.movedTo),
     ]
   }
 

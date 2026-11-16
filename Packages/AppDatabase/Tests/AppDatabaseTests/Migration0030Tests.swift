@@ -193,12 +193,12 @@ struct Migration0030Tests {
   }
 
   @Test func theFourTablesGoLastInTheCSV() throws {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     let stack = try TestSupport.makeStack()
     try stack.writer.write { db in try db.execute(sql: Self.seed) }
     let tables = try ExportRepository(writer: stack.writer).tables()
     #expect(
-      Array(tables.suffix(4).map(\.fileName)) == [
+      Array(tables.dropLast(1).suffix(4).map(\.fileName)) == [
         "utility_meters.csv", "utility_readings.csv", "utility_bills.csv", "utility_charges.csv",
       ])
     func rows(_ table: ExportTable) throws -> [[String: String]] {

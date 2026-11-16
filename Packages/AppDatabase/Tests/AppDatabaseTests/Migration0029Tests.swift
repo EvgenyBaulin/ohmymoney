@@ -187,7 +187,7 @@ struct Migration0029Tests {
   }
 
   @Test func theKindsGoLastInTheCSVAndTheNumberOfFilesIsUnchanged() throws {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     #expect(ExportTables.transactionParts.columns.last == "tax_deduction")
     #expect(ExportTables.debts.columns.dropLast(2).last == "tax_deduction")
     #expect(ExportTables.paymentMethods.columns.last == "tax_deduction")

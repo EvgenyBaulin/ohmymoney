@@ -154,6 +154,53 @@ public struct ExpectedIncomeLink: Identifiable, Hashable, Sendable, Codable {
   }
 }
 
+/// The answer to «не пришёл?» for one due date of a recurring expected income
+/// (`expected_income_dues`): that due alone is skipped, or expected on another day; the
+/// recurrence itself and every other due stay as they are.
+///
+/// `due` is the day the recurrence puts the due on, not the day it was moved to: it names the
+/// due whatever answer it holds, so a second answer rewrites the same row. The id is made from
+/// the income and that day (`id(incomeId:due:)`), so two devices answering for the same due
+/// write one row of the exchange, not two that the pair's uniqueness would refuse.
+public struct ExpectedIncomeDue: Identifiable, Hashable, Sendable, Codable {
+  public var id: UUID
+  public var expectedIncomeId: UUID
+  /// The due as the recurrence puts it.
+  public var due: DateOnly
+  /// The day the money is expected instead; `nil` — the due is skipped, nothing is expected
+  /// for it.
+  public var movedTo: DateOnly?
+
+  public var isSkipped: Bool { movedTo == nil }
+
+  public init(expectedIncomeId: UUID, due: DateOnly, movedTo: DateOnly? = nil) {
+    self.init(
+      id: Self.id(incomeId: expectedIncomeId, due: due), expectedIncomeId: expectedIncomeId,
+      due: due, movedTo: movedTo)
+  }
+
+  public init(id: UUID, expectedIncomeId: UUID, due: DateOnly, movedTo: DateOnly?) {
+    self.id = id
+    self.expectedIncomeId = expectedIncomeId
+    self.due = due
+    self.movedTo = movedTo
+  }
+
+  /// The id of the mark of `due` of an income: the income's id with its last six bytes mixed
+  /// with a tag and the day (year, month, day). Version and variant bytes stay, so it is a
+  /// well-formed UUID; distinct days of one income give distinct ids.
+  public static func id(incomeId: UUID, due: DateOnly) -> UUID {
+    var bytes = incomeId.uuid
+    bytes.10 ^= 0xD5
+    bytes.11 ^= UInt8(truncatingIfNeeded: due.year >> 8)
+    bytes.12 ^= UInt8(truncatingIfNeeded: due.year)
+    bytes.13 ^= UInt8(truncatingIfNeeded: due.month)
+    bytes.14 ^= UInt8(truncatingIfNeeded: due.day)
+    bytes.15 ^= 0x5D
+    return UUID(uuid: bytes)
+  }
+}
+
 /// A monthly limit (`budgets`), in rubles: on a category or subcategory, on bad spending,
 /// or on a «for whom» value.
 public struct Budget: Identifiable, Hashable, Sendable, Codable {
@@ -454,6 +501,8 @@ public struct PlanningBook: Hashable, Sendable, Codable {
   public var prices: [SubscriptionPrice]
   public var expected: [ExpectedIncome]
   public var expectedLinks: [ExpectedIncomeLink]
+  /// The answers given for single due dates of recurring expected incomes.
+  public var expectedDues: [ExpectedIncomeDue]
   public var budgets: [Budget]
   /// Oldest first.
   public var reconciliations: [Reconciliation]
@@ -468,8 +517,9 @@ public struct PlanningBook: Hashable, Sendable, Codable {
     expected: [ExpectedIncome] = [], expectedLinks: [ExpectedIncomeLink] = [],
     budgets: [Budget] = [], reconciliations: [Reconciliation] = [],
     debtEntries: [DebtEntry] = [], settings: PlanningSettings = PlanningSettings(),
-    reconciledBalances: [ReconciledBalance] = []
+    reconciledBalances: [ReconciledBalance] = [], expectedDues: [ExpectedIncomeDue] = []
   ) {
+    self.expectedDues = expectedDues
     self.scheduled = scheduled
     self.prices = prices
     self.expected = expected

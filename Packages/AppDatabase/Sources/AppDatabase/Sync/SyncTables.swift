@@ -33,7 +33,7 @@ public enum SyncTables {
     "bank_cashback_categories": "id", "cashback_offers": "id", "credit_statements": "id",
     "utility_meters": "id", "utility_readings": "id", "utility_bills": "id",
     "utility_charges": "id",
-    "thing_valuations": "id",
+    "thing_valuations": "id", "expected_income_dues": "id",
   ]
 
   /// Tables that hold something of this device only — where the owner stands, not what he spent:

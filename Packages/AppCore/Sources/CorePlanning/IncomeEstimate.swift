@@ -76,10 +76,18 @@ public struct OverdueIncomeItem: Hashable, Sendable {
   public var name: String
   public var due: DateOnly
   public var rub: AmountE4?
-  /// A one-off expectation (a recurring one is not closed or moved as a whole).
+  /// A one-off expectation: it is closed or moved as a whole. A recurring one is answered due
+  /// by due (`ExpectedIncomeDue`).
   public var isOneOff: Bool
+  /// The day the recurrence puts the due on — `due` unless the owner moved it: the key an
+  /// answer for this due is written under.
+  public var scheduled: DateOnly
 
-  public init(incomeId: UUID, name: String, due: DateOnly, rub: AmountE4?, isOneOff: Bool) {
+  public init(
+    incomeId: UUID, name: String, due: DateOnly, rub: AmountE4?, isOneOff: Bool,
+    scheduled: DateOnly? = nil
+  ) {
+    self.scheduled = scheduled ?? due
     self.incomeId = incomeId
     self.name = name
     self.due = due
@@ -213,7 +221,8 @@ public enum IncomeEstimate {
         items.append(
           OverdueIncomeItem(
             incomeId: status.id, name: status.income.name, due: occurrence.due,
-            rub: occurrence.remainingRub, isOneOff: status.income.kind == .oneOff))
+            rub: occurrence.remainingRub, isOneOff: status.income.kind == .oneOff,
+            scheduled: occurrence.scheduled))
       }
     }
     return items.sorted { ($0.due, $0.incomeId.uuidString) < ($1.due, $1.incomeId.uuidString) }

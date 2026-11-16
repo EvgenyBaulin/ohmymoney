@@ -26,7 +26,7 @@ enum OverviewDoNow {
       guard let account = $0.paymentMethodId else { return true }
       return !hidden.isHidden(account)
     }
-    // One-off incomes whose day passed without the money, apart from those of hidden accounts.
+    // Incomes whose day passed without the money, apart from those of hidden accounts.
     let expected = snapshot.planning.expected.filter {
       guard let account = $0.income.paymentMethodId else { return true }
       return !hidden.isHidden(account)
@@ -41,6 +41,13 @@ enum OverviewDoNow {
         archivedAccounts: Set(
           snapshot.dataset.paymentMethods.filter(\.archived).map(\.id))),
       today: environment.today)
+  }
+
+  /// What is still awaited for the item: of a recurring income, that one due — not every due
+  /// that has passed; of a one-off one, the whole rest.
+  static func remaining(of item: DoNowItem, in status: ExpectedIncomeStatus) -> AmountE4? {
+    guard item.recurring else { return status.remaining }
+    return status.occurrences.first { $0.scheduled == item.scheduled }?.remaining
   }
 
   @MainActor
@@ -78,8 +85,8 @@ enum OverviewDoNow {
       let due = item.day ?? environment.today
       var detail = environment.format(
         "overview.doNow.incomeDetail", table: table, environment.dates.dayAndMonth(due))
-      if let status, status.remaining.raw > 0 {
-        detail += " · " + money.rounded(status.remaining, currency: status.income.currency)
+      if let status, let remaining = Self.remaining(of: item, in: status), remaining.raw > 0 {
+        detail += " · " + money.rounded(remaining, currency: status.income.currency)
       }
       return DoNowRowText(
         title: environment.format(
@@ -122,6 +129,8 @@ struct OverviewDoNowCard: View {
   /// The income whose day of coming is being chosen, and the day chosen so far.
   @State private var datingIncome: UUID?
   @State private var pickedDay = Date()
+  /// «Это ошибка» of a recurring income: its form, to edit the recurrence itself.
+  @State private var editingIncome: ExpectedIncome?
 
   /// The colour of a row's dot: the accent for what is due, the secondary ink for the rest; the
   /// words of the row say which it is.
@@ -225,28 +234,41 @@ struct OverviewDoNowCard: View {
     }
   }
 
-  /// «Не пришёл?»: the three answers — the day it will come, closed, moved a week on.
+  /// «Не пришёл?»: of a one-off income the three answers — the day it will come, closed, moved
+  /// a week on; of a recurring one the answers for this due alone — closed (skipped), moved to
+  /// a chosen day — and «Это ошибка», the form of the recurrence itself.
   private func incomeMenu(
     _ item: DoNowItem, text: DoNowRowText, snapshot: DataSnapshot
   )
     -> some View
   {
     Menu(text.button) {
-      Button(t("overview.doNow.income.setDate")) {
-        pickedDay = environment.calendar.noon(of: environment.today)
-        datingIncome = item.incomeId
+      ForEach(Self.incomeAnswers(recurring: item.recurring), id: \.self) { choice in
+        Button(t(choice.key(recurring: item.recurring))) {
+          choose(choice, item, snapshot: snapshot)
+        }
       }
-      Button(t("overview.doNow.income.close")) { answer(item, .close, snapshot: snapshot) }
-      Button(t("overview.doNow.income.move")) { answer(item, .postpone, snapshot: snapshot) }
     }
     .accessibilityIdentifier("overview.doNow.income")
+    .sheet(
+      item: Binding(
+        get: { editingIncome?.id == item.incomeId ? editingIncome : nil },
+        set: { editingIncome = $0 })
+    ) { income in
+      ExpectedIncomeForm(original: income)
+        .handingOver(dependencies)
+    }
     .sheet(
       isPresented: Binding(
         get: { datingIncome != nil && datingIncome == item.incomeId },
         set: { if !$0 { datingIncome = nil } })
     ) {
       VStack(spacing: 16) {
-        Text(verbatim: t("overview.doNow.income.setDate")).appFont(.headline)
+        Text(
+          verbatim: t(
+            item.recurring ? "overview.doNow.income.moveDue" : "overview.doNow.income.setDate")
+        )
+        .appFont(.headline)
         DatePicker("", selection: $pickedDay, displayedComponents: .date)
           .datePickerStyle(.graphical)
           .labelsHidden()
@@ -273,12 +295,67 @@ struct OverviewDoNowCard: View {
     case moveTo(DateOnly)
   }
 
-  /// Writes the answer to «не пришёл?» on the expectation as the database holds it, one step of ⌘Z.
+  /// One line of the menu «Решить» of an income that did not come.
+  enum IncomeChoice: String, Hashable {
+    /// The day it will come (a one-off income), or the day this due is moved to (recurring).
+    case pickDay
+    /// A one-off income closed whole.
+    case close
+    /// Of a recurring income, this due alone closed — skipped; the recurrence stays.
+    case skip
+    /// A one-off income a week on.
+    case postpone
+    /// «Это ошибка»: the form of a recurring income, to edit the recurrence.
+    case editRecurrence
+
+    /// The key of its words: the day of a recurring income moves this due.
+    func key(recurring: Bool) -> String {
+      switch self {
+      case .pickDay:
+        recurring ? "overview.doNow.income.moveDue" : "overview.doNow.income.setDate"
+      case .close: "overview.doNow.income.close"
+      case .skip: "overview.doNow.income.skip"
+      case .postpone: "overview.doNow.income.move"
+      case .editRecurrence: "overview.doNow.income.mistake"
+      }
+    }
+  }
+
+  /// The lines of the menu: a recurring income is answered for this due alone — closed, moved
+  /// to a day — or its recurrence is edited; a one-off one as a whole.
+  static func incomeAnswers(recurring: Bool) -> [IncomeChoice] {
+    recurring ? [.skip, .pickDay, .editRecurrence] : [.pickDay, .close, .postpone]
+  }
+
+  private func choose(_ choice: IncomeChoice, _ item: DoNowItem, snapshot: DataSnapshot) {
+    switch choice {
+    case .pickDay:
+      pickedDay = environment.calendar.noon(of: environment.today)
+      datingIncome = item.incomeId
+    case .close, .skip: answer(item, .close, snapshot: snapshot)
+    case .postpone: answer(item, .postpone, snapshot: snapshot)
+    case .editRecurrence:
+      editingIncome =
+        snapshot.planning.expected.first { $0.id == item.incomeId }?.income
+    }
+  }
+
+  /// Writes the answer to «не пришёл?» on the expectation as the database holds it, one step of
+  /// ⌘Z. A recurring income is answered for the due of the item alone: closed skips it, a day
+  /// moves it; the recurrence stays.
   private func answer(_ item: DoNowItem, _ answer: IncomeAnswer, snapshot: DataSnapshot) {
     guard let dependencies, let id = item.incomeId,
       let income = snapshot.planning.expected.first(where: { $0.id == id })?.income
     else { return }
     let actions = PlanningActions(dependencies)
+    if income.kind == .recurring, let due = item.scheduled {
+      switch answer {
+      case .close: actions.skip(income, due: due)
+      case .moveTo(let day): actions.move(income, due: due, to: day)
+      case .postpone: break
+      }
+      return
+    }
     switch answer {
     case .close: actions.close(income)
     case .postpone:

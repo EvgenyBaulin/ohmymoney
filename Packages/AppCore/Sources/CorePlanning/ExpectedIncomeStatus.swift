@@ -6,7 +6,16 @@ import Foundation
 /// One due date of an expected income and what came in for it. Amounts are in the currency
 /// of the expectation.
 public struct ExpectedOccurrence: Hashable, Sendable {
+  /// The day the money is expected: the day the recurrence puts it on, or the day the owner
+  /// moved it to («Перенести»).
   public var due: DateOnly
+  /// The day the recurrence puts the due on, whatever answer it holds: the key of its mark
+  /// (`ExpectedIncomeDue`) and the period its operations are counted in. Equal to `due` unless
+  /// moved.
+  public var scheduled: DateOnly
+  /// The owner skipped this due («Закрыть» of «не пришёл?»): nothing more is expected for it —
+  /// what came for it still counts, and `total` is that.
+  public var isSkipped: Bool
   public var total: AmountE4
   public var received: AmountE4
   /// max(0, total − received).
@@ -19,12 +28,17 @@ public struct ExpectedOccurrence: Hashable, Sendable {
   public var transactionIds: [UUID]
 
   public var isFulfilled: Bool { remaining.isZero }
+  /// Expected on another day than the recurrence puts it on.
+  public var isMoved: Bool { due != scheduled }
 
   public init(
     due: DateOnly, total: AmountE4, received: AmountE4, remaining: AmountE4,
-    remainingRub: AmountE4?, partsReceived: Int, transactionIds: [UUID]
+    remainingRub: AmountE4?, partsReceived: Int, transactionIds: [UUID],
+    scheduled: DateOnly? = nil, isSkipped: Bool = false
   ) {
     self.due = due
+    self.scheduled = scheduled ?? due
+    self.isSkipped = isSkipped
     self.total = total
     self.received = received
     self.remaining = remaining
@@ -118,6 +132,7 @@ public enum ExpectedIncomeRules {
     for link in book.expectedLinks {
       linked[link.expectedIncomeId, default: []].insert(link.transactionId)
     }
+    let marks = dueMarks(book.expectedDues)
     return book.expected.filter { !$0.closed }.map { income in
       let operations = (linked[income.id] ?? [])
         .compactMap { ledger.entry($0) }
@@ -125,7 +140,7 @@ public enum ExpectedIncomeRules {
         .sorted(by: oldestFirst)
       return status(
         of: income, operations: operations, ledger: ledger, today: today, through: horizon,
-        rate: rate(of: income.currency, in: rubPerUnit))
+        rate: rate(of: income.currency, in: rubPerUnit), marks: marks[income.id] ?? [:])
     }
   }
 
@@ -186,6 +201,35 @@ public enum ExpectedIncomeRules {
     return moved
   }
 
+  /// The answer «Закрыть» to «не пришёл?» for one due of a recurring income: that due alone is
+  /// skipped — nothing more is expected for it —, the recurrence and every other due stay.
+  /// `due` is the day the recurrence puts it on (`ExpectedOccurrence.scheduled`). `nil` for a
+  /// one-off or closed income: those close as a whole.
+  public static func skipped(_ income: ExpectedIncome, due: DateOnly) -> ExpectedIncomeDue? {
+    guard income.kind == .recurring, !income.closed else { return nil }
+    return ExpectedIncomeDue(expectedIncomeId: income.id, due: due, movedTo: nil)
+  }
+
+  /// The oldest due of a recurring income that has passed without its money — the one «не
+  /// пришёл?» asks about and its answers are for; `nil` for a one-off or closed income and when
+  /// nothing is missed.
+  public static func missedDue(
+    of status: ExpectedIncomeStatus, today: DateOnly
+  ) -> ExpectedOccurrence? {
+    guard status.income.kind == .recurring, !status.income.closed else { return nil }
+    return status.occurrences.first { $0.due < today && !$0.isFulfilled }
+  }
+
+  /// The answer «Перенести» for one due of a recurring income: that due is expected on `day`
+  /// instead; the recurrence and every other due stay. Moving it back onto its own day leaves
+  /// a mark that changes nothing. `nil` for a one-off or closed income (`moved(_:to:)`).
+  public static func moved(
+    _ income: ExpectedIncome, due: DateOnly, to day: DateOnly
+  ) -> ExpectedIncomeDue? {
+    guard income.kind == .recurring, !income.closed else { return nil }
+    return ExpectedIncomeDue(expectedIncomeId: income.id, due: due, movedTo: day)
+  }
+
   /// The same moved a week on from today — one press, no date to choose.
   public static func postponed(_ income: ExpectedIncome, today: DateOnly) -> ExpectedIncome? {
     moved(income, to: today.adding(days: postponeDays))
@@ -235,7 +279,7 @@ public enum ExpectedIncomeRules {
     case .recurring:
       guard let row = firstRow(of: entry, ledger) else { return nil }
       let freq = status.income.freq ?? .monthly
-      return status.occurrences.firstIndex { belongs(row, to: $0.due, freq: freq) }
+      return status.occurrences.firstIndex { belongs(row, to: $0.scheduled, freq: freq) }
     }
   }
 
@@ -252,7 +296,8 @@ public enum ExpectedIncomeRules {
 
   private static func status(
     of income: ExpectedIncome, operations: [TransactionEntry], ledger: Ledger,
-    today: DateOnly, through horizon: DateOnly, rate: Decimal?
+    today: DateOnly, through horizon: DateOnly, rate: Decimal?,
+    marks: [DateOnly: ExpectedIncomeDue] = [:]
   ) -> ExpectedIncomeStatus {
     var withoutRate = rate == nil
     let total = income.totalE4
@@ -268,13 +313,19 @@ public enum ExpectedIncomeRules {
       }
     }
 
-    func occurrence(_ due: DateOnly, _ counted: [TransactionEntry]) -> ExpectedOccurrence {
+    func occurrence(
+      _ due: DateOnly, _ counted: [TransactionEntry], mark: ExpectedIncomeDue? = nil
+    ) -> ExpectedOccurrence {
       let received = AmountE4.sum(counted.compactMap { amounts[$0.id] })
-      let remaining = max(.zero, total - received)
+      let skipped = mark?.isSkipped ?? false
+      // A skipped due expects what came for it and no more.
+      let expected = skipped ? min(total, received) : total
+      let remaining = max(.zero, expected - received)
       return ExpectedOccurrence(
-        due: due, total: total, received: received, remaining: remaining,
+        due: mark?.movedTo ?? due, total: expected, received: received, remaining: remaining,
         remainingRub: rubles(remaining, currency: income.currency, rate: rate),
-        partsReceived: counted.count, transactionIds: counted.map(\.id))
+        partsReceived: counted.count, transactionIds: counted.map(\.id), scheduled: due,
+        isSkipped: skipped)
     }
 
     let occurrences: [ExpectedOccurrence]
@@ -295,13 +346,30 @@ public enum ExpectedIncomeRules {
       let freq = income.freq ?? .monthly
       let dues = dueDates(of: income, freq: freq, through: horizon, today: today)
       var buckets: [[TransactionEntry]] = Array(repeating: [], count: dues.count)
+      var filled: [AmountE4] = Array(repeating: .zero, count: dues.count)
+      // A due moved out of its own period takes, oldest first, the operations dated after its
+      // own day and by the day it was moved to, until it has its amount: the salary of the 28th
+      // that came on the 2nd of the next month pays the due it was late for, not the next one.
+      // An operation the owner said the month of stays with that month.
+      let carried = dues.indices.filter { index in
+        guard let moved = marks[dues[index]]?.movedTo else { return false }
+        return !sameDuePeriod(moved, dues[index], freq: freq)
+      }
       for entry in operations {
         guard let row = firstRow(of: entry, ledger) else { continue }
-        if let index = dues.firstIndex(where: { belongs(row, to: $0, freq: freq) }) {
+        let natural = dues.firstIndex(where: { belongs(row, to: $0, freq: freq) })
+        let late = carried.first { index in
+          guard index != natural, entry.transaction.periodMonth == nil,
+            let moved = marks[dues[index]]?.movedTo
+          else { return false }
+          return row.day > dues[index] && row.day <= moved && filled[index] < total
+        }
+        if let index = late ?? natural {
           buckets[index].append(entry)
+          filled[index] += amounts[entry.id] ?? .zero
         }
       }
-      occurrences = zip(dues, buckets).map { occurrence($0, $1) }
+      occurrences = dues.indices.map { occurrence(dues[$0], buckets[$0], mark: marks[dues[$0]]) }
       counted = buckets.flatMap { $0 }
       received = AmountE4.sum(occurrences.map(\.received))
       remaining = AmountE4.sum(occurrences.map(\.remaining))
@@ -316,6 +384,39 @@ public enum ExpectedIncomeRules {
       partsReceived: counted.count, partsExpected: partsExpected, isFulfilled: isFulfilled,
       isOverdue: occurrences.contains { $0.due < today && !$0.isFulfilled },
       linkedTransactionIds: operations.map(\.id), withoutRate: withoutRate)
+  }
+
+  /// The marks of single due dates, by income and by the day the recurrence puts the due on.
+  static func dueMarks(
+    _ dues: [ExpectedIncomeDue]
+  ) -> [UUID: [DateOnly: ExpectedIncomeDue]] {
+    var marks: [UUID: [DateOnly: ExpectedIncomeDue]] = [:]
+    for mark in dues { marks[mark.expectedIncomeId, default: [:]][mark.due] = mark }
+    return marks
+  }
+
+  /// The due dates of a recurring income as the owner left them: a skipped one is gone, a
+  /// moved one is on the day it was moved to — for the code that reads the recurrence without
+  /// the money (`PayHalves`, `Allocation`). Each comes with the day the recurrence puts it on.
+  public static func expectedDays(
+    of income: ExpectedIncome, through last: DateOnly, today: DateOnly,
+    dues: [ExpectedIncomeDue]
+  ) -> [(day: DateOnly, scheduled: DateOnly)] {
+    let marks = dueMarks(dues.filter { $0.expectedIncomeId == income.id })[income.id] ?? [:]
+    return dueDates(of: income, freq: income.freq ?? .monthly, through: last, today: today)
+      .compactMap { scheduled in
+        guard let mark = marks[scheduled] else { return (scheduled, scheduled) }
+        return mark.movedTo.map { ($0, scheduled) }
+      }
+  }
+
+  /// Two days in one period of the frequency: the month, the year, the week.
+  static func sameDuePeriod(_ left: DateOnly, _ right: DateOnly, freq: Frequency) -> Bool {
+    switch freq {
+    case .monthly: left.monthKey == right.monthKey
+    case .yearly: left.year == right.year
+    case .weekly: left.weekStart == right.weekStart
+    }
   }
 
   /// The ledger row of the first part: the day and the month the operation belongs to.

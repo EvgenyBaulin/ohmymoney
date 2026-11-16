@@ -30,6 +30,12 @@ public struct DoNowItem: Hashable, Sendable, Identifiable {
   public var count: Int
   /// The expected income of a «Не пришёл?» item; `day` is its due date.
   public var incomeId: UUID?
+  /// The day the recurrence of that income puts the due on (`day` unless it was moved): the
+  /// key «Закрыть» and «Перенести» of a recurring income answer for.
+  public var scheduled: DateOnly?
+  /// The income is recurring: its answers are for this due alone, and «Это ошибка» edits the
+  /// recurrence.
+  public var recurring: Bool
   /// The account a «Загрузить» item is about.
   public var accountId: UUID?
   /// How many days ago the last statement of that account was loaded.
@@ -37,9 +43,12 @@ public struct DoNowItem: Hashable, Sendable, Identifiable {
 
   public init(
     id: String, action: Action, paymentId: UUID? = nil, day: DateOnly? = nil, count: Int = 1,
-    accountId: UUID? = nil, daysAgo: Int = 0, incomeId: UUID? = nil
+    accountId: UUID? = nil, daysAgo: Int = 0, incomeId: UUID? = nil, scheduled: DateOnly? = nil,
+    recurring: Bool = false
   ) {
     self.incomeId = incomeId
+    self.scheduled = scheduled
+    self.recurring = recurring
     self.id = id
     self.action = action
     self.paymentId = paymentId
@@ -103,16 +112,17 @@ public enum WhatToDoNow {
           accountId: $0.accountId, daysAgo: $0.daysAgo)
       }
     }
-    // One item per expectation — its oldest due date. A recurring one is not closed or moved
-    // as a whole, so only a one-off expectation asks.
+    // One item per expectation — its oldest due date. A recurring one asks about that due
+    // alone: its answers skip or move it, and the recurrence stays.
     var asked = Set<UUID>()
-    let incomes = overdueIncomes.filter { $0.isOneOff && $0.due < today }
+    let incomes = overdueIncomes.filter { $0.due < today }
       .sorted { ($0.due, $0.incomeId.uuidString) < ($1.due, $1.incomeId.uuidString) }
       .compactMap { item -> DoNowItem? in
         guard asked.insert(item.incomeId).inserted else { return nil }
         return DoNowItem(
-          id: "income:\(item.incomeId.uuidString):\(item.due.iso)", action: .income,
-          day: item.due, incomeId: item.incomeId)
+          id: "income:\(item.incomeId.uuidString):\(item.scheduled.iso)", action: .income,
+          day: item.due, incomeId: item.incomeId, scheduled: item.scheduled,
+          recurring: !item.isOneOff)
       }
     let all = due + incomes + items(reviews, .review) + items(statements, .load)
     return DoNowList(items: Array(all.prefix(limit)), more: max(0, all.count - limit))

@@ -127,6 +127,13 @@ public struct ExportCopyMaker: Sendable {
           WHERE valued_on IS NULL OR valued_on < ? OR valued_on > ?
           """,
         arguments: [range.start.iso, range.end.iso])
+      // The answers for single dues of recurring incomes, by the day the recurrence puts the
+      // due on: an answer about a month outside the span tells about days the copy leaves out.
+      if try db.tableExists("expected_income_dues") {
+        try db.execute(
+          sql: "DELETE FROM expected_income_dues WHERE due_on IS NULL OR due_on < ? OR due_on > ?",
+          arguments: [range.start.iso, range.end.iso])
+      }
       // The readings of meters by their day. A bill is a month's: it stays only when its whole
       // month lies inside the span — a bill of a month the span only touches tells about days
       // the copy leaves out. Its month, not `pay_by` or `recorded_at`, is what the bill is for;

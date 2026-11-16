@@ -128,6 +128,36 @@ extension ExpectedIncome: @retroactive FetchableRecord, @retroactive Persistable
   }
 }
 
+extension ExpectedIncomeDue: @retroactive FetchableRecord, @retroactive PersistableRecord {
+  public static let databaseTableName = "expected_income_dues"
+
+  public init(row: Row) throws {
+    guard let mark = Self.readable(row) else { throw UnreadableValue(column: "due_on") }
+    self = mark
+  }
+
+  /// The row as an answer, or `nil` when a day of it is not a day: such an answer is left out
+  /// — the due then waits as if unanswered — rather than failing the whole read or reading a
+  /// day nobody wrote as «skipped».
+  static func readable(_ row: Row) -> ExpectedIncomeDue? {
+    guard let id = RowMapping.optionalUUID(row, "id"),
+      let income = RowMapping.optionalUUID(row, "expected_income_id"),
+      let due = RowMapping.day(row, "due_on")
+    else { return nil }
+    let movedText: String? = row["moved_to"]
+    let movedTo = RowMapping.day(row, "moved_to")
+    guard movedText == nil || movedTo != nil else { return nil }
+    return ExpectedIncomeDue(id: id, expectedIncomeId: income, due: due, movedTo: movedTo)
+  }
+
+  public func encode(to container: inout PersistenceContainer) {
+    container["id"] = id.uuidString
+    container["expected_income_id"] = expectedIncomeId.uuidString
+    container["due_on"] = due.iso
+    container["moved_to"] = movedTo?.iso
+  }
+}
+
 extension ExpectedIncomeLink: @retroactive FetchableRecord, @retroactive PersistableRecord {
   public static let databaseTableName = "expected_income_links"
 

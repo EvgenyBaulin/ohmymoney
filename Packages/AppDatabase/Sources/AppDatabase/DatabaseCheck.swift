@@ -90,10 +90,11 @@ public enum DatabaseCheck {
   }
 
   /// The tables whose orphan rows are only join rows or the pieces of an operation that is
-  /// not there: nothing the owner can see, and so safe to delete.
+  /// not there: nothing the owner can see, and so safe to delete. An answer for a due of an
+  /// income that is gone answers for nothing.
   public static let repairableTables: [String] = [
     "transaction_parts", "reimbursement_links", "reconciliation_balances", "subscription_prices",
-    "expected_income_links",
+    "expected_income_links", "expected_income_dues",
   ]
 
   private static let idsShown = 5

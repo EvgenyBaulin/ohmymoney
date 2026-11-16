@@ -245,7 +245,7 @@ struct Migration0027Tests {
   }
 
   @Test func theNewColumnsGoLastInTheCSVAndTheNumberOfFilesIsUnchanged() throws {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     #expect(
       Array(ExportTables.paymentMethods.columns.dropLast(1).suffix(7)) == [
         "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",

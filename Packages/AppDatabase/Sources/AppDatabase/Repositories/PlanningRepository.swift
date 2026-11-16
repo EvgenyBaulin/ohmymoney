@@ -20,6 +20,8 @@ public struct PlanningRows: Sendable, Hashable {
   public var prices: [SubscriptionPrice]
   public var expected: [ExpectedIncome]
   public var expectedLinks: [ExpectedIncomeLink]
+  /// The answers for single dues of recurring expected incomes.
+  public var expectedDues: [ExpectedIncomeDue]
   public var budgets: [Budget]
   public var debtEntries: [DebtEntry]
   public var reconciliations: [Reconciliation]
@@ -65,8 +67,10 @@ public struct PlanningRows: Sendable, Hashable {
     rates: [Rate] = [], scenarios: [Scenario] = [],
     creditStatements: [CreditStatementOverride] = [], thingValuations: [ThingValuation] = [],
     utilityMeters: [UtilityMeter] = [], utilityReadings: [UtilityReading] = [],
-    utilityBills: [UtilityBill] = [], utilityCharges: [UtilityCharge] = []
+    utilityBills: [UtilityBill] = [], utilityCharges: [UtilityCharge] = [],
+    expectedDues: [ExpectedIncomeDue] = []
   ) {
+    self.expectedDues = expectedDues
     self.thingValuations = thingValuations
     self.utilityMeters = utilityMeters
     self.utilityReadings = utilityReadings
@@ -117,6 +121,7 @@ public struct PlanningRowIDs: Sendable, Hashable {
   public var prices: [UUID]
   public var expected: [UUID]
   public var expectedLinks: [UUID]
+  public var expectedDues: [UUID]
   public var budgets: [UUID]
   public var debtEntries: [UUID]
   public var reconciliations: [UUID]
@@ -151,8 +156,9 @@ public struct PlanningRowIDs: Sendable, Hashable {
     allocationRules: [UUID] = [], customCurrencies: [CurrencyCode] = [], rates: [RateKey] = [],
     scenarios: [UUID] = [], creditStatements: [UUID] = [], thingValuations: [UUID] = [],
     utilityMeters: [UUID] = [], utilityReadings: [UUID] = [], utilityBills: [UUID] = [],
-    utilityCharges: [UUID] = []
+    utilityCharges: [UUID] = [], expectedDues: [UUID] = []
   ) {
+    self.expectedDues = expectedDues
     self.thingValuations = thingValuations
     self.utilityMeters = utilityMeters
     self.utilityReadings = utilityReadings
@@ -584,6 +590,10 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.scheduled, db: db)
     try journal.upsert(rows.prices, db: db)
     try journal.upsert(rows.expected, db: db)
+    // An answer for one due goes before a new one is written: one put in place of another of
+    // the same due — which the schema keeps one of — never meets it.
+    try journal.delete(ExpectedIncomeDue.self, ids: change.delete.expectedDues, db: db)
+    try journal.upsert(rows.expectedDues, db: db)
     try journal.upsert(rows.budgets, db: db)
     try journal.upsert(rows.cashbackRules, db: db)
     // An asset before its valuations. A valuation deleted goes before the new ones are written,
@@ -1033,6 +1043,7 @@ public struct PlanningRepository: Sendable {
     try Self.deleteAll(Reconciliation.self, ids: added.reconciliations, db: db)
     try Self.deleteAll(Transfer.self, ids: added.transfers, db: db)
     try Self.deleteAll(ExpectedIncomeLink.self, ids: added.expectedLinks, db: db)
+    try Self.deleteAll(ExpectedIncomeDue.self, ids: added.expectedDues, db: db)
     try Self.deleteAll(DebtEntry.self, ids: added.debtEntries, db: db)
     try Self.deleteAll(DebtCost.self, ids: added.debtCosts, db: db)
     try Self.deleteAll(DebtInstalmentStep.self, ids: added.debtInstalments, db: db)
@@ -1093,6 +1104,7 @@ public struct PlanningRepository: Sendable {
     for row in before.debtEntries { try row.save(db) }
     for row in before.debtCosts { try row.save(db) }
     for row in before.expectedLinks { try row.save(db) }
+    for row in before.expectedDues { try row.save(db) }
     for row in before.transfers { try row.save(db) }
     for row in before.reconciliations { try row.save(db) }
     for row in before.reconciledBalances { try row.save(db) }
@@ -1151,6 +1163,7 @@ public struct PlanningRepository: Sendable {
     try Self.restoreRowIDs(before.scenarios, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.creditStatements, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.expectedLinks, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.expectedDues, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.prices, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.reconciliations, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.reconciledBalances, undo.rowIDs, db: db)
@@ -1231,7 +1244,17 @@ public struct PlanningRepository: Sendable {
       reconciliations: try ReconciliationRepository.all(db),
       debtEntries: try debtEntries(db),
       settings: try settings(db),
-      reconciledBalances: try ReconciliationRepository.balances(db))
+      reconciledBalances: try ReconciliationRepository.balances(db),
+      expectedDues: try expectedDues(db))
+  }
+
+  /// The answers for single dues, by income and due; none before schema 34.
+  static func expectedDues(_ db: Database) throws -> [ExpectedIncomeDue] {
+    guard try db.tableExists(ExpectedIncomeDue.databaseTableName) else { return [] }
+    return try Row.fetchAll(
+      db,
+      sql: "SELECT * FROM expected_income_dues ORDER BY expected_income_id, due_on, rowid"
+    ).compactMap(ExpectedIncomeDue.readable)
   }
 
   /// Each payment's prices by day.
@@ -1619,10 +1642,17 @@ extension ExpectedIncome: PlanningRow {
   static var rows: WritableKeyPath<PlanningRows, [Self]> { \.expected }
   static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.expected }
 
-  /// Its links to the income received go with it; the operations stay.
+  /// Its links to the income received and the answers for its dues go with it; the
+  /// operations stay.
   static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
     try journal.keepRows(ExpectedIncomeLink.self, where: "expected_income_id", is: id, db: db)
+    try journal.keepRows(ExpectedIncomeDue.self, where: "expected_income_id", is: id, db: db)
   }
+}
+
+extension ExpectedIncomeDue: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.expectedDues }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.expectedDues }
 }
 
 extension ExpectedIncomeLink: PlanningRow {

@@ -249,9 +249,10 @@ public enum Allocation {
 
   /// The day the shown lines reach: the earliest due date after today of an expectation that
   /// is not closed — a one-off one already linked to an income is done —, else the end of
-  /// today's month.
+  /// today's month. A due the owner skipped is not waited for; a moved one is on its new day.
   public static func until(
-    today: DateOnly, expected: [ExpectedIncome], links: [ExpectedIncomeLink]
+    today: DateOnly, expected: [ExpectedIncome], links: [ExpectedIncomeLink],
+    dues marks: [ExpectedIncomeDue] = []
   ) -> DateOnly {
     let linked = Set(links.map(\.expectedIncomeId))
     let horizon = today.adding(months: 3)
@@ -263,8 +264,9 @@ public enum Allocation {
         guard !linked.contains(income.id) else { continue }
         dues = income.dueDate.map { [$0] } ?? []
       case .recurring:
-        dues = ExpectedIncomeRules.dueDates(
-          of: income, freq: income.freq ?? .monthly, through: horizon, today: today)
+        dues = ExpectedIncomeRules.expectedDays(
+          of: income, through: horizon, today: today, dues: marks
+        ).map(\.day)
       }
       if let next = dues.filter({ $0 > today }).min(), best.map({ next < $0 }) ?? true {
         best = next
@@ -405,7 +407,8 @@ public enum Allocation {
 
     // What is spoken for until the next income.
     let until = until(
-      today: today, expected: planning.book.expected, links: planning.book.expectedLinks)
+      today: today, expected: planning.book.expected, links: planning.book.expectedLinks,
+      dues: planning.book.expectedDues)
     for status in planning.scheduled {
       let dues = status.dueDates.filter {
         $0 >= today && $0 <= until && status.matchedDues[$0] == nil

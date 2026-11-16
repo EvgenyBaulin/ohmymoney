@@ -20,6 +20,17 @@ struct ExpectedIncomeBlock: View {
   @State private var deleting: ExpectedIncome?
   @State private var showsArchive = false
   @State private var showsAll = false
+  /// The missed due of a recurring income being moved, and the day chosen so far.
+  @State private var movingDue: MovingDue?
+  @State private var movedDay = Date()
+
+  /// «Перенести этот срок…»: the due of a recurring income the owner moves to another day.
+  struct MovingDue: Identifiable {
+    var income: ExpectedIncome
+    /// The day the recurrence puts the due on.
+    var due: DateOnly
+    var id: String { "\(income.id.uuidString):\(due.iso)" }
+  }
 
   var body: some View {
     ComputedBlock(
@@ -87,6 +98,14 @@ struct ExpectedIncomeBlock: View {
                   .help(t("expected.closeFully.help"))
                   .accessibilityIdentifier("expected.closeFully")
               }
+              // A recurring income whose due passed without the money: that due alone is
+              // closed or moved; «Изменить» edits the recurrence itself.
+              if let missed = ExpectedIncomeRules.missedDue(of: status, today: environment.today) {
+                Button(t("expected.due.skip")) { skip(status.income, due: missed.scheduled) }
+                  .accessibilityIdentifier("expected.due.skip")
+                Button(t("expected.due.move")) { startMoving(status.income, due: missed.scheduled) }
+                  .accessibilityIdentifier("expected.due.move")
+              }
             }
             .buttonStyle(.link)
             .appFont(.caption)
@@ -97,6 +116,10 @@ struct ExpectedIncomeBlock: View {
             Button(t("expected.archiveAction")) { archiveIncome(status.income) }
             if ExpectedIncomeRules.offersClosing(status) {
               Button(t("expected.closeFully")) { close(status.income) }
+            }
+            if let missed = ExpectedIncomeRules.missedDue(of: status, today: environment.today) {
+              Button(t("expected.due.skip")) { skip(status.income, due: missed.scheduled) }
+              Button(t("expected.due.move")) { startMoving(status.income, due: missed.scheduled) }
             }
             Divider()
             Button(t("expected.delete")) { deleting = status.income }
@@ -130,6 +153,7 @@ struct ExpectedIncomeBlock: View {
     } message: {
       Text(verbatim: t("expected.deleteMessage"))
     }
+    .sheet(item: $movingDue) { moving in moveSheet(moving) }
   }
 
   /// The incomes the block lists: covered, not those that come to a hidden account.
@@ -200,6 +224,42 @@ struct ExpectedIncomeBlock: View {
   private func close(_ income: ExpectedIncome) {
     guard let dependencies else { return }
     PlanningActions(dependencies).close(income)
+  }
+
+  /// «Закрыть только этот срок»: one step of ⌘Z.
+  private func skip(_ income: ExpectedIncome, due: DateOnly) {
+    guard let dependencies else { return }
+    PlanningActions(dependencies).skip(income, due: due)
+  }
+
+  private func startMoving(_ income: ExpectedIncome, due: DateOnly) {
+    movedDay = environment.calendar.noon(of: environment.today)
+    movingDue = MovingDue(income: income, due: due)
+  }
+
+  /// The day a missed due is moved to: one step of ⌘Z on «Сохранить».
+  private func moveSheet(_ moving: MovingDue) -> some View {
+    VStack(spacing: 16) {
+      Text(verbatim: t("expected.due.move")).appFont(.headline)
+      DatePicker("", selection: $movedDay, displayedComponents: .date)
+        .datePickerStyle(.graphical)
+        .labelsHidden()
+      HStack {
+        Button(environment.language("action.cancel")) { movingDue = nil }
+          .keyboardShortcut(.cancelAction)
+        Button(environment.language("action.save")) {
+          if let dependencies {
+            PlanningActions(dependencies).move(
+              moving.income, due: moving.due, to: environment.calendar.day(of: movedDay))
+          }
+          movingDue = nil
+        }
+        .keyboardShortcut(.defaultAction)
+      }
+    }
+    .padding(20)
+    .presentationDetents([.medium])
+    .handingOver(dependencies)
   }
 
   private func archiveIncome(_ income: ExpectedIncome) {

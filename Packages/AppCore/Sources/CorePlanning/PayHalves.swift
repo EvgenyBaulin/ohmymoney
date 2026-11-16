@@ -29,9 +29,11 @@ public struct PayHalf: Hashable, Sendable {
 /// due on the day the money comes is paid from the half that ends. When the day of the next
 /// term passes with no income linked to it, the half goes on (`late`): «Зарплата не пришла?».
 public enum PayHalves {
-  /// Only while a live expected income has two or more terms in a month.
+  /// Only while a live expected income has two or more terms in a month. A term the owner
+  /// skipped is no term; a moved one is on the day it was moved to (`dues`).
   public static func current(
-    today: DateOnly, expected: [ExpectedIncome], links: [ExpectedIncomeLink], ledger: Ledger
+    today: DateOnly, expected: [ExpectedIncome], links: [ExpectedIncomeLink], ledger: Ledger,
+    dues: [ExpectedIncomeDue] = []
   ) -> PayHalf? {
     struct Term {
       var day: DateOnly
@@ -68,11 +70,11 @@ public enum PayHalves {
       var terms: [Term] = []
       for income in incomes {
         let freq = income.freq ?? .monthly
-        let dues = ExpectedIncomeRules.dueDates(
-          of: income, freq: freq, through: through, today: today
-        ).filter { $0 >= from }
+        let expectedDays = ExpectedIncomeRules.expectedDays(
+          of: income, through: through, today: today, dues: dues
+        ).filter { $0.day >= from }
         let days = linkedDays[income.id] ?? []
-        for due in dues {
+        for (day, due) in expectedDays {
           let received = days.filter { linked in
             switch freq {
             case .monthly: linked.month == due.monthKey
@@ -80,7 +82,7 @@ public enum PayHalves {
             case .weekly: linked.day.weekStart == due.weekStart
             }
           }.map(\.day).min()
-          terms.append(Term(day: due, incomeId: income.id, received: received))
+          terms.append(Term(day: day, incomeId: income.id, received: received))
         }
       }
       // Two terms in one month at least.

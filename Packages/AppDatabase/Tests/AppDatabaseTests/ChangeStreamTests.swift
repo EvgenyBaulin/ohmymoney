@@ -148,7 +148,7 @@ struct ChangeStreamTests {
     ] {
       #expect(DatabaseStack.ledgerTables.contains(table), "\(table) is not watched")
     }
-    #expect(DatabaseStack.ledgerTables.count == 61)
+    #expect(DatabaseStack.ledgerTables.count == 62)
     #expect(Set(DatabaseStack.ledgerTables).count == DatabaseStack.ledgerTables.count)
   }
 

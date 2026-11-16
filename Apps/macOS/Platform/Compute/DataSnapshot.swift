@@ -346,7 +346,8 @@ struct DataSnapshot: Sendable {
         dayRates: context.dayRates, today: today)
       : nil
     planning.payHalf = PayHalves.current(
-      today: today, expected: book.expected, links: book.expectedLinks, ledger: ledger)
+      today: today, expected: book.expected, links: book.expectedLinks, ledger: ledger,
+      dues: book.expectedDues)
     planning.monthRest = MonthRest.offer(
       today: today, free: planning.freeMoney, settings: dataset.allocationSettings,
       cushion: planning.cushion, goals: planning.goals)

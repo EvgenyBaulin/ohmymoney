@@ -29,16 +29,16 @@ private let specifiedFileNames = [
   "no_spend_days.csv",
   "bank_cashback_categories.csv", "cashback_offers.csv", "credit_statements.csv",
   "thing_valuations.csv", "utility_meters.csv", "utility_readings.csv", "utility_bills.csv",
-  "utility_charges.csv",
+  "utility_charges.csv", "expected_income_dues.csv",
 ]
 
-@Suite("ExportTables describes the 59 files of the export")
+@Suite("ExportTables describes the 60 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 59)
+    #expect(ExportTables.all.count == 60)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.dropLast(8).suffix(30) == [
+      ExportTables.all.dropLast(9).suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -1438,13 +1438,40 @@ struct CustomCurrenciesCSVTests {
   }
 }
 
+/// The answers for single dues of recurring expected incomes (schema 34) go last, one file: the
+/// day the recurrence puts the due on and the day it was moved to — empty when it is skipped.
+@Suite("Answers for dues of expected incomes in the export")
+struct ExpectedIncomeDueExportTests {
+  @Test func theFileComesLastAndASkippedDueHasNoDay() throws {
+    #expect(ExportTables.all.last == ExportTables.expectedIncomeDues)
+    #expect(
+      ExportTables.expectedIncomeDues.columns == [
+        "id", "expected_income_id", "due_on", "moved_to",
+      ])
+    let income = try #require(UUID(uuidString: "0D0D0D0D-0000-4000-8000-000000000001"))
+    let skipped = ExpectedIncomeDue(
+      expectedIncomeId: income, due: DateOnly(year: 2026, month: 9, day: 5))
+    let moved = ExpectedIncomeDue(
+      expectedIncomeId: income, due: DateOnly(year: 2026, month: 10, day: 5),
+      movedTo: DateOnly(year: 2026, month: 10, day: 12))
+    var writer = CSVWriter(columns: ExportTables.expectedIncomeDues.columns)
+    writer.append(ExportTables.row(skipped))
+    writer.append(ExportTables.row(moved))
+    let rows = try CSVReader.dictionaries(from: writer.data())
+    #expect(rows.map { $0["id"] } == [skipped.id.uuidString, moved.id.uuidString])
+    #expect(rows.map { $0["expected_income_id"] } == [income.uuidString, income.uuidString])
+    #expect(rows.map { $0["due_on"] } == ["2026-09-05", "2026-10-05"])
+    #expect(rows.map { $0["moved_to"] } == ["", "2026-10-12"])
+  }
+}
+
 /// The utilities of schema 30 go last, as four files, and their rows have the shape of their
 /// headers: a meter of a kind this build does not know keeps its word.
 @Suite("Utilities in the export")
 struct UtilityExportTests {
   @Test func theFourFilesComeLastAndRowsMatchTheirHeaders() {
     #expect(
-      ExportTables.all.suffix(4) == [
+      ExportTables.all.dropLast(1).suffix(4) == [
         ExportTables.utilityMeters, ExportTables.utilityReadings, ExportTables.utilityBills,
         ExportTables.utilityCharges,
       ])
