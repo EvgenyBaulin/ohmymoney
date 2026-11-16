@@ -31,7 +31,7 @@ struct CapitalPastFooter: View {
             Image(systemName: Self.symbol(note))
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier("capital.chart.note.\(note.rawValue)")
         }
         if let day = model.cashQuestionDay {
@@ -96,13 +96,13 @@ struct CapitalPastCashSheet: View {
       .appFont(.headline)
       Text(verbatim: CapitalText.t("capital.chart.cash.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Form {
         LabeledContent(CapitalText.t("capital.chart.cash.amount", environment)) {
           HStack {
             AmountField(amount: $amount, locale: environment.language.locale)
-            Text(verbatim: environment.money.symbol(for: .rub)).foregroundStyle(.secondary)
+            Text(verbatim: environment.money.symbol(for: .rub)).secondaryInk()
           }
         }
       }

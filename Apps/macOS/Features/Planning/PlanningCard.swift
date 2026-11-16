@@ -66,7 +66,7 @@ struct PlanningCard<Content: View>: View {
       if let total {
         Text(verbatim: total)
           .appFont(PlanningType.cardLink.monospacedDigit())
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .lineLimit(1)
           .shrinksToFit(0.8)
           .accessibilityIdentifier("planning.card.\(block.rawValue).total")
@@ -91,7 +91,7 @@ struct PlanningCard<Content: View>: View {
       } label: {
         Image(systemName: collapsed ? "chevron.right" : "chevron.down")
           .appFont(.caption.weight(.semibold))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(width: 14)
       }
       .buttonStyle(.borderless)
@@ -172,7 +172,7 @@ struct PlanningEmptyHint: View {
     if let hint = PlanningBlockText.emptyHint(of: block) {
       VStack(alignment: .leading, spacing: 8) {
         Text(verbatim: PlanningBlockText.t(hint.text, environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         Button(PlanningBlockText.t(hint.button, environment), action: action)
           .buttonStyle(.bordered)

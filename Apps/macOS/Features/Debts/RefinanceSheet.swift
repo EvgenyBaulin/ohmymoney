@@ -58,13 +58,13 @@ struct RefinanceSheet: View {
       Text(verbatim: environment.format("refinance.title", table: "Debts", debt.name))
         .appFont(.headline)
       Text(verbatim: t("refinance.explain"))
-        .appFont(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        .appFont(.caption).secondaryInk().fixedSize(horizontal: false, vertical: true)
       Form {
         TextField(t("refinance.name"), text: $name)
         LabeledContent(t("refinance.amount")) {
           HStack {
             AmountField(amount: $amount)
-            Text(verbatim: debt.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: debt.currency.code).secondaryInk()
           }
         }
         TextField(t("refinance.rate"), text: $rate).monospacedDigit()

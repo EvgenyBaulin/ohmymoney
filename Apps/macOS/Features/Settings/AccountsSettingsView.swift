@@ -289,7 +289,7 @@ struct AccountsSettingsView: View {
       HStack(spacing: 8) {
         Image(systemName: "magnifyingglass")
           .font(.system(size: 12))  // font-fixed: 14 pt symbol of the field
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .frame(width: 14, height: 14)
           .accessibilityHidden(true)
         TextField(
@@ -856,7 +856,7 @@ struct AccountsSettingsView: View {
     VStack(alignment: .leading, spacing: 14) {
       Text(verbatim: w(accounts.isEmpty ? "panel.start" : "panel.empty"))
         .appFont(.callout)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       if accounts.isEmpty {
         // A book with no account yet: where to start, as buttons, not only the menu of the tree.
@@ -887,7 +887,7 @@ struct AccountsSettingsView: View {
         .lineLimit(2)
       Text(verbatim: caption)
         .appFont(.callout)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
     }
   }
 
@@ -998,7 +998,7 @@ struct AccountsSettingsView: View {
       note: nil, enabled: true)
     Text(verbatim: w(Self.undoNoteKey))
       .appFont(.subheadline)
-      .foregroundStyle(theme.contentSecondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
     Button(w("panel.allFields")) { sheet = .account(account) }
       .buttonStyle(.plain)
@@ -1039,7 +1039,7 @@ struct AccountsSettingsView: View {
       enabled: !holdsMain)
     Text(verbatim: w(Self.undoNoteKey))
       .appFont(.subheadline)
-      .foregroundStyle(theme.contentSecondary)
+      .secondaryInk()
     Button(t("accounts.edit")) { sheet = .group(group) }
       .buttonStyle(.rowAction)
     Spacer(minLength: 12)
@@ -1086,7 +1086,7 @@ struct AccountsSettingsView: View {
       note: nil, enabled: !card.archived)
     Text(verbatim: cardRulesCaption(card))
       .appFont(.callout)
-      .foregroundStyle(theme.contentSecondary)
+      .secondaryInk()
     HStack(spacing: 6) {
       Button(environment.language("action.edit")) { sheet = .card(card, accountId: card.accountId) }
         .buttonStyle(.rowAction)
@@ -1141,7 +1141,7 @@ struct AccountsSettingsView: View {
   private func label(_ key: String) -> some View {
     Text(verbatim: w(key))
       .appFont(.callout)
-      .foregroundStyle(theme.contentSecondary)
+      .secondaryInk()
       .frame(maxWidth: .infinity, alignment: .leading)
   }
 
@@ -1161,7 +1161,7 @@ struct AccountsSettingsView: View {
             .lineLimit(1)
           Image(systemName: "chevron.down")
             .font(.system(size: 8, weight: .semibold))  // font-fixed: chevron in a 10 pt slot
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
             .frame(width: 10, height: 10)
         }
       }
@@ -1195,7 +1195,7 @@ struct AccountsSettingsView: View {
       if let note {
         Text(verbatim: note)
           .appFont(.footnote)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
     }

@@ -89,7 +89,7 @@ struct RuleExportSheet: View {
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("exchange.export.title")).appFont(.headline)
       Text(verbatim: t("exchange.export.hint"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       TextField(text: $title) { Text(verbatim: t("exchange.export.name")) }
       List {
@@ -109,7 +109,7 @@ struct RuleExportSheet: View {
               Text(verbatim: wording.title(candidate.rule)).lineLimit(1)
               if candidate.isPersonal {
                 Label(t("exchange.export.personal"), systemImage: "person.crop.circle")
-                  .appFont(.caption).foregroundStyle(.secondary)
+                  .appFont(.caption).secondaryInk()
               }
             }
           }
@@ -236,15 +236,15 @@ struct RuleImportSheet: View {
               .foregroundStyle(.orange)
             ForEach(Array(preview.rulesRejected.enumerated()), id: \.offset) { _, rejected in
               Text(verbatim: "• " + rejected.name + " — " + reason(rejected, wording))
-                .appFont(.callout).foregroundStyle(.secondary)
+                .appFont(.callout).secondaryInk()
             }
           }
         }
         Text(verbatim: t("exchange.import.promise"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
         if !preview.sections.isEmpty {
           Text(verbatim: t("exchange.import.sections"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)
@@ -257,7 +257,7 @@ struct RuleImportSheet: View {
       VStack(alignment: .leading, spacing: 2) {
         Label(t(key), systemImage: symbol)
         Text(verbatim: items.joined(separator: ", "))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
       }
     }
   }
@@ -284,7 +284,7 @@ struct RuleImportSheet: View {
             outcome.tags, outcome.rules), systemImage: "checkmark.circle"
         )
         .accessibilityIdentifier("exchange.import.result")
-        Text(verbatim: t("exchange.import.undoHint")).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: t("exchange.import.undoHint")).appFont(.callout).secondaryInk()
       }
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

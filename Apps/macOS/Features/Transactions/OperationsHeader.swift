@@ -263,7 +263,7 @@ struct OperationsMonthCapsule: View {
     Button(action: action) {
       Image(systemName: symbol)
         .font(.system(size: Self.chevron * 0.75, weight: .semibold))  // font-fixed: a fixed glyph
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .frame(width: Self.chevron, height: Self.chevron)
         .contentShape(.rect)
     }
@@ -313,7 +313,7 @@ struct OperationsSearchBox<Field: View>: View {
       Image(systemName: "magnifyingglass")
         .font(.system(size: Self.icon * 0.85, weight: .medium))  // font-fixed: a fixed glyph
         .frame(width: Self.icon, height: Self.icon)
-        .foregroundStyle(theme.contentSecondary)
+        .secondaryInk()
         .accessibilityHidden(true)
       field
         .textFieldStyle(.plain)

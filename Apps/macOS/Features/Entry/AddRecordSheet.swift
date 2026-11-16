@@ -42,7 +42,7 @@ struct AddRecordSheet: View {
       if let context {
         Text(verbatim: context)
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       Form {

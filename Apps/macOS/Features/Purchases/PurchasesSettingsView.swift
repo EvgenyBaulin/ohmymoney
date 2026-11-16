@@ -44,7 +44,7 @@ struct PurchasesSettingsView: View {
         Text(verbatim: t("purchases.settings.title")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("purchases.settings.pauseFooter"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       Section {
@@ -160,7 +160,7 @@ struct PurchasesSettingsView: View {
           }
           Text(verbatim: t("purchases.settings.pauseFooter"))
             .appFont(AppFont.system(size: 12))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)

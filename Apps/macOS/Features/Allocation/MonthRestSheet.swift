@@ -53,12 +53,12 @@ struct MonthRestSheet: View {
         LabeledContent(AllocationText.t("monthRest.amount", environment)) {
           HStack {
             AmountField(amount: $amount).frame(width: 120)
-            Text(verbatim: environment.money.symbol(for: .rub)).foregroundStyle(.secondary)
+            Text(verbatim: environment.money.symbol(for: .rub)).secondaryInk()
           }
         }
         Text(verbatim: AllocationText.t("monthRest.hint", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

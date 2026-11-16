@@ -48,7 +48,7 @@ struct ColumnChart: View {
             if direct {
               Text(verbatim: column.valueText)
                 .appFont(.caption2.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .fixedSize()
             }
           }
@@ -209,7 +209,7 @@ struct PairedColumnChart: View {
         if direct {
           Text(verbatim: text)
             .appFont(.caption2.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize()
         }
       }

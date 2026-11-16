@@ -66,7 +66,7 @@ struct MigrationFlow: View {
     VStack(alignment: .leading, spacing: 10) {
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: t("migration.title")).appFont(.headline)
-        Text(verbatim: t("migration.subtitle")).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: t("migration.subtitle")).appFont(.callout).secondaryInk()
       }
       if let model, model.fileState == .table, model.outcome == nil {
         Picker(selection: $step) {
@@ -95,7 +95,7 @@ struct MigrationFlow: View {
       case .reading:
         VStack(spacing: 12) {
           ProgressView()
-          Text(verbatim: t("migration.reading")).foregroundStyle(.secondary)
+          Text(verbatim: t("migration.reading")).secondaryInk()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       case .numbers: start(model, message: t("migration.file.numbers"))
@@ -115,7 +115,7 @@ struct MigrationFlow: View {
   private func start(_ model: MigrationModel, message: String?) -> some View {
     VStack(spacing: 14) {
       Image(systemName: "arrow.right.doc.on.clipboard")
-        .appFont(.largeTitle).foregroundStyle(.secondary).accessibilityHidden(true)
+        .appFont(.largeTitle).secondaryInk().accessibilityHidden(true)
       if let message {
         Label(message, systemImage: "exclamationmark.triangle")
           .appFont(.callout)
@@ -125,7 +125,7 @@ struct MigrationFlow: View {
       }
       Text(verbatim: t("migration.empty.title")).appFont(.title3)
       Text(verbatim: t("migration.empty.body"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .multilineTextAlignment(.center)
         .frame(maxWidth: 460)
       Button {
@@ -157,12 +157,12 @@ struct MigrationFlow: View {
       // The other application's transfers between accounts are not moved, so a balance may
       // differ from the bank's: say to count it again.
       Text(verbatim: t("migration.done.reconcile"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .multilineTextAlignment(.center)
         .frame(maxWidth: 460)
         .accessibilityIdentifier("migration.done.reconcile")
       Text(verbatim: t("migration.done.undo"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
         .multilineTextAlignment(.center)
         .frame(maxWidth: 460)
     }
@@ -174,7 +174,7 @@ struct MigrationFlow: View {
     HStack(spacing: 12) {
       if model.outcome == nil, model.fileState == .table {
         Text(verbatim: MigrationText.counted("migration.summary", environment, model.toWrite))
-          .appFont(.callout).foregroundStyle(.secondary).monospacedDigit()
+          .appFont(.callout).secondaryInk().monospacedDigit()
           .accessibilityIdentifier("migration.summary")
         Button(t("migration.another")) { picking = true }
           .buttonStyle(.link)
@@ -235,17 +235,17 @@ struct MigrationColumnsStep: View {
         HStack(spacing: 8) {
           Image(systemName: "doc.text").accessibilityHidden(true)
           Text(verbatim: model.fileName).lineLimit(1).truncationMode(.middle)
-          Text(verbatim: "·").foregroundStyle(.secondary)
+          Text(verbatim: "·").secondaryInk()
           Text(verbatim: MigrationText.source(model.mapping.source, environment))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityIdentifier("migration.source")
         }
         .appFont(.callout)
         if model.usedLegacyEncoding {
           Text(verbatim: t("migration.legacyEncoding")).appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
-        Text(verbatim: t("migration.columns.hint")).appFont(.callout).foregroundStyle(.secondary)
+        Text(verbatim: t("migration.columns.hint")).appFont(.callout).secondaryInk()
         if let table = model.table {
           columns(table)
         }
@@ -269,7 +269,7 @@ struct MigrationColumnsStep: View {
             .accessibilityIdentifier("migration.columns.incomplete")
         } else {
           Text(verbatim: readSummary)
-            .appFont(.callout).foregroundStyle(.secondary).monospacedDigit()
+            .appFont(.callout).secondaryInk().monospacedDigit()
             .accessibilityIdentifier("migration.columns.read")
         }
       }
@@ -308,7 +308,7 @@ struct MigrationColumnsStep: View {
           .frame(width: 200)
           .accessibilityIdentifier("migration.role.\(index)")
           Text(verbatim: sample(table, column: index))
-            .appFont(.caption).foregroundStyle(.secondary).lineLimit(1)
+            .appFont(.caption).secondaryInk().lineLimit(1)
         }
       }
     }
@@ -359,7 +359,7 @@ struct MigrationPairingStep: View {
       }
       Section {
         if model.parse.categories.isEmpty {
-          Text(verbatim: t("migration.categories.none")).foregroundStyle(.secondary)
+          Text(verbatim: t("migration.categories.none")).secondaryInk()
         }
         ForEach(model.parse.categories, id: \.id) { key in
           categoryRow(key)
@@ -524,7 +524,7 @@ struct MigrationPreviewStep: View {
       Spacer()
       if disposition != .new {
         Text(verbatim: t("migration.disposition.\(disposition.key)"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
       }
       Text(verbatim: amount(operation)).monospacedDigit()
     }

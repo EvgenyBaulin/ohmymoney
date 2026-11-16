@@ -88,7 +88,7 @@ struct PrivacySettingsView: View {
         Text(verbatim: t("privacy.settings.knows")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("privacy.settings.knows.footer"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
 
@@ -109,7 +109,7 @@ struct PrivacySettingsView: View {
         Text(verbatim: t("privacy.settings.hand")).settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("privacy.settings.hand.footer"))
-          .appFont(.callout).foregroundStyle(.secondary)
+          .appFont(.callout).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       #if os(macOS)

@@ -694,7 +694,7 @@ struct TransactionEditor: View {
           Button(action: close) {
             Image(systemName: "xmark")
               .font(.system(size: 11, weight: .semibold))  // font-fixed: a fixed circle
-              .foregroundStyle(theme.contentSecondary)
+              .secondaryInk()
               .frame(width: InspectorMetrics.close, height: InspectorMetrics.close)
               .background(theme.surfaceSegmented, in: .circle)
               .contentShape(.circle)

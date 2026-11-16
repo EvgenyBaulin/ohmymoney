@@ -98,7 +98,7 @@ struct ThingValuationSheet: View {
   @ViewBuilder
   private var historyView: some View {
     if history.isEmpty {
-      Text(verbatim: t("purchases.valuation.empty")).foregroundStyle(.secondary)
+      Text(verbatim: t("purchases.valuation.empty")).secondaryInk()
     }
     ForEach(Array(Set(history.map(\.currency))).sorted { $0.code < $1.code }, id: \.self) { code in
       let values = history.filter { $0.currency == code }
@@ -125,7 +125,7 @@ struct ThingValuationSheet: View {
           .accessibilityLabel(Text(verbatim: environment.language("action.delete")))
         }
         if let note = value.note {
-          Text(verbatim: note).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: note).appFont(.caption).secondaryInk()
         }
       }
     }

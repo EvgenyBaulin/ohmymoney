@@ -61,7 +61,7 @@ struct DebtOpeningFields: View {
       LabeledContent(t("opening.amount")) {
         HStack {
           AmountField(amount: $draft.amount)
-          Text(verbatim: currency.code).foregroundStyle(.secondary)
+          Text(verbatim: currency.code).secondaryInk()
         }
       }
       .accessibilityIdentifier("debt.opening.amount")

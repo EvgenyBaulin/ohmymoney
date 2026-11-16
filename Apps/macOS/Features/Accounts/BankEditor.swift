@@ -45,7 +45,7 @@ struct BankEditor: View {
             didRestore: { _ in finish(nil) })
         } footer: {
           Text(verbatim: t(previous == nil ? "bank.editor.newHint" : "bank.editor.hint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
       }

@@ -125,7 +125,7 @@ struct TravelCardsSheet: View {
         .accessibilityIdentifier("travel.cards.best")
       } else {
         Text(verbatim: TravelText.t("travel.cards.noBest", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       ForEach(result.entries.filter { $0.conversionFee != nil }, id: \.cardId) { entry in
         Text(
@@ -150,7 +150,7 @@ struct TravelCardsSheet: View {
         if binding.wrappedValue.conversionFee.trimmingCharacters(in: .whitespaces).isEmpty {
           Text(verbatim: TravelText.t("travel.cards.notTyped", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       HStack {
@@ -165,7 +165,7 @@ struct TravelCardsSheet: View {
 
   private func field(_ key: String, _ text: Binding<String>, width: CGFloat = 110) -> some View {
     VStack(alignment: .leading, spacing: 2) {
-      Text(verbatim: TravelText.t(key, environment)).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: TravelText.t(key, environment)).appFont(.caption).secondaryInk()
       TextField(text: text) { Text(verbatim: TravelText.t(key, environment)) }
         .labelsHidden()
         .frame(width: width)

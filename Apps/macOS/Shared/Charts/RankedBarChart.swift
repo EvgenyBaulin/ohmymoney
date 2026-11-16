@@ -64,7 +64,7 @@ struct RankedBarChart: View {
       ) {
         Text(verbatim: bar.caption)
           .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize()
       }
       .accessibilityLabel(Text(verbatim: bar.label))

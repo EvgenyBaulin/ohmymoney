@@ -246,7 +246,7 @@ struct AnalyticsWindow: View {
           }
           Text(verbatim: AnalyticsText.title(of: period, environment))
             .appFont(AnalyticsType.subtitle(idiom))
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
             .accessibilityIdentifier("analytics.subtitle")
         }
       } else {
@@ -302,7 +302,7 @@ struct AnalyticsWindow: View {
         Image(systemName: "chevron.down").appFont(AppFont.system(size: 10, weight: .semibold))
       }
       .appFont(AnalyticsType.subtitle(idiom))
-      .foregroundStyle(theme.contentSecondary)
+      .secondaryInk()
     }
     .buttonStyle(.plain)
     .disabled(!section.followsThePeriod)

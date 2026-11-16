@@ -172,7 +172,7 @@ struct CushionSetupSheet: View {
     Form {
       Section {
         if setup.accounts.isEmpty {
-          Text(verbatim: t("cushion.setup.noAccounts")).foregroundStyle(.secondary)
+          Text(verbatim: t("cushion.setup.noAccounts")).secondaryInk()
         }
         ForEach(setup.accounts, id: \.id) { account in
           Toggle(
@@ -187,11 +187,11 @@ struct CushionSetupSheet: View {
       } header: {
         Text(verbatim: t("cushion.setup.accounts"))
       } footer: {
-        Text(verbatim: t("cushion.setup.accountsHint")).foregroundStyle(.secondary)
+        Text(verbatim: t("cushion.setup.accountsHint")).secondaryInk()
       }
       Section {
         if setup.categories.isEmpty {
-          Text(verbatim: t("cushion.setup.noCategories")).foregroundStyle(.secondary)
+          Text(verbatim: t("cushion.setup.noCategories")).secondaryInk()
         }
         ForEach(setup.categories, id: \.id) { category in
           Toggle(
@@ -214,7 +214,7 @@ struct CushionSetupSheet: View {
             Text(verbatim: t("cushion.setup.suggested"))
           }
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .formStyle(.grouped)

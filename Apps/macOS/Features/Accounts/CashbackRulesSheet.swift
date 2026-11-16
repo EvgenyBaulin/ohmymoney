@@ -406,7 +406,7 @@ struct CashbackRulesSheet: View {
           ForEach(current.otherMonths) { row in
             HStack {
               Text(verbatim: row.month.map { environment.dates.monthTitle($0) } ?? "")
-                .foregroundStyle(.secondary)
+                .secondaryInk()
               Text(verbatim: categoryName(row.categoryId))
               Spacer()
               Text(verbatim: row.percent.map { environment.money.percent($0) } ?? row.percentText)
@@ -424,7 +424,7 @@ struct CashbackRulesSheet: View {
           Text(verbatim: t("cashback.sheet.hint"))
           Text(verbatim: t("cashback.sheet.expectationHint"))
         }
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
     .formStyle(.grouped)
@@ -502,7 +502,7 @@ struct CashbackRulesSheet: View {
     } header: {
       Text(verbatim: t("cashback.settings.header"))
     } footer: {
-      Text(verbatim: t("cashback.settings.hint")).foregroundStyle(.secondary)
+      Text(verbatim: t("cashback.settings.hint")).secondaryInk()
     }
   }
 
@@ -579,7 +579,7 @@ struct CashbackRulesSheet: View {
         .multilineTextAlignment(.trailing)
         .monospacedDigit()
         .frame(width: 80)
-        Text(verbatim: "%").foregroundStyle(.secondary)
+        Text(verbatim: "%").secondaryInk()
         removeButton(row)
       }
       CashbackCapField(

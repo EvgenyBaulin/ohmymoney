@@ -28,7 +28,7 @@ struct TrancheSheet: View {
         LabeledContent(t("form.amount")) {
           HStack {
             AmountField(amount: $amount)
-            Text(verbatim: debt.currency.code).foregroundStyle(.secondary)
+            Text(verbatim: debt.currency.code).secondaryInk()
           }
         }
         DatePicker(t("form.date"), selection: $date, displayedComponents: .date)
@@ -38,14 +38,14 @@ struct TrancheSheet: View {
           } icon: {
             Image(systemName: "calendar.badge.clock")
           }
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
         }
         AccountPicker(
           title: environment.language("entry.account.from", table: "Entry"), accounts: accounts,
           selection: $account)
         TextField(t("form.description"), text: $note)
         Text(verbatim: t("tranche.hint"))
-          .appFont(.caption).foregroundStyle(.secondary)
+          .appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

@@ -31,7 +31,7 @@ struct AllocationSheetView: View {
         content(sheet, snapshot: snapshot)
       } else {
         Text(verbatim: AllocationText.t("allocation.gone", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         HStack {
           Spacer()
           Button(environment.language("action.ok")) { dismiss() }
@@ -129,12 +129,12 @@ struct AllocationSheetView: View {
               Spacer()
               Text(verbatim: money.rounded(shown.amountE4, currency: currency))
                 .monospacedDigit()
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
           Text(verbatim: AllocationText.t("allocation.shown.hint", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       Section {
@@ -222,7 +222,7 @@ struct AllocationSheetView: View {
         .frame(width: 120)
         .disabled(line.kind == .cushion(nil) && cushionAccount == nil)
         Text(verbatim: environment.money.symbol(for: sheet.currency))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       if case .goal(let goalId) = line.kind,
         let goal = snapshot.dataset.goals.first(where: { $0.id == goalId }),
@@ -286,7 +286,7 @@ struct AllocationSheetView: View {
         Image(systemName: "exclamationmark.circle")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     case .noRate:
       Label {
         Text(verbatim: AllocationText.t("allocation.note.noRate", environment))
@@ -294,7 +294,7 @@ struct AllocationSheetView: View {
         Image(systemName: "exclamationmark.circle")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     case .cushionLeft(let amount):
       Text(
         verbatim: AllocationText.format(

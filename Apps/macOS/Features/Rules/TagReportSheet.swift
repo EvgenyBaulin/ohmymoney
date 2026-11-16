@@ -77,7 +77,7 @@ struct TagReportSheet: View {
         operations(book: book)
       } else {
         Text(verbatim: t("tagreport.empty"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
       HStack {
@@ -175,7 +175,7 @@ struct TagReportSheet: View {
       }
     } else {
       Text(verbatim: t("tagreport.pick"))
-        .appFont(.callout).foregroundStyle(.secondary)
+        .appFont(.callout).secondaryInk()
     }
   }
 

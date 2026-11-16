@@ -51,12 +51,12 @@ struct NPDPaymentSheet: View {
         LabeledContent(AllocationText.t("npd.pay.amount", environment)) {
           HStack {
             AmountField(amount: $amount).frame(width: 120)
-            Text(verbatim: environment.money.symbol(for: .rub)).foregroundStyle(.secondary)
+            Text(verbatim: environment.money.symbol(for: .rub)).secondaryInk()
           }
         }
         Text(verbatim: check)
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         Picker(AllocationText.t("npd.pay.account", environment), selection: $accountId) {
           ForEach(accounts) { account in

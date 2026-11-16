@@ -489,7 +489,7 @@ struct TransferFields: View {
   private func label(_ key: String) -> some View {
     Text(verbatim: t(key))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .gridColumnAlignment(.leading)
   }
 
@@ -528,7 +528,7 @@ struct TransferFields: View {
   private func caption(_ text: String) -> some View {
     Text(verbatim: text)
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
   }
 
@@ -692,7 +692,7 @@ struct TransferFields: View {
         Image(systemName: "percent")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .accessibilityIdentifier("transfer.creditNoGrace")
     }
     if let feeComingBack = entry.feeComingBack, entry.writesANewFee {
@@ -703,7 +703,7 @@ struct TransferFields: View {
         Image(systemName: "archivebox")
       }
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
     }
   }
 
@@ -740,7 +740,7 @@ struct TransferFields: View {
       AmountField(amount: amount)
         .frame(maxWidth: 160)
       Text(verbatim: currency.map { environment.money.symbol(for: $0) } ?? "")
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 

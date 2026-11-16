@@ -195,12 +195,12 @@ struct CalendarGridCell: View {
         if hasBirthday {
           Image(systemName: "gift")
             .font(.system(size: CalendarMetrics.mark - 2))  // font-fixed: a mark of a fixed cell
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
         }
         if hasNote {
           Image(systemName: "note.text")
             .font(.system(size: CalendarMetrics.mark - 2))  // font-fixed: a mark of a fixed cell
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
         }
       }
     }

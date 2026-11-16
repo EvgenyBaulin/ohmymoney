@@ -44,7 +44,7 @@ struct PeriodColumnsChart: View {
         ForEach(columns) { column in
           Text(verbatim: column.axisLabel)
             .appFont(axisType.monospacedDigit())
-            .foregroundStyle(theme.contentSecondary)
+            .secondaryInk()
             .lineLimit(1)
             .shrinksToFit(0.7)
             .frame(maxWidth: .infinity)

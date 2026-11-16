@@ -43,7 +43,7 @@ struct AffordSheet: View {
       }
       .formStyle(.grouped)
       answer
-      Text(verbatim: text("afford.note")).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: text("afford.note")).appFont(.caption).secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       HStack {
         Spacer()
@@ -62,7 +62,7 @@ struct AffordSheet: View {
   private var answer: some View {
     if let snapshot {
       if amount.raw <= 0 {
-        Text(verbatim: text("afford.typeAmount")).foregroundStyle(.secondary)
+        Text(verbatim: text("afford.typeAmount")).secondaryInk()
       } else if let input = AffordModel.input(
         amount: amount, snapshot: snapshot, spending: spending)
       {
@@ -76,20 +76,20 @@ struct AffordSheet: View {
           }
           if AffordModel.usesObligatory(spending), told.headline.key == "afford.yesIfWait" {
             Text(verbatim: text("afford.fewHistory")).appFont(.caption)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
               .accessibilityIdentifier("afford.fewHistory")
           }
           Text(
             verbatim: environment.format(
               "afford.free", table: "WhatIf", environment.money.rounded(input.freeE4))
-          ).appFont(.caption).foregroundStyle(.secondary)
+          ).appFont(.caption).secondaryInk()
         }
       } else {
-        Text(verbatim: text("afford.noCount")).foregroundStyle(.secondary)
+        Text(verbatim: text("afford.noCount")).secondaryInk()
       }
     } else {
-      Text(verbatim: text("whatif.waiting")).foregroundStyle(.secondary)
+      Text(verbatim: text("whatif.waiting")).secondaryInk()
     }
   }
 

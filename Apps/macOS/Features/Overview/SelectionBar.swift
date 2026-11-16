@@ -141,7 +141,7 @@ struct SelectionBar: View {
         .accessibilityHidden(true)
       Text(verbatim: t("selection.writing"))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       if !hugsContent { Spacer(minLength: 0) }
     }
   }
@@ -160,7 +160,7 @@ struct WritingIndicator: View {
   var body: some View {
     Image(systemName: "progress.indicator")
       .symbolEffect(.variableColor.iterative, options: .repeating)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .imageScale(.medium)
   }
 }

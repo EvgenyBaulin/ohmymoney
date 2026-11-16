@@ -54,7 +54,7 @@ struct ShareDonutChart: View {
           .shrinksToFit(0.6)
         Text(verbatim: caption)
           .appFont(captionType)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       .frame(width: side * Self.innerRatio - 8)
     }

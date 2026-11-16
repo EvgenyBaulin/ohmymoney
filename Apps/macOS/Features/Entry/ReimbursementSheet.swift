@@ -104,7 +104,7 @@ struct ReimbursementSheet: View {
                   // The rubles a link fixes now would drift from the refined ones.
                   Text(verbatim: t("reimbursement.provisionalRate"))
                     .appFont(.caption)
-                    .foregroundStyle(.secondary)
+                    .secondaryInk()
                 }
                 if part.returnedRubE4.raw > 0 {
                   // Some of it came back already: what is owed is the rest.
@@ -142,7 +142,7 @@ struct ReimbursementSheet: View {
 
       Grid(alignment: .leading, horizontalSpacing: 14, verticalSpacing: 8) {
         GridRow {
-          Text(verbatim: t("entry.currency")).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: t("entry.currency")).appFont(.caption).secondaryInk()
           Picker(selection: $currency) {
             ForEach(currencyChoices, id: \.code) { Text(verbatim: $0.code).tag($0) }
           } label: {
@@ -157,14 +157,14 @@ struct ReimbursementSheet: View {
           }
         }
         GridRow {
-          Text(verbatim: t("entry.account.to")).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: t("entry.account.to")).appFont(.caption).secondaryInk()
           AccountPicker(title: t("entry.account.to"), accounts: accounts, selection: $accountId)
             .labelsHidden()
             .onChange(of: accountId) { _, _ in typedLeg = nil }
         }
         if let leg = legFigure {
           GridRow {
-            Text(verbatim: t("moneyBack.received")).appFont(.caption).foregroundStyle(.secondary)
+            Text(verbatim: t("moneyBack.received")).appFont(.caption).secondaryInk()
             HStack(spacing: 8) {
               AmountField(
                 amount: Binding(
@@ -172,7 +172,7 @@ struct ReimbursementSheet: View {
               )
               .frame(width: 120)
               .accessibilityLabel(Text(verbatim: t("moneyBack.received")))
-              Text(verbatim: leg.currency.code).foregroundStyle(.secondary)
+              Text(verbatim: leg.currency.code).secondaryInk()
             }
           }
         }
@@ -204,11 +204,11 @@ struct ReimbursementSheet: View {
         .onChange(of: received) { _, _ in spreadAutomatically() }
         .onChange(of: receivedReads) { _, _ in spreadAutomatically() }
         if currency != .rub {
-          Text(verbatim: currency.code).foregroundStyle(.secondary)
+          Text(verbatim: currency.code).secondaryInk()
         }
         Spacer()
         Text(verbatim: environment.money.exact(selectedTotal))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         Button(environment.language("reimbursement.spread", table: "Entry")) {
           spreadAutomatically()
         }
@@ -239,7 +239,7 @@ struct ReimbursementSheet: View {
         // Why «Save» is off: with «—» the list shows everybody's parts.
         Text(verbatim: t("reimbursement.differentPeople"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
 
       HStack {

@@ -214,7 +214,7 @@ struct ArchiveTables: Equatable, Sendable {
                 .id(table.name)
             } else {
               Text(verbatim: t("archive.tables.choose"))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
           }
@@ -224,7 +224,7 @@ struct ArchiveTables: Equatable, Sendable {
         HStack {
           Text(verbatim: t("archive.tables.note"))
             .appFont(.callout)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
           Spacer()
           Button(t("archive.tables.save")) {
             ArchiveTablesWindow.save(tables, environment: environment)
@@ -254,11 +254,11 @@ struct ArchiveTables: Equatable, Sendable {
       VStack(alignment: .leading, spacing: 6) {
         if unreadable {
           Text(verbatim: environment.language("archive.tables.unreadable", table: "Reports"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if let grid, grid.header.isEmpty {
           Text(verbatim: environment.language("archive.tables.empty", table: "Reports"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
           let header = grid?.header ?? []

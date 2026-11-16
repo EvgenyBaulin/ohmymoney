@@ -97,7 +97,7 @@ struct CashbackChoiceSheet: View {
                 .multilineTextAlignment(.trailing)
                 .monospacedDigit()
                 .frame(width: 60)
-              Text(verbatim: "%").foregroundStyle(.secondary)
+              Text(verbatim: "%").secondaryInk()
               Button {
                 draft?.rows.removeAll { $0.id == row.id }
               } label: {
@@ -124,7 +124,7 @@ struct CashbackChoiceSheet: View {
         } header: {
           Text(verbatim: t("cashback.choice.offered"))
         } footer: {
-          Text(verbatim: t("cashback.choice.offeredHint")).foregroundStyle(.secondary)
+          Text(verbatim: t("cashback.choice.offeredHint")).secondaryInk()
         }
         bestSection(current)
         mappingSection(current, model: model)
@@ -140,7 +140,7 @@ struct CashbackChoiceSheet: View {
       coded: spending, tree: tree, accountCap: account?.cashbackMonthlyCapE4)
     Section {
       if picks.isEmpty || picks.allSatisfy({ $0.expectedRub.isZero }) {
-        Text(verbatim: t("cashback.choice.noBest")).foregroundStyle(.secondary)
+        Text(verbatim: t("cashback.choice.noBest")).secondaryInk()
       } else {
         ForEach(Array(picks.enumerated()), id: \.offset) { _, pick in
           HStack {
@@ -172,7 +172,7 @@ struct CashbackChoiceSheet: View {
     } header: {
       Text(verbatim: t("cashback.choice.best"))
     } footer: {
-      Text(verbatim: t("cashback.choice.bestHint")).foregroundStyle(.secondary)
+      Text(verbatim: t("cashback.choice.bestHint")).secondaryInk()
     }
   }
 
@@ -182,7 +182,7 @@ struct CashbackChoiceSheet: View {
   ) -> some View {
     Section {
       if current.bankId == nil {
-        Text(verbatim: t("cashback.choice.noBank")).foregroundStyle(.secondary)
+        Text(verbatim: t("cashback.choice.noBank")).secondaryInk()
       } else {
         let labels = Array(
           Set(current.rows.filter { !$0.isBlank }.map { BankCategoryMapping.normalized($0.label) })
@@ -210,7 +210,7 @@ struct CashbackChoiceSheet: View {
       Text(verbatim: t("cashback.choice.mapping"))
     } footer: {
       Text(verbatim: t("cashback.choice.mappingHint") + " " + t("cashback.choice.codesHint"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 

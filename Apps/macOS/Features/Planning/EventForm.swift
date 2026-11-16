@@ -53,17 +53,17 @@ struct EventForm: View {
         LabeledContent(t("events.form.budget")) {
           HStack {
             AmountField(amount: $budget)
-            Text(verbatim: "₽").foregroundStyle(.secondary)
+            Text(verbatim: "₽").secondaryInk()
           }
         }
         Text(verbatim: t("events.form.budgetHint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
         if let issue {
           Text(verbatim: t("events.issue.\(issue.rawValue)"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .formStyle(.grouped)

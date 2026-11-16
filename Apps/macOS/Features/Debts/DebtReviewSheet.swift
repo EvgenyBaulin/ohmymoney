@@ -64,7 +64,7 @@ struct DebtReviewSheet: View {
         )
         .foregroundStyle(.secondary)
         Text(verbatim: t("review.hint"))
-          .appFont(.caption).foregroundStyle(.secondary).fixedSize(
+          .appFont(.caption).secondaryInk().fixedSize(
             horizontal: false, vertical: true)
         Form { fields(item, debt: debt) }
           .formStyle(.grouped)

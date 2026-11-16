@@ -127,7 +127,7 @@ struct SectionCardHeader: View {
       if let caption {
         Text(verbatim: caption)
           .appFont(SectionType.cardCaption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .lineLimit(1)
       }
     }
@@ -176,7 +176,7 @@ struct SectionRow<Trailing: View>: View {
         if let detail {
           Text(verbatim: detail)
             .appFont(SectionType.rowDetail)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .lineLimit(1)
         }
       }
@@ -332,7 +332,7 @@ struct SectionHeader: View {
       if let subtitle {
         Text(verbatim: subtitle)
           .appFont(SectionType.subtitle(design))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .accessibilityIdentifier(identifier + ".subtitle")
       }
     }

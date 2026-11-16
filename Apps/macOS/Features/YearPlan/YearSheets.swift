@@ -117,7 +117,7 @@ struct BufferSheet: View {
         }
         Text(verbatim: YearText.t("year.buffer.form.hint", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)
@@ -155,11 +155,11 @@ struct BufferMarksSheet: View {
       Text(verbatim: YearText.t("year.buffer.marks.title", environment)).appFont(.headline)
       Text(verbatim: YearText.t("year.buffer.marks.hint", environment))
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       if rows.isEmpty {
         Text(verbatim: YearText.t("year.buffer.marks.none", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .frame(maxWidth: .infinity, alignment: .leading)
       }
       List(rows) { row in
@@ -169,7 +169,7 @@ struct BufferMarksSheet: View {
               Text(verbatim: row.title).lineLimit(1)
               Text(verbatim: environment.dates.dayAndMonth(row.day))
                 .appFont(.caption)
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
             Spacer(minLength: 8)
             Text(verbatim: environment.money.rounded(row.amount)).monospacedDigit()
@@ -274,7 +274,7 @@ struct EventItemsSheet: View {
       .accessibilityIdentifier("year.items.add")
       Text(verbatim: totalLine)
         .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       FormButtons(title: environment.language("action.save"), enabled: valid) {
         guard let dependencies else { return false }
         return YearActions(dependencies).setItems(
@@ -429,7 +429,7 @@ struct SaveTemplateSheet: View {
         TextField(YearText.t("year.template.name", environment), text: $name)
         Text(verbatim: YearText.t("year.template.save.hint", environment))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       .formStyle(.grouped)

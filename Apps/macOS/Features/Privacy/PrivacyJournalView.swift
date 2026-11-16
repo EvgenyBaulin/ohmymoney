@@ -64,16 +64,16 @@ struct PrivacyJournalView: View {
           Text(verbatim: t("privacy.journal.title")).settingsHeaderStyle()
         } footer: {
           Text(verbatim: t("privacy.journal.footer"))
-            .appFont(.callout).foregroundStyle(.secondary)
+            .appFont(.callout).secondaryInk()
             .fixedSize(horizontal: false, vertical: true)
         }
         Section {
           if entries.isEmpty {
-            Text(verbatim: t("privacy.journal.empty")).foregroundStyle(.secondary)
+            Text(verbatim: t("privacy.journal.empty")).secondaryInk()
           } else {
             ForEach(Array(entries.enumerated()), id: \.offset) { _, entry in
               LabeledContent {
-                Text(verbatim: moment(entry.at)).monospacedDigit().foregroundStyle(.secondary)
+                Text(verbatim: moment(entry.at)).monospacedDigit().secondaryInk()
               } label: {
                 Text(verbatim: t(PrivacyJournalText.key(for: entry.event)))
               }

@@ -59,7 +59,7 @@ struct DebtStripeMark: View {
       Capsule().fill(mark.color(in: theme))
         .frame(width: DebtStripeMetrics.barWidth, height: DebtStripeMetrics.barHeight)
       Image(systemName: mark.symbol)
-        .appFont(.caption).foregroundStyle(theme.contentSecondary)
+        .appFont(.caption).secondaryInk()
     }
     .fixedSize()
     .accessibilityElement(children: .ignore)
@@ -92,7 +92,7 @@ struct DebtStripeSymbol: View {
 
   var body: some View {
     Image(systemName: mark.symbol)
-      .appFont(.caption).foregroundStyle(theme.contentSecondary)
+      .appFont(.caption).secondaryInk()
       .accessibilityLabel(Text(verbatim: environment.language(key, table: "Debts")))
       .accessibilityIdentifier("debts.stripe.\(mark.rawValue)")
   }

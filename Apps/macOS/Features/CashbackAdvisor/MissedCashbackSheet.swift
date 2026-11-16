@@ -18,7 +18,7 @@ struct MissedCashbackSheet: View {
       Text(verbatim: t("cashback.missed.title")).appFont(.headline)
       if let report {
         if report.rows.isEmpty {
-          Text(verbatim: t("cashback.missed.none")).foregroundStyle(.secondary)
+          Text(verbatim: t("cashback.missed.none")).secondaryInk()
             .accessibilityIdentifier("cashback.missed.none")
         } else {
           Text(
@@ -67,7 +67,7 @@ struct MissedCashbackSheet: View {
       } else {
         ProgressView()
       }
-      Text(verbatim: t("cashback.missed.hint")).appFont(.caption).foregroundStyle(.secondary)
+      Text(verbatim: t("cashback.missed.hint")).appFont(.caption).secondaryInk()
       HStack {
         Spacer()
         Button(environment.language("action.close")) { dismiss() }

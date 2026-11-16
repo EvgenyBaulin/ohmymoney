@@ -98,7 +98,7 @@ struct CardEditor: View {
           Text(verbatim: t("card.editor.otherNames"))
         } footer: {
           Text(verbatim: t("card.editor.otherNamesHint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         Section {
           NameField(
@@ -129,7 +129,7 @@ struct CardEditor: View {
         Section {
         } footer: {
           Text(verbatim: t("card.editor.hint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .formStyle(.grouped)

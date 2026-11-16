@@ -41,7 +41,7 @@ struct BudgetChart: View {
         ) {
           Text(verbatim: bar.text)
             .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .fixedSize()
         }
         .accessibilityLabel(Text(verbatim: bar.label))

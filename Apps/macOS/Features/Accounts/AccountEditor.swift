@@ -268,7 +268,7 @@ struct AccountEditor: View {
           Text(verbatim: t("account.editor.accent"))
         } footer: {
           Text(verbatim: t("account.editor.accentHint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if !draft.isBorrowed { groupAndMainSection }
         Section {
@@ -280,7 +280,7 @@ struct AccountEditor: View {
           Text(
             verbatim: environment.language("account.editor.hiddenHint", table: "PrivacyScreens")
           )
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         if !cards.isEmpty {
           AccountMainCardPicker(selection: $draft.mainCardId, cards: cards)
@@ -303,7 +303,7 @@ struct AccountEditor: View {
               didRestore: { finish($0.id) })
           } footer: {
             Text(verbatim: t("account.credit.firstCardHint"))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
         if !draft.isBorrowed, !draft.digitalRuble {
@@ -331,10 +331,10 @@ struct AccountEditor: View {
             .accessibilityIdentifier("account.editor.digitalRuble")
           } footer: {
             Text(verbatim: t("account.editor.cushionHint") + "\n" + t("account.editor.piggyHint"))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
             if draft.digitalRuble {
               Text(verbatim: t("account.editor.digitalRubleHint"))
-                .foregroundStyle(.secondary)
+                .secondaryInk()
             }
           }
         }
@@ -345,7 +345,7 @@ struct AccountEditor: View {
           Text(verbatim: t("account.editor.otherNames"))
         } footer: {
           Text(verbatim: t("account.editor.otherNamesHint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .formStyle(.grouped)
@@ -408,7 +408,7 @@ struct AccountEditor: View {
       .disabled(wasMain || previous?.archived == true)
     } footer: {
       Text(verbatim: t(wasMain ? "account.editor.mainStays" : "account.editor.mainHint"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 
@@ -486,7 +486,7 @@ struct AccountEditor: View {
       if draft.currencies.contains(where: countsOpening) {
         Text(verbatim: t("account.balance.creditHint"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       Menu {
@@ -505,7 +505,7 @@ struct AccountEditor: View {
       Text(verbatim: t("account.editor.currencies"))
     } footer: {
       Text(verbatim: t("account.editor.currenciesHint"))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
     }
   }
 
@@ -516,11 +516,11 @@ struct AccountEditor: View {
       Text(verbatim: currency.code)
         .appFont(.body.monospaced())
       Text(verbatim: environment.money.symbol(for: currency))
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       if isMain {
         Text(verbatim: t("account.editor.mainCurrency"))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Spacer()
       if locked {
@@ -535,7 +535,7 @@ struct AccountEditor: View {
           Image(systemName: "lock")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
       Menu {
         if !isMain {
@@ -612,7 +612,7 @@ struct AccountEditor: View {
     } header: {
       Text(verbatim: t("account.editor.pointsTitle"))
     } footer: {
-      Text(verbatim: t("account.editor.pointsHint")).foregroundStyle(.secondary)
+      Text(verbatim: t("account.editor.pointsHint")).secondaryInk()
     }
   }
 
@@ -790,7 +790,7 @@ struct AccountOtherNames: View {
           names.remove(at: index)
         } label: {
           Image(systemName: "xmark.circle.fill")
-            .foregroundStyle(.secondary)
+            .secondaryInk()
             .accessibilityLabel(
               Text(verbatim: environment.language("account.editor.removeName", table: "Accounts")))
         }

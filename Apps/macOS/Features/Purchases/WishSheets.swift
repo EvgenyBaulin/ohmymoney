@@ -117,12 +117,12 @@ struct WishEditor: View {
       .accessibilityIdentifier("purchases.link.take")
       if linkModel.isBusy { ProgressView().controlSize(.small) }
       if let key = linkModel.messageKey {
-        Text(verbatim: t(key)).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t(key)).appFont(.caption).secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       }
       if let imageURL {
         Text(verbatim: t("purchases.link.image") + " · " + imageURL.absoluteString)
-          .appFont(.caption).foregroundStyle(.secondary).lineLimit(2)
+          .appFont(.caption).secondaryInk().lineLimit(2)
           .textSelection(.enabled)
       }
     }
@@ -184,7 +184,7 @@ struct WishPriceSheet: View {
           HStack {
             AmountField(amount: $price, locale: environment.language.locale)
             Text(verbatim: environment.money.symbol(for: wish.currency))
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
         DatePicker(
@@ -195,7 +195,7 @@ struct WishPriceSheet: View {
           displayedComponents: .date)
         Section {
           if noted.isEmpty {
-            Text(verbatim: t("purchases.price.none")).foregroundStyle(.secondary)
+            Text(verbatim: t("purchases.price.none")).secondaryInk()
           }
           ForEach(noted) { entry in
             HStack {
@@ -304,7 +304,7 @@ struct WishBoughtSheet: View {
         Text(verbatim: describe(entry)).lineLimit(1)
         Text(verbatim: environment.dates.longDay(day))
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
       Spacer()
       Text(verbatim: environment.money.exact(transaction.amountE4, currency: transaction.currency))

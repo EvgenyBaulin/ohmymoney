@@ -43,7 +43,7 @@ struct AccountGroupEditor: View {
           .disabled(holdsMain)
         } footer: {
           Text(verbatim: t(holdsMain ? "account.group.holdsMain" : "account.group.inSummaryHint"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
         if !members.isEmpty {
           Section {

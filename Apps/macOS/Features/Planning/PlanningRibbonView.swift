@@ -46,7 +46,7 @@ struct PlanningRibbonView: View {
       if ribbon.isEmpty {
         Text(verbatim: t("layout.ribbon.empty"))
           .appFont(PlanningType.cardLink)
-          .foregroundStyle(theme.contentSecondary)
+          .secondaryInk()
       }
       if compact {
         ScrollView(.horizontal) {

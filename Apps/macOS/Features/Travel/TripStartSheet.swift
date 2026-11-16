@@ -46,12 +46,12 @@ struct TripStartSheet: View {
       Text(verbatim: TravelText.t("travel.start.title", environment)).appFont(.headline)
       if trips.isEmpty {
         Text(verbatim: TravelText.t("travel.start.none", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
           .fixedSize(horizontal: false, vertical: true)
       } else {
         Text(verbatim: TravelText.t("travel.start.pick", environment))
           .appFont(.callout)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         ScrollView {
           VStack(alignment: .leading, spacing: 4) {
             ForEach(trips) { trip in
@@ -64,7 +64,7 @@ struct TripStartSheet: View {
                   Text(verbatim: trip.name)
                   Spacer(minLength: 8)
                   Text(verbatim: days(of: trip))
-                    .foregroundStyle(.secondary)
+                    .secondaryInk()
                     .appFont(.callout.monospacedDigit())
                 }
                 .contentShape(Rectangle())
@@ -106,7 +106,7 @@ struct TripStartSheet: View {
       .accessibilityIdentifier("travel.start.current")
       Text(verbatim: TravelText.t("travel.start.onHint", environment))
         .appFont(.callout)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
         .fixedSize(horizontal: false, vertical: true)
       Spacer(minLength: 0)
       HStack {
@@ -206,7 +206,7 @@ struct NewTripForm: View {
         if let issue {
           Text(verbatim: TravelText.t("travel.new.issue.\(issue.rawValue)", environment))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .formStyle(.grouped)
@@ -239,7 +239,7 @@ struct TripFromGoalSheet: View {
         NewTripForm(draft: draft)
       } else {
         Text(verbatim: TravelText.t("travel.goal.notGathered", environment))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     }
     .padding(20)

@@ -384,7 +384,7 @@ struct MoneyBackConfirmSheet: View {
             .frame(width: 140)
             .accessibilityLabel(Text(verbatim: t("moneyBack.received")))
             Text(verbatim: leg.currency.code)
-              .foregroundStyle(.secondary)
+              .secondaryInk()
           }
         }
       }
@@ -503,7 +503,7 @@ struct MoneyBackConfirmSheet: View {
           Image(systemName: "hourglass")
         }
         .appFont(.caption)
-        .foregroundStyle(.secondary)
+        .secondaryInk()
       }
     }
   }
@@ -629,14 +629,14 @@ struct MoneyBackConfirmSheet: View {
       Grid(alignment: .leading, horizontalSpacing: 14, verticalSpacing: 6) {
         GridRow {
           Text(verbatim: environment.format("moneyBack.debtRate", table: "Entry", debt.name))
-            .appFont(.caption).foregroundStyle(.secondary)
+            .appFont(.caption).secondaryInk()
           HStack(spacing: 6) {
-            Text(verbatim: "1 \(debt.currency.code) =").foregroundStyle(.secondary)
+            Text(verbatim: "1 \(debt.currency.code) =").secondaryInk()
             RateTextField(
               title: environment.format("moneyBack.debtRate", table: "Entry", debt.name),
               text: $debtRateText,
               prompt: defaultDebtRate(debt).map { MoneyBackRateRows.shown($0) } ?? "0.00")
-            Text(verbatim: "RUB").foregroundStyle(.secondary)
+            Text(verbatim: "RUB").secondaryInk()
           }
         }
       }
@@ -982,7 +982,7 @@ struct MoneyBackConfirmSheet: View {
   private func label(_ key: String) -> some View {
     Text(verbatim: t(key))
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .gridColumnAlignment(.leading)
   }
 
@@ -993,7 +993,7 @@ struct MoneyBackConfirmSheet: View {
   private func caption(text: String) -> some View {
     Text(verbatim: text)
       .appFont(.caption)
-      .foregroundStyle(.secondary)
+      .secondaryInk()
       .fixedSize(horizontal: false, vertical: true)
   }
 

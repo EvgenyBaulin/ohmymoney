@@ -37,7 +37,7 @@ struct CreditMinimumSheet: View {
         DatePicker(t("account.credit.minimum.due"), selection: $due, displayedComponents: .date)
         if failed {
           Text(verbatim: t("account.credit.minimum.failed"))
-            .foregroundStyle(.secondary)
+            .secondaryInk()
         }
       }
       .formStyle(.grouped)

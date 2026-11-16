@@ -55,7 +55,7 @@ struct MoreTab: View {
       Form {
         let rows = visibleRows
         if rows.sections.isEmpty && rows.app.isEmpty && isSearching {
-          Text(verbatim: n("nav.more.noResults")).foregroundStyle(.secondary)
+          Text(verbatim: n("nav.more.noResults")).secondaryInk()
         }
         if !rows.sections.isEmpty {
           Section { ForEach(rows.sections) { row in rowView(row) } }
@@ -355,9 +355,9 @@ struct MoreExtrasSections: View {
     Section {
       switch status {
       case .demoWritesNothing:
-        Text(verbatim: t("phone.folder.demo")).foregroundStyle(.secondary)
+        Text(verbatim: t("phone.folder.demo")).secondaryInk()
       case .notChosen:
-        Text(verbatim: t("phone.folder.none")).foregroundStyle(.secondary)
+        Text(verbatim: t("phone.folder.none")).secondaryInk()
         Button(t("phone.folder.choose")) { picking = true }
       case .ready(let name):
         Label {
@@ -376,7 +376,7 @@ struct MoreExtrasSections: View {
       }
       if let failure {
         Text(verbatim: environment.language(failure, table: "Settings"))
-          .foregroundStyle(.secondary)
+          .secondaryInk()
       }
     } header: {
       Text(verbatim: t("phone.folder.title"))
@@ -437,7 +437,7 @@ struct MoreExtrasSections: View {
         }
       }
       if let refusal = lock.lastRefusal, let key = LockScreen.refusalKey(refusal) {
-        Text(verbatim: t(key)).foregroundStyle(.secondary)
+        Text(verbatim: t(key)).secondaryInk()
       }
     } header: {
       Text(verbatim: environment.language("settings.privacy", table: "Settings"))
@@ -476,7 +476,7 @@ struct PhoneSettingsList: View {
                     title: environment.language(section.titleKey, table: "Settings"))
                   Spacer(minLength: 8)
                   if let value = value(of: section) {
-                    Text(verbatim: value).foregroundStyle(.secondary)
+                    Text(verbatim: value).secondaryInk()
                   }
                 }
               }

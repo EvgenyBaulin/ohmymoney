@@ -42,7 +42,7 @@ struct DepositShowcaseSheet: View {
         + own.filter { !$0.archived }.map(DepositShowcaseEntry.init))
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("dep.title")).appFont(.headline)
-      Text(verbatim: t("dep.subtitle")).appFont(.callout).foregroundStyle(.secondary)
+      Text(verbatim: t("dep.subtitle")).appFont(.callout).secondaryInk()
       Form {
         Picker(t("dep.filter.term"), selection: $termChoice) {
           ForEach(Self.terms, id: \.self) { months in
@@ -60,7 +60,7 @@ struct DepositShowcaseSheet: View {
       .formStyle(.grouped)
       .frame(maxHeight: 190)
       if parserOn, fetchFailed {
-        Text(verbatim: t("dep.parser.failed")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: t("dep.parser.failed")).appFont(.caption).secondaryInk()
       }
       if parserOn, let indicator {
         centralBankBlock(indicator)
@@ -69,7 +69,7 @@ struct DepositShowcaseSheet: View {
       ScrollView {
         LazyVStack(alignment: .leading, spacing: 8) {
           if entries.isEmpty {
-            Text(verbatim: t("dep.none")).foregroundStyle(.secondary)
+            Text(verbatim: t("dep.none")).secondaryInk()
           }
           ForEach(entries) { entry in
             row(
@@ -143,8 +143,8 @@ struct DepositShowcaseSheet: View {
           KeyRateText.describe(point, environment)
         }
         .frame(height: 56)
-        Text(verbatim: now).appFont(.caption).foregroundStyle(.secondary)
-        Text(verbatim: t("dep.keyRate.source")).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: now).appFont(.caption).secondaryInk()
+        Text(verbatim: t("dep.keyRate.source")).appFont(.caption).secondaryInk()
       }
       .accessibilityElement(children: .contain)
       .accessibilityIdentifier("deposits.keyRate")
@@ -160,15 +160,15 @@ struct DepositShowcaseSheet: View {
         HStack(spacing: 6) {
           Text(verbatim: entry.bankName)
           if !entry.product.isEmpty {
-            Text(verbatim: entry.product).foregroundStyle(.secondary)
+            Text(verbatim: entry.product).secondaryInk()
           }
           if case .own = entry.origin {
-            Text(verbatim: t("dep.own")).appFont(.caption).foregroundStyle(.secondary)
+            Text(verbatim: t("dep.own")).appFont(.caption).secondaryInk()
           }
         }
         let details = DepositText.details(entry, environment)
         if !details.isEmpty {
-          Text(verbatim: details).appFont(.caption).foregroundStyle(.secondary)
+          Text(verbatim: details).appFont(.caption).secondaryInk()
         }
         let date = DepositText.rateDate(entry, today: today, environment)
         if !date.isEmpty {
@@ -178,7 +178,7 @@ struct DepositShowcaseSheet: View {
             Image(systemName: stale ? "clock.badge.exclamationmark" : "calendar")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
         if let discrepancy {
           Label {
@@ -187,7 +187,7 @@ struct DepositShowcaseSheet: View {
             Image(systemName: "exclamationmark.triangle")
           }
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .secondaryInk()
         }
       }
       Spacer(minLength: 8)

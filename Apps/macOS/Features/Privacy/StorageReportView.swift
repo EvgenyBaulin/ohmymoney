@@ -37,7 +37,7 @@ struct StorageReportView: View {
             Text(verbatim: t("privacy.storage.title")).settingsHeaderStyle()
           } footer: {
             Text(verbatim: t("privacy.storage.footer"))
-              .appFont(.callout).foregroundStyle(.secondary)
+              .appFont(.callout).secondaryInk()
               .fixedSize(horizontal: false, vertical: true)
           }
           if !report.tables.isEmpty {
@@ -64,7 +64,7 @@ struct StorageReportView: View {
               Text(verbatim: t("privacy.storage.where")).settingsHeaderStyle()
             } footer: {
               Text(verbatim: t("privacy.storage.where.footer"))
-                .appFont(.callout).foregroundStyle(.secondary)
+                .appFont(.callout).secondaryInk()
                 .fixedSize(horizontal: false, vertical: true)
             }
           }

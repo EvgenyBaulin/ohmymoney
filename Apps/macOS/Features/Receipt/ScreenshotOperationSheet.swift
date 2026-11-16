@@ -26,7 +26,7 @@ struct ScreenshotOperationSheet: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 14) {
       Text(verbatim: t("screenshot.title")).appFont(.headline)
-      Text(verbatim: t("screenshot.confirmFacts")).appFont(.callout).foregroundStyle(.secondary)
+      Text(verbatim: t("screenshot.confirmFacts")).appFont(.callout).secondaryInk()
       if reading { ProgressView() }
       Form {
         TextField(t("screenshot.amount"), text: $amount)
