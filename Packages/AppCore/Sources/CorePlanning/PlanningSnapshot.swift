@@ -599,7 +599,9 @@ public struct PlanningSnapshot: Hashable, Sendable {
             UpcomingPayment(
               kind: .scheduled, id: payment.id, name: payment.name, due: date,
               currency: payment.currency,
-              amount: SubscriptionMath.price(of: payment, on: date, prices: prices),
+              amount: matches.unpaid(
+                payment.id, date,
+                price: SubscriptionMath.price(of: payment, on: date, prices: prices)),
               isOverdue: date < today))
         }
       }

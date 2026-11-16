@@ -102,6 +102,26 @@ struct ScheduledMatchingPropertyTests {
       }
     }
 
+    /// A part, plainly: what could pay the due date but for its amount, smaller than the
+    /// price, of a payment with a category — or dated later than 5 days after it, but before
+    /// the next due date of the payment (a payment that has one).
+    func canPayPart(
+      _ entry: TransactionEntry, _ payment: ScheduledPayment, _ due: DateOnly
+    ) -> Bool {
+      guard payment.categoryId != nil, entry.transaction.amountE4 < payment.amountE4 else {
+        return false
+      }
+      var whole = entry
+      whole.transaction.amountE4 = payment.amountE4
+      let day = CalendarContext.utc.day(of: entry.transaction.occurredAt)
+      let following = Recurrence.next(after: due, rule: RecurrenceRule(payment: payment))
+      let hasNext = payment.endDate.map { following <= $0 } ?? true
+      if hasNext, day > due.adding(days: 5), day < following, day <= CashFx.today {
+        whole.transaction.occurredAt = CalendarContext.utc.startOfDay(due)
+      }
+      return canPay(whole, payment, due)
+    }
+
     /// The due dates the matching looks at: from `next_date` through today + 5.
     func dues(of payment: ScheduledPayment) -> [DateOnly] {
       guard let next = payment.nextDate else { return [] }
@@ -131,6 +151,25 @@ struct ScheduledMatchingPropertyTests {
         }
         #expect(book.canPay(entry, payment, due), "seed \(seed), \(payment.name) \(due)")
         #expect(book.dues(of: payment).contains(due))
+      }
+      for (due, parts) in found.partDues(of: payment.id) {
+        payers += parts.operations
+        #expect(found.matchedDues(of: payment.id)[due] == nil, "seed \(seed)")
+        #expect(book.dues(of: payment).contains(due))
+        var paid = AmountE4.zero
+        for operation in parts.operations {
+          guard let entry = book.fx.entries.first(where: { $0.id == operation }) else {
+            Issue.record("seed \(seed): the operation of a part is not in the book")
+            continue
+          }
+          #expect(book.canPayPart(entry, payment, due), "seed \(seed), \(payment.name) \(due)")
+          paid += entry.transaction.amountE4
+        }
+        #expect(parts.paidE4 == paid)
+        // Paid when the parts come within the allowance of one operation of the price.
+        let tolerance = max(
+          AmountE4(whole: 1), SubscriptionMath.rounded(payment.amountE4.decimal / 10))
+        #expect(found.isPaid(payment.id, due) == (paid >= payment.amountE4 - tolerance))
       }
     }
     #expect(Set(payers).count == payers.count, "seed \(seed): an operation paid twice")
@@ -203,7 +242,8 @@ struct ScheduledMatchingPropertyTests {
       guard let next = payment.nextDate else { continue }
       for day in PlainCalendar.days(from: next, through: Fx.day("2026-09-30"))
       where PlainCalendar.isDue(day, of: payment) && !found.isPaid(payment.id, day) {
-        model += payment.amountE4
+        // A due date paid in part holds back the rest.
+        model += payment.amountE4 - (found.parts(payment.id, day)?.paidE4 ?? .zero)
       }
     }
     #expect(snapshot.freeMoney.until == Fx.day("2026-09-30"))

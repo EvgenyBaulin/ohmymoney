@@ -241,8 +241,9 @@ final class MacNotifications: NSObject {
       let payment = snapshot.dataset.planning.scheduled.first(where: { $0.id == paymentId })
     else { return false }
     let actions = PlanningActions(dependencies)
-    let amount = SubscriptionMath.price(
-      of: payment, on: due, prices: snapshot.dataset.planning.prices)
+    let amount = ScheduledRules.amountToPay(
+      payment, due: due, prices: snapshot.dataset.planning.prices,
+      matches: snapshot.planning.matches)
     let moment = dependencies.environment.now()
     guard actions.countToAsk(paying: payment, due: due, amount: amount, on: moment) == nil else {
       return false

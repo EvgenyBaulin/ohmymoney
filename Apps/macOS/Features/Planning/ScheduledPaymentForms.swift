@@ -545,7 +545,8 @@ struct MarkAsPaidForm: View {
             accounts: compute.wholeSnapshot?.dataset.paymentMethods ?? [],
             hiding: choices.hiding, environment))
         ChargeRow(charge: $charge)
-        if payment.kind == .subscription, amount != status.amountNext {
+        // Paid in part, the form asks for the rest: that is no new price.
+        if payment.kind == .subscription, status.paidNext.raw == 0, amount != status.amountNext {
           Toggle(t("form.updatePrice"), isOn: $updatePrice)
         }
         if payment.reimbursable {
@@ -590,7 +591,7 @@ struct MarkAsPaidForm: View {
       guard !loaded else { return }
       loaded = true
       rates = (try? environment.rates?.table()) ?? RateTable()
-      amount = status.amountNext
+      amount = status.remainingNext.raw > 0 ? status.remainingNext : status.amountNext
       method = Self.startingChoice(
         payment, among: choices.methods(keeping: payment.paymentMethodId), cards: cards)
       date = PlanningActions.paidAt(
@@ -770,25 +771,12 @@ extension PlanningActions {
   }
 
   /// The ordinary operations that pay the due dates of `payment` from its `next_date` up to
-  /// `due` by matching them, each keyed to its due date — as «Привязать» would — in the write
-  /// that moves the payment past `due`: once `next_date` is past them nothing matches them any
-  /// more, and unkeyed, what they paid would drop out of the month's funding.
+  /// `due` by matching them — whole before `due`, in parts through `due` itself —, each keyed
+  /// to its due date in the write that moves the payment past `due` (`matchedOperations`).
   private func keyedMatches(
     of payment: ScheduledPayment, before due: DateOnly
   ) -> [TransactionEntry] {
-    guard let snapshot, let next = payment.nextDate else { return [] }
-    let matches = snapshot.planning.matches
-    return matches.matchedDues(of: payment.id).keys
-      .filter { $0 >= next && $0 < due }
-      .sorted()
-      .compactMap { earlier in
-        guard let operationId = matches.operation(for: payment.id, earlier),
-          let entry = snapshot.ledger.entry(operationId)
-        else { return nil }
-        return ScheduledMatching.bind(
-          entry, to: payment, due: earlier, eventId: event(of: payment, due: earlier)
-        ).operation
-      }
+    matchedOperations(of: payment, before: due)
   }
 }
 

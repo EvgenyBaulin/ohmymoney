@@ -240,13 +240,30 @@ public struct ScheduledStatus: Hashable, Sendable, Identifiable {
   /// The payment names an account that is archived: it is paid from — and comes off — the main
   /// account, and the list says «счёт в архиве — перенесите платёж на другой».
   public var accountArchived: Bool
+  /// The smaller operations that paid part of `nextUnpaid` (`ScheduledMatching`), oldest
+  /// first: «внесено X из Y», each with «Это другое». Empty when none did.
+  public var partsNext: [UUID]
+  /// What those parts paid, in the currency of the payment; zero without parts.
+  public var paidNext: AmountE4
+  /// Every due date of the payment paid in parts — `nextUnpaid` and those before it the parts
+  /// paid in full —, with its parts: each part listed with «Это другое».
+  public var partDues: [DateOnly: DueParts]
+
+  /// The due dates parts paid while falling short of the price by no more than one operation
+  /// may, latest first: each says «оплачено 58 000 из 60 000» in grey.
+  public var shortPaidDues: [DateOnly] {
+    partDues.filter { $0.value.isComplete && $0.value.remainingE4.raw > 0 }.keys.sorted(by: >)
+  }
+  /// What is still to pay of `nextUnpaid`: `amountNext` less `paidNext`, never below zero.
+  public var remainingNext: AmountE4 { max(.zero, amountNext - paidNext) }
 
   public init(
     payment: ScheduledPayment, dueDates: [DateOnly], nextDue: DateOnly, isOverdue: Bool,
     amountNext: AmountE4, monthly: AmountE4, yearly: AmountE4, myShareRubNext: AmountE4?,
     expectedReturnRubNext: AmountE4?, lastCharge: ScheduledCharge?, chargedDifferently: Bool,
     matchedDues: [DateOnly: UUID] = [:], nextUnpaid: DateOnly? = nil, isOneOff: Bool = false,
-    accountArchived: Bool = false
+    accountArchived: Bool = false, partsNext: [UUID] = [], paidNext: AmountE4 = .zero,
+    partDues: [DateOnly: DueParts] = [:]
   ) {
     self.payment = payment
     self.dueDates = dueDates
@@ -263,6 +280,9 @@ public struct ScheduledStatus: Hashable, Sendable, Identifiable {
     self.nextUnpaid = nextUnpaid ?? nextDue
     self.isOneOff = isOneOff
     self.accountArchived = accountArchived
+    self.partsNext = partsNext
+    self.paidNext = paidNext
+    self.partDues = partDues
   }
 
   /// How many due dates `dueDates` keeps at most.
@@ -336,6 +356,7 @@ public enum ScheduledRules {
       let rule = RecurrenceRule(payment: payment)
       let oneOff = payment.isOneOff
       let shown = firstUnpaid(of: payment, from: nextDue, rule: rule, matches: matches)
+      let parts = shown.isUnpaid ? matches.parts(payment.id, shown.due) : nil
       let amount = SubscriptionMath.price(of: payment, on: shown.due, prices: book.prices)
       let split = share(of: payment, amount: amount, rubPerUnit: rubPerUnit)
       let charge = charges[payment.id]
@@ -364,7 +385,9 @@ public enum ScheduledRules {
           chargedDifferently: chargedDifferently,
           matchedDues: matches.matchedDues(of: payment.id), nextUnpaid: shown.due,
           isOneOff: oneOff,
-          accountArchived: payment.paymentMethodId.map(archived.contains) ?? false))
+          accountArchived: payment.paymentMethodId.map(archived.contains) ?? false,
+          partsNext: parts?.operations ?? [], paidNext: parts?.paidE4 ?? .zero,
+          partDues: matches.partDues(of: payment.id)))
     }
     return result.sorted { left, right in
       if left.nextUnpaid != right.nextUnpaid { return left.nextUnpaid < right.nextUnpaid }
@@ -497,6 +520,18 @@ public enum ScheduledRules {
       payment: advanced(payment, past: due), newPrice: newPrice)
   }
 
+  /// What «Провести» pays of `due` when nothing is typed: the rest of a due date paid in part
+  /// (`ScheduledMatches.unpaid`), else its price — the parts are spent already, and the
+  /// operation it writes is keyed together with them.
+  public static func amountToPay(
+    _ payment: ScheduledPayment, due: DateOnly, prices: [SubscriptionPrice],
+    matches: ScheduledMatches
+  ) -> AmountE4 {
+    let price = SubscriptionMath.price(of: payment, on: due, prices: prices)
+    let rest = matches.unpaid(payment.id, due, price: price)
+    return rest.raw > 0 ? rest : price
+  }
+
   /// «Skip»: the due date passes without an operation, and `next_date` moves on exactly as
   /// after a payment.
   public static func skip(_ payment: ScheduledPayment, due: DateOnly) -> ScheduledPayment {
@@ -609,6 +644,17 @@ public enum ScheduledRules {
       guard case .scheduled(let paymentId, let due) = row.link,
         let entry = ledger.entry(row.transactionId)
       else { continue }
+      // A due date paid in parts — the parts keyed with the rest «Провести» wrote — is one
+      // charge of what they add up to, not a charge of the last part.
+      if var last = result[paymentId], last.due == due,
+        last.currency == entry.transaction.currency
+      {
+        last.amount += entry.transaction.amountE4
+        last.transactionId = row.transactionId
+        last.day = row.day
+        result[paymentId] = last
+        continue
+      }
       result[paymentId] = ScheduledCharge(
         transactionId: row.transactionId, day: row.day, due: due,
         amount: entry.transaction.amountE4, currency: entry.transaction.currency)

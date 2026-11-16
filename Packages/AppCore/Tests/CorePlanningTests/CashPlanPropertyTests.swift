@@ -351,7 +351,8 @@ struct CashPlanPropertyTests {
     /// out of the summary and payments that are not active stay out. Paid is «Провести» — or
     /// `paid`, the due dates ordinary operations pay by matching.
     func scheduled(
-      paid: (UUID, DateOnly) -> Bool = { _, _ in false }
+      paid: (UUID, DateOnly) -> Bool = { _, _ in false },
+      partPaid: (UUID, DateOnly) -> AmountE4 = { _, _ in .zero }
     ) -> (amount: AmountE4, withoutRate: Set<CurrencyCode>) {
       var total = AmountE4.zero
       var missing: Set<CurrencyCode> = []
@@ -363,9 +364,10 @@ struct CashPlanPropertyTests {
         where PlainCalendar.isDue(day, of: payment)
           && linked[payment.id]?.contains(day) != true && !paid(payment.id, day)
         {
+          // A due date paid in part asks for the rest.
           let price =
-            fx.prices.last { $0.paymentId == payment.id && $0.date <= day }?.amountE4
-            ?? payment.amountE4
+            (fx.prices.last { $0.paymentId == payment.id && $0.date <= day }?.amountE4
+              ?? payment.amountE4) - partPaid(payment.id, day)
           if let converted = rubles(price, payment.currency) {
             total += converted
           } else {
@@ -510,7 +512,9 @@ struct CashPlanPropertyTests {
     book.typeSomeDues(seed: seed)
     let matches = book.fx.snapshot().matches
     let plan = book.fx.plan(until: book.until.iso)
-    let model = book.scheduled { matches.isPaid($0, $1) }
+    let model = book.scheduled(
+      paid: { matches.isPaid($0, $1) },
+      partPaid: { matches.parts($0, $1)?.paidE4 ?? .zero })
     #expect(plan.scheduled == model.amount, "seed \(seed), D \(book.until)")
     // Every matched due date is a due date of its payment up to five days from its operation.
     for payment in book.fx.scheduled {

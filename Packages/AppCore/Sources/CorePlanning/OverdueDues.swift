@@ -239,7 +239,9 @@ public enum OverdueDues {
       result.append(
         OverdueDue(
           subject: .scheduled(payment.id), name: payment.name, due: first,
-          amount: SubscriptionMath.price(of: payment, on: first, prices: book.prices),
+          amount: matches.unpaid(
+            payment.id, first,
+            price: SubscriptionMath.price(of: payment, on: first, prices: book.prices)),
           currency: payment.currency, moreOverdue: dues.count - 1,
           countAfter: countAfter(key, due: first), key: key, lastDue: dues.last))
     }

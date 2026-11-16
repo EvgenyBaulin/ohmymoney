@@ -526,6 +526,86 @@ final class PlanningFlowTests: XCTestCase {
     return (payment, operation, snapshot)
   }
 
+  /// Rent of 60 000 on the 15th; 30 000 of it typed by hand on the 14th — a part.
+  private func rentPaidInPart() throws -> (
+    payment: ScheduledPayment, part: TransactionEntry, snapshot: DataSnapshot
+  ) {
+    let main = PaymentMethod(name: "Main", currency: .rub, isDefault: true)
+    try references.save(main)
+    let rent = CoreKit.Category(kind: .expense, name: "Rent", quality: .neutral)
+    try references.save(rent)
+    let payment = ScheduledPayment(
+      name: "Rent", amountE4: AmountE4(whole: 60_000), categoryId: rent.id,
+      paymentMethodId: main.id, day: 15, nextDate: DateOnly(year: 2026, month: 9, day: 15))
+    var rows = PlanningRows.empty
+    rows.scheduled = [payment]
+    XCTAssertTrue(store.apply(PlanningChange(upsert: rows)))
+    var draft = TransactionDraft(
+      occurredAt: CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 9, day: 14))
+        .addingTimeInterval(10 * 3600),
+      amount: AmountE4(whole: 30_000), note: "rent", paymentMethodId: main.id)
+    draft.parts = [PartDraft(categoryId: rent.id, amount: AmountE4(whole: 30_000))]
+    let part = try draft.materialize()
+    try transactions.save(part)
+    return (payment, part, try showStored())
+  }
+
+  /// A due date paid in part: the row asks for the rest and says what was paid of the price.
+  func testARowPaidInPartShowsTheRestAndTheDueDate() throws {
+    let (_, part, snapshot) = try rentPaidInPart()
+    let status = try XCTUnwrap(snapshot.planning.scheduled.first)
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    XCTAssertEqual(status.nextUnpaid, due)
+    XCTAssertEqual(status.remainingNext, AmountE4(whole: 30_000))
+    XCTAssertEqual(status.partsNext, [part.id])
+    XCTAssertEqual(status.partDues[due]?.operations, [part.id])
+    XCTAssertTrue(ScheduledRow.canPay(status, matches: snapshot.planning.matches))
+    let environment = deps.environment
+    environment.language.choice = .russian
+    let text = ScheduledRow.partlyPaidText(
+      status, money: environment.money, language: environment.language, day: "15 сент.")
+    XCTAssertEqual(text?.hasPrefix("Осталось "), true)
+    XCTAssertEqual(text?.contains("15 сент."), true)
+  }
+
+  /// «Провести» on a due date paid in part writes the rest and keys the part to the same due
+  /// date: the payment moves on, the due date is one charge of its price. One ⌘Z puts it back.
+  func testPayingTheRestKeysThePartInOneUndo() throws {
+    let (payment, part, _) = try rentPaidInPart()
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    let key = OperationLink.scheduled(paymentId: payment.id, due: due).externalId
+    XCTAssertTrue(
+      PlanningActions(deps).markAsPaid(
+        payment, due: due, amount: AmountE4(whole: 30_000), on: Date(), paymentMethodId: nil,
+        updatePrice: false))
+    let written = try transactions.entries(from: .distantPast, to: .distantFuture)
+    XCTAssertEqual(written.count, 2)
+    XCTAssertEqual(Set(written.map(\.transaction.externalId)), [key])
+    XCTAssertEqual(
+      try planning.scheduled().first?.nextDate, DateOnly(year: 2026, month: 10, day: 15))
+    let shown = try showStored(version: 2)
+    XCTAssertEqual(shown.planning.scheduled.first?.chargedDifferently, false)
+
+    store.undo()
+    XCTAssertNil(try transactions.entry(id: part.id)?.transaction.externalId)
+    XCTAssertEqual(try planning.scheduled().first?.nextDate, due)
+  }
+
+  /// «Это другое» on a part: stored like any other, the next count leaves the part out and the
+  /// row asks for the whole price again.
+  func testSomethingElseOnAPartIsKept() throws {
+    let (payment, part, _) = try rentPaidInPart()
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    XCTAssertTrue(PlanningActions(deps).reject(part.id, for: payment, due: due))
+    XCTAssertEqual(
+      try planning.book().settings.scheduledMatchRejections,
+      [ScheduledMatching.rejectionKey(operation: part.id, payment: payment.id, due: due)])
+    let shown = try showStored(version: 2)
+    let status = try XCTUnwrap(shown.planning.scheduled.first)
+    XCTAssertEqual(status.partsNext, [])
+    XCTAssertEqual(status.remainingNext, AmountE4(whole: 60_000))
+  }
+
   /// What the database holds now, shown as the pipeline would show it.
   @discardableResult
   private func showStored(version: Int = 1) throws -> DataSnapshot {
@@ -790,6 +870,8 @@ final class EventBudgetFlowTests: XCTestCase {
       "events.tiedPayments", "goals.ahead", "planning.dueBeforeCount.title",
       "planning.dueBeforeCount.message",
       "scheduled.paidByOperation", "scheduled.bind", "scheduled.notThis", "funding.withoutRate",
+      "scheduled.partlyPaid", "scheduled.paidByPart", "scheduled.notThisPartHint",
+      "scheduled.paidOfPrice",
     ]
     for choice in [AppLanguage.Choice.english, .russian] {
       environment.language.choice = choice

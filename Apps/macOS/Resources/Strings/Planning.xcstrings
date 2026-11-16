@@ -116083,6 +116083,23 @@
         }
       }
     },
+    "scheduled.notThisPartHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This operation is not part of this payment: its amount is due again"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта операция — не часть этого платежа: её сумма снова ждёт оплаты"
+          }
+        }
+      }
+    },
     "scheduled.npd": {
       "extractionState": "manual",
       "localizations": {
@@ -116724,6 +116741,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 已透過交易付款：%@"
+          }
+        }
+      }
+    },
+    "scheduled.paidByPart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Part of the %1$@ payment: %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часть платежа за %1$@: %2$@"
+          }
+        }
+      }
+    },
+    "scheduled.paidOfPrice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ of %3$@ paid"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: оплачено %2$@ из %3$@"
+          }
+        }
+      }
+    },
+    "scheduled.partlyPaid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ left by %2$@ · %3$@ of %4$@ paid"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось %1$@ к %2$@ · внесено %3$@ из %4$@"
           }
         }
       }

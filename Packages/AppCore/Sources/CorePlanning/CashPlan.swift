@@ -286,10 +286,10 @@ public struct CashPlan: Hashable, Sendable {
   }
 
   /// What ordinary operations paid of the due dates tied to each counted event, by matching
-  /// (`ScheduledMatches.matchedDues`), as my spending in rubles (`LedgerRow.contribution`) —
-  /// only operations none of whose parts carries an event: one that does is in the event's
-  /// «потрачено» already. The hotel typed as «отель 20000» comes off the event's budget as if
-  /// it had been paid with «Провести».
+  /// whole or in parts (`ScheduledMatches.matchedDues`, `partDues`), as my spending in rubles
+  /// (`LedgerRow.contribution`) — only operations none of whose parts carries an event: one
+  /// that does is in the event's «потрачено» already. The hotel typed as «отель 20000» comes
+  /// off the event's budget as if it had been paid with «Провести».
   static func matchedExtra(
     ledger: Ledger, book: PlanningBook, matches: ScheduledMatches, counted: [UUID: EventPlan]
   ) -> [UUID: AmountE4] {
@@ -297,8 +297,13 @@ public struct CashPlan: Hashable, Sendable {
     var result: [UUID: AmountE4] = [:]
     for payment in book.scheduled {
       guard let eventId = payment.eventId, let plan = counted[eventId] else { continue }
-      for (due, operationId) in matches.matchedDues(of: payment.id)
-      where due <= plan.event.endDate {
+      // Whole or in parts.
+      let paying =
+        matches.matchedDues(of: payment.id).map { ($0.key, $0.value) }
+        + matches.partDues(of: payment.id).flatMap { due, parts in
+          parts.operations.map { (due, $0) }
+        }
+      for (due, operationId) in paying where due <= plan.event.endDate {
         guard let entry = ledger.entry(operationId),
           entry.parts.allSatisfy({ $0.eventId == nil })
         else { continue }
@@ -456,10 +461,13 @@ extension CashPlan {
         from: next, through: d, rule: RecurrenceRule(payment: payment), end: payment.endDate,
         limit: 10_000)
       for date in dates where !matches.isPaid(payment.id, date) {
+        // A due date paid in part holds back only the rest: the parts are spent already.
         dues.append(
           ScheduledDue(
             paymentId: payment.id, due: date,
-            amount: SubscriptionMath.price(of: payment, on: date, prices: book.prices),
+            amount: matches.unpaid(
+              payment.id, date,
+              price: SubscriptionMath.price(of: payment, on: date, prices: book.prices)),
             currency: payment.currency, accountId: payment.paymentMethodId))
       }
     }

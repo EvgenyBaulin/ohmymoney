@@ -134,7 +134,10 @@ public struct PlannedMonth: Hashable, Sendable {
       for date in dates where date >= month.firstDay {
         guard paidDues[payment.id]?.contains(date) != true, !matches.isPaid(payment.id, date)
         else { continue }
-        let amount = SubscriptionMath.price(of: payment, on: date, prices: book.prices)
+        // Of a due date paid in part, the rest: the parts are spending of the month already.
+        let amount = matches.unpaid(
+          payment.id, date,
+          price: SubscriptionMath.price(of: payment, on: date, prices: book.prices))
         let share = ScheduledRules.share(of: payment, amount: amount, rubPerUnit: rubPerUnit)
         if share == nil { missing.append(payment.id) }
         items.append(

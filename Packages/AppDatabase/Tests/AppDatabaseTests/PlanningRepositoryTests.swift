@@ -317,6 +317,26 @@ struct PlanningRecordTests {
         == nil)
   }
 
+  /// «Это другое» about a part of a payment is stored as the action writes it and comes back
+  /// the same: the next count leaves that operation out of the payment.
+  @Test func somethingElseAboutAPartIsKept() throws {
+    let stack = try TestSupport.makeStack()
+    let repository = PlanningRepository(writer: stack.writer)
+    let operation = UUID()
+    let payment = UUID()
+    let due = DateOnly(year: 2026, month: 9, day: 15)
+    let key = ScheduledMatching.rejectionKey(operation: operation, payment: payment, due: due)
+    let kept = ScheduledMatching.rejections(
+      adding: key, to: [], today: DateOnly(year: 2026, month: 9, day: 19))
+    let text = kept.sorted().joined(separator: "\n")
+    _ = try repository.apply(
+      PlanningChange(settings: [PlanningSettings.scheduledMatchRejectionsKey: text]))
+    let stored = try repository.book().settings.scheduledMatchRejections
+    #expect(stored == [key])
+    #expect(
+      ScheduledMatching.isRejected(operation: operation, payment: payment, rejections: stored))
+  }
+
   /// A value that does not read keeps the default instead of stopping the planning.
   @Test func anUnreadableSettingKeepsItsDefault() {
     let settings = PlanningSettings(storedValues: [

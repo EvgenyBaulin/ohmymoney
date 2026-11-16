@@ -303,7 +303,7 @@ struct RemindersSheet: View {
     let payer: PlanningActions.DuePayer
     if let payment = asking.payment {
       payer = .scheduled(
-        payment, amount: SubscriptionMath.price(of: payment, on: asking.due, prices: prices))
+        payment, amount: toPay(payment, asking.due))
     } else if let debt = asking.debt {
       payer = .debt(debt)
     } else {
@@ -380,7 +380,7 @@ struct RemindersSheet: View {
     let paidAt = moment ?? asking.moment
     if actions.markAsPaid(
       payment, due: asking.due,
-      amount: SubscriptionMath.price(of: payment, on: asking.due, prices: prices), on: paidAt,
+      amount: toPay(payment, asking.due), on: paidAt,
       account: payment.paymentMethodId, charged: nil, updatePrice: false)
     {
       if let reminder = asking.reminder { handled.insert(reminder.id) }
@@ -512,6 +512,12 @@ struct RemindersSheet: View {
 
   private var prices: [SubscriptionPrice] { compute.snapshot?.dataset.planning.prices ?? [] }
 
+  /// What «Провести» pays of `due`: the rest of a due date paid in part, else its price.
+  private func toPay(_ payment: ScheduledPayment, _ due: DateOnly) -> AmountE4 {
+    ScheduledRules.amountToPay(
+      payment, due: due, prices: prices, matches: compute.snapshot?.planning.matches ?? .empty)
+  }
+
   private func payment(_ reminder: Reminder) -> ScheduledPayment? {
     compute.snapshot?.dataset.planning.scheduled.first { $0.id == reminder.subjectId }
   }
@@ -537,7 +543,7 @@ struct RemindersSheet: View {
     case .payment:
       guard let payment = payment(reminder) else { return "—" }
       let amount =
-        reminder.due.map { SubscriptionMath.price(of: payment, on: $0, prices: prices) }
+        reminder.due.map { toPay(payment, $0) }
         ?? payment.amountE4
       return environment.format(
         "reminders.payment", table: "Planning", payment.name, day,
