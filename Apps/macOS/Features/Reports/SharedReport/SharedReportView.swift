@@ -6,11 +6,14 @@ import SwiftUI
 /// «Подготовлено в OhMyMoney» and the day. «Зашифровать» is on every time: the PDF is then locked
 /// with the password and opens in any reader, the table goes into the app's locked file.
 struct SharedReportView: View {
+  static let previewButtonIdentifier = "sharedReport.preview.button"
+
   @Dependency(\.environment) private var environment
   @Environment(\.dismiss) private var dismiss
   @State private var model: SharedReportModel
   @State private var moving = false
   @State private var pending: URL?
+  @State private var previewURL: URL?
 
   private static let table = "Utilities"
   private func t(_ key: String) -> String { environment.language(key, table: Self.table) }
@@ -124,6 +127,11 @@ struct SharedReportView: View {
     .formStyle(.grouped)
     .safeAreaInset(edge: .bottom, spacing: 0) { buttons }
     .frame(minWidth: 460, idealWidth: 520, minHeight: 520)
+    .quickLookPreview($previewURL)
+    .onChange(of: previewURL) { oldURL, newURL in
+      guard oldURL != newURL else { return }
+      SharedReportModel.discard(oldURL)
+    }
     .fileMover(isPresented: $moving, file: pending) { result in
       SharedReportModel.discard(pending)
       pending = nil
@@ -164,6 +172,11 @@ struct SharedReportView: View {
       Spacer()
       Button(environment.language("action.cancel")) { dismiss() }
         .keyboardShortcut(.cancelAction)
+      if model.format == .pdf {
+        Button(t("sharedReport.preview.action")) { showPreview() }
+          .disabled(!model.canPreview)
+          .accessibilityIdentifier(Self.previewButtonIdentifier)
+      }
       Button(t("sharedReport.save")) { save() }
         .keyboardShortcut(.defaultAction)
         .disabled(!model.canSave)
@@ -171,6 +184,24 @@ struct SharedReportView: View {
     }
     .padding(16)
     .background(.bar)
+  }
+
+  private func showPreview() {
+    let report = model.report
+    let words = SharedReportWords.make(environment, report: report)
+    let version = AppEnvironment.appVersion
+    let schema = environment.stack?.applied.onDisk ?? 0
+    model.stage = .working
+    do {
+      previewURL = try model.writePreview(
+        words: words, appVersion: version, schemaVersion: schema)
+      model.stage = .editing
+    } catch {
+      AppLog.error(
+        "sharedReport.preview.failed", .archive, "the report preview was not made",
+        [LogPair("error", .error(error))])
+      model.stage = .failed
+    }
   }
 
   /// «Войдёт: 42 операции» or why nothing would.
