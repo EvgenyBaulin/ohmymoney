@@ -122,6 +122,7 @@ public struct AccountLabels: Sendable {
 
   /// The card is called like its account or like its bank: it is the account itself.
   private func standsForAccount(_ card: PaymentCard, of account: PaymentMethod) -> Bool {
+    if card.id == account.id { return true }
     let name = NameKey.fold(card.name)
     if name == NameKey.fold(account.name) { return true }
     guard let bank = account.bankId.flatMap({ banks[$0] }) else { return false }

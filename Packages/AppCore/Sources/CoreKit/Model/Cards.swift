@@ -6,8 +6,8 @@ import Foundation
 public struct PaymentCard: Identifiable, Hashable, Sendable, Codable {
   public var id: UUID
   /// The account the card belongs to (`payment_method_id`). A card never moves to another
-  /// account, except when its account is merged into another or when it becomes a credit card
-  /// of its own (`CreditCardConversion`).
+  /// account, except when its account is merged into another or when it acquires its own
+  /// balance or credit account (`CardOwnBalance`, `CreditCardConversion`).
   public var accountId: UUID
   public var name: String
   /// Other names the entry line knows the card by, one per line in the database.

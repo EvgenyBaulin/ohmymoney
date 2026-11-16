@@ -349,6 +349,7 @@ targets:
       - path: Apps/macOS/Tests/AccountPaletteTests.swift
       # «Сделать кредиткой» and the credit card of the «+» of a bank: models and writes, no window.
       - path: Apps/macOS/Tests/CardToCreditCardScreenTests.swift
+      - path: Apps/macOS/Tests/CardOwnBalanceModelTests.swift
       # The comparison of screen pictures with their references is shared; the references too.
       - path: Apps/macOS/Tests/ScreenSnapshots.swift
       - path: Apps/ShareExtension/SharedItemProviderReader.swift

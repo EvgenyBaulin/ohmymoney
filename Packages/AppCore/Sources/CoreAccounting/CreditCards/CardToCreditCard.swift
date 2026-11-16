@@ -34,7 +34,7 @@ public enum CreditCardConversionIssue: Error, Hashable, Sendable {
   case name(AccountNameConflict)
 }
 
-/// A card turned into a credit card of its own, worked out before it is written.
+/// A card moved to a debit or credit account of its own, worked out before it is written.
 ///
 /// The debt of a credit card is the balance of an account, and a balance is never split
 /// between the cards of one account, so a card with its own limit and debt is a card of its
@@ -44,7 +44,7 @@ public enum CreditCardConversionIssue: Error, Hashable, Sendable {
 public struct CreditCardConversionPlan: Hashable, Sendable, Codable {
   /// The card as it is after: on `account`.
   public var card: PaymentCard
-  /// The new account: the credit card, its terms, its main card `card`.
+  /// The new account, with optional credit terms and its main card `card`.
   public var account: PaymentMethod
   /// The account the card was under, as it is after: no longer with `card` as its main card.
   public var former: PaymentMethod
@@ -65,7 +65,7 @@ public struct CreditCardConversionPlan: Hashable, Sendable, Codable {
     self.past = past
   }
 
-  /// Whether an operation goes with the card to the credit card. Only one that names the card
+  /// Whether an operation goes with the card to its own account. Only one that names the card
   /// does — the one paid by it — and not one the app wrote for a row of the former account: the
   /// fee of a transfer stays with its transfer, the difference of a count with its count.
   public func moves(_ transaction: Transaction, calendar: CalendarContext) -> Bool {
@@ -124,6 +124,18 @@ public enum CreditCardConversion {
     name: String? = nil, cards: [PaymentCard], accounts: [PaymentMethod],
     accountId: UUID = UUID(), leftCardId: UUID = UUID()
   ) -> Result<CreditCardConversionPlan, CreditCardConversionIssue> {
+    return separationPlan(
+      converting: cardId, terms: terms, past: past, name: name, cards: cards,
+      accounts: accounts, accountId: accountId, leftCardId: leftCardId)
+  }
+
+  /// Shared by debit and credit cards that acquire a separate account. Only credit cards
+  /// supply terms; moving operations and their undo are identical for both kinds.
+  static func separationPlan(
+    converting cardId: UUID, terms: CreditCardTerms?, past: CardPastOperations,
+    name: String?, cards: [PaymentCard], accounts: [PaymentMethod],
+    accountId: UUID, leftCardId: UUID
+  ) -> Result<CreditCardConversionPlan, CreditCardConversionIssue> {
     guard let original = cards.first(where: { $0.id == cardId }),
       var former = accounts.first(where: { $0.id == original.accountId })
     else { return .failure(.notFound) }
@@ -131,7 +143,7 @@ public enum CreditCardConversion {
     guard !former.isCreditCard else { return .failure(.alreadyCreditCard) }
     guard former.borrowed == nil else { return .failure(.borrowed) }
     guard let bankId = former.bankId else { return .failure(.noBank) }
-    guard termsFit(terms) else { return .failure(.terms) }
+    if let terms, !termsFit(terms) { return .failure(.terms) }
     let trimmed = (name ?? original.name).trimmingCharacters(in: .whitespacesAndNewlines)
     guard !trimmed.isEmpty else { return .failure(.emptyName) }
 
