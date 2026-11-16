@@ -14,6 +14,8 @@ public enum NetWorthChartNote: String, CaseIterable, Hashable, Sendable {
   case straightLine
   /// «восстановлено»: a loan before its journal, from its schedule.
   case restored
+  /// «по цене покупки»: an unvalued asset at «now».
+  case purchasePrice
   /// The accounts before the books are the owner's rough sum.
   case cashEstimated
   /// «без денег на счетах»: before the books, only assets and debts.
@@ -144,6 +146,7 @@ public struct NetWorthChartModel: Hashable, Sendable {
     var notes: [NetWorthChartNote] = []
     if point.straightLineAssets { notes.append(.straightLine) }
     if point.restoredDebts { notes.append(.restored) }
+    if point.purchasePriceAssets { notes.append(.purchasePrice) }
     if point.cashEstimated { notes.append(.cashEstimated) }
     if point.withoutCash { notes.append(.withoutCash) }
     return notes

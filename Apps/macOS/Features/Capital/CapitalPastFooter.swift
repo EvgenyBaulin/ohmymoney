@@ -15,6 +15,7 @@ struct CapitalPastFooter: View {
     switch note {
     case .straightLine: "line.diagonal"
     case .restored: "arrow.counterclockwise"
+    case .purchasePrice: "tag"
     case .cashEstimated: "questionmark.circle"
     case .withoutCash: "minus.circle"
     }
