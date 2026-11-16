@@ -80,8 +80,9 @@ struct CardToCreditCardDraft: Equatable {
 }
 
 extension AccountActions {
-  /// «Сделать кредиткой»: one change, one step of ⌘Z. The card, its credit account and what
-  /// moves with them are written together; the entry line learns the names at once.
+  /// A separate debit or credit account for a card: one change, one step of ⌘Z. The card,
+  /// its account and what moves with them are written together; the entry line learns the
+  /// names at once.
   func convert(_ plan: CreditCardConversionPlan) -> AccountActionOutcome {
     apply(PlanningChange.cardConversion(plan, at: environment.now()))
   }
@@ -93,7 +94,9 @@ extension AccountActions {
     to bank: Bank, terms: CreditCardTerms, named typed: String = "", books: AccountBooks,
     accountId: UUID = UUID(), cardId: UUID = UUID()
   ) -> (id: UUID, outcome: AccountActionOutcome) {
-    guard CreditCardConversion.termsFit(terms) else { return (accountId, .refused(.credit(.limit))) }
+    guard CreditCardConversion.termsFit(terms) else {
+      return (accountId, .refused(.credit(.limit)))
+    }
     let accounts = all
     let given = typed.trimmingCharacters(in: .whitespacesAndNewlines)
     let name =

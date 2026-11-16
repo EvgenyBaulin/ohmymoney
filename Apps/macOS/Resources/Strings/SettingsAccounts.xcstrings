@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "panel.ownBalance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Own balance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свой счёт и остаток"
+          }
+        }
+      }
+    },
     "accounts.fold.collapse": {
       "comment": "Spoken name of the fold button of a tree row; other languages fall back to English until translated.",
       "extractionState": "manual",

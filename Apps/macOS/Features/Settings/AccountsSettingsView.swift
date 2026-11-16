@@ -56,6 +56,7 @@ struct AccountsSettingsView: View {
   @State private var sheet: Sheet?
   /// A card just made a credit card: both accounts are offered a count.
   @State private var toCount: CreditCardConversionPlan?
+  @State private var ownBalanceUnavailable: UUID?
   /// The account the entry line pointed at before the count borrowed its focus.
   @State private var focusBefore: UUID?
   /// What the last action was refused for, said under the tree.
@@ -92,6 +93,8 @@ struct AccountsSettingsView: View {
     case mergeBank(Bank)
     /// «Сделать кредиткой» of a card of a debit account.
     case toCredit(PaymentCard)
+    case ownBalance(PaymentCard)
+    case shareBalance(PaymentCard)
     /// «Сверить оба счёта» after the card became a credit card.
     case count
     /// «+ → Кредитная карта» of a bank: its terms, asked before the account is made.
@@ -119,6 +122,8 @@ struct AccountsSettingsView: View {
       case .mergeCard(let card): "mergeCard.\(card.id.uuidString)"
       case .mergeBank(let bank): "mergeBank.\(bank.id.uuidString)"
       case .toCredit(let card): "toCredit.\(card.id.uuidString)"
+      case .ownBalance(let card): "ownBalance.\(card.id.uuidString)"
+      case .shareBalance(let card): "shareBalance.\(card.id.uuidString)"
       case .count: "count"
       case .newCreditCard(let bank): "newCreditCard.\(bank.id.uuidString)"
       }
@@ -1084,6 +1089,13 @@ struct AccountsSettingsView: View {
           }
         }),
       note: nil, enabled: !card.archived)
+    ownBalanceSwitch(card)
+    if ownBalanceUnavailable == card.id {
+      Text(verbatim: t("card.ownBalance.noTarget"))
+        .appFont(.callout).foregroundStyle(theme.contentSecondary)
+        .fixedSize(horizontal: false, vertical: true)
+        .accessibilityIdentifier("accounts.ownBalance.noTarget")
+    }
     Text(verbatim: cardRulesCaption(card))
       .appFont(.callout)
       .foregroundStyle(theme.contentSecondary)
@@ -1102,6 +1114,30 @@ struct AccountsSettingsView: View {
     }
     Spacer(minLength: 12)
     dangerButton("panel.deleteCard") { deletingCard = card }
+  }
+
+  private func ownBalanceSwitch(_ card: PaymentCard) -> some View {
+    let on = CardOwnBalance.isOn(for: card, accounts: accounts)
+    let liveDebit = accounts.contains {
+      $0.id == card.accountId && !$0.archived && !$0.isCreditCard && $0.borrowed == nil
+    }
+    return switchRow(
+      "panel.ownBalance",
+      isOn: Binding(
+        get: { on },
+        set: { enabled in
+          ownBalanceUnavailable = nil
+          if enabled {
+            sheet = .ownBalance(card)
+          } else if CardOwnBalance.sharingTargets(for: card, accounts: accounts).isEmpty {
+            ownBalanceUnavailable = card.id
+          } else {
+            sheet = .shareBalance(card)
+          }
+        }),
+      note: t("card.ownBalance.hint"),
+      enabled: !store.isWritingInBackground && !card.archived && liveDebit
+        && (on || CardOwnBalance.offered(for: card, accounts: accounts)))
   }
 
   /// «своих правил кэшбэка: 2», or «правила — как у счёта» for a card with none of its own.
@@ -1375,6 +1411,34 @@ struct AccountsSettingsView: View {
           cardRefusal = nil
           chosen = "a:\(plan.account.id.uuidString)"
           toCount = plan
+        }
+      }
+    case .ownBalance(let card):
+      CardOwnBalanceSheet(card: card) { plan in
+        self.sheet = nil
+        reload()
+        if let plan {
+          refusal = nil
+          cardRefusal = nil
+          chosen = "c:\(plan.card.id.uuidString)"
+          toCount = plan
+        }
+      }
+    case .shareBalance(let card):
+      if let account = accounts.first(where: { $0.id == card.accountId }) {
+        let allowed = Set(CardOwnBalance.sharingTargets(for: card, accounts: actions.all).map(\.id))
+        AccountMergeSheet(
+          source: account,
+          targets: actions.mergeTargets(for: account).filter { allowed.contains($0.id) },
+          preselected: nil
+        ) { merged in
+          self.sheet = nil
+          reload()
+          if merged {
+            refusal = nil
+            cardRefusal = nil
+            chosen = "c:\(card.id.uuidString)"
+          }
         }
       }
     case .newCreditCard(let bank):

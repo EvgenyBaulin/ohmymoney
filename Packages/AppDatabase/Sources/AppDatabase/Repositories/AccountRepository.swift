@@ -395,21 +395,24 @@ public struct AccountRepository: Sendable {
   }
 
   /// Puts back what `merge` did, in the same order of care: the reconciliations it added go,
-  /// the accounts and the rows it removed come back as they were, and what it moved to the
-  /// target points at the source again — unless the owner moved it elsewhere since.
+  /// the rows it removed come back, what it moved to the target points at the source again
+  /// — unless the owner moved it elsewhere since —, and the accounts come back as they were.
   static func revertMerge(_ undo: AccountMergeUndo, db: Database) throws {
     for id in undo.addedReconciliations {
       try db.execute(
         sql: "DELETE FROM reconciliation_balances WHERE reconciliation_id = ?", arguments: [id])
       try db.execute(sql: "DELETE FROM reconciliations WHERE id = ?", arguments: [id])
     }
-    for row in undo.changed { try row.restore(db: db) }
     for row in undo.removed { try row.restore(db: db) }
     for move in undo.moved {
       try db.execute(
         sql: "UPDATE \(move.table) SET \(move.column) = ? WHERE rowid = ? AND \(move.column) = ?",
         arguments: [undo.sourceId.uuidString, move.rowid, undo.targetId.uuidString])
     }
+    // Moving the cards back first clears any main-card links they acquired on the target.
+    // Only then can the account snapshots restore their original main cards: each card must
+    // already belong to the account that names it.
+    for row in undo.changed { try row.restore(db: db) }
     try SpendingRulesRepository.revertRules(undo.rules, db: db)
     for freed in undo.freedKeys {
       try db.execute(

@@ -3,7 +3,7 @@ import CoreKit
 import Foundation
 import GRDB
 
-/// What turning a card into a credit card of its own did, for ⌘Z: the operations as they were,
+/// What giving a card its own debit or credit account did, for ⌘Z: the operations as they were,
 /// and the rows of the tables the planning does not write that moved with the card.
 public struct CardConversionUndo: Hashable, Sendable {
   /// The operations that went to the credit card, live and in the bin.
@@ -25,8 +25,8 @@ struct MovedCardRow: Hashable, Sendable {
 }
 
 extension PlanningChange {
-  /// A card turned into a credit card of its own (`CreditCardConversion.plan`), as one step of
-  /// ⌘Z: the credit card is written, the card moves to it and the former account lets go of it
+  /// A card given its own debit or credit account, as one step of
+  /// ⌘Z: the account is written, the card moves to it and the former account lets go of it
   /// as its main card; then `convertingCard` moves what the card paid, as the plan chose.
   public static func cardConversion(
     _ plan: CreditCardConversionPlan, at instant: Date

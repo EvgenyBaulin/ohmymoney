@@ -1,6 +1,108 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "card.ownBalance.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Own balance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свой счёт и остаток"
+          }
+        }
+      }
+    },
+    "card.ownBalance.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card will have a separate account at the same bank and its own balance. Choose which past card operations to move. Then count both accounts. You can undo this as one step."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У карты появится отдельный счёт в том же банке со своим остатком. Выберите, какие прошлые операции карты перенести. Затем сверьте оба счёта. Действие можно отменить одним шагом."
+          }
+        }
+      }
+    },
+    "card.ownBalance.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create own balance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать свой счёт"
+          }
+        }
+      }
+    },
+    "card.ownBalance.unavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card already has its own account, or that account cannot be created. Reopen the card panel and try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У карты уже есть свой счёт или его не удалось создать. Откройте панель карты заново и попробуйте ещё раз."
+          }
+        }
+      }
+    },
+    "card.ownBalance.noTarget": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To share a balance, merge this account into another debit account at the same bank. Add or restore that account first. You can also undo the separation."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы вернуть общий остаток, объедините этот счёт с другим дебетовым счётом того же банка. Сначала добавьте или восстановите такой счёт. Разделение также можно отменить."
+          }
+        }
+      }
+    },
+    "card.ownBalance.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turning this on creates a separate account. Turning it off opens the account merge: choose the shared account at the same bank."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При включении появится отдельный счёт. При выключении откроется объединение: выберите общий счёт того же банка."
+          }
+        }
+      }
+    },
     "account.accent.01": {
       "extractionState": "manual",
       "localizations": {
