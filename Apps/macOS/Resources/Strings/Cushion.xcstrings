@@ -142,6 +142,12 @@
             "value": "%1$@ / %2$@ oy"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ trên %2$@ tháng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -295,6 +301,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bugungi majburiy to‘lovlardan kam emas: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không thấp hơn các khoản chi bắt buộc hôm nay: %@"
           }
         },
         "zh-Hans": {
@@ -452,6 +464,12 @@
             "value": "Hozirgacha to‘liq oylar: %lld."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số tháng tròn hiện có: %lld."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -605,6 +623,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Maqsad — %1$@ (%2$@): %4$@ gacha har oy %3$@ jamg‘aring"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu — %1$@ (%2$@): để dành %3$@ mỗi tháng đến %4$@"
           }
         },
         "zh-Hans": {
@@ -762,6 +786,12 @@
             "value": "Muddat"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn thành trước"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -916,6 +946,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng"
           }
         },
         "zh-Hans": {
@@ -1427,6 +1463,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Quỹ dự phòng cho %lld tháng"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -1594,6 +1642,12 @@
             "value": "Hali maqsad yo‘q: zaxira necha oyga yetishi kerakligini belgilang."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có mục tiêu: chọn số tháng quỹ dự phòng cần trang trải."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1748,6 +1802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Maqsad…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu…"
           }
         },
         "zh-Hans": {
@@ -1905,6 +1965,12 @@
             "value": "hozirgi sur’atda — %@ gacha"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "với tốc độ hiện tại — đến %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2058,6 +2124,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "hozirgi sur’atda maqsadga erishib bo‘lmaydi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "với tốc độ hiện tại, sẽ không bao giờ đạt được"
           }
         },
         "zh-Hans": {
@@ -2215,6 +2287,12 @@
             "value": "Maqsad — %1$@ (%2$@): har oy %3$@ jamg‘arsangiz, bir yilda erishasiz"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu — %1$@ (%2$@): %3$@ mỗi tháng để đạt trong một năm"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2368,6 +2446,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Maqsad — %1$@ (%2$@): erishildi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu — %1$@ (%2$@): đã đạt"
           }
         },
         "zh-Hans": {
@@ -2525,6 +2609,12 @@
             "value": "Maqsadni olib tashlash"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa mục tiêu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2678,6 +2768,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zaxira maqsadi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu quỹ dự phòng"
           }
         },
         "zh-Hans": {
@@ -3189,6 +3285,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nếu không có thu nhập, bạn có thể trang trải trong %lld tháng"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -3356,6 +3464,12 @@
             "value": "Daromadsiz %@ oyga yetadi"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu không có thu nhập, bạn có thể trang trải trong %@ tháng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3510,6 +3624,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yanvar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 1"
           }
         },
         "zh-Hans": {
@@ -3668,6 +3788,12 @@
             "value": "Oktabr"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 10"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3822,6 +3948,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Noyabr"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 11"
           }
         },
         "zh-Hans": {
@@ -3980,6 +4112,12 @@
             "value": "Dekabr"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 12"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4134,6 +4272,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fevral"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 2"
           }
         },
         "zh-Hans": {
@@ -4292,6 +4436,12 @@
             "value": "Mart"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 3"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4446,6 +4596,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aprel"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 4"
           }
         },
         "zh-Hans": {
@@ -4604,6 +4760,12 @@
             "value": "May"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 5"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -4758,6 +4920,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Iyun"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 6"
           }
         },
         "zh-Hans": {
@@ -4916,6 +5084,12 @@
             "value": "Iyul"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 7"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5070,6 +5244,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avgust"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 8"
           }
         },
         "zh-Hans": {
@@ -5228,6 +5408,12 @@
             "value": "Sentabr"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 9"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5382,6 +5568,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yanvar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 1"
           }
         },
         "zh-Hans": {
@@ -5540,6 +5732,12 @@
             "value": "Oktabr"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 10"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -5694,6 +5892,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Noyabr"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 11"
           }
         },
         "zh-Hans": {
@@ -5852,6 +6056,12 @@
             "value": "Dekabr"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 12"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6006,6 +6216,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fevral"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 2"
           }
         },
         "zh-Hans": {
@@ -6164,6 +6380,12 @@
             "value": "Mart"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 3"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6318,6 +6540,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aprel"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 4"
           }
         },
         "zh-Hans": {
@@ -6476,6 +6704,12 @@
             "value": "May"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 5"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6630,6 +6864,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Iyun"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 6"
           }
         },
         "zh-Hans": {
@@ -6788,6 +7028,12 @@
             "value": "Iyul"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 7"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -6944,6 +7190,12 @@
             "value": "Avgust"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 8"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7098,6 +7350,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sentabr"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng 9"
           }
         },
         "zh-Hans": {
@@ -7609,6 +7867,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld tháng"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -7776,6 +8046,12 @@
             "value": "Zaxira hisoblarini belgilang. Shunda zaxira daromadsiz necha oyga yetishi ko‘rsatiladi."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chọn các tài khoản của quỹ dự phòng để xem quỹ đủ dùng trong bao nhiêu tháng nếu không có thu nhập."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -7929,6 +8205,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ma’lumot yetarli emas: majburiy xarajatlar uchun 3 to‘liq oy kerak."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không đủ dữ liệu: cần 3 tháng tròn chi tiêu bắt buộc."
           }
         },
         "zh-Hans": {
@@ -8087,6 +8369,12 @@
             "value": "Qarzlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nợ"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8240,6 +8528,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zarur toifalar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danh mục thiết yếu"
           }
         },
         "zh-Hans": {
@@ -8398,6 +8692,12 @@
             "value": "To‘lovlar va obunalar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoản thanh toán và đăng ký"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8552,6 +8852,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Moliyaviy zaxira"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng"
           }
         },
         "zh-Hans": {
@@ -8709,6 +9015,12 @@
             "value": "Moliyaviy zaxira: ma’lumot hali yetarli emas"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng: chưa đủ dữ liệu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -8862,6 +9174,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Moliyaviy zaxira: hisob hali belgilanmagan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng: chưa chọn tài khoản"
           }
         },
         "zh-Hans": {
@@ -9019,6 +9337,12 @@
             "value": "Kapitalni ochish"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở Vốn"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9172,6 +9496,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Moliyaviy zaxira: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng: %@"
           }
         },
         "zh-Hans": {
@@ -9329,6 +9659,12 @@
             "value": "Zaxira hisoblari"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tài khoản của quỹ dự phòng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9482,6 +9818,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bu hisoblar barcha valyutalardagi mablag‘lari bilan zaxirani tashkil qiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toàn bộ số tiền trong các tài khoản này, ở mọi loại tiền tệ, tạo thành quỹ dự phòng."
           }
         },
         "zh-Hans": {
@@ -9640,6 +9982,12 @@
             "value": "Zarur xarajatlar"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chi tiêu thiết yếu"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -9793,6 +10141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "To‘xtatib bo‘lmaydigan xarajatlar. Ular to‘lovlar, obunalar va qarzlar bilan birga oylik majburiy xarajatlarni tashkil qiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các khoản chi không thể ngừng. Cùng với khoản thanh toán, đăng ký và nợ, chúng tạo thành chi tiêu bắt buộc hàng tháng."
           }
         },
         "zh-Hans": {
@@ -9950,6 +10304,12 @@
             "value": "Hali hisoblar yo‘q."
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có tài khoản."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10103,6 +10463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shaxsiy xarajat toifalari yo‘q."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có danh mục chi tiêu riêng."
           }
         },
         "zh-Hans": {
@@ -10260,6 +10626,12 @@
             "value": "Hisoblar va toifalar…"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tài khoản và danh mục…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10413,6 +10785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Odatdagi zarur toifalar belgilandi. Ularni tekshiring va saqlang."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các danh mục thiết yếu thường dùng đã được chọn: hãy kiểm tra và lưu."
           }
         },
         "zh-Hans": {
@@ -10571,6 +10949,12 @@
             "value": "Moliyaviy zaxira"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10726,6 +11110,12 @@
             "value": "Zaxira %1$@ · majburiy xarajatlar ≈ oyiga %2$@"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng %1$@ · chi tiêu bắt buộc ≈ %2$@ mỗi tháng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -10879,6 +11269,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ oy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tháng"
           }
         },
         "zh-Hans": {
@@ -11037,6 +11433,12 @@
             "value": "Moliyaviy zaxira"
           }
         },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quỹ dự phòng"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -11190,6 +11592,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hali hisobga olinmagan: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa được tính: %@"
           }
         },
         "zh-Hans": {

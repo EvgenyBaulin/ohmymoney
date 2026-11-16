@@ -5,16 +5,160 @@
       "comment": "Spoken name of the fold button of a tree row; other languages fall back to English until translated.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” bölməsini yığ"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Згарнуць «%@»"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbalit „%@“"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ einklappen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Collapse “%@”"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraer «%@»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réduire « %@ »"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ծալել «%@»"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprimi «%@»"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%@」を折りたたむ"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაკეცვა “%@”"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” жасыру"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” 접기"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” жыйыңыз"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” samenvouwen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwiń „%@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recolher “%@”"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recolher “%@”"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Свернуть «%@»"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ҷамъ кардани «%@»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” hesabını daralt"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Згорнути «%@»"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” yig‘ish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть «%@»"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收起“%@”"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收合「%@」"
           }
         }
       }
@@ -23,16 +167,160 @@
       "comment": "Spoken name of the fold button of a tree row; other languages fall back to English until translated.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” bölməsini aç"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разгарнуць «%@»"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozbalit „%@“"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ ausklappen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Expand “%@”"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandir «%@»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Développer « %@ »"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացել «%@»"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espandi «%@»"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%@」を展開"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაშლა “%@”"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” ашу"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” 펼치기"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” жайыңыз"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” uitvouwen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozwiń „%@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandir “%@”"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandir “%@”"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Развернуть «%@»"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кушодани «%@»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” hesabını genişlet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розгорнути «%@»"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” yoyish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать «%@»"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "展开“%@”"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "展開「%@」"
           }
         }
       }
@@ -113,6 +401,12 @@
             "value": "Шоттың барлық өрісі…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌의 모든 항목…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -171,6 +465,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hisobning barcha maydonlari…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все поля счёта…"
           }
         },
         "zh-Hans": {
@@ -263,6 +563,12 @@
             "value": "Банк"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "은행"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -321,6 +627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bank"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк"
           }
         },
         "zh-Hans": {
@@ -413,6 +725,12 @@
             "value": "Кешбэк"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "캐시백"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -471,6 +789,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keshbek"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кешбэк"
           }
         },
         "zh-Hans": {
@@ -563,6 +887,12 @@
             "value": "Тұрақты"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고정"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -621,6 +951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Doimiy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Постоянный"
           }
         },
         "zh-Hans": {
@@ -713,6 +1049,12 @@
             "value": "Ай сайын өзгереді"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "매월 변경"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -771,6 +1113,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Har oy o‘zgaradi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меняется каждый месяц"
           }
         },
         "zh-Hans": {
@@ -863,6 +1211,12 @@
             "value": "Жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -921,6 +1275,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет"
           }
         },
         "zh-Hans": {
@@ -1013,6 +1373,12 @@
             "value": "Кешбэк ережелері…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "캐시백 규칙…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1071,6 +1437,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keshbek qoidalari…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила кешбэка…"
           }
         },
         "zh-Hans": {
@@ -1163,6 +1535,12 @@
             "value": "Түс"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "색상"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1221,6 +1599,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rang"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвет"
           }
         },
         "zh-Hans": {
@@ -1313,6 +1697,12 @@
             "value": "Валюта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "통화"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1371,6 +1761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Valyuta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
           }
         },
         "zh-Hans": {
@@ -1463,6 +1859,12 @@
             "value": "Шотты жою…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌 삭제…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1521,6 +1923,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hisobni o‘chirish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить счёт…"
           }
         },
         "zh-Hans": {
@@ -1613,6 +2021,12 @@
             "value": "Банкті жою…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "은행 삭제…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1671,6 +2085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bankni o‘chirish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить банк…"
           }
         },
         "zh-Hans": {
@@ -1763,6 +2183,12 @@
             "value": "Картаны жою…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드 삭제…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1821,6 +2247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kartani o‘chirish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить карту…"
           }
         },
         "zh-Hans": {
@@ -1913,6 +2345,12 @@
             "value": "Топты жою…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹 삭제…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -1971,6 +2409,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guruhni o‘chirish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить группу…"
           }
         },
         "zh-Hans": {
@@ -2063,6 +2507,12 @@
             "value": "Өңдеу үшін сол жақтан жолды таңдаңыз."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "왼쪽에서 행을 선택하여 변경하십시오."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2121,6 +2571,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘zgartirish uchun chapdagi qatorni tanlang."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите строку слева, чтобы изменить её здесь."
           }
         },
         "zh-Hans": {
@@ -2213,6 +2669,12 @@
             "value": "Топ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2271,6 +2733,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guruh"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Группа"
           }
         },
         "zh-Hans": {
@@ -2363,6 +2831,12 @@
             "value": "Шотты жасыру"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌 가리기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2421,6 +2895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hisobni yashirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть счёт"
           }
         },
         "zh-Hans": {
@@ -2513,6 +2993,12 @@
             "value": "Жиынтықта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "요약에 포함"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2571,6 +3057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Umumiy hisobda"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В сводке"
           }
         },
         "zh-Hans": {
@@ -2663,6 +3155,12 @@
             "value": "Бүкіл «%@» тобы үшін"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹 «%@» 전체에 적용"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2721,6 +3219,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Butun «%@» guruhi uchun"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для всей группы «%@»"
           }
         },
         "zh-Hans": {
@@ -2813,6 +3317,12 @@
             "value": "Топсыз шот әрдайым есептеледі"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹에 속하지 않은 계좌는 항상 포함됩니다"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -2871,6 +3381,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guruhsiz hisob har doim hisobga olinadi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт без группы всегда учитывается"
           }
         },
         "zh-Hans": {
@@ -2963,6 +3479,12 @@
             "value": "карта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3021,6 +3543,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "karta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "карта"
           }
         },
         "zh-Hans": {
@@ -3113,6 +3641,12 @@
             "value": "Негізгі карта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주 카드"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3171,6 +3705,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Asosiy karta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основная карта"
           }
         },
         "zh-Hans": {
@@ -3263,6 +3803,12 @@
             "value": "Атау"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이름"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3321,6 +3867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название"
           }
         },
         "zh-Hans": {
@@ -3413,6 +3965,12 @@
             "value": "Жоқ"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3471,6 +4029,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yo‘q"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет"
           }
         },
         "zh-Hans": {
@@ -3563,6 +4127,12 @@
             "value": "Өзгерістер бірден қолданылады, ⌘Z болдырмайды."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경 사항이 즉시 적용되며 ⌘Z로 실행 취소할 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3621,6 +4191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘zgarishlar darhol qo‘llanadi, ⌘Z ularni bekor qiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменения применяются сразу, ⌘Z отменяет их."
           }
         },
         "zh-Hans": {
@@ -3713,6 +4289,12 @@
             "value": "Өзгерістер бірден қолданылады, оларды болдырмауға болады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경 사항이 즉시 적용되며 실행 취소할 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3771,6 +4353,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O‘zgarishlar darhol qo‘llanadi va ularni bekor qilish mumkin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменения применяются сразу и могут быть отменены."
           }
         },
         "zh-Hans": {
@@ -3863,6 +4451,12 @@
             "value": "Әлі шот жоқ: банктен бастаңыз — онымен бірге алғашқы шот пен карта қосылады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 계좌가 없습니다. 은행을 추가하면 첫 계좌와 카드가 함께 생성됩니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -3921,6 +4515,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hali hisob yo‘q: bankdan boshlang — uning birinchi hisobi va kartasi qo‘shiladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счетов пока нет: начните с банка — он добавит первый счёт и карту."
           }
         },
         "zh-Hans": {
@@ -4013,6 +4613,12 @@
             "value": "Әдепкі валюта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기본 통화"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4071,6 +4677,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Standart valyuta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта по умолчанию"
           }
         },
         "zh-Hans": {
@@ -4163,6 +4775,12 @@
             "value": "Карта немесе шот"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드 또는 계좌"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4221,6 +4839,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Karta yoki hisob"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карта или счёт"
           }
         },
         "zh-Hans": {
@@ -4313,6 +4937,12 @@
             "value": "Шот"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4371,6 +5001,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hisob"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт"
           }
         },
         "zh-Hans": {
@@ -4463,6 +5099,12 @@
             "value": "Карта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4521,6 +5163,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Karta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карта"
           }
         },
         "zh-Hans": {
@@ -4613,6 +5261,12 @@
             "value": "Тек жаңа орындағы алғашқы сатып алу үшін: одан кейін сол орындағы соңғы сатып алудың картасы қолданылады. Негізгі шот пен валюта өз бөлімдерінде өзгертіледі."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새로운 장소에서 첫 구매할 때만 적용됩니다. 이후에는 해당 장소에서 마지막으로 사용한 카드로 구매합니다. 주 계좌와 통화는 각각의 섹션에서 변경할 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4671,6 +5325,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Faqat yangi joydagi birinchi xarid uchun: keyingi xaridlar oxirgi xaridda ishlatilgan karta bilan amalga oshiriladi. Asosiy hisob va valyuta tegishli bo‘limlarda o‘zgartiriladi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только первая покупка в новом месте: после неё покупка там совершается картой последней. Основной счёт и валюта меняются в своих разделах."
           }
         },
         "zh-Hans": {
@@ -4763,6 +5423,12 @@
             "value": "Негізгі шот"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주 계좌"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4821,6 +5487,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Asosiy hisob"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основной счёт"
           }
         },
         "zh-Hans": {
@@ -4913,6 +5585,12 @@
             "value": "Үлгі қосу…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "템플릿 추가…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -4971,6 +5649,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Andoza qo‘shish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить шаблон…"
           }
         },
         "zh-Hans": {
@@ -5063,6 +5747,12 @@
             "value": "Сөздер мен сома, мысалы, кофе 250"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내용과 금액(예: 커피 250)"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5121,6 +5811,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "So‘zlar va summa, masalan, qahva 250"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слова и сумма, например: кофе 250"
           }
         },
         "zh-Hans": {
@@ -5213,6 +5909,12 @@
             "value": "Үлгілер енгізгендеріңізден өзі толтырылады, өзіңіз де қоса аласыз. Бекітілгендері әрдайым алда тұрады. Мұрағаттағы үлгі батырмалардан жоғалып, «Қайтару» арқылы оралады."
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "입력한 내용으로 템플릿이 자동 생성되며 직접 추가할 수도 있습니다. 고정된 템플릿은 항상 먼저 표시됩니다. 보관함의 템플릿은 목록에서 사라지며 «가져오기»로 다시 표시할 수 있습니다."
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5271,6 +5973,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Andozalar kiritgan ma’lumotlaringizdan avtomatik yaratiladi, ularni o‘zingiz ham qo‘shishingiz mumkin. Qadalganlari doim birinchi turadi. Arxivdagi andoza ro‘yxatdan chiqadi va «Qaytarish» orqali qaytadi."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шаблоны заполняются сами по тому, что вы вводите, и вы можете добавить свой. Закреплённые всегда остаются первыми. Шаблон в архиве пропадает из быстрых кнопок и возвращается по кнопке «Вернуть»."
           }
         },
         "zh-Hans": {
@@ -5363,6 +6071,12 @@
             "value": "Топ не банк қосу…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹 또는 은행 추가…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5421,6 +6135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guruh yoki bank qo‘shish…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить группу или банк…"
           }
         },
         "zh-Hans": {
@@ -5513,6 +6233,12 @@
             "value": "Мұрағат"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관함"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5571,6 +6297,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arxiv"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В архив"
           }
         },
         "zh-Hans": {
@@ -5663,6 +6395,12 @@
             "value": "мұрағатта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관됨"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5721,6 +6459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "arxivda"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в архиве"
           }
         },
         "zh-Hans": {
@@ -5813,6 +6557,12 @@
             "value": "басқа адамның картасы"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 사람의 카드"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -5871,6 +6621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "boshqa odamning kartasi"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "чужая карта"
           }
         },
         "zh-Hans": {
@@ -5963,6 +6719,12 @@
             "value": "несие картасы"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "신용 카드"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -6021,6 +6783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "kredit karta"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "кредитная карта"
           }
         },
         "zh-Hans": {
@@ -6113,6 +6881,12 @@
             "value": "негізгі"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주 카드"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -6171,6 +6945,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "asosiy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "основная"
           }
         },
         "zh-Hans": {
@@ -6263,6 +7043,12 @@
             "value": "Барлығын жию"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모두 접기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -6321,6 +7107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hammasini yig‘ish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свернуть все"
           }
         },
         "zh-Hans": {
@@ -6593,6 +7385,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "계좌 %lld개"
+                }
+              }
+            }
+          }
+        },
         "ky": {
           "variations": {
             "plural": {
@@ -6816,6 +7620,18 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ta hisob"
+                }
+              }
+            }
+          }
+        },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld счетов"
                 }
               }
             }
@@ -7103,6 +7919,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "항목 %lld개"
+                }
+              }
+            }
+          }
+        },
         "ky": {
           "variations": {
             "plural": {
@@ -7331,6 +8159,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld элементов"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -7433,6 +8273,12 @@
             "value": "Дайын"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "완료"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -7491,6 +8337,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tayyor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
           }
         },
         "zh-Hans": {
@@ -7583,6 +8435,12 @@
             "value": "Өңдеу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "편집"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -7641,6 +8499,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tahrirlash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить"
           }
         },
         "zh-Hans": {
@@ -7733,6 +8597,12 @@
             "value": "Барлығын жаю"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모두 펼치기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -7791,6 +8661,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hammasini ochish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Развернуть все"
           }
         },
         "zh-Hans": {
@@ -7883,6 +8759,12 @@
             "value": "Жасырылған"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가려짐"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -7941,6 +8823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yashirilgan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрытые"
           }
         },
         "zh-Hans": {
@@ -8033,6 +8921,12 @@
             "value": "Жасыру"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가리기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8091,6 +8985,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yashirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть"
           }
         },
         "zh-Hans": {
@@ -8183,6 +9083,12 @@
             "value": "жиынтықта"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "요약에 포함됨"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8241,6 +9147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "umumiy hisobda"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в сводке"
           }
         },
         "zh-Hans": {
@@ -8333,6 +9245,12 @@
             "value": "Топсыз"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹 없음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8391,6 +9309,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guruhsiz"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без группы"
           }
         },
         "zh-Hans": {
@@ -8483,6 +9407,12 @@
             "value": "жиынтықта емес"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "요약에 포함되지 않음"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8541,6 +9471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "umumiy hisobda emas"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не в сводке"
           }
         },
         "zh-Hans": {
@@ -8633,6 +9569,12 @@
             "value": "Банкке шот қосу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "은행에 계좌 추가"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8691,6 +9633,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bankka hisob qo‘shish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить счёт в банк"
           }
         },
         "zh-Hans": {
@@ -8783,6 +9731,12 @@
             "value": "Карта қосу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드 추가"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8841,6 +9795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Karta qo‘shish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить карту"
           }
         },
         "zh-Hans": {
@@ -8933,6 +9893,12 @@
             "value": "Шоттар мен карталарды іздеу"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계좌 및 카드 검색"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -8991,6 +9957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hisob va kartalarni qidirish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск счетов и карт"
           }
         },
         "zh-Hans": {
@@ -9263,6 +10235,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld개 선택됨"
+                }
+              }
+            }
+          }
+        },
         "ky": {
           "variations": {
             "plural": {
@@ -9491,6 +10475,18 @@
             }
           }
         },
+        "vi": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld выбрано"
+                }
+              }
+            }
+          }
+        },
         "zh-Hans": {
           "variations": {
             "plural": {
@@ -9593,6 +10589,12 @@
             "value": "Көрсету"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보기"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -9651,6 +10653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ko‘rsatish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать"
           }
         },
         "zh-Hans": {
@@ -9743,6 +10751,12 @@
             "value": "Мұрағатқа"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보관함으로 이동"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -9801,6 +10815,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arxivga"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В архив"
           }
         },
         "zh-Hans": {
@@ -9893,6 +10913,12 @@
             "value": "Топқа…"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹으로 이동…"
+          }
+        },
         "ky": {
           "stringUnit": {
             "state": "translated",
@@ -9951,6 +10977,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guruhga…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhóm lại…"
           }
         },
         "zh-Hans": {
