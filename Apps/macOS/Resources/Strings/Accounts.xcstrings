@@ -1,108 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "card.ownBalance.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Own balance"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Свой счёт и остаток"
-          }
-        }
-      }
-    },
-    "card.ownBalance.message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The card will have a separate account at the same bank and its own balance. Choose which past card operations to move. Then count both accounts. You can undo this as one step."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У карты появится отдельный счёт в том же банке со своим остатком. Выберите, какие прошлые операции карты перенести. Затем сверьте оба счёта. Действие можно отменить одним шагом."
-          }
-        }
-      }
-    },
-    "card.ownBalance.confirm": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create own balance"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Создать свой счёт"
-          }
-        }
-      }
-    },
-    "card.ownBalance.unavailable": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The card already has its own account, or that account cannot be created. Reopen the card panel and try again."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У карты уже есть свой счёт или его не удалось создать. Откройте панель карты заново и попробуйте ещё раз."
-          }
-        }
-      }
-    },
-    "card.ownBalance.noTarget": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To share a balance, merge this account into another debit account at the same bank. Add or restore that account first. You can also undo the separation."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Чтобы вернуть общий остаток, объедините этот счёт с другим дебетовым счётом того же банка. Сначала добавьте или восстановите такой счёт. Разделение также можно отменить."
-          }
-        }
-      }
-    },
-    "card.ownBalance.hint": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turning this on creates a separate account. Turning it off opens the account merge: choose the shared account at the same bank."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "При включении появится отдельный счёт. При выключении откроется объединение: выберите общий счёт того же банка."
-          }
-        }
-      }
-    },
     "account.accent.01": {
       "extractionState": "manual",
       "localizations": {
@@ -86293,6 +86191,972 @@
           "stringUnit": {
             "state": "translated",
             "value": "沒有卡片"
+          }
+        }
+      }
+    },
+    "card.ownBalance.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şəxsi balans yarat"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стварыць уласны баланс"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vytvořit vlastní zůstatek"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigenes Guthaben anlegen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create own balance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear saldo propio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer un solde propre"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ստեղծել սեփական մնացորդ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea saldo proprio"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "独自残高を作成"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საკუთარი ბალანსის შექმნა"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жеке баланс құру"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자체 잔액 만들기"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жеке баланс түзүү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigen saldo aanmaken"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити власний баланс"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar saldo próprio"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar saldo próprio"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать свой счёт"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тавозуни шахсӣ эҷод кардан"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать собственный баланс"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити окремий баланс"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alohida balans yaratish"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tạo số dư riêng"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建独立余额"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立獨立餘額"
+          }
+        }
+      }
+    },
+    "card.ownBalance.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bunu aktivləşdirmək ayrıca hesab yaradır. Deaktivləşdirmək hesabların birləşdirilməsini açır: eyni bankda ortaq hesabı seçin."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калі ўключыць гэта, будзе створаны асобны рахунак. Калі выключыць, адкрыецца аб'яднанне рахункаў: выберыце агульны рахунак у гэтым жа банку."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapnutím se vytvoří samostatný účet. Vypnutím se otevře sloučení účtů: vyberte společný účet ve stejné bance."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Aktivieren wird ein eigenes Konto angelegt. Beim Deaktivieren öffnet sich die Kontozusammenführung: Wähle das gemeinsame Konto bei derselben Bank."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turning this on creates a separate account. Turning it off opens the account merge: choose the shared account at the same bank."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al activarlo se crea una cuenta separada. Al desactivarlo se abre la fusión de cuentas: elige la cuenta compartida del mismo banco."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer cette option crée un compte distinct. La désactiver ouvre la fusion de comptes : choisissez le compte commun auprès de la même banque."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սա միացնելիս ստեղծվում է առանձին հաշիվ։ Անջատելիս բացվում է հաշիվների միավորումը․ ընտրեք նույն բանկի ընդհանուր հաշիվը։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attivando questa opzione si crea un conto separato. Disattivandola si avvia l'unione dei conti: scegli il conto condiviso presso la stessa banca."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "オンにすると、別の口座が作成されます。オフにすると口座の統合画面が開き、同じ銀行の共有口座を選択できます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამის ჩართვა ქმნის ცალკე ანგარიშს. გამორთვა ხსნის ანგარიშების გაერთიანებას: აირჩიეთ საერთო ანგარიში იმავე ბანკში."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұны қоссаңыз, бөлек шот жасалады. Өшірсеңіз, шоттарды біріктіру ашылады: сол банктегі ортақ шотты таңдаңыз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 기능을 켜면 별도의 계좌가 만들어집니다. 끄면 계좌 병합이 열리며, 같은 은행의 공동 계좌를 선택하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Муну күйгүзсөңүз, өзүнчө эсеп түзүлөт. Өчүрсөңүз, эсептерди бириктирүү ачылат: ошол эле банктагы жалпы эсепти тандаңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deze optie maakt een aparte rekening aan. Uitschakelen opent het samenvoegen van rekeningen: kies de gedeelde rekening bij dezelfde bank."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Після увімкнення створюється окремий рахунок. Після вимкнення відкривається злиття рахунків: виберіть спільний рахунок у тому самому банку."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao ativar, é criada uma conta separada. Ao desativar, a conta é mesclada: escolha a conta compartilhada do mesmo banco."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao ativar, é criada uma conta separada. Ao desativar, abre-se a fusão de contas: escolha a conta partilhada no mesmo banco."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "При включении появится отдельный счёт. При выключении откроется объединение: выберите общий счёт того же банка."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фаъол кардани ин ҳисоби алоҳида эҷод мекунад. Хомӯш кардан муттаҳидсозии ҳисобро мекушояд: ҳисоби умумиро дар ҳамон бонк интихоб кунед."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответ"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Після увімкнення створюється окремий рахунок. Після вимкнення відкривається об'єднання рахунків: оберіть спільний рахунок у тому самому банку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu funksiyani yoqsangiz, alohida hisob yaratiladi. O‘chirsangiz, hisoblarni birlashtirish ochiladi: shu bankdagi umumiy hisobni tanlang."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật tùy chọn này sẽ tạo một tài khoản riêng. Tắt tùy chọn này sẽ mở bước gộp tài khoản: chọn tài khoản chung tại cùng ngân hàng."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开启后将创建单独的账户。关闭时会打开账户合并：请选择同一银行中的共享账户。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟後會建立獨立帳戶。關閉時會開始帳戶合併，請選擇同一銀行的共用帳戶。"
+          }
+        }
+      }
+    },
+    "card.ownBalance.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartın eyni bankda ayrıca hesabı və öz balansı olacaq. Köçürüləcək əvvəlki kart əməliyyatlarını seçin. Sonra hər iki hesabı nəzərə alın. Bunu bir addımda geri qaytara bilərsiniz."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У карты будзе асобны рахунак у гэтым жа банку і ўласны баланс. Выберыце, якія мінулыя аперацыі карты перанесці. Затым улічвайце абодва рахункі. Гэта можна адмяніць адным крокам."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karta bude mít samostatný účet ve stejné bance a vlastní zůstatek. Vyberte, které minulé operace karty přesunout. Poté započítejte oba účty. Tuto akci lze vrátit jedním krokem."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Karte erhält ein eigenes Konto bei derselben Bank mit eigenem Guthaben. Wähle, welche bisherigen Kartenbuchungen übernommen werden sollen. Danach werden beide Konten gezählt. Du kannst dies in einem Schritt rückgängig machen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card will have a separate account at the same bank and its own balance. Choose which past card operations to move. Then count both accounts. You can undo this as one step."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tarjeta tendrá una cuenta separada en el mismo banco y su propio saldo. Elige qué operaciones anteriores de la tarjeta trasladar. Después, cuenta ambas cuentas. Puedes deshacerlo en un solo paso."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carte aura un compte distinct auprès de la même banque et son propre solde. Choisissez les opérations passées de la carte à transférer. Vous pourrez ensuite comptabiliser les deux comptes. Vous pouvez annuler cette action en une seule étape."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Քարտն ունի նույն բանկում առանձին հաշիվ և սեփական մնացորդ։ Ընտրեք, թե անցյալի որ քարտային գործողությունները տեղափոխել։ Այնուհետև հաշվեք երկու հաշիվները։ Սա կարող եք հետ դարձնել մեկ քայլով։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carta avrà un conto separato presso la stessa banca e un saldo proprio. Scegli quali operazioni passate spostare. Poi conta entrambi i conti. Puoi annullare tutto in un solo passaggio."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このカードは、同じ銀行に別の口座と独自の残高を持ちます。移動する過去のカード取引を選んでください。その後、両方の口座を合算します。この操作は一度の取り消しで元に戻せます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბარათს ექნება ცალკე ანგარიში იმავე ბანკში და საკუთარი ბალანსი. აირჩიეთ, რომელი წინა ბარათის ოპერაციები გადავიდეს. შემდეგ ორივე ანგარიში ჩაითვლება. ამის გაუქმება შესაძლებელია ერთი ნაბიჯით."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картаның сол банкте бөлек шоты және өз балансы болады. Ауыстыратын өткен карта операцияларын таңдаңыз. Содан кейін екі шотты да есептеңіз. Мұны бір қадамда қайтаруға болады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드는 같은 은행에 별도의 계좌와 자체 잔액을 갖게 됩니다. 옮길 과거 카드 거래를 선택하세요. 그다음 두 계좌를 함께 집계합니다. 이 작업은 한 번에 되돌릴 수 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картанын ошол эле банкта өзүнчө эсеби жана өз балансы болот. Которула турган мурунку карта операцияларын тандаңыз. Андан кийин эки эсепти тең эсептеңиз. Муну бир кадам менен кайтарсаңыз болот."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De kaart krijgt een aparte rekening bij dezelfde bank en een eigen saldo. Kies welke eerdere kaarttransacties je wilt verplaatsen. Tel daarna beide rekeningen mee. Dit kun je in één stap ongedaan maken."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка матиме окремий рахунок у тому самому банку та власний баланс. Виберіть, які минулі операції за карткою перенести. Потім підрахуйте обидва рахунки. Це можна скасувати одним кроком."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O cartão terá uma conta separada no mesmo banco e saldo próprio. Escolha quais operações anteriores do cartão mover. Depois, some as duas contas. Você pode desfazer isso em uma única etapa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O cartão terá uma conta separada no mesmo banco e um saldo próprio. Escolha as operações anteriores do cartão a mover. Depois, conte as duas contas. Pode anular isto num único passo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У карты появится отдельный счёт в том же банке со своим остатком. Выберите, какие прошлые операции карты перенести. Затем сверьте оба счёта. Действие можно отменить одним шагом."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Корт дар ҳамон бонк ҳисоби алоҳида ва тавозуни худро хоҳад дошт. Амалиётҳои гузаштаи кортро, ки бояд интиқол дода шаванд, интихоб кунед. Сипас ҳарду ҳисобро ҳисоб кунед. Инро дар як қадам бекор кардан мумкин аст."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartın aynı bankada ayrı bir hesabı ve kendi bakiyesi olacak. Taşınacak geçmiş kart işlemlerini seçin. Ardından iki hesabı da birlikte sayın. Bu işlemi tek adımda geri alabilirsiniz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка матиме окремий рахунок у тому самому банку та власний баланс. Оберіть, які минулі операції за карткою перенести. Далі враховуйте обидва рахунки. Цю дію можна скасувати одним кроком."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartaning shu bankda alohida hisobi va o‘z balansi bo‘ladi. Qaysi oldingi kartа amallarini ko‘chirishni tanlang. So‘ng ikkala hisobni hisoblang. Buni bir qadamda bekor qilish mumkin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ sẽ có tài khoản riêng tại cùng ngân hàng và số dư riêng. Chọn các giao dịch thẻ trước đây cần chuyển. Sau đó tính cả hai tài khoản. Bạn có thể hoàn tác chỉ trong một bước."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "该卡将在同一银行拥有单独的账户和独立余额。请选择要转移的过往卡片交易，然后合并计算两个账户。此操作可一步撤销。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此卡片將在同一銀行擁有獨立帳戶及專屬餘額。請選擇要移轉的過往卡片交易，再合併計算兩個帳戶。此操作可一次復原。"
+          }
+        }
+      }
+    },
+    "card.ownBalance.noTarget": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balansı paylaşmaq üçün bu hesabı eyni bankdakı başqa debet hesabı ilə birləşdirin. Əvvəlcə həmin hesabı əlavə edin və ya bərpa edin. Ayrılmanı da geri qaytara bilərsiniz."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каб падзяліць баланс, аб'яднайце гэты рахунак з іншым дэбетавым рахункам у гэтым жа банку. Спачатку дадайце або вярніце гэты рахунак. Таксама можна адмяніць падзел."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chcete-li sdílet zůstatek, sloučte tento účet s jiným debetním účtem ve stejné bance. Nejprve přidejte nebo obnovte tento účet. Oddělení můžete také vrátit zpět."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um ein Guthaben zu teilen, führe dieses Konto mit einem anderen Girokonto bei derselben Bank zusammen. Lege dieses Konto zuerst an oder stelle es wieder her. Du kannst die Trennung auch rückgängig machen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To share a balance, merge this account into another debit account at the same bank. Add or restore that account first. You can also undo the separation."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para compartir un saldo, fusiona esta cuenta con otra cuenta de débito del mismo banco. Primero añade o restaura esa cuenta. También puedes deshacer la separación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour partager un solde, fusionnez ce compte avec un autre compte débit de la même banque. Ajoutez ou restaurez d'abord ce compte. Vous pouvez aussi annuler la séparation."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մնացորդը համատեղելու համար միավորեք այս հաշիվը նույն բանկի մեկ այլ debit հաշվի հետ։ Նախ ավելացրեք կամ վերականգնեք այդ հաշիվը։ Կարող եք նաև հետ դարձնել առանձնացումը։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Per condividere un saldo, unisci questo conto a un altro conto di debito presso la stessa banca. Prima aggiungi o ripristina quel conto. Puoi anche annullare la separazione."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "残高を共有するには、この口座を同じ銀行の別のデビット口座に統合してください。先にその口座を追加するか復元してください。口座の分離を取り消すこともできます。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საერთო ბალანსისთვის ეს ანგარიში გააერთიანეთ იმავე ბანკის სხვა სადებეტო ანგარიშთან. ჯერ დაამატეთ ან აღადგინეთ ეს ანგარიში. ასევე შეგიძლიათ გაყოფის გაუქმება."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Балансты бөлісу үшін бұл шотты сол банктегі басқа дебеттік шотпен біріктіріңіз. Алдымен сол шотты қосыңыз немесе қалпына келтіріңіз. Бөлуді де қайтаруға болады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잔액을 공유하려면 이 계좌를 같은 은행의 다른 직불 계좌와 병합하세요. 먼저 그 계좌를 추가하거나 복원하세요. 분리를 되돌릴 수도 있습니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Балансты бөлүшүү үчүн, бул эсепти ошол эле банктагы башка дебеттик эсеп менен бириктириңиз. Алгач ошол эсепти кошуңуз же калыбына келтириңиз. Ажыратууну да кайтарсаңыз болот."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Als je een saldo wilt delen, voeg dan deze rekening samen met een andere debetrekening bij dezelfde bank. Voeg die rekening eerst toe of herstel hem. Je kunt de scheiding ook ongedaan maken."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоб поділити баланс, злийте цей рахунок з іншим дебетовим рахунком у тому самому банку. Спочатку додайте або відновіть той рахунок. Також можна скасувати поділ."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para compartilhar um saldo, mescle esta conta com outra conta de débito do mesmo banco. Adicione ou restaure essa conta primeiro. Você também pode desfazer a separação."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para partilhar um saldo, funda esta conta com outra conta à ordem no mesmo banco. Adicione ou restaure primeiro essa conta. Também pode anular a separação."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы вернуть общий остаток, объедините этот счёт с другим дебетовым счётом того же банка. Сначала добавьте или восстановите такой счёт. Разделение также можно отменить."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барои мубодилаи тавозун, ин ҳисобро ба ҳисоби дебетии дигар дар ҳамон бонк муттаҳид кунед. Аввал он ҳисобро илова кунед ё барқарор кунед. Инчунин ҷудокуниро бекор кардан мумкин аст."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bakiyeyi paylaşmak için bu hesabı aynı bankadaki başka bir vadesiz hesapla birleştirin. Önce o hesabı ekleyin veya geri yükleyin. Ayrımı da geri alabilirsiniz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоб поділити баланс, об'єднайте цей рахунок з іншим дебетовим рахунком у тому самому банку. Спочатку додайте або відновіть цей рахунок. Також можна скасувати розділення."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balansni ulashish uchun bu hisobni shu bankdagi boshqa debet hisobi bilan birlashtiring. Avval o‘sha hisobni qo‘shing yoki tiklang. Ajratishni ham bekor qilish mumkin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Để dùng chung số dư, hãy gộp tài khoản này vào một tài khoản ghi nợ khác cùng ngân hàng. Hãy thêm hoặc khôi phục tài khoản đó trước. Bạn cũng có thể hoàn tác việc tách tài khoản."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要共享余额，请将此账户合并到同一银行的另一个借记账户。请先添加或恢复该账户。您也可以撤销分离。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "若要共用餘額，請將此帳戶合併至同一銀行的另一個簽帳金融卡帳戶。請先新增或還原該帳戶。您也可以復原分離。"
+          }
+        }
+      }
+    },
+    "card.ownBalance.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şəxsi balans"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уласны баланс"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vlastní zůstatek"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigenes Guthaben"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Own balance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo propio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solde propre"
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սեփական մնացորդ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo proprio"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "独自残高"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საკუთარი ბალანსი"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жеке баланс"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자체 잔액"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жеке баланс"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigen saldo"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Власний баланс"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo próprio"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo próprio"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свой счёт и остаток"
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тавозуни шахсӣ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kendi bakiyesi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окремий баланс"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alohida balans"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số dư riêng"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "独立余额"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "獨立餘額"
+          }
+        }
+      }
+    },
+    "card.ownBalance.unavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartın artıq öz hesabı var və ya bu hesab yaradıla bilmir. Kart panelini yenidən açın və təkrar cəhd edin."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У карты ўжо ёсць уласны рахунак, або яго немагчыма стварыць. Адкрыйце панэль карты зноў і паспрабуйце яшчэ раз."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karta již má vlastní účet, nebo tento účet nelze vytvořit. Znovu otevřete panel karty a zkuste to znovu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Karte hat bereits ein eigenes Konto, oder dieses Konto kann nicht angelegt werden. Öffne das Kartenfenster erneut und versuche es noch einmal."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card already has its own account, or that account cannot be created. Reopen the card panel and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tarjeta ya tiene su propia cuenta, o no se puede crear esa cuenta. Vuelve a abrir el panel de la tarjeta e inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carte dispose déjà de son propre compte, ou ce compte ne peut pas être créé. Rouvrez le panneau de la carte et réessayez."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Քարտն արդեն ունի սեփական հաշիվ, կամ այդ հաշիվը հնարավոր չէ ստեղծել։ Նորից բացեք քարտի պանելը և փորձեք կրկին։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carta ha già un conto proprio, oppure quel conto non può essere creato. Riapri il pannello della carta e riprova."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このカードには既に独自の口座があるか、その口座を作成できません。カードのパネルを開き直して、もう一度お試しください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბარათს უკვე აქვს საკუთარი ანგარიში, ან ამ ანგარიშის შექმნა შეუძლებელია. ხელახლა გახსენით ბარათის პანელი და სცადეთ თავიდან."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картаның жеке шоты бар немесе ол шотты жасау мүмкін емес. Карта панелін қайта ашып, қайталап көріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카드에 이미 자체 계좌가 있거나 그 계좌를 만들 수 없습니다. 카드 패널을 다시 열고 시도하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картанын өз эсеби already бар же ал эсепти түзүү мүмкүн эмес. Карта панелин кайра ачып, кайра аракет кылыңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De kaart heeft al een eigen rekening, of die rekening kan niet worden aangemaakt. Open het kaartpaneel opnieuw en probeer het nog eens."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка вже має власний рахунок або цей рахунок не можна створити. Відкрийте панель картки знову та спробуйте ще раз."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O cartão já tem uma conta própria, ou ela não pode ser criada. Reabra o painel do cartão e tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O cartão já tem a sua própria conta, ou essa conta não pode ser criada. Reabra o painel do cartão e tente novamente."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У карты уже есть свой счёт или его не удалось создать. Откройте панель карты заново и попробуйте ещё раз."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Корт аллакай ҳисоби худро дорад ё ин ҳисоб сохта шуда наметавонад. Панели кортро аз нав кушоед ва дубора кӯшиш кунед."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartın zaten kendi hesabı var ya da bu hesap oluşturulamıyor. Kart panelini yeniden açıp tekrar deneyin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У картки вже є власний рахунок, або його не можна створити. Відкрийте панель картки знову та спробуйте ще раз."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kartada allaqachon alohida hisob bor yoki bu hisobni yaratib bo‘lmaydi. Karta panelini qayta oching va yana urinib ko‘ring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ đã có tài khoản riêng, hoặc không thể tạo tài khoản đó. Hãy mở lại bảng thẻ và thử lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "该卡已有独立账户，或无法创建该账户。请重新打开卡片面板后再试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此卡片已有獨立帳戶，或無法建立該帳戶。請重新開啟卡片面板後再試一次。"
           }
         }
       }
