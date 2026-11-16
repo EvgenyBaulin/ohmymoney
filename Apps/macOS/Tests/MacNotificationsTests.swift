@@ -142,8 +142,9 @@ final class MacNotificationsTests: XCTestCase {
     let posting = CountingPosting()
     let notifications = MacNotifications(posting: posting)
     notifications.defaults = defaults
-    let today = DateOnly(year: 2026, month: 11, day: 2)
-    let nudge = HabitNudge(day: today, at: Date().addingTimeInterval(3_600), streakDays: 4)
+    let today = DateOnly(year: 2099, month: 11, day: 2)
+    let nudge = HabitNudge(
+      day: today, at: CalendarContext.system.moment(today, hour: 18, minute: 0), streakDays: 4)
 
     // Before the system was asked: nothing is scheduled.
     XCTAssertFalse(notifications.schedule(nudge))
@@ -160,7 +161,10 @@ final class MacNotificationsTests: XCTestCase {
     let content = try XCTUnwrap(posting.posted.first?.content)
     XCTAssertFalse(content.title.isEmpty)
     XCTAssertFalse(content.body.contains("mac."), content.body)
-    XCTAssertNotNil(posting.posted.first?.trigger, "waits for the hour of the evening")
+    let trigger = try XCTUnwrap(
+      posting.posted.first?.trigger as? UNCalendarNotificationTrigger,
+      "waits for the hour of the evening")
+    XCTAssertNil(trigger.dateComponents.timeZone)
 
     // Spending recorded: the reminder is taken back.
     XCTAssertFalse(notifications.schedule(nil))
@@ -175,6 +179,42 @@ final class MacNotificationsTests: XCTestCase {
     defaults.set(true, forKey: MacNotifications.key(for: .evening))
     notifications.notePermission(.denied)
     XCTAssertFalse(notifications.schedule(nudge))
+  }
+
+  func testAZoneChangeReschedulesTheEveningOnTheNewLocalClock() async throws {
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: "MacNotificationsZone-\(UUID())"))
+    let posting = CountingPosting()
+    let notificationCenter = NotificationCenter()
+    let moscow = CalendarContext(timeZone: try XCTUnwrap(TimeZone(identifier: "Europe/Moscow")))
+    var timeZone = moscow.timeZone
+    let today = DateOnly(year: 2026, month: 11, day: 2)
+    let now = moscow.moment(today, hour: 12, minute: 0)
+    let notifications = MacNotifications(
+      posting: posting, notificationCenter: notificationCenter,
+      currentTimeZone: { timeZone }, currentDate: { now })
+    notifications.defaults = defaults
+    notifications.observeSystemChanges()
+    notifications.notePermission(.allowed)
+    let nudge = HabitNudge(
+      day: today, at: moscow.moment(today, hour: 18, minute: 0), streakDays: nil)
+
+    XCTAssertTrue(notifications.schedule(nudge))
+    let first = try XCTUnwrap(posting.posted.first?.trigger as? UNCalendarNotificationTrigger)
+    XCTAssertEqual(first.dateComponents.hour, 18)
+    XCTAssertNil(first.dateComponents.timeZone)
+
+    let rescheduled = expectation(description: "evening reminder is posted again")
+    posting.onPost = {
+      if posting.posted.count == 2 { rescheduled.fulfill() }
+    }
+    timeZone = try XCTUnwrap(TimeZone(identifier: "Asia/Baku"))
+    notificationCenter.post(name: .NSSystemTimeZoneDidChange, object: nil)
+    await fulfillment(of: [rescheduled], timeout: 1)
+
+    let last = try XCTUnwrap(posting.posted.last?.trigger as? UNCalendarNotificationTrigger)
+    XCTAssertEqual(last.dateComponents.hour, 18)
+    XCTAssertEqual(last.dateComponents.day, today.day)
+    XCTAssertNil(last.dateComponents.timeZone)
   }
 
   /// Spotlight: off — the index is emptied; on — description and place only, never a hidden
@@ -228,9 +268,13 @@ private final class CountingPosting: NotificationPosting {
   var posted: [UNNotificationRequest] = []
   var removed: [String] = []
   var answer = NotificationPlan.Permission.allowed
+  var onPost: (() -> Void)?
   func permission() async -> NotificationPlan.Permission { answer }
   func requestPermission() async -> Bool { true }
   func pendingIds() async -> [String] { [] }
   func removePending(_ ids: [String]) { removed += ids }
-  func post(_ request: UNNotificationRequest) { posted.append(request) }
+  func post(_ request: UNNotificationRequest) {
+    posted.append(request)
+    onPost?()
+  }
 }
