@@ -61,9 +61,14 @@ struct CapitalPastTests {
     let march = point(capital, "2026-03-31")
     #expect(march?.assetsRub == Fx.rub("900"))
     #expect(march?.straightLineAssets == false)
-    // Nothing changes «now»: no valuation, no worth.
-    #expect(capital.now.assetsRub == .zero)
-    #expect(capital.now.unvalued == [Fx.id(10)])
+    // At «now» the purchase price is shown as a price, not as a valuation.
+    #expect(capital.now.assetsRub == Fx.rub("900"))
+    #expect(capital.now.unvalued.isEmpty)
+    let car = capital.breakdown.have.first { $0.source == .asset(Fx.id(10)) }
+    #expect(car?.amount == Fx.rub("900"))
+    #expect(car?.amountRub == Fx.rub("900"))
+    let chart = NetWorthChartModel(capital.points)
+    #expect(chart.points.last?.notes.contains(.purchasePrice) == true)
   }
 
   @Test func halfAPurchaseIsNoPurchase() {
@@ -112,6 +117,58 @@ struct CapitalPastTests {
     // 1 200 000 to 612 000 in six months: 98 000 a month.
     #expect(point(capital, "2025-01-31")?.iOweRub == Fx.rub("1200000"))
     #expect(point(capital, "2025-04-30")?.iOweRub == Fx.rub("906000"))
+  }
+
+  @Test func interestOnlyGraceKeepsThePrincipalUntilTheMainScheduleStarts() {
+    var dataset = loanDataset(interest: 12)
+    dataset.debts[0].grace = DebtGrace(
+      mainFrom: Fx.day("2025-03-01"), payment: .interest)
+    dataset.planning.debtEntries = [
+      DebtEntry(
+        id: Fx.id(22), debtId: Fx.id(20), date: Fx.day("2025-03-01"),
+        amountE4: Fx.rub("1200000"), kind: .borrowed)
+    ]
+
+    let capital = Fx.capital(dataset, today: Fx.day("2025-12-11"), months: nil)
+
+    #expect(point(capital, "2025-02-28")?.iOweRub == Fx.rub("1200000"))
+  }
+
+  @Test func aPaymentPauseSkipsItsDuesAndMovesTheRestOfTheSchedule() {
+    var dataset = loanDataset(interest: 0)
+    dataset.debts[0].pause = DebtPause(
+      from: Fx.day("2025-02-15"), to: Fx.day("2025-03-15"), kind: .holiday)
+    dataset.planning.debtEntries = [
+      DebtEntry(
+        id: Fx.id(22), debtId: Fx.id(20), date: Fx.day("2025-06-01"),
+        amountE4: Fx.rub("1000000"), kind: .borrowed)
+    ]
+
+    let capital = Fx.capital(dataset, today: Fx.day("2025-12-11"), months: nil)
+
+    #expect(point(capital, "2025-05-31")?.iOweRub == Fx.rub("1000000"))
+  }
+
+  @Test func typedPaymentStepsReconstructDifferentiatedPrincipalPayments() {
+    var dataset = loanDataset(interest: 12, payment: nil)
+    let rows = DebtAmortization.differentiatedSchedule(
+      principal: Fx.rub("1200000"), percent: 12, months: 4,
+      firstDue: Fx.day("2025-02-01"), paymentDay: 15)
+    #expect(AmountE4.sum(rows.map(\.principalE4)) == Fx.rub("1200000"))
+    dataset.debtInstalments = rows.map {
+      DebtInstalmentStep(debtId: Fx.id(20), fromIndex: $0.index, amountE4: $0.paymentE4)
+    }
+    dataset.planning.debtEntries = [
+      DebtEntry(
+        id: Fx.id(22), debtId: Fx.id(20), date: Fx.day("2025-05-01"),
+        amountE4: Fx.rub("300000"), kind: .borrowed)
+    ]
+
+    let capital = Fx.capital(dataset, today: Fx.day("2025-12-11"), months: nil)
+
+    // Equal principal parts of 300,000 add to the original amount after rounding.
+    #expect(point(capital, "2025-02-28")?.iOweRub == Fx.rub("900000"))
+    #expect(point(capital, "2025-04-30")?.iOweRub == Fx.rub("300000"))
   }
 
   @Test func theTermStandsInForAPayment() {

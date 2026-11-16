@@ -45,6 +45,8 @@ public struct CapitalPoint: Hashable, Sendable {
   /// An asset is worth a point on the straight line from its purchase price to its next
   /// valuation, not a valuation.
   public var straightLineAssets: Bool
+  /// «По цене покупки»: an unvalued asset's price is used only for the point «now».
+  public var purchasePriceAssets: Bool
   /// A loan I owe is worked out from its schedule since it was taken out (`DebtRestoration`),
   /// not read from the journal.
   public var restoredDebts: Bool
@@ -58,12 +60,14 @@ public struct CapitalPoint: Hashable, Sendable {
     owedToMeRub: AmountE4 = .zero, iOweRub: AmountE4 = .zero, cushionRub: AmountE4 = .zero,
     unanchored: [BalanceKey] = [], withoutRate: [CurrencyCode] = [], unvalued: [UUID] = [],
     beforeBooks: Bool = false, estimatedCashRub: AmountE4 = .zero, cashEstimated: Bool = false,
-    straightLineAssets: Bool = false, restoredDebts: Bool = false, withoutCash: Bool = false
+    straightLineAssets: Bool = false, purchasePriceAssets: Bool = false,
+    restoredDebts: Bool = false, withoutCash: Bool = false
   ) {
     self.beforeBooks = beforeBooks
     self.estimatedCashRub = estimatedCashRub
     self.cashEstimated = cashEstimated
     self.straightLineAssets = straightLineAssets
+    self.purchasePriceAssets = purchasePriceAssets
     self.restoredDebts = restoredDebts
     self.withoutCash = withoutCash
     self.day = day
@@ -352,7 +356,8 @@ public enum NetWorth {
       var restorations: [UUID: DebtRestoration] = [:]
       for debt in self.debts {
         if let restoration = DebtRestoration(
-          debt: debt, journal: self.journals[debt.id] ?? [], calendar: ledger.calendar)
+          debt: debt, journal: self.journals[debt.id] ?? [],
+          typedPayments: dataset.debtInstalments, calendar: ledger.calendar)
         {
           restorations[debt.id] = restoration
         }
@@ -458,10 +463,11 @@ public enum NetWorth {
           updates,
           owner: owner, id: asset.id, through: day)
         let useUpdate = update.map { value in legacy.map { value.day >= $0.day } ?? true } ?? false
-        let amount = useUpdate ? update?.amountE4 : legacy?.valueE4
-        let currency = useUpdate ? (update?.currency ?? asset.currency) : asset.currency
+        var amount = useUpdate ? update?.amountE4 : legacy?.valueE4
+        var currency = useUpdate ? (update?.currency ?? asset.currency) : asset.currency
         var issue: CapitalLine.Issue?
         var rub: AmountE4?
+        var usedPurchasePrice = false
         if amount == nil, !isNow, owner == .asset, let purchase = asset.purchase,
           purchase.day <= day
         {
@@ -487,10 +493,27 @@ public enum NetWorth {
           }
           continue
         }
-        if let amount {
-          rub = NetWorth.rubles(amount, in: currency, rate: rate(currency))
+        if amount == nil, isNow, owner == .asset, let purchase = asset.purchase,
+          purchase.day <= day
+        {
+          amount = purchase.priceE4
+          currency = purchase.currency
+          rub = NetWorth.rubles(purchase.priceE4, in: currency, rate: rate(currency))
+          usedPurchasePrice = true
           if let rub {
             point.assetsRub += rub
+            point.purchasePriceAssets = true
+          } else {
+            withoutRate.insert(currency)
+            issue = .withoutRate
+          }
+        }
+        if let amount {
+          if rub == nil {
+            rub = NetWorth.rubles(amount, in: currency, rate: rate(currency))
+          }
+          if let rub {
+            if !usedPurchasePrice { point.assetsRub += rub }
           } else {
             withoutRate.insert(currency)
             issue = .withoutRate

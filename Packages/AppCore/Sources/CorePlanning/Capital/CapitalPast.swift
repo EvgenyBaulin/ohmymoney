@@ -43,19 +43,23 @@ enum CapitalPast {
 /// so that it meets the balance the journal begins with. From the first line of the journal on,
 /// only the records speak.
 ///
-/// A loan with no payment and no term has a flat schedule, so the bend alone draws a straight
-/// line from the sum borrowed to the first balance. Grace periods, steps, pauses and
-/// differentiated payments are not read: the schedule is the plain annuity.
+/// A loan's stored payment schedule, grace period and payment pause shape the balance before the
+/// journal begins. Where the database only has one rate, that rate holds for the whole schedule.
 struct DebtRestoration {
+  private static let scheduleLimit = 1_200
+
   let opening: DebtOpening
   /// The day of the first line of the journal: before it the loan is restored.
   let start: DateOnly
-  private let schedule: [AmountE4]
+  private let schedule: [(day: DateOnly, balance: AmountE4)]
   private let monthsToStart: Int
   /// What the journal begins with less what the schedule gives on that day.
   private let gap: AmountE4
 
-  init?(debt: Debt, journal: [DebtEntry], calendar: CalendarContext) {
+  init?(
+    debt: Debt, journal: [DebtEntry], typedPayments: [DebtInstalmentStep] = [],
+    calendar: CalendarContext
+  ) {
     guard debt.direction == .iOwe, debt.type == .loan, let opening = debt.opening,
       !journal.isEmpty
     else { return nil }
@@ -72,25 +76,19 @@ struct DebtRestoration {
     self.start = start
     monthsToStart = months
 
-    let percent = debt.interestRate ?? 0
+    let payments = typedPayments.filter { $0.debtId == debt.id }
     let paymentDay = debt.paymentDay ?? opening.day.day
-    var payment = debt.monthlyPaymentE4.flatMap { $0.raw > 0 ? $0 : nil }
-    if payment == nil, let term = debt.repayMonths, term > 0 {
-      payment = InterestMath.annuity(principal: opening.amountE4, percent: percent, months: term)
-    }
-    var balances = [opening.amountE4]
-    if let payment {
-      let rows = DebtAmortization.schedule(
-        principal: opening.amountE4, percent: percent, payment: payment,
-        firstDue: opening.day.monthKey.next.firstDay, paymentDay: paymentDay,
-        limit: months + 1)
-      balances += rows.map(\.balanceAfterE4)
-    }
-    schedule = balances
-    // The payment of the month the journal begins in counts only once its day has come.
-    let payday = DebtDueState.payday(paymentDay, in: start.monthKey)
-    let paid = months - (start < payday ? 1 : 0)
-    let reached = Self.balance(of: balances, after: paid, hasPayment: payment != nil)
+    let firstDue = opening.day.monthKey.next.firstDay
+    let openingEntry = DebtEntry(
+      id: debt.id, debtId: debt.id, date: opening.day, amountE4: opening.amountE4,
+      kind: .borrowed)
+    let plan = DebtSchedulePlan.plan(
+      debt: debt, journal: [openingEntry], firstDue: firstDue, paymentDay: paymentDay,
+      today: start, calendar: calendar, typed: payments)
+    schedule = Self.schedule(
+      debt: debt, opening: opening, firstDue: firstDue, paymentDay: paymentDay,
+      instalments: plan.instalments, typedPayments: payments, through: start)
+    let reached = Self.balance(in: schedule, on: start, opening: opening.amountE4)
     let first = DebtBalanceAt.balance(
       of: debt, journal: journal, through: start, calendar: calendar)
     gap = first - reached
@@ -101,21 +99,77 @@ struct DebtRestoration {
   func balance(on day: DateOnly) -> AmountE4? {
     let months = Self.months(from: opening.day.monthKey, to: day.monthKey)
     guard months >= 0, day < start else { return nil }
-    let planned = Self.balance(of: schedule, after: months, hasPayment: schedule.count > 1)
+    let planned = Self.balance(in: schedule, on: day, opening: opening.amountE4)
     let bent = Decimal(gap.raw) * Decimal(months) / Decimal(monthsToStart)
     let share = AmountE4(raw: (try? DecimalMath.int64(rounding: bent)) ?? 0)
     return max(.zero, planned + share)
   }
 
-  /// The schedule after `count` payments: the sum borrowed with none, nothing once it is paid.
   private static func balance(
-    of balances: [AmountE4], after count: Int, hasPayment: Bool
-  )
-    -> AmountE4
-  {
-    guard hasPayment else { return balances[0] }
-    if count <= 0 { return balances[0] }
-    return count < balances.count ? balances[count] : .zero
+    in schedule: [(day: DateOnly, balance: AmountE4)], on day: DateOnly,
+    opening: AmountE4
+  ) -> AmountE4 {
+    schedule.last { $0.day <= day }?.balance ?? opening
+  }
+
+  /// Month by month, the named due amounts first pay interest and then principal. A skipped due
+  /// during a pause leaves its interest on the balance; a paid interest-only grace due does not
+  /// lower principal.
+  private static func schedule(
+    debt: Debt, opening: DebtOpening, firstDue: DateOnly, paymentDay: Int,
+    instalments: DebtInstalments, typedPayments: [DebtInstalmentStep], through: DateOnly
+  ) -> [(day: DateOnly, balance: AmountE4)] {
+    var dues = DebtDueState(
+      debtId: debt.id, firstDue: firstDue, paidCount: 0, owes: true, paymentDay: paymentDay,
+      balanceE4: opening.amountE4, monthlyE4: debt.monthlyPaymentE4, instalments: instalments)
+    dues.pause = debt.pause
+    dues.explicitDates = DebtDues.namedDays(of: typedPayments)
+
+    var events: [(day: DateOnly, index: Int)] = []
+    for index in 0..<scheduleLimit {
+      let day = dues.due(index)
+      guard day <= through else { break }
+      events.append((day, index))
+    }
+
+    var result: [(day: DateOnly, balance: AmountE4)] = [(opening.day, opening.amountE4)]
+    var balance = opening.amountE4
+    var month = opening.day.monthKey.next
+    let hasPaymentSchedule = !instalments.isEmpty
+    let typedSchedule = DebtInstalments(
+      steps: typedPayments.map { .init(fromIndex: $0.fromIndex, amountE4: $0.amountE4) })
+
+    while month <= through.monthKey {
+      let dueEvents = events.filter { $0.day.monthKey == month }
+      if !dueEvents.isEmpty {
+        for event in dueEvents {
+          let interest = DebtAmortization.monthInterest(
+            of: balance, percent: debt.interestRate ?? 0)
+          let isTypedDue = typedSchedule.steps.contains { $0.fromIndex <= event.index }
+          let isInterestOnlyGrace = !isTypedDue && debt.grace.map {
+            $0.payment == .interest && event.day < $0.mainFrom
+          } == true
+          guard hasPaymentSchedule, !isInterestOnlyGrace else {
+            result.append((event.day, balance))
+            continue
+          }
+          let amountOwed = balance + interest
+          let payment = min(instalments.amount(at: event.index), amountOwed)
+          balance = max(.zero, amountOwed - payment)
+          result.append((event.day, balance))
+        }
+      } else if hasPaymentSchedule, let pause = debt.pause, pause.isValid {
+        let periodEnd = min(month.lastDay, through)
+        if pause.from <= periodEnd, pause.to >= month.firstDay {
+          balance += DebtAmortization.monthInterest(
+            of: balance, percent: debt.interestRate ?? 0)
+          result.append((periodEnd, balance))
+        }
+      }
+      guard month < through.monthKey else { break }
+      month = month.next
+    }
+    return result
   }
 
   private static func months(from first: MonthKey, to last: MonthKey) -> Int {
