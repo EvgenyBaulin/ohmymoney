@@ -13865,6 +13865,40 @@
         }
       }
     },
+    "capital.hero.owedToMe": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Owed to me: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мне должны: %@"
+          }
+        }
+      }
+    },
+    "capital.hero.withoutOwed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Without money owed to me: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без долгов мне: %@"
+          }
+        }
+      }
+    },
     "capital.history.empty": {
       "extractionState": "manual",
       "localizations": {
@@ -19340,6 +19374,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "淨資產"
+          }
+        }
+      }
+    },
+    "capital.title.withOwed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Net worth with money owed to me"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Капитал с долгами мне"
           }
         }
       }

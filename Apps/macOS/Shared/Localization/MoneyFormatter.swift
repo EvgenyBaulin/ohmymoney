@@ -148,7 +148,7 @@ public struct MoneyFormatter: Sendable {
     return ChangeText(
       direction: whole > 0 ? .up : whole < 0 ? .down : .flat,
       delta: signedRounded(change.delta),
-      percent: change.basisPoints.map { signedPercent(basisPoints: $0) })
+      percent: change.basisPoints.map { signedPercent(basisPoints: $0) }, base: change.base)
   }
 
   private static func percent(of basisPoints: Int, fractionDigits: Int) -> Decimal {
@@ -202,8 +202,10 @@ public struct ChangeText: Hashable, Sendable {
   public var direction: ChangeDirection
   /// «+3,400 ₽».
   public var delta: String
-  /// «+8.3 %»; `nil` when the earlier figure was zero.
+  /// «+8.3 %»; `nil` when there was nothing comparable to measure against.
   public var percent: String?
+  /// Why `percent` is missing: nothing before at all, or too little to measure against.
+  public var base: Change.Base = .comparable
 }
 
 /// Dates and times shown in the interface follow the chosen interface language.

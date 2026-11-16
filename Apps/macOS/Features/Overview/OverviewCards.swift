@@ -439,7 +439,9 @@ enum OverviewText {
     _ text: ChangeText, span: DayRange, _ environment: AppEnvironment
   ) -> String {
     guard let percent = text.percent else {
-      return environment.format("overview.comparisonNoBase", table: "Overview", text.delta)
+      return environment.format(
+        text.base == .negligible ? "overview.comparisonNegligibleBase" : "overview.comparisonNoBase",
+        table: "Overview", text.delta)
     }
     return String(
       format: environment.language("overview.comparison", table: "Overview"),

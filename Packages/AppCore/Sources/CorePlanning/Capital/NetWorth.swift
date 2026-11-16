@@ -89,8 +89,16 @@ public struct CapitalPoint: Hashable, Sendable {
     accountsRub + depositsRub + outOfSummaryRub + estimatedCashRub + assetsRub + owedToMeRub
   }
 
-  /// Net worth: what I have less what I owe.
+  /// Net worth: what I have less what I owe. It counts the debts owed to me in full, however
+  /// long they have been outstanding — the figure «с долгами мне».
   public var netRub: AmountE4 { haveRub - iOweRub }
+
+  /// The same net worth without the debts owed to me — the figure «без них». Owed-to-me money
+  /// is never rolled into it, so a debt long unpaid cannot lift it.
+  public var netWithoutOwedToMeRub: AmountE4 { netRub - owedToMeRub }
+
+  /// The two figures of net worth are told apart on screen only when some debt is owed to me.
+  public var hasOwedToMe: Bool { !owedToMeRub.isZero }
 }
 
 /// One row of the breakdown of «now»: an account, an asset or a debt.

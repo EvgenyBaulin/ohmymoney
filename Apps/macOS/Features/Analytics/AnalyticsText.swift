@@ -598,6 +598,10 @@ enum AnalyticsText {
   ) -> String {
     let text = environment.money.change(change)
     if let percent = text.percent { return "\(text.delta) · \(percent)" }
+    // Something before, but too little to measure against: the same words for every period.
+    if text.base == .negligible {
+      return format("analytics.change.negligibleBase", environment, text.delta)
+    }
     let before: String
     switch period.kind {
     case .month: before = "month"
