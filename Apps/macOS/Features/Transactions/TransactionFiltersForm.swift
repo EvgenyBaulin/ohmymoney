@@ -106,6 +106,7 @@ struct TransactionFiltersForm: View {
       set: { filters.setAccountOrCard($0, cards: choices.cards) })
   }
 
+  /// The uncategorized toggle replaces a selected category.
   private var uncategorizedOnly: Binding<Bool> {
     Binding(
       get: { filters.uncategorizedOnly },

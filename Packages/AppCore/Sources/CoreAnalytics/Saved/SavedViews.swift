@@ -124,7 +124,8 @@ public struct SavedFilter: Hashable, Sendable, Codable, Identifiable {
     kind = try container.decodeIfPresent(TransactionKind.self, forKey: .kind)
     categoryId = try container.decodeIfPresent(UUID.self, forKey: .categoryId)
     subcategoryId = try container.decodeIfPresent(UUID.self, forKey: .subcategoryId)
-    uncategorizedOnly = try container.decodeIfPresent(Bool.self, forKey: .uncategorizedOnly) ?? false
+    uncategorizedOnly =
+      try container.decodeIfPresent(Bool.self, forKey: .uncategorizedOnly) ?? false
     quality = try container.decodeIfPresent(Quality.self, forKey: .quality)
     forWhom = try container.decodeIfPresent(ForWhom.self, forKey: .forWhom)
     personId = try container.decodeIfPresent(UUID.self, forKey: .personId)

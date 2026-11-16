@@ -37,6 +37,7 @@ enum UtilitiesText {
 /// and the same month a year ago, the readings that are due, and the bills of the providers. A
 /// meter may name the payment of «Планирование» that pays for it.
 struct UtilitiesScreen: View {
+  var focusedMeterId: UUID? = nil
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
@@ -69,12 +70,17 @@ struct UtilitiesScreen: View {
         .keyboardShortcut(.cancelAction)
       }
       .padding(16)
-      Form {
-        dueSection
-        metersSection
-        billsSection
+      ScrollViewReader { proxy in
+        Form {
+          dueSection
+          metersSection
+          billsSection
+        }
+        .formStyle(.grouped)
+        .task(id: focusedMeterId) {
+          if let focusedMeterId { proxy.scrollTo(focusedMeterId, anchor: .center) }
+        }
       }
-      .formStyle(.grouped)
     }
     .sheetFrame(minWidth: 520, idealWidth: 600, minHeight: 560, idealHeight: 680)
     .sheet(isPresented: $addsMeter) {
@@ -138,6 +144,7 @@ struct UtilitiesScreen: View {
       }
       ForEach(meters) { meter in
         meterRow(meter)
+          .id(meter.id)
       }
       Button(t("utilities.meter.add")) { addsMeter = true }
         .accessibilityIdentifier("utilities.meter.add")
@@ -181,6 +188,14 @@ struct UtilitiesScreen: View {
         Text(verbatim: usageLine(meter, shown, comparison: comparison))
           .appFont(.callout).monospacedDigit()
       }
+      if shown?.costState != .cannotCompute,
+        UtilityUsage.months(of: meter, readings: readings).values.contains(where: {
+          $0.costState == .cannotCompute
+        })
+      {
+        Label(t("utilities.cost.cannotCompute"), systemImage: "exclamationmark.triangle")
+          .appFont(.callout).foregroundStyle(.orange)
+      }
       ForEach(UtilityUsage.flaggedReadings(of: meter, readings: readings)) { reading in
         Label {
           Text(
@@ -208,8 +223,13 @@ struct UtilitiesScreen: View {
       environment.dates.monthTitle(shown.month) + ": "
         + UtilitiesText.quantity(shown.quantityE4, unit: meter.unit, environment)
     ]
-    if let cost = shown.costE4 {
+    switch shown.costState {
+    case .amount(let cost):
       parts.append(environment.money.rounded(cost, currency: meter.currency))
+    case .cannotCompute:
+      parts.append(t("utilities.cost.cannotCompute"))
+    case .noTariff:
+      break
     }
     let base =
       shown.month == comparison.month
@@ -270,19 +290,21 @@ struct UtilitiesScreen: View {
   }
 
   private func billRow(_ bill: UtilityBill) -> some View {
-    let comparison = UtilityBills.compare(book.bills, provider: bill.provider, month: bill.period)
+    let comparison = UtilityBills.compare(
+      book.bills, provider: bill.provider, month: bill.period,
+      ledger: compute.snapshot?.ledger, dayRates: compute.snapshot?.context.dayRates ?? .empty)
     var notes: [String] = []
     if let current = comparison.current, let before = comparison.previousMonth {
       notes.append(
         environment.format(
           "utilities.vs.month", table: UtilitiesText.table,
-          environment.money.signedRounded(current - before, currency: bill.currency)))
+          environment.money.signedRounded(current - before, currency: .rub)))
     }
     if let current = comparison.current, let yearAgo = comparison.previousYear {
       notes.append(
         environment.format(
           "utilities.vs.year", table: UtilitiesText.table,
-          environment.money.signedRounded(current - yearAgo, currency: bill.currency)))
+          environment.money.signedRounded(current - yearAgo, currency: .rub)))
     }
     return VStack(alignment: .leading, spacing: 2) {
       HStack {

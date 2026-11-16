@@ -79,7 +79,8 @@ public struct EntryFilter: Hashable, Sendable {
   }
 
   private var hasPartCriteria: Bool {
-    categoryId != nil || subcategoryId != nil || uncategorizedOnly || quality != nil || forWhom != nil
+    categoryId != nil || subcategoryId != nil || uncategorizedOnly || quality != nil
+      || forWhom != nil
       || personId != nil || eventId != nil || reimbursementStatus != nil
   }
 

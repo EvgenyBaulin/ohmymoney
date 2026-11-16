@@ -1,3 +1,4 @@
+import CoreAccounting
 import CoreAnalytics
 import CoreKit
 import Foundation
@@ -11,12 +12,25 @@ import Foundation
 ///
 /// The cost of a use is the quantity times the tariff of the later reading, or the meter's when
 /// the reading has none, rounded half away from zero to 1/10000 of the currency. A month with a
-/// use that has no tariff at all has no cost.
+/// use that has no tariff at all has no cost. A cost outside the stored range is marked
+/// `cannotCompute`, so a typo never becomes free usage and the readings can still be corrected.
 public enum UtilityUsage {
+  public enum CostState: Hashable, Sendable {
+    case amount(AmountE4)
+    case noTariff
+    case cannotCompute
+  }
+
   public struct Month: Hashable, Sendable {
     public var month: MonthKey
     public var quantityE4: AmountE4
     public var costE4: AmountE4?
+    public var calculationFailed = false
+
+    public var costState: CostState {
+      if calculationFailed { return .cannotCompute }
+      return costE4.map(CostState.amount) ?? .noTariff
+    }
 
     public init(month: MonthKey, quantityE4: AmountE4, costE4: AmountE4?) {
       self.month = month
@@ -67,7 +81,15 @@ public enum UtilityUsage {
       }
       entry.quantityE4 += use
       if let tariff = reading.tariffE4 ?? meter.tariffE4 {
-        entry.costE4 = entry.costE4.map { $0 + cost(use, tariff) }
+        if let charge = cost(use, tariff) {
+          if let previous = entry.costE4 {
+            entry.costE4 = previous.adding(charge)
+            if entry.costE4 == nil { entry.calculationFailed = true }
+          }
+        } else {
+          entry.calculationFailed = true
+          entry.costE4 = nil
+        }
       } else if !use.isZero {
         unpriced.insert(month)
       }
@@ -122,9 +144,9 @@ public enum UtilityUsage {
   }
 
   /// Quantity times tariff, both in 1/10000, back in 1/10000, half away from zero.
-  static func cost(_ quantity: AmountE4, _ tariff: AmountE4) -> AmountE4 {
+  static func cost(_ quantity: AmountE4, _ tariff: AmountE4) -> AmountE4? {
     let value = DecimalMath.round(quantity.decimal * tariff.decimal, scale: 4)
-    return (try? AmountE4(decimal: value)) ?? .zero
+    return try? AmountE4(decimal: value)
   }
 }
 
@@ -178,6 +200,7 @@ public enum UtilityReminder {
 /// the same month of the year before. The name of the provider is matched without regard to case
 /// or the spaces around it.
 public enum UtilityBills {
+  /// All comparison amounts are in rubles; a month with an unknown conversion has no total.
   public struct Comparison: Hashable, Sendable {
     public var month: MonthKey
     public var current: AmountE4?
@@ -200,15 +223,43 @@ public enum UtilityBills {
   }
 
   public static func compare(
-    _ bills: [UtilityBill], provider: String, month: MonthKey
+    _ bills: [UtilityBill], provider: String, month: MonthKey,
+    ledger: Ledger? = nil, dayRates: DayRates = .empty
   ) -> Comparison {
     let own = bills.filter { key($0.provider) == key(provider) }
     func total(_ month: MonthKey) -> AmountE4? {
       let found = own.filter { $0.period == month }
-      return found.isEmpty ? nil : AmountE4.sum(found.map(\.totalE4))
+      guard !found.isEmpty else { return nil }
+      var amounts: [AmountE4] = []
+      for bill in found {
+        guard let amount = rubles(of: bill, ledger: ledger, dayRates: dayRates) else { return nil }
+        amounts.append(amount)
+      }
+      return AmountE4.sum(amounts)
     }
     return Comparison(
       month: month, current: total(month), previousMonth: total(month.previous),
       previousYear: total(MonthKey(year: month.year - 1, month: month.month)))
+  }
+
+  /// A bill is compared in rubles, using the saved payment's effective rate when it is in the
+  /// same currency. Otherwise the daily rate is read on the payment's recorded day, or on the
+  /// bill's recording day when there is no live payment. A missing rate leaves the total unknown.
+  private static func rubles(
+    of bill: UtilityBill, ledger: Ledger?, dayRates: DayRates
+  ) -> AmountE4? {
+    guard bill.currency != .rub else { return bill.totalE4 }
+    let calendar = ledger?.calendar ?? .system
+    let payment = bill.transactionId.flatMap { ledger?.entry($0)?.transaction }
+      .flatMap { $0.isDeleted ? nil : $0 }
+    let day = payment.map { calendar.day(of: $0) } ?? calendar.day(of: bill.recordedAt)
+    let savedRate = payment.flatMap { transaction -> Decimal? in
+      guard transaction.currency == bill.currency else { return nil }
+      return PurchaseRate.costRate(of: transaction)
+    }
+    guard let rate = savedRate ?? dayRates.perUnit(bill.currency, on: day), rate > 0 else {
+      return nil
+    }
+    return try? AmountE4(decimal: bill.totalE4.decimal * rate)
   }
 }

@@ -136,6 +136,7 @@ public enum Burnout {
     let sorted = values.sorted()
     let middle = sorted.count / 2
     if sorted.count % 2 == 1 { return sorted[middle] }
-    return AmountE4(raw: (sorted[middle - 1].raw + sorted[middle].raw) / 2)
+    let midpoint = (Decimal(sorted[middle - 1].raw) + Decimal(sorted[middle].raw)) / 2
+    return AmountE4(raw: (try? DecimalMath.int64(rounding: midpoint)) ?? sorted[middle].raw)
   }
 }

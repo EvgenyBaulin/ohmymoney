@@ -219,6 +219,10 @@ struct PeriodsBoardText {
     return names.categories[id] ?? t("summaries.unknown")
   }
 
+  func category(_ slice: PeriodBoard.Slice) -> String {
+    slice.isUncategorized ? t("summaries.board.uncategorized") : category(slice.categoryId)
+  }
+
   func columnsTitle(_ kind: SummaryKind) -> String {
     t(kind == .week ? "summaries.board.columns.weeks" : "summaries.board.columns.months")
   }

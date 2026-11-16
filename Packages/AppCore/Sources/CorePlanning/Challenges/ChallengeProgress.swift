@@ -168,8 +168,11 @@ public enum ChallengeRules {
     guard totals.count >= minimumPeriods else { return nil }
     totals.sort()
     let middle = totals.count / 2
-    let raw =
-      totals.count % 2 == 1 ? totals[middle] : (totals[middle - 1] + totals[middle] + 1) / 2
+    let midpoint =
+      totals.count % 2 == 1
+      ? Decimal(totals[middle])
+      : (Decimal(totals[middle - 1]) + Decimal(totals[middle])) / 2
+    let raw = (try? DecimalMath.int64(rounding: midpoint)) ?? totals[middle]
     return (AmountE4(raw: raw), .median)
   }
 
@@ -241,8 +244,9 @@ public enum ChallengeRules {
       source = base.source
       if elapsed > 0 {
         // The base is for the whole period: on the way only the share of the days gone is due.
-        let due = (base.amount.raw * Int64(elapsed) * 2 + Int64(dayCount)) / (2 * Int64(dayCount))
-        saved = AmountE4(raw: max(0, due - spent.raw))
+        let share = Decimal(base.amount.raw) * Decimal(elapsed) / Decimal(dayCount)
+        let due = AmountE4(raw: (try? DecimalMath.int64(rounding: share)) ?? base.amount.raw)
+        saved = max(.zero, due - spent)
       } else {
         saved = .zero
       }

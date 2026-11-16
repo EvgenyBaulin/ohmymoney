@@ -106,7 +106,7 @@ public enum AnomalyRules {
     let mine = ledger.rows.filter(isMyOwnSpending)
     var found: [Anomaly] = []
     found += largePayments(in: mine, options: options)
-    found += duplicates(in: mine, calendar: ledger.calendar, options: options)
+    found += duplicates(in: mine, ledger: ledger, options: options)
     found += priceRises(in: mine)
     found += spikes(in: mine, ledger: ledger, today: today, options: options)
     found += badSpending(in: mine, ledger: ledger, today: today, options: options)
@@ -163,7 +163,8 @@ public enum AnomalyRules {
       // A category whose payments never vary has a deviation of zero, and every ruble above
       // the median would be an anomaly. The spread never falls below a share of the median.
       let spread = max(deviation, scaled(middle, byBp: options.minimumSpreadBp))
-      let threshold = AmountE4(raw: middle + scaled(spread, byBp: options.deviationsBp))
+      let threshold =
+        AmountE4(raw: middle) + AmountE4(raw: scaled(spread, byBp: options.deviationsBp))
       for row in rows where row.contribution > threshold {
         found.append(
           Anomaly(
@@ -190,11 +191,14 @@ public enum AnomalyRules {
   /// nothing about minutes: it is nobody's duplicate — or every fare of that day would be
   /// one of every other.
   private static func duplicates(
-    in rows: [LedgerRow], calendar: CalendarContext, options: AnomalyOptions
+    in rows: [LedgerRow], ledger: Ledger, options: AnomalyOptions
   ) -> [Anomaly] {
     struct Key: Hashable { var category: UUID; var amount: Int64 }
     var groups: [Key: [LedgerRow]] = [:]
-    for row in rows where row.occurredAt != calendar.noon(of: row.day) {
+    for row in rows {
+      let zoneId = ledger.entry(row.transactionId)?.transaction.timeZoneId
+      let calendar = CalendarContext(timeZone: ledger.calendar.zone(recordedIn: zoneId))
+      guard row.occurredAt != calendar.noon(of: row.day) else { continue }
       guard let category = row.categoryId else { continue }
       groups[Key(category: category, amount: row.amountRubE4.raw), default: []].append(row)
     }
@@ -333,13 +337,15 @@ public enum AnomalyRules {
     func rise(
       of rows: [LedgerRow], options: AnomalyOptions
     ) -> (amount: AmountE4, usual: AmountE4)? {
-      var weeks: [DateOnly: Int64] = [:]
-      for row in rows { weeks[weekStart(of: row.day), default: 0] += row.contribution.raw }
-      let usual = median(before.map { weeks[$0] ?? 0 })
+      var weeks: [DateOnly: AmountE4] = [:]
+      for row in rows { weeks[weekStart(of: row.day), default: .zero] += row.contribution }
+      let usual = median(before.map { weeks[$0]?.raw ?? 0 })
       guard usual >= options.weekFloor.raw else { return nil }
-      let amount = weeks[last] ?? 0
-      guard amount > usual + scaled(usual, byBp: options.weekExcessBp) else { return nil }
-      return (AmountE4(raw: amount), AmountE4(raw: usual))
+      let amount = weeks[last] ?? .zero
+      let threshold =
+        AmountE4(raw: usual) + AmountE4(raw: scaled(usual, byBp: options.weekExcessBp))
+      guard amount > threshold else { return nil }
+      return (amount, AmountE4(raw: usual))
     }
   }
 
@@ -411,6 +417,6 @@ public enum AnomalyRules {
   /// `raw × bp / 10 000`, through `Decimal` like every other money calculation.
   static func scaled(_ raw: Int64, byBp bp: Int) -> Int64 {
     let value = Decimal(raw) * Decimal(bp) / Decimal(Shares.whole)
-    return (try? DecimalMath.int64(rounding: value)) ?? 0
+    return (try? DecimalMath.int64(rounding: value)) ?? (value < 0 ? .min : .max)
   }
 }

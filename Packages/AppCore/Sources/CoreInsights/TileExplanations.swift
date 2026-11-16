@@ -722,6 +722,8 @@ public enum TileExplanations {
       case .burnout(let signal):
         return TileRow(
           TilePhrase("why.look.burnout", .count(signal.lastWeekCount), .count(signal.usualCount)))
+      case .utilityReadings(_, let name):
+        return TileRow(TilePhrase("why.look.utilityReadings", .text(name)), mark: .warning)
       case .lowCopySpace, .databaseProblems, .depositEnds, .warranty, .purchase, .habit, .keyRate,
         .cashback:
         // About the disk, not about the money: the tile counts what happened in the book.
