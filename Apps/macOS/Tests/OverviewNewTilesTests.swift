@@ -118,6 +118,33 @@ final class OverviewNewTilesTests: XCTestCase {
     XCTAssertGreaterThan(shown, 10, "the sample gives most figure tiles something to say")
   }
 
+  func testSavingsAbove100KeepTheNumberAndExplainEarlierSavingsInBothLanguages() {
+    let snapshot = snapshot()
+    var figures = OverviewFigures(ledger: snapshot.ledger, today: snapshot.today)
+    figures.savings.income = AmountE4(whole: 100_000)
+    figures.savings.goals = .zero
+    figures.savings.accounts = AmountE4(whole: 800_000)
+    for (choice, caption) in [
+      (AppLanguage.Choice.russian, "часть — прежние накопления"),
+      (.english, "partly earlier savings"),
+    ] {
+      environment.language.choice = choice
+      let figure = OverviewFigureText.result(
+        of: .savingsRate, snapshot: snapshot, figures: figures,
+        system: system(snapshot), environment
+      ).figure
+      XCTAssertEqual(figure?.value, environment.money.percent(basisPoints: 80_000))
+      XCTAssertTrue(figure?.caption?.contains(caption) == true)
+      figures.savings.accounts = AmountE4(whole: 100_000)
+      let boundary = OverviewFigureText.result(
+        of: .savingsRate, snapshot: snapshot, figures: figures,
+        system: system(snapshot), environment
+      ).figure
+      XCTAssertFalse(boundary?.caption?.contains(caption) == true)
+      figures.savings.accounts = AmountE4(whole: 800_000)
+    }
+  }
+
   /// With nothing to count a figure tile says why, and never a figure of zeros made up.
   func testWithNothingToCountTheFigureTilesSayWhy() {
     let today = environment.today

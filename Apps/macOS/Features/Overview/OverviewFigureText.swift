@@ -159,11 +159,14 @@ enum OverviewFigureText {
       if savings.leftOutForeign > 0 {
         details.append(counted("overview.savings.foreign", savings.leftOutForeign))
       }
+      var caption = environment.format(
+        "overview.savings.saved", table: table, money.rounded(savings.saved))
+      if savings.isAbove100Percent {
+        caption += " · " + t("overview.savings.earlierSavings")
+      }
       return .figure(
         .init(
-          value: money.percent(basisPoints: bp),
-          caption: environment.format(
-            "overview.savings.saved", table: table, money.rounded(savings.saved)),
+          value: money.percent(basisPoints: bp), caption: caption,
           symbol: "banknote", details: details))
     case .monthRest:
       guard let offer = snapshot.planning.monthRest else {

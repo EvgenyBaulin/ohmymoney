@@ -14,6 +14,9 @@ public struct SavingsTotals: Hashable, Sendable {
   /// Basis points, rounded half away from zero; absent without positive income.
   public var basisPoints: Int? { Shares.ratio(saved, of: income) }
 
+  /// A rate above the month’s income includes money saved earlier.
+  public var isAbove100Percent: Bool { basisPoints.map { $0 > 10_000 } ?? false }
+
   /// The whole month, including income attributed to it even when received in another month.
   public static func month(ledger: Ledger, month: MonthKey) -> SavingsTotals {
     SavingsTotals(
