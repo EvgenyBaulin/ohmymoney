@@ -45,6 +45,32 @@ struct LargeAmountsStorageTests {
     #expect(!report.findings.contains { $0.rule == .partsSum })
   }
 
+  @Test(arguments: [Int64.max, Int64.min])
+  func aBalancedSignedSplitAtTheIntegerLimitIsHealthy(amount: Int64) throws {
+    let stack = try TestSupport.makeStack()
+    let positive = amount > 0
+    let parts: [Int64] =
+      positive
+      ? [amount - 1, 1_000_000, -999_999]
+      : [amount + 1, -1_000_000, 999_999]
+    try TransactionRepository(writer: stack.writer).save(hugeEntry(amount: amount, parts: parts))
+    let report = try DatabaseCheck.run(stack.writer)
+    #expect(!report.findings.contains { $0.rule == .partsSum })
+  }
+
+  @Test func aSignedSplitOffByOneAtTheIntegerLimitIsStillReported() throws {
+    let stack = try TestSupport.makeStack()
+    let entry = hugeEntry(amount: Int64.max, parts: [Int64.max - 1, 1_000_000, -999_999])
+    try TransactionRepository(writer: stack.writer).save(entry)
+    try stack.writer.write { db in
+      try db.execute(
+        sql: "UPDATE transaction_parts SET amount_e4 = -999998 WHERE id = ?",
+        arguments: [entry.parts[2].id.uuidString])
+    }
+    let report = try DatabaseCheck.run(stack.writer)
+    #expect(report.findings.contains { $0.rule == .partsSum })
+  }
+
   /// A refund of `amount` taken back from `part` of `purchase`.
   private func refund(of part: TransactionPart, amount: Int64) -> TransactionEntry {
     let transaction = CoreKit.Transaction(
