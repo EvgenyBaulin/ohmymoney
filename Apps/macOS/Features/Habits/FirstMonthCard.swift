@@ -49,6 +49,13 @@ enum FirstMonthStore {
     if let stored = read(defaults) {
       progress = stored
     } else {
+      if defaults.object(forKey: BeginnerModeOnMac.key) == nil {
+        BeginnerModeOnMac.set(
+          BeginnerMode.startsEnabled(
+            hasOperations: dataset.entries.contains {
+              !$0.transaction.isDeleted
+            }), defaults)
+      }
       let first = HabitEntryDays.typedDays(dataset.entries, calendar: calendar).min()
       if let first, first.days(to: today) >= FirstMonth.length { return nil }
       progress = FirstMonthProgress(start: first ?? today)

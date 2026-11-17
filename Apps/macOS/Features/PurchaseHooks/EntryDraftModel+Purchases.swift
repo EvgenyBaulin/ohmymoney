@@ -23,13 +23,15 @@ extension EntryDraftModel {
       let amount = Self.pauseAmount(of: draft, rubPerUnit: money.rubPerUnit)
     else { return nil }
     let verdict = PurchasePause.check(
-      amountRubE4: amount, freeRubE4: money.freeRubE4, settings: money.purchase)
+      amountRubE4: amount, freeRubE4: money.freeRubE4, settings: money.purchase,
+      usualDailyRubE4: money.usualDailyRubE4)
     guard case .wait(let share) = verdict else { return nil }
     if editsSavedOperation {
       guard let saved = savedOperation else { return nil }
       if let before = Self.pauseAmount(of: saved, rubPerUnit: money.rubPerUnit),
         PurchasePause.check(
-          amountRubE4: before, freeRubE4: money.freeRubE4, settings: money.purchase
+          amountRubE4: before, freeRubE4: money.freeRubE4, settings: money.purchase,
+          usualDailyRubE4: money.usualDailyRubE4
         ).shouldAsk
       {
         return nil

@@ -86,7 +86,7 @@ public struct PeriodBoard: Hashable, Sendable {
 
   /// - Returns: `nil` for an id that names no period.
   public static func build(_ id: SummaryID, ledger: Ledger, today: DateOnly) -> PeriodBoard? {
-    guard let range = id.range else { return nil }
+    guard let range = id.range(calendar: ledger.calendar) else { return nil }
     let spent: AmountE4
     let income: AmountE4
     let previousSpent: AmountE4
@@ -97,7 +97,7 @@ public struct PeriodBoard: Hashable, Sendable {
       spent = ledger.expenses(in: range)
       income = AmountE4.sum(
         ledger.rows(in: range).lazy.filter { $0.isIncome }.map(\.amountRubE4))
-      previousSpent = ledger.expenses(in: week.previous.range)
+      previousSpent = ledger.expenses(in: week.previous.range(calendar: ledger.calendar))
     case .month, .year:
       guard let summary = SummaryBuilder.summary(id: id, ledger: ledger, today: today) else {
         return nil
@@ -196,7 +196,7 @@ public struct PeriodBoard: Hashable, Sendable {
     case .week:
       guard let week = id.weekKey else { return [] }
       return (0..<columnCount).reversed().map { back in
-        let start = week.start.adding(days: -7 * back)
+        let start = week.range(calendar: ledger.calendar).start.adding(days: -7 * back)
         let range = DayRange(start, start.adding(days: 6))
         let before = DayRange(start.adding(days: -364), start.adding(days: -358))
         return Column(

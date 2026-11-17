@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "entry.error.amountUnreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма не читается — проверьте ввод."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The amount cannot be read. Check what you typed."
+          }
+        }
+      }
+    },
     "entry.account.from": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

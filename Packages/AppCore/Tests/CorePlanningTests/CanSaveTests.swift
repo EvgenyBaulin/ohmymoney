@@ -152,9 +152,20 @@ struct CanSaveTests: SavingsFixtures {
     planning.income = income("100000")
     let result = planning.canSave(remainder: forecast, ledger: fx.ledger)
     #expect(result.shortfall != nil)
-    // The cut is the gap between the two limits «Предложить лимиты…» offers, each rounded up
-    // to 1 000: 12 000 usual, 10 800 → 11 000 a tenth less.
-    #expect(result.fundingHints == [.category(CashFx.fun, rub("1000"))])
+    // Only June, July and August have history within the six-month window, each at 12 000.
+    // Their median is 12 000; taking off 10 % gives 10 800. Both are already multiples of
+    // 100, so rounding up changes neither. The same two limits fund a cut of 12 000 − 10 800
+    // = 1 200, as offered by the limit suggestion sheet.
+    let suggestion = try #require(
+      LimitSuggestions.suggestions(ledger: fx.ledger, budgets: planning.book.budgets, today: today)
+        .first { $0.categoryId == CashFx.fun })
+    #expect(suggestion.usual == rub("12000"))
+    #expect(suggestion.tenPercentLess == rub("10800"))
+    #expect(result.fundingHints == [.category(CashFx.fun, rub("1200"))])
+    #expect(
+      result.fundingHints == [
+        .category(CashFx.fun, suggestion.usual - suggestion.tenPercentLess)
+      ])
   }
 
   @Test func theSnapshotDoesNotInventAMonetarySourceWithoutData() {

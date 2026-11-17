@@ -33,7 +33,8 @@ enum OverviewHeadline {
   /// `nil` while nothing is counted and there is no figure to show.
   @MainActor
   static func make(
-    free: FreeMoney, horizon: FreeMoneyHorizon, environment: AppEnvironment
+    free: FreeMoney, horizon: FreeMoneyHorizon, environment: AppEnvironment,
+    usualDailyRub: AmountE4? = nil
   ) -> OverviewHeadlineContent? {
     guard let words = OverviewHero.content(free: free, horizon: horizon, environment),
       let figure = free.grey
@@ -43,7 +44,7 @@ enum OverviewHeadline {
       "overview.headline.until", table: table,
       PlanningBlockText.dayText(free.until, environment), days)
     let line = words.lines.first ?? ""
-    switch FreeVerdict(free: figure) {
+    switch FreeVerdict(free: figure, days: free.days, usualDaily: usualDailyRub) {
     case .enough:
       return OverviewHeadlineContent(
         caption: caption, title: "\(words.caption) \(words.figure)", line: line,
@@ -54,12 +55,25 @@ enum OverviewHeadline {
         title: "\(words.caption) \(words.figure)",
         line: line, verdict: environment.language("overview.verdict.short", table: table),
         tone: .bad)
+    case .tight:
+      let daily =
+        (try? AmountE4(decimal: max(.zero, figure).decimal / Decimal(max(1, free.days)))) ?? .zero
+      return OverviewHeadlineContent(
+        caption: caption, title: "\(words.caption) \(words.figure)",
+        line: environment.format(
+          "overview.verdict.tight.daily", table: table, environment.money.rounded(daily),
+          environment.money.rounded(usualDailyRub ?? .zero)),
+        verdict: environment.language("overview.verdict.tight", table: table), tone: .attention)
     }
   }
 
   /// The colour of the stripe by the tone; the words carry the meaning too.
   static func stripe(_ tone: StatusTone, in surfaces: ThemeSurfaces) -> Color {
-    tone == .bad ? surfaces.negative : surfaces.positive
+    switch tone {
+    case .bad: surfaces.negative
+    case .attention: surfaces.warning
+    case .good, .neutral: surfaces.positive
+    }
   }
 }
 
@@ -78,7 +92,9 @@ struct OverviewHeadlineCard: View {
   var body: some View {
     if let snapshot = compute.snapshot,
       case let (free, horizon) = OverviewHeadline.configured(snapshot),
-      let content = OverviewHeadline.make(free: free, horizon: horizon, environment: environment)
+      let content = OverviewHeadline.make(
+        free: free, horizon: horizon, environment: environment,
+        usualDailyRub: UsualDailySpending(ledger: snapshot.ledger, today: snapshot.today).average)
     {
       MainCard(stripe: OverviewHeadline.stripe(content.tone, in: surfaces)) {
         HStack(alignment: .top, spacing: 8) {

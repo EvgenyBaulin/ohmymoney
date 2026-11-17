@@ -89,7 +89,7 @@ private struct SuggestionBook {
     book.add("2026-07-08", "2100", taxi)
     book.add("2026-08-30", "3000", taxi)
     book.add("2026-07-15", "5000", gifts)
-    for month in ["06", "07", "08"] {
+    for month in ["03", "04", "05", "06", "07", "08"] {
       book.add("2026-\(month)-10", "7000", vacation, goal: id(77))
       book.add("2026-\(month)-11", "800", unknown)
       book.add("2026-\(month)-12", "3000", clothes)
@@ -97,15 +97,21 @@ private struct SuggestionBook {
       book.add("2026-\(month)-14", "1200", hobby)
       book.add("2026-\(month)-15", "90000", salary, kind: .income)
     }
-    // Outside the window: May before it, September is the month of today.
-    book.add("2026-05-20", "50000", books)
+    book.add("2026-03-03", "12000", food)
+    book.add("2026-04-03", "9300", food)
+    book.add("2026-05-03", "15100", food)
+    book.add("2026-04-08", "2100", taxi)
+    book.add("2026-05-30", "3000", taxi)
+    book.add("2026-04-15", "5000", gifts)
+    // February is outside the window; September is the current month.
+    book.add("2026-02-20", "50000", books)
     book.add("2026-09-01", "50000", books)
     book.add("2026-09-02", "50000", taxi)
     return book
   }
 }
 
-@Suite("Suggested limits: three full months, the median, rounded up")
+@Suite("Suggested limits: six full months, the median, rounded up")
 struct LimitSuggestionsTests {
   private typealias Book = SuggestionBook
 
@@ -116,22 +122,26 @@ struct LimitSuggestionsTests {
       ledger: book.ledger, budgets: budgets, today: Book.today, limitless: limitless)
   }
 
-  @Test func theMonthsAreTheThreeFullOnesBeforeToday() {
+  @Test func theMonthsAreTheSixFullOnesBeforeToday() {
     #expect(
       LimitSuggestions.months(before: Book.today)
         == [
-          MonthKey(year: 2026, month: 6), MonthKey(year: 2026, month: 7),
+          MonthKey(year: 2026, month: 3), MonthKey(year: 2026, month: 4),
+          MonthKey(year: 2026, month: 5), MonthKey(year: 2026, month: 6),
+          MonthKey(year: 2026, month: 7),
           MonthKey(year: 2026, month: 8),
         ])
     #expect(
       LimitSuggestions.months(before: DateOnly(year: 2027, month: 1, day: 31))
         == [
-          MonthKey(year: 2026, month: 10), MonthKey(year: 2026, month: 11),
+          MonthKey(year: 2026, month: 7), MonthKey(year: 2026, month: 8),
+          MonthKey(year: 2026, month: 9), MonthKey(year: 2026, month: 10),
+          MonthKey(year: 2026, month: 11),
           MonthKey(year: 2026, month: 12),
         ])
   }
 
-  @Test func onlyCategoriesSpentOnInTwoMonthsWithoutALimitAreOffered() {
+  @Test func onlyCategoriesSpentOnInThreeMonthsWithoutALimitAreOffered() {
     let budgets = [Budget(scope: .category, categoryId: Book.clothes, amountE4: Book.rub(4_000))]
     let offered = suggestions(.usual, budgets: budgets).map(\.categoryId)
     #expect(offered == [Book.food, Book.taxi])
@@ -140,20 +150,28 @@ struct LimitSuggestionsTests {
   @Test func aCategoryIsCountedWithItsSubcategoriesAndMyExpensesOnly() throws {
     let food = try #require(suggestions(.usual).first { $0.categoryId == Book.food })
     // June: 10,000 + 2,000 under «Cafe»; August: the part paid for somebody else is not mine.
-    #expect(food.months == [Book.rub(12_000), Book.rub(9_300), Book.rub(15_100)])
+    #expect(
+      food.months == [
+        Book.rub(12_000), Book.rub(9_300), Book.rub(15_100),
+        Book.rub(12_000), Book.rub(9_300), Book.rub(15_100),
+      ])
     #expect(food.median == Book.rub(12_000))
     #expect(food.usual == Book.rub(12_000))
-    #expect(food.tenPercentLess == Book.rub(11_000), "10,800 rounded up to a thousand")
+    #expect(food.tenPercentLess == Book.rub(10_800))
     #expect(food.amount(.usual) == food.usual)
     #expect(food.amount(.tenPercentLess) == food.tenPercentLess)
   }
 
   @Test func aMonthWithoutSpendingCountsAsZeroInTheMedian() throws {
     let taxi = try #require(suggestions(.usual).first { $0.categoryId == Book.taxi })
-    #expect(taxi.months == [.zero, Book.rub(2_100), Book.rub(3_000)])
+    #expect(
+      taxi.months == [
+        .zero, Book.rub(2_100), Book.rub(3_000),
+        .zero, Book.rub(2_100), Book.rub(3_000),
+      ])
     #expect(taxi.median == Book.rub(2_100))
-    #expect(taxi.usual == Book.rub(2_500))
-    #expect(taxi.tenPercentLess == Book.rub(2_000), "1,890 rounded up to 500")
+    #expect(taxi.usual == Book.rub(2_100))
+    #expect(taxi.tenPercentLess == Book.rub(1_900))
   }
 
   @Test func theSystemCategoriesTheReconciliationAndTheArchiveAreNeverOffered() {
@@ -179,11 +197,12 @@ struct LimitSuggestionsTests {
 
   @Test func refundsTakeAMonthDownToZeroNotBelow() throws {
     var book = SuggestionBook()
+    book.add("2026-05-03", "1000", Book.books)
     book.add("2026-06-03", "1000", Book.books)
     book.add("2026-07-03", "1000", Book.books)
     book.add("2026-08-03", "600", Book.books, kind: .refund)
     let books = try #require(suggestions(book).first)
-    #expect(books.months == [Book.rub(1_000), Book.rub(1_000), .zero])
+    #expect(books.months == [Book.rub(1_000), Book.rub(1_000), Book.rub(1_000), .zero])
     #expect(books.usual == Book.rub(1_000))
   }
 
@@ -202,10 +221,10 @@ struct LimitSuggestionsTests {
   }
 
   @Test(arguments: [
-    ("0", "0"), ("-50", "0"), ("0.01", "500"), ("500", "500"), ("500.01", "1000"),
-    ("9999.99", "10000"), ("10000", "10000"), ("10000.01", "11000"), ("12345", "13000"),
+    ("0", "0"), ("-50", "0"), ("0.01", "100"), ("500", "500"), ("500.01", "600"),
+    ("9999.99", "10000"), ("10000", "10000"), ("10000.01", "10100"), ("12345", "12400"),
   ])
-  func roundingIsUpToFiveHundredUnderTenThousandAndToAThousandFromIt(
+  func roundingIsUpToAHundred(
     _ amount: String, _ rounded: String
   ) {
     #expect(LimitSuggestions.roundedUp(amountLiteral(amount)) == amountLiteral(rounded))

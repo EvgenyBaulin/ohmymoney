@@ -21,11 +21,12 @@ struct WarrantyScreen: View {
   private var today: DateOnly { compute.snapshot?.today ?? environment.today }
 
   /// The items the search leaves, split into those with a term still running and the rest.
-  private var shown: (running: [WarrantyItem], ended: [WarrantyItem]) {
+  private var shown: (running: [WarrantyItem], ended: [WarrantyItem], returned: [WarrantyItem]) {
     let found = WarrantyList.sorted(WarrantyList.matching(items, query: query), today: today)
     return (
       found.filter { $0.nextEnd(today: today) != nil },
-      found.filter { $0.nextEnd(today: today) == nil }
+      found.filter { !$0.isReturned && $0.nextEnd(today: today) == nil },
+      found.filter(\.isReturned)
     )
   }
 
@@ -55,11 +56,12 @@ struct WarrantyScreen: View {
           .textFieldStyle(.roundedBorder)
           .accessibilityIdentifier("warranty.search")
           let split = shown
-          if split.running.isEmpty && split.ended.isEmpty {
+          if split.running.isEmpty && split.ended.isEmpty && split.returned.isEmpty {
             Text(verbatim: t("warranty.nothingFound")).secondaryInk()
           }
           section("warranty.section.running", split.running)
           section("warranty.section.ended", split.ended)
+          section("warranty.section.returned", split.returned)
         }
       }
       .padding(20)
@@ -100,7 +102,12 @@ struct WarrantyScreen: View {
           .appFont(.caption)
           .accessibilityIdentifier("warranty.row.open")
       }
-      if let until = item.warrantyUntil {
+      if item.isReturned {
+        Label(t("warranty.returned"), systemImage: "arrow.uturn.backward.circle")
+          .appFont(.callout)
+          .secondaryInk()
+      }
+      if !item.isReturned, let until = item.warrantyUntil {
         termLine(
           symbol: "checkmark.shield", key: "warranty.row.until", day: until,
           left: item.warrantyDaysLeft(today: today))

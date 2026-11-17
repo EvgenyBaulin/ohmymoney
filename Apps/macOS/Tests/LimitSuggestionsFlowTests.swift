@@ -78,10 +78,13 @@ final class LimitSuggestionsFlowTests: XCTestCase {
   func testTheSuggestionsAreTheCategoriesSpentOnWithoutALimit() {
     show()
     let suggestions = PlanningActions(deps).suggestedLimits()
+    // The three available months have identical spending: medians 12 300 and 2 100,
+    // both already multiples of 100. Their 90 % values are 11 070 and 1 890; rounding
+    // up to 100 gives 11 100 and 1 900.
     XCTAssertEqual(suggestions.map(\.categoryId), [food.id, taxi.id])
-    XCTAssertEqual(suggestions.map(\.usual), [AmountE4(whole: 13_000), AmountE4(whole: 2_500)])
+    XCTAssertEqual(suggestions.map(\.usual), [AmountE4(whole: 12_300), AmountE4(whole: 2_100)])
     XCTAssertEqual(
-      suggestions.map(\.tenPercentLess), [AmountE4(whole: 12_000), AmountE4(whole: 2_000)])
+      suggestions.map(\.tenPercentLess), [AmountE4(whole: 11_100), AmountE4(whole: 1_900)])
   }
 
   func testTheKeptRowsAreOneWriteAndOneUndoTakesThemAllBack() throws {

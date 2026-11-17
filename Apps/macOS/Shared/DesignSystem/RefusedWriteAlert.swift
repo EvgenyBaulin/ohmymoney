@@ -1,6 +1,8 @@
 import SwiftUI
 
 extension View {
+  /// Common write buttons keep their place but show that the book is read-only.
+  func requiresWritableBook() -> some View { modifier(WritableBookControl()) }
   /// How a screen without a store of its own says that a write was refused
   /// (`AppEnvironment.attempt`): an alert over that screen, with the reason in the words of
   /// the interface and the way on. The journal already has the line; this is the half the
@@ -14,6 +16,14 @@ extension View {
     } message: {
       Text(verbatim: environment.language(words.message))
     }
+  }
+}
+
+private struct WritableBookControl: ViewModifier {
+  @Dependency(\.environment) private var environment
+
+  func body(content: Content) -> some View {
+    content.disabled(environment.shield.isReadOnly)
   }
 }
 

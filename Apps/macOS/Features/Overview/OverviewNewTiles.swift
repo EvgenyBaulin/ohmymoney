@@ -406,9 +406,28 @@ struct CategoryMoveCard: View {
           )
           .appFont(.caption.monospacedDigit())
           .secondaryInk()
+          PreviousMonthLengthNote(today: snapshot.today)
         }
         .accessibilityElement(children: .combine)
       }
+    }
+  }
+}
+
+struct PreviousMonthLengthNote: View {
+  @Dependency(\.environment) private var environment
+  let today: DateOnly
+
+  var body: some View {
+    let days = Period.previousMonthShorterBy(today: today)
+    if days > 0 {
+      Text(
+        verbatim: environment.format(
+          "overview.comparison.shorter", table: "Overview", days)
+      )
+      .appFont(.caption)
+      .secondaryInk()
+      .fixedSize(horizontal: false, vertical: true)
     }
   }
 }

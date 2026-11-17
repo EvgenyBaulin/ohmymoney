@@ -140,6 +140,7 @@ enum EntrySaveQuestions {
     /// the pause compares with. The pause is off by default, so nothing is asked without them.
     var purchase = PurchaseSettings()
     var freeRubE4: AmountE4?
+    var usualDailyRubE4: AmountE4?
     var rubPerUnit: [CurrencyCode: Decimal] = [:]
     /// The latest fill-up recorded, to count the mileage from.
     var lastFill: FuelFill?
@@ -156,6 +157,7 @@ enum EntrySaveQuestions {
       guard let snapshot else { return }
       purchase = snapshot.dataset.purchaseSettings
       freeRubE4 = snapshot.planning.freeMoney.main
+      usualDailyRubE4 = UsualDailySpending(ledger: snapshot.ledger, today: snapshot.today).median
       rubPerUnit = snapshot.planning.rubPerUnit
       // Only when the question can be asked: the fill-ups are read from every operation.
       if purchase.fuelAskMileage {

@@ -1,6 +1,57 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "overview.comparison.shorter": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предыдущий период короче на %lld дн."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The previous period is %lld days shorter."
+          }
+        }
+      }
+    },
+    "overview.verdict.tight": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "впритык"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tight"
+          }
+        }
+      }
+    },
+    "overview.verdict.tight.daily": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В день %@ вместо обычных %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ a day instead of the usual %@"
+          }
+        }
+      }
+    },
     "calendar.atTodaysRate": {
       "extractionState": "manual",
       "localizations": {

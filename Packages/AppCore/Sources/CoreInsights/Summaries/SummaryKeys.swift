@@ -9,8 +9,7 @@ public enum SummaryKind: String, Hashable, Sendable, Codable, CaseIterable {
   case year
 }
 
-/// A week of the Monday-to-Sunday calendar the whole app uses, numbered the ISO way: the week
-/// belongs to the year its Thursday falls in.
+/// A stable ISO identifier for a week, independent of the first weekday used to display it.
 public struct WeekKey: Hashable, Sendable, Codable, Comparable, CustomStringConvertible {
   public let year: Int
   public let week: Int
@@ -25,6 +24,11 @@ public struct WeekKey: Hashable, Sendable, Codable, Comparable, CustomStringConv
     let thursday = day.adding(days: 4 - day.weekday)
     let firstDay = DateOnly(year: thursday.year, month: 1, day: 1)
     self.init(year: thursday.year, week: (thursday.dayNumber - firstDay.dayNumber) / 7 + 1)
+  }
+
+  public init(containing day: DateOnly, calendar: CalendarContext) {
+    let start = calendar.weekStart(of: day)
+    self.init(containing: start.adding(days: (8 - calendar.firstWeekday) % 7))
   }
 
   /// `2026-W43`.
@@ -47,6 +51,10 @@ public struct WeekKey: Hashable, Sendable, Codable, Comparable, CustomStringConv
 
   public var end: DateOnly { start.adding(days: 6) }
   public var range: DayRange { DayRange(start, end) }
+  public func range(calendar: CalendarContext) -> DayRange {
+    let first = calendar.weekStart(of: start)
+    return DayRange(first, first.adding(days: 6))
+  }
   public var next: WeekKey { WeekKey(containing: start.adding(days: 7)) }
   public var previous: WeekKey { WeekKey(containing: start.adding(days: -7)) }
 
@@ -95,6 +103,10 @@ public struct SummaryID: Hashable, Sendable, Codable, CustomStringConvertible, I
     case .month: monthKey.map { Period.month($0).range }
     case .year: yearNumber.map { Period.year($0).range }
     }
+  }
+
+  public func range(calendar: CalendarContext) -> DayRange? {
+    kind == .week ? weekKey?.range(calendar: calendar) : range
   }
 }
 

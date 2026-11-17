@@ -213,6 +213,12 @@ enum AppScenes {
       // the line names it.
       .onAppear { ScreenJournal.opened(window) }
       .onDisappear { ScreenJournal.closed(window) }
+      .onChange(of: deps.environment.language.resolvedCode, initial: true) { _, _ in
+        guard launches, !AppEnvironment.isTestHost else { return }
+        deps.compute.useWeekStarting(
+          on: CalendarScreen.firstWeekday(
+            locale: deps.environment.language.locale))
+      }
       .task {
         // The test host is this very app, and its windows are built for real. Left to
         // start, they open the owner's Debug database, attach a store to it and leave

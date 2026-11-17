@@ -666,13 +666,16 @@ private struct DebtDetail: View {
     FlowButtons {
       ForEach(DebtCardAction.offered(for: line.debt), id: \.self) { action in
         if action == .pay || action == .reopen {
-          button(action).buttonStyle(.borderedProminent)
+          button(action).buttonStyle(.borderedProminent).requiresWritableBook()
         } else {
-          button(action)
+          button(action).disabled(environment.shield.isReadOnly && action != .schedule)
         }
       }
     }
-    .alert(t("debts.reopenFailed"), isPresented: $reopenFailed) {
+    .alert(
+      WriteRefusalWords.failureText(reason: t("debts.reopenFailed"), environment),
+      isPresented: $reopenFailed
+    ) {
       Button(environment.language("action.ok")) {}
     }
   }
@@ -861,6 +864,7 @@ private struct PersonDetail: View {
             Text(verbatim: environment.money.exact(line.balance, currency: line.debt.currency))
               .monospacedDigit()
             Button(t("debts.pay")) { sheet = .pay(line.debt) }
+              .requiresWritableBook()
               .buttonStyle(.bordered).controlSize(.small)
           }
         }

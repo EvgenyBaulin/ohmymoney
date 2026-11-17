@@ -145,7 +145,7 @@ struct PurchasePauseTests {
     #expect(PurchasePause.check(amountRubE4: Fx.rub(1), freeRubE4: nil, settings: on) == .noFreeSum)
     #expect(
       PurchasePause.check(amountRubE4: Fx.rub(1), freeRubE4: Fx.rub(-5), settings: on)
-        == .wait(sharePercent: nil))
+        == .fine(sharePercent: 0))
   }
 
   @Test func theThresholdIsTheShareOfTheFreeSum() {

@@ -6,7 +6,7 @@ import XCTest
 /// A month under limits: groceries spent through the month with a refund, a limit on a parent
 /// covering its café, rollover over three months and an overspent one, the edge of 90 %, bad
 /// spending and «for whom» limits, what the field of a category writes when typed into, which
-/// limits a list shows first, and «Предложить лимиты…» on the three full months before today —
+/// limits a list shows first, and «Предложить лимиты…» on up to six full months before today —
 /// including over New Year and with a month that gave back more than it spent.
 final class PlanningScenarioTestsLimits: XCTestCase {
   private typealias S = PlanningScenario
@@ -333,44 +333,65 @@ final class PlanningScenarioTestsLimits: XCTestCase {
       limitless: [count.id])
   }
 
-  func testTheThreeMonthsBeforeJanuaryCrossTheYear() {
+  func testTheSixMonthsBeforeJanuaryCrossTheYear() {
     XCTAssertEqual(
       LimitSuggestions.months(before: S.day("2027-01-15")).map(\.iso),
-      ["2026-10", "2026-11", "2026-12"])
+      ["2026-07", "2026-08", "2026-09", "2026-10", "2026-11", "2026-12"])
   }
 
-  func testACategorySpentOnInTwoOfThreeMonthsIsSuggestedAtItsMedian() throws {
+  func testACategorySpentOnInThreeOfSixMonthsIsSuggestedAtItsMedian() throws {
     let found = suggest(
-      [spend(8_200, "2026-07-10"), spend(9_100, "2026-08-10", cafe)], today: "2026-10-14")
+      [
+        spend(8_200, "2026-04-10"), spend(9_100, "2026-07-10", cafe),
+        spend(8_200, "2026-08-10"),
+      ], today: "2026-10-14")
     let suggestion = try XCTUnwrap(found.first)
     XCTAssertEqual(suggestion.categoryId, food.id)
-    XCTAssertEqual(suggestion.months, [S.rub(8_200), S.rub(9_100), .zero])
-    XCTAssertEqual(suggestion.median, S.rub(8_200))
-    XCTAssertEqual(suggestion.usual, S.rub(8_500))
-    XCTAssertEqual(suggestion.amount(.tenPercentLess), S.rub(7_500))
+    XCTAssertEqual(
+      suggestion.months, [S.rub(8_200), .zero, .zero, S.rub(9_100), S.rub(8_200), .zero])
+    // Three months have spending. Sorted: 0, 0, 0, 8 200, 8 200, 9 100; the two middle
+    // values average to 4 100. It already rounds to 100; 90 % is 3 690, rounded up to 3 700.
+    XCTAssertEqual(suggestion.median, S.rub(4_100))
+    XCTAssertEqual(suggestion.usual, S.rub(4_100))
+    XCTAssertEqual(suggestion.amount(.tenPercentLess), S.rub(3_700))
   }
 
   func testOneBigPurchaseIsNoHabit() {
     XCTAssertTrue(suggest([spend(50_000, "2026-08-10")], today: "2026-10-14").isEmpty)
+    XCTAssertTrue(
+      suggest(
+        [spend(8_200, "2026-07-10"), spend(9_100, "2026-08-10")], today: "2026-10-14"
+      ).isEmpty)
   }
 
   func testThisMonthIsNotLookedAt() {
     XCTAssertTrue(
-      suggest([spend(5_000, "2026-10-01"), spend(5_000, "2026-09-01")], today: "2026-10-14")
-        .isEmpty)
+      suggest(
+        [
+          spend(5_000, "2026-10-01"), spend(5_000, "2026-09-01"),
+          spend(5_000, "2026-08-01"),
+        ], today: "2026-10-14"
+      )
+      .isEmpty)
   }
 
   func testACategoryWithALimitIsNotSuggestedAgain() {
     XCTAssertTrue(
       suggest(
-        [spend(5_000, "2026-08-01"), spend(5_000, "2026-09-01")], budgets: [limit(1)],
+        [
+          spend(5_000, "2026-07-01"), spend(5_000, "2026-08-01"),
+          spend(5_000, "2026-09-01"),
+        ], budgets: [limit(1)],
         today: "2026-10-14"
       ).isEmpty)
   }
 
   func testSystemCountAndArchivedCategoriesAreNeverSuggested() {
     let entries = [goals, count, old].flatMap { category in
-      [spend(5_000, "2026-08-01", category), spend(5_000, "2026-09-01", category)]
+      [
+        spend(5_000, "2026-07-01", category), spend(5_000, "2026-08-01", category),
+        spend(5_000, "2026-09-01", category),
+      ]
     }
     XCTAssertTrue(suggest(entries, today: "2026-10-14").isEmpty)
   }
@@ -379,16 +400,23 @@ final class PlanningScenarioTestsLimits: XCTestCase {
     let refund = S.entry(.refund, S.rub(3_000), on: "2026-07-20", category: fun.id)
     let found = suggest(
       [
-        spend(1_000, "2026-07-10", fun), refund, spend(4_000, "2026-08-10", fun),
+        spend(4_000, "2026-06-10", fun), spend(1_000, "2026-07-10", fun), refund,
+        spend(4_000, "2026-08-10", fun),
         spend(4_000, "2026-09-10", fun),
       ],
       today: "2026-10-14")
-    XCTAssertEqual(try XCTUnwrap(found.first).months.first, .zero)
+    // June, August and September supply the three spending months; July's 1 000 − 3 000
+    // refund clamps to zero. The median of 4 000, 0, 4 000, 4 000 is 4 000.
+    let suggestion = try XCTUnwrap(found.first)
+    XCTAssertEqual(suggestion.months, [S.rub(4_000), .zero, S.rub(4_000), S.rub(4_000)])
+    XCTAssertEqual(suggestion.usual, S.rub(4_000))
+    XCTAssertEqual(suggestion.tenPercentLess, S.rub(3_600))
   }
 
   func testTheBiggestSuggestionComesFirst() {
     let found = suggest(
       [
+        spend(2_000, "2026-07-10", fun), spend(20_000, "2026-07-10"),
         spend(2_000, "2026-08-10", fun), spend(2_000, "2026-09-10", fun),
         spend(20_000, "2026-08-10"), spend(20_000, "2026-09-10"),
       ],
@@ -396,12 +424,13 @@ final class PlanningScenarioTestsLimits: XCTestCase {
     XCTAssertEqual(found.map(\.categoryId), [food.id, fun.id])
   }
 
-  func testRoundingUpByFiveHundredAndByAThousand() {
-    XCTAssertEqual(LimitSuggestions.roundedUp(S.kop(1)), S.rub(500))
+  func testRoundingUpByAHundredAtEveryAmount() {
+    // 0.01 rounds up to the next 100; 10 000.01 rounds to 10 100, with no step change.
+    XCTAssertEqual(LimitSuggestions.roundedUp(S.kop(1)), S.rub(100))
     XCTAssertEqual(LimitSuggestions.roundedUp(S.rub(500)), S.rub(500))
     XCTAssertEqual(LimitSuggestions.roundedUp(S.kop(999_999)), S.rub(10_000))
     XCTAssertEqual(LimitSuggestions.roundedUp(S.rub(10_000)), S.rub(10_000))
-    XCTAssertEqual(LimitSuggestions.roundedUp(S.kop(1_000_001)), S.rub(11_000))
+    XCTAssertEqual(LimitSuggestions.roundedUp(S.kop(1_000_001)), S.rub(10_100))
     XCTAssertEqual(LimitSuggestions.roundedUp(S.rub(-5)), .zero)
     XCTAssertEqual(LimitSuggestions.roundedUp(AmountE4(raw: .max)), AmountE4(raw: .max))
   }

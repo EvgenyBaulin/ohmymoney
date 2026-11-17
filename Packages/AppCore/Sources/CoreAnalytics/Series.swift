@@ -41,14 +41,14 @@ extension Ledger {
   }
 }
 
-/// Spending or income by day, week (from Monday) or month.
+/// Spending or income by day, the calendar's week or month.
 public struct TimeSeries: Hashable, Sendable {
   public enum Step: String, Hashable, Sendable, CaseIterable {
     case day, week, month
   }
 
   public struct Point: Hashable, Sendable {
-    /// The first day of the bucket: the day, the Monday of the week, the 1st of the month.
+    /// The first day of the bucket: the day, the first weekday, the 1st of the month.
     public var start: DateOnly
     public var amount: AmountE4
   }
@@ -79,12 +79,12 @@ public struct TimeSeries: Hashable, Sendable {
     case .week:
       var sums: [DateOnly: AmountE4] = [:]
       for row in ledger.rows(in: period.range) {
-        sums[row.day.weekStart, default: .zero] += Self.value(of: row, measure)
+        sums[ledger.calendar.weekStart(of: row.day), default: .zero] += Self.value(of: row, measure)
       }
-      var monday = period.start.weekStart
-      while monday <= period.end {
-        points.append(Point(start: monday, amount: sums[monday] ?? .zero))
-        monday = monday.adding(days: 7)
+      var weekStart = ledger.calendar.weekStart(of: period.start)
+      while weekStart <= period.end {
+        points.append(Point(start: weekStart, amount: sums[weekStart] ?? .zero))
+        weekStart = weekStart.adding(days: 7)
       }
     case .month:
       points = period.months.map { month in

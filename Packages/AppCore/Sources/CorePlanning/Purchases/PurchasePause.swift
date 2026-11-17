@@ -24,12 +24,16 @@ public enum PurchasePause {
   /// `amountRubE4` of the purchase in rubles against `freeRubE4`, the free sum now. A purchase
   /// of nothing, or of less, is always fine.
   public static func check(
-    amountRubE4: AmountE4, freeRubE4: AmountE4?, settings: PurchaseSettings
+    amountRubE4: AmountE4, freeRubE4: AmountE4?, settings: PurchaseSettings,
+    usualDailyRubE4: AmountE4? = nil
   ) -> Verdict {
     guard settings.pauseEnabled else { return .off }
     guard let free = freeRubE4 else { return .noFreeSum }
     guard amountRubE4.raw > 0 else { return .fine(sharePercent: 0) }
-    guard free.raw > 0 else { return .wait(sharePercent: nil) }
+    guard free.raw > 0 else {
+      let threshold = max(AmountE4(whole: 1_000), usualDailyRubE4 ?? .zero)
+      return amountRubE4 > threshold ? .wait(sharePercent: nil) : .fine(sharePercent: 0)
+    }
     let share = DecimalMath.round(
       Decimal(amountRubE4.raw) * 100 / Decimal(free.raw), scale: 1)
     let limit = Decimal(settings.pausePercent)

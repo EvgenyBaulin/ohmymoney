@@ -372,6 +372,7 @@ public final class TransactionsStore {
     // refuses the same writes behind it (`ReadOnlyBarrier`); this stops them before a failure
     // has to be told.
     if isReadOnly?() == true {
+      refusal = "write.refused.readOnly"
       Self.standInLog.notice(
         "a write was refused: the app is read-only (\(what, privacy: .public))")
       return true

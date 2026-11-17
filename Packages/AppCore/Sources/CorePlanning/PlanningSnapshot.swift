@@ -136,6 +136,9 @@ public struct PlanningSnapshot: Hashable, Sendable {
 
   // The figures below start empty: the caller fills them after `build`, each from its own rule.
 
+  /// Usual monthly spending for purchase checks and scenario trajectories.
+  public var affordSpending: AffordSpending = .none
+
   /// «Сколько висит в рассрочках» (`InstalmentsSummary`).
   public var instalments: InstalmentsSummary = .empty
   /// The payoff ladder of the debts I owe and the credit cards in debt (`DebtLadder`).
@@ -380,6 +383,7 @@ public struct PlanningSnapshot: Hashable, Sendable {
       cushion: cushion)
     snapshot.accountsSavedThisMonth =
       SavingsTotals(ledger: ledger, in: toDate, income: .zero).accounts
+    snapshot.affordSpending = AffordSpending.build(ledger: ledger, today: today)
     snapshot.npd = npd
     snapshot.creditStatements = creditStatements
     return snapshot

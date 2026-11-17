@@ -52,7 +52,7 @@ public enum WarrantyReminders {
     _ items: [WarrantyItem], today: DateOnly, dismissed: Set<String> = []
   ) -> [WarrantyReminder] {
     var found: [WarrantyReminder] = []
-    for item in items {
+    for item in items where !item.isReturned {
       if let until = item.returnUntil, let left = item.returnDaysLeft(today: today),
         (0...returnWindowDays).contains(left)
       {

@@ -104,6 +104,10 @@ struct ExportCopyView: View {
             t("privacy.copy.from"), selection: $model.periodStart, displayedComponents: .date)
           DatePicker(
             t("privacy.copy.to"), selection: $model.periodEnd, displayedComponents: .date)
+          Text(verbatim: t("privacy.copy.scope.period.hint"))
+            .appFont(.caption)
+            .secondaryInk()
+            .fixedSize(horizontal: false, vertical: true)
         }
         Toggle(isOn: $model.anonymize) {
           Text(verbatim: t("privacy.copy.anonymize"))

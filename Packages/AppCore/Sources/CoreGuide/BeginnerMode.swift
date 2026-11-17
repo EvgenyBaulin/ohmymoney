@@ -28,10 +28,14 @@ public struct BeginnerFacts: Hashable, Sendable {
   /// The starter set said the owner has loans; `nil` when he chose no set.
   public var hasLoans: Bool?
   public var today: DateOnly
+  /// Days with any live operations, including imported statements, for analysis and reports.
+  public var analysisEntryDays: Int
+  public var analysisFirstEntry: DateOnly?
 
   public init(
     entryDays: Int = 0, firstEntry: DateOnly? = nil, counts: Int = 0, debts: Int = 0,
-    hasLoans: Bool? = nil, today: DateOnly
+    hasLoans: Bool? = nil, today: DateOnly,
+    analysisEntryDays: Int? = nil, analysisFirstEntry: DateOnly? = nil
   ) {
     self.entryDays = entryDays
     self.firstEntry = firstEntry
@@ -39,6 +43,8 @@ public struct BeginnerFacts: Hashable, Sendable {
     self.debts = debts
     self.hasLoans = hasLoans
     self.today = today
+    self.analysisEntryDays = analysisEntryDays ?? entryDays
+    self.analysisFirstEntry = analysisFirstEntry ?? firstEntry
   }
 }
 
@@ -55,6 +61,7 @@ public enum BeginnerUnlock: Hashable, Sendable {
 /// The mode of a beginner: which sections are quiet and until when. Off, nothing is quiet. The
 /// switch itself is a habit of this Mac, never in the database or the archive.
 public enum BeginnerMode {
+  public static func startsEnabled(hasOperations: Bool) -> Bool { !hasOperations }
   /// Days with entry «Аналитика» opens at.
   public static let analyticsEntryDays = 14
   /// Days since the first entry «Отчёты» opens at.
@@ -66,10 +73,12 @@ public enum BeginnerMode {
   public static func unlock(_ section: BeginnerSection, facts: BeginnerFacts) -> BeginnerUnlock? {
     switch section {
     case .analytics:
-      return facts.entryDays >= analyticsEntryDays
-        ? nil : .entryDays(needed: analyticsEntryDays, have: facts.entryDays)
+      return facts.analysisEntryDays >= analyticsEntryDays
+        ? nil : .entryDays(needed: analyticsEntryDays, have: facts.analysisEntryDays)
     case .reports:
-      guard let first = facts.firstEntry else { return .monthOfEntries(daysLeft: reportsDays) }
+      guard let first = facts.analysisFirstEntry else {
+        return .monthOfEntries(daysLeft: reportsDays)
+      }
       let passed = FirstMonth.dayNumber(facts.today) - FirstMonth.dayNumber(first)
       return passed >= reportsDays ? nil : .monthOfEntries(daysLeft: reportsDays - passed)
     case .capital:

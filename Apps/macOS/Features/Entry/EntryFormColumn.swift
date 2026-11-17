@@ -53,6 +53,8 @@ struct EntryFormColumn<Caption: View>: View {
           // focus is in it; with the focus in the list beside it Return is the list's.
           .keyboardShortcut(focusedInside ? .defaultAction : nil)
           .accessibilityIdentifier("entry.form.save")
+          .disabled(!model.canSave)
+          .requiresWritableBook()
         }
       }
       .padding(.horizontal, EntryFormMetrics.inset)

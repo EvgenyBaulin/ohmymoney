@@ -1,3 +1,4 @@
+import CoreAccounting
 import CoreAnalytics
 import CoreKit
 import Foundation
@@ -13,6 +14,7 @@ public struct WarrantyItem: Hashable, Sendable, Identifiable {
   public var warrantyUntil: DateOnly?
   public var warrantyWhere: String?
   public var returnUntil: DateOnly?
+  public var isReturned: Bool = false
 
   public init(
     id: UUID, title: String?, occurredAt: Date, warrantyUntil: DateOnly? = nil,
@@ -37,7 +39,8 @@ public struct WarrantyItem: Hashable, Sendable, Identifiable {
 
   /// The nearest end that has not passed yet (today counts), or `nil` when every term ended.
   public func nextEnd(today: DateOnly) -> DateOnly? {
-    [warrantyUntil, returnUntil].compactMap { $0 }.filter { $0 >= today }.min()
+    if isReturned { return nil }
+    return [warrantyUntil, returnUntil].compactMap { $0 }.filter { $0 >= today }.min()
   }
 
   /// The latest end of the two: when the item stops mattering.
@@ -48,23 +51,34 @@ public struct WarrantyItem: Hashable, Sendable, Identifiable {
 public enum WarrantyList {
   /// The operations that have a warranty or a term of return. Deleted operations are not there.
   public static func items(from entries: [TransactionEntry]) -> [WarrantyItem] {
-    entries.compactMap { entry in
+    let refunds = RefundIndex(entries: entries, debts: [:])
+    return entries.compactMap { entry in
       let transaction = entry.transaction
       guard !transaction.isDeleted,
         transaction.warrantyUntil != nil || transaction.returnUntil != nil
       else { return nil }
       let note = transaction.note?.trimmingCharacters(in: .whitespacesAndNewlines)
       let place = transaction.warrantyWhere?.trimmingCharacters(in: .whitespacesAndNewlines)
-      return WarrantyItem(
+      let hasRefund = entry.parts.contains { refunds.refunded(part: $0.id).raw > 0 }
+      let returned =
+        !entry.parts.isEmpty
+        && entry.parts.allSatisfy {
+          refunds.refunded(part: $0.id) >= $0.amountE4
+        }
+      var item = WarrantyItem(
         id: transaction.id, title: note?.isEmpty == false ? note : nil,
         occurredAt: transaction.occurredAt, warrantyUntil: transaction.warrantyUntil,
-        warrantyWhere: place?.isEmpty == false ? place : nil, returnUntil: transaction.returnUntil)
+        warrantyWhere: place?.isEmpty == false ? place : nil,
+        returnUntil: hasRefund ? nil : transaction.returnUntil)
+      item.isReturned = hasRefund && returned
+      return item
     }
   }
 
   /// Terms still running first, by the nearest end; then the ended ones, the freshest first.
   public static func sorted(_ items: [WarrantyItem], today: DateOnly) -> [WarrantyItem] {
     func order(_ left: WarrantyItem, _ right: WarrantyItem) -> Bool {
+      if left.isReturned != right.isReturned { return !left.isReturned }
       switch (left.nextEnd(today: today), right.nextEnd(today: today)) {
       case (let leftEnd?, let rightEnd?):
         if leftEnd != rightEnd { return leftEnd < rightEnd }

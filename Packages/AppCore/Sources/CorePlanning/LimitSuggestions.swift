@@ -52,14 +52,14 @@ public struct LimitSuggestion: Hashable, Sendable, Identifiable {
 /// measured.
 public enum LimitSuggestions {
   /// How many full months are looked at: the ones before the month of today.
-  public static let monthCount = 3
+  public static let monthCount = 6
   /// A category spent on in fewer of those months is no habit yet: one big purchase is not a
   /// month's spending.
-  public static let minimumMonthsSpent = 2
-  /// Under this a suggestion is rounded up to `smallStep`, from it up to `largeStep`.
+  public static let minimumMonthsSpent = 3
+  /// The rounding grid is 100 ₽ at every amount. The threshold is kept for callers.
   public static let largeFrom = AmountE4(whole: 10_000)
-  public static let smallStep = AmountE4(whole: 500)
-  public static let largeStep = AmountE4(whole: 1_000)
+  public static let smallStep = AmountE4(whole: 100)
+  public static let largeStep = AmountE4(whole: 100)
 
   /// The full months before the month of `today`, oldest first.
   public static func months(before today: DateOnly) -> [MonthKey] {
@@ -83,7 +83,8 @@ public enum LimitSuggestions {
     ledger: Ledger, budgets: [Budget], today: DateOnly, limitless: Set<UUID> = []
   ) -> [LimitSuggestion] {
     let tree = ledger.tree
-    let months = months(before: today)
+    let months = SavingsMath.completeMonths(
+      before: today.monthKey, historyStart: ledger.firstDay?.monthKey, count: monthCount)
     let candidates = ledger.dataset.categories.filter { category in
       category.parentId == nil
         && LimitRules.offersLimit(
@@ -103,7 +104,7 @@ public enum LimitSuggestions {
         continue
       }
       let probe = Budget(scope: .category, categoryId: root, amountE4: .zero)
-      guard LimitRules.counts(row, for: probe) else { continue }
+      guard !row.isOneOff, LimitRules.counts(row, for: probe) else { continue }
       spent[root, default: [:]][row.day.monthKey, default: .zero] += row.contribution
     }
 
@@ -139,7 +140,7 @@ public enum LimitSuggestions {
     return rounded((sorted[middle - 1].decimal + sorted[middle].decimal) / 2)
   }
 
-  /// Up to the next 500 ₽ under 10,000 ₽ and the next 1,000 ₽ from it: a limit reads as a
+  /// Up to the next 100 ₽: a limit reads as a
   /// round number and never starts below what a usual month costs. A round amount stays;
   /// zero and less are zero.
   public static func roundedUp(_ amount: AmountE4) -> AmountE4 {

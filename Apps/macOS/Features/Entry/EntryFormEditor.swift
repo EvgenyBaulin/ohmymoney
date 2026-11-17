@@ -67,6 +67,7 @@ struct EntryFormEditor: View {
           .keyboardShortcut(focusedInside ? .defaultAction : nil)
           .disabled(!editor.canSave(in: store))
           .accessibilityIdentifier("entry.form.saveEdit")
+          .requiresWritableBook()
         }
       }
       .padding(.horizontal, Self.inset)

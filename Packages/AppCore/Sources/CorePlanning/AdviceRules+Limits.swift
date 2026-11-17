@@ -30,33 +30,16 @@ extension AdviceRules {
     guard months.count >= minimumMonths else {
       return [.notEnoughData(.limitSuggestion, reason: Reason.fewerThanThreeMonths)]
     }
-    let tree = context.ledger.tree
-    let limited = Set(budgets.filter { $0.scope == .category }.compactMap(\.categoryId))
-    let limitless = context.ledger.dataset.planning.settings.limitlessCategoryIds
-    let table = spendingByCategory(context.ledger, months: months)
-    let candidates =
-      table.compactMap { root, byMonth -> (root: UUID, values: [AmountE4], median: AmountE4)? in
-        guard !limited.contains(root), let category = tree.category(root),
-          category.kind == .expense, !category.archived, tree.acceptsLimit(root),
-          !LimitRules.isLimitless(root, tree: tree, limitless: limitless)
-        else { return nil }
-        let values = months.map { byMonth[$0] ?? .zero }
-        guard values.filter({ $0.raw > 0 }).count >= minimumMonths,
-          let median = IncomeEstimate.median(values), median.raw > 0
-        else { return nil }
-        return (root, values, median)
-      }
-      .sorted { left, right in
-        left.median != right.median
-          ? left.median > right.median : left.root.uuidString < right.root.uuidString
-      }
-    return candidates.prefix(categoriesShown).map { candidate in
-      let values = candidate.values
+    let suggestions = LimitSuggestions.suggestions(
+      ledger: context.ledger, budgets: budgets, today: context.today,
+      limitless: context.ledger.dataset.planning.settings.limitlessCategoryIds)
+    return suggestions.prefix(categoriesShown).map { candidate in
+      let values = candidate.months
       return Advice(
-        id: AdviceBook.id(.limitSuggestion, candidate.root),
-        kind: .limitSuggestion, subject: .category(candidate.root),
+        id: AdviceBook.id(.limitSuggestion, candidate.categoryId),
+        kind: .limitSuggestion, subject: .category(candidate.categoryId),
         terms: [
-          AdviceTerm(key: Key.monthsCounted, value: .count(months.count)),
+          AdviceTerm(key: Key.monthsCounted, value: .count(values.count)),
           AdviceTerm(
             key: Key.monthsWithSpending, value: .count(values.filter { $0.raw > 0 }.count)),
           AdviceTerm(
@@ -65,8 +48,7 @@ extension AdviceRules {
           AdviceTerm(key: Key.monthlyMedian, value: .money(candidate.median)),
         ],
         result: AdviceTerm(
-          key: Key.suggestedLimit, op: .equals,
-          value: .money(AdviceMath.roundedUpToHundred(candidate.median))))
+          key: Key.suggestedLimit, op: .equals, value: .money(candidate.usual)))
     }
   }
 
