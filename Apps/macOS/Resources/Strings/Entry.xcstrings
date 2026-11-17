@@ -1,23 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "entry.error.amountUnreadable": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сумма не читается — проверьте ввод."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The amount cannot be read. Check what you typed."
-          }
-        }
-      }
-    },
     "entry.account.from": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -12161,6 +12144,167 @@
           "stringUnit": {
             "state": "translated",
             "value": "金額過大，無法儲存"
+          }
+        }
+      }
+    },
+    "entry.error.amountUnreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ oxunmur. Yazdığınızı yoxlayın."
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суму не атрымалася прачытаць. Праверце, што вы ўвялі."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Částku nelze přečíst. Zkontrolujte, co jste zadali."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Betrag kann nicht gelesen werden. Prüfe deine Eingabe."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The amount cannot be read. Check what you typed."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede leer el importe. Revisa lo que escribiste."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le montant est illisible. Vérifiez ce que vous avez saisi."
+          }
+        },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումարը չի կարող կարդացվել։ Ստուգեք, թե ինչ եք մուտքագրել։"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere l'importo. Controlla ciò che hai digitato."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額を読み取れません。入力内容を確認してください。"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის წაკითხვა შეუძლებელია. შეამოწმეთ, რა აკრიფეთ."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумманы оқу мүмкін емес. Жазғаныңызды тексеріңіз."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "금액을 읽을 수 없습니다. 입력한 내용을 확인하세요."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумманы окуу мүмкүн эмес. Терген маалыматыңызды текшериңиз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het bedrag kan niet worden gelezen. Controleer wat je hebt ingetypt."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie udało się odczytać kwoty. Sprawdź, co wpisano."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o valor. Verifique o que você digitou."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não é possível ler o montante. Verifique o que escreveu."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма не читается — проверьте ввод."
+          }
+        },
+        "tg": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маблағро хондан имкон нест. Чизеро, ки нависидаед, санҷед."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar okunamıyor. Yazdığınızı kontrol edin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося розпізнати суму. Перевірте, що ви ввели."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summa o'qib bo'lmadi. Kiritgan ma'lumotingizni tekshiring."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không đọc được số tiền. Hãy kiểm tra lại nội dung bạn đã nhập."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法识别金额，请检查输入内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法讀取金額，請檢查輸入的內容。"
           }
         }
       }
