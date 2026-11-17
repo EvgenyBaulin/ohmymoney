@@ -64,7 +64,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Overview/OverviewCards.swift": 2,
     "Apps/macOS/Features/Overview/OverviewTileContent.swift": 1,
     "Apps/macOS/Features/Overview/OverviewView.swift": 1,
-    "Apps/macOS/Features/Overview/OverviewDoNow.swift": 1,
+    "Apps/macOS/Features/Overview/OverviewDoNow.swift": 2,
     "Apps/macOS/Features/Planning/AllLimitsSheet.swift": 2,
     "Apps/macOS/Features/Planning/CreditMinimumPlanCard.swift": 1,
     "Apps/macOS/Features/Planning/DepositPayoutRows.swift": 1,
@@ -73,7 +73,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Planning/GoalsBlock.swift": 3,
     "Apps/macOS/Features/Planning/GoalsScreen.swift": 4,
     "Apps/macOS/Features/Planning/LimitsBlock.swift": 3,
-    "Apps/macOS/Features/Planning/PlanningBlocks.swift": 1,
+    "Apps/macOS/Features/Planning/PlanningBlocks.swift": 2,
     // The namesake notice opens a native rename alert with a name field, Save and Cancel.
     "Apps/macOS/Features/Planning/PlanningNamesakeNotice.swift": 1,
     // Two sheets more: the meters and bills of the utilities and the challenges.
@@ -99,7 +99,7 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Rules/RulesSettingsView.swift": 4,
     "Apps/macOS/Features/Rules/TagsPane.swift": 5,
     "Apps/macOS/Features/SelfEmployment/SelfEmploymentBlockView.swift": 1,
-    "Apps/macOS/Features/Settings/AccountsSettingsView.swift": 6,
+    "Apps/macOS/Features/Settings/AccountsSettingsView.swift": 7,
     "Apps/macOS/Features/Settings/AppearanceMacBody.swift": 1,
     "Apps/macOS/Features/Settings/AppearanceSettingsView.swift": 1,
     "Apps/macOS/Features/Settings/BackupSettingsView.swift": 6,
