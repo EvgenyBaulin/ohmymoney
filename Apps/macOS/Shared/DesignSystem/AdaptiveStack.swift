@@ -22,11 +22,13 @@ struct AdaptiveStack<Content: View>: View {
   }
 
   var body: some View {
-    let layout =
-      size.isAccessibilitySize
-      ? AnyLayout(VStackLayout(alignment: columnAlignment, spacing: spacing))
-      : AnyLayout(HStackLayout(alignment: alignment, spacing: spacing))
-    layout { content }
+    // Two plain stacks rather than one `AnyLayout`: a type-erased layout has to be measured
+    // again for every proposal, which made a list of cards visibly slower to lay out.
+    if size.isAccessibilitySize {
+      VStack(alignment: columnAlignment, spacing: spacing) { content }
+    } else {
+      HStack(alignment: alignment, spacing: spacing) { content }
+    }
   }
 }
 
