@@ -170,8 +170,9 @@ public enum DatabaseCheck {
     }
 
     // The parts are added in two columns — millions and the rest — because `SUM` of the amounts
-    // themselves raises «integer overflow» on parts that add up beyond `Int64`; the plain
-    // arithmetic of SQLite goes to a real number there, which is never the operation's amount.
+    // themselves raises «integer overflow» on parts that add up beyond `Int64`. Compare the
+    // quotient and remainder without multiplying the whole column back: with signed parts,
+    // that intermediate product can overflow even when the exact total fits in `Int64`.
     let sums = try Row.fetchAll(
       db,
       sql: """
@@ -180,7 +181,10 @@ public enum DatabaseCheck {
                           SUM(amount_e4 % 1000000) AS rest, COUNT(*) AS parts
                    FROM transaction_parts GROUP BY transaction_id) p ON p.transaction_id = t.id
         WHERE t.deleted_at IS NULL
-          AND (p.parts IS NULL OR p.whole * 1000000 + p.rest <> t.amount_e4)
+          AND (p.parts IS NULL
+               OR p.whole <> t.amount_e4 / 1000000
+                             + (t.amount_e4 % 1000000 - p.rest) / 1000000
+               OR (t.amount_e4 % 1000000 - p.rest) % 1000000 <> 0)
         ORDER BY t.id
         """)
     if !sums.isEmpty {

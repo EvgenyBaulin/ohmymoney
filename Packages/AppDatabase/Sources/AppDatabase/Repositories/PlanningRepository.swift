@@ -351,6 +351,7 @@ public struct PlanningUndo: Sendable, Hashable {
   var cardRules: [RewrittenRule] = []
   /// Rules released after all merges; undone first when both steps changed the same rule.
   var releasedRules: [RewrittenRule] = []
+  var deletionExtras = PlanningDeletionExtras()
   /// The change as it was asked for, so ⇧⌘Z can make it again after ⌘Z took it back.
   public var change: PlanningChange?
 
@@ -589,6 +590,7 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.debtInstalments, db: db)
     try journal.upsert(rows.scheduled, db: db)
     try journal.upsert(rows.prices, db: db)
+    try journal.upsert(rows.assets, db: db)
     try journal.upsert(rows.expected, db: db)
     // An answer for one due goes before a new one is written: one put in place of another of
     // the same due — which the schema keeps one of — never meets it.
@@ -599,7 +601,6 @@ public struct PlanningRepository: Sendable {
     // An asset before its valuations. A valuation deleted goes before the new ones are written,
     // so a valuation put in place of another of the same day — which the schema keeps one of —
     // never meets it.
-    try journal.upsert(rows.assets, db: db)
     try journal.delete(AssetValuation.self, ids: change.delete.assetValuations, db: db)
     try journal.upsert(rows.assetValuations, db: db)
     try journal.delete(ThingValuation.self, ids: change.delete.thingValuations, db: db)
@@ -758,6 +759,7 @@ public struct PlanningRepository: Sendable {
       counts: counts, movedCards: moved, accountMerge: merged, change: change,
       referenceBook: referenceBook)
     undo.cardRules = cardRules
+    undo.deletionExtras = journal.deletionExtras
     undo.releasedRules = releasedRules
     undo.cardConversion = converted?.undo
     return undo
@@ -1091,10 +1093,10 @@ public struct PlanningRepository: Sendable {
     for row in before.debtInstalments { try row.save(db) }
     for row in before.scheduled { try row.save(db) }
     for row in before.prices { try row.save(db) }
+    for row in before.assets { try row.save(db) }
     for row in before.expected { try row.save(db) }
     for row in before.budgets { try row.save(db) }
     for row in before.cashbackRules { try row.save(db) }
-    for row in before.assets { try row.save(db) }
     for row in before.assetValuations { try row.save(db) }
     for row in before.thingValuations { try row.save(db) }
     for row in before.utilityMeters { try row.save(db) }
@@ -1108,6 +1110,7 @@ public struct PlanningRepository: Sendable {
     for row in before.transfers { try row.save(db) }
     for row in before.reconciliations { try row.save(db) }
     for row in before.reconciledBalances { try row.save(db) }
+    try undo.deletionExtras.restore(db)
     // Only where the link is still empty: the deletion did nothing else to these rows, and
     // a category or a goal given to one of them since is the owner's, not the deletion's.
     // After every row is back, so the row a link points at is there again.
@@ -1382,6 +1385,7 @@ struct UndoJournal {
   private(set) var rowIDs: [UUID: Int64] = [:]
   /// Links a deletion clears in tables the planning does not write.
   private(set) var cleared: [ClearedReference] = []
+  private(set) var deletionExtras = PlanningDeletionExtras()
   private var seen: Set<RowKey> = []
   private var seenCodes: Set<CurrencyCode> = []
   private var seenRates: Set<RateKey> = []
@@ -1458,10 +1462,49 @@ struct UndoJournal {
     for id in ids {
       guard let current = try Record.fetchOne(db, key: id.uuidString) else { continue }
       try Record.refuseDeletion(of: id, db: db)
+      try keepDeletionExtras(of: Record.databaseTableName, id: id, db: db)
       try Record.keepDependents(of: id, journal: &self, db: db)
       try keepRowID(of: current, db: db)
       keep(current)
       _ = try Record.deleteOne(db, key: id.uuidString)
+    }
+  }
+
+  /// Cascades outside `PlanningRows`, including grandchildren of a category or account.
+  private mutating func keepDeletionExtras(of table: String, id: UUID, db: Database) throws {
+    var cascades: [(String, String)] = []
+    switch table {
+    case "assets", "debts", "scheduled_payments":
+      let kind = table == "assets" ? "asset" : (table == "debts" ? "debt" : "subscription")
+      cascades.append(("attachments", "owner_kind = '\(kind)' AND owner_id = ?"))
+      if table == "scheduled_payments" {
+        for child in ["subscription_terms", "subscription_usage", "subscription_users"] {
+          cascades.append((child, "payment_id = ?"))
+        }
+      }
+    case "budgets":
+      cascades.append(("budget_month_exceptions", "budget_id = ?"))
+    case "categories":
+      cascades.append(
+        (
+          "budget_month_exceptions",
+          "budget_id IN (SELECT id FROM budgets WHERE category_id = ?)"
+        ))
+    case "events":
+      cascades.append(("event_budget_items", "event_id = ?"))
+      try keepReference(table: "import_mappings", column: "target_event_id", to: id, db: db)
+    case "banks":
+      cascades.append(("bank_cashback_categories", "bank_id = ?"))
+    case "cards", "payment_methods":
+      let condition = table == "cards" ? "card_id = ?" : "payment_method_id = ?"
+      for child in ["bank_conditions", "cashback_offers"] { cascades.append((child, condition)) }
+      if table == "payment_methods" {
+        try keepReference(table: "import_batches", column: "payment_method_id", to: id, db: db)
+      }
+    default: break
+    }
+    for (child, condition) in cascades {
+      try deletionExtras.keep(table: child, where: condition, id: id, db: db)
     }
   }
 
@@ -1739,6 +1782,7 @@ extension PaymentMethod: PlanningRow {
     try journal.keepRows(CashbackRule.self, where: "payment_method_id", is: id, db: db)
     try journal.keepRows(ExpectedIncome.self, where: "payment_method_id", is: id, db: db)
     try journal.keepRows(AllocationRule.self, where: "payment_method_id", is: id, db: db)
+    try journal.keepRows(CreditStatementOverride.self, where: "payment_method_id", is: id, db: db)
   }
 }
 
@@ -1783,6 +1827,7 @@ extension Asset: PlanningRow {
   static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
     try journal.keepRows(AssetValuation.self, where: "asset_id", is: id, db: db)
     try journal.keepRows(ThingValuation.self, where: "owner_id", is: id, db: db)
+    try journal.keepRows(ExpectedIncome.self, where: "asset_id", is: id, db: db)
   }
 }
 
