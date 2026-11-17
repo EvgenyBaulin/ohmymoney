@@ -10,17 +10,21 @@ public struct ScenarioBaseline: Hashable, Sendable {
   public var freeMoneyE4: AmountE4
   public var incomeMonthlyE4: AmountE4
   public var spendingMonthlyE4: AmountE4
+  /// Spending when income is lost and the owner lives on necessities alone.
+  public var obligatoryMonthlyE4: AmountE4
   /// Debts owed now.
   public var debtE4: AmountE4
 
   public init(
     today: DateOnly, freeMoneyE4: AmountE4, incomeMonthlyE4: AmountE4,
-    spendingMonthlyE4: AmountE4, debtE4: AmountE4 = .zero
+    spendingMonthlyE4: AmountE4, debtE4: AmountE4 = .zero,
+    obligatoryMonthlyE4: AmountE4? = nil
   ) {
     self.today = today
     self.freeMoneyE4 = freeMoneyE4
     self.incomeMonthlyE4 = incomeMonthlyE4
     self.spendingMonthlyE4 = spendingMonthlyE4
+    self.obligatoryMonthlyE4 = obligatoryMonthlyE4 ?? spendingMonthlyE4
     self.debtE4 = debtE4
   }
 }
@@ -114,7 +118,10 @@ public enum ScenarioEngine {
         let first = max(from, 1)
         let last = min(horizon, first + (change.months ?? 0) - 1)
         guard first <= last else { continue }
-        for m in first...last { monthly[m] -= income.raw }
+        let necessities =
+          spec.spendingMonthlyE4.map { AmountE4(raw: $0) }
+          ?? base.obligatoryMonthlyE4
+        for m in first...last { monthly[m] += spending.raw - necessities.raw - income.raw }
       case .refinance, .longHorizon:
         continue
       }
@@ -144,15 +151,17 @@ public enum ScenarioEngine {
 
 extension ScenarioBaseline {
   /// Today's numbers cut from the planning snapshot: the free sum, the income of the month as
-  /// the snapshot estimates it, the obligatory spending a month (what the cushion lives on) and
+  /// the snapshot estimates it, the usual monthly spending (necessities with little history) and
   /// the debts I owe. A number the snapshot does not know yet is zero; the owner types over it
   /// in the scenario (`ScenarioSpec.incomeMonthlyE4`, `spendingMonthlyE4`).
   public init(snapshot: PlanningSnapshot) {
     self.init(
       today: snapshot.today,
-      freeMoneyE4: max(snapshot.freeMoney.main ?? .zero, .zero),
+      freeMoneyE4: snapshot.freeMoney.grey ?? .zero,
       incomeMonthlyE4: snapshot.income.value ?? snapshot.income.median3 ?? .zero,
-      spendingMonthlyE4: snapshot.cushion.obligatory.monthlyRub ?? .zero,
-      debtE4: snapshot.debts.totalIOweRub)
+      spendingMonthlyE4: snapshot.affordSpending.medianRub
+        ?? snapshot.cushion.obligatory.monthlyRub ?? .zero,
+      debtE4: snapshot.debts.totalIOweRub,
+      obligatoryMonthlyE4: snapshot.cushion.obligatory.monthlyRub ?? .zero)
   }
 }

@@ -5,18 +5,21 @@ import Foundation
 /// Russia publishes its daily rates.
 public struct CalendarContext: Sendable {
   public let timeZone: TimeZone
+  /// 1 = Monday … 7 = Sunday, shared by every weekly comparison and report.
+  public let firstWeekday: Int
   private let calendar: Calendar
   /// The zone an operation recorded without one is read in (`Schema/0011_travel.sql`): Moscow,
   /// where every operation of the earlier versions was recorded. `nil` — the zone of the
   /// calendar itself, which is what a test with a fixed zone wants.
   public let unrecordedZone: TimeZone?
 
-  public init(timeZone: TimeZone, unrecordedZone: TimeZone? = nil) {
+  public init(timeZone: TimeZone, unrecordedZone: TimeZone? = nil, firstWeekday: Int = 1) {
     self.timeZone = timeZone
     self.unrecordedZone = unrecordedZone
     var calendar = Calendar(identifier: .gregorian)
     calendar.timeZone = timeZone
-    calendar.firstWeekday = 2  // Monday, matching the Russian week used in reports
+    self.firstWeekday = (1...7).contains(firstWeekday) ? firstWeekday : 1
+    calendar.firstWeekday = self.firstWeekday % 7 + 1
     self.calendar = calendar
   }
 
@@ -145,6 +148,10 @@ public struct CalendarContext: Sendable {
   public func weekdayIndex(_ day: DateOnly) -> Int {
     let weekday = calendar.component(.weekday, from: startOfDay(day))
     return ((weekday + 5) % 7) + 1
+  }
+
+  public func weekStart(of day: DateOnly) -> DateOnly {
+    adding(days: -((weekdayIndex(day) - firstWeekday + 7) % 7), to: day)
   }
 }
 

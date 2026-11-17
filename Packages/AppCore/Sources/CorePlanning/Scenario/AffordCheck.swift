@@ -90,13 +90,14 @@ public enum AffordCheck {
 
   public static func check(_ input: Input) -> Result {
     let amount = max(input.amountE4, .zero)
-    let free = max(input.freeE4, .zero)
+    let free = input.freeE4
     let shortfall = max(.zero, amount - free)
 
     if shortfall.raw > 0 {
       if input.monthlySurplusE4.raw > 0 {
-        let months = Int(
-          clamping: (shortfall.raw + input.monthlySurplusE4.raw - 1) / input.monthlySurplusE4.raw)
+        let quotient = shortfall.raw / input.monthlySurplusE4.raw
+        let remainder = shortfall.raw % input.monthlySurplusE4.raw
+        let months = Int(clamping: quotient + (remainder == 0 ? 0 : 1))
         if months <= ScenarioSpec.maxHorizonMonths {
           return Result(
             verdict: .yesIfWait, shortfallE4: shortfall, goalShifts: [], cushionAfterE4: nil,

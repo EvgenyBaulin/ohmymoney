@@ -235,7 +235,8 @@ public struct Ledger: Sendable {
   public func updated(to next: Dataset, calendar: CalendarContext? = nil) -> Ledger {
     let wanted = calendar ?? self.calendar
     guard wanted.timeZone == self.calendar.timeZone,
-      wanted.unrecordedZone == self.calendar.unrecordedZone
+      wanted.unrecordedZone == self.calendar.unrecordedZone,
+      wanted.firstWeekday == self.calendar.firstWeekday
     else { return Ledger(dataset: next, calendar: wanted) }
     return delta(to: next) ?? Ledger(dataset: next, calendar: wanted)
   }

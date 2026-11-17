@@ -42,7 +42,7 @@ public struct WeekCards: Hashable, Sendable {
 
   /// - Parameter moods: the answers given so far.
   public static func build(week: WeekKey, ledger: Ledger, moods: [WeekMood] = []) -> WeekCards {
-    let range = week.range
+    let range = week.range(calendar: ledger.calendar)
     // The sums are the ledger's own, the ones the Reports window adds up.
     let expenses = ledger.expenses(in: range)
     let rows = ledger.rows(in: range)
@@ -69,7 +69,7 @@ public struct WeekCards: Hashable, Sendable {
           categoryId: $0.key, amount: $0.value,
           shareBP: SummaryMath.shareBP($0.value.decimal, of: positiveTotal.decimal))
       }
-    let before = ledger.expenses(in: week.previous.range)
+    let before = ledger.expenses(in: week.previous.range(calendar: ledger.calendar))
     return WeekCards(
       week: week, hasData: !spending.isEmpty || !income.isZero,
       total: Total(expenses: expenses, income: income, purchases: purchases),

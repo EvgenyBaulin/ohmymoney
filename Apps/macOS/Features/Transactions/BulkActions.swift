@@ -597,13 +597,18 @@ private struct OperationPresentations: ViewModifier {
       .bulkConfirmation($actions.confirmation)
       // A write refused because the view has no dependencies must never be silent.
       .alert(
-        Text(verbatim: environment.language("entry.error.noDependencies", table: "Entry")),
+        Text(
+          verbatim: environment.shield.isReadOnly
+            ? environment.language("write.refused.readOnly.title")
+            : environment.language("entry.error.noDependencies", table: "Entry")),
         isPresented: Binding(
           get: { store.refusal != nil }, set: { if !$0 { store.forgetRefusal() } })
       ) {
         Button(environment.language("action.ok")) { store.forgetRefusal() }
       } message: {
-        Text(verbatim: store.refusal ?? "")
+        Text(
+          verbatim: store.refusal == "write.refused.readOnly"
+            ? environment.language("write.refused.readOnly") : (store.refusal ?? ""))
       }
       // A write that failed where nobody else can say so — ⌘Z, a bulk change, a deletion
       // that landed off the main thread — is never silent either.

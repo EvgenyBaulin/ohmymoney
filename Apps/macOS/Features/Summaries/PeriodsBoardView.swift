@@ -80,10 +80,14 @@ struct PeriodsBoardView: View {
       PeriodsBoardCards(
         board: board, text: text, metrics: metrics, idiom: idiom,
         twoColumns: PeriodsBoardMetrics.fitsTwoColumns(idiom, width: width), width: width)
-      if case .week(let cards) = store.content, cards.week.end < snapshot.today {
+      if case .week(let cards) = store.content,
+        cards.week.range(calendar: snapshot.ledger.calendar).end < snapshot.today
+      {
         question(cards)
       }
-      if let range = store.selected?.range { HabitBadgesSection(range: range, snapshot: snapshot) }
+      if let range = store.selected?.range(calendar: snapshot.ledger.calendar) {
+        HabitBadgesSection(range: range, snapshot: snapshot)
+      }
     } else {
       Text(verbatim: t("summaries.calculating"))
         .appFont(.callout)
@@ -620,6 +624,7 @@ struct PhoneCapsuleSegments<Value: Hashable>: View {
     }
     .padding(3)
     .frame(height: column ? nil : PeriodsBoardMetrics.phoneSegmentHeight)
-    .background(theme.surfaceSegmented, in: column ? AnyShape(.rect(cornerRadius: 22)) : AnyShape(Capsule()))
+    .background(
+      theme.surfaceSegmented, in: column ? AnyShape(.rect(cornerRadius: 22)) : AnyShape(Capsule()))
   }
 }

@@ -59,6 +59,7 @@ struct GoalsBlock: View {
           block: .goals, total: goals.count, hidden: shown.hidden, expanded: $showsAll)
         if !(hosted && goals.isEmpty) {
           Button(t("goals.add")) { sheet = .goal(nil) }
+            .requiresWritableBook()
             .buttonStyle(.bordered)
             .controlSize(.small)
             .guideTarget(GuideTarget.planningAddGoal)
@@ -161,7 +162,9 @@ struct GoalsBlock: View {
     }
     .contextMenu {
       Button(t("goals.contribute")) { sheet = .moveGoal(status, withdraw: false) }
+        .requiresWritableBook()
       Button(t("goals.withdraw")) { sheet = .moveGoal(status, withdraw: true) }
+        .requiresWritableBook()
         .disabled(status.saved.raw <= 0)
       Button(environment.language("action.edit")) { sheet = .goal(status.goal) }
       Button(t("goals.archive")) {
@@ -219,8 +222,10 @@ struct GoalsBlock: View {
       horizontal ? AnyLayout(HStackLayout(spacing: 8)) : AnyLayout(VStackLayout(spacing: 8))
     layout {
       Button(t("goals.contribute")) { sheet = .moveGoal(status, withdraw: false) }
+        .requiresWritableBook()
         .buttonStyle(.bordered)
       Button(t("goals.withdraw")) { sheet = .moveGoal(status, withdraw: true) }
+        .requiresWritableBook()
         .buttonStyle(.bordered)
         .disabled(status.saved.raw <= 0)
       // A goal whose date has passed: moving the date is the way on, never a silent change.

@@ -187,6 +187,14 @@ public struct Period: Hashable, Sendable, CustomStringConvertible {
       ))
   }
 
+  /// Days missing from the previous month's comparison, without scaling either sum.
+  public static func previousMonthShorterBy(today: DateOnly) -> Int {
+    max(
+      0,
+      monthToDate(today: today).range.dayCount
+        - sameSpanOfPreviousMonth(today: today).range.dayCount)
+  }
+
   public var start: DateOnly { range.start }
   public var end: DateOnly { range.end }
   public var months: [MonthKey] { range.months }

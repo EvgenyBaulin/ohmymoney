@@ -27,7 +27,18 @@ public final class AppEnvironment {
   public let theme: AppTheme
   /// The calendar days are read in: the zone of the Mac. `var` for the tests, which read days in a
   /// calendar of their own.
-  public var calendar = CalendarContext.system
+  private var calendarOverride: CalendarContext?
+  public var calendar: CalendarContext {
+    get {
+      calendarOverride
+        ?? CalendarContext(
+          timeZone: .current, unrecordedZone: TravelDay.moscowZone,
+          firstWeekday: SpendingCalendar.firstWeekday(
+            languageCode: language.locale.language.languageCode?.identifier,
+            systemFirstWeekday: Calendar.current.firstWeekday))
+    }
+    set { calendarOverride = newValue }
+  }
 
   public private(set) var stack: DatabaseStack?
 

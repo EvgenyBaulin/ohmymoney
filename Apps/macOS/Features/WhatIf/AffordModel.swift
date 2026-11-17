@@ -106,6 +106,21 @@ enum AffordModel {
   }
 
   static func told(_ result: AffordCheck.Result, input: AffordCheck.Input, writer: Writer) -> Told {
+    var told = verdict(result, input: input, writer: writer)
+    if input.freeE4.isNegative {
+      told.lines.append(
+        Phrase(
+          key: "afford.deficitAndPurchase",
+          arguments: [
+            writer.money(input.freeE4.magnitude), writer.money(max(.zero, input.amountE4)),
+          ]))
+    }
+    return told
+  }
+
+  private static func verdict(
+    _ result: AffordCheck.Result, input: AffordCheck.Input, writer: Writer
+  ) -> Told {
     switch result.verdict {
     case .yes:
       return Told(headline: Phrase(key: "afford.yes"))

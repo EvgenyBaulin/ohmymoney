@@ -78,7 +78,7 @@ final class SummariesModel {
   func announcement(ledger: Ledger, today: DateOnly) -> SummaryAnnouncement? {
     SummaryScheduler.announcement(
       today: today, firstDay: ledger.firstDay, switches: switches, shown: shown,
-      answered: settledWeeks)
+      answered: settledWeeks, calendar: ledger.calendar)
   }
 
   /// Writes the answer; the week is also put away so its card is gone.

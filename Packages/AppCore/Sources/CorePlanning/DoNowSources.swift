@@ -69,14 +69,22 @@ public enum DoNowSources {
   }
 }
 
-/// The verdict of the headline of Overview about the free sum. One threshold only: the sum is
-/// enough while it is not below zero; a «tight» band is not in the owner's decisions, so none is
-/// invented here.
+/// The free sum is tight when its daily guide is below half the usual daily spending.
+/// Without a month of history only an actual shortage changes the verdict.
 public enum FreeVerdict: String, Hashable, Sendable {
   case enough
+  case tight
   case short
 
-  public init(free main: AmountE4) {
-    self = main.isNegative ? .short : .enough
+  public init(free main: AmountE4, days: Int = 1, usualDaily: AmountE4? = nil) {
+    if main.isNegative {
+      self = .short
+    } else if let usualDaily, usualDaily.raw > 0,
+      main.decimal * 2 < usualDaily.decimal * Decimal(max(1, days))
+    {
+      self = .tight
+    } else {
+      self = .enough
+    }
   }
 }

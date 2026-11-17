@@ -52,8 +52,14 @@ struct ComputeSources: Sendable {
         // reminder put away disappears at the next read.
         context.debtReminders = DebtReminderMarks.read(from: .standard)
         try Task.checkCancellation()
+        let weeklyCalendar = CalendarContext(
+          timeZone: calendar.timeZone, unrecordedZone: calendar.unrecordedZone,
+          firstWeekday: SpendingCalendar.firstWeekday(
+            languageCode: Locale(identifier: context.localeIdentifier).language.languageCode?
+              .identifier,
+            systemFirstWeekday: Calendar.current.firstWeekday))
         let snapshot = DataSnapshot.build(
-          dataset: dataset, calendar: calendar, today: today, context: context,
+          dataset: dataset, calendar: weeklyCalendar, today: today, context: context,
           version: DataVersion(load: mark), now: now,
           previous: lastLedger.withLock { $0 })
         lastLedger.withLock { $0 = snapshot.ledger }

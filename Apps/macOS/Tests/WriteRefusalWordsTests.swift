@@ -38,4 +38,18 @@ final class WriteRefusalWordsTests: XCTestCase {
     XCTAssertEqual(AmountField.amount(from: ""), .zero)
     XCTAssertNotNil(AmountField.amount(from: "5000×2"))
   }
+
+  func testAnUnreadableAmountStopsTheEntryModelBeforeItCanSaveTheOldAmount() {
+    let model = EntryDraftModel(references: nil, transactions: nil, calendar: .utc)
+    model.hasUnreadableAmount = true
+    XCTAssertFalse(model.canSave)
+    XCTAssertEqual(model.saveRefusalKey, "entry.error.amountUnreadable")
+  }
+
+  func testAReadOnlyStoreAnnouncesWhyTheWriteWasRefused() {
+    let store = TransactionsStore()
+    store.isReadOnly = { true }
+    XCTAssertTrue(store.refuses("save", #fileID))
+    XCTAssertEqual(store.refusal, "write.refused.readOnly")
+  }
 }

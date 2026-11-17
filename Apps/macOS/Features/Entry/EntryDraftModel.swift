@@ -2872,6 +2872,7 @@ public final class EntryDraftModel {
   }
 
   /// Saving is only allowed when nothing stops it.
+  public var hasUnreadableAmount = false
   public var canSave: Bool { saveRefusalKey == nil }
 
   /// Why the draft cannot be saved yet, as the key of the words that say so (table «Entry»);
@@ -2882,6 +2883,7 @@ public final class EntryDraftModel {
   /// `SplitValidator`'s. A missing category is not one of them: an operation may stay
   /// uncategorised.
   public var saveRefusalKey: String? {
+    guard !hasUnreadableAmount else { return "entry.error.amountUnreadable" }
     guard !draft.amount.isZero else {
       return zeroWasTyped ? "entry.error.amountNotPositive" : "entry.error.amountMissing"
     }

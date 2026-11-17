@@ -56,7 +56,7 @@ struct PrepaySheet: View {
         Text(verbatim: t("form.save")).frame(maxWidth: .infinity)
       }
       .keyboardShortcut(.defaultAction)
-      .disablesOnUnreadableAmount()
+      .disablesOnUnreadableAmount().requiresWritableBook()
       .buttonStyle(.borderedProminent)
       .controlSize(.large)
       .disabled(amount.raw <= 0 || dependencies == nil)
@@ -152,7 +152,7 @@ struct InstalmentEditSheet: View {
           .keyboardShortcut(.cancelAction)
         Button(t("form.save")) { save(amount) }
           .keyboardShortcut(.defaultAction)
-          .disablesOnUnreadableAmount()
+          .disablesOnUnreadableAmount().requiresWritableBook()
           .buttonStyle(.borderedProminent)
           .disabled(amount.raw <= 0 || dependencies == nil || choices.isEmpty)
       }
@@ -241,7 +241,7 @@ struct PledgeWriteOffSheet: View {
           .keyboardShortcut(.cancelAction)
         Button(t("pledge.writeOff")) { save() }
           .keyboardShortcut(.defaultAction)
-          .disablesOnUnreadableAmount()
+          .disablesOnUnreadableAmount().requiresWritableBook()
           .buttonStyle(.borderedProminent)
           .disabled(categoryId == nil || dependencies == nil)
       }

@@ -132,6 +132,7 @@ struct DebtsBoardView: View {
       .buttonStyle(.primaryAction)
       .guideTarget(GuideTarget.debtsAdd)
       .accessibilityIdentifier("debts.new")
+      .requiresWritableBook()
   }
 
   private var summaryRow: some View {
@@ -293,6 +294,7 @@ struct DebtsBoardView: View {
         .accessibilityLabel(Text(verbatim: t("debts.new")))
         .guideTarget(GuideTarget.debtsAdd)
         .accessibilityIdentifier("debts.new")
+        .requiresWritableBook()
       }
       if reviewCount > 0 {
         Button(environment.language.format("review.banner", table: "Debts", counts: reviewCount)) {

@@ -173,7 +173,9 @@ struct FormButtons: View {
         .buttonStyle(.borderedProminent)
         .disabled(
           !UnreadableAmountRule.isEnabled(
-            formAllows: enabled, hasUnreadableAmount: hasUnreadableAmount))
+            formAllows: enabled, hasUnreadableAmount: hasUnreadableAmount)
+        )
+        .requiresWritableBook()
       }
     }
     .padding(.top, 8)

@@ -107,6 +107,9 @@ struct DetailsPanel: View {
       }
     }
     .frame(maxWidth: 720, alignment: .leading)
+    .onPreferenceChange(UnreadableAmountKey.self) { unreadable in
+      Task { @MainActor in model.hasUnreadableAmount = unreadable }
+    }
     .onSubmit { submit?() }
     // The quick line answers Return itself: the form's «Save» is not its default button.
     .onChange(of: focus) { _, field in focusedInside?.wrappedValue = field != nil && field != .quick
@@ -1402,6 +1405,8 @@ struct DetailsPanel: View {
         EntryFormSaveStyle(fill: surfaces.accent, ink: surfaces.onAccent, stretches: false)
       )
       .accessibilityIdentifier("entry.panel.save")
+      .disabled(!model.canSave)
+      .requiresWritableBook()
     }
   }
 
@@ -2044,8 +2049,8 @@ struct AmountFieldEcho {
 /// also reads back as the same amount: an equal split of 37 in eight is «4.625», never a text
 /// that reads as 4 625.
 ///
-/// Text that does not read — «1700+», «abc» — leaves the amount as it was. A form that must not
-/// save that amount under such text passes `reads`: false while the text does not read.
+/// Unreadable text keeps the last parsed amount and tells the enclosing form to disable saving.
+/// `reads` also exposes validity directly to forms that keep their own validation state.
 struct AmountField: View {
   @Dependency(\.environment) private var environment
   @Binding var amount: AmountE4
@@ -2079,6 +2084,17 @@ struct AmountField: View {
   }
 
   var body: some View {
+    VStack(alignment: .leading, spacing: 3) {
+      field
+      if unreadable {
+        Text(verbatim: environment.language("amount.unreadable"))
+          .appFont(.caption)
+          .foregroundStyle(.red)
+      }
+    }
+  }
+
+  private var field: some View {
     TextField(text: $text) {
       Text(verbatim: prompt)
     }

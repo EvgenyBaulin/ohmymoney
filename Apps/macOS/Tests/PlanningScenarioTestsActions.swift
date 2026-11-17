@@ -271,7 +271,9 @@ final class PlanningScenarioTestsActions: XCTestCase {
   }
 
   func testSuggestedLimitsAreAddedInOneStepOfUndo() throws {
-    let spent = ["2026-08-10", "2026-09-10"].flatMap { day in
+    // Three available complete months meet the minimum. Their medians are 9 000 and
+    // 4 000, already multiples of 100, so the suggested amounts keep those values.
+    let spent = ["2026-07-10", "2026-08-10", "2026-09-10"].flatMap { day in
       [
         S.entry(.expense, S.rub(9_000), on: day, category: food.id),
         S.entry(.expense, S.rub(4_000), on: day, category: home.id),

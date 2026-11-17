@@ -16,7 +16,8 @@ enum OverviewCard {
     textScale: CGFloat = 1
   ) -> Int {
     let scale = max(
-      1, fontSize == .system
+      1,
+      fontSize == .system
         ? textScale
         : (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
     let tile = StyleMetrics.tileMinWidth * scale
@@ -155,6 +156,7 @@ private struct MonthToDateCard: View {
             }
           }
         }
+        PreviousMonthLengthNote(today: snapshot.today)
         Rectangle()
           .fill(theme.borderHairline)
           .frame(height: 1)
@@ -440,7 +442,8 @@ enum OverviewText {
   ) -> String {
     guard let percent = text.percent else {
       return environment.format(
-        text.base == .negligible ? "overview.comparisonNegligibleBase" : "overview.comparisonNoBase",
+        text.base == .negligible
+          ? "overview.comparisonNegligibleBase" : "overview.comparisonNoBase",
         table: "Overview", text.delta)
     }
     return String(

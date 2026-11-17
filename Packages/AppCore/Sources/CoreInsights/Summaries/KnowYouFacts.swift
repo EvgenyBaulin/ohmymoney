@@ -62,7 +62,7 @@ public enum KnowYouFacts {
 
   /// The finding of a week: judged on the days up to the end of the week.
   public static func find(ledger: Ledger, week: WeekKey) -> KnowFact? {
-    let all = facts(ledger: ledger, through: week.end)
+    let all = facts(ledger: ledger, through: week.range(calendar: ledger.calendar).end)
     guard !all.isEmpty else { return nil }
     return all[(week.start.dayNumber / 7) % all.count]
   }

@@ -151,7 +151,7 @@ final class ComputeStore {
   /// writes, whose menus and confirmations read the operations from it.
   @ObservationIgnored var onSnapshot: (@MainActor (DataSnapshot) -> Void)?
 
-  @ObservationIgnored let calendar: CalendarContext
+  @ObservationIgnored private(set) var calendar: CalendarContext
   @ObservationIgnored private let clock: any CoreKit.Clock
   @ObservationIgnored private let rebuildsInline: Bool
   @ObservationIgnored private var pipeline: ComputePipeline?
@@ -369,6 +369,15 @@ final class ComputeStore {
         if !replaced { self?.states.reloadFailed = true }
       }
     }
+  }
+
+  /// A language change moves every weekly calculation together; dates keep their time zone.
+  func useWeekStarting(on firstWeekday: Int) {
+    guard calendar.firstWeekday != firstWeekday else { return }
+    calendar = CalendarContext(
+      timeZone: calendar.timeZone,
+      unrecordedZone: calendar.unrecordedZone, firstWeekday: firstWeekday)
+    refreshLight()
   }
 
   /// A snapshot read outside the run: taken if it is not older than the last read.

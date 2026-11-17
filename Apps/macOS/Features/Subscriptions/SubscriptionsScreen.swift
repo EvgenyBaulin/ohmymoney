@@ -397,16 +397,20 @@ struct SubscriptionsScreen: View {
         store.markSubscriptionUsed(payment: payment.id, on: environment.today)
       }
       .accessibilityIdentifier("subs.action.used")
+      .requiresWritableBook()
       Button(t("subs.action.terms")) {
         termsOf = SubscriptionTermsRequest(
           payment: payment, terms: row.terms ?? SubscriptionTerms(paymentId: payment.id),
           people: row.line.people)
       }
       .accessibilityIdentifier("subs.action.terms")
+      .requiresWritableBook()
       Menu {
         Button(t("subs.action.edit")) { paymentSheet = .payment(payment) }
+          .requiresWritableBook()
         if payment.endDate == nil {
           Button(t("subs.action.cancel")) { cancelling = payment }
+            .requiresWritableBook()
         }
         if let link = payment.cancelLink {
           Link(t("subs.action.cancelLink"), destination: link)

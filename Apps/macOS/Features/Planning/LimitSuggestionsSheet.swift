@@ -65,6 +65,7 @@ struct LimitSuggestionsSheet: View {
           }
           .keyboardShortcut(.defaultAction)
           .disabled(chosen.isEmpty || hasUnreadableAmount(rows))
+          .requiresWritableBook()
           .accessibilityIdentifier("limits.suggest.add")
         }
       }

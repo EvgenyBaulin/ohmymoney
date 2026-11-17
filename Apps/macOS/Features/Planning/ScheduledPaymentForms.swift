@@ -1231,7 +1231,9 @@ struct CountingFormButtons: View {
         .buttonStyle(.borderedProminent)
         .disabled(
           !UnreadableAmountRule.isEnabled(
-            formAllows: enabled, hasUnreadableAmount: hasUnreadableAmount))
+            formAllows: enabled, hasUnreadableAmount: hasUnreadableAmount)
+        )
+        .requiresWritableBook()
       }
       // One dialog per view: the dated question hangs on the row of buttons.
       .beforeTheCountQuestion($dated) { count, wasBefore in

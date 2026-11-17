@@ -205,6 +205,7 @@ struct AccountsSettingsView: View {
       presenting: deleting
     ) { question in
       Button(environment.language("action.delete"), role: .destructive) { delete(question) }
+        .requiresWritableBook()
       Button(environment.language("action.cancel"), role: .cancel) {}
     } message: { question in
       Text(verbatim: deleteMessage(question))
@@ -464,8 +465,10 @@ struct AccountsSettingsView: View {
       Button(t("accounts.newGroup")) { sheet = .group(nil) }
       Button(t("accounts.newBank")) { sheet = .bank(nil) }
         .accessibilityIdentifier("accounts.newBank")
+        .requiresWritableBook()
       Button(t("accounts.newAccount")) { sheet = .account(nil) }
         .accessibilityIdentifier("accounts.newAccount")
+        .requiresWritableBook()
     }
     .padding(.horizontal, AccountsTreeMetrics.rowPadding)
     .frame(height: AccountsTreeMetrics.rowHeight)
@@ -474,6 +477,7 @@ struct AccountsSettingsView: View {
     .listRowBackground(Color.clear)
     .moveDisabled(true)
     .accessibilityIdentifier("accounts.tree.add")
+    .requiresWritableBook()
   }
 
   /// «Выбрано 2 · В группу… · Скрыть · В архив».
@@ -661,9 +665,11 @@ struct AccountsSettingsView: View {
     case .archivedGroup(let group):
       Button(t("accounts.restore")) { perform(actions.restoreGroup(group.id)) }
       Button(t("accounts.delete"), role: .destructive) { askToDelete(group) }
+        .requiresWritableBook()
     case .archivedBank(let bank):
       Button(t("accounts.restore")) { perform(actions.restoreBank(bank.id)) }
       Button(t("accounts.delete"), role: .destructive) { askToDelete(bank) }
+        .requiresWritableBook()
     case .noGroup, .hidden, .archive:
       EmptyView()
     }
@@ -706,6 +712,7 @@ struct AccountsSettingsView: View {
     Divider()
     Button(t("accounts.archive")) { archive(account) }
     Button(t("accounts.delete"), role: .destructive) { askToDelete([account.id]) }
+      .requiresWritableBook()
   }
 
   @ViewBuilder
@@ -714,6 +721,7 @@ struct AccountsSettingsView: View {
     Button(t("accounts.edit")) { sheet = .account(account) }
     Divider()
     Button(t("accounts.delete"), role: .destructive) { askToDelete([account.id]) }
+      .requiresWritableBook()
   }
 
   @ViewBuilder
@@ -764,6 +772,7 @@ struct AccountsSettingsView: View {
     Divider()
     Button(t("accounts.archive")) { perform(actions.archiveBank(bank.id)) }
     Button(t("accounts.delete"), role: .destructive) { askToDelete(bank) }
+      .requiresWritableBook()
   }
 
   @ViewBuilder
@@ -772,6 +781,7 @@ struct AccountsSettingsView: View {
     Divider()
     Button(t("accounts.archive")) { perform(actions.archiveGroup(group.id)) }
     Button(t("accounts.delete"), role: .destructive) { askToDelete(group) }
+      .requiresWritableBook()
   }
 
   // MARK: Under the tree
@@ -868,8 +878,10 @@ struct AccountsSettingsView: View {
         VStack(alignment: .leading, spacing: 6) {
           Button(t("accounts.newBank")) { sheet = .bank(nil) }
             .accessibilityIdentifier("accounts.newBank")
+            .requiresWritableBook()
           Button(t("accounts.newAccount")) { sheet = .account(nil) }
             .accessibilityIdentifier("accounts.newAccount")
+            .requiresWritableBook()
           Button(t("accounts.newGroup")) { sheet = .group(nil) }
         }
         .buttonStyle(.rowAction)
@@ -1013,6 +1025,7 @@ struct AccountsSettingsView: View {
     Spacer(minLength: 12)
     dangerButton("panel.deleteAccount") { askToDelete([account.id]) }
       .accessibilityIdentifier("accounts.panel.delete")
+      .requiresWritableBook()
   }
 
   /// «Правка применяется сразу, ⌘Z отменяет.» — on an iPhone and an iPad «… и отменяется»:

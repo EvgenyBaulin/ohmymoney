@@ -125,6 +125,7 @@ struct ScheduledBlock: View {
     }
     .buttonStyle(.bordered)
     .controlSize(.small)
+    .requiresWritableBook()
   }
 
   private var titleKey: String {
@@ -250,6 +251,7 @@ struct ScheduledRow: View {
           // than it is offered, which longer words (German, French) did.
           FlowRow(spacing: 14, lineSpacing: 4) {
             Button(t("scheduled.markAsPaid")) { sheet = .markAsPaid(Self.paying(status)) }
+              .requiresWritableBook()
               .oneLineUnlessLargeText()
             Button(t("scheduled.skip")) {
               if let dependencies {
@@ -275,6 +277,7 @@ struct ScheduledRow: View {
     .contextMenu {
       Button(environment.language("action.edit")) { sheet = .payment(payment) }
       Button(environment.language("action.delete")) { confirmsDeletion = true }
+        .requiresWritableBook()
     }
     .confirmationDialog(
       environment.format("scheduled.deleteTitle", table: "Planning", payment.name),
@@ -777,6 +780,7 @@ struct NPDPaymentRows: View {
           .buttonStyle(.bordered)
           .controlSize(.small)
           .accessibilityIdentifier("scheduled.tax.pay")
+          .requiresWritableBook()
         }
       }
       .appFont(.callout)
@@ -806,6 +810,7 @@ struct NPDPaymentRows: View {
           .buttonStyle(.bordered)
           .controlSize(.small)
           .accessibilityIdentifier("scheduled.npd.pay")
+          .requiresWritableBook()
         }
       }
       .appFont(.callout)

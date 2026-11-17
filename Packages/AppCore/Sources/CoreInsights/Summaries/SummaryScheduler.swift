@@ -33,7 +33,7 @@ public enum SummaryAnnouncement: Hashable, Sendable {
 
 /// When a summary is ready and when the question of the week is asked.
 ///
-/// A summary comes on its own day — a week on Monday, a month on the 1st, a year on 1
+/// A summary comes on its own day — a week on its first weekday, a month on the 1st, a year on 1
 /// January — and stays until it was opened or put away. Only the latest finished one of each
 /// kind is offered, never a queue of old ones, and a year only until the end of March: in
 /// October nobody wants last year's card.
@@ -49,12 +49,13 @@ public enum SummaryScheduler {
   ///   - firstDay: the first day with an operation; `nil` — no operations yet.
   ///   - shown: the summaries opened or put away.
   public static func ready(
-    today: DateOnly, firstDay: DateOnly?, switches: SummarySwitches, shown: Set<SummaryID>
+    today: DateOnly, firstDay: DateOnly?, switches: SummarySwitches, shown: Set<SummaryID>,
+    calendar: CalendarContext = .utc
   ) -> [SummaryID] {
     guard let firstDay else { return [] }
     var result: [SummaryID] = []
     func offer(_ id: SummaryID) {
-      guard switches.isOn(id.kind), !shown.contains(id), let range = id.range,
+      guard switches.isOn(id.kind), !shown.contains(id), let range = id.range(calendar: calendar),
         range.end >= firstDay
       else { return }
       result.append(id)
@@ -64,49 +65,58 @@ public enum SummaryScheduler {
       || (today.month == yearOfferedThrough.month && today.day > yearOfferedThrough.day)
     if !afterMarch { offer(.year(today.year - 1)) }
     offer(.month(today.monthKey.previous))
-    offer(.week(WeekKey(containing: today).previous))
+    offer(.week(WeekKey(containing: today, calendar: calendar).previous))
     return result
   }
 
-  /// The week whose question is asked on `today`: the running week on Sunday, the finished
-  /// one on Monday if it was left unanswered; `nil` on other days, or when it is answered or
+  /// The week whose question is asked on `today`: the running week on its last day, the finished
+  /// one on the next day if it was left unanswered; `nil` on other days, or when it is answered or
   /// the week had no operations.
   public static func weekToAsk(
-    today: DateOnly, firstDay: DateOnly?, answered: Set<WeekKey>, switches: SummarySwitches
+    today: DateOnly, firstDay: DateOnly?, answered: Set<WeekKey>, switches: SummarySwitches,
+    calendar: CalendarContext = .utc
   ) -> WeekKey? {
     guard switches.week, let firstDay else { return nil }
     let week: WeekKey
-    switch today.weekday {
-    case 7: week = WeekKey(containing: today)
-    case 1: week = WeekKey(containing: today).previous
+    switch calendar.weekStart(of: today).days(to: today) {
+    case 6: week = WeekKey(containing: today, calendar: calendar)
+    case 0: week = WeekKey(containing: today, calendar: calendar).previous
     default: return nil
     }
-    guard week.end >= firstDay, !answered.contains(week) else { return nil }
+    guard week.range(calendar: calendar).end >= firstDay, !answered.contains(week) else {
+      return nil
+    }
     return week
   }
 
   /// What the card says: a ready summary, else the question of the week.
   public static func announcement(
     today: DateOnly, firstDay: DateOnly?, switches: SummarySwitches, shown: Set<SummaryID>,
-    answered: Set<WeekKey>
+    answered: Set<WeekKey>, calendar: CalendarContext = .utc
   ) -> SummaryAnnouncement? {
-    if let id = ready(today: today, firstDay: firstDay, switches: switches, shown: shown).first {
+    if let id = ready(
+      today: today, firstDay: firstDay, switches: switches, shown: shown, calendar: calendar
+    ).first {
       return .summary(id)
     }
-    return weekToAsk(today: today, firstDay: firstDay, answered: answered, switches: switches)
-      .map(SummaryAnnouncement.weekQuestion)
+    return weekToAsk(
+      today: today, firstDay: firstDay, answered: answered, switches: switches, calendar: calendar
+    )
+    .map(SummaryAnnouncement.weekQuestion)
   }
 
   /// Every finished period of a kind that has operations, newest first — the list of the
   /// screen «Итоги».
-  public static func archive(kind: SummaryKind, today: DateOnly, firstDay: DateOnly?) -> [SummaryID]
-  {
+  public static func archive(
+    kind: SummaryKind, today: DateOnly, firstDay: DateOnly?,
+    calendar: CalendarContext = .utc
+  ) -> [SummaryID] {
     guard let firstDay else { return [] }
     switch kind {
     case .week:
       var weeks: [SummaryID] = []
-      var week = WeekKey(containing: today).previous
-      while week.end >= firstDay && weeks.count < 52 {
+      var week = WeekKey(containing: today, calendar: calendar).previous
+      while week.range(calendar: calendar).end >= firstDay && weeks.count < 52 {
         weeks.append(.week(week))
         week = week.previous
       }

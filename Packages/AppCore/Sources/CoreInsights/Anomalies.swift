@@ -12,7 +12,7 @@ public struct Anomaly: Hashable, Sendable, Identifiable {
   public var rule: AnomalyRule
   /// The rest of the identity: the part, the payment, the event, the category and the week.
   public var subject: String
-  /// The day the anomaly is about; for a weekly rule, the Monday of that week.
+  /// The day the anomaly is about; for a weekly rule, its first day in the configured calendar.
   public var day: DateOnly
   /// What happened: the payment, the week's spending, the new price, the amount waiting.
   public var amount: AmountE4
@@ -289,7 +289,7 @@ public enum AnomalyRules {
       guard let rise = window.rise(of: rows, options: options) else { continue }
       found.append(
         Anomaly(
-          rule: .categorySpike, subject: "\(key(root)):\(window.last.iso)", day: window.last,
+          rule: .categorySpike, subject: "\(key(root)):\(window.keyDay.iso)", day: window.last,
           amount: rise.amount, reference: rise.usual, categoryId: root))
     }
     return found
@@ -305,7 +305,7 @@ public enum AnomalyRules {
     else { return [] }
     return [
       Anomaly(
-        rule: .badSpendingRise, subject: window.last.iso, day: window.last,
+        rule: .badSpendingRise, subject: window.keyDay.iso, day: window.last,
         amount: rise.amount, reference: rise.usual)
     ]
   }
@@ -313,13 +313,16 @@ public enum AnomalyRules {
   /// The last complete week and the weeks the usual level is taken from. Built once: both
   /// weekly rules ask the same question of the same weeks.
   private struct WeekWindow {
-    /// The Monday of the last complete week.
+    /// The first day of the last complete week.
     let last: DateOnly
-    /// The Mondays of the weeks before it, oldest first.
+    /// The first days of the weeks before it, oldest first.
     let before: [DateOnly]
+    let firstWeekday: Int
+    /// The Monday inside the week keeps dismissed and deferred anomaly keys stable.
+    var keyDay: DateOnly { last.adding(days: (8 - firstWeekday) % 7) }
 
     init?(today: DateOnly, ledger: Ledger, options: AnomalyOptions) {
-      let thisWeek = today.adding(days: -(today.weekday - 1))
+      let thisWeek = ledger.calendar.weekStart(of: today)
       let last = thisWeek.adding(days: -7)
       let before = (1...options.weeksOfHistory).map { last.adding(days: -7 * $0) }.reversed()
       // Weeks the history does not reach back to are not «usual», they are unknown.
@@ -328,9 +331,12 @@ public enum AnomalyRules {
       }
       self.last = last
       self.before = Array(before)
+      self.firstWeekday = ledger.calendar.firstWeekday
     }
 
-    func weekStart(of day: DateOnly) -> DateOnly { day.adding(days: -(day.weekday - 1)) }
+    func weekStart(of day: DateOnly) -> DateOnly {
+      day.adding(days: -((day.weekday - firstWeekday + 7) % 7))
+    }
 
     /// What the last complete week cost and what such a week usually costs — when the usual
     /// level is worth comparing with at all, and the week is far enough above it.

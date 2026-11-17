@@ -112,7 +112,7 @@ public struct OverviewFigures: Hashable, Sendable {
     }
 
     init(ledger: Ledger, today: DateOnly) {
-      let start = today.weekStart
+      let start = ledger.calendar.weekStart(of: today)
       current = DayRange(start, today)
       previous = DayRange(start.adding(days: -7), today.adding(days: -7))
       change = Change(

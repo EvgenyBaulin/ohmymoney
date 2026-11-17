@@ -78,6 +78,18 @@ final class AffordModelTests: XCTestCase {
     XCTAssertEqual(told(amount: 40_000, free: 100_000).headline, .init(key: "afford.yes"))
   }
 
+  func testANegativeFreeSumExplainsTheDeficitAndThePurchaseSeparately() {
+    let answer = told(amount: 500, free: -3_000)
+    XCTAssertEqual(answer.headline.arguments, ["3500 ₽"])
+    XCTAssertEqual(
+      answer.lines,
+      [
+        .init(
+          key: "afford.deficitAndPurchase",
+          arguments: ["3000 ₽", "500 ₽"])
+      ])
+  }
+
   func testAGoalLowestInTheOrderMovesFirst() {
     let answer = told(
       amount: 50_000, free: 60_000,

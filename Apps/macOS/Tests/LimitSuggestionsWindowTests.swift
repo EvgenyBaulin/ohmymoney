@@ -158,8 +158,10 @@ final class LimitSuggestionsWindowTests: XCTestCase {
     let fields = amounts(in: window)
     XCTAssertEqual(fields.count, 2)
     let food = try XCTUnwrap(fields.first), taxi = try XCTUnwrap(fields.last)
-    XCTAssertEqual(rubles(food), "13000", "usual: 12,300 rounded up to a thousand")
-    XCTAssertEqual(rubles(taxi), "2500", "usual: 2,100 rounded up to five hundred")
+    // Each category has three identical months: medians 12 300 and 2 100 stay unchanged
+    // on the 100 grid. Taking 10 % off gives 11 070 and 1 890, rounded up to 11 100 and 1 900.
+    XCTAssertEqual(rubles(food), "12300", "usual spending already is a multiple of a hundred")
+    XCTAssertEqual(rubles(taxi), "2100", "usual spending already is a multiple of a hundred")
 
     XCTAssertTrue(window.makeFirstResponder(food))
     let editor = try XCTUnwrap(window.firstResponder as? NSTextView)
@@ -169,10 +171,10 @@ final class LimitSuggestionsWindowTests: XCTestCase {
 
     try choose(1, in: window)
     XCTAssertEqual(rubles(food), "15000", "the typed amount stays the owner's")
-    XCTAssertEqual(rubles(taxi), "2000", "the other row follows «На 10 % меньше»")
+    XCTAssertEqual(rubles(taxi), "1900", "the other row follows «На 10 % меньше»")
     try choose(0, in: window)
     XCTAssertEqual(rubles(food), "15000", "and stays when switched back")
-    XCTAssertEqual(rubles(taxi), "2500")
+    XCTAssertEqual(rubles(taxi), "2100")
 
     // Leaving the field hands its text to the sheet's state on the next turn of the run loop.
     _ = window.makeFirstResponder(nil)
@@ -187,6 +189,6 @@ final class LimitSuggestionsWindowTests: XCTestCase {
     XCTAssertEqual(
       written.first { $0.categoryId == self.food.id }?.amountE4, AmountE4(whole: 15_000))
     XCTAssertEqual(
-      written.first { $0.categoryId == self.taxi.id }?.amountE4, AmountE4(whole: 2_500))
+      written.first { $0.categoryId == self.taxi.id }?.amountE4, AmountE4(whole: 2_100))
   }
 }

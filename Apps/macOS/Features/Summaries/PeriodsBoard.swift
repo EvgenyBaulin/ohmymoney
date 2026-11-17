@@ -290,7 +290,8 @@ final class PeriodsBoardStore {
   func archive(_ snapshot: DataSnapshot?) -> [SummaryID] {
     guard let snapshot else { return [] }
     var ids = SummaryScheduler.archive(
-      kind: kind, today: snapshot.today, firstDay: snapshot.ledger.firstDay)
+      kind: kind, today: snapshot.today, firstDay: snapshot.ledger.firstDay,
+      calendar: snapshot.ledger.calendar)
     if let selected, selected.kind == kind, !ids.contains(selected) { ids.insert(selected, at: 0) }
     return ids
   }
@@ -344,7 +345,8 @@ final class PeriodsBoardStore {
   /// «13–19 окт.», «Октябрь 2026», «2026»: a period in the chooser.
   static func label(of id: SummaryID, _ environment: AppEnvironment) -> String {
     switch id.kind {
-    case .week: id.range.map { environment.dates.span($0) } ?? id.key
+    case .week:
+      id.range(calendar: environment.calendar).map { environment.dates.span($0) } ?? id.key
     case .month: id.monthKey.map { environment.dates.monthTitle($0) } ?? id.key
     case .year: id.key
     }

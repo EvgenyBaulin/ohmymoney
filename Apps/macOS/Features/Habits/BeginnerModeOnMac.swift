@@ -25,10 +25,15 @@ enum BeginnerModeOnMac {
   {
     let dataset = snapshot.ledger.dataset
     let typed = HabitEntryDays.typedDays(dataset.entries, calendar: snapshot.ledger.calendar)
+    let recorded = Set(
+      dataset.entries.lazy.filter { !$0.transaction.isDeleted }.map {
+        snapshot.ledger.calendar.day(of: $0.transaction)
+      }.filter { $0 <= snapshot.today })
     return BeginnerFacts(
       entryDays: HabitNotesOnMac.entryDays(snapshot).count, firstEntry: typed.min(),
       counts: dataset.planning.reconciliations.filter { $0.kind != .opening }.count,
-      debts: dataset.debts.count, hasLoans: hasLoans, today: snapshot.today)
+      debts: dataset.debts.count, hasLoans: hasLoans, today: snapshot.today,
+      analysisEntryDays: recorded.count, analysisFirstEntry: recorded.min())
   }
 
   /// The quiet sections and what each waits for; nothing when the mode is off.

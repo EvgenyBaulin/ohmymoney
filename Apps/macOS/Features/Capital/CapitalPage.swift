@@ -300,6 +300,7 @@ struct CapitalAssetsCard: View {
       Menu {
         Button(CapitalText.t("capital.assets.add", environment)) { sheet = .newAsset }
           .accessibilityIdentifier("capital.assets.add")
+          .requiresWritableBook()
         Button(DepositText.t("dep.open", environment)) { sheet = .showcase }
           .accessibilityIdentifier("capital.deposits.showcase")
       } label: {
@@ -319,6 +320,7 @@ struct CapitalAssetsCard: View {
         Button(CapitalText.t("capital.assets.add", environment)) { sheet = .newAsset }
           .buttonStyle(.rowAction)
           .accessibilityIdentifier("capital.assets.addEmpty")
+          .requiresWritableBook()
       }
       ForEach(live) { asset in row(asset) }
       if !gone.isEmpty {
@@ -369,13 +371,17 @@ struct CapitalAssetsCard: View {
   @ViewBuilder
   private func menu(_ asset: Asset) -> some View {
     Button(CapitalText.t("capital.assets.newValuation", environment)) { sheet = .value(asset) }
+      .requiresWritableBook()
     Button(CapitalText.t("capital.assets.history", environment)) { sheet = .history(asset) }
     Button(CapitalText.t("capital.assets.edit", environment)) { sheet = .edit(asset) }
+      .requiresWritableBook()
     if asset.kind == .investment, asset.disposedOn == nil {
       Button(DepositText.t("payout.fromAsset", environment)) { sheet = .payout(asset) }
+        .requiresWritableBook()
     }
     if asset.disposedOn == nil {
       Button(CapitalText.t("capital.assets.dispose", environment)) { sheet = .dispose(asset) }
+        .requiresWritableBook()
     } else {
       Button(CapitalText.t("capital.assets.undispose", environment)) {
         guard let dependencies else { return }
@@ -386,6 +392,7 @@ struct CapitalAssetsCard: View {
     Button(CapitalText.t("capital.assets.delete", environment), role: .destructive) {
       deleting = asset
     }
+    .requiresWritableBook()
   }
 
   /// «оценка 12 октября» (with the year when it is not this one), «Ещё нет оценки»; for one sold
