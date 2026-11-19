@@ -232,7 +232,8 @@ struct ImportMatchTests {
       12, account: otherAccount, currency: .usd, charged: (.rub, 1_000))
     let proposal = propose(item(), [otherDay, otherSum, otherKind, transfer, charged])
     #expect(proposal.otherAccount == [charged])
-    #expect(!propose(item(), [otherDay, otherSum, otherKind, transfer]).needsOtherAccountConfirmation)
+    #expect(
+      !propose(item(), [otherDay, otherSum, otherKind, transfer]).needsOtherAccountConfirmation)
     #expect(propose(item(account: .some(nil)), [charged]).otherAccount.isEmpty)
   }
 

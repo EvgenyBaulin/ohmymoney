@@ -172,7 +172,8 @@ struct DoNowSourcesTests {
   @Test func skipsSurviveTheRoundTripThroughTheirString() {
     let first = UUID()
     let second = UUID()
-    let skips = StatementSkips().skipping(first, on: today).skipping(second, on: today.adding(days: -3))
+    let skips = StatementSkips().skipping(first, on: today).skipping(
+      second, on: today.adding(days: -3))
     #expect(StatementSkips(encoded: skips.encoded) == skips)
     #expect(StatementSkips(encoded: "garbage,=,x=y").days.isEmpty)
     #expect(StatementSkips(encoded: nil).days.isEmpty)
@@ -183,7 +184,8 @@ struct DoNowSourcesTests {
     let fresh = UUID()
     let skips = StatementSkips().skipping(old, on: today.adding(days: -20))
       .skipping(fresh, on: today.adding(days: -2))
-    #expect(skips.pruned(today: today).days.keys.sorted { $0.uuidString < $1.uuidString } == [fresh])
+    #expect(
+      skips.pruned(today: today).days.keys.sorted { $0.uuidString < $1.uuidString } == [fresh])
   }
 
   /// Operations without a category older than the week do not vanish: they form their own,

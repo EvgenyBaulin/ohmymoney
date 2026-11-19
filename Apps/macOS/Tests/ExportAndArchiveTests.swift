@@ -55,14 +55,14 @@ final class ExportAndArchiveTests: XCTestCase {
 
     XCTAssertEqual(written.count, ExportTables.all.count)
     XCTAssertEqual(
-      Array(written.map(\.lastPathComponent).dropLast(8).suffix(28).prefix(12)),
+      Array(written.map(\.lastPathComponent).dropLast(9).suffix(28).prefix(12)),
       [
         "banks.csv", "assets.csv", "asset_valuations.csv", "debt_instalments.csv",
         "debt_costs.csv", "allocation_rules.csv", "custom_currencies.csv", "settings.csv",
         "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
       ])
     XCTAssertEqual(
-      Array(written.map(\.lastPathComponent).dropLast(8).suffix(16)),
+      Array(written.map(\.lastPathComponent).dropLast(9).suffix(16)),
       [
         "budget_month_exceptions.csv", "event_budget_items.csv", "event_templates.csv",
         "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",

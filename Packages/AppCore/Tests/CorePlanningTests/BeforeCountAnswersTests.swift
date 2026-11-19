@@ -52,7 +52,8 @@ struct BeforeCountAnswersTests {
         == answers)
     // The same counts made by an owner in Moscow, who dates them in his calendar.
     var home = Fx()
-    home.count([(Fx.main, .rub, "1000")], at: Fx.at("2026-09-15", 9), kind: .opening, dated: .moscow)
+    home.count(
+      [(Fx.main, .rub, "1000")], at: Fx.at("2026-09-15", 9), kind: .opening, dated: .moscow)
     home.count([(Fx.main, .rub, "700")], at: Fx.at("2026-09-15", 21, 30), dated: .moscow)
     #expect(home.reconciliations.map(\.id) == [morning, evening])
     #expect(

@@ -84,7 +84,8 @@ struct ImportSupplementWriteTests {
     let operations = try rig.count()
 
     let result = try rig.service.supplement(
-      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+      now: instant)
     guard case .written(let write) = result else {
       Issue.record("expected a write")
       return
@@ -108,7 +109,8 @@ struct ImportSupplementWriteTests {
     let entry = try operation(rig)
     guard
       case .written(let write) = try rig.service.supplement(
-        rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+        rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+        now: instant)
     else {
       Issue.record("expected a write")
       return
@@ -135,7 +137,8 @@ struct ImportSupplementWriteTests {
     entry = try #require(try rig.repository.entry(id: entry.id))
     guard
       case .written(let write) = try rig.service.supplement(
-        rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+        rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+        now: instant)
     else {
       Issue.record("expected a write")
       return
@@ -154,9 +157,11 @@ struct ImportSupplementWriteTests {
     defer { rig.cleanUp() }
     let entry = try operation(rig)
     _ = try rig.service.supplement(
-      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+      now: instant)
     let again = try rig.service.supplement(
-      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+      now: instant)
     guard case .written(let write) = again else {
       Issue.record("expected a write")
       return
@@ -174,7 +179,8 @@ struct ImportSupplementWriteTests {
     defer { rig.cleanUp() }
     let entry = try operation(rig, parts: [600, 400])
     _ = try rig.service.supplement(
-      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+      now: instant)
     let stored = try #require(try rig.repository.entry(id: entry.id))
     #expect(stored.parts.map(\.id) == entry.parts.map(\.id))
     #expect(stored.parts.map(\.amountE4) == entry.parts.map(\.amountE4))
@@ -188,7 +194,8 @@ struct ImportSupplementWriteTests {
     let entry = try operation(rig)
     _ = try rig.repository.softDelete(id: entry.id, at: instant)
     let result = try rig.service.supplement(
-      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar, now: instant)
+      rig.repository, id: entry.id, with: screenshot(rig), kind: .other, calendar: calendar,
+      now: instant)
     #expect(result == .gone)
     #expect(try rig.service.repository.all().isEmpty)
     #expect(rig.service.store.storedHashes().isEmpty)

@@ -94,7 +94,9 @@ struct AccountCreditPanelRows: View {
       .frame(maxWidth: .infinity, alignment: .leading)
   }
 
-  private func field(_ key: String, text: Binding<String>, field: Field, unit: String)
+  private func field(
+    _ key: String, text: Binding<String>, field: Field, unit: String
+  )
     -> some View
   {
     HStack(spacing: 6) {

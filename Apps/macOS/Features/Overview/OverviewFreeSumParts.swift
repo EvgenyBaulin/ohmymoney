@@ -181,7 +181,8 @@ struct OverviewFreeSumPartsCard: View {
       .padding(StyleMetrics.partPadding)
       .frame(
         minWidth: width, maxWidth: width ?? .infinity,
-        minHeight: fontSize.points(fromRegular: StyleMetrics.partHeight, textScale: textScale), alignment: .topLeading
+        minHeight: fontSize.points(fromRegular: StyleMetrics.partHeight, textScale: textScale),
+        alignment: .topLeading
       )
       .background(
         surfaces.background, in: .rect(cornerRadius: StyleMetrics.partRadius)

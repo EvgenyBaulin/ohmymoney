@@ -160,10 +160,12 @@ final class MacNotifications: NSObject {
       return
     }
     let content = EveningWords(
-      language: dependencies?.environment.language ?? AppLanguage()).content(of: nudge)
+      language: dependencies?.environment.language ?? AppLanguage()
+    ).content(of: nudge)
     posting.post(
       UNNotificationRequest(
-        identifier: nudge.id, content: content, trigger: Self.eveningTrigger(
+        identifier: nudge.id, content: content,
+        trigger: Self.eveningTrigger(
           for: nudge.day, hour: hour, minute: minute)))
     lastNudgeTimeZone = calendar.timeZone
   }

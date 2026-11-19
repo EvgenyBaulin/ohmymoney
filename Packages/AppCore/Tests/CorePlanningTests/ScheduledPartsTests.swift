@@ -136,7 +136,8 @@ struct ScheduledPartsTests {
       stored == [ScheduledMatching.partAnswerKey(answer, payment: Self.rent.id, due: Self.due)])
     let found = matches(fx, rejections: stored)
     let parts = found.parts(Self.rent.id, Self.due)
-    #expect(ScheduledMatching.partAnswer(payment: Self.rent.id, due: Self.due, in: stored) == answer)
+    #expect(
+      ScheduledMatching.partAnswer(payment: Self.rent.id, due: Self.due, in: stored) == answer)
     #expect(found.isPaid(Self.rent.id, Self.due) == paid)
     #expect(parts?.answer == answer)
     #expect(parts?.needsCloseDecision == false)
@@ -223,7 +224,8 @@ struct ScheduledPartsTests {
         operation: operation, payment: Self.rent.id, due: Self.due),
       to: keep, today: Fx.today)
     #expect(rejected.isSuperset(of: keep))
-    #expect(ScheduledMatching.partAnswer(payment: Self.rent.id, due: Self.due, in: rejected) == .keep)
+    #expect(
+      ScheduledMatching.partAnswer(payment: Self.rent.id, due: Self.due, in: rejected) == .keep)
   }
 
   /// Two payments of one category: the internet of 5 000 is paid whole by 4 800; 3 000 is a
@@ -397,7 +399,8 @@ struct ScheduledPartsTests {
     fx.scheduled = [rent]
     let link = OperationLink.scheduled(paymentId: rent.id, due: Self.due)
     fx.add(.expense, "30000", at: Fx.at("2026-09-13", 10), category: Fx.housing, link: link)
-    let rest = fx.add(.expense, "30000", at: Fx.at("2026-09-16", 10), category: Fx.housing, link: link)
+    let rest = fx.add(
+      .expense, "30000", at: Fx.at("2026-09-16", 10), category: Fx.housing, link: link)
     let status = fx.snapshot().scheduled.first { $0.payment.id == rent.id }
     #expect(status?.lastCharge?.amount == Fx.money("60000"))
     #expect(status?.lastCharge?.transactionId == rest)

@@ -484,7 +484,8 @@ struct OverviewDoNowCard: View {
       } drawn: { tap in
         Button(
           environment.language("scheduled.closeRemainder.keep", table: "Planning"),
-          action: tap).buttonStyle(.rowAction)
+          action: tap
+        ).buttonStyle(.rowAction)
       }
     }
   }

@@ -53,7 +53,8 @@ final class CardToCreditCardScreenTests: XCTestCase {
     let account = PaymentMethod(name: accountName, kind: .card, currency: .rub, bankId: bank.id)
     try references.save(account)
     let card = PaymentCard(accountId: account.id, name: cardName)
-    XCTAssertEqual(CardActions(environment: environment, store: store).save(card, previous: nil), .done)
+    XCTAssertEqual(
+      CardActions(environment: environment, store: store).save(card, previous: nil), .done)
     return (bank, account, card)
   }
 
@@ -111,7 +112,8 @@ final class CardToCreditCardScreenTests: XCTestCase {
     let loose = PaymentMethod(name: "Без банка", kind: .card, currency: .rub)
     try references.save(loose)
     let card = PaymentCard(accountId: loose.id, name: "Карта")
-    XCTAssertEqual(CardActions(environment: environment, store: store).save(card, previous: nil), .done)
+    XCTAssertEqual(
+      CardActions(environment: environment, store: store).save(card, previous: nil), .done)
     var draft = draft()
     let plan = draft.attempt(
       converting: card, cards: actions.cards, accounts: actions.all,

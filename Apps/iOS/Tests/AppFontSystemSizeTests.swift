@@ -68,7 +68,8 @@ final class AppFontSystemSizeTests: XCTestCase {
     // to the system, which grows it itself.
     XCTAssertEqual(
       AppFont.body.points(at: .system, designPoints: true, dynamicType: .accessibility5), 41)
-    XCTAssertNil(AppFont.body.points(at: .system, designPoints: false, dynamicType: .accessibility5))
+    XCTAssertNil(
+      AppFont.body.points(at: .system, designPoints: false, dynamicType: .accessibility5))
   }
 
   func testTheFixedSizesIgnoreTheDynamicTypeSize() {
@@ -81,7 +82,8 @@ final class AppFontSystemSizeTests: XCTestCase {
 
   func testHeadingsStopGrowingWhereAWordNoLongerFitsAPhone() {
     // «Планирование» in a 26 pt title is over 500 pt wide at the full AX5 factor (3.1).
-    let capped = AppFont.largeTitle.points(at: .system, designPoints: true, dynamicType: .accessibility5)
+    let capped = AppFont.largeTitle.points(
+      at: .system, designPoints: true, dynamicType: .accessibility5)
     XCTAssertEqual(capped, (26 * AppFont.headingGrowthLimit).rounded())
     XCTAssertEqual(
       AppFont.system(size: 34).points(at: .system, dynamicType: .accessibility5),

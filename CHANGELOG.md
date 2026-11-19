@@ -7,6 +7,119 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.21.0] — 2026-11-19
+
+A credit card as its own card of a bank, a card with its own balance, partial payments of planned
+payments, a time zone kept with transfers and reconciliations, one month of a recurring income that
+can be skipped, and a repair of the exchange for accounts with a main card. The database schema
+grows from 32 to 34; opening the app upgrades the database after a verified copy, and older data
+reads as before.
+
+### Added
+
+- **Credit card of a bank.** A card's sheet offers «Сделать кредиткой»: it asks for the credit terms
+  and what to do with the card's past operations (move all, from a day, or none), then offers to
+  reconcile both accounts, all as one undo step. A bank's «+» opens a debit or a credit card; the
+  credit card asks for the limit first and creates nothing until it is typed, and its panel shows the
+  terms and how much of the limit is still available.
+- **A card's own balance.** «Свой счёт и остаток» makes a card the main card of its own account in
+  the same bank and group, moves its operations as you choose and offers to reconcile both. Turning
+  it off merges the accounts back, and undoing a merge puts the cards back first.
+- **Partial payments.** Smaller payments around the date of a planned payment count as its parts:
+  they add up against the price with the same tolerance as one transfer, the remainder is shown and
+  planned, and «Это другое» takes a payment back out. When the parts reach at least 90 % of the price
+  but fall a little short, the app asks «Закрыть остаток?» instead of closing the due itself.
+- **One month of a recurring income.** «Зарплата не пришла?» now works for a recurring income: skip
+  or move a single month and the recurrence goes on. «Это ошибка» opens the income itself.
+- **Loan before the books.** A loan taken before you began keeping records follows its own
+  schedule on the capital chart: an interest-only grace, a pause that adds interest, and the
+  payments you typed due by due.
+- **Asset at its purchase price.** An asset that was bought but never valued counts at its purchase
+  price at «now».
+- **Capital with and without money owed to me.** The capital header shows the sum both ways.
+- **Statement reminder skip.** «Загрузить выписку» counts from the day of the last import, even one
+  that added no new rows, and can be skipped for 14 days; archived accounts are not asked.
+- **Older unsorted operations.** Operations without a category older than a week no longer drop out
+  of the do-now list: they get their own line, «Разобрать старые», and both lines open **Operations**
+  with a new «Без категории» filter for their days.
+- **Preview of a report for another person.** The report opens in Quick Look before it is saved,
+  without the password lock; **Save** still writes the locked file with the password you typed, and
+  the temporary file is removed with the preview.
+- **Check for updates in the settings.** **Settings → General** shows the version and «Проверить
+  обновления…» with the time of the last check; the App Store build opens its store page instead.
+- **Import matching.** A recognised purchase is matched to the operations it may already be: one
+  match is supplemented (empty fields and the file, one undo step), several are listed without a
+  preselection, and a probable duplicate or the same sum on another account asks before a new
+  operation is made. The screens of the import come later.
+- **README and feature guide.** Both describe the app as it is now: the credit card of a bank,
+  partial payments, deductions, meters, the capital before the books, iPhone and iPad, 24 languages
+  and the report preview, with current screenshots.
+
+### Changed
+
+- A transfer and a reconciliation keep the time zone they were written in, as an operation does, so a
+  night transfer on a trip stays in the month of the purchase made in the same minute. Savings,
+  card statements, bank limits, deductions, balance anchors and the period copy read their day in
+  it. A count made before its zone was kept stands on its stored day, and the missed-days wizard
+  starts from the count's own day.
+- Deposit interest, the do-now list, namesake checks, the CSV reader, repricing of money owed and
+  the day groups of the operations list read the day in the zone an operation was written in, not
+  the zone of the Mac.
+- The evening reminders stay at the hour you chose after the time zone changes: they are calendar
+  triggers, scheduled again when the zone or the day changes and when the app comes back.
+- «Как в системе» is the default text size on iPhone and iPad and follows every Dynamic Type step up
+  to the accessibility sizes; at those sizes segmented pickers become menus and wide rows of cards
+  and totals stack, so screens stay inside the phone. The limits of **Planning** and the card
+  headers of **Analytics** stack as well.
+- On iPad, the compact toolbar keeps the eye and the recount in «Ещё», and the **Reports** header
+  buttons scroll, so a narrow Split View window with the largest text no longer pushes them past
+  the edge.
+- Chart points, account amounts and the settings forms got names for VoiceOver, and two rows with a
+  grey too faint for their background were darkened.
+- Text and symbols that carry meaning use the darker secondary ink of the theme across the app;
+  chart marks and separators stay as they were.
+- A savings rate above 100 % shows the number with a caption saying it includes earlier savings, and
+  a transfer between two saving accounts no longer counts as saving.
+- A change over a base under 1 % or under 100 ₽ reads as not comparable instead of thousands of
+  percent.
+- On iPhone and iPad the credit card sheet says «Отменить» instead of ⌘Z.
+- Utility bills in different currencies count in rubles, an overflowing meter reading shows «не
+  посчитать — проверьте показания», and the period ring has a grey «Без категории» share.
+- Open questions follow their recommended answers: the period length caption, «впритык» for a thin
+  free sum, one week start for comparisons, one rule for limit suggestions (six months, rounded to
+  100 ₽), the purchase pause, affordability with a negative balance, refunds in warranties.
+- The privacy guide lists every address the app may contact, with when and why.
+- The CSV export has a new last file, `expected_income_dues.csv` (60 files), and `transfers.csv`
+  and `reconciliations.csv` end with a `time_zone` column; `pandas.read_csv` reads them without
+  parameters as before.
+
+### Fixed
+
+- Accounts with a main card reach your other devices again. 2.20.0 wrote an account before its
+  main card, the database refused it and every batch of the exchange with such an account failed;
+  cards now go first and the main card is set after the account. If you use the exchange between
+  devices, update every device.
+- Undoing a deletion in planning brings back its attachments, subscription data, budget exceptions
+  and bank terms; large sums no longer overflow in challenges, anomalies and burnout; the first
+  part's category no longer applies to a whole receipt in the summaries.
+- «Провести» of the remainder of a planned payment did nothing: the part was keyed like the new
+  operation and the unique index refused it. A part now has its own key and is still read as the
+  same due.
+
+### Upgrading
+
+The database schema goes from 32 to 34. The update is one way: before it the app makes a checked
+copy with the suffix `-before-migration`, which rotation never removes, also in your backup folder.
+Going back to 2.20.0 means restoring that copy. Migration 33 adds a time zone column to transfers
+and to reconciliations, and 34 adds a table with your answers for single months of a recurring
+income; both start empty and no existing row changes, so older transfers and counts read on their
+day as before. The transfer-archive format is unchanged.
+
+### Known limitations
+
+- The screens of the import from a screenshot or a receipt come in a later version; this one has
+  only the matching underneath.
+
 ## [2.20.0] — 2026-11-16
 
 Tax deductions, utility meters and bills, six cloud drives for the exchange between devices, a capital

@@ -45,9 +45,11 @@ struct ExportAndArchiveContractsPropertyTests {
       for index in bytes.indices { bytes[index] = UInt8.random(in: 0...255, using: &dice) }
       bytes[6] = (bytes[6] & 0x0F) | 0x40
       bytes[8] = (bytes[8] & 0x3F) | 0x80
-      return UUID(uuid: (
-        bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8],
-        bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15])
+      return UUID(
+        uuid: (
+          bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8],
+          bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]
+        )
       ).uuidString
     }
     let accounts = (0..<3).map { _ in uuid() }
@@ -55,7 +57,8 @@ struct ExportAndArchiveContractsPropertyTests {
     try stack.writer.write { db in
       for (index, id) in accounts.enumerated() {
         try db.execute(
-          sql: "INSERT INTO payment_methods (id, name, kind, is_default, archived) VALUES (?, ?, 'card', ?, 0)",
+          sql:
+            "INSERT INTO payment_methods (id, name, kind, is_default, archived) VALUES (?, ?, 'card', ?, 0)",
           arguments: [id, "Account, \"\(index)\"", index == 0 ? 1 : 0])
       }
       for income in incomes {
@@ -197,7 +200,9 @@ struct ExportAndArchiveContractsPropertyTests {
             year: parts.year ?? 0, month: parts.month ?? 0, day: parts.day ?? 0)
         }
         for calendar in [CalendarContext.utc, .moscow, .system] {
-          #expect(calendar.day(of: record) == expectedDay, "seed \(seed): count \(id) in \(zone ?? "no zone")")
+          #expect(
+            calendar.day(of: record) == expectedDay,
+            "seed \(seed): count \(id) in \(zone ?? "no zone")")
         }
       }
       let dues = try ExpectedIncomeDue.fetchAll(db)

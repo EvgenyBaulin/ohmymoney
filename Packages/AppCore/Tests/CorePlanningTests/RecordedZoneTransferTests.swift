@@ -233,7 +233,9 @@ struct RecordedZoneTransferTests {
   /// spent in December with its count, not on the evening of 30 November back home.
   @Test func theDifferenceOfACountMadeAbroadIsOnTheDayOfTheCount() throws {
     let key = BalanceKey(accountId: Self.main.id, currency: .rub)
-    let rows = [ReconcileRow(key: key, expected: AmountE4(whole: 100), lastCountedAt: nil, isHeld: true)]
+    let rows = [
+      ReconcileRow(key: key, expected: AmountE4(whole: 100), lastCountedAt: nil, isHeld: true)
+    ]
     let calendar = CalendarContext(timeZone: Self.makassar, unrecordedZone: TravelDay.moscowZone)
     let record = AccountReconciliation.record(
       counted: [key: AmountE4(whole: 90)], rows: rows, writeDifference: true, kind: .accounts,

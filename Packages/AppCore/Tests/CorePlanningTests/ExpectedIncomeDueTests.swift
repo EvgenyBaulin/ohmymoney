@@ -116,7 +116,8 @@ struct ExpectedIncomeDueTests: SavingsFixtures {
       ledger: book.ledger, statuses: [before], today: date("2026-09-19"))
     #expect(month.total == rub("100000"))
 
-    let after = try self.status(book, income, links: [august], dues: [move], today: date("2026-09-26"))
+    let after = try self.status(
+      book, income, links: [august], dues: [move], today: date("2026-09-26"))
     #expect(after.isOverdue)
     let overdue = IncomeEstimate.overdue(statuses: [after], today: date("2026-09-26"))
     #expect(overdue.map(\.due) == [date("2026-09-25")])
@@ -133,7 +134,8 @@ struct ExpectedIncomeDueTests: SavingsFixtures {
       totalE4: rub("100000"), dueDate: date("2026-09-28"), freq: .monthly, day: 28)
     let move = try #require(
       ExpectedIncomeRules.moved(income, due: date("2026-09-28"), to: date("2026-10-02")))
-    let status = try self.status(book, income, links: [late], dues: [move], today: date("2026-10-10"))
+    let status = try self.status(
+      book, income, links: [late], dues: [move], today: date("2026-10-10"))
     #expect(status.occurrences.map(\.scheduled) == [date("2026-09-28"), date("2026-10-28")])
     #expect(status.occurrences.first?.isFulfilled == true)
     #expect(status.occurrences.last?.received == .zero)

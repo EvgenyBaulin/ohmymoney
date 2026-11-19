@@ -30,7 +30,8 @@ struct LoanBeforeTheBooksPropertyTests {
       let paymentDay = random.int(in: 1...5)
       var debt = Debt(
         id: Fx.id(20), direction: .iOwe, type: .loan, name: "Loan",
-        interestRate: interest ? Decimal(random.int(in: 1...25)) : (random.chance(1, outOf: 2) ? 0 : nil),
+        interestRate: interest
+          ? Decimal(random.int(in: 1...25)) : (random.chance(1, outOf: 2) ? 0 : nil),
         monthlyPaymentE4: random.chance(3, outOf: 4)
           ? Fx.rub(String(max(1_000, Int(amount) / random.int(in: 6...60)))) : nil,
         paymentDay: paymentDay, openedOn: opened, originalAmountE4: Fx.rub(String(amount)))

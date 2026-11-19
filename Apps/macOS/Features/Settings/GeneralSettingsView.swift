@@ -349,8 +349,9 @@ struct GeneralSettingsView: View {
             Date.FormatStyle(date: .abbreviated, time: .shortened)
               .locale(environment.language.locale))
         } ?? g("settings.general.neverChecked")
-      return version + " · " + environment.language.format(
-        "settings.general.lastCheck", table: "SettingsGeneral", last)
+      return version + " · "
+        + environment.language.format(
+          "settings.general.lastCheck", table: "SettingsGeneral", last)
     }
   #endif
 

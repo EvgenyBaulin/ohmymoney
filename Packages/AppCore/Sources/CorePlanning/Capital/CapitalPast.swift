@@ -146,9 +146,11 @@ struct DebtRestoration {
           let interest = DebtAmortization.monthInterest(
             of: balance, percent: debt.interestRate ?? 0)
           let isTypedDue = typedSchedule.steps.contains { $0.fromIndex <= event.index }
-          let isInterestOnlyGrace = !isTypedDue && debt.grace.map {
-            $0.payment == .interest && event.day < $0.mainFrom
-          } == true
+          let isInterestOnlyGrace =
+            !isTypedDue
+            && debt.grace.map {
+              $0.payment == .interest && event.day < $0.mainFrom
+            } == true
           guard hasPaymentSchedule, !isInterestOnlyGrace else {
             result.append((event.day, balance))
             continue

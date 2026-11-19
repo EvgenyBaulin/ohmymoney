@@ -738,24 +738,24 @@ struct PhoneToolbar: ViewModifier {
         }
         Menu {
           if foldsIntoMenu {
-          Button {
-            environment.amounts.toggle()
-          } label: {
-            Label {
-              Text(verbatim: PrivacyCommands.amountsTitle(environment))
-            } icon: {
-              Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
+            Button {
+              environment.amounts.toggle()
+            } label: {
+              Label {
+                Text(verbatim: PrivacyCommands.amountsTitle(environment))
+              } icon: {
+                Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
+              }
             }
-          }
-          Button {
-            deps.compute.run()
-          } label: {
-            Label {
-              Text(verbatim: environment.language("action.recompute"))
-            } icon: {
-              Image(systemName: "arrow.clockwise")
+            Button {
+              deps.compute.run()
+            } label: {
+              Label {
+                Text(verbatim: environment.language("action.recompute"))
+              } icon: {
+                Image(systemName: "arrow.clockwise")
+              }
             }
-          }
           }
           Button {
             environment.showsReconciliation = true

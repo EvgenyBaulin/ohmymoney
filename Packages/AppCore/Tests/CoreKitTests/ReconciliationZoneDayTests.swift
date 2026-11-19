@@ -61,7 +61,8 @@ struct ReconciliationZoneDayTests {
     let old = Self.earlyCount(zone: nil, date: date)
     #expect(Self.calendar("America/Los_Angeles").day(of: old) == date)
     let eve = DateOnly(year: 2026, month: 3, day: 9)
-    #expect(Self.calendar("Europe/Moscow").day(of: old.reconciledAt ?? Date(), recordedIn: nil) == eve)
+    #expect(
+      Self.calendar("Europe/Moscow").day(of: old.reconciledAt ?? Date(), recordedIn: nil) == eve)
     #expect(Self.calendar("Europe/Moscow").day(of: old) == date)
     // A zone that disagrees with the stored date wins: the day of the moment there.
     var shifted = count

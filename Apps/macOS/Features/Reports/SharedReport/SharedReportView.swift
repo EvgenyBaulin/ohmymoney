@@ -198,7 +198,7 @@ struct SharedReportView: View {
       model.stage = .editing
     } catch {
       AppLog.error(
-        "sharedReport.preview.failed", .archive, "the report preview was not made",
+        "report.preview.failed", .archive, "the report preview was not made",
         [LogPair("error", .error(error))])
       model.stage = .failed
     }

@@ -46,9 +46,13 @@ struct NetWorthOwedToMePropertyTests {
             kind: random.chance(1, outOf: 4) ? .borrowed : .payment))
       }
     }
-    let assets = random.chance(1, outOf: 2)
-      ? [Asset(name: "Flat", kind: .realty, purchasedOn: Fx.day("2026-05-01"),
-          purchasePriceE4: Fx.rub(String(random.int(in: 100_000...3_000_000))))]
+    let assets =
+      random.chance(1, outOf: 2)
+      ? [
+        Asset(
+          name: "Flat", kind: .realty, purchasedOn: Fx.day("2026-05-01"),
+          purchasePriceE4: Fx.rub(String(random.int(in: 100_000...3_000_000))))
+      ]
       : []
     return Dataset(
       paymentMethods: [PaymentMethod(id: main, name: "Main", isDefault: true)],

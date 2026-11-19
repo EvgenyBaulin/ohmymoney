@@ -207,7 +207,8 @@ struct Migration0034Tests {
     #expect(queued == ["expected_income_dues"])
     _ = try mac.exchange.exchange(with: folder)
     _ = try phone.exchange.exchange(with: folder)
-    #expect(try PlanningRepository(writer: phone.stack.writer).book().expectedDues == [Self.skipped])
+    #expect(
+      try PlanningRepository(writer: phone.stack.writer).book().expectedDues == [Self.skipped])
     var later = Self.skipped
     later.movedTo = DateOnly(year: 2026, month: 9, day: 25)
     _ = try Self.write([later], to: phone.stack)
@@ -287,7 +288,8 @@ struct Migration0034Tests {
     }
     _ = try Self.write([Self.skipped], to: stack)
     try stack.writer.write { db in
-      try ExportCopyMaker.cut(ExportCopyRequest(scope: .whole, includeHidden: false, password: "pw"), db: db)
+      try ExportCopyMaker.cut(
+        ExportCopyRequest(scope: .whole, includeHidden: false, password: "pw"), db: db)
     }
     try stack.writer.read { (db: Database) throws in
       #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM expected_income_dues") == 0)

@@ -24,9 +24,11 @@ struct ContractsDice: RandomNumberGenerator {
     for index in bytes.indices { bytes[index] = UInt8.random(in: 0...255, using: &self) }
     bytes[6] = (bytes[6] & 0x0F) | 0x40
     bytes[8] = (bytes[8] & 0x3F) | 0x80
-    return UUID(uuid: (
-      bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8],
-      bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]))
+    return UUID(
+      uuid: (
+        bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8],
+        bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]
+      ))
   }
   mutating func pick<T>(_ items: [T]) -> T { items[Int.random(in: 0..<items.count, using: &self)] }
   mutating func chance(_ percent: Int) -> Bool { Int.random(in: 0..<100, using: &self) < percent }
@@ -69,7 +71,8 @@ struct SyncContractsPropertyTests {
   /// The accounts a device made, with a main card each: the account is written with its card
   /// and its main card in one change.
   static func newAccount(
-    _ dice: inout ContractsDice, name: String, on device: TestDevice, at: Date, written: inout Written
+    _ dice: inout ContractsDice, name: String, on device: TestDevice, at: Date,
+    written: inout Written
   ) throws -> UUID {
     var account = PaymentMethod(id: dice.uuid(), name: name, kind: .card, currency: .rub)
     let card = PaymentCard(id: dice.uuid(), accountId: account.id, name: "\(name) card")
@@ -96,7 +99,8 @@ struct SyncContractsPropertyTests {
         '2026-11-01 00:00:00.000', ?)
       """,
       [
-        id, String(format: "2026-11-%02d %02d:15:00.000", Int.random(in: 1...28, using: &dice), hour),
+        id,
+        String(format: "2026-11-%02d %02d:15:00.000", Int.random(in: 1...28, using: &dice), hour),
         from.uuidString, amount, to.uuidString, amount, zone,
       ])
     written.transferZones.updateValue(zone, forKey: id)
@@ -113,7 +117,10 @@ struct SyncContractsPropertyTests {
       INSERT INTO reconciliations (id, date, actual_total_rub_e4, reconciled_at, kind, time_zone)
       VALUES (?, ?, 0, ?, 'accounts', ?)
       """,
-      [id, String(format: "2026-11-%02d", day), String(format: "2026-11-%02d 21:30:00.000", day), zone])
+      [
+        id, String(format: "2026-11-%02d", day), String(format: "2026-11-%02d 21:30:00.000", day),
+        zone,
+      ])
     try device.sql(
       """
       INSERT INTO reconciliation_balances (id, reconciliation_id, payment_method_id, currency,
@@ -191,7 +198,8 @@ struct SyncContractsPropertyTests {
         let answering = odd ? mac : phone
         let income = dice.pick(incomes)
         let moved: DateOnly? =
-          dice.chance(50) ? nil : DateOnly(year: 2026, month: month, day: Int.random(in: 6...27, using: &dice))
+          dice.chance(50)
+          ? nil : DateOnly(year: 2026, month: month, day: Int.random(in: 6...27, using: &dice))
         try Self.answer(
           income, due: DateOnly(year: 2026, month: month, day: 5), movedTo: moved,
           on: answering, written: &written)
@@ -241,7 +249,9 @@ struct SyncContractsPropertyTests {
           #expect(value == moved, "seed \(seed): answer \(id) changed")
         }
         let stored = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM expected_income_dues") ?? -1
-        #expect(stored == written.dues.count, "seed \(seed): \(stored) rows, \(written.dues.count) written")
+        #expect(
+          stored == written.dues.count,
+          "seed \(seed): \(stored) rows, \(written.dues.count) written")
       }
     }
   }
@@ -282,7 +292,8 @@ struct SyncContractsPropertyTests {
     #expect(try phone.count("transfers") == written.transferZones.count)
     #expect(try phone.count("reconciliations") == written.reconciliationZones.count)
     let stored = try phone.count("expected_income_dues")
-    #expect(stored == written.dues.count, "seed \(seed): \(stored) rows, \(written.dues.count) written")
+    #expect(
+      stored == written.dues.count, "seed \(seed): \(stored) rows, \(written.dues.count) written")
   }
 
   // MARK: The same income due answered differently on two devices

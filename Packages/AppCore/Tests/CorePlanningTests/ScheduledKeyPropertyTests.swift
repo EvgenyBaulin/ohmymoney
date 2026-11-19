@@ -26,9 +26,11 @@ struct ScheduledKeyPropertyTests {
     for index in bytes.indices { bytes[index] = UInt8.random(in: 0...255, using: &dice) }
     bytes[6] = (bytes[6] & 0x0F) | 0x40
     bytes[8] = (bytes[8] & 0x3F) | 0x80
-    return UUID(uuid: (
-      bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8],
-      bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]))
+    return UUID(
+      uuid: (
+        bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8],
+        bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]
+      ))
   }
 
   private static func due(_ dice: inout Dice) -> DateOnly {
@@ -55,8 +57,10 @@ struct ScheduledKeyPropertyTests {
         #expect(part.split(separator: ":").count == 4)
         #expect(OperationLink(externalId: part) == expected)
         // Upper-case ids written by another tool read the same.
-        #expect(OperationLink(externalId: part.uppercased().replacingOccurrences(
-          of: "SCHED", with: "sched")) == expected)
+        #expect(
+          OperationLink(
+            externalId: part.uppercased().replacingOccurrences(
+              of: "SCHED", with: "sched")) == expected)
         keys.insert(part)
       }
       // The unique index on `external_id` needs every key of one due to be its own string.

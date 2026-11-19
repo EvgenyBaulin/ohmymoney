@@ -123,7 +123,8 @@ struct CardChangeUndoSyncTests {
     return CardOwnBalance.isOn(for: found, accounts: accounts)
   }
 
-  func agree(_ mac: TestDevice, _ phone: TestDevice, _ card: UUID, on: Bool, _ step: String) throws {
+  func agree(_ mac: TestDevice, _ phone: TestDevice, _ card: UUID, on: Bool, _ step: String) throws
+  {
     #expect(try isOn(mac, card: card) == on, "\(step): the Mac")
     #expect(try isOn(phone, card: card) == on, "\(step): the phone")
     #expect(try mac.books() == phone.books(), "\(step): the books differ")

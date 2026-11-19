@@ -2873,7 +2873,12 @@ public final class EntryDraftModel {
 
   /// Saving is only allowed when nothing stops it.
   public var hasUnreadableAmount = false
-  public var canSave: Bool { saveRefusalKey == nil }
+  public var canSave: Bool {
+    // A transfer keeps its amounts in its own fields and is checked by its own save, which
+    // shows why it refuses; the operation draft behind it is empty and must not grey the button
+    // out. Only an amount its fields could not read stops it here.
+    transfer != nil ? !hasUnreadableAmount : saveRefusalKey == nil
+  }
 
   /// Why the draft cannot be saved yet, as the key of the words that say so (table «Entry»);
   /// `nil` once it can. The sign is the kind, never the amount: the total and every part are

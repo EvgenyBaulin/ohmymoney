@@ -79,7 +79,9 @@ public struct AppFont: Hashable, Sendable {
     }
   }
 
-  private func baseFont(at size: AppFontSize, designPoints: Bool, dynamicType: DynamicTypeSize)
+  private func baseFont(
+    at size: AppFontSize, designPoints: Bool, dynamicType: DynamicTypeSize
+  )
     -> Font
   {
     let grown = growth(at: size, dynamicType: dynamicType)
@@ -100,7 +102,8 @@ public struct AppFont: Hashable, Sendable {
     case .points(let points, let weight, let design):
       // The same overload the call wrote, with nothing it did not name.
       return Font.system(
-        size: Self.grow(size.points(fromRegular: points), by: grown), weight: weight, design: design)
+        size: Self.grow(size.points(fromRegular: points), by: grown), weight: weight, design: design
+      )
     }
   }
 
@@ -125,7 +128,9 @@ public struct AppFont: Hashable, Sendable {
 
   /// The points a heading style is drawn at at an accessibility size, where the system's own
   /// style would grow past `headingGrowthLimit`; `nil` where the system's style is kept.
-  static func cappedHeadingPoints(_ style: Font.TextStyle, _ dynamicType: DynamicTypeSize) -> CGFloat? {
+  static func cappedHeadingPoints(
+    _ style: Font.TextStyle, _ dynamicType: DynamicTypeSize
+  ) -> CGFloat? {
     guard dynamicType.isAccessibilitySize else { return nil }
     let regular: CGFloat
     switch style {

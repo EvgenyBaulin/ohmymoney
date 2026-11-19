@@ -634,7 +634,8 @@ final class PlanningFlowTests: XCTestCase {
   func testClosingAPartPaidRemainderIsPersistedAndUndoable() throws {
     let (payment, parts, snapshot) = try rentPaidNearPrice()
     let due = DateOnly(year: 2026, month: 9, day: 15)
-    XCTAssertEqual(snapshot.planning.scheduled.first?.partDues[due]?.paidE4, AmountE4(whole: 58_000))
+    XCTAssertEqual(
+      snapshot.planning.scheduled.first?.partDues[due]?.paidE4, AmountE4(whole: 58_000))
     let question = OverviewDoNow.list(snapshot: snapshot, environment: deps.environment).items.first
     XCTAssertEqual(question?.action, .closeRemainder)
     XCTAssertEqual(question?.paymentId, payment.id)
@@ -660,7 +661,7 @@ final class PlanningFlowTests: XCTestCase {
 
   /// Keeping a shortfall leaves it due and records the answer so the same question disappears.
   func testKeepingAPartPaidRemainderIsPersistedAndUndoable() throws {
-    let (payment, _, snapshot) = try rentPaidNearPrice()
+    let (payment, _, _) = try rentPaidNearPrice()
     let due = DateOnly(year: 2026, month: 9, day: 15)
     XCTAssertTrue(PlanningActions(deps).answerRemainder(.keep, for: payment, due: due))
     let key = ScheduledMatching.partAnswerKey(.keep, payment: payment.id, due: due)

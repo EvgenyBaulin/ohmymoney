@@ -320,6 +320,9 @@ final class WindowCloseQuitTests: XCTestCase {
     var steps: [String] = []
     let answered = expectation(description: "AppKit is answered")
     delegate.hasStarted = { true }
+    // The two-second limit of a quit never fires here: the test is about the order of the stop
+    // and the answer, and a loaded machine writes the last copy slower than that limit.
+    delegate.clock = { _, _ in }
     delegate.stop = {
       await AppLaunch.stop(environment, compute: compute, store: store)
       steps.append("stopped")

@@ -160,7 +160,8 @@ struct PlanningView: View {
       } else {
         cards(
           PlanningPageLayout.gridBlocks(shown(snapshot)),
-          columns: PlanningPageLayout.blockColumns(forContent: content, fontSize: fontSize, textScale: textScale),
+          columns: PlanningPageLayout.blockColumns(
+            forContent: content, fontSize: fontSize, textScale: textScale),
           snapshot: snapshot, free: free)
       }
     default:

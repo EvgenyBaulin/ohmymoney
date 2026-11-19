@@ -458,9 +458,10 @@ final class UpdateButtonModelTests: XCTestCase {
   }
 
   func testTheButtonAndVersionTextsExistInBothLanguages() {
-    for key in ["settings.general.version", "settings.general.versionValue",
-      "settings.general.lastCheck", "settings.general.neverChecked"]
-    {
+    for key in [
+      "settings.general.version", "settings.general.versionValue",
+      "settings.general.lastCheck", "settings.general.neverChecked",
+    ] {
       for code in ["ru", "en"] {
         let path = Bundle.main.path(forResource: code, ofType: "lproj")
         let text = path.flatMap(Bundle.init(path:))?

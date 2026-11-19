@@ -13,7 +13,8 @@ struct EqualSplitPropertyTests {
   func equalPartsAddUpToTheWhole(_ seed: UInt64) {
     var random = SplitDice(seed: seed)
     for _ in 0..<500 {
-      let raw = Int64(random.int(in: -2_000_000_000...2_000_000_000)) * 1_000
+      let raw =
+        Int64(random.int(in: -2_000_000_000...2_000_000_000)) * 1_000
         + Int64(random.int(in: -999...999))
       let count = random.int(in: 1...120)
       let amount = AmountE4(raw: raw)

@@ -169,8 +169,9 @@ final class SharedReportExportTests: XCTestCase {
     let provider = try XCTUnwrap(CGDataProvider(data: data as CFData))
     XCTAssertNotNil(CGPDFDocument(provider))
     XCTAssertFalse(model.lock.encrypt)
-    XCTAssertTrue(url.deletingLastPathComponent().lastPathComponent
-      .hasPrefix(SharedReportModel.folderPrefix))
+    XCTAssertTrue(
+      url.deletingLastPathComponent().lastPathComponent
+        .hasPrefix(SharedReportModel.folderPrefix))
 
     SharedReportModel.discard(url)
     XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
